@@ -1,8 +1,8 @@
 import Head from "next/head";
 import styled from "@emotion/styled";
 
-import Header from "../components/layout/header/Header";
-import {MobileMenu} from "../components/layout/header/mobile-menu/MobileMenu";
+import {Header} from "../components";
+import {FirstSection} from "../components/FirstSection/FirstSection";
 
 const Home = () => {
   return (
@@ -11,15 +11,12 @@ const Home = () => {
             <title>Sharm El Sheikh</title>
         </Head>
         <Header/>
-        <MobileMenu/>
+        <FirstSection/>
     </Wrap>
   )
 }
 
 export default Home
-
-
-
 
 
 const Wrap = styled.div`

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import styled from "@emotion/styled";
-import {FC} from "react";
+import React, {FC} from "react";
+
+import {NavButtons} from "./NavButtons";
 
 const navMenu: { text: string; to: string }[] = [
     {text: "Hotspots", to: "hotspots"},
@@ -17,10 +19,9 @@ interface IProps{
 
 const NavMenu:FC<IProps> = ({isNavbar}) => {
 
-    console.log(isNavbar)
-
     return (
         <WrapperDown isNavbar={isNavbar}>
+            {isNavbar ? <NavButtons isNavbar={isNavbar}/>: null}
             {navMenu.map((item, index) => (
                 <Link
                     href={item.to}
@@ -40,18 +41,17 @@ const WrapperDown = styled.div<{isNavbar:boolean}>`
     align-items: center;
     justify-content: space-evenly;
 
-    @media screen and (max-width: 960px) {
-        left: ${({ isNavbar }) => (isNavbar ? "100%" : "-100%")};
-        display: flex;
-        flex-direction: column;
-        margin-top: 2vh;
+    @media screen and (max-width: 1024px) {
+        display: ${({ isNavbar }) => (isNavbar ? "flex" : "none")};
+        flex-direction: ${({ isNavbar }) => (isNavbar ? "column" : "none")}; ;
+        margin-top:  ${({ isNavbar }) => (isNavbar ? "3vh" : "none")};
+        background-color: ${({ isNavbar }) => (isNavbar ? "#B6D5DB" : "none")};
         width: 100%;
-        height: 100vh;
-        background-color: #B6D5DB;
-        transition: left 1s;
-        top: 0;
-        right: 0;
-        bottom: 0;
+        height: 80vh;
+        align-items: flex-start;
+        gap: 15px;
+        justify-content: normal;
+        padding-top: 5vh;
     }
 `
 
@@ -62,12 +62,14 @@ const ItemList = styled.text`
     font-family: Comfortaa, serif;
     color: #054E5C;
 
-    @media screen and (max-width: 960px) {
+    @media screen and (max-width: 1024px) {
         cursor: pointer;
-        font-size: 2vw;
+        font-size: 1em;
         font-family: Comfortaa, serif;
         color: #054E5C;
-        margin: 1.5vw;
+        margin: 4vw 10vw;
+        
     }
+    
 
 `
