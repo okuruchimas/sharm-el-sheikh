@@ -15,7 +15,6 @@ export { Footer };
 
 const Wrap = styled.div`
   width: 92vw;
-  position: fixed;
   bottom: 0;
   padding: 2vh 4vw;
   height: 10vh;
