@@ -33,9 +33,9 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   @media (max-width: 1024px) {
     width: 100%;
-    align-items: center;
   }
 `;
 
@@ -53,10 +53,11 @@ const InfoWrap = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px 0;
+  margin-left: 16px;
+  margin-right: auto;
   @media (max-width: 1024px) {
-    padding: 4px 0;
     margin-left: 8px;
-    margin-right: auto;
+    padding: 4px 0;
   }
 `;
 
@@ -86,11 +87,10 @@ const Title = styled.h2`
 
 const BottomWrap = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 8px;
   margin-top: 8px;
   @media (max-width: 1024px) {
-    flex-direction: column;
     gap: 4px;
   }
 `;
@@ -113,9 +113,9 @@ const LinkIcon = styled.img`
   cursor: pointer;
   height: 40px;
   width: 40px;
+  align-self: baseline;
   @media (max-width: 1024px) {
     height: 30px;
     width: 30px;
-    align-self: baseline;
   }
 `;
