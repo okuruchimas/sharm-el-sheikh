@@ -5,6 +5,7 @@ import { Header } from "../components/layout/header";
 import { Footer } from "../components/layout/footer";
 import { EventCardProps } from "../components/sections/main/children/types";
 import Banner from "../components/sections/banner";
+import StickyContainer from "../components/layout/header/children/sticky-container";
 
 interface Props extends EventCardProps {}
 const Home = ({ eventCards }: Props) => {
@@ -13,7 +14,9 @@ const Home = ({ eventCards }: Props) => {
       <Head>
         <title>Sharm El Sheikh</title>
       </Head>
-      <Header />
+      <StickyContainer>
+        <Header />
+      </StickyContainer>
       {eventCards ? <Main eventCards={eventCards} /> : null}
       <SectionsWrap>
         <Banner

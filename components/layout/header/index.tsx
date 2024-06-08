@@ -2,9 +2,9 @@ import { useState } from "react";
 import Link from "next/link";
 import styled from "@emotion/styled";
 import { css, Global } from "@emotion/react";
-import { NavButtons } from "./navigation/nav-buttons";
-import { NavMenu } from "./navigation/nav-menu";
 import { Hr } from "../hr";
+import { NavButtons } from "./children/nav-buttons";
+import { NavMenu } from "./children/nav-menu";
 
 const Header = () => {
   const [isNavbar, setIsNavbar] = useState<boolean>(false);
