@@ -69,16 +69,18 @@ const Wrap = styled.div`
 `;
 
 const Select = styled.div`
+  min-width: 60px;
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: 6px;
   align-items: center;
   cursor: pointer;
+  padding-left: 16px;
 `;
 
 const ListWrap = styled.div`
   position: absolute;
-  top: 0;
+  top: 36px;
   right: 0;
   display: flex;
   flex-direction: column;
@@ -86,15 +88,27 @@ const ListWrap = styled.div`
   width: max-content;
   background: #ffff;
   border-radius: 4px;
+  @media (max-width: 1024px) {
+    flex-direction: row;
+    top: 44px;
+    right: auto;
+    left: 0;
+    gap: 12px;
+  }
 `;
 
 const ListItem = styled.span<{ isYellow: boolean }>`
+  min-width: 60px;
   background-color: ${({ isYellow }) =>
     isYellow ? "rgba(255, 185, 1, 0.2)" : "initial"};
   list-style-type: none;
   cursor: pointer;
   padding: 8px 16px;
+  border-radius: 4px;
   text-align: center;
+  @media (max-width: 1024px) {
+    padding: 20px 24px;
+  }
 `;
 
 const Arrow = styled.img<{ menuVisible: boolean }>`
@@ -102,4 +116,6 @@ const Arrow = styled.img<{ menuVisible: boolean }>`
   transform: ${({ menuVisible }) => (menuVisible ? null : " rotate(180deg)")};
 `;
 
-const CurrentLang = styled.span``;
+const CurrentLang = styled.span`
+  padding: 8px 0;
+`;
