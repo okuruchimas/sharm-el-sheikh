@@ -17,7 +17,7 @@ const NavButtons = () => {
 export { NavButtons };
 
 const Buttons = styled.div`
-  width: 298px;
+  width: auto;
   height: 52px;
   display: flex;
   flex-direction: row;

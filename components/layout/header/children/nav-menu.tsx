@@ -59,6 +59,7 @@ const ButtonsWrap = styled.div`
   display: none;
   @media (max-width: 1024px) {
     display: initial;
+    margin-bottom: 32px;
   }
 `;
 
