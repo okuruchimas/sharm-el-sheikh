@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import styled from "@emotion/styled";
 
-import LanguageSelector from "../../../../context/language-selector";
 import Button from "../../button";
+import { LanguageSelector } from "./language-selector/language-selector";
 
 const NavButtons = () => {
   return (
