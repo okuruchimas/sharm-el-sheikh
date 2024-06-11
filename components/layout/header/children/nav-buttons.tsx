@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "@emotion/styled";
 
 import Button from "../../button";
-import { LanguageSelector } from "./language-selector/language-selector";
+import { LanguageSelector } from "./language-selector";
 
 const NavButtons = () => {
   return (
