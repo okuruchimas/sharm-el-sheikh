@@ -5,13 +5,13 @@ import { PromCardProps } from "./children/types";
 const PromotionsAndDiscounts = ({ promCards }: PromCardProps) => {
   return (
     <WrapSection>
-      <UpWrap>
+      <TopWrap>
         <Title>Promotions and Discounts</Title>
         <Filter>
           <FilteredCity>Sharm El Maya</FilteredCity>
           <img src={"images/icons/prom-disc-section/arrow-down.svg"} />
         </Filter>
-      </UpWrap>
+      </TopWrap>
       <DownWrap>
         {promCards.map(({ photo, location, title }, index) => (
           <PromCard
@@ -22,9 +22,7 @@ const PromotionsAndDiscounts = ({ promCards }: PromCardProps) => {
           />
         ))}
       </DownWrap>
-      <ButtonWrap>
-        <Button>View more</Button>
-      </ButtonWrap>
+      <Button>View more</Button>
     </WrapSection>
   );
 };
@@ -32,25 +30,30 @@ const PromotionsAndDiscounts = ({ promCards }: PromCardProps) => {
 export { PromotionsAndDiscounts };
 
 const WrapSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   width: 100%;
 `;
 
-const UpWrap = styled.div`
-  width: 100%;
+const TopWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
 const DownWrap = styled.div`
-  margin-top: 24px;
-  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 16px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
-const Title = styled.h1`
+const Title = styled.h2`
+  margin: 0;
   font-size: 40px;
   color: rgba(5, 78, 92, 1);
   font-family: Comfortaa, serif;
@@ -59,28 +62,19 @@ const Title = styled.h1`
 const Button = styled.button`
   width: 152px;
   height: 52px;
+  margin: 0 auto;
   padding: 16px 32px;
-  gap: 8px;
   border-radius: 16px;
-  border: 1px solid rgba(255, 185, 1, 1);
-  background-color: rgba(254, 254, 254, 1);
+  border: 1px solid #ffb901;
+  background-color: #ffffff;
   font-size: 16px;
   font-family: Comfortaa, serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   text-align: center;
-  color: rgba(5, 78, 92, 1);
-`;
-
-const ButtonWrap = styled.div`
-  display: flex;
-  margin-top: 24px;
-  justify-content: center;
+  color: #054e5c;
 `;
 
 const Filter = styled.div`
-  width: 245px;
+  width: 246px;
   height: 56px;
   display: flex;
   align-items: center;

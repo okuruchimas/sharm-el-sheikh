@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 const PromCard = ({ photo, location, title }: PromCardI) => {
   return (
     <Wrap>
-      <UpWrap>
+      <UpWrap imgUrl={photo}>
         <Discount>30% discount</Discount>
         <NextSlideButton onClick={() => console.log("click")}>
           <img
@@ -12,32 +12,31 @@ const PromCard = ({ photo, location, title }: PromCardI) => {
             alt={"next-slide-button"}
           />
         </NextSlideButton>
-        <img src={photo} alt={title} />
       </UpWrap>
+
       <DownWrap>
         <UpSection>
           <Title>{title}</Title>
-          <Rating>
-            <RatingStar>
-              <img
-                src={"images/icons/prom-disc-section/star-rating.svg"}
-                alt={"star-rating"}
-              />
-            </RatingStar>
-            <RatingPoints>4.5 (600)</RatingPoints>
-          </Rating>
+          <RatingWrap>
+            <RatingStar
+              src={"images/icons/prom-disc-section/star-rating.svg"}
+              alt="star-rating"
+            />
+            <RatingPoints>4.5</RatingPoints>
+            <RatingViews>(600)</RatingViews>
+          </RatingWrap>
         </UpSection>
+
         <DownSection>
           <Location>
-            <img src={"images/icons/prom-disc-section/location.svg"} />
+            <LocIcon src="images/icons/prom-disc-section/location.svg" />
             <LocationPlace>{location}</LocationPlace>
           </Location>
-          <Button>
-            <img
-              src={"images/icons/prom-disc-section/button.svg"}
-              alt={"prom-disc-button"}
-            />
-          </Button>
+
+          <Button
+            src={"images/icons/prom-disc-section/button.svg"}
+            alt="prom-disc-button"
+          />
         </DownSection>
       </DownWrap>
     </Wrap>
@@ -46,18 +45,16 @@ const PromCard = ({ photo, location, title }: PromCardI) => {
 
 export { PromCard };
 
-const Wrap = styled.div`
-  width: 100%;
-  margin: 0;
-`;
+const Wrap = styled.div``;
 
-const UpWrap = styled.div`
+const UpWrap = styled.div<{ imgUrl: string }>`
+  height: 266px;
+  width: 100%;
   border-radius: 16px 16px 0 0;
   position: relative;
-  background-color: pink;
-  img {
-    width: 100%;
-  }
+  background-image: url(${({ imgUrl }) => imgUrl});
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const Discount = styled.div`
@@ -80,69 +77,64 @@ const Discount = styled.div`
 
 const NextSlideButton = styled.div`
   position: absolute;
-  right: 16px;
   top: calc(50% - 20px);
+  right: 16px;
+  height: 40px;
+  width: 40px;
   background: rgba(255, 255, 255, 0.4);
   border-radius: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const DownWrap = styled.div`
   border-radius: 0 0 16px 16px;
   background-color: rgba(41, 169, 194, 0.06);
-  border: 1px solid rgba(41, 169, 194, 1);
+  border: 1px solid #29a9c2;
   border-top-style: none;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  gap: 16px;
   padding: 16px 16px 24px;
 `;
 
 const UpSection = styled.div`
   display: flex;
-  width: 100%;
-  align-items: center;
+  flex-direction: row;
   justify-content: space-between;
-  background-color: aquamarine;
 `;
 
 const DownSection = styled.div`
   display: flex;
-  width: 100%;
   align-items: center;
   justify-content: space-between;
-  background-color: aquamarine;
-  margin-top: 16px;
 `;
 
-const Title = styled.h1`
+const Title = styled.h4`
   font-family: Comfortaa, serif;
-  color: rgba(5, 78, 92, 1);
-  background-color: pink;
+  font-size: 24px;
+  color: #054e5c;
   margin: 0;
 `;
 
-const Rating = styled.div`
+const RatingWrap = styled.div`
   display: flex;
+  flex-direction: row;
   align-items: center;
-  background-color: pink;
+  gap: 8px;
 `;
 
-const RatingStar = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+const RatingStar = styled.img`
+  height: 24px;
+  width: 24px;
 `;
-const RatingPoints = styled.div`
+
+const RatingPoints = styled.span`
   font-family: Comfortaa, serif;
+  font-size: 24px;
   text-align: center;
-  display: flex;
-  align-items: center;
-  margin-left: 8px;
+`;
+
+const RatingViews = styled(RatingPoints)`
+  color: #8f9193;
 `;
 
 const Location = styled.div`
@@ -150,16 +142,19 @@ const Location = styled.div`
   display: flex;
   align-items: center;
 `;
+const LocIcon = styled.img`
+  height: 30px;
+  width: 30px;
+`;
 
 const LocationPlace = styled.div`
   font-family: Comfortaa, serif;
+  font-size: 16px;
   margin-left: 8px;
-  color: rgba(25, 28, 30, 1);
+  color: #191c1e;
 `;
 
-const Button = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
+const Button = styled.img`
+  height: 40px;
+  width: 40px;
 `;
