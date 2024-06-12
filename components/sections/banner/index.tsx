@@ -29,6 +29,7 @@ const Wrap = styled.div<{ imgLink: string; isBottomContent?: boolean }>`
   gap: 16px;
   border-radius: 16px;
   background-image: url(${({ imgLink }) => imgLink});
+  background-size: cover;
 
   @media (max-width: 1024px) {
     flex-direction: column;

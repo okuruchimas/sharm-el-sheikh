@@ -9,7 +9,7 @@ const PromotionsAndDiscounts = ({ promCards }: PromCardProps) => {
         <Title>Promotions and Discounts</Title>
         <Filter>
           <FilteredCity>Sharm El Maya</FilteredCity>
-          <img src={"images/icons/prom-arrow-down.svg"} />
+          <img src={"images/icons/prom-disc-section/arrow-down.svg"} />
         </Filter>
       </UpWrap>
       <DownWrap>
@@ -32,13 +32,11 @@ const PromotionsAndDiscounts = ({ promCards }: PromCardProps) => {
 export { PromotionsAndDiscounts };
 
 const WrapSection = styled.div`
-  width: 1240px;
-  height: 547px;
+  width: 100%;
 `;
 
 const UpWrap = styled.div`
-  width: 1240px;
-  height: 56px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,10 +44,10 @@ const UpWrap = styled.div`
 
 const DownWrap = styled.div`
   margin-top: 24px;
-  width: 1240px;
-  height: 391px;
-  display: flex;
-  justify-content: space-between;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
 `;
 
 const Title = styled.h1`
