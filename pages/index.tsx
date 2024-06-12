@@ -6,9 +6,12 @@ import { Footer } from "../components/layout/footer";
 import { EventCardProps } from "../components/sections/main/children/types";
 import Banner from "../components/sections/banner";
 import StickyContainer from "../components/layout/header/children/sticky-container";
+import { PromotionsAndDiscounts } from "../components/sections/promotions-and-discounts";
+import { PromCardProps } from "../components/sections/promotions-and-discounts/children/types";
 
-interface Props extends EventCardProps {}
-const Home = ({ eventCards }: Props) => {
+type Props = EventCardProps & PromCardProps;
+
+const Home = ({ eventCards, promCards }: Props) => {
   return (
     <Wrap id="/">
       <Head>
@@ -19,6 +22,7 @@ const Home = ({ eventCards }: Props) => {
       </StickyContainer>
       {eventCards ? <Main eventCards={eventCards} /> : null}
       <SectionsWrap>
+        <PromotionsAndDiscounts promCards={promCards} />
         <Banner
           imgLink="images/banner1.png"
           title="Need a Ride? Click Here to Find a Taxi Now!"
@@ -61,9 +65,28 @@ export async function getStaticProps() {
     },
   ];
 
+  const promCards = [
+    {
+      photo: "images/prom-card-icon.svg",
+      title: "Rangoli",
+      location: "Naama Bay",
+    },
+    {
+      photo: "images/prom-card-icon.svg",
+      title: "Rangoli",
+      location: "Naama Bay",
+    },
+    {
+      photo: "images/prom-card-icon.svg",
+      title: "Rangoli",
+      location: "Naama Bay",
+    },
+  ];
+
   return {
     props: {
       eventCards,
+      promCards,
     },
   };
 }

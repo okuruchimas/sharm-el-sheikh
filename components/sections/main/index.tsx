@@ -4,7 +4,6 @@ import Link from "next/link";
 import { EventCardProps } from "./children/types";
 
 const Main = ({ eventCards }: EventCardProps) => {
-  const arr = [1, 2, 3];
   return (
     <WrapSection>
       <TopWrap>
