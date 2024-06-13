@@ -5,7 +5,7 @@ const PromCard = ({ photo, location, title }: PromCardI) => {
   return (
     <Wrap>
       <UpWrap imgUrl={photo}>
-        <Discount>30% discount</Discount>
+        <Discount>30%</Discount>
         <NextSlideButton onClick={() => console.log("click")}>
           <img
             src={"images/icons/prom-disc-section/next-slide.svg"}
@@ -55,6 +55,10 @@ const UpWrap = styled.div<{ imgUrl: string }>`
   background-image: url(${({ imgUrl }) => imgUrl});
   background-repeat: no-repeat;
   background-size: cover;
+
+  @media (max-width: 1024px) {
+    height: 155px;
+  }
 `;
 
 const Discount = styled.div`
@@ -73,6 +77,12 @@ const Discount = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 1024px) {
+    width: 48px;
+    height: 24px;
+    font-size: 12px;
+  }
 `;
 
 const NextSlideButton = styled.div`
@@ -83,6 +93,17 @@ const NextSlideButton = styled.div`
   width: 40px;
   background: rgba(255, 255, 255, 0.4);
   border-radius: 100px;
+
+  @media (max-width: 1024px) {
+    height: 30px;
+    width: 30px;
+    top: calc(50% + 15px);
+    right: 10px;
+    img {
+      height: 30px;
+      width: 30px;
+    }
+  }
 `;
 
 const DownWrap = styled.div`
@@ -94,18 +115,34 @@ const DownWrap = styled.div`
   flex-direction: column;
   gap: 16px;
   padding: 16px 16px 24px;
+
+  @media (max-width: 1024px) {
+    padding: 10px;
+    height: 122px;
+    gap: 4px;
+  }
 `;
 
 const UpSection = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    gap: 8px;
+  }
 `;
 
 const DownSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: flex-end;
+  }
 `;
 
 const Title = styled.h4`
@@ -113,24 +150,39 @@ const Title = styled.h4`
   font-size: 24px;
   color: #054e5c;
   margin: 0;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
 `;
 
 const RatingWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 8px;
+
+  @media (max-width: 1024px) {
+  }
 `;
 
 const RatingStar = styled.img`
   height: 24px;
   width: 24px;
+
+  @media (max-width: 1024px) {
+    height: 18px;
+    width: 18px;
+  }
 `;
 
 const RatingPoints = styled.span`
   font-family: Comfortaa, serif;
   font-size: 24px;
   text-align: center;
+
+  @media (max-width: 1024px) {
+    font-size: 12px;
+  }
 `;
 
 const RatingViews = styled(RatingPoints)`
@@ -141,10 +193,19 @@ const Location = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+
+  @media (max-width: 1024px) {
+    height: 18px;
+  }
 `;
 const LocIcon = styled.img`
   height: 30px;
   width: 30px;
+
+  @media (max-width: 1024px) {
+    height: 18px;
+    width: 18px;
+  }
 `;
 
 const LocationPlace = styled.div`
@@ -152,9 +213,18 @@ const LocationPlace = styled.div`
   font-size: 16px;
   margin-left: 8px;
   color: #191c1e;
+
+  @media (max-width: 1024px) {
+    font-size: 12px;
+  }
 `;
 
 const Button = styled.img`
   height: 40px;
   width: 40px;
+
+  @media (max-width: 1024px) {
+    height: 30px;
+    width: 30px;
+  }
 `;

@@ -76,11 +76,6 @@ export async function getStaticProps() {
       title: "Rangoli",
       location: "Naama Bay",
     },
-    {
-      photo: "images/prom-card-icon.svg",
-      title: "Rangoli",
-      location: "Naama Bay",
-    },
   ];
 
   return {
