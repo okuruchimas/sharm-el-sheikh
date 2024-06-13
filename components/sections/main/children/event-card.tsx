@@ -1,7 +1,7 @@
 import React from "react";
-import styled from "@emotion/styled";
 import Link from "next/link";
 import { EventCardI } from "./types";
+import styled from "styled-components";
 
 const EventCard = ({ logo, date, title, price, location }: EventCardI) => {
   return (
@@ -29,12 +29,13 @@ const Wrap = styled.div`
   max-width: 100%;
   padding: 16px;
   border-radius: 16px;
-  background: #ffffff;
+  background: ${({ theme: { ui } }) => ui.white};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    background: blue;
     width: 100%;
   }
 `;

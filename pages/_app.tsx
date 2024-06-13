@@ -1,24 +1,28 @@
 import type { AppProps } from "next/app";
 import { LanguageProvider } from "../context/language-context";
 import { Global, css } from "@emotion/react";
+import { ThemeProvider } from "styled-components";
+import { theme } from "../context/theme/theme";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <LanguageProvider>
-      <Global
-        styles={css`
-          * {
-            box-sizing: border-box;
-          }
+    <ThemeProvider theme={theme}>
+      <LanguageProvider>
+        <Global
+          styles={css`
+            * {
+              box-sizing: border-box;
+            }
 
-          html,
-          body {
-            padding: 0;
-            margin: 0;
-          }
-        `}
-      />
-      <Component {...pageProps} />
-    </LanguageProvider>
+            html,
+            body {
+              padding: 0;
+              margin: 0;
+            }
+          `}
+        />
+        <Component {...pageProps} />
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }
