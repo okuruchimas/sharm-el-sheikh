@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+
 interface Props {
   text: string;
 }
@@ -13,10 +14,9 @@ const ButtonStyled = styled.button`
   border-radius: 16px;
   border: none;
   padding: 16px 32px;
-  font-size: 16px;
-  color: #054e5c;
-
-  background: #ffb901;
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
+  color: ${({ theme: { colors } }) => colors.blue};
+  background: ${({ theme: { colors } }) => colors.yellow};
   font-family: Comfortaa, serif;
 `;
 

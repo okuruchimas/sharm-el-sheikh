@@ -1,7 +1,8 @@
 import type { AppProps } from "next/app";
 import { LanguageProvider } from "../context/language-context";
 import { Global, css } from "@emotion/react";
-import { ThemeProvider } from "styled-components";
+
+import { ThemeProvider } from "@emotion/react";
 import { theme } from "../context/theme/theme";
 
 export default function MyApp({ Component, pageProps }: AppProps) {

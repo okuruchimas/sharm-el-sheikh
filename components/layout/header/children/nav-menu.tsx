@@ -39,13 +39,13 @@ const WrapperDown = styled.div<{ isNavbar: boolean }>`
   align-items: center;
   gap: 32px;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     z-index: -1;
     position: absolute;
     left: 0;
     top: 0;
     display: ${({ isNavbar }) => (isNavbar ? "flex" : "none")};
-    background-color: #b6d5db;
+    background-color: ${({ theme: { colors } }) => colors.blue2};
     width: 100%;
     height: 100dvh;
     align-items: flex-start;
@@ -57,7 +57,7 @@ const WrapperDown = styled.div<{ isNavbar: boolean }>`
 
 const ButtonsWrap = styled.div`
   display: none;
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     display: initial;
     margin-bottom: 32px;
   }
@@ -65,20 +65,20 @@ const ButtonsWrap = styled.div`
 
 const ListItem = styled.text`
   cursor: pointer;
-  font-size: 20px;
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS20};
   font-family: Comfortaa, serif;
-  color: #054e5c;
+  color: ${({ theme: { colors } }) => colors.blue};
   width: auto;
   text-align: center;
 
-  @media (max-width: 1380px) {
-    font-size: 16px;
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile1}) {
+    font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
   }
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     cursor: pointer;
-    font-size: 18px;
+    font-size: ${({ theme: { fontSize } }) => fontSize.fontS18};
     font-family: Comfortaa, serif;
-    color: #054e5c;
+    color: ${({ theme: { colors } }) => colors.blue};
   }
 `;

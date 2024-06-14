@@ -44,7 +44,7 @@ const WrapSection = styled.div`
   align-items: flex-end;
   gap: 32px;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     gap: 16px;
     padding: 78px 16px 24px;
     flex-direction: column-reverse;
@@ -59,9 +59,9 @@ const TopWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  background-color: rgba(254, 254, 254, 0.4);
+  background-color: ${({ theme: { colors } }) => colors.grey5};
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     width: 100%;
     padding: 16px;
     gap: 10px;
@@ -70,12 +70,12 @@ const TopWrap = styled.div`
 
 const Title = styled.h1`
   font-family: Comfortaa, serif;
-  color: #ffffff;
-  font-size: 68px;
+  color: ${({ theme: { colors } }) => colors.white};
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS68};
   font-weight: 700;
   margin: 0;
-  @media (max-width: 1024px) {
-    font-size: 28px;
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    font-size: ${({ theme: { fontSize } }) => fontSize.fontS28};
   }
 `;
 
@@ -88,11 +88,12 @@ const SubtitleWrap = styled.div`
 
 const Subtitle = styled.span`
   font-family: Comfortaa, serif;
-  color: #054e5c;
-  font-size: 32px;
+  color: ${({ theme: { colors } }) => colors.blue};
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS32};
   font-weight: 700;
-  @media (max-width: 1024px) {
-    font-size: 18px;
+
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    font-size: ${({ theme: { fontSize } }) => fontSize.fontS18};
   }
 `;
 const More = styled.img`

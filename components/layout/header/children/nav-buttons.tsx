@@ -1,6 +1,5 @@
-import React, { FC } from "react";
+import React from "react";
 import styled from "@emotion/styled";
-
 import Button from "../../button";
 import { LanguageSelector } from "./language-selector";
 
@@ -25,7 +24,7 @@ const Buttons = styled.div`
   justify-content: space-between;
   gap: 24px;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     width: 100%;
   }
 `;

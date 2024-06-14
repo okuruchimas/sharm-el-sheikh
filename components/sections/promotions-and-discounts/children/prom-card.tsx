@@ -56,7 +56,7 @@ const UpWrap = styled.div<{ imgUrl: string }>`
   background-repeat: no-repeat;
   background-size: cover;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     height: 155px;
   }
 `;
@@ -67,21 +67,21 @@ const Discount = styled.div`
   right: 16px;
   width: 144px;
   height: 36px;
-  background-color: rgba(250, 231, 214, 1);
+  background-color: ${({ theme: { colors } }) => colors.white2};
   padding: 8px 16px;
   border-radius: 12px;
   font-family: Comfortaa, serif;
   text-align: center;
-  color: rgba(5, 78, 92, 1);
-  font-size: 16px;
+  color: ${({ theme: { colors } }) => colors.blue};
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
   display: flex;
   align-items: center;
   justify-content: center;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     width: 48px;
     height: 24px;
-    font-size: 12px;
+    font-size: ${({ theme: { fontSize } }) => fontSize.fontS12};
   }
 `;
 
@@ -91,10 +91,10 @@ const NextSlideButton = styled.div`
   right: 16px;
   height: 40px;
   width: 40px;
-  background: rgba(255, 255, 255, 0.4);
+  background: ${({ theme: { colors } }) => colors.grey4};
   border-radius: 100px;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     height: 30px;
     width: 30px;
     top: calc(50% + 15px);
@@ -108,15 +108,15 @@ const NextSlideButton = styled.div`
 
 const DownWrap = styled.div`
   border-radius: 0 0 16px 16px;
-  background-color: rgba(41, 169, 194, 0.06);
-  border: 1px solid #29a9c2;
+  background-color: ${({ theme: { colors } }) => colors.blue4};
+  border: 1px solid ${({ theme: { colors } }) => colors.blue5};
   border-top-style: none;
   display: flex;
   flex-direction: column;
   gap: 16px;
   padding: 16px 16px 24px;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     padding: 10px;
     height: 122px;
     gap: 4px;
@@ -128,7 +128,7 @@ const UpSection = styled.div`
   flex-direction: row;
   justify-content: space-between;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     flex-direction: column;
     gap: 8px;
   }
@@ -139,7 +139,7 @@ const DownSection = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     flex-direction: column;
     align-items: flex-end;
   }
@@ -147,12 +147,12 @@ const DownSection = styled.div`
 
 const Title = styled.h4`
   font-family: Comfortaa, serif;
-  font-size: 24px;
-  color: #054e5c;
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS24};
+  color: ${({ theme: { colors } }) => colors.blue};
   margin: 0;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
   }
 `;
 
@@ -161,7 +161,7 @@ const RatingWrap = styled.div`
   flex-direction: row;
   align-items: center;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
   }
 `;
 
@@ -169,7 +169,7 @@ const RatingStar = styled.img`
   height: 24px;
   width: 24px;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     height: 18px;
     width: 18px;
   }
@@ -177,16 +177,16 @@ const RatingStar = styled.img`
 
 const RatingPoints = styled.span`
   font-family: Comfortaa, serif;
-  font-size: 24px;
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS24};
   text-align: center;
 
-  @media (max-width: 1024px) {
-    font-size: 12px;
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    font-size: ${({ theme: { fontSize } }) => fontSize.fontS12};
   }
 `;
 
 const RatingViews = styled(RatingPoints)`
-  color: #8f9193;
+  color: ${({ theme: { colors } }) => colors.grey1};
 `;
 
 const Location = styled.div`
@@ -194,7 +194,7 @@ const Location = styled.div`
   display: flex;
   align-items: center;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     height: 18px;
   }
 `;
@@ -202,7 +202,7 @@ const LocIcon = styled.img`
   height: 30px;
   width: 30px;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     height: 18px;
     width: 18px;
   }
@@ -210,12 +210,12 @@ const LocIcon = styled.img`
 
 const LocationPlace = styled.div`
   font-family: Comfortaa, serif;
-  font-size: 16px;
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
   margin-left: 8px;
-  color: #191c1e;
+  color: ${({ theme: { colors } }) => colors.black1};
 
-  @media (max-width: 1024px) {
-    font-size: 12px;
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    font-size: ${({ theme: { fontSize } }) => fontSize.fontS12};
   }
 `;
 
@@ -223,7 +223,7 @@ const Button = styled.img`
   height: 40px;
   width: 40px;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     height: 30px;
     width: 30px;
   }

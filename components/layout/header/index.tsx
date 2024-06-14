@@ -40,7 +40,7 @@ const hiddenOverflow = css`
 
 const Wrap = styled.div`
   width: 100%;
-  background-color: rgba(255, 255, 255, 40%);
+  background-color: ${({ theme: { colors } }) => colors.grey4};
   position: fixed;
   top: 0;
   z-index: 10;
@@ -50,13 +50,13 @@ const Wrap = styled.div`
   flex-direction: column;
   gap: 16px;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     padding: 24px;
   }
 `;
 
 const ButtonsWrap = styled.div`
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     display: none;
   }
 `;
@@ -66,7 +66,7 @@ const Logo = styled.img`
   height: 52px;
   cursor: pointer;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     display: block;
     height: 30px;
     width: auto;
@@ -86,7 +86,7 @@ const WrapperUp = styled.div`
 const BurgerIcon = styled.img`
   display: none;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     display: block;
     cursor: pointer;
     width: 30px;

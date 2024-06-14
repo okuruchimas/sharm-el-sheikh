@@ -52,7 +52,7 @@ export async function getStaticProps() {
     {
       logo: "images/event-card-icon.svg",
       date: "18 May, 20:00",
-      title: "Festival Music Festival",
+      title: "Music Festival",
       price: "106",
       location: "Marquee",
     },

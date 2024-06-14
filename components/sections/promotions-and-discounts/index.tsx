@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { PromCard } from "./children/prom-card";
 import { PromCardProps } from "./children/types";
-import { useState } from "react";
 import { TopPartOfSection } from "./children/top-part-of-section";
 
 const PromotionsAndDiscounts = ({ promCards }: PromCardProps) => {
@@ -18,7 +17,9 @@ const PromotionsAndDiscounts = ({ promCards }: PromCardProps) => {
           />
         ))}
       </DownWrap>
-      <Button>View more</Button>
+      <ButtonWrap>
+        <Button>View more</Button>
+      </ButtonWrap>
     </WrapSection>
   );
 };
@@ -37,8 +38,17 @@ const DownWrap = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   gap: 16px;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     grid-template-columns: 1fr 1fr;
+  }
+`;
+
+const ButtonWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    display: none;
   }
 `;
 
@@ -48,14 +58,10 @@ const Button = styled.button`
   margin: 0 auto;
   padding: 16px 32px;
   border-radius: 16px;
-  border: 1px solid #ffb901;
-  background-color: #ffffff;
-  font-size: 16px;
+  border: 1px solid ${({ theme: { colors } }) => colors.yellow};
+  background-color: ${({ theme: { colors } }) => colors.white};
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
   font-family: Comfortaa, serif;
   text-align: center;
-  color: #054e5c;
-
-  @media (max-width: 1024px) {
-    display: none;
-  }
+  color: ${({ theme: { colors } }) => colors.blue};
 `;
