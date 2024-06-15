@@ -17,6 +17,7 @@ declare module "@emotion/react" {
       blue4: string;
       blue5: string;
       yellow: string;
+      [key: string]: string;
     };
     fontSize: {
       fontS12: string;

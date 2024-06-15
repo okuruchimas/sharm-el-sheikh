@@ -12,7 +12,7 @@ const Footer = () => {
   );
 };
 
-export { Footer };
+export default Footer;
 
 const Wrap = styled.div`
   width: 92vw;

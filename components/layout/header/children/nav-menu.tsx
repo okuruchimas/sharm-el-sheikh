@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled from "@emotion/styled";
 import React, { FC } from "react";
 
-import { NavButtons } from "./nav-buttons";
+import NavButtons from "./nav-buttons";
 
 const navMenu: { text: string; to: string }[] = [
   { text: "Hotspots", to: "hotspots" },
@@ -31,7 +31,7 @@ const NavMenu: FC<IProps> = ({ isNavbar }) => {
     </WrapperDown>
   );
 };
-export { NavMenu };
+export default NavMenu;
 
 const WrapperDown = styled.div<{ isNavbar: boolean }>`
   display: flex;

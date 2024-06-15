@@ -1,30 +1,34 @@
 import styled from "@emotion/styled";
-import { PromCard } from "./children/prom-card";
+import PromCard from "./children/prom-card";
 import { PromCardProps } from "./children/types";
-import { TopPartOfSection } from "./children/top-part-of-section";
+import Filters from "./children/filters";
+import Button from "../../layout/button";
 
-const PromotionsAndDiscounts = ({ promCards }: PromCardProps) => {
+const Promotions = ({ promCards }: PromCardProps) => {
   return (
     <WrapSection>
-      <TopPartOfSection />
+      <Filters />
+
       <DownWrap>
-        {promCards.map(({ photo, location, title }, index) => (
+        {promCards.map(({ discount, images, location, title }, index) => (
           <PromCard
-            photo={photo}
+            discount={discount}
+            images={images}
             title={title}
             location={location}
             key={index}
           />
         ))}
       </DownWrap>
+
       <ButtonWrap>
-        <Button>View more</Button>
+        <Button text="View more" color="white" />
       </ButtonWrap>
     </WrapSection>
   );
 };
 
-export { PromotionsAndDiscounts };
+export default Promotions;
 
 const WrapSection = styled.div`
   display: flex;
@@ -50,18 +54,4 @@ const ButtonWrap = styled.div`
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     display: none;
   }
-`;
-
-const Button = styled.button`
-  width: 152px;
-  height: 52px;
-  margin: 0 auto;
-  padding: 16px 32px;
-  border-radius: 16px;
-  border: 1px solid ${({ theme: { colors } }) => colors.yellow};
-  background-color: ${({ theme: { colors } }) => colors.white};
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
-  font-family: Comfortaa, serif;
-  text-align: center;
-  color: ${({ theme: { colors } }) => colors.blue};
 `;

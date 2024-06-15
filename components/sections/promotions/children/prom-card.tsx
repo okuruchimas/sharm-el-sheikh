@@ -1,33 +1,62 @@
 import { PromCardI } from "./types";
 import styled from "@emotion/styled";
+import { useState } from "react";
 
-const PromCard = ({ photo, location, title }: PromCardI) => {
+const PromCard = ({ discount, images, location, title }: PromCardI) => {
+  const [currentId, setCurrentId] = useState<number>(0);
+
+  const next = () => {
+    return setCurrentId((prev) => {
+      if (images.length > prev + 1) {
+        return prev + 1;
+      }
+      if (images.length === prev + 1) {
+        return 0;
+      }
+      return prev;
+    });
+  };
+
+  const prev = () => {
+    return setCurrentId((prev) => {
+      if (prev === 0) {
+        return images.length - 1;
+      }
+      return prev - 1;
+    });
+  };
+
   return (
     <Wrap>
-      <UpWrap imgUrl={photo}>
-        <Discount>30%</Discount>
-        <NextSlideButton onClick={() => console.log("click")}>
-          <img
-            src={"images/icons/prom-disc-section/next-slide.svg"}
-            alt={"next-slide-button"}
-          />
-        </NextSlideButton>
+      <UpWrap key={images[currentId].src} imgUrl={images[currentId].src}>
+        <PrevSlide
+          src="images/icons/prom-disc-section/next-slide.svg"
+          onClick={prev}
+        />
+        <Discount>
+          <DiscountPer>{discount}%</DiscountPer>
+          <DiscountText>discount</DiscountText>
+        </Discount>
+        <NextSlide
+          src="images/icons/prom-disc-section/next-slide.svg"
+          onClick={next}
+        />
       </UpWrap>
 
       <DownWrap>
-        <UpSection>
+        <Up>
           <Title>{title}</Title>
           <RatingWrap>
             <RatingStar
               src={"images/icons/prom-disc-section/star-rating.svg"}
               alt="star-rating"
             />
-            <RatingPoints>4.5</RatingPoints>
+            <RatingPoints>4.5&nbsp;</RatingPoints>
             <RatingViews>(600)</RatingViews>
           </RatingWrap>
-        </UpSection>
+        </Up>
 
-        <DownSection>
+        <Down>
           <Location>
             <LocIcon src="images/icons/prom-disc-section/location.svg" />
             <LocationPlace>{location}</LocationPlace>
@@ -37,13 +66,13 @@ const PromCard = ({ photo, location, title }: PromCardI) => {
             src={"images/icons/prom-disc-section/button.svg"}
             alt="prom-disc-button"
           />
-        </DownSection>
+        </Down>
       </DownWrap>
     </Wrap>
   );
 };
 
-export { PromCard };
+export default PromCard;
 
 const Wrap = styled.div``;
 
@@ -65,44 +94,68 @@ const Discount = styled.div`
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 144px;
   height: 36px;
-  background-color: ${({ theme: { colors } }) => colors.white2};
   padding: 8px 16px;
-  border-radius: 12px;
-  font-family: Comfortaa, serif;
-  text-align: center;
-  color: ${({ theme: { colors } }) => colors.blue};
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
+  border-radius: 8px;
+  background-color: ${({ theme: { colors } }) => colors.white2};
+
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    width: 48px;
     height: 24px;
+    top: 10px;
+    right: 10px;
+    padding: 4px 12px;
     font-size: ${({ theme: { fontSize } }) => fontSize.fontS12};
   }
 `;
 
-const NextSlideButton = styled.div`
+const DiscountPer = styled.span`
+  font-family: Comfortaa, serif;
+  text-align: center;
+  color: ${({ theme: { colors } }) => colors.blue};
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
+
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    font-size: ${({ theme: { fontSize } }) => fontSize.fontS12};
+  }
+`;
+
+const DiscountText = styled(Discount)`
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    display: none;
+  }
+`;
+
+const NextSlide = styled.img`
   position: absolute;
   top: calc(50% - 20px);
   right: 16px;
   height: 40px;
   width: 40px;
-  background: ${({ theme: { colors } }) => colors.grey4};
   border-radius: 100px;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     height: 30px;
     width: 30px;
-    top: calc(50% + 15px);
     right: 10px;
-    img {
-      height: 30px;
-      width: 30px;
-    }
+    top: 60%;
+  }
+`;
+const PrevSlide = styled(NextSlide)`
+  position: absolute;
+  top: calc(50% - 20px);
+  left: 16px;
+  right: unset;
+
+  transform: rotate(180deg);
+
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    left: 10px;
   }
 `;
 
@@ -123,7 +176,7 @@ const DownWrap = styled.div`
   }
 `;
 
-const UpSection = styled.div`
+const Up = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -134,7 +187,7 @@ const UpSection = styled.div`
   }
 `;
 
-const DownSection = styled.div`
+const Down = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -159,7 +212,7 @@ const Title = styled.h4`
 const RatingWrap = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
   }
@@ -168,7 +221,7 @@ const RatingWrap = styled.div`
 const RatingStar = styled.img`
   height: 24px;
   width: 24px;
-
+  margin-right: 8px;
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     height: 18px;
     width: 18px;
@@ -177,7 +230,8 @@ const RatingStar = styled.img`
 
 const RatingPoints = styled.span`
   font-family: Comfortaa, serif;
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS24};
+  font-weight: 600;
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS18};
   text-align: center;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
@@ -192,11 +246,8 @@ const RatingViews = styled(RatingPoints)`
 const Location = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: row;
   align-items: center;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    height: 18px;
-  }
 `;
 const LocIcon = styled.img`
   height: 30px;
@@ -211,6 +262,7 @@ const LocIcon = styled.img`
 const LocationPlace = styled.div`
   font-family: Comfortaa, serif;
   font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
+  font-weight: 400;
   margin-left: 8px;
   color: ${({ theme: { colors } }) => colors.black1};
 

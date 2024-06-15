@@ -13,7 +13,7 @@ const Banner = ({ imgLink, title, buttonText, isBottomContent }: Props) => {
   return (
     <Wrap imgLink={imgLink} isBottomContent={isBottomContent}>
       <Title isBottomContent={isBottomContent}>{title}</Title>
-      <Button text={buttonText} />
+      <Button color="yellow" text={buttonText} />
     </Wrap>
   );
 };

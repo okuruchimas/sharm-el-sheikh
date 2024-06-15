@@ -3,8 +3,8 @@ import Link from "next/link";
 import styled from "@emotion/styled";
 import { css, Global } from "@emotion/react";
 import { Hr } from "../hr";
-import { NavButtons } from "./children/nav-buttons";
-import { NavMenu } from "./children/nav-menu";
+import NavButtons from "./children/nav-buttons";
+import NavMenu from "./children/nav-menu";
 
 const Header = () => {
   const [isNavbar, setIsNavbar] = useState<boolean>(false);
@@ -30,7 +30,7 @@ const Header = () => {
   );
 };
 
-export { Header };
+export default Header;
 
 const hiddenOverflow = css`
   body {

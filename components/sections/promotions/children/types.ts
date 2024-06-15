@@ -1,13 +1,13 @@
 export interface PromCardI {
-  // images: ImagesI[];
-  photo: string;
+  images: ImagesI[];
+  discount: string;
   title: string;
   location: string;
 }
 
-// interface ImagesI {
-//   photoCard: string;
-// }
+interface ImagesI {
+  src: string;
+}
 
 export interface PromCardProps {
   promCards: PromCardI[];

@@ -1,10 +1,11 @@
 import Link from "next/link";
 import styled from "@emotion/styled";
 
-const TopPartOfSection = () => {
+const Filters = () => {
   return (
     <TopWrap>
       <Title>Promotions and Discounts</Title>
+
       <FilterWrap>
         <Filter>
           <FilteredCity>Sharm El Maya</FilteredCity>
@@ -20,7 +21,7 @@ const TopPartOfSection = () => {
   );
 };
 
-export { TopPartOfSection };
+export default Filters;
 
 const TopWrap = styled.div`
   display: flex;
