@@ -1,10 +1,12 @@
 import type { AppProps } from "next/app";
-import { LanguageProvider } from "../context/language-context";
 import { Global, css } from "@emotion/react";
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+import { ThemeProvider } from "@emotion/react";
+import { theme } from "../context/theme/theme";
+
+const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <LanguageProvider>
+    <ThemeProvider theme={theme}>
       <Global
         styles={css`
           * {
@@ -19,6 +21,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         `}
       />
       <Component {...pageProps} />
-    </LanguageProvider>
+    </ThemeProvider>
   );
-}
+};
+export default App;

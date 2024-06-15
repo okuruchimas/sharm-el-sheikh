@@ -1,13 +1,13 @@
 import Head from "next/head";
 import styled from "@emotion/styled";
 import Main from "../components/sections/main";
-import { Header } from "../components/layout/header";
-import { Footer } from "../components/layout/footer";
+import Header from "../components/layout/header";
+import Footer from "../components/layout/footer";
 import { EventCardProps } from "../components/sections/main/children/types";
 import Banner from "../components/sections/banner";
 import StickyContainer from "../components/layout/header/children/sticky-container";
-import { PromotionsAndDiscounts } from "../components/sections/promotions-and-discounts";
-import { PromCardProps } from "../components/sections/promotions-and-discounts/children/types";
+import Promotions from "../components/sections/promotions";
+import { PromCardProps } from "../components/sections/promotions/children/types";
 
 type Props = EventCardProps & PromCardProps;
 
@@ -22,7 +22,7 @@ const Home = ({ eventCards, promCards }: Props) => {
       </StickyContainer>
       {eventCards ? <Main eventCards={eventCards} /> : null}
       <SectionsWrap>
-        <PromotionsAndDiscounts promCards={promCards} />
+        <Promotions promCards={promCards} />
         <Banner
           imgLink="images/banner1.png"
           title="Need a Ride? Click Here to Find a Taxi Now!"
@@ -52,7 +52,7 @@ export async function getStaticProps() {
     {
       logo: "images/event-card-icon.svg",
       date: "18 May, 20:00",
-      title: "Festival Music Festival",
+      title: "Music Festival",
       price: "106",
       location: "Marquee",
     },
@@ -67,17 +67,42 @@ export async function getStaticProps() {
 
   const promCards = [
     {
-      photo: "images/prom-card-icon.svg",
+      discount: "30",
+      images: [
+        { src: "images/prom-card-icon.svg" },
+        { src: "images/banner2.png" },
+        { src: "images/banner1.png" },
+      ],
       title: "Rangoli",
       location: "Naama Bay",
     },
     {
-      photo: "images/prom-card-icon.svg",
+      discount: "23",
+      images: [
+        { src: "images/banner1.png" },
+        { src: "images/banner2.png" },
+        { src: "images/prom-card-icon.svg" },
+      ],
       title: "Rangoli",
       location: "Naama Bay",
     },
     {
-      photo: "images/prom-card-icon.svg",
+      discount: "42",
+      images: [
+        { src: "images/banner2.png" },
+        { src: "images/prom-card-icon.svg" },
+        { src: "images/banner1.png" },
+      ],
+      title: "Rangoli",
+      location: "Naama Bay",
+    },
+    {
+      discount: "54",
+      images: [
+        { src: "images/prom-card-icon.svg" },
+        { src: "images/banner2.png" },
+        { src: "images/banner1.png" },
+      ],
       title: "Rangoli",
       location: "Naama Bay",
     },

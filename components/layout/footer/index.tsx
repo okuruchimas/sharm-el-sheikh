@@ -1,5 +1,6 @@
-import styled from "@emotion/styled";
 import React from "react";
+import styled from "@emotion/styled";
+
 import { Hr } from "../hr";
 
 const Footer = () => {
@@ -11,7 +12,7 @@ const Footer = () => {
   );
 };
 
-export { Footer };
+export default Footer;
 
 const Wrap = styled.div`
   width: 92vw;

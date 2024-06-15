@@ -1,20 +1,23 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Button from "../../layout/button";
+
 interface Props {
   imgLink: string;
   title: string;
   buttonText: string;
   isBottomContent?: boolean;
 }
+
 const Banner = ({ imgLink, title, buttonText, isBottomContent }: Props) => {
   return (
     <Wrap imgLink={imgLink} isBottomContent={isBottomContent}>
       <Title isBottomContent={isBottomContent}>{title}</Title>
-      <Button text={buttonText} />
+      <Button color="yellow" text={buttonText} />
     </Wrap>
   );
 };
+
 const Wrap = styled.div<{ imgLink: string; isBottomContent?: boolean }>`
   display: flex;
   flex-direction: ${({ isBottomContent }) =>
@@ -31,7 +34,7 @@ const Wrap = styled.div<{ imgLink: string; isBottomContent?: boolean }>`
   background-image: url(${({ imgLink }) => imgLink});
   background-size: cover;
 
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     flex-direction: column;
     justify-content: ${({ isBottomContent }) =>
       isBottomContent ? "flex-end" : "center"};
@@ -39,14 +42,14 @@ const Wrap = styled.div<{ imgLink: string; isBottomContent?: boolean }>`
 `;
 const Title = styled.h3<{ isBottomContent?: boolean }>`
   font-family: Comfortaa, serif;
-  font-size: 48px;
-  color: #fefefe;
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS48};
+  color: ${({ theme: { colors } }) => colors.white};
   text-align: ${({ isBottomContent }) => (isBottomContent ? "left" : "center")};
   max-width: 60%;
   margin: 0;
 
-  @media (max-width: 1024px) {
-    font-size: 22px;
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    font-size: ${({ theme: { fontSize } }) => fontSize.fontS22};
     font-weight: 400;
     align-self: ${({ isBottomContent }) =>
       isBottomContent ? "flex-start" : "initial"};

@@ -56,7 +56,7 @@ const LanguageSelector = () => {
   );
 };
 
-export { LanguageSelector };
+export default LanguageSelector;
 
 const Wrap = styled.div`
   position: relative;
