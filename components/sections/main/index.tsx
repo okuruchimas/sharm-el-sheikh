@@ -46,7 +46,7 @@ const WrapSection = styled.div`
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     gap: 16px;
-    padding: 100px 16px 24px;
+    padding: 78px 16px 24px;
     flex-direction: column-reverse;
     align-items: flex-start;
   }
