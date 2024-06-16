@@ -30,7 +30,6 @@ interface Props {
 export default StickyContainer;
 
 const Wrap = styled.div<{ hide: any }>`
-  height: 0;
   & > div {
     transform: ${({ hide }) => `translateY(${hide ? -110 : -1}%)`};
     transition: transform 0.2s ease;

@@ -33,7 +33,7 @@ export default Main;
 
 const WrapSection = styled.div`
   width: 100vw;
-  height: 100dvh;
+  height: 100vh;
   padding: 78px 100px 24px;
   background-image: url("images/bg_img.png");
   background-size: cover;
@@ -46,7 +46,7 @@ const WrapSection = styled.div`
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     gap: 16px;
-    padding: 78px 16px 24px;
+    padding: 100px 16px 24px;
     flex-direction: column-reverse;
     align-items: flex-start;
   }
