@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import EventCard from "./children/event-card";
 import Link from "next/link";
 import { EventCardProps } from "./children/types";
+import LinkButton from "../../layout/link-button";
 
 const Main = ({ eventCards }: EventCardProps) => {
   return (
@@ -9,9 +10,7 @@ const Main = ({ eventCards }: EventCardProps) => {
       <TopWrap>
         <SubtitleWrap>
           <Subtitle>City Events</Subtitle>
-          <Link href="/">
-            <More src="images/icons/more.svg" />
-          </Link>
+          <LinkButton text={"More"} link="/" />
         </SubtitleWrap>
         {eventCards.map(({ logo, date, title, price, location }, index) => (
           <EventCard
