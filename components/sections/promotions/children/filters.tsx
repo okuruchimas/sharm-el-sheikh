@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styled from "@emotion/styled";
+import LinkButton from "../../../layout/link-button";
 
 const Filters = () => {
   return (
@@ -11,11 +12,7 @@ const Filters = () => {
           <FilteredCity>Sharm El Maya</FilteredCity>
           <img src={"images/icons/prom-disc-section/arrow-down.svg"} />
         </Filter>
-        <ButtonWrap>
-          <Link href="/">
-            <ViewMore src="images/icons/prom-disc-section/view-more.svg" />
-          </Link>
-        </ButtonWrap>
+        <LinkButton text="View more" link="/" />
       </FilterWrap>
     </TopWrap>
   );
@@ -49,6 +46,17 @@ const Title = styled.h2`
 const FilterWrap = styled.div`
   display: flex;
   justify-content: space-between;
+
+  a,
+  span {
+    display: none;
+  }
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    a,
+    span {
+      display: initial;
+    }
+  }
 `;
 
 const Filter = styled.div`
@@ -94,6 +102,8 @@ const ViewMore = styled.img`
 const ButtonWrap = styled.div`
   display: none;
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    display: initial;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;

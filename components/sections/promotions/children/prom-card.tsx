@@ -125,7 +125,7 @@ const DiscountPer = styled.span`
   }
 `;
 
-const DiscountText = styled(Discount)`
+const DiscountText = styled(DiscountPer)`
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     display: none;
   }

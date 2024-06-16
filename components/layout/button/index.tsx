@@ -9,7 +9,7 @@ const Button = ({ text, color }: Props) => {
   return <ButtonStyled color={color}>{text}</ButtonStyled>;
 };
 
-export const ButtonStyled = styled.button<{ color: string }>`
+const ButtonStyled = styled.button<{ color: string }>`
   min-width: 156px;
   width: max-content;
   height: 52px;
