@@ -10,7 +10,7 @@ const Filters = () => {
       <FilterWrap>
         <Filter>
           <FilteredCity>Sharm El Maya</FilteredCity>
-          <img src={"images/icons/prom-disc-section/arrow-down.svg"} />
+          <img src={"images/icons/promotions-section/arrow-down.svg"} />
         </Filter>
         <LinkButton text="View more" link="/" />
       </FilterWrap>

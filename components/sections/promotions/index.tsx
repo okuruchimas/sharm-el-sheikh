@@ -3,7 +3,6 @@ import PromCard from "./children/prom-card";
 import { PromCardProps } from "./children/types";
 import Filters from "./children/filters";
 import Button from "../../layout/button";
-import LinkButton from "../../layout/link-button";
 
 const Promotions = ({ promCards }: PromCardProps) => {
   return (
