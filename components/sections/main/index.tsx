@@ -31,7 +31,7 @@ const Main = ({ eventCards }: EventCardProps) => {
 export default Main;
 
 const WrapSection = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   padding: 78px 100px 24px;
   background-image: url("images/bg_img.png");
