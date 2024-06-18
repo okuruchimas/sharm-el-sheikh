@@ -1,8 +1,8 @@
 export interface FooterProps {
-  socialIcons: IFooter[];
+  socialIcons: SocialIcon[];
 }
 
-export interface IFooter {
+export interface SocialIcon {
   iconSrc: string;
   socialLink: string;
 }

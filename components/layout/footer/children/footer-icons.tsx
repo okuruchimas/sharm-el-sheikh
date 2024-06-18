@@ -1,7 +1,7 @@
-import { IFooter } from "./types";
+import { SocialIcon } from "./types";
 import Link from "next/link";
 
-const FooterIcons = ({ iconSrc, socialLink }: IFooter) => {
+const FooterIcons = ({ iconSrc, socialLink }: SocialIcon) => {
   return (
     <Link href={socialLink}>
       <img src={iconSrc} alt={iconSrc} />
