@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { IFooter } from "../footer/children/types";
 
 export const Hr = styled.div<{ isFooter?: boolean }>`
   height: 1px;
