@@ -8,10 +8,11 @@ import Banner from "../components/sections/banner";
 import StickyContainer from "../components/layout/header/children/sticky-container";
 import Promotions from "../components/sections/promotions";
 import { PromCardProps } from "../components/sections/promotions/children/types";
+import { FooterProps } from "../components/layout/footer/children/types";
 
-type Props = EventCardProps & PromCardProps;
+type Props = EventCardProps & PromCardProps & FooterProps;
 
-const Home = ({ eventCards, promCards }: Props) => {
+const Home = ({ eventCards, promCards, socialIcons }: Props) => {
   return (
     <Wrap id="/">
       <Head>
@@ -34,8 +35,8 @@ const Home = ({ eventCards, promCards }: Props) => {
           title="Learn more important information"
           buttonText="Contact us"
         />
+        <Footer socialIcons={socialIcons} />
       </SectionsWrap>
-      <Footer />
     </Wrap>
   );
 };
@@ -44,30 +45,30 @@ export async function getStaticProps() {
   const eventCards = [
     {
       logo: "images/event-card-icon.svg",
-      date: "17 May, 18:00",
-      title: "Music Festival",
-      price: "50",
-      location: "Bahama",
+      date: "09 Aug, 11:00",
+      title: "Desert party",
+      price: "30",
+      location: "Dolche Vita club",
     },
     {
-      logo: "images/event-card-icon.svg",
-      date: "18 May, 20:00",
-      title: "Music Festival",
-      price: "106",
+      logo: "images/event-card-icon2.svg",
+      date: "04 Jul, 11:00",
+      title: "Hamo Vika",
+      price: "15",
       location: "Marquee",
     },
     {
-      logo: "images/event-card-icon.svg",
-      date: "Every Friday",
-      title: "Music Festival ",
-      price: "50",
-      location: "Dolche Vita club",
+      logo: "images/event-card-icon3.svg",
+      date: "Every friday, 23:00",
+      title: "Friday night",
+      price: "15",
+      location: "Taj Mahal Sharm",
     },
   ];
 
   const promCards = [
     {
-      discount: "30",
+      discount: "20",
       images: [
         { src: "images/prom-card-icon.svg" },
         { src: "images/banner2.png" },
@@ -108,10 +109,19 @@ export async function getStaticProps() {
     },
   ];
 
+  const socialIcons = [
+    { iconSrc: "images/icons/footer/insta.svg", socialLink: "/" },
+    { iconSrc: "images/icons/footer/telegram.svg", socialLink: "/" },
+    { iconSrc: "images/icons/footer/faceBook.svg", socialLink: "/" },
+    { iconSrc: "images/icons/footer/youtube.svg", socialLink: "/" },
+    { iconSrc: "images/icons/footer/tiktok.svg", socialLink: "/" },
+  ];
+
   return {
     props: {
       eventCards,
       promCards,
+      socialIcons,
     },
   };
 }

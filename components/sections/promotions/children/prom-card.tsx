@@ -30,7 +30,7 @@ const PromCard = ({ discount, images, location, title }: PromCardI) => {
     <Wrap>
       <UpWrap key={images[currentId].src} imgUrl={images[currentId].src}>
         <PrevSlide
-          src="images/icons/prom-disc-section/next-slide.svg"
+          src="images/icons/promotions-section/next-slide.svg"
           onClick={prev}
         />
         <Discount>
@@ -38,7 +38,7 @@ const PromCard = ({ discount, images, location, title }: PromCardI) => {
           <DiscountText>discount</DiscountText>
         </Discount>
         <NextSlide
-          src="images/icons/prom-disc-section/next-slide.svg"
+          src="images/icons/promotions-section/next-slide.svg"
           onClick={next}
         />
       </UpWrap>
@@ -48,7 +48,7 @@ const PromCard = ({ discount, images, location, title }: PromCardI) => {
           <Title>{title}</Title>
           <RatingWrap>
             <RatingStar
-              src={"images/icons/prom-disc-section/star-rating.svg"}
+              src={"images/icons/promotions-section/star-rating.svg"}
               alt="star-rating"
             />
             <RatingPoints>4.5&nbsp;</RatingPoints>
@@ -58,13 +58,13 @@ const PromCard = ({ discount, images, location, title }: PromCardI) => {
 
         <Down>
           <Location>
-            <LocIcon src="images/icons/prom-disc-section/location.svg" />
+            <LocIcon src="images/icons/promotions-section/location.svg" />
             <LocationPlace>{location}</LocationPlace>
           </Location>
 
           <Button
-            src={"images/icons/prom-disc-section/button.svg"}
-            alt="prom-disc-button"
+            src={"images/icons/promotions-section/button.svg"}
+            alt="promotions-button"
           />
         </Down>
       </DownWrap>
@@ -212,7 +212,7 @@ const Title = styled.h4`
 const RatingWrap = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
   }
