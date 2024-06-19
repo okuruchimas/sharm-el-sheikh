@@ -138,8 +138,12 @@ const SectionsWrap = styled(Wrap)`
   width: 100%;
   padding: 80px 100px;
   gap: 80px;
-  @media (max-width: 1024px) {
+  background-image: url("images/background-gradient.svg");
+  background-size: cover;
+
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     padding: 32px 16px;
     gap: 32px;
+    background-image: url("images/mobile-background-gradient.svg");
   }
 `;
