@@ -2,13 +2,12 @@ import Head from "next/head";
 import styled from "@emotion/styled";
 import Main from "../components/sections/main";
 import Header from "../components/layout/header";
-import Footer from "../components/layout/footer";
+import Footer, { FooterProps } from "../components/layout/footer";
 import { EventCardProps } from "../components/sections/main/children/types";
 import Banner from "../components/sections/banner";
 import StickyContainer from "../components/layout/header/children/sticky-container";
 import Promotions from "../components/sections/promotions";
 import { PromCardProps } from "../components/sections/promotions/children/types";
-import { FooterProps } from "../components/layout/footer/children/types";
 
 type Props = EventCardProps & PromCardProps & FooterProps;
 

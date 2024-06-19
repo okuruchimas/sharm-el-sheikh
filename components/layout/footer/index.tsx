@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Hr } from "../hr";
 import FooterIcons, { SocialIcon } from "../social-icons";
 
-interface FooterProps {
+export interface FooterProps {
   socialIcons: SocialIcon[];
 }
 
