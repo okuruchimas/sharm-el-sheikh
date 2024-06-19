@@ -2,8 +2,11 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import { Hr } from "../hr";
-import { FooterProps } from "./children/types";
-import FooterIcons from "./children/footer-icons";
+import FooterIcons, { SocialIcon } from "../social-icons";
+
+interface FooterProps {
+  socialIcons: SocialIcon[];
+}
 
 const Footer = ({ socialIcons }: FooterProps) => {
   return (
