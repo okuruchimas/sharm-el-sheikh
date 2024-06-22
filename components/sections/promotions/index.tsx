@@ -73,6 +73,7 @@ const Title = styled.h2`
 const FiltersWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const MobLink = styled.div`
