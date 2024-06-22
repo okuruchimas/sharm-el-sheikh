@@ -91,7 +91,6 @@ const SelectList = styled.div`
   z-index: 10;
   display: flex;
   flex-direction: column;
-  //padding: 8px 0;
   border-radius: 4px;
   gap: 12px;
   box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.15);
@@ -128,7 +127,6 @@ const Select = styled.div`
   gap: 6px;
   align-items: center;
   cursor: pointer;
-  padding-left: 16px;
   justify-content: space-between;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
