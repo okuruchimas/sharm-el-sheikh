@@ -7,7 +7,7 @@ interface ISortArr {
 }
 
 const sortArr: ISortArr[] = [
-  { display_value: "Sharm El Mayaaaa", key: "monday" },
+  { display_value: "Monday", key: "monday" },
   { display_value: "Tuesday", key: "tuesday" },
   { display_value: "Wednesday", key: "wednesday" },
   { display_value: "Thursday", key: "thursday" },
