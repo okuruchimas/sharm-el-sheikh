@@ -95,6 +95,10 @@ const SelectList = styled.div`
   gap: 12px;
   box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.15);
   background: ${({ theme: { colors } }) => colors.white3};
+
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    min-width: 168px;
+  }
 `;
 
 const ListItem = styled.span<{ isYellow: boolean }>`
