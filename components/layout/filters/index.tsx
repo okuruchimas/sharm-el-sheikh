@@ -34,13 +34,12 @@ const Filters = () => {
 
   return (
     <Wrapper>
-      <Select>
+      <Select onClick={toggleMenu}>
         <Text>{currentObj.display_value}</Text>
         <Arrow
           src={"images/icons/promotions-section/arrow-down.svg"}
           alt={"arrow"}
-          menuVisible={menuVisible}
-          onClick={toggleMenu}
+          isDown={menuVisible}
         />
       </Select>
       {menuVisible ? (
@@ -65,12 +64,11 @@ export default Filters;
 const Wrapper = styled.div`
   position: relative;
   min-width: 245px;
-  padding: 16px;
   border: 1px solid ${({ theme: { colors } }) => colors.grey1};
   border-radius: 12px;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    min-width: 167px;
+    min-width: 168px;
   }
 `;
 
@@ -86,48 +84,49 @@ const Text = styled.span`
 
 const SelectList = styled.div`
   position: absolute;
+  min-width: 200px;
   top: 64px;
   right: 0;
   z-index: 10;
   display: flex;
   flex-direction: column;
   border-radius: 4px;
+  padding: 12px 0;
   gap: 12px;
   box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.15);
   background: ${({ theme: { colors } }) => colors.white3};
 `;
 
 const ListItem = styled.span<{ isYellow: boolean }>`
-  min-width: 200px;
-  min-height: 48px;
-  padding: 8px 12px;
+  padding: 14px 12px;
   font-size: 16px;
+  line-height: 20px;
   display: flex;
   align-items: center;
   font-family: Comfortaa, serif;
   cursor: pointer;
-  gap: 12px;
   background-color: ${({ isYellow }) =>
     isYellow ? "rgba(255, 185, 1, 0.2)" : "initial"};
 
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    min-width: 167px;
+  &:hover {
+    background-color: rgba(255, 185, 1, 0.2);
   }
 `;
 
-const Arrow = styled.img<{ menuVisible: boolean }>`
+const Arrow = styled.img<{ isDown: boolean }>`
   transition: 0.3s;
-  transform: ${({ menuVisible }) => (menuVisible ? " rotate(180deg)" : null)};
+  transform: ${({ isDown }) => (isDown ? " rotate(180deg)" : null)};
 `;
 
 const Select = styled.div`
   min-width: 60px;
   display: flex;
   flex-direction: row;
-  gap: 6px;
   align-items: center;
-  cursor: pointer;
   justify-content: space-between;
+  gap: 6px;
+  padding: 16px;
+  cursor: pointer;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
   }

@@ -24,13 +24,13 @@ const Home = ({ eventCards, promCards, socialIcons }: Props) => {
       <SectionsWrap>
         <Promotions promCards={promCards} />
         <Banner
-          imgLink="images/banner1.png"
+          imgLink="images/banner/banner1.png"
           title="Need a Ride? Click Here to Find a Taxi Now!"
           buttonText="Find Taxi"
           isBottomContent
         />
         <Banner
-          imgLink="images/banner2.png"
+          imgLink="images/banner/banner2.png"
           title="Learn more important information"
           buttonText="Contact us"
         />
@@ -43,21 +43,21 @@ const Home = ({ eventCards, promCards, socialIcons }: Props) => {
 export async function getStaticProps() {
   const eventCards = [
     {
-      logo: "images/event-card-icon.svg",
+      logo: "images/event/event-card-icon.svg",
       date: "09 Aug, 11:00",
       title: "Desert party",
       price: "30",
       location: "Dolche Vita club",
     },
     {
-      logo: "images/event-card-icon2.svg",
+      logo: "images/event/event-card-icon2.svg",
       date: "04 Jul, 11:00",
       title: "Hamo Vika",
       price: "15",
       location: "Marquee",
     },
     {
-      logo: "images/event-card-icon3.svg",
+      logo: "images/event/event-card-icon3.svg",
       date: "Every friday, 23:00",
       title: "Friday night",
       price: "15",
@@ -67,44 +67,34 @@ export async function getStaticProps() {
 
   const promCards = [
     {
-      discount: "20",
+      discount: "20% discount",
       images: [
-        { src: "images/prom-card-icon.svg" },
-        { src: "images/banner2.png" },
-        { src: "images/banner1.png" },
+        { src: "images/prom/promcard1.png" },
+        { src: "images/prom/promcard2.png" },
+        { src: "images/prom/promcard3.png" },
       ],
-      title: "Rangoli",
-      location: "Naama Bay",
+      title: "Sharm Dreams resort",
+      location: "South Sinai Governorate",
     },
     {
-      discount: "23",
+      discount: "30% discount",
       images: [
-        { src: "images/banner1.png" },
-        { src: "images/banner2.png" },
-        { src: "images/prom-card-icon.svg" },
+        { src: "images/prom/promcard2.png" },
+        { src: "images/prom/promcard1.png" },
+        { src: "images/prom/promcard3.png" },
       ],
-      title: "Rangoli",
-      location: "Naama Bay",
+      title: "El Ezaby Pharmacy",
+      location: "صيدلية العزبي",
     },
     {
-      discount: "42",
+      discount: "special gift",
       images: [
-        { src: "images/banner2.png" },
-        { src: "images/prom-card-icon.svg" },
-        { src: "images/banner1.png" },
+        { src: "images/prom/promcard3.png" },
+        { src: "images/prom/promcard2.png" },
+        { src: "images/prom/promcard1.png" },
       ],
-      title: "Rangoli",
-      location: "Naama Bay",
-    },
-    {
-      discount: "54",
-      images: [
-        { src: "images/prom-card-icon.svg" },
-        { src: "images/banner2.png" },
-        { src: "images/banner1.png" },
-      ],
-      title: "Rangoli",
-      location: "Naama Bay",
+      title: "Manny’s Burger",
+      location: "61 El-Salam, Street",
     },
   ];
 
