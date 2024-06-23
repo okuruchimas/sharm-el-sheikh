@@ -23,8 +23,12 @@ const Filters = () => {
     key: "monday",
   });
 
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
+  const handleMouseEnter = () => {
+    setMenuVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setMenuVisible(false);
   };
 
   const changeHandler = ({ display_value, key }: ISortArr) => {
@@ -34,17 +38,16 @@ const Filters = () => {
 
   return (
     <Wrapper>
-      <Select>
+      <Select onMouseEnter={handleMouseEnter}>
         <Text>{currentObj.display_value}</Text>
         <Arrow
           src={"images/icons/promotions-section/arrow-down.svg"}
           alt={"arrow"}
           menuVisible={menuVisible}
-          onClick={toggleMenu}
         />
       </Select>
       {menuVisible ? (
-        <SelectList>
+        <SelectList onMouseLeave={handleMouseLeave}>
           {sortArr.map(({ display_value, key }) => (
             <ListItem
               key={key}
@@ -65,7 +68,7 @@ export default Filters;
 const Wrapper = styled.div`
   position: relative;
   min-width: 245px;
-  padding: 16px;
+  padding: 14px;
   border: 1px solid ${({ theme: { colors } }) => colors.grey1};
   border-radius: 12px;
 
@@ -105,10 +108,10 @@ const ListItem = styled.span<{ isYellow: boolean }>`
   display: flex;
   align-items: center;
   font-family: Comfortaa, serif;
-  cursor: pointer;
   gap: 12px;
   background-color: ${({ isYellow }) =>
     isYellow ? "rgba(255, 185, 1, 0.2)" : "initial"};
+  cursor: pointer;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     min-width: 167px;
@@ -126,8 +129,8 @@ const Select = styled.div`
   flex-direction: row;
   gap: 6px;
   align-items: center;
-  cursor: pointer;
   justify-content: space-between;
+  cursor: pointer;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
   }
