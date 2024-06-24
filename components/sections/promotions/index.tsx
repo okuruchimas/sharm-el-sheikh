@@ -20,22 +20,23 @@ const Promotions = ({ promCards }: PromCardProps) => {
         </FiltersWrap>
       </TopWrap>
 
-      {/*<DownWrap>*/}
-      {/*  {promCards.map(({ discount, images, location, title }, index) => (*/}
-      {/*    <PromCard*/}
-      {/*      discount={discount}*/}
-      {/*      images={images}*/}
-      {/*      title={title}*/}
-      {/*      location={location}*/}
-      {/*      key={index}*/}
-      {/*    />*/}
-      {/*  ))}*/}
-      {/*</DownWrap>*/}
-      <Background />
+      <DownWrap>
+        {promCards.map(({ discount, images, location, title }, index) => (
+          <PromCard
+            discount={discount}
+            images={images}
+            title={title}
+            location={location}
+            key={index}
+          />
+        ))}
+      </DownWrap>
 
-      {/*<ButtonWrap>*/}
-      {/*  <Button text="View more" color="white" />*/}
-      {/*</ButtonWrap>*/}
+      {!promCards ? <Background /> : null}
+
+      <ButtonWrap>
+        <Button text="View more" color="white" />
+      </ButtonWrap>
     </WrapSection>
   );
 };
