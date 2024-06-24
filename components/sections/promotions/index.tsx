@@ -5,6 +5,7 @@ import Button from "../../layout/button";
 import LinkButton from "../../layout/link-button";
 import Filters from "../../layout/filters";
 import Background from "./children/background";
+import { Title } from "../../layout/title";
 
 const Promotions = ({ promCards }: PromCardProps) => {
   return (
@@ -59,17 +60,6 @@ const TopWrap = styled.div`
     flex-direction: column;
     align-items: normal;
     gap: 16px;
-  }
-`;
-
-const Title = styled.h2`
-  margin: 0;
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS40};
-  color: ${({ theme: { colors } }) => colors.blue};
-  font-family: Comfortaa, serif;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS18};
   }
 `;
 

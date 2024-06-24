@@ -8,6 +8,7 @@ import Banner from "../components/sections/banner";
 import StickyContainer from "../components/layout/header/children/sticky-container";
 import Promotions from "../components/sections/promotions";
 import { PromCardProps } from "../components/sections/promotions/children/types";
+import Announcements from "../components/sections/announcements";
 
 type Props = EventCardProps & PromCardProps & FooterProps;
 
@@ -29,6 +30,7 @@ const Home = ({ eventCards, promCards, socialIcons }: Props) => {
           buttonText="Find Taxi"
           isBottomContent
         />
+        <Announcements />
         <Banner
           imgLink="images/banner/banner2.png"
           title="Learn more important information"

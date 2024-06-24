@@ -1,6 +1,7 @@
 import { PromCardI } from "./types";
 import styled from "@emotion/styled";
 import { useState } from "react";
+import { SubTitle } from "../../../layout/subtitle";
 
 const PromCard = ({ discount, images, location, title }: PromCardI) => {
   const [currentId, setCurrentId] = useState<number>(0);
@@ -42,7 +43,7 @@ const PromCard = ({ discount, images, location, title }: PromCardI) => {
 
       <DownWrap>
         <Up>
-          <Title>{title}</Title>
+          <SubTitle>{title}</SubTitle>
           <RatingWrap>
             <RatingStar
               src={"images/icons/promotions-section/star-rating.svg"}
@@ -179,17 +180,6 @@ const Down = styled.div`
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     flex-direction: column;
     align-items: flex-end;
-  }
-`;
-
-const Title = styled.h4`
-  font-family: Comfortaa, serif;
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS24};
-  color: ${({ theme: { colors } }) => colors.blue};
-  margin: 0;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
   }
 `;
 
