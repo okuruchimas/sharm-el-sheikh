@@ -33,10 +33,7 @@ const PromCard = ({ discount, images, location, title }: PromCardI) => {
           src="images/icons/promotions-section/next-slide.svg"
           onClick={prev}
         />
-        <Discount>
-          <DiscountPer>{discount}%</DiscountPer>
-          <DiscountText>discount</DiscountText>
-        </Discount>
+        <Promotion>{discount}</Promotion>
         <NextSlide
           src="images/icons/promotions-section/next-slide.svg"
           onClick={next}
@@ -74,23 +71,21 @@ const PromCard = ({ discount, images, location, title }: PromCardI) => {
 
 export default PromCard;
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  height: 420px;
+`;
 
 const UpWrap = styled.div<{ imgUrl: string }>`
-  height: 266px;
+  height: 64%;
   width: 100%;
   border-radius: 16px 16px 0 0;
   position: relative;
   background-image: url(${({ imgUrl }) => imgUrl});
   background-repeat: no-repeat;
   background-size: cover;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    height: 155px;
-  }
 `;
 
-const Discount = styled.div`
+const Promotion = styled.div`
   position: absolute;
   top: 16px;
   right: 16px;
@@ -105,29 +100,17 @@ const Discount = styled.div`
   justify-content: center;
   gap: 8px;
 
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    height: 24px;
-    top: 10px;
-    right: 10px;
-    padding: 4px 12px;
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS12};
-  }
-`;
-
-const DiscountPer = styled.span`
   font-family: Comfortaa, serif;
   text-align: center;
   color: ${({ theme: { colors } }) => colors.blue};
   font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    height: 24px;
+    top: 10px;
+    right: 10px;
+    padding: 4px 12px;
     font-size: ${({ theme: { fontSize } }) => fontSize.fontS12};
-  }
-`;
-
-const DiscountText = styled(DiscountPer)`
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    display: none;
   }
 `;
 
@@ -160,18 +143,19 @@ const PrevSlide = styled(NextSlide)`
 `;
 
 const DownWrap = styled.div`
+  height: 36%;
   border-radius: 0 0 16px 16px;
   background-color: ${({ theme: { colors } }) => colors.blue4};
   border: 1px solid ${({ theme: { colors } }) => colors.blue5};
   border-top-style: none;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 16px;
   padding: 16px 16px 24px;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     padding: 10px;
-    height: 122px;
     gap: 4px;
   }
 `;

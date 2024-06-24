@@ -62,9 +62,9 @@ const Wrap = styled.div`
   position: relative;
   background-color: transparent;
   border: none;
-  color: #054e5c;
+  color: ${({ theme: { colors } }) => colors.blue};
   text-transform: uppercase;
-  font-size: 18px;
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS18};
   font-family: Comfortaa, serif;
 `;
 
@@ -86,9 +86,9 @@ const ListWrap = styled.div`
   flex-direction: column;
   align-items: center;
   width: max-content;
-  background: #ffff;
+  background: ${({ theme: { colors } }) => colors.white};
   border-radius: 4px;
-  @media (max-width: 1024px) {
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     flex-direction: row;
     top: 44px;
     right: auto;
@@ -106,7 +106,12 @@ const ListItem = styled.span<{ isYellow: boolean }>`
   padding: 8px 16px;
   border-radius: 4px;
   text-align: center;
-  @media (max-width: 1024px) {
+
+  &:hover {
+    background-color: rgba(255, 185, 1, 0.2);
+  }
+
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     padding: 20px 24px;
   }
 `;
