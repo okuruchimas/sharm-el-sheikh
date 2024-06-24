@@ -106,6 +106,11 @@ const ListItem = styled.span<{ isYellow: boolean }>`
   padding: 8px 16px;
   border-radius: 4px;
   text-align: center;
+
+  &:hover {
+    background-color: rgba(255, 185, 1, 0.2);
+  }
+
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     padding: 20px 24px;
   }

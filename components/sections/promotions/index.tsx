@@ -4,6 +4,7 @@ import { PromCardProps } from "./children/types";
 import Button from "../../layout/button";
 import LinkButton from "../../layout/link-button";
 import Filters from "../../layout/filters";
+import Background from "./children/background";
 
 const Promotions = ({ promCards }: PromCardProps) => {
   return (
@@ -19,21 +20,22 @@ const Promotions = ({ promCards }: PromCardProps) => {
         </FiltersWrap>
       </TopWrap>
 
-      <DownWrap>
-        {promCards.map(({ discount, images, location, title }, index) => (
-          <PromCard
-            discount={discount}
-            images={images}
-            title={title}
-            location={location}
-            key={index}
-          />
-        ))}
-      </DownWrap>
+      {/*<DownWrap>*/}
+      {/*  {promCards.map(({ discount, images, location, title }, index) => (*/}
+      {/*    <PromCard*/}
+      {/*      discount={discount}*/}
+      {/*      images={images}*/}
+      {/*      title={title}*/}
+      {/*      location={location}*/}
+      {/*      key={index}*/}
+      {/*    />*/}
+      {/*  ))}*/}
+      {/*</DownWrap>*/}
+      <Background />
 
-      <ButtonWrap>
-        <Button text="View more" color="white" />
-      </ButtonWrap>
+      {/*<ButtonWrap>*/}
+      {/*  <Button text="View more" color="white" />*/}
+      {/*</ButtonWrap>*/}
     </WrapSection>
   );
 };

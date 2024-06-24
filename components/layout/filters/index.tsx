@@ -97,7 +97,8 @@ const SelectList = styled.div`
   background: ${({ theme: { colors } }) => colors.white3};
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    min-width: 168px;
+    right: initial;
+    left: 0;
   }
 `;
 
@@ -123,7 +124,6 @@ const Arrow = styled.img<{ isDown: boolean }>`
 `;
 
 const Select = styled.div`
-  min-width: 60px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -133,5 +133,6 @@ const Select = styled.div`
   cursor: pointer;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    height: 42px;
   }
 `;
