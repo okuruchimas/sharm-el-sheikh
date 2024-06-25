@@ -9,10 +9,19 @@ import StickyContainer from "../components/layout/header/children/sticky-contain
 import Promotions from "../components/sections/promotions";
 import { PromCardProps } from "../components/sections/promotions/children/types";
 import Announcements from "../components/sections/announcements";
+import { AnnouncementCardProps } from "../components/sections/announcements/children/types";
 
-type Props = EventCardProps & PromCardProps & FooterProps;
+type Props = EventCardProps &
+  PromCardProps &
+  AnnouncementCardProps &
+  FooterProps;
 
-const Home = ({ eventCards, promCards, socialIcons }: Props) => {
+const Home = ({
+  eventCards,
+  promCards,
+  socialIcons,
+  announcementsCards,
+}: Props) => {
   return (
     <Wrap id="/">
       <Head>
@@ -30,7 +39,7 @@ const Home = ({ eventCards, promCards, socialIcons }: Props) => {
           buttonText="Find Taxi"
           isBottomContent
         />
-        <Announcements />
+        <Announcements announcementsCards={announcementsCards} />
         <Banner
           imgLink="images/banner/banner2.png"
           title="Learn more important information"
@@ -100,6 +109,45 @@ export async function getStaticProps() {
     },
   ];
 
+  const announcementsCards = [
+    {
+      image: "images/announce/announce-card1.webp",
+      title: "Photographer in Sharm El Sheikh",
+      text: "A photo session in Sharm El Sheikh in the best locations of the city will give you a storm of emotions and beautiful photos and videos as a keepsake",
+      icons: [
+        { iconSrc: "images/icons/footer/insta.svg", socialLink: "/" },
+        { iconSrc: "images/icons/footer/telegram.svg", socialLink: "/" },
+        { iconSrc: "images/icons/footer/faceBook.svg", socialLink: "/" },
+        { iconSrc: "images/icons/footer/youtube.svg", socialLink: "/" },
+        { iconSrc: "images/icons/footer/tiktok.svg", socialLink: "/" },
+      ],
+    },
+    {
+      image: "images/announce/announce-card2.webp",
+      title: 'Team "Sea of Personnel"',
+      text: "The call is free Book your photo session without prepayment! You will receive ready photos via 3 -5 days!",
+      icons: [
+        { iconSrc: "images/icons/footer/insta.svg", socialLink: "/" },
+        { iconSrc: "images/icons/footer/telegram.svg", socialLink: "/" },
+        { iconSrc: "images/icons/footer/faceBook.svg", socialLink: "/" },
+        { iconSrc: "images/icons/footer/youtube.svg", socialLink: "/" },
+        { iconSrc: "images/icons/footer/tiktok.svg", socialLink: "/" },
+      ],
+    },
+    {
+      image: "images/announce/announce-card3.webp",
+      title: "Camel riding in Sharm El Sheikh",
+      text: "Rocking peacefully across the sands on a soft-footed camel, it's the perfect way to explore the enchanting desert",
+      icons: [
+        { iconSrc: "images/icons/footer/insta.svg", socialLink: "/" },
+        { iconSrc: "images/icons/footer/telegram.svg", socialLink: "/" },
+        { iconSrc: "images/icons/footer/faceBook.svg", socialLink: "/" },
+        { iconSrc: "images/icons/footer/youtube.svg", socialLink: "/" },
+        { iconSrc: "images/icons/footer/tiktok.svg", socialLink: "/" },
+      ],
+    },
+  ];
+
   const socialIcons = [
     { iconSrc: "images/icons/footer/insta.svg", socialLink: "/" },
     { iconSrc: "images/icons/footer/telegram.svg", socialLink: "/" },
@@ -112,6 +160,7 @@ export async function getStaticProps() {
     props: {
       eventCards,
       promCards,
+      announcementsCards,
       socialIcons,
     },
   };
