@@ -24,13 +24,13 @@ const Home = ({ eventCards, promCards, socialIcons }: Props) => {
       <SectionsWrap>
         <Promotions promCards={promCards} />
         <Banner
-          imgLink="images/banner/banner1.png"
+          imgLink="images/banner/banner1.webp"
           title="Need a Ride? Click Here to Find a Taxi Now!"
           buttonText="Find Taxi"
           isBottomContent
         />
         <Banner
-          imgLink="images/banner/banner2.png"
+          imgLink="images/banner/banner2.webp"
           title="Learn more important information"
           buttonText="Contact us"
         />
@@ -43,21 +43,21 @@ const Home = ({ eventCards, promCards, socialIcons }: Props) => {
 export async function getStaticProps() {
   const eventCards = [
     {
-      logo: "images/event/event-card-icon.svg",
+      logo: "images/event/event-card-icon.webp",
       date: "09 Aug, 11:00",
       title: "Desert party",
       price: "30",
       location: "Dolche Vita club",
     },
     {
-      logo: "images/event/event-card-icon2.svg",
+      logo: "images/event/event-card-icon2.webp",
       date: "04 Jul, 11:00",
       title: "Hamo Vika",
       price: "15",
       location: "Marquee",
     },
     {
-      logo: "images/event/event-card-icon3.svg",
+      logo: "images/event/event-card-icon3.webp",
       date: "Every friday, 23:00",
       title: "Friday night",
       price: "15",
@@ -69,9 +69,9 @@ export async function getStaticProps() {
     {
       discount: "20% discount",
       images: [
-        { src: "images/prom/promcard1.png" },
-        { src: "images/prom/promcard2.png" },
-        { src: "images/prom/promcard3.png" },
+        { src: "images/prom/promcard1.webp" },
+        { src: "images/prom/promcard2.webp" },
+        { src: "images/prom/promcard3.webp" },
       ],
       title: "Sharm Dreams resort",
       location: "South Sinai Governorate",
@@ -79,9 +79,9 @@ export async function getStaticProps() {
     {
       discount: "30% discount",
       images: [
-        { src: "images/prom/promcard2.png" },
-        { src: "images/prom/promcard1.png" },
-        { src: "images/prom/promcard3.png" },
+        { src: "images/prom/promcard2.webp" },
+        { src: "images/prom/promcard1.webp" },
+        { src: "images/prom/promcard3.webp" },
       ],
       title: "El Ezaby Pharmacy",
       location: "صيدلية العزبي",
@@ -89,9 +89,9 @@ export async function getStaticProps() {
     {
       discount: "special gift",
       images: [
-        { src: "images/prom/promcard3.png" },
-        { src: "images/prom/promcard2.png" },
-        { src: "images/prom/promcard1.png" },
+        { src: "images/prom/promcard3.webp" },
+        { src: "images/prom/promcard2.webp" },
+        { src: "images/prom/promcard1.webp" },
       ],
       title: "Manny’s Burger",
       location: "61 El-Salam, Street",

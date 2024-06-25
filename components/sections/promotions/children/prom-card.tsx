@@ -30,12 +30,12 @@ const PromCard = ({ discount, images, location, title }: PromCardI) => {
     <Wrap>
       <UpWrap key={images[currentId].src} imgUrl={images[currentId].src}>
         <PrevSlide
-          src="images/icons/promotions-section/next-slide.svg"
+          src="images/icons/promotions-section/next-slide.webp"
           onClick={prev}
         />
         <Promotion>{discount}</Promotion>
         <NextSlide
-          src="images/icons/promotions-section/next-slide.svg"
+          src="images/icons/promotions-section/next-slide.webp"
           onClick={next}
         />
       </UpWrap>
@@ -60,7 +60,7 @@ const PromCard = ({ discount, images, location, title }: PromCardI) => {
           </Location>
 
           <Button
-            src={"images/icons/promotions-section/button.svg"}
+            src={"images/icons/promotions-section/button.webp"}
             alt="promotions-button"
           />
         </Down>
@@ -121,6 +121,7 @@ const NextSlide = styled.img`
   height: 40px;
   width: 40px;
   border-radius: 100px;
+  opacity: 0.4;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     height: 30px;
@@ -134,7 +135,7 @@ const PrevSlide = styled(NextSlide)`
   top: calc(50% - 20px);
   left: 16px;
   right: unset;
-
+  opacity: 0.4;
   transform: rotate(180deg);
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
