@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { Title } from "../../layout/title";
 import AnnounceCard from "./children/announce-card";
