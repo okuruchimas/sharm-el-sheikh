@@ -28,13 +28,17 @@ const AnnounceCard = ({ image, title, text, icons }: AnnouncementCardI) => {
 export default AnnounceCard;
 
 const Wrap = styled.div`
-  background-color: yellow;
-  height: 50%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const AnnounceImage = styled.img`
   width: 100%;
-  height: 60%;
+  height: 65%;
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const Description = styled.span`
@@ -52,8 +56,9 @@ const IconsWrapper = styled.div`
 `;
 
 const BottomSection = styled.div`
-  height: 40%;
   background-color: ${({ theme: { colors } }) => colors.blue4};
   border: 1px solid ${({ theme: { colors } }) => colors.blue5};
+  border-top-style: none;
   padding: 16px;
+  border-radius: 0 0 16px 16px;
 `;

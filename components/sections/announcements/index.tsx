@@ -11,7 +11,9 @@ const Announcements = ({ announcementsCards }: AnnouncementCardProps) => {
     <WrapSection>
       <Title>Recent Announcements</Title>
       <CardWrapper>
-        <AnnounceCard image={image} title={title} text={text} icons={icons} />
+        <FirstCardWrapper>
+          <AnnounceCard image={image} title={title} text={text} icons={icons} />
+        </FirstCardWrapper>
         <CardWrap>
           {announcementsCards
             .slice(1)
@@ -39,16 +41,23 @@ const WrapSection = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: deeppink;
 `;
 
 const CardWrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  margin: 24px 0;
   gap: 16px;
 `;
 
+const FirstCardWrapper = styled.div`
+  width: 50%;
+`;
+
 const CardWrap = styled.div`
+  width: 50%;
   display: flex;
   flex-direction: column;
   gap: 16px;
