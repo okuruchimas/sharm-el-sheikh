@@ -4,11 +4,11 @@ import { SubTitle } from "../../../layout/subtitle";
 import { AnnouncementCardI } from "./types";
 import SocialIcons from "../../../layout/social-icons";
 
-const AnnounceCard = ({ image, title, text, icons }: AnnouncementCardI) => {
+const Card = ({ image, title, text, icons, isFirst }: AnnouncementCardI) => {
   return (
-    <Wrap>
-      <AnnounceImage src={image} alt={title} />
-      <BottomSection>
+    <Wrap isFirst={isFirst}>
+      <AnnounceImage src={image} alt={title} isFirst={isFirst} />
+      <BottomSection isFirst={isFirst}>
         <SubTitle>{title}</SubTitle>
         <Description>{text}</Description>
         <IconsWrapper>
@@ -25,20 +25,20 @@ const AnnounceCard = ({ image, title, text, icons }: AnnouncementCardI) => {
   );
 };
 
-export default AnnounceCard;
+export default Card;
 
-const Wrap = styled.div`
-  width: 100%;
+const Wrap = styled.div<{ isFirst: boolean }>`
+  grid-row: ${({ isFirst }) => (isFirst ? "span 2" : "")};
   height: 100%;
   display: flex;
   flex-direction: column;
 `;
 
-const AnnounceImage = styled.img`
+const AnnounceImage = styled.img<{ isFirst: boolean }>`
+  border-radius: 16px 16px 0 0;
   width: 100%;
-  height: 65%;
-  background-repeat: no-repeat;
-  background-size: cover;
+  height: ${({ isFirst }) => (isFirst ? " 68%" : "52%")};
+  object-fit: cover;
 `;
 
 const Description = styled.span`
@@ -52,13 +52,17 @@ const IconsWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 24px;
-  padding: 16px 0 0 388px;
 `;
 
-const BottomSection = styled.div`
+const BottomSection = styled.div<{ isFirst: boolean }>`
+  height: ${({ isFirst }) => (isFirst ? " 68%" : "48%")};
   background-color: ${({ theme: { colors } }) => colors.blue4};
   border: 1px solid ${({ theme: { colors } }) => colors.blue5};
   border-top-style: none;
   padding: 16px;
   border-radius: 0 0 16px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
 `;

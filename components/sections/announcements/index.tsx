@@ -1,33 +1,26 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Title } from "../../layout/title";
-import AnnounceCard from "./children/announce-card";
+import Card from "./children/card";
 import { AnnouncementCardProps } from "./children/types";
 import Button from "../../layout/button";
 
 const Announcements = ({ announcementsCards }: AnnouncementCardProps) => {
-  const { image, title, text, icons } = announcementsCards[0];
   return (
     <WrapSection>
       <Title>Recent Announcements</Title>
-      <CardWrapper>
-        <FirstCardWrapper>
-          <AnnounceCard image={image} title={title} text={text} icons={icons} />
-        </FirstCardWrapper>
-        <CardWrap>
-          {announcementsCards
-            .slice(1)
-            .map(({ image, title, text, icons }, index) => (
-              <AnnounceCard
-                key={index}
-                image={image}
-                title={title}
-                text={text}
-                icons={icons}
-              />
-            ))}
-        </CardWrap>
-      </CardWrapper>
+      <CardWrap>
+        {announcementsCards.map(({ image, title, text, icons }, index) => (
+          <Card
+            isFirst={index === 0}
+            key={index}
+            image={image}
+            title={title}
+            text={text}
+            icons={icons}
+          />
+        ))}
+      </CardWrap>
       <ButtonWrap>
         <Button text="View more" color="white" />
       </ButtonWrap>
@@ -43,24 +36,17 @@ const WrapSection = styled.div`
   flex-direction: column;
 `;
 
-const CardWrapper = styled.div`
+const CardWrap = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  //display: flex;
+  //flex-direction: row;
+  //justify-content: flex-start;
+  //align-items: flex-start;
   margin: 24px 0;
   gap: 16px;
-`;
 
-const FirstCardWrapper = styled.div`
-  width: 50%;
-`;
-
-const CardWrap = styled.div`
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Перша колонка фіксованої ширини, друга займає решту простору */
 `;
 
 const ButtonWrap = styled.div`

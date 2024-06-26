@@ -5,6 +5,7 @@ export interface AnnouncementCardI {
   title: string;
   text: string;
   icons: SocialIcon[];
+  isFirst: boolean;
 }
 
 export interface AnnouncementCardProps {
