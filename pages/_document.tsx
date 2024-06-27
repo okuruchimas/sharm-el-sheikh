@@ -9,7 +9,7 @@ const Document = () => {
           rel="stylesheet"
         />
 
-        <link rel="shortcut icon" href="/images/favicon.svg" />
+        <link rel="shortcut icon" href="/icons/favicon.svg" />
       </Head>
       <body>
         <Main />

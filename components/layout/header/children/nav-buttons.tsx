@@ -7,7 +7,7 @@ const NavButtons = () => {
   return (
     <Buttons>
       <LanguageSelector />
-      <SearchButton src="images/search_button.svg" />
+      <SearchButton src="icons/header/search_button.svg" />
       <Button color="yellow" text="Contact us" />
     </Buttons>
   );

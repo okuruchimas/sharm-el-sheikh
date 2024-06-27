@@ -33,7 +33,7 @@ const LanguageSelector = () => {
       <Select onClick={toggleMenu}>
         <CurrentLang>{selectedLanguage}</CurrentLang>
         <Arrow
-          src={"images/icons/dropdown-arrow.svg"}
+          src={"icons/header/dropdown-arrow.svg"}
           alt={"arrow"}
           menuVisible={menuVisible}
         />

@@ -16,7 +16,7 @@ const EventCard = ({ logo, date, title, price, location }: EventCardI) => {
         </BottomWrap>
       </InfoWrap>
       <Link href="/">
-        <LinkIcon src="images/icons/link.webp" />
+        <LinkIcon src="icons/main-section/link.webp" />
       </Link>
     </Wrap>
   );

@@ -31,12 +31,12 @@ const PromCard = ({ discount, images, location, title }: PromCardI) => {
     <Wrap>
       <UpWrap key={images[currentId].src} imgUrl={images[currentId].src}>
         <PrevSlide
-          src="images/icons/promotions-section/next-slide.webp"
+          src="icons/promotions-section/next-slide.webp"
           onClick={prev}
         />
         <Promotion>{discount}</Promotion>
         <NextSlide
-          src="images/icons/promotions-section/next-slide.webp"
+          src="icons/promotions-section/next-slide.webp"
           onClick={next}
         />
       </UpWrap>
@@ -46,7 +46,7 @@ const PromCard = ({ discount, images, location, title }: PromCardI) => {
           <SubTitle>{title}</SubTitle>
           <RatingWrap>
             <RatingStar
-              src={"images/icons/promotions-section/star-rating.svg"}
+              src={"icons/promotions-section/star-rating.svg"}
               alt="star-rating"
             />
             <RatingPoints>4.5&nbsp;</RatingPoints>
@@ -56,12 +56,12 @@ const PromCard = ({ discount, images, location, title }: PromCardI) => {
 
         <Down>
           <Location>
-            <LocIcon src="images/icons/promotions-section/location.svg" />
+            <LocIcon src="icons/promotions-section/location.svg" />
             <LocationPlace>{location}</LocationPlace>
           </Location>
 
           <Button
-            src={"images/icons/promotions-section/button.webp"}
+            src={"icons/promotions-section/button.webp"}
             alt="promotions-button"
           />
         </Down>
