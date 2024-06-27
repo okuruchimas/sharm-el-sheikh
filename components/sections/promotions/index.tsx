@@ -88,7 +88,7 @@ const DownWrap = styled.div`
   gap: 16px;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 `;
 

@@ -37,8 +37,13 @@ const Wrap = styled.div<{ isFirst: boolean }>`
 const AnnounceImage = styled.img<{ isFirst: boolean }>`
   border-radius: 16px 16px 0 0;
   width: 100%;
-  height: ${({ isFirst }) => (isFirst ? " 68%" : "52%")};
+  height: ${({ isFirst }) => (isFirst ? " 470px" : "200px")};
   object-fit: cover;
+
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    height: 300px;
+    min-height: 300px;
+  }
 `;
 
 const Description = styled.span`
@@ -55,7 +60,7 @@ const IconsWrapper = styled.div`
 `;
 
 const BottomSection = styled.div<{ isFirst: boolean }>`
-  height: ${({ isFirst }) => (isFirst ? " 68%" : "48%")};
+  height: inherit;
   background-color: ${({ theme: { colors } }) => colors.blue4};
   border: 1px solid ${({ theme: { colors } }) => colors.blue5};
   border-top-style: none;
@@ -65,4 +70,8 @@ const BottomSection = styled.div<{ isFirst: boolean }>`
   flex-direction: column;
   justify-content: space-between;
   gap: 16px;
+
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    height: auto;
+  }
 `;

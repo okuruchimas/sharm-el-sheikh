@@ -38,15 +38,14 @@ const WrapSection = styled.div`
 
 const CardWrap = styled.div`
   width: 100%;
-  //display: flex;
-  //flex-direction: row;
-  //justify-content: flex-start;
-  //align-items: flex-start;
   margin: 24px 0;
   gap: 16px;
 
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Перша колонка фіксованої ширини, друга займає решту простору */
+  grid-template-columns: 1fr 1fr;
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const ButtonWrap = styled.div`
