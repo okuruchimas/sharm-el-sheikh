@@ -5,6 +5,7 @@ import Button from "../../layout/button";
 import LinkButton from "../../layout/link-button";
 import Filters from "../../layout/filters";
 import Background from "./children/background";
+import { Title } from "../../layout/title";
 
 const Promotions = ({ promCards }: PromCardProps) => {
   return (
@@ -62,17 +63,6 @@ const TopWrap = styled.div`
   }
 `;
 
-const Title = styled.h2`
-  margin: 0;
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS40};
-  color: ${({ theme: { colors } }) => colors.blue};
-  font-family: Comfortaa, serif;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS18};
-  }
-`;
-
 const FiltersWrap = styled.div`
   display: flex;
   justify-content: space-between;
@@ -98,7 +88,7 @@ const DownWrap = styled.div`
   gap: 16px;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 `;
 

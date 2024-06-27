@@ -9,6 +9,7 @@ export const theme = {
     grey4: "rgba(255, 255, 255, 40%)",
     grey5: "rgba(254, 254, 254, 0.4)",
     black1: "#191c1e",
+    black2: "#2E3133",
     blue: "#054e5c",
     blue2: "#b6d5db",
     blue3: "#0b7287",
