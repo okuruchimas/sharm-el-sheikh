@@ -1,14 +1,14 @@
 export const theme = {
   colors: {
-    white: "#fff",
+    black: "#191c1e",
+    white: "#ffffff",
     white2: "#FAE7D6",
     white3: "#FEFEFE",
     grey1: "#8f9193",
     grey2: "#5c5f61",
     grey3: "#757779",
-    grey4: "rgba(255, 255, 255, 40%)",
+    grey4: "rgba(255, 255, 255, 0.4)",
     grey5: "rgba(254, 254, 254, 0.4)",
-    black1: "#191c1e",
     blue: "#054e5c",
     blue2: "#b6d5db",
     blue3: "#0b7287",

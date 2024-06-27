@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import TypeSwitcher from "./children/type-switcher";
 import { Formik } from "formik";
-import Button from "../../layout/button";
+import { ButtonStyled } from "../../layout/button";
 
 interface IValues {
   name: string;
@@ -11,10 +11,11 @@ interface IValues {
 }
 const FeedbackForm = () => {
   const inValues: IValues = { name: "", email: "", message: "" };
+  const [type, setType] = useState<string>("default");
 
   return (
     <Wrap>
-      <TypeSwitcher />
+      <TypeSwitcher currentType={type} setType={setType} />
       <Formik
         initialValues={inValues}
         validate={(values) => {
@@ -27,10 +28,17 @@ const FeedbackForm = () => {
         }}
       >
         <FormWrap>
-          <Input placeholder="Name" />
-          <Input placeholder="Email" />
-          <MessageInput placeholder="Message" />
-          <Button text="Contact us" color="blue3" />
+          <Input placeholder="Name*" />
+          {type === "international" ? <Input placeholder="Country" /> : null}
+          {type !== "default" ? (
+            <>
+              <Input placeholder="Company Name" />
+              <Input placeholder="Phone*" />
+            </>
+          ) : null}
+          <Input placeholder="Email*" />
+          <MessageInput placeholder="Message*" />
+          <SubmitButton color="blue3">Contact Us</SubmitButton>
         </FormWrap>
       </Formik>
     </Wrap>
@@ -39,11 +47,42 @@ const FeedbackForm = () => {
 
 export default FeedbackForm;
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+`;
+
 const FormWrap = styled.form`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  border-radius: 16px;
+  background: ${({ theme: { colors } }) => colors.yellow};
+  padding: 48px 0;
 `;
-const Input = styled.input``;
-const MessageInput = styled(Input)``;
+
+const Input = styled.input`
+  min-width: 310px;
+  min-height: 58px;
+  border-radius: 16px;
+  padding: 0 16px;
+  border: none;
+  margin: 0 auto;
+`;
+
+const MessageInput = styled(Input)`
+  min-height: 130px;
+
+  &::placeholder {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+  }
+`;
+
+const SubmitButton = styled(ButtonStyled)`
+  min-width: 310px;
+  margin: 0 auto;
+`;

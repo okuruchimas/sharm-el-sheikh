@@ -77,7 +77,7 @@ const Date = styled.span`
 
 const Title = styled.h2`
   font-family: Comfortaa, serif;
-  color: ${({ theme: { colors } }) => colors.black1};
+  color: ${({ theme: { colors } }) => colors.black};
   font-size: ${({ theme: { fontSize } }) => fontSize.fontS24};
   font-weight: 700;
   margin: 0;

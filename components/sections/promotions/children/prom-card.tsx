@@ -249,7 +249,7 @@ const LocationPlace = styled.div`
   font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
   font-weight: 400;
   margin-left: 8px;
-  color: ${({ theme: { colors } }) => colors.black1};
+  color: ${({ theme: { colors } }) => colors.black};
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     font-size: ${({ theme: { fontSize } }) => fontSize.fontS12};
