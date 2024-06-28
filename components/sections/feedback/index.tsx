@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import TypeSwitcher from "./children/type-switcher";
-import { Formik } from "formik";
+import { Formik, Form, Field } from "formik";
 import { ButtonStyled } from "../../layout/button";
 
 interface IValues {
   name: string;
   email: string;
   message: string;
+  country?: string;
+  companyName?: string;
+  phone?: string;
 }
 const FeedbackForm = () => {
   const inValues: IValues = { name: "", email: "", message: "" };
@@ -18,28 +21,57 @@ const FeedbackForm = () => {
       <TypeSwitcher currentType={type} setType={setType} />
       <Formik
         initialValues={inValues}
-        validate={(values) => {
-          if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-            console.log("Invalid email address");
+        // validate={(values) => {
+        //   if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+        //     console.log("Invalid email address");
+        //   }
+        // }}
+        onSubmit={async (values, { setSubmitting }) => {
+          console.log(values, "values");
+
+          const response = await fetch("/api/send-email", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+          });
+
+          if (response.ok) {
+            alert("Email sent successfully");
+          } else {
+            alert("Failed to send email");
           }
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          console.log("hehehe");
+          setSubmitting(false);
         }}
       >
-        <FormWrap>
-          <Input placeholder="Name*" />
-          {type === "international" ? <Input placeholder="Country" /> : null}
-          {type !== "default" ? (
-            <>
-              <Input placeholder="Company Name" />
-              <Input placeholder="Phone*" />
-            </>
-          ) : null}
-          <Input placeholder="Email*" />
-          <MessageInput placeholder="Message*" />
-          <SubmitButton color="blue3">Contact Us</SubmitButton>
-        </FormWrap>
+        {({ isSubmitting }) => (
+          <FormWrap>
+            <Input type="name" name="name" placeholder="Name*" />
+            {type === "international" ? (
+              <Input type="country" name="country" placeholder="Country" />
+            ) : null}
+            {type !== "default" ? (
+              <>
+                <Input
+                  type="companyName"
+                  name="companyName"
+                  placeholder="Company Name"
+                />
+                <Input type="phone" name="phone" placeholder="Phone*" />
+              </>
+            ) : null}
+            <Input type="email" name="email" placeholder="Email*" />
+            <MessageInput
+              type="message"
+              name="message"
+              placeholder="Message*"
+            />
+            <SubmitButton color="blue3" type="submit" disabled={isSubmitting}>
+              Contact Us
+            </SubmitButton>
+          </FormWrap>
+        )}
       </Formik>
     </Wrap>
   );
@@ -54,7 +86,7 @@ const Wrap = styled.div`
   gap: 24px;
 `;
 
-const FormWrap = styled.form`
+const FormWrap = styled(Form)`
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -63,7 +95,7 @@ const FormWrap = styled.form`
   padding: 48px 0;
 `;
 
-const Input = styled.input`
+const Input = styled(Field)`
   min-width: 310px;
   min-height: 58px;
   border-radius: 16px;
