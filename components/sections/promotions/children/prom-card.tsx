@@ -1,6 +1,7 @@
 import { PromCardI } from "./types";
 import styled from "@emotion/styled";
 import { useState } from "react";
+import { SubTitle } from "../../../layout/subtitle";
 
 const PromCard = ({ discount, images, location, title }: PromCardI) => {
   const [currentId, setCurrentId] = useState<number>(0);
@@ -30,22 +31,22 @@ const PromCard = ({ discount, images, location, title }: PromCardI) => {
     <Wrap>
       <UpWrap key={images[currentId].src} imgUrl={images[currentId].src}>
         <PrevSlide
-          src="images/icons/promotions-section/next-slide.webp"
+          src="icons/promotions-section/next-slide.webp"
           onClick={prev}
         />
         <Promotion>{discount}</Promotion>
         <NextSlide
-          src="images/icons/promotions-section/next-slide.webp"
+          src="icons/promotions-section/next-slide.webp"
           onClick={next}
         />
       </UpWrap>
 
       <DownWrap>
         <Up>
-          <Title>{title}</Title>
+          <SubTitle>{title}</SubTitle>
           <RatingWrap>
             <RatingStar
-              src={"images/icons/promotions-section/star-rating.svg"}
+              src={"icons/promotions-section/star-rating.svg"}
               alt="star-rating"
             />
             <RatingPoints>4.5&nbsp;</RatingPoints>
@@ -55,12 +56,12 @@ const PromCard = ({ discount, images, location, title }: PromCardI) => {
 
         <Down>
           <Location>
-            <LocIcon src="images/icons/promotions-section/location.svg" />
+            <LocIcon src="icons/promotions-section/location.svg" />
             <LocationPlace>{location}</LocationPlace>
           </Location>
 
           <Button
-            src={"images/icons/promotions-section/button.webp"}
+            src={"icons/promotions-section/button.webp"}
             alt="promotions-button"
           />
         </Down>
@@ -76,7 +77,7 @@ const Wrap = styled.div`
 `;
 
 const UpWrap = styled.div<{ imgUrl: string }>`
-  height: 64%;
+  height: 60%;
   width: 100%;
   border-radius: 16px 16px 0 0;
   position: relative;
@@ -144,7 +145,7 @@ const PrevSlide = styled(NextSlide)`
 `;
 
 const DownWrap = styled.div`
-  height: 36%;
+  height: 40%;
   border-radius: 0 0 16px 16px;
   background-color: ${({ theme: { colors } }) => colors.blue4};
   border: 1px solid ${({ theme: { colors } }) => colors.blue5};
@@ -180,17 +181,6 @@ const Down = styled.div`
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     flex-direction: column;
     align-items: flex-end;
-  }
-`;
-
-const Title = styled.h4`
-  font-family: Comfortaa, serif;
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS24};
-  color: ${({ theme: { colors } }) => colors.blue};
-  margin: 0;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
   }
 `;
 
@@ -249,7 +239,7 @@ const LocationPlace = styled.div`
   font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
   font-weight: 400;
   margin-left: 8px;
-  color: ${({ theme: { colors } }) => colors.black};
+  color: ${({ theme: { colors } }) => colors.black1};
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     font-size: ${({ theme: { fontSize } }) => fontSize.fontS12};

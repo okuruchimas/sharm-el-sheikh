@@ -34,7 +34,7 @@ const WrapSection = styled.div`
   width: 100%;
   height: 100vh;
   padding: 78px 100px 24px;
-  background-image: url("images/bg_img.png");
+  background-image: url("images/background/bg-main-section.svg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

@@ -16,7 +16,7 @@ const EventCard = ({ logo, date, title, price, location }: EventCardI) => {
         </BottomWrap>
       </InfoWrap>
       <Link href="/">
-        <LinkIcon src="images/icons/link.webp" />
+        <LinkIcon src="icons/main-section/link.webp" />
       </Link>
     </Wrap>
   );
@@ -77,7 +77,7 @@ const Date = styled.span`
 
 const Title = styled.h2`
   font-family: Comfortaa, serif;
-  color: ${({ theme: { colors } }) => colors.black};
+  color: ${({ theme: { colors } }) => colors.black1};
   font-size: ${({ theme: { fontSize } }) => fontSize.fontS24};
   font-weight: 700;
   margin: 0;
