@@ -77,7 +77,7 @@ const Wrap = styled.div`
 `;
 
 const UpWrap = styled.div<{ imgUrl: string }>`
-  height: 64%;
+  height: 60%;
   width: 100%;
   border-radius: 16px 16px 0 0;
   position: relative;
@@ -145,7 +145,7 @@ const PrevSlide = styled(NextSlide)`
 `;
 
 const DownWrap = styled.div`
-  height: 36%;
+  height: 40%;
   border-radius: 0 0 16px 16px;
   background-color: ${({ theme: { colors } }) => colors.blue4};
   border: 1px solid ${({ theme: { colors } }) => colors.blue5};
