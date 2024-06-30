@@ -30,9 +30,14 @@ const TypeSwitcher = ({ currentType, setType }: Props) => {
 export default TypeSwitcher;
 
 const Wrap = styled.div`
+  width: max-content;
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid #8f9193;
+
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    display: none;
+  }
 `;
 
 const Type = styled.span<{ isActive: boolean }>`

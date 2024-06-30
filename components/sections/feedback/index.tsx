@@ -16,9 +16,24 @@ const FeedbackForm = () => {
   const inValues: IValues = { name: "", email: "", message: "" };
   const [type, setType] = useState<string>("default");
 
+  const getValues = (values: IValues, formType: string): Partial<IValues> => {
+    const { name, email, message, companyName, phone } = values;
+
+    if (formType === "default") {
+      return { name, email, message };
+    }
+
+    if (formType === "local") {
+      return { name, email, message, companyName, phone };
+    }
+
+    return values;
+  };
+
   return (
     <Wrap>
       <TypeSwitcher currentType={type} setType={setType} />
+
       <Formik
         initialValues={inValues}
         // validate={(values) => {
@@ -26,9 +41,11 @@ const FeedbackForm = () => {
         //     console.log("Invalid email address");
         //   }
         // }}
-        onSubmit={async (values, { setSubmitting }) => {
-          console.log(values, "values");
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          // console.log(values, "values");
+          const formVales = getValues(values, type);
 
+          // console.log(formVales, "formVales");
           const response = await fetch("/api/send-email", {
             method: "POST",
             headers: {
@@ -39,6 +56,7 @@ const FeedbackForm = () => {
 
           if (response.ok) {
             alert("Email sent successfully");
+            resetForm();
           } else {
             alert("Failed to send email");
           }
@@ -66,6 +84,7 @@ const FeedbackForm = () => {
               type="message"
               name="message"
               placeholder="Message*"
+              as="textarea"
             />
             <SubmitButton color="blue3" type="submit" disabled={isSubmitting}>
               Contact Us
@@ -100,21 +119,25 @@ const Input = styled(Field)`
   min-height: 58px;
   border-radius: 16px;
   padding: 0 16px;
-  border: none;
   margin: 0 auto;
+  border: none;
+  outline: none;
+  font-family: Comfortaa, serif;
+
+  &:focus,
+  &:active {
+    outline: none;
+    border: none;
+  }
 `;
 
 const MessageInput = styled(Input)`
   min-height: 130px;
-
-  &::placeholder {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-  }
+  padding: 16px;
 `;
 
 const SubmitButton = styled(ButtonStyled)`
   min-width: 310px;
+  color: ${({ theme: { colors } }) => colors.yellow};
   margin: 0 auto;
 `;
