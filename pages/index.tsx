@@ -10,6 +10,8 @@ import Promotions from "../components/sections/promotions";
 import { PromCardProps } from "../components/sections/promotions/children/types";
 import Announcements from "../components/sections/announcements";
 import { AnnouncementCardProps } from "../components/sections/announcements/children/types";
+import Feedback from "../components/sections/feedback";
+import FeedbackForm from "../components/sections/feedback";
 
 type Props = EventCardProps &
   PromCardProps &
@@ -45,6 +47,7 @@ const Home = ({
           title="Learn more important information"
           buttonText="Contact us"
         />
+        <FeedbackForm />
         <Footer socialIcons={socialIcons} />
       </SectionsWrap>
     </Wrap>
