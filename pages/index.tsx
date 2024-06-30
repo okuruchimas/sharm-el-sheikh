@@ -34,14 +34,14 @@ const Home = ({
       <SectionsWrap>
         <Promotions promCards={promCards} />
         <Banner
-          imgLink="images/banner/banner1.webp"
+          imgLink="images/banners/banner1.webp"
           title="Need a Ride? Click Here to Find a Taxi Now!"
           buttonText="Find Taxi"
           isBottomContent
         />
         <Announcements announcementsCards={announcementsCards} />
         <Banner
-          imgLink="images/banner/banner2.webp"
+          imgLink="images/banners/banner2.webp"
           title="Learn more important information"
           buttonText="Contact us"
         />
@@ -54,21 +54,21 @@ const Home = ({
 export async function getStaticProps() {
   const eventCards = [
     {
-      logo: "images/event/event-card-icon.webp",
+      logo: "images/event-cards/event-card1.webp",
       date: "09 Aug, 11:00",
       title: "Desert party",
       price: "30",
       location: "Dolche Vita club",
     },
     {
-      logo: "images/event/event-card-icon2.webp",
+      logo: "images/event-cards/event-card2.webp",
       date: "04 Jul, 11:00",
       title: "Hamo Vika",
       price: "15",
       location: "Marquee",
     },
     {
-      logo: "images/event/event-card-icon3.webp",
+      logo: "images/event-cards/event-card3.webp",
       date: "Every friday, 23:00",
       title: "Friday night",
       price: "15",
@@ -80,9 +80,9 @@ export async function getStaticProps() {
     {
       discount: "20% discount",
       images: [
-        { src: "images/prom/promcard1.webp" },
-        { src: "images/prom/promcard2.webp" },
-        { src: "images/prom/promcard3.webp" },
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
       ],
       title: "Sharm Dreams resort",
       location: "South Sinai Governorate",
@@ -90,9 +90,9 @@ export async function getStaticProps() {
     {
       discount: "30% discount",
       images: [
-        { src: "images/prom/promcard2.webp" },
-        { src: "images/prom/promcard1.webp" },
-        { src: "images/prom/promcard3.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
       ],
       title: "El Ezaby Pharmacy",
       location: "صيدلية العزبي",
@@ -100,9 +100,9 @@ export async function getStaticProps() {
     {
       discount: "special gift",
       images: [
-        { src: "images/prom/promcard3.webp" },
-        { src: "images/prom/promcard2.webp" },
-        { src: "images/prom/promcard1.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card1.webp" },
       ],
       title: "Manny’s Burger",
       location: "61 El-Salam, Street",
@@ -111,49 +111,49 @@ export async function getStaticProps() {
 
   const announcementsCards = [
     {
-      image: "images/announce/announce-card1.webp",
+      image: "images/announcement-cards/announce-card1.webp",
       title: "Photographer in Sharm El Sheikh",
       text: "A photo session in Sharm El Sheikh in the best locations of the city will give you a storm of emotions and beautiful photos and videos as a keepsake",
       icons: [
-        { iconSrc: "images/icons/footer/insta.svg", socialLink: "/" },
-        { iconSrc: "images/icons/footer/telegram.svg", socialLink: "/" },
-        { iconSrc: "images/icons/footer/faceBook.svg", socialLink: "/" },
-        { iconSrc: "images/icons/footer/youtube.svg", socialLink: "/" },
-        { iconSrc: "images/icons/footer/tiktok.svg", socialLink: "/" },
+        { iconSrc: "icons/social-icons/instagram.svg", socialLink: "/" },
+        { iconSrc: "icons/social-icons/telegram.svg", socialLink: "/" },
+        { iconSrc: "icons/social-icons/facebook.svg", socialLink: "/" },
+        { iconSrc: "icons/social-icons/youtube.svg", socialLink: "/" },
+        { iconSrc: "icons/social-icons/tiktok.svg", socialLink: "/" },
       ],
     },
     {
-      image: "images/announce/announce-card2.webp",
+      image: "images/announcement-cards/announce-card2.webp",
       title: 'Team "Sea of Personnel"',
       text: "The call is free Book your photo session without prepayment! You will receive ready photos via 3 -5 days!",
       icons: [
-        { iconSrc: "images/icons/footer/insta.svg", socialLink: "/" },
-        { iconSrc: "images/icons/footer/telegram.svg", socialLink: "/" },
-        { iconSrc: "images/icons/footer/faceBook.svg", socialLink: "/" },
-        { iconSrc: "images/icons/footer/youtube.svg", socialLink: "/" },
-        { iconSrc: "images/icons/footer/tiktok.svg", socialLink: "/" },
+        { iconSrc: "icons/social-icons/instagram.svg", socialLink: "/" },
+        { iconSrc: "icons/social-icons/telegram.svg", socialLink: "/" },
+        { iconSrc: "icons/social-icons/facebook.svg", socialLink: "/" },
+        { iconSrc: "icons/social-icons/youtube.svg", socialLink: "/" },
+        { iconSrc: "icons/social-icons/tiktok.svg", socialLink: "/" },
       ],
     },
     {
-      image: "images/announce/announce-card3.webp",
+      image: "images/announcement-cards/announce-card3.webp",
       title: "Camel riding in Sharm El Sheikh",
       text: "Rocking peacefully across the sands on a soft-footed camel, it's the perfect way to explore the enchanting desert",
       icons: [
-        { iconSrc: "images/icons/footer/insta.svg", socialLink: "/" },
-        { iconSrc: "images/icons/footer/telegram.svg", socialLink: "/" },
-        { iconSrc: "images/icons/footer/faceBook.svg", socialLink: "/" },
-        { iconSrc: "images/icons/footer/youtube.svg", socialLink: "/" },
-        { iconSrc: "images/icons/footer/tiktok.svg", socialLink: "/" },
+        { iconSrc: "icons/social-icons/instagram.svg", socialLink: "/" },
+        { iconSrc: "icons/social-icons/telegram.svg", socialLink: "/" },
+        { iconSrc: "icons/social-icons/facebook.svg", socialLink: "/" },
+        { iconSrc: "icons/social-icons/youtube.svg", socialLink: "/" },
+        { iconSrc: "icons/social-icons/tiktok.svg", socialLink: "/" },
       ],
     },
   ];
 
   const socialIcons = [
-    { iconSrc: "images/icons/footer/insta.svg", socialLink: "/" },
-    { iconSrc: "images/icons/footer/telegram.svg", socialLink: "/" },
-    { iconSrc: "images/icons/footer/faceBook.svg", socialLink: "/" },
-    { iconSrc: "images/icons/footer/youtube.svg", socialLink: "/" },
-    { iconSrc: "images/icons/footer/tiktok.svg", socialLink: "/" },
+    { iconSrc: "icons/social-icons/instagram.svg", socialLink: "/" },
+    { iconSrc: "icons/social-icons/telegram.svg", socialLink: "/" },
+    { iconSrc: "icons/social-icons/facebook.svg", socialLink: "/" },
+    { iconSrc: "icons/social-icons/youtube.svg", socialLink: "/" },
+    { iconSrc: "icons/social-icons/tiktok.svg", socialLink: "/" },
   ];
 
   return {
@@ -178,12 +178,12 @@ const SectionsWrap = styled(Wrap)`
   width: 100%;
   padding: 80px 100px;
   gap: 80px;
-  background-image: url("images/background-gradient.svg");
+  background-image: url("images/background/background-gradient.svg");
   background-size: cover;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     padding: 32px 16px;
     gap: 32px;
-    background-image: url("images/mobile-background-gradient.svg");
+    background-image: url("images/background/mobile-background-gradient.svg");
   }
 `;

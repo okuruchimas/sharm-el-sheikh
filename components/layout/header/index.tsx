@@ -13,11 +13,11 @@ const Header = () => {
     <Wrap>
       <WrapperUp>
         <Link href={"/"} style={{ width: "80%" }}>
-          <Logo src="images/logo.svg" />
+          <Logo src="icons/header/logo.svg" />
         </Link>
         {isNavbar ? <Global styles={hiddenOverflow} /> : null}
         <BurgerIcon
-          src={isNavbar ? "images/icons/close.svg" : "images/icons/burger.svg"}
+          src={isNavbar ? "icons/header/close.svg" : "icons/header/burger.svg"}
           onClick={() => setIsNavbar((prevState) => !prevState)}
         />
         <ButtonsWrap>

@@ -4,11 +4,17 @@ import { Title } from "../../layout/title";
 import Card from "./children/card";
 import { AnnouncementCardProps } from "./children/types";
 import Button from "../../layout/button";
+import LinkButton from "../../layout/link-button";
 
 const Announcements = ({ announcementsCards }: AnnouncementCardProps) => {
   return (
     <WrapSection>
-      <Title>Recent Announcements</Title>
+      <TopWrap>
+        <Title>Recent Announcements</Title>
+        <MobLink>
+          <LinkButton text="View more" link="/" />
+        </MobLink>
+      </TopWrap>
       <CardWrap>
         {announcementsCards.map(({ image, title, text, icons }, index) => (
           <Card
@@ -34,6 +40,7 @@ const WrapSection = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 24px;
 `;
 
 const CardWrap = styled.div`
@@ -55,4 +62,23 @@ const ButtonWrap = styled.div`
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     display: none;
   }
+`;
+
+const MobLink = styled.div`
+  a,
+  span {
+    display: none;
+  }
+  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    a,
+    span {
+      display: initial;
+    }
+  }
+`;
+
+const TopWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;

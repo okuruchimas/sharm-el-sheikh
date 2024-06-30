@@ -8,8 +8,26 @@ const Document = () => {
           href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap"
           rel="stylesheet"
         />
-
-        <link rel="shortcut icon" href="/images/favicon.svg" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/icons/favicon/apple-touch-icon.svg"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/icons/favicon/favicon-32x32.svg"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/icons/favicon/favicon-16x16.svg"
+        />
+        <link rel="manifest" href="/icons/favicon/site.webmanifest" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
       </Head>
       <body>
         <Main />

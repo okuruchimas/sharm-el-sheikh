@@ -37,7 +37,7 @@ const Filters = () => {
       <Select onClick={toggleMenu}>
         <Text>{currentObj.display_value}</Text>
         <Arrow
-          src={"images/icons/promotions-section/arrow-down.svg"}
+          src={"icons/promotions-section/arrow-down.svg"}
           alt={"arrow"}
           isDown={menuVisible}
         />
