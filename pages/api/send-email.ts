@@ -1,19 +1,26 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from "nodemailer";
 
+const getMessage = (req: Record<string, any>): string => {
+  let emailMessage = "";
+
+  for (const key in req) {
+    if (req.hasOwnProperty(key) && req[key]) {
+      emailMessage += `${key}: ${req[key]} <br>`;
+    }
+  }
+
+  return emailMessage;
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   if (req.method === "POST") {
-    const { name, email, message, country, companyName, phone } = req.body;
+    const { name, email } = req.body;
 
-    let sendMessage: string;
-    if (country || companyName || phone) {
-      sendMessage = `country:${country} <br> companyName:${companyName} <br> phone:${phone} <br> ${message}`;
-    } else {
-      sendMessage = message;
-    }
+    const message = getMessage(req.body);
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -28,7 +35,7 @@ export default async function handler(
       replyTo: email,
       to: process.env.GMAIL_USER, // ваша пошта Gmail
       subject: `Feedback from ${name} ${email}`,
-      html: sendMessage,
+      html: message,
     };
 
     try {

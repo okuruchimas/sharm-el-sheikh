@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import TypeSwitcher from "./children/type-switcher";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import { ButtonStyled } from "../../layout/button";
 import * as Yup from "yup";
+import Input from "./children/input";
 
 interface IValues {
   name: string;
@@ -63,16 +64,14 @@ const FeedbackForm = () => {
         initialValues={inValues}
         validationSchema={SignupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          console.log(values, "values");
           const formVales = getValues(values, type);
 
-          // console.log(formVales, "formVales");
           const response = await fetch("/api/send-email", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(values),
+            body: JSON.stringify(formVales),
           });
 
           if (response.ok) {
@@ -86,36 +85,31 @@ const FeedbackForm = () => {
       >
         {({ isSubmitting }) => (
           <FormWrap>
-            <Input type="name" name="name" placeholder="Name*" />
-            <ErrorStyled name="name" component="span" />
+            <Input label="Name" type="name" placeholder="Name*" />
+
             {type === "international" ? (
-              <>
-                <Input type="country" name="country" placeholder="Country" />
-                <ErrorMessage name="country" component="span" />
-              </>
+              <Input label="Country" type="country" placeholder="Country" />
             ) : null}
+
             {type !== "default" ? (
               <>
                 <Input
+                  label="Company name"
                   type="companyName"
-                  name="companyName"
                   placeholder="Company Name"
                 />
-                <ErrorMessage name="companyName" component="span" />
-                <Input type="phone" name="phone" placeholder="Phone*" />
-                <ErrorMessage name="phone" component="span" />
+                <Input label="Phone" type="phone" placeholder="Phone*" />
               </>
             ) : null}
-            <Input type="email" name="email" placeholder="Email*" />
-            <ErrorMessage name="email" component="span" />
 
-            <MessageInput
+            <Input label="Email" type="email" placeholder="Email*" />
+
+            <Input
+              label="Message"
               type="message"
-              name="message"
               placeholder="Message*"
               as="textarea"
             />
-            <ErrorMessage name="message" component="span" />
 
             <SubmitButton color="blue3" type="submit" disabled={isSubmitting}>
               Contact Us
@@ -139,7 +133,7 @@ const Wrap = styled.div`
 const FormWrap = styled(Form)`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   border-radius: 16px;
   background: ${({ theme: { colors } }) => colors.yellow};
   padding: 48px 0;
@@ -150,35 +144,8 @@ const FormWrap = styled(Form)`
   }
 `;
 
-const Input = styled(Field)`
-  min-width: 310px;
-  min-height: 58px;
-  border-radius: 16px;
-  padding: 0 16px;
-  margin: 0 auto;
-  border: none;
-  outline: none;
-  font-family: Comfortaa, serif;
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
-
-  &:focus,
-  &:active {
-    outline: none;
-    border: none;
-  }
-`;
-
-const MessageInput = styled(Input)`
-  min-height: 130px;
-  padding: 16px;
-`;
-
 const SubmitButton = styled(ButtonStyled)`
   min-width: 310px;
   color: ${({ theme: { colors } }) => colors.yellow};
   margin: 0 auto;
-`;
-
-const ErrorStyled = styled(ErrorMessage)`
-  background-color: yellow;
 `;
