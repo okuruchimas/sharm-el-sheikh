@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import TypeSwitcher from "./children/type-switcher";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { ButtonStyled } from "../../layout/button";
+import * as Yup from "yup";
 
 interface IValues {
   name: string;
@@ -12,8 +13,16 @@ interface IValues {
   companyName?: string;
   phone?: string;
 }
+
 const FeedbackForm = () => {
-  const inValues: IValues = { name: "", email: "", message: "" };
+  const inValues: IValues = {
+    name: "",
+    email: "",
+    message: "",
+    country: "",
+    companyName: "",
+    phone: "",
+  };
   const [type, setType] = useState<string>("default");
 
   const getValues = (values: IValues, formType: string): Partial<IValues> => {
@@ -30,19 +39,31 @@ const FeedbackForm = () => {
     return values;
   };
 
+  const SignupSchema = Yup.object().shape({
+    name: Yup.string()
+      .matches(
+        /^[a-zA-Zа-яА-ЯёЁіІїЇєЄ'-.\s]+$/,
+        "Name can only contain alphabetic characters and spaces",
+      )
+      .min(2, "Name is too short - should be 2 chars minimum.")
+      .max(50, "Name is too long - should be 50 chars maximum.")
+      .required("Name is required"),
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    message: Yup.string().max(200, "Message").required("Message is required"),
+    // country: Yup.string()
+  });
+
   return (
     <Wrap>
       <TypeSwitcher currentType={type} setType={setType} />
 
       <Formik
         initialValues={inValues}
-        // validate={(values) => {
-        //   if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-        //     console.log("Invalid email address");
-        //   }
-        // }}
+        validationSchema={SignupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          // console.log(values, "values");
+          console.log(values, "values");
           const formVales = getValues(values, type);
 
           // console.log(formVales, "formVales");
@@ -66,8 +87,12 @@ const FeedbackForm = () => {
         {({ isSubmitting }) => (
           <FormWrap>
             <Input type="name" name="name" placeholder="Name*" />
+            <ErrorStyled name="name" component="span" />
             {type === "international" ? (
-              <Input type="country" name="country" placeholder="Country" />
+              <>
+                <Input type="country" name="country" placeholder="Country" />
+                <ErrorMessage name="country" component="span" />
+              </>
             ) : null}
             {type !== "default" ? (
               <>
@@ -76,16 +101,22 @@ const FeedbackForm = () => {
                   name="companyName"
                   placeholder="Company Name"
                 />
+                <ErrorMessage name="companyName" component="span" />
                 <Input type="phone" name="phone" placeholder="Phone*" />
+                <ErrorMessage name="phone" component="span" />
               </>
             ) : null}
             <Input type="email" name="email" placeholder="Email*" />
+            <ErrorMessage name="email" component="span" />
+
             <MessageInput
               type="message"
               name="message"
               placeholder="Message*"
               as="textarea"
             />
+            <ErrorMessage name="message" component="span" />
+
             <SubmitButton color="blue3" type="submit" disabled={isSubmitting}>
               Contact Us
             </SubmitButton>
@@ -112,6 +143,11 @@ const FormWrap = styled(Form)`
   border-radius: 16px;
   background: ${({ theme: { colors } }) => colors.yellow};
   padding: 48px 0;
+
+  span {
+    font-family: Comfortaa, serif;
+    text-align: center;
+  }
 `;
 
 const Input = styled(Field)`
@@ -123,6 +159,7 @@ const Input = styled(Field)`
   border: none;
   outline: none;
   font-family: Comfortaa, serif;
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
 
   &:focus,
   &:active {
@@ -140,4 +177,8 @@ const SubmitButton = styled(ButtonStyled)`
   min-width: 310px;
   color: ${({ theme: { colors } }) => colors.yellow};
   margin: 0 auto;
+`;
+
+const ErrorStyled = styled(ErrorMessage)`
+  background-color: yellow;
 `;
