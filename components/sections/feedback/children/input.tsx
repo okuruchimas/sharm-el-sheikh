@@ -16,6 +16,7 @@ const Input = ({ label, type, placeholder, as }: Props) => {
       <Label htmlFor={type}>{label}</Label>
       <InputContainer>
         <InputStyled
+          autocomplete="off"
           {...field}
           type={type}
           name={type}
