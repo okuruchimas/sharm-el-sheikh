@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { ErrorMessage, Field } from "formik";
+import { ErrorMessage, Field, useField } from "formik";
 
 interface Props {
   label: string;
@@ -9,16 +9,25 @@ interface Props {
   as?: string;
 }
 const Input = ({ label, type, placeholder, as }: Props) => {
+  const [field, meta] = useField(type);
+
   return (
     <InputWrap>
       <Label htmlFor={type}>{label}</Label>
-      <InputStyled
-        type={type}
-        name={type}
-        placeholder={placeholder}
-        as={as}
-        isMessage={as}
-      />
+      <InputContainer>
+        <InputStyled
+          {...field}
+          type={type}
+          name={type}
+          placeholder={placeholder}
+          as={as}
+          isMessage={as}
+          isErrorSpan={meta.touched && !!meta.error}
+        />
+        {meta.touched && meta.error && (
+          <ErrorIcon src="icons/feedback-section/icon.svg" />
+        )}
+      </InputContainer>
       <ErrorStyled name={type} component="span" />
     </InputWrap>
   );
@@ -31,14 +40,12 @@ const InputWrap = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-
   margin: 0 auto;
 `;
 
 const Label = styled.label`
   font-family: Comfortaa, serif;
-  font-size: 12px;
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS12};
   padding: 4px;
   position: absolute;
   background: white;
@@ -49,23 +56,45 @@ const Label = styled.label`
 
 const ErrorStyled = styled(ErrorMessage)`
   font-family: Comfortaa, serif;
-  font-size: 12px;
-  background-color: yellow;
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS12};
+  color: #ff5449;
+  margin: 4px 16px 0;
 `;
 
-const InputStyled = styled(Field)<{ isMessage: boolean }>`
+const shouldForwardProp = (prop: string) =>
+  prop !== "isMessage" && prop !== "isErrorSpan";
+
+const InputStyled = styled(Field, { shouldForwardProp })<{
+  isMessage: boolean;
+  isErrorSpan: boolean;
+}>`
   min-width: 310px;
+  background-color: white;
   min-height: ${({ isMessage }) => (isMessage ? "130px" : "58px")};
   border-radius: 16px;
   padding: ${({ isMessage }) => (isMessage ? "16px" : "0")} 16px;
-  border: none;
+  border: ${({ isErrorSpan }) => (isErrorSpan ? "2px solid #ff5449" : "none")};
   outline: none;
   font-family: Comfortaa, serif;
   font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
 
   &:focus,
   &:active {
+    background-color: white;
     outline: none;
-    border: none;
+    border: ${({ isErrorSpan }) =>
+      isErrorSpan ? "2px solid #ff5449" : "2px solid #2e3133"};
   }
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const ErrorIcon = styled.img`
+  position: absolute;
+  right: 16px;
+  width: 24px;
+  height: 24px;
 `;

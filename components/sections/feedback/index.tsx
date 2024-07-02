@@ -53,7 +53,13 @@ const FeedbackForm = () => {
       .email("Invalid email address")
       .required("Email is required"),
     message: Yup.string().max(200, "Message").required("Message is required"),
-    // country: Yup.string()
+    phone: Yup.string().required("Phone is required"),
+    country: Yup.string()
+      .matches(
+        /^[a-zA-Zа-яА-ЯёЁіІїЇєЄ'-.\s]+$/,
+        "Country can only contain alphabetic characters and spaces",
+      )
+      .required("Country is required"),
   });
 
   return (
@@ -137,15 +143,11 @@ const FormWrap = styled(Form)`
   border-radius: 16px;
   background: ${({ theme: { colors } }) => colors.yellow};
   padding: 48px 0;
-
-  span {
-    font-family: Comfortaa, serif;
-    text-align: center;
-  }
 `;
 
 const SubmitButton = styled(ButtonStyled)`
   min-width: 310px;
   color: ${({ theme: { colors } }) => colors.yellow};
   margin: 0 auto;
+  cursor: pointer;
 `;

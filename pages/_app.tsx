@@ -1,6 +1,5 @@
 import type { AppProps } from "next/app";
 import { Global, css } from "@emotion/react";
-
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "../context/theme/theme";
 
