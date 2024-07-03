@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { ErrorMessage, Field, useField } from "formik";
+import { ErrorMessage, Field, useField, FieldProps } from "formik";
+import InputMask from "react-input-mask";
 
 interface Props {
   label: string;
@@ -8,7 +9,7 @@ interface Props {
   placeholder: string;
   as?: string;
 }
-const Input = ({ label, type, placeholder, as }: Props) => {
+const Input = ({ label, type, mask, placeholder, as }: Props) => {
   const [field, meta] = useField(type);
 
   return (
@@ -24,7 +25,16 @@ const Input = ({ label, type, placeholder, as }: Props) => {
           as={as}
           isMessage={as}
           isErrorSpan={meta.touched && !!meta.error}
-        />
+        >
+          {({ field }: FieldProps) => (
+            <InputMask
+              {...field}
+              type={type}
+              mask={mask}
+              placeholder={placeholder}
+            />
+          )}
+        </InputStyled>
         {meta.touched && meta.error && (
           <ErrorIcon src="icons/feedback-section/icon.svg" />
         )}
@@ -68,29 +78,32 @@ const shouldForwardProp = (prop: string) =>
 const InputStyled = styled(Field, { shouldForwardProp })<{
   isMessage: boolean;
   isErrorSpan: boolean;
-}>`
-  min-width: 310px;
-  background-color: white;
-  min-height: ${({ isMessage }) => (isMessage ? "130px" : "58px")};
-  border-radius: 16px;
-  padding: ${({ isMessage }) => (isMessage ? "16px" : "0")} 16px;
-  border: ${({ isErrorSpan }) => (isErrorSpan ? "2px solid #ff5449" : "none")};
-  outline: none;
-  font-family: Comfortaa, serif;
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
-
-  &:focus,
-  &:active {
-    background-color: white;
-    outline: none;
-    border: ${({ isErrorSpan }) =>
-      isErrorSpan ? "2px solid #ff5449" : "2px solid #2e3133"};
-  }
-`;
+}>``;
 
 const InputContainer = styled.div`
   display: flex;
   align-items: center;
+
+  input {
+    min-width: 310px;
+    background-color: white;
+    min-height: ${({ isMessage }) => (isMessage ? "130px" : "58px")};
+    border-radius: 16px;
+    padding: ${({ isMessage }) => (isMessage ? "16px" : "0")} 16px;
+    border: ${({ isErrorSpan }) =>
+      isErrorSpan ? "2px solid #ff5449" : "none"};
+    outline: none;
+    font-family: Comfortaa, serif;
+    font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
+
+    &:focus,
+    &:active {
+      background-color: white;
+      outline: none;
+      border: ${({ isErrorSpan }) =>
+        isErrorSpan ? "2px solid #ff5449" : "2px solid #2e3133"};
+    }
+  }
 `;
 
 const ErrorIcon = styled.img`

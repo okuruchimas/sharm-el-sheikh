@@ -57,7 +57,12 @@ const FeedbackForm = () => {
       >
         {({ isSubmitting }) => (
           <FormWrap>
-            <Input label="Name" type="name" placeholder="Name*" />
+            <Input
+              label="Name"
+              type="name"
+              placeholder="Name*"
+              mask="00304340"
+            />
 
             {type === "international" ? (
               <Input label="Country" type="country" placeholder="Country" />
