@@ -68,7 +68,7 @@ const FeedbackForm = () => {
                 <Input
                   label="Company name"
                   type="companyName"
-                  placeholder="Company Name"
+                  placeholder="Company Name*"
                 />
                 <Input label="Phone" type="phone" placeholder="Phone*" />
               </>
@@ -79,7 +79,7 @@ const FeedbackForm = () => {
             <Input
               label="Message"
               type="message"
-              placeholder="Message*"
+              placeholder="Message"
               as="textarea"
             />
 

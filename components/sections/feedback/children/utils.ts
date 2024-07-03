@@ -22,33 +22,39 @@ export const getValidationSchema = (formType: string) => {
   const baseSchema = {
     name: Yup.string()
       .matches(
-        /^[a-zA-Zа-яА-ЯёЁіІїЇєЄ'-.\s]+$/,
+        /^[a-zA-Z\s'-]+$/,
         "Name can only contain alphabetic characters and spaces",
       )
-      .min(2, "Name is too short - should be 2 chars minimum.")
-      .max(50, "Name is too long - should be 50 chars maximum.")
+      .min(1, "Name is too short - should be 1 chars minimum.")
+      .max(20, "Name is too long - should be 20 chars maximum.")
       .required("Name is required"),
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
-    message: Yup.string().max(200, "Message").required("Message is required"),
+    message: Yup.string()
+      .min(1, "Message is too short - should be 1 chars minimum.")
+      .max(200, "Message is too long - should be 200 chars maximum."),
   };
 
   const localSchema = {
-    companyName: Yup.string().max(
-      100,
-      "Company name is too long - should be 100 chars maximum.",
-    ),
-    phone: Yup.string().required("Phone is required"),
+    companyName: Yup.string()
+      .min(1, "Company name is too short - should be 1 chars minimum.")
+      .max(50, "Company name is too long - should be 50 chars maximum.")
+      .required("Company name is required"),
+    phone: Yup.string()
+      .matches(/^[0-9+\-()\s]+$/, "Phone number can only contain numbers")
+      .max(17, "Phone number is too long - should be 15 chars maximum.")
+      .required("Phone number is required"),
   };
 
   const intSchema = {
     country: Yup.string()
       .matches(
-        /^[a-zA-Zа-яА-ЯёЁіІїЇєЄ'-.\s]+$/,
-        "Country can only contain alphabetic characters and spaces",
+        /^[a-zA-Z\s'-]+$/,
+        "Country name can only contain alphabetic characters and spaces",
       )
-      .required("Country is required"),
+      .min(1, "Country name is too short - should be 1 chars minimum.")
+      .max(20, "Country name is too long - should be 20 chars maximum."),
   };
 
   if (formType === "default") {
