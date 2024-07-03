@@ -17,7 +17,7 @@ const Input = ({ label, type, mask, placeholder, as }: Props) => {
       <Label htmlFor={type}>{label}</Label>
       <InputContainer>
         <InputStyled
-          autocomplete="off"
+          autoComplete="off"
           {...field}
           type={type}
           name={type}
@@ -72,10 +72,9 @@ const ErrorStyled = styled(ErrorMessage)`
   margin: 4px 16px 0;
 `;
 
-const shouldForwardProp = (prop: string) =>
-  prop !== "isMessage" && prop !== "isErrorSpan";
-
-const InputStyled = styled(Field, { shouldForwardProp })<{
+const InputStyled = styled(Field, {
+  shouldForwardProp: (prop) => prop !== "isMessage" && prop !== "isErrorSpan",
+})<{
   isMessage: boolean;
   isErrorSpan: boolean;
 }>``;
