@@ -15,9 +15,11 @@ export const theme = {
     blue3: "#0b7287",
     blue4: "rgba(41, 169, 194, 0.06)",
     blue5: "#29a9c2",
+    peach: "#e8d4c4",
     yellow: "#ffb901",
   },
   fontSize: {
+    fontS10: "10px",
     fontS12: "12px",
     fontS14: "14px",
     fontS16: "16px",
@@ -34,6 +36,7 @@ export const theme = {
   breakpoints: {
     mobile: "max-width: 1024px",
     mobile1: "max-width: 1380px",
+    desktop: "min-width 1024px",
   },
 };
 

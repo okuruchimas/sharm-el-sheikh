@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Title } from "../../layout/title";
+import Title from "../../layout/title";
 import Card from "./children/card";
 import { AnnouncementCardProps } from "./children/types";
 import Button from "../../layout/button";
