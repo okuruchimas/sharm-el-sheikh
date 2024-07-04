@@ -36,7 +36,14 @@ const Wrap = styled.div`
   border-bottom: 1px solid #8f9193;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    display: none;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
