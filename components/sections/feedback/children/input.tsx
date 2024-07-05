@@ -1,40 +1,62 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { ErrorMessage, Field, useField, FieldProps } from "formik";
-import InputMask from "react-input-mask";
+import { ErrorMessage, useField } from "formik";
+import MaskedInputField from "./masked-input";
+import InputWithoutNumbers from "./no-nubers-input";
 
 interface Props {
   label: string;
   type: string;
   placeholder: string;
   as?: string;
+  mask?: string;
+  noNumbers?: boolean;
 }
-const Input = ({ label, type, mask, placeholder, as }: Props) => {
+
+const Input = ({ label, type, mask, placeholder, as, noNumbers }: Props) => {
   const [field, meta] = useField(type);
 
   return (
     <InputWrap>
       <Label htmlFor={type}>{label}</Label>
       <InputContainer>
-        <InputStyled
-          autoComplete="off"
-          {...field}
-          type={type}
-          name={type}
-          placeholder={placeholder}
-          as={as}
-          isMessage={as}
-          isErrorSpan={meta.touched && !!meta.error}
-        >
-          {({ field }: FieldProps) => (
-            <InputMask
-              {...field}
-              type={type}
-              mask={mask}
-              placeholder={placeholder}
-            />
-          )}
-        </InputStyled>
+        {/*{mask ? (*/}
+        {/*  <MaskedInputField*/}
+        {/*    name={field.name}*/}
+        {/*    mask={mask}*/}
+        {/*    placeholder={placeholder}*/}
+        {/*    type={type}*/}
+        {/*  />*/}
+        {/*) : (*/}
+        {/*  <InputStyled*/}
+        {/*    autoComplete="off"*/}
+        {/*    {...field}*/}
+        {/*    type={type}*/}
+        {/*    name={type}*/}
+        {/*    placeholder={placeholder}*/}
+        {/*    as={as}*/}
+        {/*    isMessage={as}*/}
+        {/*    isErrorSpan={meta.touched && !!meta.error}*/}
+        {/*  />*/}
+        {/*)}*/}
+        {noNumbers ? (
+          <InputWithoutNumbers
+            name={field.name}
+            placeholder={placeholder}
+            type={type}
+          />
+        ) : (
+          <InputStyled
+            autoComplete="off"
+            {...field}
+            type={type}
+            name={type}
+            placeholder={placeholder}
+            as={as}
+            isMessage={as}
+            isErrorSpan={meta.touched && !!meta.error}
+          />
+        )}
         {meta.touched && meta.error && (
           <ErrorIcon src="icons/feedback-section/icon.svg" />
         )}
@@ -72,36 +94,31 @@ const ErrorStyled = styled(ErrorMessage)`
   margin: 4px 16px 0;
 `;
 
-const InputStyled = styled(Field, {
-  shouldForwardProp: (prop) => prop !== "isMessage" && prop !== "isErrorSpan",
-})<{
-  isMessage: boolean;
-  isErrorSpan: boolean;
-}>``;
-
 const InputContainer = styled.div`
   display: flex;
   align-items: center;
+`;
 
-  input {
-    min-width: 310px;
+const InputStyled = styled.input<{
+  isMessage: boolean;
+  isErrorSpan: boolean;
+}>`
+  min-width: 310px;
+  background-color: white;
+  min-height: ${({ isMessage }) => (isMessage ? "130px" : "58px")};
+  border-radius: 16px;
+  padding: ${({ isMessage }) => (isMessage ? "16px" : "0")} 16px;
+  border: ${({ isErrorSpan }) => (isErrorSpan ? "2px solid #ff5449" : "none")};
+  outline: none;
+  font-family: Comfortaa, serif;
+  font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
+
+  &:focus,
+  &:active {
     background-color: white;
-    min-height: ${({ isMessage }) => (isMessage ? "130px" : "58px")};
-    border-radius: 16px;
-    padding: ${({ isMessage }) => (isMessage ? "16px" : "0")} 16px;
-    border: ${({ isErrorSpan }) =>
-      isErrorSpan ? "2px solid #ff5449" : "none"};
     outline: none;
-    font-family: Comfortaa, serif;
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
-
-    &:focus,
-    &:active {
-      background-color: white;
-      outline: none;
-      border: ${({ isErrorSpan }) =>
-        isErrorSpan ? "2px solid #ff5449" : "2px solid #2e3133"};
-    }
+    border: ${({ isErrorSpan }) =>
+      isErrorSpan ? "2px solid #ff5449" : "2px solid #2e3133"};
   }
 `;
 

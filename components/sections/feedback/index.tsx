@@ -37,7 +37,7 @@ const FeedbackForm = () => {
         validationSchema={SignupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           const formVales = getValues(values, type);
-
+          console.log(values, "values");
           const response = await fetch("/api/send-email", {
             method: "POST",
             headers: {
@@ -57,12 +57,7 @@ const FeedbackForm = () => {
       >
         {({ isSubmitting }) => (
           <FormWrap>
-            <Input
-              label="Name"
-              type="name"
-              placeholder="Name*"
-              mask="00304340"
-            />
+            <Input label="Name" type="name" placeholder="Name*" noNumbers />
 
             {type === "international" ? (
               <Input label="Country" type="country" placeholder="Country" />
@@ -75,12 +70,16 @@ const FeedbackForm = () => {
                   type="companyName"
                   placeholder="Company Name*"
                 />
-                <Input label="Phone" type="phone" placeholder="Phone*" />
+                <Input
+                  label="Phone"
+                  type="phone"
+                  placeholder="Phone*"
+                  mask="+99 (999) 999-99-999"
+                />
               </>
             ) : null}
 
             <Input label="Email" type="email" placeholder="Email*" />
-
             <Input
               label="Message"
               type="message"
