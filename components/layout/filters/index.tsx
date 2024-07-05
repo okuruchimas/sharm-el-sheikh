@@ -1,35 +1,27 @@
-import React, { useState } from "react";
+import { useState, type FC } from "react";
+// utils
 import styled from "@emotion/styled";
+// types
+import type { selectOption } from "../../types/filter";
 
-interface ISortArr {
-  display_value: string;
-  key: string;
-}
+type FiltersProps = {
+  options: selectOption[];
+  onChange?: (option: selectOption) => void;
+};
 
-const sortArr: ISortArr[] = [
-  { display_value: "Monday", key: "monday" },
-  { display_value: "Tuesday", key: "tuesday" },
-  { display_value: "Wednesday", key: "wednesday" },
-  { display_value: "Thursday", key: "thursday" },
-  { display_value: "Friday", key: "friday" },
-  { display_value: "Saturday", key: "saturday" },
-  { display_value: "Sunday", key: "sunday" },
-];
-
-const Filters = () => {
+const Filters: FC<FiltersProps> = ({ options, onChange }) => {
   const [menuVisible, setMenuVisible] = useState<boolean>(false);
-  const [currentObj, setCurrentObj] = useState<ISortArr>({
-    display_value: "Monday",
-    key: "monday",
-  });
+  const [currentObj, setCurrentObj] = useState<selectOption>(options[0]);
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
 
-  const changeHandler = ({ display_value, key }: ISortArr) => {
-    setCurrentObj({ display_value, key });
+  const changeHandler = (option: selectOption) => {
+    setCurrentObj(option);
     setMenuVisible(false);
+
+    if (onChange) onChange(option);
   };
 
   return (
@@ -44,7 +36,7 @@ const Filters = () => {
       </Select>
       {menuVisible ? (
         <SelectList>
-          {sortArr.map(({ display_value, key }) => (
+          {options.map(({ display_value, key }) => (
             <ListItem
               key={key}
               onClick={() => changeHandler({ display_value, key })}
@@ -64,6 +56,7 @@ export default Filters;
 const Wrapper = styled.div`
   position: relative;
   min-width: 245px;
+  max-width: max-content;
   border: 1px solid ${({ theme: { colors } }) => colors.grey1};
   border-radius: 12px;
 
@@ -98,7 +91,7 @@ const SelectList = styled.div`
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     right: initial;
-    left: 0;
+    left: -1px;
   }
 `;
 

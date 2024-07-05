@@ -7,11 +7,13 @@ import { EventCardProps } from "../components/sections/main/children/types";
 import Banner from "../components/sections/banner";
 import StickyContainer from "../components/layout/header/children/sticky-container";
 import Promotions from "../components/sections/promotions";
-import { PromCardProps } from "../components/sections/promotions/children/types";
 import Announcements from "../components/sections/announcements";
 import { AnnouncementCardProps } from "../components/sections/announcements/children/types";
 import Feedback from "../components/sections/feedback";
 import FeedbackForm from "../components/sections/feedback";
+import Map from "../components/sections/map";
+import { PromCardProps } from "../components/types/promCard";
+import { Categories } from "../components/sections/map/children/constants";
 
 type Props = EventCardProps &
   PromCardProps &
@@ -47,6 +49,7 @@ const Home = ({
           title="Learn more important information"
           buttonText="Contact us"
         />
+        {/*<Map promCards={promCards} />*/}
         <FeedbackForm />
         <Footer socialIcons={socialIcons} />
       </SectionsWrap>
@@ -81,34 +84,212 @@ export async function getStaticProps() {
 
   const promCards = [
     {
-      discount: "20% discount",
-      images: [
-        { src: "images/prom-cards/prom-card1.webp" },
-        { src: "images/prom-cards/prom-card2.webp" },
-        { src: "images/prom-cards/prom-card3.webp" },
-      ],
+      id: 1,
       title: "Sharm Dreams resort",
+      discount: "20% discount",
       location: "South Sinai Governorate",
-    },
-    {
-      discount: "30% discount",
       images: [
-        { src: "images/prom-cards/prom-card2.webp" },
         { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
         { src: "images/prom-cards/prom-card3.webp" },
       ],
+      category: Categories.HOOKAHS,
+      position: { lat: 25.28, lng: 55.328 },
+    },
+    {
+      id: 2,
       title: "El Ezaby Pharmacy",
+      discount: "30% discount",
       location: "صيدلية العزبي",
-    },
-    {
-      discount: "special gift",
       images: [
-        { src: "images/prom-cards/prom-card3.webp" },
         { src: "images/prom-cards/prom-card2.webp" },
         { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
       ],
+      category: Categories.HOOKAHS,
+      position: { lat: 25.26, lng: 55.4129 },
+    },
+    {
+      id: 3,
       title: "Manny’s Burger",
       location: "61 El-Salam, Street",
+      images: [
+        { src: "images/prom-cards/prom-card3.webp" },
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+      ],
+      category: Categories.HOOKAHS,
+      position: { lat: 25.242, lng: 55.35295 },
+      discount: "40% discount",
+    },
+    {
+      id: 4,
+      title: "Manny’s Burger",
+      location: "61 El-Salam, Street",
+      images: [
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
+      ],
+      category: Categories.MEDICATIONS,
+      position: { lat: 25.2826, lng: 55.3923 },
+      discount: "20% discount",
+    },
+    {
+      id: 5,
+      title: "Manny’s Burger",
+      location: "61 El-Salam, Street",
+      images: [
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
+      ],
+      category: Categories.MEDICATIONS,
+      position: { lat: 25.2916, lng: 55.313 },
+      discount: "20% discount",
+    },
+    {
+      id: 6,
+      title: "Manny’s Burger",
+      location: "61 El-Salam, Street",
+      images: [
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
+      ],
+      category: Categories.MEDICATIONS,
+      position: { lat: 25.25236, lng: 55.329293 },
+      discount: "20% discount",
+    },
+    {
+      id: 7,
+      title: "Manny’s Burger",
+      location: "61 El-Salam, Street",
+      images: [
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
+      ],
+      category: Categories.FRUITS,
+      position: { lat: 25.269, lng: 55.389 },
+      discount: "20% discount",
+    },
+    {
+      id: 8,
+      title: "Manny’s Burger",
+      location: "61 El-Salam, Street",
+      images: [
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
+      ],
+      category: Categories.FRUITS,
+      position: { lat: 25.25, lng: 55.32 },
+      discount: "20% discount",
+    },
+    {
+      id: 9,
+      title: "Manny’s Burger",
+      location: "61 El-Salam, Street",
+      images: [
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
+      ],
+      category: Categories.FRUITS,
+      position: { lat: 25.2427, lng: 55.29 },
+      discount: "20% discount",
+    },
+    {
+      id: 10,
+      title: "Manny’s Burger",
+      location: "61 El-Salam, Street",
+      images: [
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
+      ],
+      category: Categories.COSMETOLOGY,
+      position: { lat: 25.2826, lng: 55.3923 },
+      discount: "20% discount",
+    },
+    {
+      id: 11,
+      title: "Manny’s Burger",
+      location: "61 El-Salam, Street",
+      images: [
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
+      ],
+      category: Categories.COSMETOLOGY,
+      position: { lat: 25.25213, lng: 55.326 },
+      discount: "20% discount",
+    },
+    {
+      id: 12,
+      title: "Manny’s Burger",
+      location: "61 El-Salam, Street",
+      images: [
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
+      ],
+      category: Categories.COSMETOLOGY,
+      position: { lat: 25.263183, lng: 55.363 },
+      discount: "20% discount",
+    },
+    {
+      id: 13,
+      title: "Manny’s Burger",
+      location: "61 El-Salam, Street",
+      images: [
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
+      ],
+      category: Categories.SOUVENIRS,
+      position: { lat: 25.273, lng: 55.36455 },
+      discount: "20% discount",
+    },
+    {
+      id: 14,
+      title: "Manny’s Burger",
+      location: "61 El-Salam, Street",
+      images: [
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
+      ],
+      category: Categories.SOUVENIRS,
+      position: { lat: 25.243176, lng: 55.3154956 },
+      discount: "20% discount",
+    },
+    {
+      id: 15,
+      title: "Manny’s Burger",
+      location: "61 El-Salam, Street",
+      images: [
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
+      ],
+      category: Categories.SOUVENIRS,
+      position: { lat: 25.28, lng: 55.35 },
+      discount: "20% discount",
+    },
+    {
+      id: 16,
+      title: "Sharm Dreams resort",
+      location: "South Sinai Governorate",
+      images: [
+        { src: "images/prom-cards/prom-card1.webp" },
+        { src: "images/prom-cards/prom-card2.webp" },
+        { src: "images/prom-cards/prom-card3.webp" },
+      ],
+      category: Categories.HOOKAHS,
+      position: { lat: 25.183, lng: 55.32428 },
+      discount: "20% discount",
     },
   ];
 

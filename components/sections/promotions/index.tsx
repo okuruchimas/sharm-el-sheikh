@@ -1,11 +1,22 @@
 import styled from "@emotion/styled";
 import PromCard from "./children/prom-card";
-import { PromCardProps } from "./children/types";
+
 import Button from "../../layout/button";
 import LinkButton from "../../layout/link-button";
 import Filters from "../../layout/filters";
 import Background from "./children/background";
-import { Title } from "../../layout/title";
+import Title from "../../layout/title";
+import { PromCardProps } from "../../types/promCard";
+
+const sortArr = [
+  { display_value: "Monday", key: "monday" },
+  { display_value: "Tuesday", key: "tuesday" },
+  { display_value: "Wednesday", key: "wednesday" },
+  { display_value: "Thursday", key: "thursday" },
+  { display_value: "Friday", key: "friday" },
+  { display_value: "Saturday", key: "saturday" },
+  { display_value: "Sunday", key: "sunday" },
+];
 
 const Promotions = ({ promCards }: PromCardProps) => {
   return (
@@ -14,7 +25,7 @@ const Promotions = ({ promCards }: PromCardProps) => {
         <Title>Promotions and Discounts</Title>
 
         <FiltersWrap>
-          <Filters />
+          <Filters options={sortArr} />
           <MobLink>
             <LinkButton text="View more" link="/" />
           </MobLink>
@@ -22,15 +33,17 @@ const Promotions = ({ promCards }: PromCardProps) => {
       </TopWrap>
 
       <DownWrap>
-        {promCards.map(({ discount, images, location, title }, index) => (
-          <PromCard
-            discount={discount}
-            images={images}
-            title={title}
-            location={location}
-            key={index}
-          />
-        ))}
+        {promCards
+          .slice(0, 3)
+          .map(({ discount, images, location, title }, index) => (
+            <PromCard
+              discount={discount}
+              images={images}
+              title={title}
+              location={location}
+              key={index}
+            />
+          ))}
       </DownWrap>
 
       {!promCards ? <Background /> : null}

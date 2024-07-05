@@ -1,7 +1,7 @@
-import { PromCardI } from "./types";
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { SubTitle } from "../../../layout/subtitle";
+import { PromCardI } from "../../../types/promCard";
 
 const PromCard = ({ discount, images, location, title }: PromCardI) => {
   const [currentId, setCurrentId] = useState<number>(0);
