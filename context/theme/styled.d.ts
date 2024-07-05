@@ -18,10 +18,12 @@ declare module "@emotion/react" {
       blue3: string;
       blue4: string;
       blue5: string;
+      peach: string;
       yellow: string;
       [key: string]: string;
     };
     fontSize: {
+      fontS10: string;
       fontS12: string;
       fontS14: string;
       fontS16: string;
@@ -38,6 +40,7 @@ declare module "@emotion/react" {
     breakpoints: {
       mobile: string;
       mobile1: string;
+      desktop: string;
     };
   }
 }

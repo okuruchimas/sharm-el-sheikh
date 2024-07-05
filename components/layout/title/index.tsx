@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const Title = styled.h2`
+const Title = styled.h2`
   margin: 0;
   font-size: ${({ theme: { fontSize } }) => fontSize.fontS40};
   color: ${({ theme: { colors } }) => colors.blue};
@@ -10,3 +10,5 @@ export const Title = styled.h2`
     font-size: ${({ theme: { fontSize } }) => fontSize.fontS18};
   }
 `;
+
+export default Title;
