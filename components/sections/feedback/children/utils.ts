@@ -42,8 +42,8 @@ export const getValidationSchema = (formType: string) => {
       .max(50, "Company name is too long - should be 50 chars maximum.")
       .required("Company name is required"),
     phone: Yup.string()
-      .matches(/^[0-9+\-()\s]+$/, "Phone number can only contain numbers")
-      .max(17, "Phone number is too long - should be 15 chars maximum.")
+      .matches(/^[0-9+\-()\s_]+$/, "Phone number can only contain numbers")
+      .max(20, "Phone number is too long - should be 15 chars maximum.")
       .required("Phone number is required"),
   };
 

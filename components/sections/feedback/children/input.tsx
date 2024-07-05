@@ -8,6 +8,7 @@ interface Props {
   type: string;
   placeholder: string;
   as?: string;
+  mask?: string;
 }
 const Input = ({ label, type, mask, placeholder, as }: Props) => {
   const [field, meta] = useField(type);
@@ -15,22 +16,23 @@ const Input = ({ label, type, mask, placeholder, as }: Props) => {
   return (
     <InputWrap>
       <Label htmlFor={type}>{label}</Label>
-      <InputContainer>
+      <InputContainer
+        isMessage={!!as}
+        isErrorSpan={meta.touched && !!meta.error}
+      >
         <InputStyled
-          autoComplete="off"
+          autocomplete="off"
           {...field}
           type={type}
           name={type}
           placeholder={placeholder}
           as={as}
-          isMessage={as}
-          isErrorSpan={meta.touched && !!meta.error}
         >
           {({ field }: FieldProps) => (
             <InputMask
               {...field}
               type={type}
-              mask={mask}
+              mask={mask || ""}
               placeholder={placeholder}
             />
           )}
@@ -72,14 +74,14 @@ const ErrorStyled = styled(ErrorMessage)`
   margin: 4px 16px 0;
 `;
 
-const InputStyled = styled(Field, {
+const InputStyled = styled(Field)``;
+
+const InputContainer = styled("div", {
   shouldForwardProp: (prop) => prop !== "isMessage" && prop !== "isErrorSpan",
 })<{
   isMessage: boolean;
   isErrorSpan: boolean;
-}>``;
-
-const InputContainer = styled.div`
+}>`
   display: flex;
   align-items: center;
 
