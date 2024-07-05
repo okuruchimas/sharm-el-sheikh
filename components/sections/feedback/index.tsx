@@ -5,6 +5,9 @@ import { Formik, Form } from "formik";
 import { ButtonStyled } from "../../layout/button";
 import Input from "./children/input";
 import { getValidationSchema, getValues } from "./children/utils";
+import Loader from "../../layout/loader";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export interface IValues {
   name: string;
@@ -47,46 +50,56 @@ const FeedbackForm = () => {
           });
 
           if (response.ok) {
-            alert("Email sent successfully");
+            toast.success("Email successfully delivered!");
             resetForm();
           } else {
-            alert("Failed to send email");
+            toast.error("Failed to send email");
           }
           setSubmitting(false);
         }}
       >
         {({ isSubmitting }) => (
           <FormWrap>
-            <Input label="Name" type="name" placeholder="Name*" />
-
-            {type === "international" ? (
-              <Input label="Country" type="country" placeholder="Country" />
-            ) : null}
-
-            {type !== "default" ? (
+            {isSubmitting ? (
+              <Loader />
+            ) : (
               <>
+                <Input label="Name" type="name" placeholder="Name*" />
+
+                {type === "international" ? (
+                  <Input
+                    label="Country"
+                    type="country"
+                    placeholder="Country*"
+                  />
+                ) : null}
+
+                {type !== "default" ? (
+                  <>
+                    <Input
+                      label="Company name"
+                      type="companyName"
+                      placeholder="Company Name*"
+                    />
+                    <Input
+                      label="Phone"
+                      type="phone"
+                      placeholder="Phone*"
+                      mask="+99 (999) 999-99-999"
+                    />
+                  </>
+                ) : null}
+
+                <Input label="Email" type="email" placeholder="Email*" />
+
                 <Input
-                  label="Company name"
-                  type="companyName"
-                  placeholder="Company Name*"
-                />
-                <Input
-                  label="Phone"
-                  type="phone"
-                  placeholder="Phone*"
-                  mask="+99 (999) 999-99-999"
+                  label="Message"
+                  type="message"
+                  placeholder="Message"
+                  as="textarea"
                 />
               </>
-            ) : null}
-
-            <Input label="Email" type="email" placeholder="Email*" />
-
-            <Input
-              label="Message"
-              type="message"
-              placeholder="Message"
-              as="textarea"
-            />
+            )}
 
             <SubmitButton color="blue3" type="submit" disabled={isSubmitting}>
               Contact Us
@@ -94,6 +107,7 @@ const FeedbackForm = () => {
           </FormWrap>
         )}
       </Formik>
+      <ToastContainer />
     </Wrap>
   );
 };
@@ -108,6 +122,7 @@ const Wrap = styled.div`
 `;
 
 const FormWrap = styled(Form)`
+  min-height: 454px;
   display: flex;
   flex-direction: column;
   gap: 20px;

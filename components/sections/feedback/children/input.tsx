@@ -20,23 +20,24 @@ const Input = ({ label, type, mask, placeholder, as }: Props) => {
         isMessage={!!as}
         isErrorSpan={meta.touched && !!meta.error}
       >
-        <InputStyled
-          autocomplete="off"
+        <Field
           {...field}
           type={type}
           name={type}
           placeholder={placeholder}
           as={as}
         >
-          {({ field }: FieldProps) => (
-            <InputMask
-              {...field}
-              type={type}
-              mask={mask || ""}
-              placeholder={placeholder}
-            />
-          )}
-        </InputStyled>
+          {mask
+            ? ({ field }: FieldProps) => (
+                <InputMask
+                  {...field}
+                  type={type}
+                  mask={mask || ""}
+                  placeholder={placeholder}
+                />
+              )
+            : null}
+        </Field>
         {meta.touched && meta.error && (
           <ErrorIcon src="icons/feedback-section/icon.svg" />
         )}
@@ -85,7 +86,8 @@ const InputContainer = styled("div", {
   display: flex;
   align-items: center;
 
-  input {
+  input,
+  textarea {
     min-width: 310px;
     background-color: white;
     min-height: ${({ isMessage }) => (isMessage ? "130px" : "58px")};
