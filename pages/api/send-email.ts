@@ -30,17 +30,26 @@ export default async function handler(
       },
     });
 
-    const mailOptions = {
+    const feedbackOptions = {
       from: name,
       replyTo: email,
-      to: process.env.GMAIL_USER, // ваша пошта Gmail
+      to: process.env.GMAIL_USER,
       subject: `Feedback from ${name} ${email}`,
       html: message,
     };
 
+    const answerOptions = {
+      from: process.env.GMAIL_USER,
+      replyTo: process.env.GMAIL_USER,
+      to: email,
+      subject: "Your feedback has been successfully received!",
+      html: "<h2>Thank you for sharing your experience.</h2> <p>Your opinion is very important to us. We will get in touch with you once we have reviewed your feedback.</p>  <p>If you have any additional questions or suggestions, please feel free to contact us by replying to this email.</p>  <h3>Thank you again for your feedback!</h3>",
+    };
+
     try {
-      console.log(mailOptions, "mailOptions");
-      await transporter.sendMail(mailOptions);
+      console.log(feedbackOptions, "mailOptions");
+      await transporter.sendMail(feedbackOptions);
+      await transporter.sendMail(answerOptions);
       res.status(200).json({ message: "Email sent successfully" });
     } catch (error) {
       res.status(500).json({ message: "Failed to send email", error });

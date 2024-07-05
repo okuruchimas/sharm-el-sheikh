@@ -54,7 +54,8 @@ export const getValidationSchema = (formType: string) => {
         "Country name can only contain alphabetic characters and spaces",
       )
       .min(1, "Country name is too short - should be 1 chars minimum.")
-      .max(20, "Country name is too long - should be 20 chars maximum."),
+      .max(20, "Country name is too long - should be 20 chars maximum.")
+      .required("Country is required"),
   };
 
   if (formType === "default") {
