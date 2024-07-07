@@ -23,7 +23,7 @@ export interface PromCardProps {
   promCards: PromCardI[];
 }
 
-const data = [
+export const dataPromCards = [
   {
     id: 1,
     slug: "sharm-dreams-resort",
@@ -251,5 +251,5 @@ const data = [
 ];
 
 export default (req: NextApiRequest, res: NextApiResponse<PromCardI[]>) => {
-  res.status(200).json(data);
+  res.status(200).json(dataPromCards);
 };

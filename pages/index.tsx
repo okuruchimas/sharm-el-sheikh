@@ -11,7 +11,7 @@ import Announcements from "../components/sections/announcements";
 import FeedbackForm from "../components/sections/feedback";
 import Map from "../components/sections/map";
 import { AnnouncementCardProps } from "../components/sections/announcements/children/types";
-import { PromCardProps } from "./api/prom-cards";
+import { dataPromCards, PromCardProps } from "./api/prom-cards";
 import { fetchAPI } from "../utils/fetchApi";
 import SectionsWrapper from "../components/layout/section-wrapper";
 
@@ -116,7 +116,7 @@ export async function getStaticProps() {
     },
   ];
 
-  const promCards = await fetchAPI("api/prom-cards");
+  const promCards = dataPromCards;
 
   return {
     props: {

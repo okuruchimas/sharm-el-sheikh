@@ -1,5 +1,5 @@
 import { fetchAPI } from "../../utils/fetchApi";
-import { PromCardI } from "../api/prom-cards";
+import { dataPromCards, PromCardI } from "../api/prom-cards";
 import styled from "@emotion/styled";
 import SectionsWrapper from "../../components/layout/section-wrapper";
 
@@ -26,7 +26,7 @@ const Wrap = styled(SectionsWrapper)`
 `;
 
 export async function getStaticPaths() {
-  const promCards = await fetchAPI("api/prom-cards");
+  const promCards = dataPromCards;
 
   const paths = promCards.map((el: PromCardI) => {
     return { params: { slug: el.slug } };
@@ -38,7 +38,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: any) {
-  const promCards = await fetchAPI("api/prom-cards");
+  const promCards = dataPromCards;
 
   const { slug } = params;
 
