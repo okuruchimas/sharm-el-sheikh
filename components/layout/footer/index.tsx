@@ -24,12 +24,13 @@ const Footer = ({ socialIcons }: FooterProps) => {
 export default Footer;
 
 const Wrap = styled.div`
+  padding: 0 100px;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 24px;
-
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    padding: 0 16px;
   }
 `;
 
