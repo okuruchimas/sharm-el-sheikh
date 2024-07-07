@@ -5,7 +5,7 @@ import LinkButton from "../../layout/link-button";
 import Dropdown from "../../layout/filters";
 import Background from "./children/background";
 import Title from "../../layout/title";
-import { PromCardProps } from "../../types/promCard";
+import { PromCardProps } from "../../../pages/api/prom-cards";
 
 const sortArr = [
   { display_value: "Monday", key: "monday" },
@@ -32,8 +32,9 @@ const Promotions = ({ promCards }: PromCardProps) => {
       <DownWrap>
         {promCards
           .slice(0, 3)
-          .map(({ discount, images, location, title }, index) => (
+          .map(({ slug, discount, images, location, title }, index) => (
             <PromCard
+              slug={slug}
               discount={discount}
               images={images}
               title={title}

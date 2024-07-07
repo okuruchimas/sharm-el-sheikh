@@ -18,7 +18,7 @@ import {
 // types
 import type { selectOption } from "../../types/filter";
 import { calculateCenter } from "./children/utils";
-import { PromCardI, PromCardProps } from "../../types/promCard";
+import { PromCardI, PromCardProps } from "../../../pages/api/prom-cards";
 
 const Map = ({ promCards }: PromCardProps) => {
   // states
