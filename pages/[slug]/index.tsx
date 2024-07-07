@@ -40,9 +40,9 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }: any) {
   const promCards = dataPromCards;
 
-  const { slug } = params;
+  const { slug: slugP } = params;
 
-  const card = promCards.find(({ slug }: PromCardI) => slug === slug);
+  const card = promCards.find(({ slug }: PromCardI) => slug === slugP);
 
   return {
     props: {
