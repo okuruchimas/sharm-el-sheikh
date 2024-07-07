@@ -18,6 +18,9 @@
     "prettier": "^3.3.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "react-input-mask": "^2.0.4",
+    "react-toastify": "^10.0.5",
+    "yup": "^1.4.0",
     "swiper": "^11.1.4"
   },
   "devDependencies": {
@@ -25,6 +28,7 @@
     "@types/nodemailer": "^6.4.15",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
+    "@types/react-input-mask": "^3.0.5",
     "eslint": "^8.56.0",
     "eslint-config-next": "14.2.3",
     "typescript": "5.4.5"

@@ -34,7 +34,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid #8f9193;
-
+  cursor: pointer;
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     width: 100%;
     overflow-x: auto;
