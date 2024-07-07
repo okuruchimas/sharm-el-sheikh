@@ -38,20 +38,18 @@ const LanguageSelector = () => {
           menuVisible={menuVisible}
         />
       </Select>
-      {menuVisible ? (
-        <ListWrap>
-          {languages.map(({ text, link }, index) => (
-            <Link key={index} href={link}>
-              <ListItem
-                onClick={() => changeLanguage(text)}
-                isYellow={selectedLanguage === text}
-              >
-                {text}
-              </ListItem>
-            </Link>
-          ))}
-        </ListWrap>
-      ) : null}
+      <ListWrap isOpen={menuVisible}>
+        {languages.map(({ text, link }, index) => (
+          <Link key={index} href={link}>
+            <ListItem
+              onClick={() => changeLanguage(text)}
+              isYellow={selectedLanguage === text}
+            >
+              {text}
+            </ListItem>
+          </Link>
+        ))}
+      </ListWrap>
     </Wrap>
   );
 };
@@ -78,7 +76,7 @@ const Select = styled.div`
   padding-left: 16px;
 `;
 
-const ListWrap = styled.div`
+const ListWrap = styled.div<{ isOpen: boolean }>`
   position: absolute;
   top: 36px;
   right: 0;
@@ -88,8 +86,16 @@ const ListWrap = styled.div`
   width: max-content;
   background: ${({ theme: { colors } }) => colors.white};
   border-radius: 4px;
+  scale: ${({ isOpen }) => (isOpen ? 1 : 0)};
+  transform-origin: top;
+  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
+  transition:
+    opacity 0.25s ease,
+    scale 0.25s ease;
+
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     flex-direction: row;
+    transform-origin: top left;
     top: 44px;
     right: auto;
     left: 0;

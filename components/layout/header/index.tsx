@@ -41,6 +41,7 @@ const hiddenOverflow = css`
 const Wrap = styled.div`
   width: 100%;
   background-color: ${({ theme: { colors } }) => colors.grey4};
+  backdrop-filter: blur(10px);
   position: fixed;
   top: 0;
   z-index: 10;
@@ -49,6 +50,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  box-shadow: 0 -10px 20px ${({ theme: { colors } }) => colors.grey3};
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     padding: 24px;

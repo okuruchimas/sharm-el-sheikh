@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import EventCard from "./children/event-card";
-import Link from "next/link";
 import { EventCardProps } from "./children/types";
 import LinkButton from "../../layout/link-button";
 
@@ -59,6 +58,7 @@ const TopWrap = styled.div`
   flex-direction: column;
   gap: 16px;
   background-color: ${({ theme: { colors } }) => colors.grey5};
+  backdrop-filter: blur(8px);
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     width: 100%;

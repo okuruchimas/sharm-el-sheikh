@@ -9,7 +9,7 @@ type FiltersProps = {
   onChange?: (option: selectOption) => void;
 };
 
-const Filters: FC<FiltersProps> = ({ options, onChange }) => {
+const Dropdown: FC<FiltersProps> = ({ options, onChange }) => {
   const [menuVisible, setMenuVisible] = useState<boolean>(false);
   const [currentObj, setCurrentObj] = useState<selectOption>(options[0]);
 
@@ -34,24 +34,22 @@ const Filters: FC<FiltersProps> = ({ options, onChange }) => {
           isDown={menuVisible}
         />
       </Select>
-      {menuVisible ? (
-        <SelectList>
-          {options.map(({ display_value, key }) => (
-            <ListItem
-              key={key}
-              onClick={() => changeHandler({ display_value, key })}
-              isYellow={currentObj.display_value === display_value}
-            >
-              {display_value}
-            </ListItem>
-          ))}
-        </SelectList>
-      ) : null}
+      <SelectList menuVisible={menuVisible}>
+        {options.map(({ display_value, key }) => (
+          <ListItem
+            key={key}
+            onClick={() => changeHandler({ display_value, key })}
+            isYellow={currentObj.display_value === display_value}
+          >
+            {display_value}
+          </ListItem>
+        ))}
+      </SelectList>
     </Wrapper>
   );
 };
 
-export default Filters;
+export default Dropdown;
 
 const Wrapper = styled.div`
   position: relative;
@@ -75,7 +73,7 @@ const Text = styled.span`
   }
 `;
 
-const SelectList = styled.div`
+const SelectList = styled.div<{ menuVisible: boolean }>`
   position: absolute;
   min-width: 200px;
   top: 64px;
@@ -88,6 +86,12 @@ const SelectList = styled.div`
   gap: 12px;
   box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.15);
   background: ${({ theme: { colors } }) => colors.white3};
+  scale: ${({ menuVisible }) => (menuVisible ? 1 : 0)};
+  transform-origin: top;
+  opacity: ${({ menuVisible }) => (menuVisible ? 1 : 0)};
+  transition:
+    opacity 0.25s ease,
+    scale 0.25s ease;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     right: initial;
@@ -112,8 +116,8 @@ const ListItem = styled.span<{ isYellow: boolean }>`
 `;
 
 const Arrow = styled.img<{ isDown: boolean }>`
-  transition: 0.3s;
-  transform: ${({ isDown }) => (isDown ? " rotate(180deg)" : null)};
+  transition: 0.25s;
+  transform: ${({ isDown }) => (isDown ? "rotate(180deg)" : null)};
 `;
 
 const Select = styled.div`

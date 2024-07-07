@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
 import PromCard from "./children/prom-card";
-
 import Button from "../../layout/button";
 import LinkButton from "../../layout/link-button";
-import Filters from "../../layout/filters";
+import Dropdown from "../../layout/filters";
 import Background from "./children/background";
 import Title from "../../layout/title";
 import { PromCardProps } from "../../types/promCard";
@@ -23,15 +22,13 @@ const Promotions = ({ promCards }: PromCardProps) => {
     <WrapSection>
       <TopWrap>
         <Title>Promotions and Discounts</Title>
-
         <FiltersWrap>
-          <Filters options={sortArr} />
+          <Dropdown options={sortArr} />
           <MobLink>
             <LinkButton text="View more" link="/" />
           </MobLink>
         </FiltersWrap>
       </TopWrap>
-
       <DownWrap>
         {promCards
           .slice(0, 3)
@@ -45,9 +42,7 @@ const Promotions = ({ promCards }: PromCardProps) => {
             />
           ))}
       </DownWrap>
-
       {!promCards ? <Background /> : null}
-
       <ButtonWrap>
         <Button text="View more" color="white" />
       </ButtonWrap>
