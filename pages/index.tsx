@@ -116,7 +116,7 @@ export async function getStaticProps() {
     },
   ];
 
-  const promCards = await fetchAPI("http://localhost:3000/api/prom-cards");
+  const promCards = await fetchAPI("api/prom-cards");
 
   return {
     props: {

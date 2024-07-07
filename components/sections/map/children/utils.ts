@@ -1,4 +1,4 @@
-import type { PromCardI } from "../../../types/promCard";
+import { PromCardI } from "../../../../pages/api/prom-cards";
 
 export const calculateCenter = (
   locations: PromCardI[],

@@ -26,7 +26,7 @@ const Wrap = styled(SectionsWrapper)`
 `;
 
 export async function getStaticPaths() {
-  const promCards = await fetchAPI("http://localhost:3000/api/prom-cards");
+  const promCards = await fetchAPI("api/prom-cards");
 
   const paths = promCards.map((el: PromCardI) => {
     return { params: { slug: el.slug } };
@@ -38,7 +38,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: any) {
-  const promCards = await fetchAPI("http://localhost:3000/api/prom-cards");
+  const promCards = await fetchAPI("api/prom-cards");
 
   const { slug } = params;
 
