@@ -20,7 +20,8 @@
     "react-dom": "18.3.1",
     "react-input-mask": "^2.0.4",
     "react-toastify": "^10.0.5",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "swiper": "^11.1.4"
   },
   "devDependencies": {
     "@types/node": "20.13.0",

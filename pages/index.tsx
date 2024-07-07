@@ -9,9 +9,8 @@ import StickyContainer from "../components/layout/header/children/sticky-contain
 import Promotions from "../components/sections/promotions";
 import Announcements from "../components/sections/announcements";
 import { AnnouncementCardProps } from "../components/sections/announcements/children/types";
-import Feedback from "../components/sections/feedback";
 import FeedbackForm from "../components/sections/feedback";
-import Map from "../components/sections/map";
+// import Map from "../components/sections/map";
 import { PromCardProps } from "../components/types/promCard";
 import { Categories } from "../components/sections/map/children/constants";
 

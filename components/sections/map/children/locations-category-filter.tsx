@@ -1,6 +1,6 @@
 import { useCallback, type FC } from "react";
 // components
-import Filters from "../../../layout/filters";
+import Dropdown from "../../../layout/filters";
 // utils
 import styled from "@emotion/styled";
 // constants
@@ -28,7 +28,7 @@ const LocationsCategoryFilter: FC<LocationsCategoryFilterProps> = ({
   return (
     <>
       <DropdownWrapper>
-        <Filters options={categoriesOptions} onChange={onSelect} />
+        <Dropdown options={categoriesOptions} onChange={onSelect} />
       </DropdownWrapper>
       <ItemsWrapper>
         {options.map((option) => (

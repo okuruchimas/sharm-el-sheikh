@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import { EventCardI } from "./types";
 import styled from "@emotion/styled";
@@ -16,7 +15,7 @@ const EventCard = ({ logo, date, title, price, location }: EventCardI) => {
         </BottomWrap>
       </InfoWrap>
       <Link href="/">
-        <LinkIcon src="icons/main-section/link.webp" />
+        <LinkIcon src="icons/main-section/circle-arrow.svg" />
       </Link>
     </Wrap>
   );
@@ -119,9 +118,20 @@ const LinkIcon = styled.img`
   height: 40px;
   width: 40px;
   align-self: baseline;
+  transition: scale 0.3s ease;
+
+  box-shadow:
+    0 1px 3px 1px #00000026,
+    0 1px 2px 0 #0000004d;
+  border-radius: 50%;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     height: 30px;
     width: 30px;
+  }
+
+  &:active,
+  &:focus {
+    scale: 1.3;
   }
 `;
