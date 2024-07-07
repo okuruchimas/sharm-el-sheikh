@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import { SubTitle } from "../../../layout/subtitle";
-import { PromCardI } from "../../../types/promCard";
 import Swiper from "./swiper";
+import { PromCardI } from "../../../../pages/api/prom-cards";
+import Link from "next/link";
 
-const PromCard = ({ discount, images, location, title }: PromCardI) => {
+const PromCard = ({ discount, images, location, title, slug }: PromCardI) => {
   return (
     <Wrap>
       <SwiperWrapper>
@@ -26,10 +27,12 @@ const PromCard = ({ discount, images, location, title }: PromCardI) => {
             <LocIcon src="icons/promotions-section/location.svg" />
             <LocationPlace>{location}</LocationPlace>
           </Location>
-          <IconButton
-            src={"icons/promotions-section/circle-arrow-outlined.svg"}
-            alt="promotions-button"
-          />
+          <Link href={slug || ""}>
+            <IconButton
+              src={"icons/promotions-section/circle-arrow-outlined.svg"}
+              alt="promotions-button"
+            />
+          </Link>
         </Down>
       </DownWrap>
     </Wrap>

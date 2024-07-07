@@ -47,7 +47,6 @@ export default async function handler(
     };
 
     try {
-      console.log(feedbackOptions, "mailOptions");
       await transporter.sendMail(feedbackOptions);
       await transporter.sendMail(answerOptions);
       res.status(200).json({ message: "Email sent successfully" });
