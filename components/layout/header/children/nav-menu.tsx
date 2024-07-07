@@ -34,17 +34,17 @@ const NavMenu: FC<IProps> = ({ isNavbar }) => {
 export default NavMenu;
 
 const WrapperDown = styled.div<{ isNavbar: boolean }>`
-  display: flex;
   flex-direction: row;
   align-items: center;
   gap: 32px;
+  display: none;
 
   @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
+    display: flex;
     z-index: -1;
     position: absolute;
     left: 0;
     top: 0;
-    display: ${({ isNavbar }) => (isNavbar ? "flex" : "none")};
     background-color: ${({ theme: { colors } }) => colors.blue2};
     width: 100%;
     height: 100dvh;
@@ -52,6 +52,11 @@ const WrapperDown = styled.div<{ isNavbar: boolean }>`
     flex-direction: column;
     gap: 32px;
     padding: 88px 16px 0;
+    transform: translateY(${({ isNavbar, theme }) => (isNavbar ? 0 : "-100%")});
+    opacity: ${({ isNavbar, theme }) => (isNavbar ? 1 : 0)};
+    transition:
+      transform 0.3s linear,
+      opacity 0.3s linear;
   }
 `;
 
