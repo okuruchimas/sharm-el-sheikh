@@ -52,7 +52,7 @@ const ImageSwiper: FC<SwiperProps> = ({ images, discount }) => (
     {discount ? <Promotion>{discount}</Promotion> : null}
     {images.map((el, index) => (
       <Slide key={index}>
-        <StyledImage src={`/${el.src}`} alt="" />
+        <StyledImage src={`/${el.src}`} alt="" loading="lazy" />
       </Slide>
     ))}
   </Wrapper>

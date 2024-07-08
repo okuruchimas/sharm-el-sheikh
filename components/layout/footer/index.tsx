@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import { Hr } from "../hr";
-import FooterIcons, { SocialIcon } from "../social-icons";
+import SocialIcons, { SocialIcon } from "../social-icons";
 
 export interface FooterProps {
   socialIcons: SocialIcon[];
@@ -14,7 +14,7 @@ const Footer = ({ socialIcons }: FooterProps) => {
       <Hr isFooter />
       <Wrapper>
         {socialIcons.map(({ iconSrc, socialLink }, index) => (
-          <FooterIcons iconSrc={iconSrc} socialLink={socialLink} key={index} />
+          <SocialIcons iconSrc={iconSrc} socialLink={socialLink} key={index} />
         ))}
       </Wrapper>
     </Wrap>
