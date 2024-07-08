@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styled from "@emotion/styled";
-import React, { FC } from "react";
+import type { FC } from "react";
 
 import NavButtons from "./nav-buttons";
 
@@ -14,12 +14,12 @@ const navMenu: { text: string; to: string }[] = [
 ];
 
 interface IProps {
-  isNavbar: boolean;
+  isOpen: boolean;
 }
 
-const NavMenu: FC<IProps> = ({ isNavbar }) => {
+const NavMenu: FC<IProps> = ({ isOpen }) => {
   return (
-    <WrapperDown isNavbar={isNavbar}>
+    <WrapperDown isOpen={isOpen}>
       <ButtonsWrap>
         <NavButtons />
       </ButtonsWrap>
@@ -33,57 +33,48 @@ const NavMenu: FC<IProps> = ({ isNavbar }) => {
 };
 export default NavMenu;
 
-const WrapperDown = styled.div<{ isNavbar: boolean }>`
-  flex-direction: row;
-  align-items: center;
-  gap: 32px;
-  display: none;
+export const WrapperDown = styled("div", {
+  shouldForwardProp: (prop: string) => prop !== "isOpen",
+})<{ isOpen: boolean }>(({ theme, isOpen }) => ({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  gap: "32px",
+  transition: "height 0.5s ease, opacity 0.5s ease",
 
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    display: flex;
-    z-index: -1;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background-color: ${({ theme: { colors } }) => colors.blue2};
-    width: 100%;
-    height: 100dvh;
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 32px;
-    padding: 88px 16px 0;
-    transform: translateY(${({ isNavbar, theme }) => (isNavbar ? 0 : "-100%")});
-    opacity: ${({ isNavbar, theme }) => (isNavbar ? 1 : 0)};
-    transition:
-      transform 0.3s linear,
-      opacity 0.3s linear;
-  }
-`;
+  [`@media (${theme.breakpoints.mobile})`]: {
+    overflow: "hidden",
+    height: isOpen ? "95dvh" : "0px",
+    opacity: isOpen ? 1 : 0.7,
+    flexDirection: "column",
+    alignItems: "flex-start",
+    width: "100%",
+  },
+}));
 
-const ButtonsWrap = styled.div`
-  display: none;
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    display: initial;
-    margin-bottom: 32px;
-  }
-`;
+const ButtonsWrap = styled("div")(({ theme }) => ({
+  display: "none",
 
-const ListItem = styled.text`
-  cursor: pointer;
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS20};
-  font-family: Comfortaa, serif;
-  color: ${({ theme: { colors } }) => colors.blue};
-  width: auto;
-  text-align: center;
+  [`@media (${theme.breakpoints.mobile})`]: {
+    display: "initial",
+    marginBottom: "32px",
+  },
+}));
 
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile1}) {
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
-  }
+const ListItem = styled("text")(({ theme }) => ({
+  cursor: "pointer",
+  fontSize: theme.fontSize.fontS20,
+  fontFamily: "Comfortaa, sans-serif",
+  color: theme.colors.blue,
+  width: "auto",
+  textAlign: "center",
+  transition: "color 0.25s ease",
 
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    cursor: pointer;
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS18};
-    font-family: Comfortaa, serif;
-    color: ${({ theme: { colors } }) => colors.blue};
-  }
-`;
+  [`@media (${theme.breakpoints.mobile})`]: {
+    fontSize: theme.fontSize.fontS18,
+  },
+
+  "&:hover": {
+    color: theme.colors.blue3,
+  },
+}));

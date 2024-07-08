@@ -10,10 +10,10 @@ const Header = () => {
   const [isNavbar, setIsNavbar] = useState<boolean>(false);
 
   return (
-    <Wrap>
+    <Wrap isOpen={isNavbar}>
       <WrapperUp>
         <Link href={"/"} style={{ width: "80%" }}>
-          <Logo src="icons/header/logo.svg" />
+          <Logo src="icons/header/logo.svg" isOpen={isNavbar} />
         </Link>
         {isNavbar ? <Global styles={hiddenOverflow} /> : null}
         <BurgerIcon
@@ -24,8 +24,8 @@ const Header = () => {
           <NavButtons />
         </ButtonsWrap>
       </WrapperUp>
-      <Hr />
-      <NavMenu isNavbar={isNavbar} />
+      <Line />
+      <NavMenu isOpen={isNavbar} />
     </Wrap>
   );
 };
@@ -38,59 +38,78 @@ const hiddenOverflow = css`
   }
 `;
 
-const Wrap = styled.div`
-  width: 100%;
-  background-color: ${({ theme: { colors } }) => colors.grey4};
-  backdrop-filter: blur(10px);
-  position: fixed;
-  top: 0;
-  z-index: 10;
-  padding: 24px 100px;
-  border-radius: 0 0 30px 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  box-shadow: 0 -10px 20px ${({ theme: { colors } }) => colors.grey3};
+const Wrap = styled("div", {
+  shouldForwardProp: (prop) => prop !== "isOpen",
+})<{ isOpen: boolean }>(({ theme, isOpen }) => ({
+  width: "100%",
+  backgroundColor: theme.colors.grey4,
+  backdropFilter: "blur(10px)",
+  position: "fixed",
+  top: 0,
+  zIndex: 10,
+  padding: "24px 100px",
+  borderRadius: "0 0 30px 30px",
+  display: "flex",
+  flexDirection: "column",
+  boxShadow: `0 -10px 20px ${theme.colors.grey3}`,
+  maxHeight: "100dvh",
+  overflow: "hidden",
 
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    padding: 24px;
-  }
-`;
+  [`@media (${theme.breakpoints.mobile})`]: {
+    borderRadius: isOpen ? "0" : "0 0 20px 20px",
+    padding: "24px 16px 0",
+    backgroundColor: isOpen ? theme.colors.blue2 : theme.colors.grey4,
+  },
+}));
 
-const ButtonsWrap = styled.div`
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    display: none;
-  }
-`;
+const ButtonsWrap = styled("div")(({ theme }) => ({
+  [`@media (${theme.breakpoints.mobile})`]: {
+    display: "none",
+  },
+}));
 
-const Logo = styled.img`
-  width: 370px;
-  height: 52px;
-  cursor: pointer;
+export const Logo = styled("img", {
+  shouldForwardProp: (prop) => prop !== "isOpen",
+})<{ isOpen: boolean }>(({ theme, isOpen }) => ({
+  width: "370px",
+  height: "52px",
+  cursor: "pointer",
 
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    display: block;
-    height: 30px;
-    width: auto;
-  }
+  [`@media (${theme.breakpoints.mobile})`]: {
+    transition: "opacity 0.5s ease, transform 0.5s ease",
+    display: "block",
+    height: "30px",
+    width: "auto",
+    opacity: isOpen ? 0 : 1,
+    transform: isOpen ? "translateY(-100%)" : "none",
+  },
 
-  &:hover {
-    opacity: 0.8;
-  }
-`;
+  "&:hover": {
+    opacity: 0.8,
+  },
+}));
 
-const WrapperUp = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
+const WrapperUp = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
 
-const BurgerIcon = styled.img`
-  display: none;
+  [`@media (${theme.breakpoints.mobile})`]: {
+    paddingBottom: "16px",
+  },
+}));
 
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    display: block;
-    cursor: pointer;
-    width: 30px;
-  }
-`;
+const BurgerIcon = styled("img")(({ theme }) => ({
+  display: "none",
+
+  [`@media (${theme.breakpoints.mobile})`]: {
+    display: "block",
+    height: "30px",
+    width: "30px",
+    cursor: "pointer",
+  },
+}));
+
+const Line = styled(Hr)({
+  margin: "16px 0",
+});
