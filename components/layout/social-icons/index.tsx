@@ -9,7 +9,7 @@ export interface SocialIcon {
 const SocialIcons = ({ iconSrc, socialLink }: SocialIcon) => {
   return (
     <Link href={socialLink}>
-      <Icon src={iconSrc} alt={iconSrc} />
+      <Icon src={iconSrc} alt={iconSrc} loading="lazy" />
     </Link>
   );
 };

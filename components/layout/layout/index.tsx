@@ -1,9 +1,14 @@
 import React from "react";
 import StickyContainer from "../header/children/sticky-container";
 import Header from "../header";
-import Footer from "../footer";
 import styled from "@emotion/styled";
+import dynamic from "next/dynamic";
+import Loader from "../loader";
+import LazyWrapper from "../lazy-wrapper";
 
+const DynamicFooter = dynamic(() => import("../footer"), {
+  loading: () => <Loader />,
+});
 const Layout = ({ children, footer }: any) => {
   return (
     <Wrap>
@@ -11,7 +16,9 @@ const Layout = ({ children, footer }: any) => {
         <Header />
       </StickyContainer>
       {children}
-      <Footer socialIcons={footer} />
+      <LazyWrapper minHeight={55}>
+        <DynamicFooter socialIcons={footer} />
+      </LazyWrapper>
     </Wrap>
   );
 };

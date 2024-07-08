@@ -3,9 +3,6 @@ import App from "next/app";
 import { Global, css } from "@emotion/react";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "../context/theme/theme";
-import StickyContainer from "../components/layout/header/children/sticky-container";
-import Header from "../components/layout/header";
-import Footer from "../components/layout/footer";
 import Layout from "../components/layout/layout";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {

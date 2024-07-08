@@ -5,7 +5,7 @@ import Main from "../components/sections/main";
 import Loader from "../components/layout/loader";
 import Promotions from "../components/sections/promotions";
 import SectionsWrapper from "../components/layout/section-wrapper";
-import LazyLoadComponent from "../components/layout/lazy-load-component";
+import LazyWrapper from "../components/layout/lazy-wrapper";
 // utils
 import styled from "@emotion/styled";
 import dynamic from "next/dynamic";
@@ -15,14 +15,12 @@ import type { EventCardProps } from "../components/sections/main/children/types"
 import type { AnnouncementCardProps } from "../components/sections/announcements/children/types";
 
 const DynamicBanner = dynamic(() => import("../components/sections/banner"), {
-  ssr: true,
   loading: () => <Loader />,
 });
 
 const DynamicAnnouncements = dynamic(
   () => import("../components/sections/announcements"),
   {
-    ssr: true,
     loading: () => <Loader />,
   },
 );
@@ -30,7 +28,6 @@ const DynamicAnnouncements = dynamic(
 const DynamicFeedbackForm = dynamic(
   () => import("../components/sections/feedback"),
   {
-    ssr: true,
     loading: () => <Loader />,
   },
 );
@@ -57,30 +54,30 @@ const Home = ({ eventCards, promCards, announcementsCards }: Props) => {
         mobUrl="images/background/mobile-background-gradient.svg"
       >
         <Promotions promCards={promCards} />
-        <LazyLoadComponent>
+        <LazyWrapper>
           <DynamicBanner
             imgLink="images/banners/banner1.webp"
             title="Need a Ride? Click Here to Find a Taxi Now!"
             buttonText="Find Taxi"
             isBottomContent
           />
-        </LazyLoadComponent>
-        <LazyLoadComponent>
+        </LazyWrapper>
+        <LazyWrapper minHeight={600}>
           <DynamicAnnouncements announcementsCards={announcementsCards} />
-        </LazyLoadComponent>
-        <LazyLoadComponent>
+        </LazyWrapper>
+        <LazyWrapper>
           <DynamicBanner
             imgLink="images/banners/banner2.webp"
             title="Learn more important information"
             buttonText="Contact us"
           />
-        </LazyLoadComponent>
-        {/*<LazyLoadComponent>*/}
+        </LazyWrapper>
+        {/*<LazyWrapper>*/}
         {/*  <DynamicMap promCards={promCards} />*/}
-        {/*</LazyLoadComponent>*/}
-        <LazyLoadComponent>
+        {/*</LazyWrapper>*/}
+        <LazyWrapper minHeight={560}>
           <DynamicFeedbackForm />
-        </LazyLoadComponent>
+        </LazyWrapper>
       </SectionsWrapper>
     </Wrap>
   );
