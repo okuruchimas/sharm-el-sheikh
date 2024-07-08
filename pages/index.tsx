@@ -1,20 +1,44 @@
+import { dataPromCards, type PromCardProps } from "./api/prom-cards";
+// components
 import Head from "next/head";
-import styled from "@emotion/styled";
 import Main from "../components/sections/main";
-import Header from "../components/layout/header";
-import Footer, { FooterProps } from "../components/layout/footer";
-import { EventCardProps } from "../components/sections/main/children/types";
-import Banner from "../components/sections/banner";
-import StickyContainer from "../components/layout/header/children/sticky-container";
+import Loader from "../components/layout/loader";
 import Promotions from "../components/sections/promotions";
-import Announcements from "../components/sections/announcements";
-import FeedbackForm from "../components/sections/feedback";
-import Map from "../components/sections/map";
-import { AnnouncementCardProps } from "../components/sections/announcements/children/types";
-import { dataPromCards, PromCardProps } from "./api/prom-cards";
-import { fetchAPI } from "../utils/fetchApi";
 import SectionsWrapper from "../components/layout/section-wrapper";
 import LazyLoadComponent from "../components/layout/lazy-load-component";
+// utils
+import styled from "@emotion/styled";
+import dynamic from "next/dynamic";
+// types
+import type { FooterProps } from "../components/layout/footer";
+import type { EventCardProps } from "../components/sections/main/children/types";
+import type { AnnouncementCardProps } from "../components/sections/announcements/children/types";
+
+const DynamicBanner = dynamic(() => import("../components/sections/banner"), {
+  ssr: true,
+  loading: () => <Loader />,
+});
+
+const DynamicAnnouncements = dynamic(
+  () => import("../components/sections/announcements"),
+  {
+    ssr: true,
+    loading: () => <Loader />,
+  },
+);
+
+const DynamicFeedbackForm = dynamic(
+  () => import("../components/sections/feedback"),
+  {
+    ssr: true,
+    loading: () => <Loader />,
+  },
+);
+
+// const DynamicMap = dynamic(() => import('../components/sections/map'), {
+//   ssr: true,
+//   loading: () => <Loader />,
+// });
 
 type Props = EventCardProps &
   PromCardProps &
@@ -32,11 +56,9 @@ const Home = ({ eventCards, promCards, announcementsCards }: Props) => {
         url="images/background/background-gradient.svg"
         mobUrl="images/background/mobile-background-gradient.svg"
       >
+        <Promotions promCards={promCards} />
         <LazyLoadComponent>
-          <Promotions promCards={promCards} />
-        </LazyLoadComponent>
-        <LazyLoadComponent>
-          <Banner
+          <DynamicBanner
             imgLink="images/banners/banner1.webp"
             title="Need a Ride? Click Here to Find a Taxi Now!"
             buttonText="Find Taxi"
@@ -44,20 +66,20 @@ const Home = ({ eventCards, promCards, announcementsCards }: Props) => {
           />
         </LazyLoadComponent>
         <LazyLoadComponent>
-          <Announcements announcementsCards={announcementsCards} />
+          <DynamicAnnouncements announcementsCards={announcementsCards} />
         </LazyLoadComponent>
         <LazyLoadComponent>
-          <Banner
+          <DynamicBanner
             imgLink="images/banners/banner2.webp"
             title="Learn more important information"
             buttonText="Contact us"
           />
         </LazyLoadComponent>
         {/*<LazyLoadComponent>*/}
-        {/*  <Map promCards={promCards} />*/}
+        {/*  <DynamicMap promCards={promCards} />*/}
         {/*</LazyLoadComponent>*/}
         <LazyLoadComponent>
-          <FeedbackForm />
+          <DynamicFeedbackForm />
         </LazyLoadComponent>
       </SectionsWrapper>
     </Wrap>
