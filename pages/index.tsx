@@ -14,6 +14,7 @@ import { AnnouncementCardProps } from "../components/sections/announcements/chil
 import { dataPromCards, PromCardProps } from "./api/prom-cards";
 import { fetchAPI } from "../utils/fetchApi";
 import SectionsWrapper from "../components/layout/section-wrapper";
+import LazyLoadComponent from "../components/layout/lazy-load-component";
 
 type Props = EventCardProps &
   PromCardProps &
@@ -26,27 +27,38 @@ const Home = ({ eventCards, promCards, announcementsCards }: Props) => {
       <Head>
         <title>Sharm El Sheikh</title>
       </Head>
-
       {eventCards ? <Main eventCards={eventCards} /> : null}
       <SectionsWrapper
         url="images/background/background-gradient.svg"
         mobUrl="images/background/mobile-background-gradient.svg"
       >
-        <Promotions promCards={promCards} />
-        <Banner
-          imgLink="images/banners/banner1.webp"
-          title="Need a Ride? Click Here to Find a Taxi Now!"
-          buttonText="Find Taxi"
-          isBottomContent
-        />
-        <Announcements announcementsCards={announcementsCards} />
-        <Banner
-          imgLink="images/banners/banner2.webp"
-          title="Learn more important information"
-          buttonText="Contact us"
-        />
-        {/*<Map promCards={promCards} />*/}
-        <FeedbackForm />
+        <LazyLoadComponent>
+          <Promotions promCards={promCards} />
+        </LazyLoadComponent>
+        <LazyLoadComponent>
+          <Banner
+            imgLink="images/banners/banner1.webp"
+            title="Need a Ride? Click Here to Find a Taxi Now!"
+            buttonText="Find Taxi"
+            isBottomContent
+          />
+        </LazyLoadComponent>
+        <LazyLoadComponent>
+          <Announcements announcementsCards={announcementsCards} />
+        </LazyLoadComponent>
+        <LazyLoadComponent>
+          <Banner
+            imgLink="images/banners/banner2.webp"
+            title="Learn more important information"
+            buttonText="Contact us"
+          />
+        </LazyLoadComponent>
+        {/*<LazyLoadComponent>*/}
+        {/*  <Map promCards={promCards} />*/}
+        {/*</LazyLoadComponent>*/}
+        <LazyLoadComponent>
+          <FeedbackForm />
+        </LazyLoadComponent>
       </SectionsWrapper>
     </Wrap>
   );
