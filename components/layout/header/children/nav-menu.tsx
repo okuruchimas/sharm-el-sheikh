@@ -44,7 +44,7 @@ export const WrapperDown = styled("div", {
 
   [`@media (${theme.breakpoints.mobile})`]: {
     overflow: "hidden",
-    height: isOpen ? "95dvh" : "0px",
+    height: isOpen ? "100dvh" : "0px",
     opacity: isOpen ? 1 : 0.7,
     flexDirection: "column",
     alignItems: "flex-start",

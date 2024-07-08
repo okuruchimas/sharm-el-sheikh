@@ -53,7 +53,6 @@ const Wrap = styled("div", {
   flexDirection: "column",
   boxShadow: `0 -10px 20px ${theme.colors.grey3}`,
   maxHeight: "100dvh",
-  overflow: "hidden",
 
   [`@media (${theme.breakpoints.mobile})`]: {
     borderRadius: isOpen ? "0" : "0 0 20px 20px",
