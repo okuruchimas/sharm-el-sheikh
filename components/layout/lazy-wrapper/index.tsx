@@ -14,7 +14,7 @@ interface LazyLoadComponentProps {
 
 const LazyWrapper = ({
   children,
-  threshold = 0.1,
+  threshold = 0.01,
   triggerOnce = true,
   minHeight = 340,
 }: LazyLoadComponentProps) => {
