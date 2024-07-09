@@ -27,32 +27,34 @@ const TypeSwitcher = ({ currentType, setType }: Props) => {
   );
 };
 
+const Wrap = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  width: "max-content",
+  borderBottom: `1px solid` + theme.colors.grey,
+  cursor: "pointer",
+
+  [`@media (${theme.breakpoints.mobile})`]: {
+    width: "100%",
+    overflowX: "auto",
+    whiteSpace: "nowrap",
+    scrollbarWidth: "none",
+
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+  },
+}));
+
+const Type = styled("span", {
+  shouldForwardProp: (prop) => prop !== "isActive",
+})<{ isActive: boolean }>(({ theme, isActive }) => ({
+  padding: "16px",
+  fontFamily: "Comfortaa, serif",
+  fontSize: theme.fontSize.fontS16,
+  color: isActive ? theme.colors.black : theme.colors.grey1,
+  paddingBottom: isActive ? "12px" : "initial",
+  borderBottom: isActive ? "4px solid" + theme.colors.yellow2 : "none",
+}));
+
 export default TypeSwitcher;
-
-const Wrap = styled.div`
-  width: max-content;
-  display: flex;
-  flex-direction: row;
-  border-bottom: 1px solid #8f9193;
-  cursor: pointer;
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    width: 100%;
-    overflow-x: auto;
-    white-space: nowrap;
-
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-`;
-
-const Type = styled.span<{ isActive: boolean }>`
-  padding: 16px;
-  font-family: Comfortaa, serif;
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
-  color: ${({ isActive, theme: { colors } }) =>
-    isActive ? colors.black : colors.grey1};
-  padding-bottom: ${({ isActive }) => (isActive ? "12px" : "initial")};
-  border-bottom: ${({ isActive }) => (isActive ? "4px solid #FFC01B" : "none")};
-`;

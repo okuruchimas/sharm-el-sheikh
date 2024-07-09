@@ -17,6 +17,8 @@ export const theme = {
     blue5: "#29a9c2",
     peach: "#e8d4c4",
     yellow: "#ffb901",
+    yellow2: "#FFC01B",
+    red: "#ff5449",
   },
   fontSize: {
     fontS10: "10px",

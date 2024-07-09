@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { ErrorMessage, Field, useField, FieldProps } from "formik";
 import InputMask from "react-input-mask";
@@ -47,71 +46,66 @@ const Input = ({ label, type, mask, placeholder, as }: Props) => {
   );
 };
 
-export default Input;
+const InputWrap = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  maxWidth: "310px",
+  position: "relative",
+  margin: "0 auto",
+});
 
-const InputWrap = styled.div`
-  max-width: 310px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-`;
+const Label = styled("label")(({ theme }) => ({
+  position: "absolute",
+  left: "16px",
+  top: "-8px",
+  borderRadius: "4px",
+  padding: "4px",
+  background: theme.colors.white,
+  fontFamily: "Comfortaa, serif",
+  fontSize: theme.fontSize.fontS12,
+}));
 
-const Label = styled.label`
-  font-family: Comfortaa, serif;
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS12};
-  padding: 4px;
-  position: absolute;
-  background: white;
-  left: 16px;
-  top: -8px;
-  border-radius: 4px;
-`;
-
-const ErrorStyled = styled(ErrorMessage)`
-  font-family: Comfortaa, serif;
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS12};
-  color: #ff5449;
-  margin: 4px 16px 0;
-`;
-
-const InputStyled = styled(Field)``;
+const ErrorStyled = styled(ErrorMessage)(({ theme }) => ({
+  fontFamily: "Comfortaa, serif",
+  fontSize: theme.fontSize.fontS12,
+  color: theme.colors.red,
+  margin: "4px 16px 0",
+}));
 
 const InputContainer = styled("div", {
-  shouldForwardProp: (prop) => prop !== "isMessage" && prop !== "isErrorSpan",
-})<{
-  isMessage: boolean;
-  isErrorSpan: boolean;
-}>`
-  display: flex;
-  align-items: center;
+  shouldForwardProp: (prop) => !["isMessage", "isErrorSpan"].includes(prop),
+})<{ isMessage: boolean; isErrorSpan: boolean }>(
+  ({ theme, isMessage, isErrorSpan }) => ({
+    display: "flex",
+    alignItems: "center",
 
-  input,
-  textarea {
-    min-width: 310px;
-    background-color: white;
-    min-height: ${({ isMessage }) => (isMessage ? "130px" : "58px")};
-    border-radius: 16px;
-    padding: ${({ isMessage }) => (isMessage ? "16px" : "0")} 16px;
-    border: ${({ isErrorSpan }) =>
-      isErrorSpan ? "2px solid #ff5449" : "none"};
-    outline: none;
-    font-family: Comfortaa, serif;
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
+    "input, textarea": {
+      minWidth: "310px",
+      minHeight: isMessage ? "130px" : "58px",
+      backgroundColor: theme.colors.white,
+      borderRadius: "16px",
+      padding: isMessage ? "16px 16px" : "0 16px",
+      border: isErrorSpan ? "2px solid" + theme.colors.red : "none",
+      outline: "none",
+      fontFamily: "Comfortaa, serif",
+      fontSize: theme.fontSize.fontS16,
 
-    &:focus,
-    &:active {
-      background-color: white;
-      outline: none;
-      border: ${({ isErrorSpan }) =>
-        isErrorSpan ? "2px solid #ff5449" : "2px solid #2e3133"};
-    }
-  }
-`;
+      "&:focus, &:active": {
+        backgroundColor: theme.colors.white,
+        outline: "none",
+        border: isErrorSpan
+          ? "2px solid" + theme.colors.red
+          : "2px solid" + theme.colors.black2,
+      },
+    },
+  }),
+);
 
-const ErrorIcon = styled.img`
-  position: absolute;
-  right: 16px;
-  width: 24px;
-  height: 24px;
-`;
+const ErrorIcon = styled("img")({
+  width: "24px",
+  height: "24px",
+  position: "absolute",
+  right: "16px",
+});
+
+export default Input;

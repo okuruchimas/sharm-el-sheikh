@@ -20,6 +20,8 @@ declare module "@emotion/react" {
       blue5: string;
       peach: string;
       yellow: string;
+      yellow2: string;
+      red: string;
       [key: string]: string;
     };
     fontSize: {
