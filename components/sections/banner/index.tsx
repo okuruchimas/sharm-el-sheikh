@@ -18,42 +18,45 @@ const Banner = ({ imgLink, title, buttonText, isBottomContent }: Props) => {
   );
 };
 
-const Wrap = styled.div<{ imgLink: string; isBottomContent?: boolean }>`
-  display: flex;
-  flex-direction: ${({ isBottomContent }) =>
-    isBottomContent ? "row" : "column"};
-  justify-content: ${({ isBottomContent }) =>
-    isBottomContent ? "flex-start" : "center"};
-  align-items: ${({ isBottomContent }) =>
-    isBottomContent ? "flex-end" : "center"};
-  height: 340px;
-  width: 100%;
-  padding: 16px;
-  gap: 16px;
-  border-radius: 16px;
-  background-image: url(${({ imgLink }) => imgLink});
-  background-size: cover;
+const Wrap = styled("div", {
+  shouldForwardProp: (prop) => !["imgLink", "isBottomContent"].includes(prop),
+})<{ imgLink: string; isBottomContent?: boolean }>(
+  ({ theme, imgLink, isBottomContent }) => ({
+    display: "flex",
+    flexDirection: isBottomContent ? "row" : "column",
+    justifyContent: isBottomContent ? "flex-start" : "center",
+    alignItems: isBottomContent ? "flex-end" : "center",
+    height: "340px",
+    width: "100%",
+    padding: "16px",
+    gap: "16px",
+    borderRadius: "16px",
+    backgroundImage: "url(" + imgLink + ")",
+    backgroundSize: "cover",
 
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    flex-direction: column;
-    justify-content: ${({ isBottomContent }) =>
-      isBottomContent ? "flex-end" : "center"};
-  }
-`;
-const Title = styled.h3<{ isBottomContent?: boolean }>`
-  font-family: Comfortaa, serif;
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS48};
-  color: ${({ theme: { colors } }) => colors.white};
-  text-align: ${({ isBottomContent }) => (isBottomContent ? "left" : "center")};
-  max-width: 60%;
-  margin: 0;
+    [`@media (${theme.breakpoints.mobile})`]: {
+      flexDirection: "column",
+      justifyContent: isBottomContent ? "flex-end" : "center",
+    },
+  }),
+);
 
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS22};
-    font-weight: 400;
-    align-self: ${({ isBottomContent }) =>
-      isBottomContent ? "flex-start" : "initial"};
-    max-width: 100%;
-  }
-`;
+const Title = styled("h3", {
+  shouldForwardProp: (prop) => prop !== "isBottomContent",
+})<{ isBottomContent?: boolean }>(({ theme, isBottomContent }) => ({
+  fontFamily: "Comfortaa, serif",
+  fontSize: theme.fontSize.fontS48,
+  color: theme.colors.white,
+  textAlign: isBottomContent ? "left" : "center",
+  maxWidth: "60%",
+  margin: "0",
+
+  [`@media (${theme.breakpoints.mobile})`]: {
+    fontSize: theme.fontSize.fontS22,
+    fontWeight: "400",
+    alignSelf: isBottomContent ? "flex-start" : "initial",
+    maxWidth: "100%",
+  },
+}));
+
 export default Banner;
