@@ -31,7 +31,7 @@ export default StickyContainer;
 
 const Wrap = styled.div<{ hide: any }>`
   & > div {
-    transform: ${({ hide }) => `translateY(${hide ? -110 : -1}%)`};
+    transform: ${({ hide }) => `translateY(${hide ? -110 : 0}%)`};
     transition: transform 0.2s ease;
     position: fixed;
     top: 0;
