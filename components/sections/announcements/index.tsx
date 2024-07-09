@@ -1,10 +1,9 @@
-import React from "react";
 import styled from "@emotion/styled";
 import Title from "../../layout/title";
-import Card from "./children/card";
-import { AnnouncementCardProps } from "./children/types";
 import Button from "../../layout/button";
 import LinkButton from "../../layout/link-button";
+import Card from "./children/card";
+import { AnnouncementCardProps } from "./children/types";
 
 const Announcements = ({ announcementsCards }: AnnouncementCardProps) => {
   return (
@@ -34,51 +33,51 @@ const Announcements = ({ announcementsCards }: AnnouncementCardProps) => {
   );
 };
 
+const WrapSection = styled("div")({
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
+});
+
+const CardWrap = styled("div")(({ theme }) => ({
+  display: "grid",
+  gridTemplateColumns: "1fr 1fr",
+  width: "100%",
+  margin: "24px 0",
+  gap: "16px",
+
+  [`@media (${theme.breakpoints.mobile})`]: {
+    gridTemplateColumns: "1fr",
+  },
+}));
+
+const ButtonWrap = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  [`@media (${theme.breakpoints.mobile})`]: {
+    display: "none",
+  },
+}));
+
+const MobLink = styled("div")(({ theme }) => ({
+  "a,span": {
+    display: "none",
+  },
+
+  [`@media (${theme.breakpoints.mobile})`]: {
+    "a,span": {
+      display: "initial",
+    },
+  },
+}));
+
+const TopWrap = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+});
+
 export default Announcements;
-
-const WrapSection = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-`;
-
-const CardWrap = styled.div`
-  width: 100%;
-  margin: 24px 0;
-  gap: 16px;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const ButtonWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    display: none;
-  }
-`;
-
-const MobLink = styled.div`
-  a,
-  span {
-    display: none;
-  }
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    a,
-    span {
-      display: initial;
-    }
-  }
-`;
-
-const TopWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
