@@ -1,6 +1,9 @@
+//libs
 import React from "react";
-import styled from "@emotion/styled";
+//components
 import Button from "../../layout/button";
+//utils
+import styled from "@emotion/styled";
 
 interface Props {
   imgLink: string;
@@ -31,7 +34,7 @@ const Wrap = styled("div", {
     padding: "16px",
     gap: "16px",
     borderRadius: "16px",
-    backgroundImage: "url(" + imgLink + ")",
+    backgroundImage: `url(${imgLink})`,
     backgroundSize: "cover",
 
     [`@media (${theme.breakpoints.mobile})`]: {
@@ -44,7 +47,6 @@ const Wrap = styled("div", {
 const Title = styled("h3", {
   shouldForwardProp: (prop) => prop !== "isBottomContent",
 })<{ isBottomContent?: boolean }>(({ theme, isBottomContent }) => ({
-  fontFamily: "Comfortaa, serif",
   fontSize: theme.fontSize.fontS48,
   color: theme.colors.white,
   textAlign: isBottomContent ? "left" : "center",

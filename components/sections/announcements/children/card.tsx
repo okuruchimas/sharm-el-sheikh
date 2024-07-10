@@ -1,6 +1,9 @@
-import styled from "@emotion/styled";
+//components
 import { SubTitle } from "../../../layout/subtitle";
 import SocialIcons from "../../../layout/social-icons";
+//utils
+import styled from "@emotion/styled";
+//types
 import { AnnouncementCardI } from "./types";
 
 const Card = ({ image, title, text, icons, isFirst }: AnnouncementCardI) => {
@@ -48,7 +51,6 @@ const AnnounceImage = styled("img", {
 }));
 
 const Description = styled("span")(({ theme }) => ({
-  fontFamily: "Comfortaa, serif",
   fontWeight: "400",
   fontSize: theme.fontSize.fontS18,
   color: theme.colors.black2,

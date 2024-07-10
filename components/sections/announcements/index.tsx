@@ -1,8 +1,11 @@
-import styled from "@emotion/styled";
+//components
 import Title from "../../layout/title";
 import Button from "../../layout/button";
 import LinkButton from "../../layout/link-button";
 import Card from "./children/card";
+//utils
+import styled from "@emotion/styled";
+//types
 import { AnnouncementCardProps } from "./children/types";
 
 const Announcements = ({ announcementsCards }: AnnouncementCardProps) => {
@@ -63,12 +66,12 @@ const ButtonWrap = styled("div")(({ theme }) => ({
 }));
 
 const MobLink = styled("div")(({ theme }) => ({
-  "a,span": {
+  "a, span": {
     display: "none",
   },
 
   [`@media (${theme.breakpoints.mobile})`]: {
-    "a,span": {
+    "a, span": {
       display: "initial",
     },
   },

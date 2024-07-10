@@ -20,6 +20,9 @@ export const theme = {
     yellow2: "#FFC01B",
     red: "#ff5449",
   },
+  backgrounds: {
+    mainSection: "url('images/background/bg-main-section.svg')",
+  },
   fontSize: {
     fontS10: "10px",
     fontS12: "12px",
