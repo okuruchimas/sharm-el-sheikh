@@ -4,7 +4,6 @@ import { useState, type FC } from "react";
 import styled from "@emotion/styled";
 // types
 import type { selectOption } from "../../types/filter";
-import { theme } from "../../../context/theme/theme";
 
 type FiltersProps = {
   options: selectOption[];
