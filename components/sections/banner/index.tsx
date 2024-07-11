@@ -1,5 +1,3 @@
-//libs
-import React from "react";
 //components
 import Button from "../../layout/button";
 //utils
@@ -37,7 +35,7 @@ const Wrap = styled("div", {
     backgroundImage: `url(${imgLink})`,
     backgroundSize: "cover",
 
-    [`@media (${theme.breakpoints.mobile})`]: {
+    [theme.breakpoints.mobile]: {
       flexDirection: "column",
       justifyContent: isBottomContent ? "flex-end" : "center",
     },
@@ -53,7 +51,7 @@ const Title = styled("h3", {
   maxWidth: "60%",
   margin: "0",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS22,
     fontWeight: "400",
     alignSelf: isBottomContent ? "flex-start" : "initial",

@@ -35,7 +35,7 @@ const Wrap = styled("div")(({ theme }) => ({
   borderRadius: "16px",
   backgroundColor: theme.colors.white,
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     width: "100%",
   },
 }));
@@ -44,7 +44,7 @@ const Logo = styled("img")(({ theme }) => ({
   height: "106px",
   width: "106px",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     height: "80px",
     width: "80px",
   },
@@ -57,7 +57,7 @@ const InfoWrap = styled("div")(({ theme }) => ({
   marginLeft: "16px",
   marginRight: "auto",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     marginLeft: "8px",
     padding: "4px 0",
   },
@@ -69,7 +69,7 @@ const Date = styled("span")(({ theme }) => ({
   fontSize: theme.fontSize.fontS18,
   marginBottom: "4px",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     fontWeight: "600",
     fontSize: theme.fontSize.fontS14,
   },
@@ -81,7 +81,7 @@ const Title = styled("h2")(({ theme }) => ({
   color: theme.colors.black1,
   margin: "0",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     fontWeight: "600",
     fontSize: theme.fontSize.fontS16,
   },
@@ -93,7 +93,7 @@ const BottomWrap = styled("div")(({ theme }) => ({
   gap: "8px",
   marginTop: "8px",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     gap: "4px",
   },
 }));
@@ -104,7 +104,7 @@ const BottomText = styled("span")(({ theme }) => ({
   color: theme.colors.grey2,
   width: "max-content",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     width: "auto",
     fontWeight: "400",
     fontSize: theme.fontSize.fontS12,
@@ -122,7 +122,7 @@ const LinkIcon = styled("img")(({ theme }) => ({
 
   boxShadow: "0 1px 3px 1px #00000026, 0 1px 2px 0 #0000004d",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     height: "30px",
     width: "30px",
   },

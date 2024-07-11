@@ -131,7 +131,7 @@ const MapWrapper = styled("div")(({ theme }) => ({
   position: "relative",
   height: "480px",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     height: "80vh",
   },
 }));
@@ -141,7 +141,7 @@ const InfoWindowWrapper = styled("div")(({ theme }) => ({
   bottom: "102px",
   right: "150px",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     bottom: "14px",
     right: "14px",
   },

@@ -1,10 +1,13 @@
+// libs
 import { useState } from "react";
 import Link from "next/link";
-import styled from "@emotion/styled";
-import { css, Global } from "@emotion/react";
+// components
 import { Hr } from "../hr";
 import NavButtons from "./children/nav-buttons";
 import NavMenu from "./children/nav-menu";
+// utils
+import styled from "@emotion/styled";
+import { css, Global } from "@emotion/react";
 
 const Header = () => {
   const [isNavbar, setIsNavbar] = useState<boolean>(false);
@@ -30,8 +33,6 @@ const Header = () => {
   );
 };
 
-export default Header;
-
 const hiddenOverflow = css`
   body {
     overflow: hidden;
@@ -54,7 +55,7 @@ const Wrap = styled("div", {
   boxShadow: `0 -10px 20px ${theme.colors.grey3}`,
   maxHeight: "100dvh",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     borderRadius: isOpen ? "0" : "0 0 20px 20px",
     padding: "24px 16px 0",
     backgroundColor: isOpen ? theme.colors.blue2 : theme.colors.grey4,
@@ -62,11 +63,10 @@ const Wrap = styled("div", {
 }));
 
 const ButtonsWrap = styled("div")(({ theme }) => ({
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     display: "none",
   },
 }));
-
 export const Logo = styled("img", {
   shouldForwardProp: (prop) => prop !== "isOpen",
 })<{ isOpen: boolean }>(({ theme, isOpen }) => ({
@@ -74,7 +74,8 @@ export const Logo = styled("img", {
   height: "52px",
   cursor: "pointer",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+
+  [theme.breakpoints.mobile]: {
     transition: "opacity 0.5s ease, transform 0.5s ease",
     display: "block",
     height: "30px",
@@ -82,26 +83,24 @@ export const Logo = styled("img", {
     opacity: isOpen ? 0 : 1,
     transform: isOpen ? "translateY(-100%)" : "none",
   },
-
   "&:hover": {
     opacity: 0.8,
   },
 }));
-
 const WrapperUp = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+
+  [theme.breakpoints.mobile]: {
     paddingBottom: "16px",
   },
 }));
-
 const BurgerIcon = styled("img")(({ theme }) => ({
   display: "none",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     display: "block",
     height: "30px",
     width: "30px",
@@ -112,3 +111,5 @@ const BurgerIcon = styled("img")(({ theme }) => ({
 const Line = styled(Hr)({
   margin: "16px 0",
 });
+
+export default Header;

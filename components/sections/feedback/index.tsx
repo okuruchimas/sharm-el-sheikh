@@ -1,12 +1,16 @@
+//libs
 import { useState } from "react";
-import styled from "@emotion/styled";
-import TypeSwitcher from "./children/type-switcher";
 import { Formik, Form } from "formik";
+import { toast, ToastContainer } from "react-toastify";
+//components
+import TypeSwitcher from "./children/type-switcher";
 import { ButtonStyled } from "../../layout/button";
 import Input from "./children/input";
-import { getValidationSchema, getValues } from "./children/utils";
 import Loader from "../../layout/loader";
-import { toast, ToastContainer } from "react-toastify";
+//utils
+import styled from "@emotion/styled";
+import { getValidationSchema, getValues } from "./children/utils";
+//styles
 import "react-toastify/dist/ReactToastify.css";
 
 export interface IValues {

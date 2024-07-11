@@ -1,10 +1,13 @@
-import styled from "@emotion/styled";
+//components
 import PromCard from "./children/prom-card";
 import Button from "../../layout/button";
 import LinkButton from "../../layout/link-button";
 import Dropdown from "../../layout/filters";
 import Background from "./children/background";
 import Title from "../../layout/title";
+//utils
+import styled from "@emotion/styled";
+//types
 import { PromCardProps } from "../../../pages/api/prom-cards";
 
 const sortArr = [
@@ -51,61 +54,61 @@ const Promotions = ({ promCards }: PromCardProps) => {
   );
 };
 
+const WrapSection = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
+  width: "100%",
+});
+
+const TopWrap = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+
+  [theme.breakpoints.mobile]: {
+    flexDirection: "column",
+    alignItems: "normal",
+    gap: "16px",
+  },
+}));
+
+const FiltersWrap = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+});
+
+const MobLink = styled("div")(({ theme }) => ({
+  "a, span": {
+    display: "none",
+  },
+
+  [theme.breakpoints.mobile]: {
+    "a, span": {
+      display: "initial",
+    },
+  },
+}));
+
+const DownWrap = styled("div")(({ theme }) => ({
+  display: "grid",
+  gridTemplateColumns: "1fr 1fr 1fr",
+  gap: "16px",
+
+  [theme.breakpoints.mobile]: {
+    gridTemplateColumns: "1fr",
+  },
+}));
+
+const ButtonWrap = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  [theme.breakpoints.mobile]: {
+    display: "none",
+  },
+}));
+
 export default Promotions;
-
-const WrapSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  width: 100%;
-`;
-
-const TopWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    flex-direction: column;
-    align-items: normal;
-    gap: 16px;
-  }
-`;
-
-const FiltersWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const MobLink = styled.div`
-  a,
-  span {
-    display: none;
-  }
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    a,
-    span {
-      display: initial;
-    }
-  }
-`;
-
-const DownWrap = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const ButtonWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    display: none;
-  }
-`;

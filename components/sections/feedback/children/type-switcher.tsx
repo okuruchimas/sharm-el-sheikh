@@ -1,4 +1,6 @@
+//libs
 import { Dispatch, SetStateAction } from "react";
+//utils
 import styled from "@emotion/styled";
 
 const types = [
@@ -34,7 +36,7 @@ const Wrap = styled("div")(({ theme }) => ({
   borderBottom: `1px solid` + theme.colors.grey,
   cursor: "pointer",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     width: "100%",
     overflowX: "auto",
     whiteSpace: "nowrap",

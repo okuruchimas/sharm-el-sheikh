@@ -50,7 +50,7 @@ const ItemsWrapper = styled("div")(({ theme }) => ({
   gap: "16px",
   flexWrap: "wrap",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     display: "none",
   },
 }));
@@ -58,7 +58,7 @@ const ItemsWrapper = styled("div")(({ theme }) => ({
 const DropdownWrapper = styled("div")(({ theme }) => ({
   display: "none",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     display: "block",
   },
 }));

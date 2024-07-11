@@ -1,6 +1,8 @@
-import styled from "@emotion/styled";
+//libs
 import { ErrorMessage, Field, useField, FieldProps } from "formik";
 import InputMask from "react-input-mask";
+//utils
+import styled from "@emotion/styled";
 
 interface Props {
   label: string;

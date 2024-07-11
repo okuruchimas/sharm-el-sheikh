@@ -1,14 +1,13 @@
 import styled from "@emotion/styled";
 
-const Title = styled.h2`
-  margin: 0;
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS40};
-  color: ${({ theme: { colors } }) => colors.blue};
-  font-family: Comfortaa, serif;
+const Title = styled("h2")(({ theme }) => ({
+  margin: "0",
+  fontSize: theme.fontSize.fontS40,
+  color: theme.colors.blue,
 
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS18};
-  }
-`;
+  [theme.breakpoints.mobile]: {
+    fontSize: theme.fontSize.fontS18,
+  },
+}));
 
 export default Title;

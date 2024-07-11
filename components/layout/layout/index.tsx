@@ -1,10 +1,12 @@
-import React from "react";
+//libs
+import dynamic from "next/dynamic";
+//components
 import StickyContainer from "../header/children/sticky-container";
 import Header from "../header";
-import styled from "@emotion/styled";
-import dynamic from "next/dynamic";
 import Loader from "../loader";
 import LazyWrapper from "../lazy-wrapper";
+//utils
+import styled from "@emotion/styled";
 
 const DynamicFooter = dynamic(() => import("../footer"), {
   loading: () => <Loader />,
@@ -23,8 +25,8 @@ const Layout = ({ children, footer }: any) => {
   );
 };
 
-const Wrap = styled.div`
-  padding-bottom: 40px;
-`;
+const Wrap = styled("div")({
+  paddingBottom: "40px",
+});
 
 export default Layout;

@@ -18,6 +18,7 @@ export const theme = {
     peach: "#e8d4c4",
     yellow: "#ffb901",
     yellow2: "#FFC01B",
+    yellow3: "rgba(255, 185, 1, 0.2)",
     red: "#ff5449",
   },
   backgrounds: {
@@ -39,9 +40,9 @@ export const theme = {
     fontS68: "68px",
   },
   breakpoints: {
-    mobile: "max-width: 1024px",
-    mobile1: "max-width: 1380px",
-    desktop: "min-width 1024px",
+    mobile: "@media (max-width: 1024px)",
+    mobile1: "@media (max-width: 1380px)",
+    desktop: "@media (min-width: 1024px)",
   },
 };
 

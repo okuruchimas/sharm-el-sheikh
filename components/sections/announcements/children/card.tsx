@@ -1,9 +1,9 @@
-//components
+// components
 import { SubTitle } from "../../../layout/subtitle";
 import SocialIcons from "../../../layout/social-icons";
-//utils
+// utils
 import styled from "@emotion/styled";
-//types
+// types
 import { AnnouncementCardI } from "./types";
 
 const Card = ({ image, title, text, icons, isFirst }: AnnouncementCardI) => {
@@ -32,7 +32,7 @@ const Wrap = styled("div", {
 })<{ isFirst: boolean }>(({ isFirst }) => ({
   display: "flex",
   flexDirection: "column",
-  gridRow: isFirst ? "span 2" : "",
+  gridRow: isFirst ? "span 2" : "unset",
   height: "100%",
 }));
 
@@ -44,7 +44,7 @@ const AnnounceImage = styled("img", {
   borderRadius: "16px 16px 0 0",
   objectFit: "cover",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     height: "300px",
     minHeight: "300px",
   },
@@ -72,11 +72,11 @@ const BottomSection = styled("div", {
   gap: "16px",
   padding: "16px",
   borderRadius: "0 0 16px 16px",
-  border: "1px solid" + theme.colors.blue5,
+  border: `1px solid ${theme.colors.blue5}`,
   borderTopStyle: "none",
   backgroundColor: theme.colors.blue4,
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     height: "auto",
   },
 }));

@@ -43,7 +43,7 @@ const WrapSection = styled("div")(({ theme }) => ({
   backgroundPosition: "center",
   backgroundAttachment: "fixed",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     gap: "16px",
     padding: "78px 16px 24px",
     flexDirection: "column-reverse",
@@ -61,7 +61,7 @@ const TopWrap = styled("div")(({ theme }) => ({
   backgroundColor: theme.colors.grey5,
   backdropFilter: "blur(8px)",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     width: "100%",
     padding: "16px",
     gap: "10px",
@@ -74,7 +74,7 @@ const Title = styled("h1")(({ theme }) => ({
   fontSize: theme.fontSize.fontS68,
   margin: "0",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS28,
   },
 }));
@@ -91,7 +91,7 @@ const Subtitle = styled("span")(({ theme }) => ({
   color: theme.colors.blue,
   fontSize: theme.fontSize.fontS32,
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS18,
   },
 }));

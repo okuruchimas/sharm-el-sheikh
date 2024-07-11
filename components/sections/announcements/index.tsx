@@ -50,7 +50,7 @@ const CardWrap = styled("div")(({ theme }) => ({
   margin: "24px 0",
   gap: "16px",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     gridTemplateColumns: "1fr",
   },
 }));
@@ -60,7 +60,7 @@ const ButtonWrap = styled("div")(({ theme }) => ({
   justifyContent: "center",
   alignItems: "center",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     display: "none",
   },
 }));
@@ -70,7 +70,7 @@ const MobLink = styled("div")(({ theme }) => ({
     display: "none",
   },
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     "a, span": {
       display: "initial",
     },
