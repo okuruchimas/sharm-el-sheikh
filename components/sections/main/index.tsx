@@ -1,7 +1,10 @@
-import styled from "@emotion/styled";
+// components
 import EventCard from "./children/event-card";
-import { EventCardProps } from "./children/types";
 import LinkButton from "../../layout/link-button";
+// utils
+import styled from "@emotion/styled";
+// types
+import type { EventCardProps } from "./children/types";
 
 const Main = ({ eventCards }: EventCardProps) => {
   return (
@@ -27,74 +30,70 @@ const Main = ({ eventCards }: EventCardProps) => {
   );
 };
 
+const WrapSection = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "flex-end",
+  gap: "32px",
+  width: "100%",
+  height: "100vh",
+  padding: "78px 100px 24px",
+  backgroundImage: theme.backgrounds.mainSection,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundAttachment: "fixed",
+
+  [theme.breakpoints.mobile]: {
+    gap: "16px",
+    padding: "78px 16px 24px",
+    flexDirection: "column-reverse",
+    alignItems: "flex-start",
+  },
+}));
+
+const TopWrap = styled("div")(({ theme }) => ({
+  width: "520px",
+  padding: "24px",
+  borderRadius: "30px",
+  display: "flex",
+  flexDirection: "column",
+  gap: "16px",
+  backgroundColor: theme.colors.grey5,
+  backdropFilter: "blur(8px)",
+
+  [theme.breakpoints.mobile]: {
+    width: "100%",
+    padding: "16px",
+    gap: "10px",
+  },
+}));
+
+const Title = styled("h1")(({ theme }) => ({
+  fontWeight: "700",
+  color: theme.colors.white,
+  fontSize: theme.fontSize.fontS68,
+  margin: "0",
+
+  [theme.breakpoints.mobile]: {
+    fontSize: theme.fontSize.fontS28,
+  },
+}));
+
+const SubtitleWrap = styled("div")({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
+});
+
+const Subtitle = styled("span")(({ theme }) => ({
+  fontWeight: "700",
+  color: theme.colors.blue,
+  fontSize: theme.fontSize.fontS32,
+
+  [theme.breakpoints.mobile]: {
+    fontSize: theme.fontSize.fontS18,
+  },
+}));
+
 export default Main;
-
-const WrapSection = styled.div`
-  width: 100%;
-  height: 100vh;
-  padding: 78px 100px 24px;
-  background-image: url("images/background/bg-main-section.svg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  gap: 32px;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    gap: 16px;
-    padding: 78px 16px 24px;
-    flex-direction: column-reverse;
-    align-items: flex-start;
-  }
-`;
-
-const TopWrap = styled.div`
-  width: 520px;
-  padding: 24px;
-  border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background-color: ${({ theme: { colors } }) => colors.grey5};
-  backdrop-filter: blur(8px);
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    width: 100%;
-    padding: 16px;
-    gap: 10px;
-  }
-`;
-
-const Title = styled.h1`
-  font-family: Comfortaa, serif;
-  color: ${({ theme: { colors } }) => colors.white};
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS68};
-  font-weight: 700;
-  margin: 0;
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS28};
-  }
-`;
-
-const SubtitleWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const Subtitle = styled.span`
-  font-family: Comfortaa, serif;
-  color: ${({ theme: { colors } }) => colors.blue};
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS32};
-  font-weight: 700;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS18};
-  }
-`;
-const More = styled.img`
-  cursor: pointer;
-`;

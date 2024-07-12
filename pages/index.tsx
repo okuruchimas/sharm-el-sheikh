@@ -158,10 +158,10 @@ export async function getStaticProps() {
   };
 }
 
-export default Home;
+const Wrap = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  flexDirection: "column",
+});
 
-const Wrap = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
+export default Home;

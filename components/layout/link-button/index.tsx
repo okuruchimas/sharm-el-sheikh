@@ -1,5 +1,7 @@
-import styled from "@emotion/styled";
+// libs
 import Link from "next/link";
+// utils
+import styled from "@emotion/styled";
 
 interface Props {
   text: string;
@@ -14,18 +16,17 @@ const LinkButton = ({ text, link }: Props) => {
   );
 };
 
+const Text = styled("span")(({ theme }) => ({
+  padding: "10px 12px",
+  textAlign: "center",
+  color: theme.colors.blue,
+  fontSize: theme.fontSize.fontS16,
+  textDecorationLine: "underline",
+  cursor: "pointer",
+
+  [theme.breakpoints.mobile]: {
+    fontSize: theme.fontSize.fontS14,
+  },
+}));
+
 export default LinkButton;
-
-const Text = styled.span`
-  padding: 10px 12px;
-  text-align: center;
-  color: ${({ theme: { colors } }) => colors.blue};
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
-  font-family: Comfortaa, serif;
-  text-decoration: underline;
-  cursor: pointer;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS14};
-  }
-`;

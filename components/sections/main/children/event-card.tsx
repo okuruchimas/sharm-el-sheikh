@@ -1,6 +1,9 @@
+// components
 import Link from "next/link";
-import { EventCardI } from "./types";
+// utils
 import styled from "@emotion/styled";
+// types
+import type { EventCardI } from "./types";
 
 const EventCard = ({ logo, date, title, price, location }: EventCardI) => {
   return (
@@ -21,117 +24,112 @@ const EventCard = ({ logo, date, title, price, location }: EventCardI) => {
   );
 };
 
+const Wrap = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "500px",
+  maxWidth: "100%",
+  padding: "16px",
+  borderRadius: "16px",
+  backgroundColor: theme.colors.white,
+
+  [theme.breakpoints.mobile]: {
+    width: "100%",
+  },
+}));
+
+const Logo = styled("img")(({ theme }) => ({
+  height: "106px",
+  width: "106px",
+
+  [theme.breakpoints.mobile]: {
+    height: "80px",
+    width: "80px",
+  },
+}));
+
+const InfoWrap = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  padding: "10px 0",
+  marginLeft: "16px",
+  marginRight: "auto",
+
+  [theme.breakpoints.mobile]: {
+    marginLeft: "8px",
+    padding: "4px 0",
+  },
+}));
+
+const Date = styled("span")(({ theme }) => ({
+  fontWeight: "500",
+  color: theme.colors.grey1,
+  fontSize: theme.fontSize.fontS18,
+  marginBottom: "4px",
+
+  [theme.breakpoints.mobile]: {
+    fontWeight: "600",
+    fontSize: theme.fontSize.fontS14,
+  },
+}));
+
+const Title = styled("h2")(({ theme }) => ({
+  fontWeight: "700",
+  fontSize: theme.fontSize.fontS24,
+  color: theme.colors.black1,
+  margin: "0",
+
+  [theme.breakpoints.mobile]: {
+    fontWeight: "600",
+    fontSize: theme.fontSize.fontS16,
+  },
+}));
+
+const BottomWrap = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "8px",
+  marginTop: "8px",
+
+  [theme.breakpoints.mobile]: {
+    gap: "4px",
+  },
+}));
+
+const BottomText = styled("span")(({ theme }) => ({
+  fontWeight: "600",
+  fontSize: theme.fontSize.fontS18,
+  color: theme.colors.grey2,
+  width: "max-content",
+
+  [theme.breakpoints.mobile]: {
+    width: "auto",
+    fontWeight: "400",
+    fontSize: theme.fontSize.fontS12,
+    color: theme.colors.grey3,
+  },
+}));
+
+const LinkIcon = styled("img")(({ theme }) => ({
+  cursor: "pointer",
+  width: "40px",
+  height: "40px",
+  alignSelf: "baseline",
+  transition: "scale 0.3s ease",
+  borderRadius: "50%",
+
+  boxShadow: "0 1px 3px 1px #00000026, 0 1px 2px 0 #0000004d",
+
+  [theme.breakpoints.mobile]: {
+    height: "30px",
+    width: "30px",
+  },
+
+  "&:active, &:focus": {
+    scale: "1.3",
+  },
+}));
+
 export default EventCard;
-
-const Wrap = styled.div`
-  width: 500px;
-  max-width: 100%;
-  padding: 16px;
-  border-radius: 16px;
-  background-color: ${({ theme: { colors } }) => colors.white};
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    width: 100%;
-  }
-`;
-
-const Logo = styled.img`
-  height: 106px;
-  width: 106px;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    height: 80px;
-    width: 80px;
-  }
-`;
-
-const InfoWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 10px 0;
-  margin-left: 16px;
-  margin-right: auto;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    margin-left: 8px;
-    padding: 4px 0;
-  }
-`;
-
-const Date = styled.span`
-  font-family: Comfortaa, serif;
-  color: ${({ theme: { colors } }) => colors.grey1};
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS18};
-  font-weight: 500;
-  margin-bottom: 4px;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS14};
-    font-weight: 600;
-  }
-`;
-
-const Title = styled.h2`
-  font-family: Comfortaa, serif;
-  color: ${({ theme: { colors } }) => colors.black1};
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS24};
-  font-weight: 700;
-  margin: 0;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS16};
-    font-weight: 600;
-  }
-`;
-
-const BottomWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 8px;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    gap: 4px;
-  }
-`;
-
-const BottomText = styled.span`
-  font-family: Comfortaa, serif;
-  color: ${({ theme: { colors } }) => colors.grey2};
-  font-size: ${({ theme: { fontSize } }) => fontSize.fontS18};
-  font-weight: 600;
-  width: max-content;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    width: auto;
-    font-size: ${({ theme: { fontSize } }) => fontSize.fontS12};
-    font-weight: 400;
-    color: ${({ theme: { colors } }) => colors.grey3};
-  }
-`;
-
-const LinkIcon = styled.img`
-  cursor: pointer;
-  height: 40px;
-  width: 40px;
-  align-self: baseline;
-  transition: scale 0.3s ease;
-
-  box-shadow:
-    0 1px 3px 1px #00000026,
-    0 1px 2px 0 #0000004d;
-  border-radius: 50%;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    height: 30px;
-    width: 30px;
-  }
-
-  &:active,
-  &:focus {
-    scale: 1.3;
-  }
-`;

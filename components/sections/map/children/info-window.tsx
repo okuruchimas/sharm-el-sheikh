@@ -55,7 +55,7 @@ const InfoWindowContent = styled("div")(({ theme }) => ({
   overflow: "hidden",
   backgroundColor: theme.colors.white3,
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     borderRadius: "12px",
     maxWidth: "152px",
   },
@@ -69,7 +69,7 @@ const DetailsWrapper = styled("div")(({ theme }) => ({
   gap: "4px",
   backgroundColor: theme.colors.white3,
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     padding: "10px 8px",
   },
 }));
@@ -79,7 +79,7 @@ const NameRatingWrapper = styled("div")(({ theme }) => ({
   justifyContent: "space-between",
   flexDirection: "row",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     flexDirection: "column",
     gap: "4px",
   },
@@ -92,7 +92,7 @@ const Name = styled("div")(({ theme }) => ({
   lineHeight: "20px",
   letterSpacing: "0.1px",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS14,
   },
 }));
@@ -128,7 +128,7 @@ const LocationText = styled("span")(({ theme }) => ({
   color: theme.colors.black1,
   marginLeft: "4px",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS12,
   },
 }));

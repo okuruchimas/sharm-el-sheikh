@@ -1,8 +1,10 @@
+// libs
+import React, { FC } from "react";
 import Link from "next/link";
-import styled from "@emotion/styled";
-import type { FC } from "react";
-
+// components
 import NavButtons from "./nav-buttons";
+// utils
+import styled from "@emotion/styled";
 
 const navMenu: { text: string; to: string }[] = [
   { text: "Hotspots", to: "hotspots" },
@@ -31,7 +33,6 @@ const NavMenu: FC<IProps> = ({ isOpen }) => {
     </WrapperDown>
   );
 };
-export default NavMenu;
 
 export const WrapperDown = styled("div", {
   shouldForwardProp: (prop: string) => prop !== "isOpen",
@@ -42,7 +43,7 @@ export const WrapperDown = styled("div", {
   gap: "32px",
   transition: "height 0.5s ease, opacity 0.5s ease",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     overflow: "hidden",
     height: isOpen ? "100dvh" : "0px",
     opacity: isOpen ? 1 : 0.7,
@@ -55,7 +56,7 @@ export const WrapperDown = styled("div", {
 const ButtonsWrap = styled("div")(({ theme }) => ({
   display: "none",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     display: "initial",
     marginBottom: "32px",
   },
@@ -64,13 +65,12 @@ const ButtonsWrap = styled("div")(({ theme }) => ({
 const ListItem = styled("text")(({ theme }) => ({
   cursor: "pointer",
   fontSize: theme.fontSize.fontS20,
-  fontFamily: "Comfortaa, sans-serif",
   color: theme.colors.blue,
   width: "auto",
   textAlign: "center",
   transition: "color 0.25s ease",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS18,
   },
 
@@ -78,3 +78,5 @@ const ListItem = styled("text")(({ theme }) => ({
     color: theme.colors.blue3,
   },
 }));
+
+export default NavMenu;

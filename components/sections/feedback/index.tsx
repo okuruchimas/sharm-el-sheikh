@@ -1,12 +1,16 @@
-import React, { useState } from "react";
-import styled from "@emotion/styled";
-import TypeSwitcher from "./children/type-switcher";
+// libs
+import { useState } from "react";
 import { Formik, Form } from "formik";
+import { toast, ToastContainer } from "react-toastify";
+// components
+import TypeSwitcher from "./children/type-switcher";
 import { ButtonStyled } from "../../layout/button";
 import Input from "./children/input";
-import { getValidationSchema, getValues } from "./children/utils";
 import Loader from "../../layout/loader";
-import { toast, ToastContainer } from "react-toastify";
+// utils
+import styled from "@emotion/styled";
+import { getValidationSchema, getValues } from "./children/utils";
+// styles
 import "react-toastify/dist/ReactToastify.css";
 
 export interface IValues {
@@ -112,28 +116,28 @@ const FeedbackForm = () => {
   );
 };
 
+const Wrap = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  width: "100%",
+  gap: "24px",
+});
+
+const FormWrap = styled(Form)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "20px",
+  padding: "48px 0",
+  minHeight: "454px",
+  borderRadius: "16px",
+  background: theme.colors.yellow,
+}));
+
+const SubmitButton = styled(ButtonStyled)(({ theme }) => ({
+  minWidth: "310px",
+  color: theme.colors.yellow,
+  margin: "0 auto",
+  cursor: "pointer",
+}));
+
 export default FeedbackForm;
-
-const Wrap = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-`;
-
-const FormWrap = styled(Form)`
-  min-height: 454px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  border-radius: 16px;
-  background: ${({ theme: { colors } }) => colors.yellow};
-  padding: 48px 0;
-`;
-
-const SubmitButton = styled(ButtonStyled)`
-  min-width: 310px;
-  color: ${({ theme: { colors } }) => colors.yellow};
-  margin: 0 auto;
-  cursor: pointer;
-`;

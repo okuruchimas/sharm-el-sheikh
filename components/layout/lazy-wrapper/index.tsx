@@ -30,18 +30,18 @@ const LazyWrapper = ({
   );
 };
 
+const Wrapper = styled("div", {
+  shouldForwardProp: (prop) => prop !== "minHeight",
+})<{ minHeight: number }>(({ theme, minHeight }) => ({
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  minHeight: `450px`,
+
+  [theme.breakpoints.mobile]: {
+    minHeight: `${minHeight}px`,
+  },
+}));
+
 export default LazyWrapper;
-
-const Wrapper = styled("div")<{ minHeight: number }>(
-  ({ theme, minHeight }) => ({
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    minHeight: `450px`,
-
-    [`@media (${theme.breakpoints.mobile})`]: {
-      minHeight: `${minHeight}px`,
-    },
-  }),
-);

@@ -1,7 +1,11 @@
+// libs
 import React, { useState } from "react";
-import View from "./type";
-import styled from "@emotion/styled";
+// hooks
 import useDocumentScrollThrottled from "../../../../hooks/useDocumentScroll";
+// utils
+import styled from "@emotion/styled";
+// types
+import type View from "./type";
 
 const StickyContainer = ({ children }: Props) => {
   const [shouldHideHeader, setShouldHideHeader] = useState(false);
@@ -27,15 +31,17 @@ interface Props {
   children: View;
 }
 
-export default StickyContainer;
+const Wrap = styled("div", {
+  shouldForwardProp: (prop) => prop !== "hide",
+})<{ hide: any }>(({ hide }) => ({
+  "&>div": {
+    transform: hide ? "translateY(-110%)" : "translateY(0%)",
+    transition: "transform 0.2s ease",
+    position: "fixed",
+    top: "0",
+    left: "0",
+    zIndex: "100",
+  },
+}));
 
-const Wrap = styled.div<{ hide: any }>`
-  & > div {
-    transform: ${({ hide }) => `translateY(${hide ? -110 : 0}%)`};
-    transition: transform 0.2s ease;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100;
-  }
-`;
+export default StickyContainer;

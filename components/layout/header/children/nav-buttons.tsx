@@ -1,7 +1,8 @@
-import React from "react";
-import styled from "@emotion/styled";
+// components
 import Button from "../../button";
 import LanguageSelector from "./language-selector";
+// utils
+import styled from "@emotion/styled";
 
 const NavButtons = () => {
   return (
@@ -13,23 +14,23 @@ const NavButtons = () => {
   );
 };
 
+const Buttons = styled("div")(({ theme }) => ({
+  width: "auto",
+  height: "52px",
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: "24px",
+
+  [theme.breakpoints.mobile]: {
+    width: "100%",
+  },
+}));
+
+const SearchButton = styled("img")({
+  height: "40px",
+  width: "40px",
+});
+
 export default NavButtons;
-
-const Buttons = styled.div`
-  width: auto;
-  height: 52px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    width: 100%;
-  }
-`;
-
-const SearchButton = styled.img`
-  height: 40px;
-  width: 40px;
-`;

@@ -1,9 +1,13 @@
-import type { AppProps } from "next/app";
+// components
 import App from "next/app";
+import Layout from "../components/layout/layout";
+// utils
 import { Global, css } from "@emotion/react";
 import { ThemeProvider } from "@emotion/react";
+// types
+import type { AppProps } from "next/app";
+// styles
 import { theme } from "../context/theme/theme";
-import Layout from "../components/layout/layout";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const { footer } = pageProps;
@@ -14,6 +18,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         styles={css`
           * {
             box-sizing: border-box;
+            font-family: Comfortaa, sans-serif;
           }
 
           html,
