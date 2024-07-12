@@ -92,7 +92,7 @@ const NextSlideButton = styled.div(({ theme }) => ({
   backgroundColor: theme.colors.grey4,
   transition: "transform 0.3s ease",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     height: "30px",
     width: "30px",
     right: "10xp",
@@ -108,7 +108,7 @@ const PrevSlideButton = styled(NextSlideButton)(({ theme }) => ({
   left: "16px",
   right: "unset",
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     right: "unset",
     left: "10xp",
   },
@@ -143,7 +143,7 @@ const Promotion = styled.div(({ theme }) => ({
   fontSize: theme.fontSize.fontS16,
   zIndex: 10,
 
-  [`@media (${theme.breakpoints.mobile})`]: {
+  [theme.breakpoints.mobile]: {
     height: "24px",
     top: "10px",
     right: "10px",

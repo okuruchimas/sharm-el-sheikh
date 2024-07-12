@@ -5,7 +5,7 @@ import useDocumentScrollThrottled from "../../../../hooks/useDocumentScroll";
 // utils
 import styled from "@emotion/styled";
 // types
-import View from "./type";
+import type View from "./type";
 
 const StickyContainer = ({ children }: Props) => {
   const [shouldHideHeader, setShouldHideHeader] = useState(false);
@@ -45,4 +45,3 @@ const Wrap = styled("div", {
 }));
 
 export default StickyContainer;
-

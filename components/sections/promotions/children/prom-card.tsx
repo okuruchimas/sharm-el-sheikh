@@ -6,8 +6,7 @@ import Swiper from "./swiper";
 // utils
 import styled from "@emotion/styled";
 // types
-import { PromCardI } from "../../../../pages/api/prom-cards";
-import { theme } from "../../../../context/theme/theme";
+import type { PromCardI } from "../../../../pages/api/prom-cards";
 
 const PromCard = ({ discount, images, location, title, slug }: PromCardI) => {
   return (
@@ -122,9 +121,9 @@ const RatingPoints = styled("span")(({ theme }) => ({
   },
 }));
 
-const RatingViews = styled(RatingPoints)({
+const RatingViews = styled(RatingPoints)(({ theme }) => ({
   color: theme.colors.grey,
-});
+}));
 
 const Location = styled("div")({
   width: "100%",

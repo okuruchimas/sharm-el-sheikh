@@ -4,7 +4,7 @@ import LinkButton from "../../layout/link-button";
 // utils
 import styled from "@emotion/styled";
 // types
-import { EventCardProps } from "./children/types";
+import type { EventCardProps } from "./children/types";
 
 const Main = ({ eventCards }: EventCardProps) => {
   return (

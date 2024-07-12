@@ -3,7 +3,7 @@ import Link from "next/link";
 // utils
 import styled from "@emotion/styled";
 // types
-import { EventCardI } from "./types";
+import type { EventCardI } from "./types";
 
 const EventCard = ({ logo, date, title, price, location }: EventCardI) => {
   return (

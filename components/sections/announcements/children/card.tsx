@@ -4,7 +4,7 @@ import SocialIcons from "../../../layout/social-icons";
 // utils
 import styled from "@emotion/styled";
 // types
-import { AnnouncementCardI } from "./types";
+import type { AnnouncementCardI } from "./types";
 
 const Card = ({ image, title, text, icons, isFirst }: AnnouncementCardI) => {
   return (

@@ -6,7 +6,7 @@ import Card from "./children/card";
 // utils
 import styled from "@emotion/styled";
 // types
-import { AnnouncementCardProps } from "./children/types";
+import type { AnnouncementCardProps } from "./children/types";
 
 const Announcements = ({ announcementsCards }: AnnouncementCardProps) => {
   return (
