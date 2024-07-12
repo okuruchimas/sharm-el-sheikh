@@ -1,5 +1,6 @@
 // components
 import Link from "next/link";
+import NextImage from "../../../layout/Image";
 // utils
 import styled from "@emotion/styled";
 // types
@@ -8,7 +9,14 @@ import type { EventCardI } from "./types";
 const EventCard = ({ logo, date, title, price, location }: EventCardI) => {
   return (
     <Wrap>
-      <Logo src={logo} alt="" />
+      <NextImage
+        src={`/${logo}`}
+        alt=""
+        width="106px"
+        height="106px"
+        mWidth="80px"
+        mHeight="80px"
+      />
       <InfoWrap>
         <Date>{date}</Date>
         <Title>{title}</Title>
@@ -37,16 +45,6 @@ const Wrap = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     width: "100%",
-  },
-}));
-
-const Logo = styled("img")(({ theme }) => ({
-  height: "106px",
-  width: "106px",
-
-  [theme.breakpoints.mobile]: {
-    height: "80px",
-    width: "80px",
   },
 }));
 
