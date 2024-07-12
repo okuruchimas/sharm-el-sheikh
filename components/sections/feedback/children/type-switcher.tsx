@@ -1,6 +1,6 @@
-//libs
+// libs
 import { Dispatch, SetStateAction } from "react";
-//utils
+// utils
 import styled from "@emotion/styled";
 
 const types = [
@@ -33,7 +33,7 @@ const Wrap = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   width: "max-content",
-  borderBottom: `1px solid` + theme.colors.grey,
+  borderBottom: `1px solid ${theme.colors.grey}`,
   cursor: "pointer",
 
   [theme.breakpoints.mobile]: {

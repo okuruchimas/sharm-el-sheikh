@@ -1,7 +1,7 @@
-//libs
+// libs
 import React, { useState } from "react";
 import Link from "next/link";
-//utils
+// utils
 import styled from "@emotion/styled";
 
 interface ILang {

@@ -1,10 +1,10 @@
-//libs
+// libs
 import React, { useState } from "react";
-//hooks
+// hooks
 import useDocumentScrollThrottled from "../../../../hooks/useDocumentScroll";
-//utils
+// utils
 import styled from "@emotion/styled";
-//types
+// types
 import View from "./type";
 
 const StickyContainer = ({ children }: Props) => {

@@ -1,11 +1,11 @@
-//components
+// components
 import Title from "../../layout/title";
 import Button from "../../layout/button";
 import LinkButton from "../../layout/link-button";
 import Card from "./children/card";
-//utils
+// utils
 import styled from "@emotion/styled";
-//types
+// types
 import { AnnouncementCardProps } from "./children/types";
 
 const Announcements = ({ announcementsCards }: AnnouncementCardProps) => {

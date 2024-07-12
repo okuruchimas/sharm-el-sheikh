@@ -1,11 +1,11 @@
-//libs
+// libs
 import Link from "next/link";
-//components
+// components
 import { SubTitle } from "../../../layout/subtitle";
 import Swiper from "./swiper";
-//utils
+// utils
 import styled from "@emotion/styled";
-//types
+// types
 import { PromCardI } from "../../../../pages/api/prom-cards";
 import { theme } from "../../../../context/theme/theme";
 

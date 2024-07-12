@@ -1,4 +1,4 @@
-//libs
+// libs
 import { useState, type FC } from "react";
 // utils
 import styled from "@emotion/styled";

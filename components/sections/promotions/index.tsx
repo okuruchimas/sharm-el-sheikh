@@ -1,13 +1,13 @@
-//components
+// components
 import PromCard from "./children/prom-card";
 import Button from "../../layout/button";
 import LinkButton from "../../layout/link-button";
 import Dropdown from "../../layout/filters";
 import Background from "./children/background";
 import Title from "../../layout/title";
-//utils
+// utils
 import styled from "@emotion/styled";
-//types
+// types
 import { PromCardProps } from "../../../pages/api/prom-cards";
 
 const sortArr = [

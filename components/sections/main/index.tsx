@@ -1,9 +1,9 @@
-//components
+// components
 import EventCard from "./children/event-card";
 import LinkButton from "../../layout/link-button";
-//utils
+// utils
 import styled from "@emotion/styled";
-//types
+// types
 import { EventCardProps } from "./children/types";
 
 const Main = ({ eventCards }: EventCardProps) => {

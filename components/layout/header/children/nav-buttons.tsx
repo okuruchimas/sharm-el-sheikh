@@ -1,7 +1,7 @@
-//components
+// components
 import Button from "../../button";
 import LanguageSelector from "./language-selector";
-//utils
+// utils
 import styled from "@emotion/styled";
 
 const NavButtons = () => {

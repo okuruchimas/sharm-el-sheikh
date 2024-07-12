@@ -1,12 +1,12 @@
-//components
+// components
 import App from "next/app";
 import Layout from "../components/layout/layout";
-//utils
+// utils
 import { Global, css } from "@emotion/react";
 import { ThemeProvider } from "@emotion/react";
-//types
+// types
 import type { AppProps } from "next/app";
-//styles
+// styles
 import { theme } from "../context/theme/theme";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {

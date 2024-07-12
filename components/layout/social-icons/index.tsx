@@ -1,6 +1,6 @@
-//libs
+// libs
 import Link from "next/link";
-//utils
+// utils
 import styled from "@emotion/styled";
 
 export interface SocialIcon {

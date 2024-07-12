@@ -1,8 +1,8 @@
-//components
+// components
 import Link from "next/link";
-//utils
+// utils
 import styled from "@emotion/styled";
-//types
+// types
 import { EventCardI } from "./types";
 
 const EventCard = ({ logo, date, title, price, location }: EventCardI) => {

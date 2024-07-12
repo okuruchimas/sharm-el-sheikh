@@ -10,7 +10,7 @@ const Card = ({ image, title, text, icons, isFirst }: AnnouncementCardI) => {
   return (
     <Wrap isFirst={isFirst}>
       <AnnounceImage src={image} alt={title} isFirst={isFirst} />
-      <BottomSection isFirst={isFirst}>
+      <BottomSection>
         <SubTitle>{title}</SubTitle>
         <Description>{text}</Description>
         <IconsWrapper>
@@ -62,9 +62,7 @@ const IconsWrapper = styled("div")({
   gap: "24px",
 });
 
-const BottomSection = styled("div", {
-  shouldForwardProp: (prop) => prop !== "isFirst",
-})<{ isFirst: boolean }>(({ theme, isFirst }) => ({
+const BottomSection = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",

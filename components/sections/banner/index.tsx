@@ -1,6 +1,6 @@
-//components
+// components
 import Button from "../../layout/button";
-//utils
+// utils
 import styled from "@emotion/styled";
 
 interface Props {

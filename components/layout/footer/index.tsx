@@ -1,7 +1,7 @@
-//components
+// components
 import { Hr } from "../hr";
 import SocialIcons, { SocialIcon } from "../social-icons";
-//utils
+// utils
 import styled from "@emotion/styled";
 
 export interface FooterProps {
