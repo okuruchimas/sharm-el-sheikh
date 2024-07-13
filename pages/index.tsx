@@ -1,38 +1,41 @@
 import { dataPromCards, type PromCardProps } from "./api/prom-cards";
 // components
 import Head from "next/head";
-import Main from "../components/sections/main";
+import Main from "../components/sections/home/main";
 import Loader from "../components/layout/loader";
 import Promotions from "../components/sections/promotions";
-import SectionsWrapper from "../components/layout/section-wrapper";
+import SectionsWrapper from "../components/layout/sections-wrapper";
 import LazyWrapper from "../components/layout/lazy-wrapper";
 // utils
 import styled from "@emotion/styled";
 import dynamic from "next/dynamic";
 // types
 import type { FooterProps } from "../components/layout/footer";
-import type { EventCardProps } from "../components/sections/main/children/types";
-import type { AnnouncementCardProps } from "../components/sections/announcements/children/types";
+import type { EventCardProps } from "../components/sections/home/main/children/types";
+import type { AnnouncementCardProps } from "../components/sections/home/announcements/children/types";
 
-const DynamicBanner = dynamic(() => import("../components/sections/banner"), {
-  loading: () => <Loader />,
-});
+const DynamicBanner = dynamic(
+  () => import("../components/sections/home/banner"),
+  {
+    loading: () => <Loader />,
+  },
+);
 
 const DynamicAnnouncements = dynamic(
-  () => import("../components/sections/announcements"),
+  () => import("../components/sections/home/announcements"),
   {
     loading: () => <Loader />,
   },
 );
 
 const DynamicFeedbackForm = dynamic(
-  () => import("../components/sections/feedback"),
+  () => import("../components/sections/home/feedback"),
   {
     loading: () => <Loader />,
   },
 );
 
-// const DynamicMap = dynamic(() => import('../components/sections/map'), {
+// const DynamicMap = dynamic(() => import("../components/sections/home/map"), {
 //   ssr: true,
 //   loading: () => <Loader />,
 // });

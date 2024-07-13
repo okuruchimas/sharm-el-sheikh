@@ -1,5 +1,5 @@
 // components
-import Button from "../../layout/button";
+import Button from "../../../layout/button";
 // utils
 import styled from "@emotion/styled";
 

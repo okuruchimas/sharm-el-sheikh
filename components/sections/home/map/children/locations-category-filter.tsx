@@ -1,12 +1,12 @@
 import { useCallback, type FC } from "react";
 // components
-import Dropdown from "../../../layout/filters";
+import Dropdown from "../../../../layout/filters";
 // utils
 import styled from "@emotion/styled";
 // constants
 
 // types
-import type { selectOption } from "../../../types/filter";
+import type { selectOption } from "../../../../types/filter";
 import { categoriesOptions } from "./constants";
 
 type LocationsCategoryFilterProps = {

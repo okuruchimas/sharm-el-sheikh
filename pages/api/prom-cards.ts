@@ -1,4 +1,4 @@
-import { Categories } from "../../components/sections/map/children/constants";
+import { Categories } from "../../components/sections/home/map/children/constants";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export interface PromCardI {

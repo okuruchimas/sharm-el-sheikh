@@ -37,7 +37,7 @@ const Wrapper = styled("div", {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  minHeight: `450px`,
+  minHeight: `auto`,
 
   [theme.breakpoints.mobile]: {
     minHeight: `${minHeight}px`,
