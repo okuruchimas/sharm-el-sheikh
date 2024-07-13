@@ -1,7 +1,6 @@
-import { useMemo, useState, type FC, useCallback } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { MarkerF, GoogleMap, useLoadScript } from "@react-google-maps/api";
 // components
-import Title from "../../layout/title";
 import InfoWindow from "./children/info-window";
 import LocationsCategoryFilter from "./children/locations-category-filter";
 // utils
@@ -16,9 +15,10 @@ import {
   mapContainerStyle,
 } from "./children/constants";
 // types
-import type { selectOption } from "../../types/filter";
+import type { selectOption } from "../../../types/filter";
 import { calculateCenter } from "./children/utils";
-import { PromCardI, PromCardProps } from "../../../pages/api/prom-cards";
+import { PromCardI, PromCardProps } from "../../../../pages/api/prom-cards";
+import SectionWrapper from "../../../layout/section-wrapper";
 
 const Map = ({ promCards }: PromCardProps) => {
   // states
@@ -82,8 +82,7 @@ const Map = ({ promCards }: PromCardProps) => {
   };
 
   return (
-    <SectionWrapper>
-      <Title>What to bring with you</Title>
+    <SectionWrapper title="What to bring with you">
       <LocationsCategoryFilter
         selectedID={selectedCategory.key}
         options={categoriesOptions}
@@ -119,13 +118,6 @@ const Map = ({ promCards }: PromCardProps) => {
     </SectionWrapper>
   );
 };
-
-const SectionWrapper = styled("div")({
-  width: "100%",
-  display: "flex",
-  flexDirection: "column",
-  gap: "24px",
-});
 
 const MapWrapper = styled("div")(({ theme }) => ({
   position: "relative",

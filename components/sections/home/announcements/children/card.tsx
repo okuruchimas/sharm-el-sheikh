@@ -1,6 +1,6 @@
 // components
-import { SubTitle } from "../../../layout/subtitle";
-import SocialIcons from "../../../layout/social-icons";
+import { SubTitle } from "../../../../layout/subtitle";
+import SocialIcons from "../../../../layout/social-icons";
 // utils
 import styled from "@emotion/styled";
 // types

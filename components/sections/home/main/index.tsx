@@ -1,6 +1,6 @@
 // components
 import EventCard from "./children/event-card";
-import LinkButton from "../../layout/link-button";
+import LinkButton from "../../../layout/link-button";
 // utils
 import styled from "@emotion/styled";
 // types

@@ -1,22 +1,59 @@
+import React from "react";
+import View from "../header/children/type";
 import styled from "@emotion/styled";
 
-const SectionsWrapper = styled("div", {
-  shouldForwardProp: (prop) => !["url", "mobUrl"].includes(prop),
-})<{ url: string; mobUrl: string }>(({ theme, url, mobUrl }) => ({
+interface Props {
+  children: View;
+  title: string;
+  titleChildren?: View;
+  isColumn?: boolean;
+}
+const SectionWrapper = ({
+  children,
+  title,
+  titleChildren,
+  isColumn,
+}: Props) => {
+  return (
+    <Wrapper>
+      <TitleWrap isColumn={!!isColumn}>
+        <Title>{title}</Title>
+        {titleChildren ? titleChildren : null}
+      </TitleWrap>
+      {children}
+    </Wrapper>
+  );
+};
+
+export default SectionWrapper;
+
+const Wrapper = styled("div")({
   display: "flex",
-  alignItems: "center",
   flexDirection: "column",
+  gap: "24px",
   width: "100%",
-  padding: "80px 100px",
-  gap: "80px",
-  backgroundImage: `url("${url}")`,
-  backgroundSize: "cover",
+});
+
+const TitleWrap = styled("div", {
+  shouldForwardProp: (prop) => prop !== "isColumn",
+})<{ isColumn: boolean }>(({ theme, isColumn }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
 
   [theme.breakpoints.mobile]: {
-    padding: "32px 16px",
-    gap: "32px",
-    backgroundImage: `url("${mobUrl}")`,
+    flexDirection: isColumn ? "column" : "unset",
+    alignItems: isColumn ? "normal" : "unset",
+    gap: isColumn ? "16px" : "unset",
   },
 }));
 
-export default SectionsWrapper;
+const Title = styled("h2")(({ theme }) => ({
+  margin: "0",
+  fontSize: theme.fontSize.fontS40,
+  color: theme.colors.blue,
+
+  [theme.breakpoints.mobile]: {
+    fontSize: theme.fontSize.fontS18,
+  },
+}));

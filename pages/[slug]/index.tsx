@@ -1,18 +1,31 @@
-import { fetchAPI } from "../../utils/fetchApi";
 import { dataPromCards, PromCardI } from "../api/prom-cards";
 import styled from "@emotion/styled";
-import SectionsWrapper from "../../components/layout/section-wrapper";
+import SectionsWrapper from "../../components/layout/sections-wrapper";
+import Promo from "../../components/sections/company/promo";
+import Banner from "../../components/sections/home/banner";
+import Services from "../../components/sections/company/services";
+import Reviews from "../../components/sections/company/reviews";
+import ReviewForm from "../../components/sections/company/review";
 
 interface Props {
   card: PromCardI;
 }
-const CardPage = ({ card }: Props) => {
+const CompanyPage = ({ card }: Props) => {
   return (
     <Wrap
       url="images/background/background-gradient.svg"
       mobUrl="images/background/mobile-background-gradient.svg"
     >
       <h1>{card.title}</h1>
+      <Promo />
+      <Banner
+        imgLink="images/banners/banner2.webp"
+        title="To receive a discount, open this card and show it to the seller"
+        buttonText="Open Card"
+      />
+      <Services />
+      <Reviews />
+      <ReviewForm />
     </Wrap>
   );
 };
@@ -51,4 +64,4 @@ export async function getStaticProps({ params }: any) {
   };
 }
 
-export default CardPage;
+export default CompanyPage;

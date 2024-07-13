@@ -1,4 +1,4 @@
-import { PromCardI } from "../../../../pages/api/prom-cards";
+import { PromCardI } from "../../../../../pages/api/prom-cards";
 
 export const calculateCenter = (
   locations: PromCardI[],

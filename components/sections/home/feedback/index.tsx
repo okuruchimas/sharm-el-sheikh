@@ -4,9 +4,9 @@ import { Formik, Form } from "formik";
 import { toast, ToastContainer } from "react-toastify";
 // components
 import TypeSwitcher from "./children/type-switcher";
-import { ButtonStyled } from "../../layout/button";
+import { ButtonStyled } from "../../../layout/button";
 import Input from "./children/input";
-import Loader from "../../layout/loader";
+import Loader from "../../../layout/loader";
 // utils
 import styled from "@emotion/styled";
 import { getValidationSchema, getValues } from "./children/utils";

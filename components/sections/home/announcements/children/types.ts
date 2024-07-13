@@ -1,4 +1,4 @@
-import { SocialIcon } from "../../../layout/social-icons";
+import { SocialIcon } from "../../../../layout/social-icons";
 
 export interface AnnouncementCardI {
   image: string;

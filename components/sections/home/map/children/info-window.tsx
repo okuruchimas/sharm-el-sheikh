@@ -4,7 +4,7 @@ import Image from "next/image";
 import styled from "@emotion/styled";
 // types
 import type { FC } from "react";
-import { PromCardI } from "../../../../pages/api/prom-cards";
+import { PromCardI } from "../../../../../pages/api/prom-cards";
 
 type InfoWindowProps = {
   location: PromCardI;
