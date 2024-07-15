@@ -42,6 +42,7 @@ const WrapSection = styled("div")(({ theme }) => ({
   backgroundSize: "cover",
   backgroundPosition: "center",
   backgroundAttachment: "fixed",
+  borderRadius: "0 0 30px 30px",
 
   [theme.breakpoints.mobile]: {
     gap: "16px",

@@ -22,7 +22,7 @@ export const theme = {
     red: "#ff5449",
   },
   backgrounds: {
-    mainSection: "url('images/background/bg-main-section.svg')",
+    mainSection: "url('images/background/bg-main-section.webp')",
   },
   fontSize: {
     fontS10: "10px",

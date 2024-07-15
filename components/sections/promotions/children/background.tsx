@@ -1,9 +1,19 @@
+// components
+import NextImage from "../../../layout/Image";
+// utils
 import styled from "@emotion/styled";
 
 const Background = () => {
   return (
     <Wrap>
-      <Image src="images/background/background-prom.svg" alt="image"></Image>
+      <NextImage
+        src="/images/background/background-prom.svg"
+        alt="background"
+        width="100%"
+        height="50vh"
+        mWidth="100%"
+        mHeight="25vh"
+      />
       <Title>Currently no discounts available</Title>
     </Wrap>
   );
@@ -12,10 +22,10 @@ const Background = () => {
 const Wrap = styled("div")({
   width: "100%",
   display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
   flexDirection: "column",
 });
-
-const Image = styled("img")({});
 
 const Title = styled("h3")(({ theme }) => ({
   fontWeight: "700",
