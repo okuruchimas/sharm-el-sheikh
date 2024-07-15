@@ -28,7 +28,10 @@ const PromCard = ({ discount, images, location, title, slug }: PromCardI) => {
         </Up>
         <Down>
           <Location>
-            <LocIcon src="icons/promotions-section/location.svg" />
+            <LocIcon
+              src="icons/promotions-section/location.svg"
+              alt="Location image"
+            />
             <LocationPlace>{location}</LocationPlace>
           </Location>
           <Link href={slug || ""}>

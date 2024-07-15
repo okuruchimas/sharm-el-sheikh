@@ -27,6 +27,10 @@ const Document = () => {
         />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
+        <meta
+          name="description"
+          content="Helping travelers discover the best places in Sharm El Sheikh. Find top restaurants, beaches, hotels, and attractions with our tips and recommendations. Plan your trip easily and comfortably with us."
+        />
       </Head>
       <body>
         <Main />
