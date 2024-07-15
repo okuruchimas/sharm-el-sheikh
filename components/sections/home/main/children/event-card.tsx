@@ -96,7 +96,7 @@ const BottomWrap = styled("div")(({ theme }) => ({
   },
 }));
 
-const BottomText = styled("h4")(({ theme }) => ({
+const BottomText = styled("h3")(({ theme }) => ({
   margin: 0,
   fontWeight: "600",
   fontSize: theme.fontSize.fontS18,

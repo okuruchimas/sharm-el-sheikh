@@ -28,10 +28,16 @@ const SwiperButtons = () => {
   return (
     <>
       <PrevSlideButton onClick={() => swiper.slidePrev()}>
-        <NavIcon src="icons/promotions-section/arrow.svg" />
+        <NavIcon
+          src="icons/promotions-section/arrow.svg"
+          alt="Privious slide button"
+        />
       </PrevSlideButton>
       <NextSlideButton onClick={() => swiper.slideNext()}>
-        <NavIcon src="icons/promotions-section/arrow.svg" />
+        <NavIcon
+          src="icons/promotions-section/arrow.svg"
+          alt="Next slide button"
+        />
       </NextSlideButton>
     </>
   );
@@ -53,7 +59,12 @@ const ImageSwiper: FC<SwiperProps> = ({ images, discount }) => (
     {discount ? <Promotion>{discount}</Promotion> : null}
     {images.map((el, index) => (
       <Slide key={index}>
-        <StyledImage src={`/${el.src}`} alt="" loading="lazy" layout="fill" />
+        <StyledImage
+          src={`/${el.src}`}
+          alt={el.src}
+          loading="lazy"
+          layout="fill"
+        />
       </Slide>
     ))}
   </Wrapper>
