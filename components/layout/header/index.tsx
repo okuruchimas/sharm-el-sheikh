@@ -16,11 +16,12 @@ const Header = () => {
     <Wrap isOpen={isNavbar}>
       <WrapperUp>
         <Link href={"/"} style={{ width: "80%" }}>
-          <Logo src="icons/header/logo.svg" isOpen={isNavbar} />
+          <Logo src="icons/header/logo.svg" alt="logo" isOpen={isNavbar} />
         </Link>
         {isNavbar ? <Global styles={hiddenOverflow} /> : null}
         <BurgerIcon
           src={isNavbar ? "icons/header/close.svg" : "icons/header/burger.svg"}
+          alt="burger-mune"
           onClick={() => setIsNavbar((prevState) => !prevState)}
         />
         <ButtonsWrap>
@@ -74,7 +75,6 @@ export const Logo = styled("img", {
   height: "52px",
   cursor: "pointer",
 
-
   [theme.breakpoints.mobile]: {
     transition: "opacity 0.5s ease, transform 0.5s ease",
     display: "block",
@@ -91,7 +91,6 @@ const WrapperUp = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-
 
   [theme.breakpoints.mobile]: {
     paddingBottom: "16px",

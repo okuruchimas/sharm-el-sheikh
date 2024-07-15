@@ -11,7 +11,7 @@ const EventCard = ({ logo, date, title, price, location }: EventCardI) => {
     <Wrap>
       <NextImage
         src={`/${logo}`}
-        alt=""
+        alt={logo}
         width="106px"
         height="106px"
         mWidth="80px"
@@ -26,7 +26,7 @@ const EventCard = ({ logo, date, title, price, location }: EventCardI) => {
         </BottomWrap>
       </InfoWrap>
       <Link href="/">
-        <LinkIcon src="icons/main-section/circle-arrow.svg" />
+        <LinkIcon src="icons/main-section/circle-arrow.svg" alt="Link" />
       </Link>
     </Wrap>
   );
@@ -96,7 +96,8 @@ const BottomWrap = styled("div")(({ theme }) => ({
   },
 }));
 
-const BottomText = styled("span")(({ theme }) => ({
+const BottomText = styled("h4")(({ theme }) => ({
+  margin: 0,
   fontWeight: "600",
   fontSize: theme.fontSize.fontS18,
   color: theme.colors.grey2,
@@ -106,7 +107,6 @@ const BottomText = styled("span")(({ theme }) => ({
     width: "auto",
     fontWeight: "400",
     fontSize: theme.fontSize.fontS12,
-    color: theme.colors.grey3,
   },
 }));
 
