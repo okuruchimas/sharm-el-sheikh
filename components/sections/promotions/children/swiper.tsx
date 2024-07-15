@@ -1,4 +1,5 @@
 // components
+import Image from "next/image";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 // modules
 import { Autoplay, Navigation } from "swiper/modules";
@@ -52,13 +53,13 @@ const ImageSwiper: FC<SwiperProps> = ({ images, discount }) => (
     {discount ? <Promotion>{discount}</Promotion> : null}
     {images.map((el, index) => (
       <Slide key={index}>
-        <StyledImage src={`/${el.src}`} alt="" loading="lazy" />
+        <StyledImage src={`/${el.src}`} alt="" loading="lazy" layout="fill" />
       </Slide>
     ))}
   </Wrapper>
 );
 
-const StyledImage = styled("img")({
+const StyledImage = styled(Image)({
   width: "100%",
   height: "100%",
   objectFit: "cover",
@@ -137,7 +138,6 @@ const Promotion = styled.div(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   gap: "8px",
-  fontFamily: "Comfortaa, sans-serif",
   textAlign: "center",
   color: theme.colors.blue,
   fontSize: theme.fontSize.fontS16,
