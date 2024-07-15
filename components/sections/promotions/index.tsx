@@ -48,7 +48,7 @@ const Promotions = ({ promCards }: PromCardProps) => {
             />
           ))}
       </DownWrap>
-      {promCards ? <Background /> : null}
+      {!promCards ? <Background /> : null}
       <ButtonWrap>
         <Button text="View more" color="white" />
       </ButtonWrap>
