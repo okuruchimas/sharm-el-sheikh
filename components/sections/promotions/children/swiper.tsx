@@ -62,6 +62,7 @@ const ImageSwiper: FC<SwiperProps> = ({ images, discount }) => (
 const StyledImage = styled(Image)({
   width: "100%",
   height: "100%",
+  objectFit: "cover",
 });
 
 const Slide = styled(SwiperSlide)({
@@ -137,7 +138,6 @@ const Promotion = styled.div(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   gap: "8px",
-  fontFamily: "Comfortaa, sans-serif",
   textAlign: "center",
   color: theme.colors.blue,
   fontSize: theme.fontSize.fontS16,

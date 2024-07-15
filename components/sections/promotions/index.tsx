@@ -4,11 +4,11 @@ import Button from "../../layout/button";
 import LinkButton from "../../layout/link-button";
 import Dropdown from "../../layout/filters";
 import Background from "./children/background";
+import SectionWrapper from "../../layout/section-wrapper";
 // utils
 import styled from "@emotion/styled";
 // types
 import { PromCardProps } from "../../../pages/api/prom-cards";
-import SectionWrapper from "../../layout/section-wrapper";
 
 const sortArr = [
   { display_value: "Monday", key: "monday" },
@@ -48,7 +48,7 @@ const Promotions = ({ promCards }: PromCardProps) => {
             />
           ))}
       </DownWrap>
-      {!promCards ? <Background /> : null}
+      {promCards ? <Background /> : null}
       <ButtonWrap>
         <Button text="View more" color="white" />
       </ButtonWrap>
