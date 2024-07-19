@@ -19,6 +19,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           * {
             box-sizing: border-box;
             font-family: Comfortaa, sans-serif;
+            padding: 0;
+            margin: 0;
           }
 
           html,

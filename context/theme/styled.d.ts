@@ -27,6 +27,7 @@ declare module "@emotion/react" {
     };
     backgrounds: {
       mainSection: string;
+      banner: string;
     };
     fontSize: {
       fontS10: string;
@@ -35,6 +36,7 @@ declare module "@emotion/react" {
       fontS16: string;
       fontS18: string;
       fontS20: string;
+      fontS21: string;
       fontS22: string;
       fontS24: string;
       fontS28: string;
@@ -48,5 +50,6 @@ declare module "@emotion/react" {
       mobile1: string;
       desktop: string;
     };
+    shadows: string[];
   }
 }

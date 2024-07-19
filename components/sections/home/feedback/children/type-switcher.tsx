@@ -52,7 +52,6 @@ const Type = styled("span", {
   shouldForwardProp: (prop) => prop !== "isActive",
 })<{ isActive: boolean }>(({ theme, isActive }) => ({
   padding: "16px",
-  fontFamily: "Comfortaa, serif",
   fontSize: theme.fontSize.fontS16,
   color: isActive ? theme.colors.black : theme.colors.grey1,
   paddingBottom: isActive ? "12px" : "initial",

@@ -7,6 +7,7 @@ import Swiper from "./swiper";
 import styled from "@emotion/styled";
 // types
 import type { PromCardI } from "../../../../pages/api/prom-cards";
+import Rating from "../../../layout/rating";
 
 const PromCard = ({ discount, images, location, title, slug }: PromCardI) => {
   return (
@@ -17,14 +18,7 @@ const PromCard = ({ discount, images, location, title, slug }: PromCardI) => {
       <DownWrap>
         <Up>
           <SubTitle>{title}</SubTitle>
-          <RatingWrap>
-            <RatingStar
-              src={"icons/promotions-section/star-rating.svg"}
-              alt="star-rating"
-            />
-            <RatingPoints>4.5&nbsp;</RatingPoints>
-            <RatingViews>(600)</RatingViews>
-          </RatingWrap>
+          <Rating points={4.5} users={600} />
         </Up>
         <Down>
           <Location>

@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 // components
 import TypeSwitcher from "./children/type-switcher";
 import { ButtonStyled } from "../../../layout/button";
-import Input from "./children/input";
+import Input from "../../../layout/input";
 import Loader from "../../../layout/loader";
 // utils
 import styled from "@emotion/styled";

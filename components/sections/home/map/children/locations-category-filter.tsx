@@ -72,7 +72,6 @@ export const CategoryItem = styled("div", {
   backgroundSize: "cover",
   fontSize: theme.fontSize.fontS16,
   color: isSelected ? theme.colors.blue3 : theme.colors.blue,
-  fontFamily: "Comfortaa, sans-serif",
   fontWeight: 600,
   cursor: "pointer",
   transition: "transform 0.3s ease",
