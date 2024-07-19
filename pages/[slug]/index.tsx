@@ -6,37 +6,67 @@ import Banner from "../../components/sections/home/banner";
 import Services from "../../components/sections/company/services";
 import Reviews from "../../components/sections/company/reviews";
 import ReviewForm from "../../components/sections/company/review";
+import { FC } from "react";
+import Button from "../../components/layout/button";
 
 interface Props {
   card: PromCardI;
 }
-const CompanyPage = ({ card }: Props) => {
+const CompanyPage: FC<Props> = ({
+  card: { images, title, location, discount, slug },
+}) => {
   return (
     <Wrap
       url="images/background/background-gradient.svg"
       mobUrl="images/background/mobile-background-gradient.svg"
     >
-      <h1>{card.title}</h1>
-      <Promo />
+      <Promo
+        slug={slug}
+        discount={discount}
+        images={images}
+        title={title}
+        location={location}
+      />
       <Banner
-        imgLink="images/banners/banner2.webp"
         title="To receive a discount, open this card and show it to the seller"
         buttonText="Open Card"
       />
       <Services />
       <Reviews />
       <ReviewForm />
+      <ContactSection>
+        <span>Get in Touch with {title}</span>
+        <Button text="Contact" color="white" />
+      </ContactSection>
     </Wrap>
   );
 };
 
-const Wrap = styled(SectionsWrapper)`
-  min-height: 100vh;
-  padding-top: 80px;
-  @media (${({ theme: { breakpoints } }) => breakpoints.mobile}) {
-    padding-top: 80px;
-  }
-`;
+const Wrap = styled(SectionsWrapper)(({ theme }) => ({
+  minHeight: "100vh",
+  paddingTop: "80px",
+  backgroundSize: "contain",
+  backgroundRepeat: "no-repeat",
+
+  [theme.breakpoints.mobile]: {
+    paddingTop: "80px",
+  },
+}));
+
+const ContactSection = styled("div")(({ theme }) => ({
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  fontWeight: 600,
+  fontSize: theme.fontSize.fontS21,
+  color: theme.colors.blue,
+
+  [theme.breakpoints.mobile]: {
+    fontSize: theme.fontSize.fontS16,
+    gap: "44px",
+  },
+}));
 
 export async function getStaticPaths() {
   const promCards = dataPromCards;

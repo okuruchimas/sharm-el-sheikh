@@ -26,6 +26,7 @@ const NextImage: FC<NextImageProps> = ({
     height={height}
     mWidth={mWidth ?? width}
     mHeight={mHeight ?? height}
+    className="image-wrapper"
   >
     <Image {...props} alt={alt} layout="fill" />
   </LogoWrapper>

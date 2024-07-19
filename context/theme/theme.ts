@@ -23,6 +23,8 @@ export const theme = {
   },
   backgrounds: {
     mainSection: "url('images/background/bg-main-section.webp')",
+    banner:
+      "linear-gradient(180deg, rgba(254, 254, 254, 0.5) -222.92%, rgba(255, 234, 178, 0.5) 263.82%)",
   },
   fontSize: {
     fontS10: "10px",
@@ -31,6 +33,7 @@ export const theme = {
     fontS16: "16px",
     fontS18: "18px",
     fontS20: "20px",
+    fontS21: "21px",
     fontS22: "22px",
     fontS24: "24px",
     fontS28: "28px",
@@ -44,6 +47,15 @@ export const theme = {
     mobile1: "@media (max-width: 1380px)",
     desktop: "@media (min-width: 1024px)",
   },
+  shadows: [
+    "0 0 20px -14px #757779",
+    "none",
+    "none",
+    "none",
+    "none",
+    "none",
+    "none",
+  ],
 };
 
 export type Theme = typeof theme;

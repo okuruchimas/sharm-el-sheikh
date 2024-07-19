@@ -10,14 +10,16 @@ interface Props {
   placeholder: string;
   as?: string;
   mask?: string;
+  isLight?: boolean;
 }
-const Input = ({ label, type, mask, placeholder, as }: Props) => {
+const Input = ({ label, type, mask, placeholder, as, isLight }: Props) => {
   const [field, meta] = useField(type);
 
   return (
-    <InputWrap>
+    <InputWrap className="input-wrap">
       <Label htmlFor={type}>{label}</Label>
       <InputContainer
+        isLight={isLight}
         isMessage={!!as}
         isErrorSpan={meta.touched && !!meta.error}
       >
@@ -51,7 +53,6 @@ const Input = ({ label, type, mask, placeholder, as }: Props) => {
 const InputWrap = styled("div")({
   display: "flex",
   flexDirection: "column",
-  maxWidth: "310px",
   position: "relative",
   margin: "0 auto",
 });
@@ -63,21 +64,20 @@ const Label = styled("label")(({ theme }) => ({
   borderRadius: "4px",
   padding: "4px",
   background: theme.colors.white,
-  fontFamily: "Comfortaa, serif",
   fontSize: theme.fontSize.fontS12,
 }));
 
 const ErrorStyled = styled(ErrorMessage)(({ theme }) => ({
-  fontFamily: "Comfortaa, serif",
   fontSize: theme.fontSize.fontS12,
   color: theme.colors.red,
   margin: "4px 16px 0",
 }));
 
 const InputContainer = styled("div", {
-  shouldForwardProp: (prop) => !["isMessage", "isErrorSpan"].includes(prop),
-})<{ isMessage: boolean; isErrorSpan: boolean }>(
-  ({ theme, isMessage, isErrorSpan }) => ({
+  shouldForwardProp: (prop) =>
+    !["isMessage", "isErrorSpan", "isLight"].includes(prop),
+})<{ isMessage: boolean; isErrorSpan: boolean; isLight?: boolean }>(
+  ({ theme, isMessage, isErrorSpan, isLight }) => ({
     display: "flex",
     alignItems: "center",
 
@@ -87,17 +87,32 @@ const InputContainer = styled("div", {
       backgroundColor: theme.colors.white,
       borderRadius: "16px",
       padding: isMessage ? "16px 16px" : "0 16px",
-      border: isErrorSpan ? "2px solid" + theme.colors.red : "none",
       outline: "none",
-      fontFamily: "Comfortaa, serif",
       fontSize: theme.fontSize.fontS16,
+
+      ...(isLight
+        ? {
+            border: isErrorSpan
+              ? `2px solid ${theme.colors.red}`
+              : `1px solid ${theme.colors.yellow}`,
+          }
+        : { border: isErrorSpan ? `2px solid ${theme.colors.red}` : "none" }),
 
       "&:focus, &:active": {
         backgroundColor: theme.colors.white,
         outline: "none",
-        border: isErrorSpan
-          ? "2px solid" + theme.colors.red
-          : "2px solid" + theme.colors.black2,
+
+        ...(isLight
+          ? {
+              border: isErrorSpan
+                ? `2px solid ${theme.colors.red}`
+                : `2px solid ${theme.colors.yellow}`,
+            }
+          : {
+              border: isErrorSpan
+                ? `2px solid ${theme.colors.red}`
+                : `2px solid ${theme.colors.black2}`,
+            }),
       },
     },
   }),

@@ -1,5 +1,6 @@
 // components
 import Image from "next/image";
+import Rating from "../../../../layout/rating";
 // utils
 import styled from "@emotion/styled";
 // types
@@ -21,18 +22,9 @@ const InfoWindow: FC<InfoWindowProps> = ({ location }) => (
     <DetailsWrapper>
       <NameRatingWrapper>
         <Name>{location.title}</Name>
-        <RatingWrap>
-          <RatingStar
-            src={"/icons/promotions-section/star-rating.svg"}
-            alt="star-rating"
-            width={10}
-            height={10}
-          />
-          <Rating>
-            4.5&nbsp;
-            <span>(600)</span>
-          </Rating>
-        </RatingWrap>
+        <RatingWrapper>
+          <Rating points={4.5} users={660} />
+        </RatingWrapper>
       </NameRatingWrapper>
       <LocationWrapper>
         <Image
@@ -50,7 +42,6 @@ const InfoWindow: FC<InfoWindowProps> = ({ location }) => (
 const InfoWindowContent = styled("div")(({ theme }) => ({
   maxWidth: "172px",
   borderRadius: "8px",
-  fontFamily: "Comfortaa, sans-serif",
   boxShadow: `1px 1px 16px ${theme.colors.black1}`,
   overflow: "hidden",
   backgroundColor: theme.colors.white3,
@@ -93,26 +84,7 @@ const Name = styled("div")(({ theme }) => ({
   letterSpacing: "0.1px",
 
   [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS14,
-  },
-}));
-
-const RatingWrap = styled("div")({
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-});
-
-const RatingStar = styled(Image)({
-  marginRight: "3px",
-});
-
-const Rating = styled("span")(({ theme }) => ({
-  fontWeight: 600,
-  fontSize: theme.fontSize.fontS10,
-
-  "> span": {
-    color: theme.colors.grey1,
+    fontSize: theme.fontSize.fontS16,
   },
 }));
 
@@ -129,7 +101,20 @@ const LocationText = styled("span")(({ theme }) => ({
   marginLeft: "4px",
 
   [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS12,
+    fontSize: theme.fontSize.fontS14,
+  },
+}));
+
+const RatingWrapper = styled("div")(({ theme }) => ({
+  span: { fontSize: theme.fontSize.fontS10 },
+
+  [theme.breakpoints.mobile]: {
+    span: { fontSize: theme.fontSize.fontS12 },
+  },
+
+  "& .image-wrapper": {
+    width: "12px",
+    height: "12px",
   },
 }));
 
