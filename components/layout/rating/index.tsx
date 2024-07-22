@@ -1,4 +1,4 @@
-import NextImage from "../Image";
+import NextImage from "../image";
 // utils
 import styled from "@emotion/styled";
 

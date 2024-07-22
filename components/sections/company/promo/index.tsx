@@ -1,20 +1,19 @@
 // components
 import Swiper from "../../promotions/children/swiper";
 import Rating from "../../../layout/rating";
-import NextImage from "../../../layout/Image";
+import NextImage from "../../../layout/image";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { FC } from "react";
 import type { PromCardI } from "../../../../pages/api/prom-cards";
 
-interface PromoProps
+interface PromoI
   extends Pick<
     PromCardI,
     "images" | "discount" | "slug" | "title" | "location"
   > {}
 
-const Promo: FC<PromoProps> = ({ images, discount, slug, title, location }) => (
+const Promo = ({ images, discount, slug, title, location }: PromoI) => (
   <SectionWrapper>
     <ContentWrapper>
       <SwiperWrapper>
@@ -61,11 +60,11 @@ const ContentWrapper = styled("div")(({ theme }) => ({
 
 const SectionWrapper = styled("div")(({ theme }) => ({
   width: "100%",
-  height: "calc(100dvh - 80px)",
+  height: "calc(100vh - 80px)",
   padding: "122px 0 10px",
 
   [theme.breakpoints.mobile]: {
-    height: "calc(65dvh - 32px)",
+    height: "calc(65vh - 32px)",
     padding: "88px 0 10px",
   },
 }));

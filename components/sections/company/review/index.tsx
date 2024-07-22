@@ -1,4 +1,4 @@
-import { useState, type FC, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Formik, Form } from "formik";
 // components
 import Input from "../../../layout/input";
@@ -17,7 +17,7 @@ interface ReviewFormValues {
   review: string;
 }
 
-const ReviewForm: FC = () => {
+const ReviewForm = () => {
   const [stars, setStars] = useState(0);
 
   const handleSubmit = useCallback(
@@ -58,9 +58,8 @@ const ReviewForm: FC = () => {
                 />
               </>
             )}
-
             <SubmitButton
-              color="blue3"
+              color="blue"
               type="submit"
               disabled={isSubmitting || !stars}
             >
@@ -95,11 +94,9 @@ const FormWrap = styled(Form)(({ theme }) => ({
 }));
 
 const SubmitButton = styled(ButtonStyled)(({ theme }) => ({
-  color: theme.colors.blue,
   backgroundColor: theme.colors.yellow,
-  margin: "0 auto",
   cursor: "pointer",
-  maxWidth: "158px",
+  alignSelf: "end",
 
   "&:disabled": {
     cursor: "not-allowed",
@@ -107,7 +104,6 @@ const SubmitButton = styled(ButtonStyled)(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     width: "100%",
-    maxWidth: "100%",
   },
 }));
 

@@ -1,5 +1,5 @@
 // components
-import NextImage from "../../../layout/Image";
+import NextImage from "../../../layout/image";
 import SectionWrapper from "../../../layout/section-wrapper";
 // utils
 import styled from "@emotion/styled";
