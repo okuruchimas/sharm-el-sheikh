@@ -49,7 +49,7 @@ export const theme = {
   },
   shadows: [
     "0 0 20px -14px #757779",
-    "none",
+    "1px 1px 10px 1px #054E5C4D",
     "none",
     "none",
     "none",

@@ -25,6 +25,7 @@ const ReviewForm = () => {
       values: ReviewFormValues,
       { setSubmitting, resetForm }: FormikHelpers<ReviewFormValues>,
     ) => {
+      setStars(0);
       const payload = { ...values, date: new Date() };
       console.log(payload);
       toast.success("Email successfully delivered!");
