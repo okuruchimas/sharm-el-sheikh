@@ -4,14 +4,13 @@ import Rating from "../../../../layout/rating";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { FC } from "react";
 import { PromCardI } from "../../../../../pages/api/prom-cards";
 
 type InfoWindowProps = {
   location: PromCardI;
 };
 
-const InfoWindow: FC<InfoWindowProps> = ({ location }) => (
+const InfoWindow = ({ location }: InfoWindowProps) => (
   <InfoWindowContent>
     <Image
       src={`/${location?.images[0].src}`}

@@ -1,5 +1,5 @@
 // libs
-import { useState, type FC } from "react";
+import { useState } from "react";
 // utils
 import styled from "@emotion/styled";
 // types
@@ -10,7 +10,7 @@ type FiltersProps = {
   onChange?: (option: selectOption) => void;
 };
 
-const Dropdown: FC<FiltersProps> = ({ options, onChange }) => {
+const Dropdown = ({ options, onChange }: FiltersProps) => {
   const [menuVisible, setMenuVisible] = useState<boolean>(false);
   const [currentObj, setCurrentObj] = useState<selectOption>(options[0]);
 

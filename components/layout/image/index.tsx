@@ -1,4 +1,4 @@
-import { memo, type FC } from "react";
+import { memo } from "react";
 import Image, { type ImageProps } from "next/image";
 // utils
 import styled from "@emotion/styled";
@@ -13,14 +13,14 @@ interface NextImageProps extends ImageProps {
 interface WrapperProps
   extends Pick<NextImageProps, "width" | "height" | "mWidth" | "mHeight"> {}
 
-const NextImage: FC<NextImageProps> = ({
+const NextImage = ({
   alt = "",
   width,
   height,
   mWidth,
   mHeight,
   ...props
-}) => (
+}: NextImageProps) => (
   <LogoWrapper
     width={width}
     height={height}

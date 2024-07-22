@@ -1,4 +1,4 @@
-import { useCallback, type FC } from "react";
+import { useCallback } from "react";
 // components
 import Dropdown from "../../../../layout/filters";
 // utils
@@ -15,11 +15,11 @@ type LocationsCategoryFilterProps = {
   onSelect: (option: selectOption) => void;
 };
 
-const LocationsCategoryFilter: FC<LocationsCategoryFilterProps> = ({
+const LocationsCategoryFilter = ({
   options,
   selectedID,
   onSelect,
-}) => {
+}: LocationsCategoryFilterProps) => {
   const handleClick = useCallback(
     (category: selectOption) => () => onSelect(category),
     [onSelect],

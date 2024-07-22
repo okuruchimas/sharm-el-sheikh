@@ -1,7 +1,5 @@
-// libs
-import React, { FC } from "react";
-import Link from "next/link";
 // components
+import Link from "next/link";
 import NavButtons from "./nav-buttons";
 // utils
 import styled from "@emotion/styled";
@@ -19,7 +17,7 @@ interface IProps {
   isOpen: boolean;
 }
 
-const NavMenu: FC<IProps> = ({ isOpen }) => {
+const NavMenu = ({ isOpen }: IProps) => {
   return (
     <WrapperDown isOpen={isOpen}>
       <ButtonsWrap>
