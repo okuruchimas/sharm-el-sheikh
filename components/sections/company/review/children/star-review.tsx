@@ -1,6 +1,6 @@
 import { type FC, memo } from "react";
 import styled from "@emotion/styled";
-import NextImage from "../../../../layout/Image";
+import NextImage from "../../../../layout/image";
 
 type StarReviewProps = {
   stars: number;
