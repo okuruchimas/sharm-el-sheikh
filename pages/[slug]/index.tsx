@@ -6,15 +6,14 @@ import Banner from "../../components/sections/home/banner";
 import Services from "../../components/sections/company/services";
 import Reviews from "../../components/sections/company/reviews";
 import ReviewForm from "../../components/sections/company/review";
-import { FC } from "react";
 import Button from "../../components/layout/button";
 
 interface Props {
   card: PromCardI;
 }
-const CompanyPage: FC<Props> = ({
+const CompanyPage = ({
   card: { images, title, location, discount, slug },
-}) => {
+}: Props) => {
   return (
     <Wrap
       url="images/background/background-gradient.svg"

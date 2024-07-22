@@ -5,7 +5,6 @@ import NextImage from "../../../layout/image";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { FC } from "react";
 import type { PromCardI } from "../../../../pages/api/prom-cards";
 
 interface PromoI
@@ -14,7 +13,7 @@ interface PromoI
     "images" | "discount" | "slug" | "title" | "location"
   > {}
 
-const Promo: FC<PromoI> = ({ images, discount, slug, title, location }) => (
+const Promo = ({ images, discount, slug, title, location }: PromoI) => (
   <SectionWrapper>
     <ContentWrapper>
       <SwiperWrapper>

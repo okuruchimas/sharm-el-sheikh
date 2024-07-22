@@ -1,4 +1,4 @@
-import { type FC, memo } from "react";
+import { memo } from "react";
 import styled from "@emotion/styled";
 import NextImage from "../../../../layout/image";
 
@@ -7,7 +7,7 @@ type StarReviewProps = {
   onChange: (id: number) => void;
 };
 
-const StarReview: FC<StarReviewProps> = ({ stars, onChange }) => (
+const StarReview = ({ stars, onChange }: StarReviewProps) => (
   <StarsWrapper>
     {[...Array(5)].map((_, index) => (
       <Image

@@ -5,8 +5,6 @@ import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 // utils
 import styled from "@emotion/styled";
-// types
-import type { FC } from "react";
 // styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -43,7 +41,7 @@ const SwiperButtons = () => {
   );
 };
 
-const ImageSwiper: FC<SwiperProps> = ({ images, discount }) => (
+const ImageSwiper = ({ images, discount }: SwiperProps) => (
   <Wrapper
     slidesPerView={"auto"}
     spaceBetween={0}
