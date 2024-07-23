@@ -32,6 +32,7 @@ const StarsWrapper = styled("div")(({ theme }) => ({
 
 const Image = styled(NextImage)(({ theme }) => ({
   transition: "transform 0.3s ease",
+  cursor: "pointer",
 
   "&:active, &:focus, &:hover": {
     transform: "scale(1.3)",
