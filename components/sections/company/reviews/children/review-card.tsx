@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import NextImage from "../../../../layout/image";
+import { useEffect, useState } from "react";
 
 export interface ReviewCardI {
   stars: string;
@@ -8,6 +9,16 @@ export interface ReviewCardI {
 }
 
 const ReviewCard = ({ stars, date, text }: ReviewCardI) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   const margin = Math.floor(Math.random() * 50);
 
   return (
