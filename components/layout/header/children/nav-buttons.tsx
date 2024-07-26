@@ -9,7 +9,7 @@ const NavButtons = () => {
     <Buttons>
       <LanguageSelector />
       <SearchButton src="icons/header/search_button.svg" alt="Search button" />
-      <Button color="yellow" text="Contact us" />
+      <Button text="Contact us" />
     </Buttons>
   );
 };

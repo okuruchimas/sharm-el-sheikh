@@ -1,14 +1,29 @@
 import styled from "@emotion/styled";
-import type { MouseEvent } from "react";
+import { MouseEvent, ButtonHTMLAttributes } from "react";
 import { keyframes } from "@emotion/react";
 
-interface Props {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
-  color: string;
-  disabled?: boolean;
+  color?: string;
+  backgroundColor?: string;
 }
 
-const Button = ({ text, color, disabled }: Props) => {
+const Button = ({
+  text,
+  color = "blue",
+  disabled,
+  backgroundColor = "yellow",
+  onClick,
+  ...rest
+}: Props) => {
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    if (onClick) {
+      onClick(e);
+    }
+
+    createRipple(e);
+  };
+
   const createRipple = (event: MouseEvent<HTMLButtonElement>) => {
     const button = event.currentTarget;
     const circle = document.createElement("span");
@@ -28,7 +43,13 @@ const Button = ({ text, color, disabled }: Props) => {
   };
 
   return (
-    <ButtonStyled color={color} disabled={disabled} onClick={createRipple}>
+    <ButtonStyled
+      color={color}
+      backgroundColor={backgroundColor}
+      disabled={disabled}
+      onClick={handleClick}
+      {...rest}
+    >
       {text}
     </ButtonStyled>
   );
@@ -63,33 +84,51 @@ const rippleAnimation = keyframes`
 `;
 
 export const ButtonStyled = styled("button", {
-  shouldForwardProp: (prop) => prop !== "color",
-})<{ color: string }>(({ theme, color }) => ({
-  position: "relative",
-  overflow: "hidden",
-  minWidth: "156px",
-  width: "max-content",
-  height: "52px",
-  borderRadius: "16px",
-  padding: "16px 32px",
-  fontSize: theme.fontSize.fontS16,
-  color: theme.colors.blue,
-  background: theme.colors[color],
-  border: `1px solid ${theme.colors.yellow}`,
-  cursor: "pointer",
+  shouldForwardProp: (prop) => !["color", "backgroundColor"].includes(prop),
+})<{ color: string; backgroundColor: string }>(
+  ({ theme, color, backgroundColor }) => ({
+    position: "relative",
+    overflow: "hidden",
+    minWidth: "156px",
+    width: "max-content",
+    height: "52px",
+    borderRadius: "16px",
+    padding: "16px 32px",
+    fontSize: theme.fontSize.fontS16,
+    color: theme.colors[color],
+    background: theme.colors[backgroundColor],
+    border: `1px solid ${theme.colors.yellow}`,
+    cursor: "pointer",
 
-  "&:disabled": {
-    cursor: "not-allowed",
-  },
+    "-webkit-tap-highlight-color": "transparent",
 
-  ".ripple": {
-    position: "absolute",
-    borderRadius: "50%",
-    transform: "scale(0)",
-    border: "1px solid #00000033",
-    background: "rgba(0, 0, 0, 0)",
-    animation: `${rippleAnimation} 0.8s linear`,
-  },
-}));
+    "&:disabled": {
+      cursor: "not-allowed",
+
+      "&::before": {
+        content: '""',
+        position: "absolute",
+        height: "100%",
+        width: "100%",
+        top: 0,
+        left: 0,
+        pointerEvents: "none",
+        zIndex: 1,
+        background: theme.colors.white3,
+        opacity: 0.3,
+      },
+    },
+
+    ".ripple": {
+      position: "absolute",
+      borderRadius: "50%",
+      transform: "scale(0)",
+      border: "1px solid #00000033",
+      background: "rgba(0, 0, 0, 0)",
+      animation: `${rippleAnimation} 0.8s linear`,
+      boxShadow: `0 0 30px 6px inset ${theme.colors[color]}`,
+    },
+  }),
+);
 
 export default Button;

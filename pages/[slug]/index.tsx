@@ -35,7 +35,7 @@ const CompanyPage = ({
       <ReviewForm />
       <ContactSection>
         <span>Get in Touch with {title}</span>
-        <Button text="Contact" color="white" />
+        <Button text="Contact" backgroundColor="white" />
       </ContactSection>
     </Wrap>
   );

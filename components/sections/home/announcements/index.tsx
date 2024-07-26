@@ -31,7 +31,7 @@ const Announcements = ({ announcementsCards }: AnnouncementCardProps) => {
         ))}
       </CardWrap>
       <ButtonWrap>
-        <Button text="View more" color="white" />
+        <Button text="View more" backgroundColor="white" />
       </ButtonWrap>
     </SectionWrapper>
   );
