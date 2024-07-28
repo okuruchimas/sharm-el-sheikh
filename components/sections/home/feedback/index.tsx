@@ -4,7 +4,7 @@ import { Formik, Form } from "formik";
 import { toast, ToastContainer } from "react-toastify";
 // components
 import TypeSwitcher from "./children/type-switcher";
-import { ButtonStyled } from "../../../layout/button";
+import Button from "../../../layout/button";
 import Input from "../../../layout/input";
 import Loader from "../../../layout/loader";
 // utils
@@ -105,9 +105,13 @@ const FeedbackForm = () => {
               </>
             )}
 
-            <SubmitButton color="blue3" type="submit" disabled={isSubmitting}>
-              Contact Us
-            </SubmitButton>
+            <SubmitButton
+              backgroundColor="blue3"
+              color="yellow"
+              text="Contact Us"
+              type="submit"
+              disabled={isSubmitting}
+            />
           </FormWrap>
         )}
       </Formik>
@@ -133,11 +137,9 @@ const FormWrap = styled(Form)(({ theme }) => ({
   background: theme.colors.yellow,
 }));
 
-const SubmitButton = styled(ButtonStyled)(({ theme }) => ({
+const SubmitButton = styled(Button)(({ theme }) => ({
   minWidth: "310px",
-  color: theme.colors.yellow,
   margin: "0 auto",
-  cursor: "pointer",
 }));
 
 export default FeedbackForm;

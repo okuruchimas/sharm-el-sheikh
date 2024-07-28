@@ -22,7 +22,7 @@ const Banner = ({ imgLink, title, buttonText, isBottomContent }: Props) => {
       <Title isBottomContent={isBottomContent} isTextVariant={isTextVariant}>
         {title}
       </Title>
-      <Button color="yellow" text={buttonText} />
+      <Button text={buttonText} />
     </Wrap>
   );
 };

@@ -3,10 +3,10 @@ import { useState, useCallback } from "react";
 import { Formik, Form } from "formik";
 // components
 import Input from "../../../layout/input";
+import Button from "../../../layout/button";
 import Loader from "../../../layout/loader";
 import StarReview from "./children/star-review";
 import SectionWrapper from "../../../layout/section-wrapper";
-import { ButtonStyled } from "../../../layout/button";
 // utils
 import styled from "@emotion/styled";
 import { ReviewFormValidationSchema } from "./children/utils";
@@ -61,13 +61,7 @@ const ReviewForm = () => {
                 />
               </>
             )}
-            <SubmitButton
-              color="blue"
-              type="submit"
-              disabled={isSubmitting || !stars}
-            >
-              Send
-            </SubmitButton>
+            <Button text="Send" disabled={isSubmitting || !stars} />
           </FormWrap>
         )}
       </Formik>
@@ -91,23 +85,17 @@ const FormWrap = styled(Form)(({ theme }) => ({
     width: "100%",
   },
 
+  button: {
+    alignSelf: "flex-end",
+
+    [theme.breakpoints.mobile]: {
+      minWidth: "100%",
+    },
+  },
+
   [theme.breakpoints.mobile]: {
     gap: "16px",
     paddingBottom: "16px",
-  },
-}));
-
-const SubmitButton = styled(ButtonStyled)(({ theme }) => ({
-  backgroundColor: theme.colors.yellow,
-  cursor: "pointer",
-  alignSelf: "end",
-
-  "&:disabled": {
-    cursor: "not-allowed",
-  },
-
-  [theme.breakpoints.mobile]: {
-    width: "100%",
   },
 }));
 

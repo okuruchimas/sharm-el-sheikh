@@ -50,7 +50,7 @@ const Promotions = ({ promCards }: PromCardProps) => {
       </DownWrap>
       {!promCards ? <Background /> : null}
       <ButtonWrap>
-        <Button text="View more" color="white" />
+        <Button text="View more" backgroundColor="white" />
       </ButtonWrap>
     </SectionWrapper>
   );
