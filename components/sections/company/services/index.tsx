@@ -3,6 +3,7 @@ import NextImage from "../../../layout/image";
 import SectionWrapper from "../../../layout/section-wrapper";
 // utils
 import styled from "@emotion/styled";
+import { keyframes } from "@emotion/react";
 // constants
 import { SERVICES } from "./children/mock-data";
 
@@ -10,7 +11,7 @@ const Services = () => (
   <SectionWrapper title="Services and Amenities">
     <CardsWrapper>
       {SERVICES.map((el, index) => (
-        <Card key={index}>
+        <Card key={index} index={index}>
           <NextImage
             src={el.iconUrl}
             alt={el.title}
@@ -38,7 +39,22 @@ const CardsWrapper = styled("ul")(({ theme }) => ({
   },
 }));
 
-const Card = styled("li")(({ theme }) => ({
+const waveAnimation = keyframes`
+  0% {
+    transform: translateX(0%) translateY(-75%) rotate(45deg);
+  }
+  15% {
+    transform: translateX(350%) translateY(20%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(350%) translateY(20%) rotate(45deg);
+  }
+`;
+
+const Card = styled("li", {
+  shouldForwardProp: (prop) => prop !== "index",
+})<{ index: number }>(({ theme, index }) => ({
+  position: "relative",
   padding: "56px 16px",
   display: "flex",
   flexDirection: "column",
@@ -47,11 +63,34 @@ const Card = styled("li")(({ theme }) => ({
   borderRadius: "30px",
   backgroundColor: theme.colors.blue4,
   gap: "24px",
+  overflow: "hidden",
+
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "20%",
+    height: "300%",
+    pointerEvents: "none",
+    borderRadius: "50%",
+    opacity: 0.4,
+    boxShadow: `10px 0 10px 10px ${theme.colors.white}`,
+    transform: "translateX(0%) translateY(-75%) rotate(45deg)",
+    background:
+      "linear-gradient(90deg, rgba(255,255,255,0.9) 0%, rgba(41,169,194,0.1) 40%, rgba(41,169,194,0.1) 60%, rgba(255,255,255,0.9) 100%)",
+    animation: `${waveAnimation} 7s linear infinite`,
+    animationDelay: `${index >= 4 ? (index - 4) * 0.5 : index * 0.5}s`,
+  },
 
   [theme.breakpoints.mobile]: {
     padding: "24px 16px",
     gap: "16px",
     minHeight: "172px",
+
+    "&::before": {
+      animationDelay: `${index * 0.5}s`,
+    },
   },
 }));
 
