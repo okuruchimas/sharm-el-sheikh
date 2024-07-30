@@ -4,6 +4,7 @@ import Head from "next/head";
 import Main from "../components/sections/home/main";
 import Loader from "../components/layout/loader";
 import Promotions from "../components/sections/promotions";
+import FeedbackForm from "../components/sections/home/feedback";
 import SectionsWrapper from "../components/layout/sections-wrapper";
 import LazyWrapper from "../components/layout/lazy-wrapper";
 // utils
@@ -23,13 +24,6 @@ const DynamicBanner = dynamic(
 
 const DynamicAnnouncements = dynamic(
   () => import("../components/sections/home/announcements"),
-  {
-    loading: () => <Loader />,
-  },
-);
-
-const DynamicFeedbackForm = dynamic(
-  () => import("../components/sections/home/feedback"),
   {
     loading: () => <Loader />,
   },
@@ -78,9 +72,7 @@ const Home = ({ eventCards, promCards, announcementsCards }: Props) => {
         {/*<LazyWrapper>*/}
         {/*  <DynamicMap promCards={promCards} />*/}
         {/*</LazyWrapper>*/}
-        <LazyWrapper minHeight={560}>
-          <DynamicFeedbackForm />
-        </LazyWrapper>
+        <FeedbackForm />
       </SectionsWrapper>
     </Wrap>
   );
