@@ -45,7 +45,9 @@ const Input = ({ label, type, mask, placeholder, as, isLight }: Props) => {
           <ErrorIcon src="icons/feedback-section/icon.svg" />
         )}
       </InputContainer>
-      <ErrorStyled name={type} component="span" />
+      <ErrorWrap>
+        <ErrorStyled name={type} component="span" />
+      </ErrorWrap>
     </InputWrap>
   );
 };
@@ -71,6 +73,7 @@ const ErrorStyled = styled(ErrorMessage)(({ theme }) => ({
   fontSize: theme.fontSize.fontS12,
   color: theme.colors.red,
   margin: "4px 16px 0",
+  position: "absolute",
 }));
 
 const InputContainer = styled("div", {
@@ -123,6 +126,11 @@ const ErrorIcon = styled("img")({
   height: "24px",
   position: "absolute",
   right: "16px",
+});
+
+const ErrorWrap = styled("div")({
+  position: "relative",
+  marginBottom: "18px",
 });
 
 export default Input;

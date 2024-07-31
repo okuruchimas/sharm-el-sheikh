@@ -49,6 +49,7 @@ const WrapSection = styled("div")(({ theme }) => ({
     padding: "78px 16px 24px",
     flexDirection: "column-reverse",
     alignItems: "flex-start",
+    backgroundAttachment: "scroll",
   },
 }));
 

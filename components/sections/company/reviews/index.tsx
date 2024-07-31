@@ -101,7 +101,7 @@ const Gradient = styled("div")(({ theme }) => ({
   width: "100%",
   padding: "4px",
 
-  "> div:first-of-type > .review-card:first-child": {
+  "> div:first-of-type > .review-card:first-of-type": {
     margin: 0,
   },
 

@@ -100,7 +100,7 @@ export const ButtonStyled = styled("button", {
     border: `1px solid ${theme.colors.yellow}`,
     cursor: "pointer",
 
-    "-webkit-tap-highlight-color": "transparent",
+    WebkitTapHighlightColor: "transparent",
 
     "&:disabled": {
       cursor: "not-allowed",
