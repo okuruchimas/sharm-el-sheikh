@@ -61,7 +61,11 @@ const ReviewForm = () => {
                 />
               </>
             )}
-            <Button text="Send" disabled={isSubmitting || !stars} />
+            <Button
+              text="Send"
+              disabled={isSubmitting || !stars}
+              type="submit"
+            />
           </FormWrap>
         )}
       </Formik>

@@ -36,7 +36,6 @@ const WrapSection = styled("div")(({ theme }) => ({
   alignItems: "flex-end",
   gap: "32px",
   width: "100%",
-  height: "100vh",
   padding: "78px 100px 24px",
   backgroundImage: theme.backgrounds.mainSection,
   backgroundSize: "cover",
@@ -45,12 +44,19 @@ const WrapSection = styled("div")(({ theme }) => ({
   borderRadius: "0 0 30px 30px",
 
   [theme.breakpoints.mobile]: {
+    height: "100dvh",
     gap: "16px",
     padding: "78px 16px 24px",
     flexDirection: "column-reverse",
     alignItems: "flex-start",
     backgroundAttachment: "scroll",
   },
+
+  [theme.breakpoints.mobileHorizontal]: {
+    height: "100%",
+  },
+
+  [theme.breakpoints.desktop]: { height: "100vh" },
 }));
 
 const TopWrap = styled("div")(({ theme }) => ({

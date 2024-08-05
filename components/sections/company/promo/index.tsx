@@ -61,11 +61,11 @@ const ContentWrapper = styled("div")(({ theme }) => ({
 const SectionWrapper = styled("div")(({ theme }) => ({
   width: "100%",
   height: "calc(100vh - 80px)",
-  padding: "122px 0 10px",
+  margin: "122px 0 10px",
 
   [theme.breakpoints.mobile]: {
-    height: "calc(65vh - 32px)",
-    padding: "88px 0 10px",
+    height: "308px",
+    margin: "30px 0 10px",
   },
 }));
 
@@ -126,6 +126,7 @@ const Location = styled("div")(({ theme }) => ({
 const SwiperWrapper = styled("div")(({ theme }) => ({
   width: "100%",
   height: "100%",
+  minHeight: "198px",
 
   "> div": {
     borderRadius: "30px",

@@ -44,7 +44,7 @@ export const theme = {
   },
   breakpoints: {
     mobile: "@media (max-width: 1024px)",
-    mobile1: "@media (max-width: 1380px)",
+    mobileHorizontal: "@media (min-width: 600px)",
     desktop: "@media (min-width: 1024px)",
   },
   shadows: [

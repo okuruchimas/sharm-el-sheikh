@@ -5,15 +5,12 @@ import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 // utils
 import styled from "@emotion/styled";
+// types
+import type { ImagesI } from "../../../../pages/api/prom-cards";
 // styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
-
-type ImagesI = {
-  src: string;
-};
-// TODO: remove duplicated type
 
 type SwiperProps = {
   images: ImagesI[];

@@ -50,7 +50,7 @@ const Home = ({ eventCards, promCards, announcementsCards }: Props) => {
         url="images/background/background-gradient.svg"
         mobUrl="images/background/mobile-background-gradient.svg"
       >
-        <Promotions promCards={promCards} />
+        <Promotions promCards={promCards} title="Promotions and Discounts" />
         <LazyWrapper>
           <DynamicBanner
             imgLink="images/banners/banner1.webp"

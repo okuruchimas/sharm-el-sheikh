@@ -47,7 +47,7 @@ declare module "@emotion/react" {
     };
     breakpoints: {
       mobile: string;
-      mobile1: string;
+      mobileHorizontal: string;
       desktop: string;
     };
     shadows: string[];

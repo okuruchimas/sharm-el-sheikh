@@ -49,6 +49,10 @@ export const WrapperDown = styled("div", {
     alignItems: "flex-start",
     width: "100%",
   },
+
+  [theme.breakpoints.desktop]: {
+    maxHeight: "44px",
+  },
 }));
 
 const ButtonsWrap = styled("div")(({ theme }) => ({

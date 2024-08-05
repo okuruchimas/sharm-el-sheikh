@@ -7,6 +7,8 @@ import Services from "../../components/sections/company/services";
 import Reviews from "../../components/sections/company/reviews";
 import ReviewForm from "../../components/sections/company/review";
 import Button from "../../components/layout/button";
+import YouTubePlayer from "../../components/layout/player";
+import Promotions from "../../components/sections/promotions";
 
 interface Props {
   card: PromCardI;
@@ -26,6 +28,7 @@ const CompanyPage = ({
         title={title}
         location={location}
       />
+      <YouTubePlayer videoId="70KWN-_YrPg" />
       <Banner
         title="To receive a discount, open this card and show it to the seller"
         buttonText="Open Card"
@@ -33,6 +36,12 @@ const CompanyPage = ({
       <Services />
       <Reviews />
       <ReviewForm />
+      <Promotions
+        promCards={dataPromCards}
+        title="Similar Suggestions"
+        disableFilters
+        disableViewMore
+      />
       <ContactSection>
         <span>Get in Touch with {title}</span>
         <Button text="Contact" backgroundColor="white" />
