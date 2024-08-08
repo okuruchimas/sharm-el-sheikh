@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 // components
 import Button from "../../button";
 import LanguageSelector from "./language-selector";
@@ -5,11 +6,16 @@ import LanguageSelector from "./language-selector";
 import styled from "@emotion/styled";
 
 const NavButtons = () => {
+  const router = useRouter();
+  const handleCLick = () => {
+    router.push("/#contact-form");
+  };
+
   return (
     <Buttons>
       <LanguageSelector />
       <SearchButton src="icons/header/search_button.svg" alt="Search button" />
-      <Button text="Contact us" />
+      <Button text="Contact us" onClick={handleCLick} />
     </Buttons>
   );
 };

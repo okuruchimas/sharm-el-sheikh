@@ -15,7 +15,7 @@ export interface PromCardI {
   };
 }
 
-interface ImagesI {
+export interface ImagesI {
   src: string;
 }
 

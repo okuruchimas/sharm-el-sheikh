@@ -20,17 +20,30 @@ const sortArr = [
   { display_value: "Sunday", key: "sunday" },
 ];
 
-const Promotions = ({ promCards }: PromCardProps) => {
+interface PromotionsProps extends PromCardProps {
+  title: string;
+  disableFilters?: boolean;
+  disableViewMore?: boolean;
+}
+
+const Promotions = ({
+  promCards,
+  title,
+  disableFilters = false,
+  disableViewMore = false,
+}: PromotionsProps) => {
   return (
     <SectionWrapper
-      title="Promotions and Discounts"
+      title={title}
       titleChildren={
-        <FiltersWrap>
-          <Dropdown options={sortArr} />
-          <MobLink>
-            <LinkButton text="View more" link="/" />
-          </MobLink>
-        </FiltersWrap>
+        disableFilters ? null : (
+          <FiltersWrap>
+            <Dropdown options={sortArr} />
+            <MobLink>
+              <LinkButton text="View more" link="/" />
+            </MobLink>
+          </FiltersWrap>
+        )
       }
       isColumn
     >
@@ -49,9 +62,11 @@ const Promotions = ({ promCards }: PromCardProps) => {
           ))}
       </DownWrap>
       {!promCards ? <Background /> : null}
-      <ButtonWrap>
-        <Button text="View more" backgroundColor="white" />
-      </ButtonWrap>
+      {disableViewMore ? null : (
+        <ButtonWrap>
+          <Button text="View more" backgroundColor="white" />
+        </ButtonWrap>
+      )}
     </SectionWrapper>
   );
 };

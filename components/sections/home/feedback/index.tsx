@@ -36,7 +36,7 @@ const FeedbackForm = () => {
   const SignupSchema = getValidationSchema(type);
 
   return (
-    <Wrap>
+    <Wrap id="contact-form">
       <TypeSwitcher currentType={type} setType={setType} />
 
       <Formik
