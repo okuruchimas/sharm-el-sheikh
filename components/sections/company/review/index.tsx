@@ -1,4 +1,3 @@
-import { toast, ToastContainer } from "react-toastify";
 import { useState, useCallback } from "react";
 import { Formik, Form } from "formik";
 // components
@@ -11,30 +10,35 @@ import SectionWrapper from "../../../layout/section-wrapper";
 import styled from "@emotion/styled";
 import { ReviewFormValidationSchema } from "./children/utils";
 import { FormikHelpers } from "formik/dist/types";
-// styles
-import "react-toastify/dist/ReactToastify.css";
 
 interface ReviewFormValues {
   email: string;
   review: string;
 }
 
-const ReviewForm = () => {
+type ReviewFormProps = {
+  handleAddComment: (
+    rating: number,
+    text: string,
+    email: string,
+  ) => Promise<void>;
+};
+
+const ReviewForm = ({ handleAddComment }: ReviewFormProps) => {
   const [stars, setStars] = useState(0);
 
   const handleSubmit = useCallback(
     async (
-      values: ReviewFormValues,
+      { review, email }: ReviewFormValues,
       { setSubmitting, resetForm }: FormikHelpers<ReviewFormValues>,
     ) => {
-      const payload = { ...values, date: new Date(), stars };
-      console.log(payload);
-      toast.success("Email successfully delivered!");
+      await handleAddComment(stars, review, email);
+
       resetForm();
       setStars(0);
       setSubmitting(false);
     },
-    [stars],
+    [handleAddComment, stars],
   );
 
   return (
@@ -69,7 +73,6 @@ const ReviewForm = () => {
           </FormWrap>
         )}
       </Formik>
-      <ToastContainer />
     </SectionWrapper>
   );
 };

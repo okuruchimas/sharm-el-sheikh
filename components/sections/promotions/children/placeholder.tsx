@@ -3,7 +3,11 @@ import NextImage from "../../../layout/image";
 // utils
 import styled from "@emotion/styled";
 
-const Background = () => {
+type PlaceholderProps = {
+  title?: string;
+};
+
+const Placeholder = ({ title }: PlaceholderProps) => {
   return (
     <Wrap>
       <NextImage
@@ -14,7 +18,7 @@ const Background = () => {
         mWidth="100%"
         mHeight="25vh"
       />
-      <Title>Currently no discounts available</Title>
+      {title ? <Title>{title}</Title> : null}
     </Wrap>
   );
 };
@@ -30,14 +34,12 @@ const Wrap = styled("div")({
 const Title = styled("h3")(({ theme }) => ({
   fontWeight: "700",
   textAlign: "center",
-  margin: "24px 288px 0",
   fontSize: theme.fontSize.fontS24,
   color: theme.colors.blue,
 
   [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS14,
-    margin: "12px 0 0",
   },
 }));
 
-export default Background;
+export default Placeholder;

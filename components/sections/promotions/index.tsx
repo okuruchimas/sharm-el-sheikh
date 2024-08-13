@@ -3,7 +3,7 @@ import PromCard from "./children/prom-card";
 import Button from "../../layout/button";
 import LinkButton from "../../layout/link-button";
 import Dropdown from "../../layout/filters";
-import Background from "./children/background";
+import Placeholder from "./children/placeholder";
 import SectionWrapper from "../../layout/section-wrapper";
 // utils
 import styled from "@emotion/styled";
@@ -61,7 +61,9 @@ const Promotions = ({
             />
           ))}
       </DownWrap>
-      {!promCards ? <Background /> : null}
+      {!promCards ? (
+        <Placeholder title="Currently no discounts available" />
+      ) : null}
       {disableViewMore ? null : (
         <ButtonWrap>
           <Button text="View more" backgroundColor="white" />

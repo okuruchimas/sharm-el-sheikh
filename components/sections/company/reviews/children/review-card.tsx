@@ -56,18 +56,21 @@ export const CardWrapper = styled("div", {
   minHeight: "216px",
   boxShadow: theme.shadows[1],
   backgroundColor: theme.colors.white2,
-
   transition: "transform 0.3s ease",
 
   "&:hover": {
-    zIndex: 1,
+    zIndex: 1000,
     transform: "scale(1.05)",
   },
 
   [theme.breakpoints.mobile]: {
     maxWidth: "90%",
+    minHeight: "150px",
     margin: `-${margin}px 0 0 ${margin}px`,
-    alignSelf: margin > 15 ? "end" : "start",
+
+    ...(margin < 25
+      ? { alignSelf: "start" }
+      : { alignSelf: "end", marginRight: `${margin / 2}px` }),
   },
 }));
 
