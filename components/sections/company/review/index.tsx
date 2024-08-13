@@ -158,12 +158,16 @@ const FormWrap = styled(Form)(({ theme }) => ({
 }));
 
 const StarReviews = styled("div")(({ theme }) => ({
-  display: "flex",
+  display: "grid",
   gap: "24px",
-  justifyContent: "space-between",
+  gridTemplateColumns: "1fr",
 
-  [theme.breakpoints.mobile]: {
-    flexDirection: "column",
+  [theme.breakpoints.mobileHorizontal]: {
+    gridTemplateColumns: "repeat(2, 1fr)",
+  },
+
+  [theme.breakpoints.desktop]: {
+    gridTemplateColumns: "repeat(4, 1fr)",
   },
 }));
 
