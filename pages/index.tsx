@@ -29,10 +29,10 @@ const DynamicAnnouncements = dynamic(
   },
 );
 
-// const DynamicMap = dynamic(() => import("../components/sections/home/map"), {
-//   ssr: true,
-//   loading: () => <Loader />,
-// });
+const DynamicMap = dynamic(() => import("../components/sections/home/map"), {
+  ssr: true,
+  loading: () => <Loader />,
+});
 
 type Props = EventCardProps &
   PromCardProps &
@@ -69,9 +69,9 @@ const Home = ({ eventCards, promCards, announcementsCards }: Props) => {
             buttonText="Contact us"
           />
         </LazyWrapper>
-        {/*<LazyWrapper>*/}
-        {/*  <DynamicMap promCards={promCards} />*/}
-        {/*</LazyWrapper>*/}
+        <LazyWrapper>
+          <DynamicMap promCards={promCards} />
+        </LazyWrapper>
         <FeedbackForm />
       </SectionsWrapper>
     </Wrap>
