@@ -59,7 +59,7 @@ export const CardWrapper = styled("div", {
   transition: "transform 0.3s ease",
 
   "&:hover": {
-    zIndex: 1000,
+    zIndex: 1,
     transform: "scale(1.05)",
   },
 

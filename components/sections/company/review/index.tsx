@@ -24,18 +24,55 @@ type ReviewFormProps = {
   ) => Promise<void>;
 };
 
+type StarRatings = {
+  service: number;
+  price: number;
+  food: number;
+  cleanliness: number;
+};
+
+const categories: { name: keyof StarRatings; label: string }[] = [
+  { name: "service", label: "Service" },
+  { name: "price", label: "Price" },
+  { name: "food", label: "Food" },
+  { name: "cleanliness", label: "Cleanliness" },
+];
+
 const ReviewForm = ({ handleAddComment }: ReviewFormProps) => {
-  const [stars, setStars] = useState(0);
+  const [stars, setStars] = useState<StarRatings>({
+    service: 0,
+    price: 0,
+    food: 0,
+    cleanliness: 0,
+  });
+
+  const handleStarChange = useCallback(
+    (categoryName: keyof StarRatings, value: number) => {
+      setStars((prevStars) => ({
+        ...prevStars,
+        [categoryName]: value,
+      }));
+    },
+    [],
+  );
 
   const handleSubmit = useCallback(
     async (
       { review, email }: ReviewFormValues,
       { setSubmitting, resetForm }: FormikHelpers<ReviewFormValues>,
     ) => {
-      await handleAddComment(stars, review, email);
+      const overallRating =
+        (stars.service + stars.price + stars.food + stars.cleanliness) / 4;
+
+      await handleAddComment(overallRating, review, email);
 
       resetForm();
-      setStars(0);
+      setStars({
+        service: 0,
+        price: 0,
+        food: 0,
+        cleanliness: 0,
+      });
       setSubmitting(false);
     },
     [handleAddComment, stars],
@@ -54,7 +91,18 @@ const ReviewForm = ({ handleAddComment }: ReviewFormProps) => {
               <Loader />
             ) : (
               <>
-                <StarReview stars={stars} onChange={setStars} />
+                <StarReviews>
+                  {categories.map((category) => (
+                    <StarReview
+                      key={category.name}
+                      stars={stars[category.name]}
+                      categoryName={category.label}
+                      onChange={(value) =>
+                        handleStarChange(category.name, value)
+                      }
+                    />
+                  ))}
+                </StarReviews>
                 <Input label="Email" type="email" placeholder="Email" isLight />
                 <Input
                   label="Review"
@@ -67,7 +115,10 @@ const ReviewForm = ({ handleAddComment }: ReviewFormProps) => {
             )}
             <Button
               text="Send"
-              disabled={isSubmitting || !stars}
+              disabled={
+                isSubmitting ||
+                Object.values(stars).some((value) => value === 0)
+              }
               type="submit"
             />
           </FormWrap>
@@ -103,6 +154,16 @@ const FormWrap = styled(Form)(({ theme }) => ({
   [theme.breakpoints.mobile]: {
     gap: "16px",
     paddingBottom: "16px",
+  },
+}));
+
+const StarReviews = styled("div")(({ theme }) => ({
+  display: "flex",
+  gap: "24px",
+  justifyContent: "space-between",
+
+  [theme.breakpoints.mobile]: {
+    flexDirection: "column",
   },
 }));
 
