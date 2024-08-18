@@ -9,6 +9,7 @@ export interface PromCardI {
   title: string;
   location: string;
   category?: string;
+  description?: string;
   position?: {
     lat: number;
     lng: number;

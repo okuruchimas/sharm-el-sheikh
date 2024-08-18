@@ -1,4 +1,3 @@
-import { toast, ToastContainer } from "react-toastify";
 import { useState, useCallback } from "react";
 import { Formik, Form } from "formik";
 // components
@@ -11,30 +10,72 @@ import SectionWrapper from "../../../layout/section-wrapper";
 import styled from "@emotion/styled";
 import { ReviewFormValidationSchema } from "./children/utils";
 import { FormikHelpers } from "formik/dist/types";
-// styles
-import "react-toastify/dist/ReactToastify.css";
 
 interface ReviewFormValues {
   email: string;
   review: string;
 }
 
-const ReviewForm = () => {
-  const [stars, setStars] = useState(0);
+type ReviewFormProps = {
+  handleAddComment: (
+    rating: number,
+    text: string,
+    email: string,
+  ) => Promise<void>;
+};
+
+type StarRatings = {
+  service: number;
+  price: number;
+  food: number;
+  cleanliness: number;
+};
+
+const categories: { name: keyof StarRatings; label: string }[] = [
+  { name: "service", label: "Service" },
+  { name: "price", label: "Price" },
+  { name: "food", label: "Food" },
+  { name: "cleanliness", label: "Cleanliness" },
+];
+
+const ReviewForm = ({ handleAddComment }: ReviewFormProps) => {
+  const [stars, setStars] = useState<StarRatings>({
+    service: 0,
+    price: 0,
+    food: 0,
+    cleanliness: 0,
+  });
+
+  const handleStarChange = useCallback(
+    (categoryName: keyof StarRatings, value: number) => {
+      setStars((prevStars) => ({
+        ...prevStars,
+        [categoryName]: value,
+      }));
+    },
+    [],
+  );
 
   const handleSubmit = useCallback(
     async (
-      values: ReviewFormValues,
+      { review, email }: ReviewFormValues,
       { setSubmitting, resetForm }: FormikHelpers<ReviewFormValues>,
     ) => {
-      const payload = { ...values, date: new Date(), stars };
-      console.log(payload);
-      toast.success("Email successfully delivered!");
+      const overallRating =
+        (stars.service + stars.price + stars.food + stars.cleanliness) / 4;
+
+      await handleAddComment(overallRating, review, email);
+
       resetForm();
-      setStars(0);
+      setStars({
+        service: 0,
+        price: 0,
+        food: 0,
+        cleanliness: 0,
+      });
       setSubmitting(false);
     },
-    [stars],
+    [handleAddComment, stars],
   );
 
   return (
@@ -50,7 +91,18 @@ const ReviewForm = () => {
               <Loader />
             ) : (
               <>
-                <StarReview stars={stars} onChange={setStars} />
+                <StarReviews>
+                  {categories.map((category) => (
+                    <StarReview
+                      key={category.name}
+                      stars={stars[category.name]}
+                      categoryName={category.label}
+                      onChange={(value) =>
+                        handleStarChange(category.name, value)
+                      }
+                    />
+                  ))}
+                </StarReviews>
                 <Input label="Email" type="email" placeholder="Email" isLight />
                 <Input
                   label="Review"
@@ -63,13 +115,15 @@ const ReviewForm = () => {
             )}
             <Button
               text="Send"
-              disabled={isSubmitting || !stars}
+              disabled={
+                isSubmitting ||
+                Object.values(stars).some((value) => value === 0)
+              }
               type="submit"
             />
           </FormWrap>
         )}
       </Formik>
-      <ToastContainer />
     </SectionWrapper>
   );
 };
@@ -100,6 +154,20 @@ const FormWrap = styled(Form)(({ theme }) => ({
   [theme.breakpoints.mobile]: {
     gap: "16px",
     paddingBottom: "16px",
+  },
+}));
+
+const StarReviews = styled("div")(({ theme }) => ({
+  display: "grid",
+  gap: "24px",
+  gridTemplateColumns: "1fr",
+
+  [theme.breakpoints.mobileHorizontal]: {
+    gridTemplateColumns: "repeat(2, 1fr)",
+  },
+
+  [theme.breakpoints.desktop]: {
+    gridTemplateColumns: "repeat(4, 1fr)",
   },
 }));
 

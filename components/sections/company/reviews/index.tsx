@@ -1,42 +1,48 @@
 import { useMemo } from "react";
 // component
 import ReviewCard from "./children/review-card";
+import Placeholder from "../../promotions/children/placeholder";
 import SectionWrapper from "../../../layout/section-wrapper";
 // utils
 import styled from "@emotion/styled";
-// constants
-import { REVIEWS } from "./children/mock-data";
+import { formatDate } from "../../../../utils/formateDate";
+// types
+import type { Comment } from "../../../../pages/api/comments";
 
-const Reviews = () => {
+type ReviewsProps = { comments: Comment[] };
+
+const Reviews = ({ comments }: ReviewsProps) => {
   const rows = useMemo(() => {
     const result = [];
 
-    for (let i = 0; i < REVIEWS.length; i += 3) {
-      result.push(REVIEWS.slice(i, i + 3));
+    for (let i = 0; i < comments.length; i += 3) {
+      result.push(comments.slice(i, i + 3));
     }
     return result;
-  }, []);
+  }, [comments]);
 
   return (
     <SectionWrapper title="Visitor Reviews">
-      <ReviewsWrapper>
-        <Gradient>
-          {rows.map((row, index, length) => {
-            return (
+      {rows.length ? (
+        <ReviewsWrapper>
+          <Gradient>
+            {rows.map((row, index, length) => (
               <Row key={index}>
                 {row.map((review, index) => (
                   <ReviewCard
-                    key={index} // TODO change index to item ID
-                    stars={review.stars}
-                    date={review.date}
+                    key={review._id}
+                    stars={review.rating?.toFixed(1)}
+                    date={formatDate(review.date)}
                     text={review.text}
                   />
                 ))}
               </Row>
-            );
-          })}
-        </Gradient>
-      </ReviewsWrapper>
+            ))}
+          </Gradient>
+        </ReviewsWrapper>
+      ) : (
+        <Placeholder title="Currently, there are no reviews. Be the first to share your experience!" />
+      )}
     </SectionWrapper>
   );
 };
