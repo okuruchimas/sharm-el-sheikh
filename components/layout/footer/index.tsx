@@ -1,25 +1,23 @@
 // components
 import { Hr } from "../hr";
-import SocialIcons, { SocialIcon } from "../social-icons";
+import SocialIcon, { type SocialIconI } from "../social-icon";
 // utils
 import styled from "@emotion/styled";
 
 export interface FooterProps {
-  socialIcons: SocialIcon[];
+  socialIcons: SocialIconI[];
 }
 
-const Footer = ({ socialIcons }: FooterProps) => {
-  return (
-    <Wrap>
-      <Hr isFooter />
-      <Wrapper>
-        {socialIcons.map(({ iconSrc, socialLink }, index) => (
-          <SocialIcons iconSrc={iconSrc} socialLink={socialLink} key={index} />
-        ))}
-      </Wrapper>
-    </Wrap>
-  );
-};
+const Footer = ({ socialIcons }: FooterProps) => (
+  <Wrap>
+    <Hr isFooter />
+    <Wrapper>
+      {socialIcons.map((el) => (
+        <SocialIcon {...el} key={el.id} />
+      ))}
+    </Wrapper>
+  </Wrap>
+);
 
 const Wrap = styled("div")(({ theme }) => ({
   width: "100%",

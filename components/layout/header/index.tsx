@@ -9,14 +9,28 @@ import NavMenu from "./children/nav-menu";
 import styled from "@emotion/styled";
 import { css, Global } from "@emotion/react";
 
-const Header = () => {
+export type NavMenuItem = {
+  id: number;
+  Text: string;
+  Link: string;
+};
+
+export type HeaderProps = {
+  logo: {
+    src: string;
+    alt: string;
+  };
+  navMenu: NavMenuItem[];
+};
+
+const Header = ({ logo, navMenu }: HeaderProps) => {
   const [isNavbar, setIsNavbar] = useState<boolean>(false);
 
   return (
     <Wrap isOpen={isNavbar}>
       <WrapperUp>
         <Link href={"/"} style={{ width: "80%" }}>
-          <Logo src="icons/header/logo.svg" alt="logo" isOpen={isNavbar} />
+          <Logo src={logo.src} alt={logo.alt} isOpen={isNavbar} />
         </Link>
         {isNavbar ? <Global styles={hiddenOverflow} /> : null}
         <BurgerIcon
@@ -29,7 +43,7 @@ const Header = () => {
         </ButtonsWrap>
       </WrapperUp>
       <Line />
-      <NavMenu isOpen={isNavbar} />
+      <NavMenu isOpen={isNavbar} navMenu={navMenu} />
     </Wrap>
   );
 };
@@ -74,9 +88,9 @@ export const Logo = styled("img", {
   width: "370px",
   height: "52px",
   cursor: "pointer",
+  transition: "opacity 0.5s ease, transform 0.5s ease",
 
   [theme.breakpoints.mobile]: {
-    transition: "opacity 0.5s ease, transform 0.5s ease",
     display: "block",
     height: "30px",
     width: "auto",

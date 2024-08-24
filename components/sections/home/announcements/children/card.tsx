@@ -1,31 +1,25 @@
 // components
-import { SubTitle } from "../../../../layout/subtitle";
-import SocialIcons from "../../../../layout/social-icons";
+import SubTitle from "../../../../layout/subtitle";
+import SocialIcon from "../../../../layout/social-icon";
 // utils
 import styled from "@emotion/styled";
 // types
 import type { AnnouncementCardI } from "./types";
 
-const Card = ({ image, title, text, icons, isFirst }: AnnouncementCardI) => {
-  return (
-    <Wrap isFirst={isFirst}>
-      <AnnounceImage src={image} alt={title} isFirst={isFirst} />
-      <BottomSection>
-        <SubTitle>{title}</SubTitle>
-        <Description>{text}</Description>
-        <IconsWrapper>
-          {icons.map(({ iconSrc, socialLink }, index) => (
-            <SocialIcons
-              iconSrc={iconSrc}
-              socialLink={socialLink}
-              key={index}
-            />
-          ))}
-        </IconsWrapper>
-      </BottomSection>
-    </Wrap>
-  );
-};
+const Card = ({ image, title, text, icons, isFirst }: AnnouncementCardI) => (
+  <Wrap isFirst={isFirst}>
+    <AnnounceImage src={image} alt={title} isFirst={isFirst} />
+    <BottomSection>
+      <SubTitle>{title}</SubTitle>
+      <Description>{text}</Description>
+      <IconsWrapper>
+        {icons.map((el, index) => (
+          <SocialIcon {...el} key={index} />
+        ))}
+      </IconsWrapper>
+    </BottomSection>
+  </Wrap>
+);
 
 const Wrap = styled("div", {
   shouldForwardProp: (prop) => prop !== "isFirst",

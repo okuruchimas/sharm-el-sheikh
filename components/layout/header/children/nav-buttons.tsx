@@ -7,9 +7,7 @@ import styled from "@emotion/styled";
 
 const NavButtons = () => {
   const router = useRouter();
-  const handleCLick = () => {
-    router.push("/#contact-form");
-  };
+  const handleCLick = () => router.push("/#contact-form");
 
   return (
     <Buttons>

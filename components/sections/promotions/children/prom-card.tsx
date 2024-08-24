@@ -1,7 +1,7 @@
 // libs
 import Link from "next/link";
 // components
-import { SubTitle } from "../../../layout/subtitle";
+import SubTitle from "../../../layout/subtitle";
 import Swiper from "./swiper";
 // utils
 import styled from "@emotion/styled";
