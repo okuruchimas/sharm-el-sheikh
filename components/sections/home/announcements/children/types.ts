@@ -1,10 +1,10 @@
-import { SocialIcon } from "../../../../layout/social-icons";
+import { SocialIconI } from "../../../../layout/social-icon";
 
 export interface AnnouncementCardI {
   image: string;
   title: string;
   text: string;
-  icons: SocialIcon[];
+  icons: SocialIconI[];
   isFirst: boolean;
 }
 

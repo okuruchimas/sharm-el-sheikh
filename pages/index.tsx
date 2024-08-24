@@ -11,7 +11,6 @@ import LazyWrapper from "../components/layout/lazy-wrapper";
 import styled from "@emotion/styled";
 import dynamic from "next/dynamic";
 // types
-import type { FooterProps } from "../components/layout/footer";
 import type { EventCardProps } from "../components/sections/home/main/children/types";
 import type { AnnouncementCardProps } from "../components/sections/home/announcements/children/types";
 
@@ -34,10 +33,7 @@ const DynamicMap = dynamic(() => import("../components/sections/home/map"), {
   loading: () => <Loader />,
 });
 
-type Props = EventCardProps &
-  PromCardProps &
-  AnnouncementCardProps &
-  FooterProps;
+type Props = EventCardProps & PromCardProps & AnnouncementCardProps;
 
 const Home = ({ eventCards, promCards, announcementsCards }: Props) => {
   return (

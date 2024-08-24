@@ -3,29 +3,23 @@ import Link from "next/link";
 import NavButtons from "./nav-buttons";
 // utils
 import styled from "@emotion/styled";
-
-const navMenu: { text: string; to: string }[] = [
-  { text: "Hotspots", to: "hotspots" },
-  { text: "Retail Outlets", to: "retailOutlets" },
-  { text: "Emergency Services", to: "emergencyServices" },
-  { text: "Community", to: "community" },
-  { text: "Promotions", to: "promotions" },
-  { text: "Entertainers & Tour Guides", to: "tourGuides" },
-];
+// types
+import type { NavMenuItem } from "../index";
 
 interface IProps {
   isOpen: boolean;
+  navMenu: NavMenuItem[];
 }
 
-const NavMenu = ({ isOpen }: IProps) => {
+const NavMenu = ({ isOpen, navMenu }: IProps) => {
   return (
     <WrapperDown isOpen={isOpen}>
       <ButtonsWrap>
         <NavButtons />
       </ButtonsWrap>
-      {navMenu.map((item, index) => (
-        <Link href={item.to} key={index}>
-          <ListItem>{item.text}</ListItem>
+      {navMenu.map((item) => (
+        <Link href={item.Link} key={item.id}>
+          <ListItem>{item.Text}</ListItem>
         </Link>
       ))}
     </WrapperDown>

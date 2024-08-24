@@ -1,5 +1,5 @@
 export function getUrl(path = "") {
-  return `${process.env.API_URL}${path}`;
+  return `${process.env.NEXT_PUBLIC_STRAPI_URL}/${path}`;
 }
 export async function fetchAPI(path: string) {
   const url = getUrl(path);
