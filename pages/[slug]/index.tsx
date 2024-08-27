@@ -37,9 +37,13 @@ const CompanyPage = ({ card, initialComments }: Props) => {
   ) => {
     try {
       // ========= FEATURE COMING SOON =========
-      // await addComment(card.slug?.toString() ?? "", rating, text, email); // TODO: slug should not be optional
-      // const updatedComments = await getComments(card.slug?.toString() ?? "");
-      // setComments(updatedComments);
+      // const updatedData = await addComment(
+      //   card.slug || "",
+      //   rating,
+      //   text,
+      //   email,
+      // );
+      // setComments(updatedData.comments);
 
       console.log({ rating, text, email });
       toast.success("Thank you for your feedback");
@@ -165,10 +169,10 @@ export async function getStaticProps({ params }: any) {
   const card = promCards.find(({ slug }: PromCardI) => slug === slugP);
 
   // ========= FEATURE COMING SOON =========
-  // const initialComments = await getComments(slugP).catch((e) => {
-  //   console.log("Error fetching comments:", e);
-  //   return [];
+  // const reviewsData = await getComments(slugP).catch((e) => {
+  //   return { comments: [] };
   // });
+  // const initialComments = reviewsData.comments;
 
   const initialComments = REVIEWS;
 

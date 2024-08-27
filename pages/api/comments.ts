@@ -7,12 +7,18 @@ export type Comment = {
   email?: string;
 };
 
+export type PlaceDetails = {
+  comments: Comment[];
+  averageRating: number;
+  totalComments: number;
+};
+
 export async function addComment(
   placeId: string,
   rating: number,
   text: string,
   email: string,
-): Promise<Comment> {
+): Promise<PlaceDetails> {
   const response = await fetch("http://localhost:5000/comments", {
     method: "POST",
     headers: {
@@ -28,7 +34,7 @@ export async function addComment(
   return await response.json();
 }
 
-export async function getComments(placeId: string): Promise<Comment[]> {
+export async function getComments(placeId: string): Promise<PlaceDetails> {
   const response = await fetch(`http://localhost:5000/comments/${placeId}`);
 
   if (!response.ok) {
