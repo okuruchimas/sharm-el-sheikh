@@ -12,7 +12,7 @@ const NavButtons = () => {
   return (
     <Buttons>
       <LanguageSelector />
-      <SearchButton src="icons/header/search_button.svg" alt="Search button" />
+      <SearchButton src="/icons/header/search_button.svg" alt="Search button" />
       <Button text="Contact us" onClick={handleCLick} />
     </Buttons>
   );

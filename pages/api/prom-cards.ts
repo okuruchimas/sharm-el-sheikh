@@ -1,5 +1,6 @@
 import { Categories } from "../../components/sections/home/map/children/constants";
 import { NextApiRequest, NextApiResponse } from "next";
+import type { CompanyCardFragment } from "../../gql/graphql";
 
 export interface PromCardI {
   id?: number;
@@ -21,10 +22,10 @@ export interface ImagesI {
 }
 
 export interface PromCardProps {
-  promCards: PromCardI[];
+  promCards: CompanyCardFragment[];
 }
 
-export const dataPromCards = [
+export const dataPromCardsDeprecated = [
   {
     id: 1,
     slug: "sharm-dreams-resort",
@@ -251,6 +252,285 @@ export const dataPromCards = [
   },
 ];
 
-export default (req: NextApiRequest, res: NextApiResponse<PromCardI[]>) => {
+export const dataPromCards = [
+  {
+    id: 1,
+    slug: "sharm-dreams-resort",
+    title: "Sharm Dreams Resort",
+    discount: "20% discount",
+    description: "A beautiful resort in South Sinai Governorate.",
+    youTubeVideoId: "abcd1234", // example YouTube ID
+    touchText: "Contact Us",
+    touchLink: "https://example.com/contact",
+    averageRating: 4.5,
+    totalComments: 100,
+    location: "South Sinai Governorate",
+    images: {
+      data: [
+        {
+          id: "1",
+          attributes: {
+            url: "/images/prom-cards/prom-card1.webp",
+            alternativeText: "Promotional Card 1",
+          },
+        },
+        {
+          id: "2",
+          attributes: {
+            url: "/images/prom-cards/prom-card2.webp",
+            alternativeText: "Promotional Card 2",
+          },
+        },
+        {
+          id: "3",
+          attributes: {
+            url: "/images/prom-cards/prom-card3.webp",
+            alternativeText: "Promotional Card 3",
+          },
+        },
+      ],
+    },
+    position: {
+      lat: "25.28",
+      lng: "55.328",
+    },
+    discountBanner: {
+      title: "Special Offer",
+      buttonText: "Get Now",
+      buttonLink: "https://example.com/offer",
+      bannerImage: {
+        data: {
+          attributes: {
+            url: "/images/banner/banner1.webp",
+            alternativeText: "Banner Image",
+          },
+        },
+      },
+    },
+    filters: {
+      data: [
+        {
+          id: "1",
+          attributes: {
+            text: "Family",
+            key: "family",
+          },
+        },
+        {
+          id: "2",
+          attributes: {
+            text: "Luxury",
+            key: "luxury",
+          },
+        },
+      ],
+    },
+    services: {
+      data: [
+        {
+          id: "1",
+          attributes: {
+            text: "Free Wi-Fi",
+            icon: {
+              data: {
+                attributes: {
+                  url: "icons/wifi.svg",
+                  alternativeText: "Wi-Fi Icon",
+                },
+              },
+            },
+          },
+        },
+        {
+          id: "2",
+          attributes: {
+            text: "24/7 Support",
+            icon: {
+              data: {
+                attributes: {
+                  url: "icons/support.svg",
+                  alternativeText: "Support Icon",
+                },
+              },
+            },
+          },
+        },
+      ],
+    },
+  },
+  {
+    id: 2,
+    slug: "sharm-dreams-resort",
+    title: "El Ezaby Pharmacy",
+    discount: "30% discount",
+    description: "Pharmacy offering a wide range of healthcare products.",
+    youTubeVideoId: "efgh5678", // example YouTube ID
+    touchText: "Reach Us",
+    touchLink: "https://example.com/reach",
+    averageRating: 4.7,
+    totalComments: 200,
+    location: "صيدلية العزبي",
+    images: {
+      data: [
+        {
+          id: "4",
+          attributes: {
+            url: "/images/prom-cards/prom-card2.webp",
+            alternativeText: "Promotional Card 2",
+          },
+        },
+        {
+          id: "5",
+          attributes: {
+            url: "/images/prom-cards/prom-card1.webp",
+            alternativeText: "Promotional Card 1",
+          },
+        },
+        {
+          id: "6",
+          attributes: {
+            url: "/images/prom-cards/prom-card3.webp",
+            alternativeText: "Promotional Card 3",
+          },
+        },
+      ],
+    },
+    position: {
+      lat: "25.26",
+      lng: "55.4129",
+    },
+    discountBanner: {
+      title: "Exclusive Deal",
+      buttonText: "Shop Now",
+      buttonLink: "https://example.com/shop",
+      bannerImage: {
+        data: {
+          attributes: {
+            url: "/images/banner/banner2.webp",
+            alternativeText: "Exclusive Deal Banner",
+          },
+        },
+      },
+    },
+    filters: {
+      data: [
+        {
+          id: "3",
+          attributes: {
+            text: "Health",
+            key: "health",
+          },
+        },
+      ],
+    },
+    services: {
+      data: [
+        {
+          id: "3",
+          attributes: {
+            text: "Prescription Services",
+            icon: {
+              data: {
+                attributes: {
+                  url: "icons/prescription.svg",
+                  alternativeText: "Prescription Icon",
+                },
+              },
+            },
+          },
+        },
+      ],
+    },
+  },
+  {
+    id: 3,
+    slug: "mannys-burger",
+    title: "Manny’s Burger",
+    discount: "33% discount",
+    description: "Pharmacy offering a wide range of healthcare products.",
+    youTubeVideoId: "efgh5678", // example YouTube ID
+    touchText: "Reach Us",
+    touchLink: "https://example.com/reach",
+    averageRating: 4.7,
+    totalComments: 200,
+    location: "صيدلية العزبي",
+    images: {
+      data: [
+        {
+          id: "6",
+          attributes: {
+            url: "/images/prom-cards/prom-card3.webp",
+            alternativeText: "Promotional Card 3",
+          },
+        },
+        {
+          id: "4",
+          attributes: {
+            url: "/images/prom-cards/prom-card2.webp",
+            alternativeText: "Promotional Card 2",
+          },
+        },
+        {
+          id: "5",
+          attributes: {
+            url: "/images/prom-cards/prom-card1.webp",
+            alternativeText: "Promotional Card 1",
+          },
+        },
+      ],
+    },
+    position: {
+      lat: "25.26",
+      lng: "55.4129",
+    },
+    discountBanner: {
+      title: "Exclusive Deal",
+      buttonText: "Shop Now",
+      buttonLink: "https://example.com/shop",
+      bannerImage: {
+        data: {
+          attributes: {
+            url: "/images/banner/banner2.webp",
+            alternativeText: "Exclusive Deal Banner",
+          },
+        },
+      },
+    },
+    filters: {
+      data: [
+        {
+          id: "3",
+          attributes: {
+            text: "Health",
+            key: "health",
+          },
+        },
+      ],
+    },
+    services: {
+      data: [
+        {
+          id: "3",
+          attributes: {
+            text: "Prescription Services",
+            icon: {
+              data: {
+                attributes: {
+                  url: "icons/prescription.svg",
+                  alternativeText: "Prescription Icon",
+                },
+              },
+            },
+          },
+        },
+      ],
+    },
+  },
+];
+
+export default (
+  req: NextApiRequest,
+  res: NextApiResponse<CompanyCardFragment[]>,
+) => {
   res.status(200).json(dataPromCards);
 };

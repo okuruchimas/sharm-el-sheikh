@@ -1,5 +1,7 @@
-import { useState, useCallback } from "react";
 import { Formik, Form } from "formik";
+// hooks
+import { useTranslation } from "next-i18next";
+import { useState, useCallback } from "react";
 // components
 import Input from "../../../layout/input";
 import Button from "../../../layout/button";
@@ -32,10 +34,10 @@ type StarRatings = {
 };
 
 const categories: { name: keyof StarRatings; label: string }[] = [
-  { name: "service", label: "Service" },
-  { name: "price", label: "Price" },
-  { name: "food", label: "Food" },
-  { name: "cleanliness", label: "Cleanliness" },
+  { name: "service", label: "reviewFormSection.categories.service" },
+  { name: "price", label: "reviewFormSection.categories.price" },
+  { name: "food", label: "reviewFormSection.categories.food" },
+  { name: "cleanliness", label: "reviewFormSection.categories.cleanliness" },
 ];
 
 const ReviewForm = ({ handleAddComment }: ReviewFormProps) => {
@@ -45,6 +47,8 @@ const ReviewForm = ({ handleAddComment }: ReviewFormProps) => {
     food: 0,
     cleanliness: 0,
   });
+  const { t } = useTranslation("company-page");
+  const { t: tCommon } = useTranslation("common");
 
   const handleStarChange = useCallback(
     (categoryName: keyof StarRatings, value: number) => {
@@ -79,7 +83,7 @@ const ReviewForm = ({ handleAddComment }: ReviewFormProps) => {
   );
 
   return (
-    <SectionWrapper title="How would you rate this establishment?">
+    <SectionWrapper title={t("reviewFormSection.title")}>
       <Formik
         initialValues={{ email: "", review: "" }}
         validationSchema={ReviewFormValidationSchema}
@@ -96,25 +100,30 @@ const ReviewForm = ({ handleAddComment }: ReviewFormProps) => {
                     <StarReview
                       key={category.name}
                       stars={stars[category.name]}
-                      categoryName={category.label}
+                      categoryName={t(category.label)}
                       onChange={(value) =>
                         handleStarChange(category.name, value)
                       }
                     />
                   ))}
                 </StarReviews>
-                <Input label="Email" type="email" placeholder="Email" isLight />
                 <Input
-                  label="Review"
+                  label={tCommon("email")}
+                  type="email"
+                  placeholder={tCommon("email")}
+                  isLight
+                />
+                <Input
+                  label={t("reviewFormSection.review")}
                   type="review"
-                  placeholder="Your review"
+                  placeholder={t("reviewFormSection.yourReview")}
                   as="textarea"
                   isLight
                 />
               </>
             )}
             <Button
-              text="Send"
+              text={t("reviewFormSection.sendButton")}
               disabled={
                 isSubmitting ||
                 Object.values(stars).some((value) => value === 0)

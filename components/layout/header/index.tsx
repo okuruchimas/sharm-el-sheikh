@@ -34,7 +34,9 @@ const Header = ({ logo, navMenu }: HeaderProps) => {
         </Link>
         {isNavbar ? <Global styles={hiddenOverflow} /> : null}
         <BurgerIcon
-          src={isNavbar ? "icons/header/close.svg" : "icons/header/burger.svg"}
+          src={
+            isNavbar ? "/icons/header/close.svg" : "/icons/header/burger.svg"
+          }
           alt="burger-mune"
           onClick={() => setIsNavbar((prevState) => !prevState)}
         />

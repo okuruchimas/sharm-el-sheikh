@@ -1,0 +1,78 @@
+query CompanyPromotionCard($slug: String!, $locale: I18NLocaleCode!) {
+  companyPromotionCards(filters: { slug: { eq: $slug } }, locale: $locale) {
+    data {
+      id
+      attributes {
+        ...CompanyCard
+      }
+    }
+  }
+}
+
+fragment CompanyCard on CompanyPromotionCard {
+  title
+  discount
+  images {
+    data {
+      id
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  position {
+    lat
+    lng
+  }
+  description
+  youTubeVideoId
+  discountBanner {
+    title
+    buttonText
+    buttonLink
+    bannerImage {
+      data {
+        attributes {
+          url
+          alternativeText
+        }
+      }
+    }
+  }
+  touchText
+  touchLink
+  filters {
+    data {
+      id
+      attributes {
+        text
+        key
+      }
+    }
+  }
+  averageRating
+  totalComments
+  services {
+    data {
+     ...Service
+    }
+  }
+  slug
+  location
+}
+
+fragment Service on ServiceEntity {
+  id
+  attributes {
+    text
+    icon {
+      data {
+        attributes {
+          url
+          alternativeText
+        }
+      }
+    }
+  }
+}

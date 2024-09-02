@@ -1,0 +1,30 @@
+{
+  "description": "Description",
+  "feedbackError": "Error adding comment",
+  "feedbackSuccess": "Thank you for your feedback",
+  "getInTouchSection": {
+    "buttonText": "Contact",
+    "title": "Get in Touch with"
+  },
+  "openCard": "Open Card",
+  "reviewFormSection": {
+    "categories": {
+      "cleanliness": "Cleanliness",
+      "food": "Food",
+      "price": "Price",
+      "service": "Service"
+    },
+    "review": "Review",
+    "sendButton": "Send",
+    "title": "How would you rate this establishment?",
+    "yourReview": "Your review"
+  },
+  "reviewsSection": {
+    "placeholder": "Currently, there are no reviews. Be the first to share your experience!",
+    "title": "Visitor Reviews"
+  },
+  "servicesSection": {
+    "title": "Services and Amenities"
+  },
+  "similarSuggestions": "Similar Suggestions"
+}

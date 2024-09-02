@@ -10,6 +10,9 @@ import { mapFooterResponse, mapHeaderResponse } from "../utils/mapper";
 import type { AppProps } from "next/app";
 // styles
 import { theme } from "../context/theme/theme";
+// config
+import { appWithTranslation } from "next-i18next";
+import nextI18NextConfig from "../next-i18next.config"; // Додайте правильний імпорт конфігураційного файлу
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const { headerData, footerData } = pageProps;
@@ -42,4 +45,4 @@ MyApp.getInitialProps = async (ctx: any) => {
     },
   };
 };
-export default MyApp;
+export default appWithTranslation(MyApp, nextI18NextConfig);

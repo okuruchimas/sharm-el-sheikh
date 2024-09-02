@@ -1,53 +1,54 @@
 // libs
 import React, { useState } from "react";
 import Link from "next/link";
+// hooks
+import { useRouter } from "next/router";
 // utils
 import styled from "@emotion/styled";
 
-interface ILang {
-  link: string;
-  text: string;
-}
+type LocaleMapping = {
+  [key: string]: string;
+};
 
-const languages: ILang[] = [
-  { link: "/", text: "EN" },
-  { link: "/", text: "UA" },
-  { link: "/", text: "AR" },
-];
+const localeMapping: LocaleMapping = {
+  en: "en",
+  uk: "ua",
+  "ar-EG": "ar",
+};
 
 const LanguageSelector = () => {
   const [menuVisible, setMenuVisible] = useState<boolean>(false);
-  const [selectedLanguage, setSelectedLanguage] = useState<string>(
-    languages[0].text,
-  );
+
+  const router = useRouter();
+  const { locale = "en", locales, asPath } = router;
+
+  const getLocalizedName = (loc: string) => {
+    return localeMapping[loc] || loc;
+  };
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
 
-  const changeLanguage = (language: string) => {
-    setSelectedLanguage(language);
-    setMenuVisible(false);
-  };
-
   return (
     <Wrap>
       <Select onClick={toggleMenu}>
-        <CurrentLang>{selectedLanguage}</CurrentLang>
+        <CurrentLang>{getLocalizedName(locale)}</CurrentLang>
         <Arrow
-          src={"icons/header/dropdown-arrow.svg"}
+          src={"/icons/header/dropdown-arrow.svg"}
           alt={"arrow"}
           menuVisible={menuVisible}
         />
       </Select>
       <ListWrap isOpen={menuVisible}>
-        {languages.map(({ text, link }, index) => (
-          <Link key={index} href={link}>
+        {locales?.map((loc, index) => (
+          <Link href={asPath} key={loc} locale={loc}>
             <ListItem
-              onClick={() => changeLanguage(text)}
-              isYellow={selectedLanguage === text}
+              key={index}
+              isYellow={locale === loc}
+              onClick={() => setMenuVisible(false)}
             >
-              {text}
+              {getLocalizedName(loc)}
             </ListItem>
           </Link>
         ))}

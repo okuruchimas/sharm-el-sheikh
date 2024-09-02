@@ -1,4 +1,6 @@
+// hooks
 import { useMemo } from "react";
+import { useTranslation } from "next-i18next";
 // component
 import ReviewCard from "./children/review-card";
 import Placeholder from "../../promotions/children/placeholder";
@@ -12,6 +14,8 @@ import type { Comment } from "../../../../pages/api/comments";
 type ReviewsProps = { comments: Comment[] };
 
 const Reviews = ({ comments }: ReviewsProps) => {
+  const { t } = useTranslation("company-page");
+
   const rows = useMemo(() => {
     const result = [];
 
@@ -22,7 +26,7 @@ const Reviews = ({ comments }: ReviewsProps) => {
   }, [comments]);
 
   return (
-    <SectionWrapper title="Visitor Reviews">
+    <SectionWrapper title={t("reviewsSection.title")}>
       {rows.length ? (
         <ReviewsWrapper>
           <Gradient>
@@ -41,7 +45,7 @@ const Reviews = ({ comments }: ReviewsProps) => {
           </Gradient>
         </ReviewsWrapper>
       ) : (
-        <Placeholder title="Currently, there are no reviews. Be the first to share your experience!" />
+        <Placeholder title={t("reviewsSection.placeholder")} />
       )}
     </SectionWrapper>
   );

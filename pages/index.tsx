@@ -1,4 +1,8 @@
-import { dataPromCards, type PromCardProps } from "./api/prom-cards";
+import {
+  dataPromCards,
+  dataPromCardsDeprecated,
+  type PromCardProps,
+} from "./api/prom-cards";
 // components
 import Head from "next/head";
 import Main from "../components/sections/home/main";
@@ -66,7 +70,7 @@ const Home = ({ eventCards, promCards, announcementsCards }: Props) => {
           />
         </LazyWrapper>
         <LazyWrapper>
-          <DynamicMap promCards={promCards} />
+          <DynamicMap promCards={dataPromCardsDeprecated} />
         </LazyWrapper>
         <FeedbackForm />
       </SectionsWrapper>
