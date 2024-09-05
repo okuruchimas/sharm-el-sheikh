@@ -5,15 +5,27 @@ import NextImage from "../../../layout/image";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { PromCardI } from "../../../../pages/api/prom-cards";
+import type { CompanyCardFragment } from "../../../../gql/graphql";
 
-interface PromoI
-  extends Pick<
-    PromCardI,
-    "images" | "discount" | "slug" | "title" | "location"
-  > {}
+type PromoI = Pick<
+  CompanyCardFragment,
+  | "images"
+  | "discount"
+  | "title"
+  | "position"
+  | "location"
+  | "totalComments"
+  | "averageRating"
+>;
 
-const Promo = ({ images, discount, slug, title, location }: PromoI) => (
+const Promo = ({
+  images,
+  discount,
+  title,
+  location,
+  totalComments,
+  averageRating,
+}: PromoI) => (
   <SectionWrapper>
     <ContentWrapper>
       <SwiperWrapper>
@@ -22,13 +34,13 @@ const Promo = ({ images, discount, slug, title, location }: PromoI) => (
       <TopWrapper>
         <Title>{title}</Title>
         <RatingWrapper>
-          <Rating points={4.5} users={777} />
+          <Rating points={averageRating || 0} users={totalComments || 0} />
         </RatingWrapper>
       </TopWrapper>
       <Location>
         <NextImage
           src="/icons/promotions-section/location.svg"
-          alt="Location image"
+          alt="location icon"
           height="30px"
           width="30px"
           mHeight="18px"

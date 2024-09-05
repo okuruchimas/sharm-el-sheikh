@@ -42,7 +42,7 @@ const Input = ({ label, type, mask, placeholder, as, isLight }: Props) => {
             : null}
         </Field>
         {meta.touched && meta.error && (
-          <ErrorIcon src="icons/feedback-section/icon.svg" />
+          <ErrorIcon src="/icons/feedback-section/icon.svg" />
         )}
       </InputContainer>
       <ErrorWrap>

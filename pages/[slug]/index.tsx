@@ -1,7 +1,10 @@
-import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { dataPromCards, type PromCardI } from "../api/prom-cards";
+import { dataPromCards } from "../api/prom-cards";
 import { addComment, getComments, type Comment } from "../api/comments";
+// hooks
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 // components
 import Promo from "../../components/sections/company/promo";
 import Banner from "../../components/sections/home/banner";
@@ -14,21 +17,27 @@ import YouTubePlayer from "../../components/layout/player";
 import SectionsWrapper from "../../components/layout/sections-wrapper";
 // utils
 import styled from "@emotion/styled";
+import { fetchData } from "../../utils/fetchApi";
 // styles
 import "react-toastify/dist/ReactToastify.css";
 // mock
 import { REVIEWS } from "../../components/sections/company/reviews/children/mock-data";
-
+import {
+  type CompanyCardFragment,
+  CompanyPromotionCardDocument,
+} from "../../gql/graphql";
+// config
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18NextConfig from "../../next-i18next.config";
 interface Props {
-  card: PromCardI;
+  card: CompanyCardFragment;
   initialComments: Comment[];
 }
 
-const mockDescription =
-  "For families, we provide a range of activities and facilities, including dedicated kids' areas and engaging animation programs, so that every member of the family can have a fun and enjoyable stay. Adventure seekers can explore the vibrant coral reefs and marine life through our guided snorkeling and diving tours.";
-
 const CompanyPage = ({ card, initialComments }: Props) => {
   const [comments, setComments] = useState<Comment[]>(initialComments);
+  const router = useRouter();
+  const { t } = useTranslation("company-page");
 
   const handleAddComment = async (
     rating: number,
@@ -46,47 +55,61 @@ const CompanyPage = ({ card, initialComments }: Props) => {
       // setComments(updatedData.comments);
 
       console.log({ rating, text, email });
-      toast.success("Thank you for your feedback");
+      toast.success(t("feedbackSuccess"));
     } catch (error) {
       console.error("Error adding comment:", error);
-      toast.error("Error adding comment");
+      toast.error(t("feedbackError"));
     }
   };
 
   return (
     <Wrap
-      url="images/background/background-gradient.svg"
-      mobUrl="images/background/mobile-background-gradient.svg"
+      url="/images/background/background-gradient.svg"
+      mobUrl="/images/background/mobile-background-gradient.svg"
     >
       <Promo
-        slug={card.slug}
+        totalComments={card.totalComments}
+        averageRating={card.averageRating}
         discount={card.discount}
         images={card.images}
         title={card.title}
-        location={card.location}
+        location={card.location ?? ""}
       />
-      <DescriptionSection>
-        <span>Description</span>
-        <p>{card.description || mockDescription}</p>
-        {/* TODO: remove mock*/}
-      </DescriptionSection>
-      <YouTubePlayer videoId="70KWN-_YrPg" />
-      <Banner
-        title="To receive a discount, open this card and show it to the seller"
-        buttonText="Open Card"
-      />
-      <Services />
+      {card.description ? (
+        <DescriptionSection>
+          <span>{t("description")}</span>
+          <p>{card.description}</p>
+        </DescriptionSection>
+      ) : null}
+      {card.youTubeVideoId ? (
+        <YouTubePlayer videoId={card.youTubeVideoId} />
+      ) : null}
+      {card.discountBanner ? (
+        <Banner
+          title={card.discountBanner.title || ""}
+          buttonText={card.discountBanner.buttonText || t("openCard")}
+        />
+      ) : null}
+      {card.services ? <Services services={card.services?.data} /> : null}
       <Reviews comments={comments} />
       <ReviewForm handleAddComment={handleAddComment} />
       <Promotions
         promCards={dataPromCards}
-        title="Similar Suggestions"
+        title={t("similarSuggestions")}
         disableFilters
         disableViewMore
       />
       <ContactSection>
-        <span>Get in Touch with {card.title}</span>
-        <Button text="Contact" backgroundColor="white" />
+        <span>
+          {card.touchText
+            ? card.touchText
+            : `${t("getInTouchSection.title")} ${card.title}`}
+        </span>
+        <Button
+          text={t("getInTouchSection.buttonText")}
+          backgroundColor="white"
+          onClick={() => router.push(card.touchLink ?? "/")}
+        />
       </ContactSection>
       <ToastContainer />
     </Wrap>
@@ -151,8 +174,13 @@ const DescriptionSection = styled("div")(({ theme }) => ({
 export async function getStaticPaths() {
   const promCards = dataPromCards;
 
-  const paths = promCards.map((el: PromCardI) => {
-    return { params: { slug: el.slug } };
+  const locales = nextI18NextConfig.i18n.locales;
+
+  const paths = promCards.flatMap((el: CompanyCardFragment) => {
+    return locales.map((locale) => ({
+      params: { slug: el.slug },
+      locale,
+    }));
   });
 
   return {
@@ -161,12 +189,8 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }: any) {
-  const promCards = dataPromCards;
-
+export async function getStaticProps({ params, locale }: any) {
   const { slug: slugP } = params;
-
-  const card = promCards.find(({ slug }: PromCardI) => slug === slugP);
 
   // ========= FEATURE COMING SOON =========
   // const reviewsData = await getComments(slugP).catch((e) => {
@@ -174,11 +198,17 @@ export async function getStaticProps({ params }: any) {
   // });
   // const initialComments = reviewsData.comments;
 
+  const data = await fetchData(CompanyPromotionCardDocument, {
+    slug: slugP,
+    locale: locale,
+  });
+
   const initialComments = REVIEWS;
 
   return {
     props: {
-      card,
+      ...(await serverSideTranslations(locale, ["company-page", "common"])),
+      card: data.companyPromotionCards?.data[0]?.attributes || {},
       initialComments,
     },
   };

@@ -2,10 +2,11 @@ import { useMemo, useState, useCallback } from "react";
 import { MarkerF, GoogleMap, useLoadScript } from "@react-google-maps/api";
 // components
 import InfoWindow from "./children/info-window";
+import SectionWrapper from "../../../layout/section-wrapper";
 import LocationsCategoryFilter from "./children/locations-category-filter";
 // utils
 import styled from "@emotion/styled";
-
+import { calculateCenter } from "./children/utils";
 // constants
 import { categoriesOptions } from "./children/constants";
 import {
@@ -16,11 +17,13 @@ import {
 } from "./children/constants";
 // types
 import type { selectOption } from "../../../types/filter";
-import { calculateCenter } from "./children/utils";
-import { PromCardI, PromCardProps } from "../../../../pages/api/prom-cards";
-import SectionWrapper from "../../../layout/section-wrapper";
+import type { PromCardI } from "../../../../pages/api/prom-cards";
 
-const Map = ({ promCards }: PromCardProps) => {
+type MapProps = {
+  promCards: PromCardI[];
+};
+
+const Map = ({ promCards }: MapProps) => {
   // states
   const [selectedCategory, setSelectedCategory] = useState<selectOption>(
     categoriesOptions[0],

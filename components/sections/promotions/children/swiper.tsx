@@ -6,16 +6,13 @@ import { Autoplay, Navigation } from "swiper/modules";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { ImagesI } from "../../../../pages/api/prom-cards";
+import type { CompanyCardFragment } from "../../../../gql/graphql";
 // styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 
-type SwiperProps = {
-  images: ImagesI[];
-  discount?: string;
-};
+type SwiperProps = Pick<CompanyCardFragment, "images" | "discount">;
 
 const SwiperButtons = () => {
   const swiper = useSwiper();
@@ -24,13 +21,13 @@ const SwiperButtons = () => {
     <>
       <PrevSlideButton onClick={() => swiper.slidePrev()}>
         <NavIcon
-          src="icons/promotions-section/arrow.svg"
+          src="/icons/promotions-section/arrow.svg"
           alt="Privious slide button"
         />
       </PrevSlideButton>
       <NextSlideButton onClick={() => swiper.slideNext()}>
         <NavIcon
-          src="icons/promotions-section/arrow.svg"
+          src="/icons/promotions-section/arrow.svg"
           alt="Next slide button"
         />
       </NextSlideButton>
@@ -38,32 +35,36 @@ const SwiperButtons = () => {
   );
 };
 
-const ImageSwiper = ({ images, discount }: SwiperProps) => (
-  <Wrapper
-    slidesPerView={"auto"}
-    spaceBetween={0}
-    navigation={false}
-    pagination={{
-      clickable: true,
-    }}
-    autoplay={{ delay: 4600 }}
-    loop
-    modules={[Autoplay, Navigation]}
-  >
-    <SwiperButtons />
-    {discount ? <Promotion>{discount}</Promotion> : null}
-    {images.map((el, index) => (
-      <Slide key={index}>
-        <StyledImage
-          src={`/${el.src}`}
-          alt={el.src}
-          loading="lazy"
-          layout="fill"
-        />
-      </Slide>
-    ))}
-  </Wrapper>
-);
+const ImageSwiper = ({ images, discount }: SwiperProps) => {
+  return (
+    <Wrapper
+      slidesPerView={"auto"}
+      spaceBetween={0}
+      navigation={false}
+      pagination={{
+        clickable: true,
+      }}
+      autoplay={{ delay: 4600 }}
+      loop
+      modules={[Autoplay, Navigation]}
+    >
+      {images?.data.length > 1 ? <SwiperButtons /> : null}
+      {discount ? <Promotion>{discount}</Promotion> : null}
+      {images?.data
+        ? images.data.map((el, index) => (
+            <Slide key={index}>
+              <StyledImage
+                src={el.attributes?.url ?? ""}
+                alt={el.attributes?.alternativeText ?? ""}
+                loading="lazy"
+                layout="fill"
+              />
+            </Slide>
+          ))
+        : null}
+    </Wrapper>
+  );
+};
 
 const StyledImage = styled(Image)({
   width: "100%",

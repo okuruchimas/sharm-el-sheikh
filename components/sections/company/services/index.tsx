@@ -1,3 +1,5 @@
+// hooks
+import { useTranslation } from "next-i18next";
 // components
 import NextImage from "../../../layout/image";
 import SectionWrapper from "../../../layout/section-wrapper";
@@ -5,36 +7,42 @@ import SectionWrapper from "../../../layout/section-wrapper";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
 // constants
-import { SERVICES } from "./children/mock-data";
+import type { ServiceFragment } from "../../../../gql/graphql";
 
-const Services = () => (
-  <SectionWrapper title="Services and Amenities">
-    <CardsWrapper>
-      {SERVICES.map((el, index) => (
-        <Card key={index} index={index}>
-          <NextImage
-            src={el.iconUrl}
-            alt={el.title}
-            width="60px"
-            height="60px"
-          />
-          <Title>{el.title}</Title>
-        </Card>
-      ))}
-    </CardsWrapper>
-  </SectionWrapper>
-);
+type ServicesProps = {
+  services: ServiceFragment[];
+};
+
+const Services = ({ services }: ServicesProps) => {
+  const { t } = useTranslation("company-page");
+
+  return (
+    <SectionWrapper title={t("servicesSection.title")}>
+      <CardsWrapper>
+        {services.map((el, index) => (
+          <Card key={index} index={index}>
+            <NextImage
+              src={el.attributes?.icon.data?.attributes?.url ?? ""}
+              alt={el.attributes?.icon.data?.attributes?.alternativeText ?? ""}
+              width="60px"
+              height="60px"
+            />
+            <Title>{el.attributes?.text}</Title>
+          </Card>
+        ))}
+      </CardsWrapper>
+    </SectionWrapper>
+  );
+};
 
 const CardsWrapper = styled("ul")(({ theme }) => ({
   width: "100%",
   display: "grid",
   gridTemplateColumns: "repeat(4, 1fr)",
-  gridTemplateRows: "repeat(2, 1fr)",
   gap: "16px",
 
   [theme.breakpoints.mobile]: {
     gridTemplateColumns: "repeat(2, 1fr)",
-    gridTemplateRows: "repeat(4, 1fr)",
     gap: "8px",
   },
 }));

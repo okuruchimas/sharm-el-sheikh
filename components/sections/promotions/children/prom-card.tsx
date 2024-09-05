@@ -1,15 +1,25 @@
 // libs
 import Link from "next/link";
 // components
-import SubTitle from "../../../layout/subtitle";
 import Swiper from "./swiper";
+import Rating from "../../../layout/rating";
+import SubTitle from "../../../layout/subtitle";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { PromCardI } from "../../../../pages/api/prom-cards";
-import Rating from "../../../layout/rating";
+import type { CompanyCardFragment } from "../../../../gql/graphql";
 
-const PromCard = ({ discount, images, location, title, slug }: PromCardI) => {
+type PromCardProps = Pick<
+  CompanyCardFragment,
+  "discount" | "images" | "location" | "title" | "slug"
+>;
+const PromCard = ({
+  discount,
+  images,
+  location,
+  title,
+  slug,
+}: PromCardProps) => {
   return (
     <Wrap>
       <SwiperWrapper>
@@ -23,14 +33,14 @@ const PromCard = ({ discount, images, location, title, slug }: PromCardI) => {
         <Down>
           <Location>
             <LocIcon
-              src="icons/promotions-section/location.svg"
+              src="/icons/promotions-section/location.svg"
               alt="Location image"
             />
             <LocationPlace>{location}</LocationPlace>
           </Location>
           <Link href={slug || ""}>
             <IconButton
-              src={"icons/promotions-section/circle-arrow-outlined.svg"}
+              src={"/icons/promotions-section/circle-arrow-outlined.svg"}
               alt="promotions-button"
             />
           </Link>
