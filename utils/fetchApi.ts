@@ -20,7 +20,7 @@ export const fetchData = async <Result, Variables>(
   variables?: Variables,
 ): Promise<Result> => {
   const response = await fetch(
-    "https://beautiful-boot-1db2e6c4ea.strapiapp.com/graphql",
+    `${process.env.NEXT_PUBLIC_STRAPI_GRAPHQL_URL}`,
     {
       method: "POST",
       headers: {

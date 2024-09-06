@@ -9,14 +9,15 @@ import SectionWrapper from "../../../layout/section-wrapper";
 import styled from "@emotion/styled";
 import { formatDate } from "../../../../utils/formateDate";
 // types
-import type { Comment } from "../../../../pages/api/comments";
+import { CommentFragment } from "../../../../gql/graphql";
 
-type ReviewsProps = { comments: Comment[] };
-
+type ReviewsProps = { comments: CommentFragment[] };
 const Reviews = ({ comments }: ReviewsProps) => {
   const { t } = useTranslation("company-page");
 
   const rows = useMemo(() => {
+    if (!comments.length) return [];
+
     const result = [];
 
     for (let i = 0; i < comments.length; i += 3) {
@@ -34,10 +35,10 @@ const Reviews = ({ comments }: ReviewsProps) => {
               <Row key={index}>
                 {row.map((review, index) => (
                   <ReviewCard
-                    key={review._id}
-                    stars={review.rating?.toFixed(1)}
-                    date={formatDate(review.date)}
-                    text={review.text}
+                    key={review.id}
+                    stars={review?.attributes?.rating.toFixed(1) || "0"}
+                    date={formatDate(review?.attributes?.createdAt)}
+                    text={review?.attributes?.text || ""}
                   />
                 ))}
               </Row>

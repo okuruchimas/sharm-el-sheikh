@@ -3,7 +3,7 @@ import NextImage from "../image";
 import styled from "@emotion/styled";
 
 type RatingProps = {
-  points: number;
+  points: number | string;
   users: number;
 };
 
