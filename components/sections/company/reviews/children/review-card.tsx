@@ -8,6 +8,8 @@ export interface ReviewCardI {
   text: string;
 }
 
+export const MAX_RANDOM_MARGIN = 50;
+
 const ReviewCard = ({ stars, date, text }: ReviewCardI) => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -19,7 +21,7 @@ const ReviewCard = ({ stars, date, text }: ReviewCardI) => {
     return null;
   }
 
-  const margin = Math.floor(Math.random() * 50);
+  const margin = Math.floor(Math.random() * MAX_RANDOM_MARGIN);
 
   return (
     <CardWrapper margin={margin} className="review-card">

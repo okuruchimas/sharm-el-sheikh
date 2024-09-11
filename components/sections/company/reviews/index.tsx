@@ -2,7 +2,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
 // component
-import ReviewCard from "./children/review-card";
+import ReviewCard, { MAX_RANDOM_MARGIN } from "./children/review-card";
 import Placeholder from "../../promotions/children/placeholder";
 import SectionWrapper from "../../../layout/section-wrapper";
 // utils
@@ -110,11 +110,7 @@ const Row = styled("div")(({ theme }) => ({
 const Gradient = styled("div")(({ theme }) => ({
   position: "relative",
   width: "100%",
-  padding: "4px",
-
-  "> div:first-of-type > .review-card:first-of-type": {
-    margin: 0,
-  },
+  padding: `${MAX_RANDOM_MARGIN}px 4px 4px`,
 
   "&::before": {
     content: '""',
@@ -130,6 +126,12 @@ const Gradient = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.mobile]: {
+    padding: "4px",
+
+    "> div:first-of-type > .review-card:first-of-type": {
+      margin: 0,
+    },
+
     "&::before": {
       background:
         "radial-gradient(65.19% 65.19% at 50% 50%, rgba(254, 254, 254, 0.08) 29%, rgba(254, 254, 254, 0.5) 100%)",
