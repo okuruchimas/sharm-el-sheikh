@@ -1,8 +1,6 @@
 import { toast, ToastContainer } from "react-toastify";
 import { dataPromCards } from "../api/prom-cards";
-import { addComment, getComments, type Comment } from "../api/comments";
 // hooks
-import { useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 // components
@@ -17,6 +15,7 @@ import YouTubePlayer from "../../components/layout/player";
 import SectionsWrapper from "../../components/layout/sections-wrapper";
 // utils
 import styled from "@emotion/styled";
+import { addComment } from "../../utils/add-comment";
 import { fetchData } from "../../utils/fetchApi";
 // styles
 import "react-toastify/dist/ReactToastify.css";
@@ -31,11 +30,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../next-i18next.config";
 interface Props {
   card: CompanyCardFragment;
-  initialComments: Comment[];
 }
 
-const CompanyPage = ({ card, initialComments }: Props) => {
-  const [comments, setComments] = useState<Comment[]>(initialComments);
+const CompanyPage = ({ card }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("company-page");
 
@@ -45,15 +42,8 @@ const CompanyPage = ({ card, initialComments }: Props) => {
     email: string,
   ) => {
     try {
-      // ========= FEATURE COMING SOON =========
-      // const updatedData = await addComment(
-      //   card.slug || "",
-      //   rating,
-      //   text,
-      //   email,
-      // );
-      // setComments(updatedData.comments);
-
+      // await addComment(card.slug, { rating, text, email });
+      // router.reload();
       console.log({ rating, text, email });
       toast.success(t("feedbackSuccess"));
     } catch (error) {
@@ -91,7 +81,8 @@ const CompanyPage = ({ card, initialComments }: Props) => {
         />
       ) : null}
       {card.services ? <Services services={card.services?.data} /> : null}
-      <Reviews comments={comments} />
+      {/*<Reviews comments={card.comments?.data || []} />*/}
+      <Reviews comments={REVIEWS} />
       <ReviewForm handleAddComment={handleAddComment} />
       <Promotions
         promCards={dataPromCards}
@@ -192,24 +183,15 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, locale }: any) {
   const { slug: slugP } = params;
 
-  // ========= FEATURE COMING SOON =========
-  // const reviewsData = await getComments(slugP).catch((e) => {
-  //   return { comments: [] };
-  // });
-  // const initialComments = reviewsData.comments;
-
   const data = await fetchData(CompanyPromotionCardDocument, {
     slug: slugP,
     locale: locale,
   });
 
-  const initialComments = REVIEWS;
-
   return {
     props: {
       ...(await serverSideTranslations(locale, ["company-page", "common"])),
       card: data.companyPromotionCards?.data[0]?.attributes || {},
-      initialComments,
     },
   };
 }

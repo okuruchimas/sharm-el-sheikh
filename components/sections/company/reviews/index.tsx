@@ -2,21 +2,22 @@
 import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
 // component
-import ReviewCard from "./children/review-card";
+import ReviewCard, { MAX_RANDOM_MARGIN } from "./children/review-card";
 import Placeholder from "../../promotions/children/placeholder";
 import SectionWrapper from "../../../layout/section-wrapper";
 // utils
 import styled from "@emotion/styled";
 import { formatDate } from "../../../../utils/formateDate";
 // types
-import type { Comment } from "../../../../pages/api/comments";
+import { CommentFragment } from "../../../../gql/graphql";
 
-type ReviewsProps = { comments: Comment[] };
-
+type ReviewsProps = { comments: CommentFragment[] };
 const Reviews = ({ comments }: ReviewsProps) => {
   const { t } = useTranslation("company-page");
 
   const rows = useMemo(() => {
+    if (!comments.length) return [];
+
     const result = [];
 
     for (let i = 0; i < comments.length; i += 3) {
@@ -34,10 +35,10 @@ const Reviews = ({ comments }: ReviewsProps) => {
               <Row key={index}>
                 {row.map((review, index) => (
                   <ReviewCard
-                    key={review._id}
-                    stars={review.rating?.toFixed(1)}
-                    date={formatDate(review.date)}
-                    text={review.text}
+                    key={review.id}
+                    stars={review?.attributes?.rating.toFixed(1) || "0"}
+                    date={formatDate(review?.attributes?.createdAt)}
+                    text={review?.attributes?.text || ""}
                   />
                 ))}
               </Row>
@@ -109,11 +110,7 @@ const Row = styled("div")(({ theme }) => ({
 const Gradient = styled("div")(({ theme }) => ({
   position: "relative",
   width: "100%",
-  padding: "4px",
-
-  "> div:first-of-type > .review-card:first-of-type": {
-    margin: 0,
-  },
+  padding: `${MAX_RANDOM_MARGIN}px 4px 4px`,
 
   "&::before": {
     content: '""',
@@ -129,6 +126,12 @@ const Gradient = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.mobile]: {
+    padding: "4px",
+
+    "> div:first-of-type > .review-card:first-of-type": {
+      margin: 0,
+    },
+
     "&::before": {
       background:
         "radial-gradient(65.19% 65.19% at 50% 50%, rgba(254, 254, 254, 0.08) 29%, rgba(254, 254, 254, 0.5) 100%)",

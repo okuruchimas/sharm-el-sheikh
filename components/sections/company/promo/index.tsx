@@ -34,7 +34,10 @@ const Promo = ({
       <TopWrapper>
         <Title>{title}</Title>
         <RatingWrapper>
-          <Rating points={averageRating || 0} users={totalComments || 0} />
+          <Rating
+            points={averageRating.toFixed(1) || 0}
+            users={totalComments || 0}
+          />
         </RatingWrapper>
       </TopWrapper>
       <Location>

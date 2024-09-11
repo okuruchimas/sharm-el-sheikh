@@ -51,9 +51,73 @@ export type BooleanFilterInput = {
   startsWith?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type Comment = {
+  __typename?: 'Comment';
+  company_promotion_cards?: Maybe<CompanyPromotionCardRelationResponseCollection>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  email: Scalars['String']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  rating: Scalars['Float']['output'];
+  text: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type CommentCompany_Promotion_CardsArgs = {
+  filters?: InputMaybe<CompanyPromotionCardFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type CommentEntity = {
+  __typename?: 'CommentEntity';
+  attributes?: Maybe<Comment>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type CommentEntityResponse = {
+  __typename?: 'CommentEntityResponse';
+  data?: Maybe<CommentEntity>;
+};
+
+export type CommentEntityResponseCollection = {
+  __typename?: 'CommentEntityResponseCollection';
+  data: Array<CommentEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type CommentFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<CommentFiltersInput>>>;
+  company_promotion_cards?: InputMaybe<CompanyPromotionCardFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  email?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<CommentFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<CommentFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  rating?: InputMaybe<FloatFilterInput>;
+  text?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type CommentInput = {
+  company_promotion_cards?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  rating?: InputMaybe<Scalars['Float']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CommentRelationResponseCollection = {
+  __typename?: 'CommentRelationResponseCollection';
+  data: Array<CommentEntity>;
+};
+
 export type CompanyPromotionCard = {
   __typename?: 'CompanyPromotionCard';
   averageRating: Scalars['Float']['output'];
+  comments?: Maybe<CommentRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   discount?: Maybe<Scalars['String']['output']>;
@@ -73,6 +137,14 @@ export type CompanyPromotionCard = {
   touchText?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   youTubeVideoId?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type CompanyPromotionCardCommentsArgs = {
+  filters?: InputMaybe<CommentFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -126,6 +198,7 @@ export type CompanyPromotionCardEntityResponseCollection = {
 export type CompanyPromotionCardFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<CompanyPromotionCardFiltersInput>>>;
   averageRating?: InputMaybe<FloatFilterInput>;
+  comments?: InputMaybe<CommentFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
   discount?: InputMaybe<StringFilterInput>;
@@ -151,6 +224,7 @@ export type CompanyPromotionCardFiltersInput = {
 
 export type CompanyPromotionCardInput = {
   averageRating?: InputMaybe<Scalars['Float']['input']>;
+  comments?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   description?: InputMaybe<Scalars['String']['input']>;
   discount?: InputMaybe<Scalars['String']['input']>;
   discountBanner?: InputMaybe<ComponentComponentsBannerInput>;
@@ -517,7 +591,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = CompanyPromotionCard | ComponentComponentsAnnouncement | ComponentComponentsBanner | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | EventCard | Filters | Footer | Header | Home | I18NLocale | Service | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Comment | CompanyPromotionCard | ComponentComponentsAnnouncement | ComponentComponentsBanner | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | EventCard | Filters | Footer | Header | Home | I18NLocale | Service | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   __typename?: 'Header';
@@ -796,6 +870,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
+  createComment?: Maybe<CommentEntityResponse>;
   createCompanyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
   createCompanyPromotionCardLocalization?: Maybe<CompanyPromotionCardEntityResponse>;
   createEventCard?: Maybe<EventCardEntityResponse>;
@@ -812,6 +887,7 @@ export type Mutation = {
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  deleteComment?: Maybe<CommentEntityResponse>;
   deleteCompanyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
   deleteEventCard?: Maybe<EventCardEntityResponse>;
   deleteFilters?: Maybe<FiltersEntityResponse>;
@@ -836,6 +912,7 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
+  updateComment?: Maybe<CommentEntityResponse>;
   updateCompanyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
   updateEventCard?: Maybe<EventCardEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
@@ -858,6 +935,11 @@ export type MutationChangePasswordArgs = {
   currentPassword: Scalars['String']['input'];
   password: Scalars['String']['input'];
   passwordConfirmation: Scalars['String']['input'];
+};
+
+
+export type MutationCreateCommentArgs = {
+  data: CommentInput;
 };
 
 
@@ -943,6 +1025,11 @@ export type MutationCreateUsersPermissionsRoleArgs = {
 
 export type MutationCreateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput;
+};
+
+
+export type MutationDeleteCommentArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -1041,6 +1128,12 @@ export type MutationResetPasswordArgs = {
   code: Scalars['String']['input'];
   password: Scalars['String']['input'];
   passwordConfirmation: Scalars['String']['input'];
+};
+
+
+export type MutationUpdateCommentArgs = {
+  data: CommentInput;
+  id: Scalars['ID']['input'];
 };
 
 
@@ -1149,6 +1242,8 @@ export enum PublicationState {
 
 export type Query = {
   __typename?: 'Query';
+  comment?: Maybe<CommentEntityResponse>;
+  comments?: Maybe<CommentEntityResponseCollection>;
   companyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
   companyPromotionCards?: Maybe<CompanyPromotionCardEntityResponseCollection>;
   eventCard?: Maybe<EventCardEntityResponse>;
@@ -1171,6 +1266,19 @@ export type Query = {
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
   usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>;
+};
+
+
+export type QueryCommentArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryCommentsArgs = {
+  filters?: InputMaybe<CommentFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -1781,11 +1889,13 @@ export type CompanyPromotionCardQueryVariables = Exact<{
 }>;
 
 
-export type CompanyPromotionCardQuery = { __typename?: 'Query', companyPromotionCards?: { __typename?: 'CompanyPromotionCardEntityResponseCollection', data: Array<{ __typename?: 'CompanyPromotionCardEntity', id?: string | null, attributes?: { __typename?: 'CompanyPromotionCard', title: string, discount?: string | null, description?: string | null, youTubeVideoId?: string | null, touchText?: string | null, touchLink?: string | null, averageRating: number, totalComments: any, slug: string, location?: string | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat?: string | null, lng?: string | null } | null, discountBanner?: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null, filters?: { __typename?: 'FiltersRelationResponseCollection', data: Array<{ __typename?: 'FiltersEntity', id?: string | null, attributes?: { __typename?: 'Filters', text?: string | null, key?: string | null } | null }> } | null, services?: { __typename?: 'ServiceRelationResponseCollection', data: Array<{ __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null } | null }> } | null };
+export type CompanyPromotionCardQuery = { __typename?: 'Query', companyPromotionCards?: { __typename?: 'CompanyPromotionCardEntityResponseCollection', data: Array<{ __typename?: 'CompanyPromotionCardEntity', id?: string | null, attributes?: { __typename?: 'CompanyPromotionCard', title: string, discount?: string | null, description?: string | null, youTubeVideoId?: string | null, touchText?: string | null, touchLink?: string | null, averageRating: number, totalComments: any, slug: string, location?: string | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat?: string | null, lng?: string | null } | null, discountBanner?: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null, filters?: { __typename?: 'FiltersRelationResponseCollection', data: Array<{ __typename?: 'FiltersEntity', id?: string | null, attributes?: { __typename?: 'Filters', text?: string | null, key?: string | null } | null }> } | null, services?: { __typename?: 'ServiceRelationResponseCollection', data: Array<{ __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null } | null }> } | null };
 
-export type CompanyCardFragment = { __typename?: 'CompanyPromotionCard', title: string, discount?: string | null, description?: string | null, youTubeVideoId?: string | null, touchText?: string | null, touchLink?: string | null, averageRating: number, totalComments: any, slug: string, location?: string | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat?: string | null, lng?: string | null } | null, discountBanner?: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null, filters?: { __typename?: 'FiltersRelationResponseCollection', data: Array<{ __typename?: 'FiltersEntity', id?: string | null, attributes?: { __typename?: 'Filters', text?: string | null, key?: string | null } | null }> } | null, services?: { __typename?: 'ServiceRelationResponseCollection', data: Array<{ __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null };
+export type CompanyCardFragment = { __typename?: 'CompanyPromotionCard', title: string, discount?: string | null, description?: string | null, youTubeVideoId?: string | null, touchText?: string | null, touchLink?: string | null, averageRating: number, totalComments: any, slug: string, location?: string | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat?: string | null, lng?: string | null } | null, discountBanner?: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null, filters?: { __typename?: 'FiltersRelationResponseCollection', data: Array<{ __typename?: 'FiltersEntity', id?: string | null, attributes?: { __typename?: 'Filters', text?: string | null, key?: string | null } | null }> } | null, services?: { __typename?: 'ServiceRelationResponseCollection', data: Array<{ __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null };
 
 export type ServiceFragment = { __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null };
+
+export type CommentFragment = { __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -1817,6 +1927,16 @@ export const ServiceFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"Service"}) as unknown as TypedDocumentString<ServiceFragment, unknown>;
+export const CommentFragmentDoc = new TypedDocumentString(`
+    fragment Comment on CommentEntity {
+  id
+  attributes {
+    text
+    rating
+    createdAt
+  }
+}
+    `, {"fragmentName":"Comment"}) as unknown as TypedDocumentString<CommentFragment, unknown>;
 export const CompanyCardFragmentDoc = new TypedDocumentString(`
     fragment CompanyCard on CompanyPromotionCard {
   title
@@ -1869,6 +1989,11 @@ export const CompanyCardFragmentDoc = new TypedDocumentString(`
   }
   slug
   location
+  comments {
+    data {
+      ...Comment
+    }
+  }
 }
     fragment Service on ServiceEntity {
   id
@@ -1882,6 +2007,14 @@ export const CompanyCardFragmentDoc = new TypedDocumentString(`
         }
       }
     }
+  }
+}
+fragment Comment on CommentEntity {
+  id
+  attributes {
+    text
+    rating
+    createdAt
   }
 }`, {"fragmentName":"CompanyCard"}) as unknown as TypedDocumentString<CompanyCardFragment, unknown>;
 export const CompanyPromotionCardDocument = new TypedDocumentString(`
@@ -1946,6 +2079,11 @@ export const CompanyPromotionCardDocument = new TypedDocumentString(`
   }
   slug
   location
+  comments {
+    data {
+      ...Comment
+    }
+  }
 }
 fragment Service on ServiceEntity {
   id
@@ -1959,5 +2097,13 @@ fragment Service on ServiceEntity {
         }
       }
     }
+  }
+}
+fragment Comment on CommentEntity {
+  id
+  attributes {
+    text
+    rating
+    createdAt
   }
 }`) as unknown as TypedDocumentString<CompanyPromotionCardQuery, CompanyPromotionCardQueryVariables>;

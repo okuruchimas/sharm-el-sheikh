@@ -55,11 +55,16 @@ fragment CompanyCard on CompanyPromotionCard {
   totalComments
   services {
     data {
-     ...Service
+      ...Service
     }
   }
   slug
   location
+  comments {
+    data {
+      ...Comment
+    }
+  }
 }
 
 fragment Service on ServiceEntity {
@@ -74,5 +79,14 @@ fragment Service on ServiceEntity {
         }
       }
     }
+  }
+}
+
+fragment Comment on CommentEntity {
+  id
+  attributes {
+    text
+    rating
+    createdAt
   }
 }
