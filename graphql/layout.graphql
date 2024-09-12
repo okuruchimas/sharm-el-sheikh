@@ -1,0 +1,50 @@
+query GetHeader($locale: I18NLocaleCode!) {
+  header(locale: $locale) {
+    data {
+      attributes {
+        ...Header
+      }
+    }
+  }
+}
+
+query GetFooter($locale: I18NLocaleCode!) {
+  footer(locale: $locale) {
+    data {
+      attributes {
+        ...Footer
+      }
+    }
+  }
+}
+
+fragment Header on Header {
+  Logo {
+    data {
+      id
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  Menu {
+    id
+    Text
+    Link
+  }
+}
+
+fragment Footer on Footer {
+  socialIcons {
+    icon {
+      data {
+        attributes {
+          url
+          alternativeText
+        }
+      }
+    }
+    socialLink
+  }
+}

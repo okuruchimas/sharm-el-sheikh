@@ -4,12 +4,12 @@ import NavButtons from "./nav-buttons";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { NavMenuItem } from "../index";
+import type { HeaderFragment } from "../../../../gql/graphql";
 
-interface IProps {
+type IProps = {
   isOpen: boolean;
-  navMenu: NavMenuItem[];
-}
+  navMenu: HeaderFragment["Menu"];
+};
 
 const NavMenu = ({ isOpen, navMenu }: IProps) => {
   return (
@@ -17,9 +17,9 @@ const NavMenu = ({ isOpen, navMenu }: IProps) => {
       <ButtonsWrap>
         <NavButtons />
       </ButtonsWrap>
-      {navMenu.map((item) => (
-        <Link href={item.Link} key={item.id}>
-          <ListItem>{item.Text}</ListItem>
+      {navMenu?.map((item) => (
+        <Link href={item?.Link || ""} key={item?.id}>
+          <ListItem>{item?.Text}</ListItem>
         </Link>
       ))}
     </WrapperDown>

@@ -1,19 +1,23 @@
 // components
 import { Hr } from "../hr";
-import SocialIcon, { type SocialIconI } from "../social-icon";
+import SocialIcon from "../social-icon";
 // utils
 import styled from "@emotion/styled";
+// types
+import type { FooterFragment } from "../../../gql/graphql";
 
-export interface FooterProps {
-  socialIcons: SocialIconI[];
-}
+type FooterProps = Pick<FooterFragment, "socialIcons">;
 
 const Footer = ({ socialIcons }: FooterProps) => (
   <Wrap>
     <Hr isFooter />
     <Wrapper>
-      {socialIcons.map((el) => (
-        <SocialIcon {...el} key={el.id} />
+      {socialIcons?.map((el, index) => (
+        <SocialIcon
+          key={index}
+          iconSrc={el?.icon.data?.attributes?.url || ""}
+          socialLink={el?.socialLink || ""}
+        />
       ))}
     </Wrapper>
   </Wrap>
