@@ -3,26 +3,24 @@ import App from "next/app";
 import Layout from "../components/layout/layout";
 import GlobalStyles from "../components/layout/global-styles";
 // utils
-import { fetchAPI } from "../utils/fetchApi";
+import { fetchData } from "../utils/fetchApi";
 import { ThemeProvider } from "@emotion/react";
-import { mapFooterResponse, mapHeaderResponse } from "../utils/mapper";
 // types
 import type { AppProps } from "next/app";
 // styles
 import { theme } from "../context/theme/theme";
 // config
 import { appWithTranslation } from "next-i18next";
-import nextI18NextConfig from "../next-i18next.config"; // Додайте правильний імпорт конфігураційного файлу
+import nextI18NextConfig from "../next-i18next.config";
+// queries
+import { GetFooterDocument, GetHeaderDocument } from "../gql/graphql";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const { headerData, footerData } = pageProps;
-  const footerProps = mapFooterResponse(footerData);
-  const headerProps = mapHeaderResponse(headerData);
-
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Layout footerProps={footerProps} headerProps={headerProps}>
+      <Layout footerData={footerData} headerData={headerData}>
         <Component {...pageProps} />
       </Layout>
     </ThemeProvider>
@@ -32,16 +30,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 MyApp.getInitialProps = async (ctx: any) => {
   const appProps = await App.getInitialProps(ctx);
 
-  const [headerData, footerData] = await Promise.all([
-    fetchAPI("header?populate=*"),
-    fetchAPI("footer?populate=socialIcons.icon"),
-  ]);
+  const locale = ctx.ctx.locale || "en";
+  const headerData = await fetchData(GetHeaderDocument, { locale });
+  const footerData = await fetchData(GetFooterDocument, { locale });
 
   return {
     ...appProps,
     pageProps: {
-      headerData,
-      footerData,
+      headerData: headerData.header?.data?.attributes,
+      footerData: footerData.footer?.data?.attributes,
     },
   };
 };

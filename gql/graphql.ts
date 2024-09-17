@@ -1883,6 +1883,24 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type GetHeaderQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetHeaderQuery = { __typename?: 'Query', header?: { __typename?: 'HeaderEntityResponse', data?: { __typename?: 'HeaderEntity', attributes?: { __typename?: 'Header', Logo?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null, Menu?: Array<{ __typename?: 'ComponentHeaderNavigationMenu', id: string, Text?: string | null, Link?: string | null } | null> | null } | null } | null } | null };
+
+export type GetFooterQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetFooterQuery = { __typename?: 'Query', footer?: { __typename?: 'FooterEntityResponse', data?: { __typename?: 'FooterEntity', attributes?: { __typename?: 'Footer', socialIcons?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null } | null } | null } | null };
+
+export type HeaderFragment = { __typename?: 'Header', Logo?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null, Menu?: Array<{ __typename?: 'ComponentHeaderNavigationMenu', id: string, Text?: string | null, Link?: string | null } | null> | null };
+
+export type FooterFragment = { __typename?: 'Footer', socialIcons?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null };
+
 export type CompanyPromotionCardQueryVariables = Exact<{
   slug: Scalars['String']['input'];
   locale: Scalars['I18NLocaleCode']['input'];
@@ -1911,6 +1929,39 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+export const HeaderFragmentDoc = new TypedDocumentString(`
+    fragment Header on Header {
+  Logo {
+    data {
+      id
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  Menu {
+    id
+    Text
+    Link
+  }
+}
+    `, {"fragmentName":"Header"}) as unknown as TypedDocumentString<HeaderFragment, unknown>;
+export const FooterFragmentDoc = new TypedDocumentString(`
+    fragment Footer on Footer {
+  socialIcons {
+    icon {
+      data {
+        attributes {
+          url
+          alternativeText
+        }
+      }
+    }
+    socialLink
+  }
+}
+    `, {"fragmentName":"Footer"}) as unknown as TypedDocumentString<FooterFragment, unknown>;
 export const ServiceFragmentDoc = new TypedDocumentString(`
     fragment Service on ServiceEntity {
   id
@@ -2017,6 +2068,55 @@ fragment Comment on CommentEntity {
     createdAt
   }
 }`, {"fragmentName":"CompanyCard"}) as unknown as TypedDocumentString<CompanyCardFragment, unknown>;
+export const GetHeaderDocument = new TypedDocumentString(`
+    query GetHeader($locale: I18NLocaleCode!) {
+  header(locale: $locale) {
+    data {
+      attributes {
+        ...Header
+      }
+    }
+  }
+}
+    fragment Header on Header {
+  Logo {
+    data {
+      id
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  Menu {
+    id
+    Text
+    Link
+  }
+}`) as unknown as TypedDocumentString<GetHeaderQuery, GetHeaderQueryVariables>;
+export const GetFooterDocument = new TypedDocumentString(`
+    query GetFooter($locale: I18NLocaleCode!) {
+  footer(locale: $locale) {
+    data {
+      attributes {
+        ...Footer
+      }
+    }
+  }
+}
+    fragment Footer on Footer {
+  socialIcons {
+    icon {
+      data {
+        attributes {
+          url
+          alternativeText
+        }
+      }
+    }
+    socialLink
+  }
+}`) as unknown as TypedDocumentString<GetFooterQuery, GetFooterQueryVariables>;
 export const CompanyPromotionCardDocument = new TypedDocumentString(`
     query CompanyPromotionCard($slug: String!, $locale: I18NLocaleCode!) {
   companyPromotionCards(filters: {slug: {eq: $slug}}, locale: $locale) {

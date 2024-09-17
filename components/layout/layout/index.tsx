@@ -2,14 +2,14 @@
 import dynamic from "next/dynamic";
 // components
 import StickyContainer from "../header/children/sticky-container";
-import Header, { type HeaderProps } from "../header";
+import Header from "../header";
 import Loader from "../loader";
 import LazyWrapper from "../lazy-wrapper";
 // utils
 import styled from "@emotion/styled";
 // types
 import type { ReactNode } from "react";
-import type { FooterProps } from "../footer";
+import type { FooterFragment, HeaderFragment } from "../../../gql/graphql";
 
 const DynamicFooter = dynamic(() => import("../footer"), {
   loading: () => <Loader />,
@@ -17,18 +17,18 @@ const DynamicFooter = dynamic(() => import("../footer"), {
 
 type LayoutProps = {
   children: ReactNode;
-  footerProps: FooterProps;
-  headerProps: HeaderProps;
+  footerData: FooterFragment;
+  headerData: HeaderFragment;
 };
 
-const Layout = ({ children, footerProps, headerProps }: LayoutProps) => (
+const Layout = ({ children, footerData, headerData }: LayoutProps) => (
   <Wrap>
     <StickyContainer>
-      <Header logo={headerProps.logo} navMenu={headerProps.navMenu} />
+      <Header logo={headerData.Logo} navMenu={headerData.Menu} />
     </StickyContainer>
     {children}
     <LazyWrapper minHeight={55}>
-      <DynamicFooter socialIcons={footerProps.socialIcons} />
+      <DynamicFooter socialIcons={footerData.socialIcons} />
     </LazyWrapper>
   </Wrap>
 );

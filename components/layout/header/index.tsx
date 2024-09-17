@@ -8,19 +8,11 @@ import NavMenu from "./children/nav-menu";
 // utils
 import styled from "@emotion/styled";
 import { css, Global } from "@emotion/react";
+import { HeaderFragment } from "../../../gql/graphql";
 
-export type NavMenuItem = {
-  id: number;
-  Text: string;
-  Link: string;
-};
-
-export type HeaderProps = {
-  logo: {
-    src: string;
-    alt: string;
-  };
-  navMenu: NavMenuItem[];
+type HeaderProps = {
+  logo: HeaderFragment["Logo"];
+  navMenu: HeaderFragment["Menu"];
 };
 
 const Header = ({ logo, navMenu }: HeaderProps) => {
@@ -30,7 +22,11 @@ const Header = ({ logo, navMenu }: HeaderProps) => {
     <Wrap isOpen={isNavbar}>
       <WrapperUp>
         <Link href={"/"} style={{ width: "80%" }}>
-          <Logo src={logo.src} alt={logo.alt} isOpen={isNavbar} />
+          <Logo
+            src={logo?.data?.attributes?.url || ""}
+            alt={logo?.data?.attributes?.alternativeText || ""}
+            isOpen={isNavbar}
+          />
         </Link>
         {isNavbar ? <Global styles={hiddenOverflow} /> : null}
         <BurgerIcon
