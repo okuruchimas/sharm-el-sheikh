@@ -20,10 +20,11 @@ import type { selectOption } from "../../../types/filter";
 import type { PromCardI } from "../../../../pages/api/prom-cards";
 
 type MapProps = {
+  title: string;
   promCards: PromCardI[];
 };
 
-const Map = ({ promCards }: MapProps) => {
+const Map = ({ promCards, title }: MapProps) => {
   // states
   const [selectedCategory, setSelectedCategory] = useState<selectOption>(
     categoriesOptions[0],
@@ -85,7 +86,7 @@ const Map = ({ promCards }: MapProps) => {
   };
 
   return (
-    <SectionWrapper title="What to bring with you">
+    <SectionWrapper title={title}>
       <LocationsCategoryFilter
         selectedID={selectedCategory.key}
         options={categoriesOptions}

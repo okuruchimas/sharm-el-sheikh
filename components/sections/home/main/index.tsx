@@ -1,31 +1,41 @@
+// hooks
+import { useTranslation } from "next-i18next";
 // components
 import EventCard from "./children/event-card";
 import LinkButton from "../../../layout/link-button";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { EventCardProps } from "./children/types";
+import { HomePageFragment } from "../../../../gql/graphql";
 
-const Main = ({ eventCards }: EventCardProps) => {
+type MainProps = {
+  heroTitle: string;
+  eventCardsTitle: string;
+  eventCards: HomePageFragment["event_cards"];
+};
+
+const Main = ({ eventCards, eventCardsTitle, heroTitle }: MainProps) => {
+  const { t } = useTranslation("common");
   return (
     <WrapSection>
       <TopWrap>
         <SubtitleWrap>
-          <Subtitle>City Events</Subtitle>
-          <LinkButton text={"More"} link="/" />
+          <Subtitle>{eventCardsTitle}</Subtitle>
+          <LinkButton text={t("buttons.more")} link="/" />
         </SubtitleWrap>
-        {eventCards.map(({ logo, date, title, price, location }, index) => (
+        {eventCards?.data.map(({ attributes }, index) => (
           <EventCard
             key={index}
-            logo={logo}
-            date={date}
-            title={title}
-            price={price}
-            location={location}
+            logo={attributes?.image?.data?.attributes?.url ?? ""}
+            logoAlt={attributes?.image?.data?.attributes?.alternativeText ?? ""}
+            date={attributes?.date || ""}
+            title={attributes?.title || ""}
+            price={attributes?.price || ""}
+            location={attributes?.location || ""}
           />
         ))}
       </TopWrap>
-      <Title>Explore the sights of the Sharm El Sheikh</Title>
+      <Title>{heroTitle}</Title>
     </WrapSection>
   );
 };

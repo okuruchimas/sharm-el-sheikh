@@ -1,0 +1,15 @@
+fragment EventCard on EventCard {
+  date
+  title
+  price
+  location
+  url
+  image {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+}

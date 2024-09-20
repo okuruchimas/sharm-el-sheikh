@@ -1,3 +1,5 @@
+// hooks
+import { useTranslation } from "next-i18next";
 // components
 import Link from "next/link";
 import NextImage from "../../../../layout/image";
@@ -6,12 +8,21 @@ import styled from "@emotion/styled";
 // types
 import type { EventCardI } from "./types";
 
-const EventCard = ({ logo, date, title, price, location }: EventCardI) => {
+const EventCard = ({
+  logo,
+  date,
+  title,
+  price,
+  logoAlt,
+  location,
+}: EventCardI) => {
+  const { t } = useTranslation("common");
+
   return (
     <Wrap>
       <NextImage
-        src={`/${logo}`}
-        alt={logo}
+        src={logo}
+        alt={logoAlt}
         width="106px"
         height="106px"
         mWidth="80px"
@@ -21,8 +32,8 @@ const EventCard = ({ logo, date, title, price, location }: EventCardI) => {
         <Date>{date}</Date>
         <Title>{title}</Title>
         <BottomWrap>
-          <BottomText>Price: {price} $</BottomText>
-          <BottomText>Location: {location}</BottomText>
+          <BottomText>{`${t("labels.price")}: ${price}`}</BottomText>
+          <BottomText>{`${t("labels.location")}: ${location}`}</BottomText>
         </BottomWrap>
       </InfoWrap>
       <Link href="/">

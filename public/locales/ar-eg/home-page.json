@@ -1,0 +1,16 @@
+{
+  "feedbackForm": {
+    "feedbackForm": "نموذج التعليقات",
+    "formError": "فشل في إرسال البريد الإلكتروني",
+    "formSuccess": "تم إرسال البريد الإلكتروني بنجاح!",
+    "internationalForm": "نموذج التعاون الدولي",
+    "labels": {
+      "companyName": "اسم الشركة",
+      "country": "الدولة",
+      "countryLocation": "بلد الموقع*",
+      "message": "الرسالة",
+      "name": "الاسم"
+    },
+    "localBusinessForm": "نموذج التعاون مع الشركات المحلية"
+  }
+}

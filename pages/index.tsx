@@ -1,3 +1,4 @@
+// mock
 import {
   dataPromCards,
   dataPromCardsDeprecated,
@@ -14,9 +15,11 @@ import LazyWrapper from "../components/layout/lazy-wrapper";
 // utils
 import styled from "@emotion/styled";
 import dynamic from "next/dynamic";
+import { fetchData } from "../utils/fetchApi";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // types
 import type { EventCardProps } from "../components/sections/home/main/children/types";
-import type { AnnouncementCardProps } from "../components/sections/home/announcements/children/types";
+import { GetHomePageDocument, type HomePageFragment } from "../gql/graphql";
 
 const DynamicBanner = dynamic(
   () => import("../components/sections/home/banner"),
@@ -24,53 +27,67 @@ const DynamicBanner = dynamic(
     loading: () => <Loader />,
   },
 );
-
 const DynamicAnnouncements = dynamic(
   () => import("../components/sections/home/announcements"),
   {
     loading: () => <Loader />,
   },
 );
-
 const DynamicMap = dynamic(() => import("../components/sections/home/map"), {
   ssr: true,
   loading: () => <Loader />,
 });
 
-type Props = EventCardProps & PromCardProps & AnnouncementCardProps;
+type Props = EventCardProps &
+  PromCardProps & { homePageData: HomePageFragment };
 
-const Home = ({ eventCards, promCards, announcementsCards }: Props) => {
+const Home = ({ promCards, homePageData }: Props) => {
   return (
     <Wrap id="/">
       <Head>
         <title>Sharm El Sheikh</title>
       </Head>
-      {eventCards ? <Main eventCards={eventCards} /> : null}
+      <Main
+        eventCards={homePageData.event_cards}
+        eventCardsTitle={homePageData.eventCardsTitle}
+        heroTitle={homePageData.heroTitle || ""}
+      />
       <SectionsWrapper
         url="images/background/background-gradient.svg"
         mobUrl="images/background/mobile-background-gradient.svg"
       >
-        <Promotions promCards={promCards} title="Promotions and Discounts" />
+        <Promotions
+          promCards={promCards}
+          title={homePageData.promotionsTitle}
+        />
         <LazyWrapper>
           <DynamicBanner
-            imgLink="images/banners/banner1.webp"
-            title="Need a Ride? Click Here to Find a Taxi Now!"
-            buttonText="Find Taxi"
+            imgLink={homePageData.banner1.bannerImage?.data?.attributes?.url}
+            title={homePageData.banner1.title}
+            buttonText={homePageData.banner1.buttonText || ""}
+            buttonLink={homePageData.banner1.buttonLink || ""}
             isBottomContent
           />
         </LazyWrapper>
         <LazyWrapper minHeight={600}>
-          <DynamicAnnouncements announcementsCards={announcementsCards} />
-        </LazyWrapper>
-        <LazyWrapper>
-          <DynamicBanner
-            imgLink="images/banners/banner2.webp"
-            title="Learn more important information"
-            buttonText="Contact us"
+          <DynamicAnnouncements
+            title={homePageData.announcementsTitle}
+            announcementsCards={homePageData.announcements}
           />
         </LazyWrapper>
         <LazyWrapper>
-          <DynamicMap promCards={dataPromCardsDeprecated} />
+          <DynamicBanner
+            imgLink={homePageData.banner2.bannerImage?.data?.attributes?.url}
+            title={homePageData.banner2.title}
+            buttonText={homePageData.banner2.buttonText || ""}
+            buttonLink={homePageData.banner2.buttonLink || ""}
+          />
+        </LazyWrapper>
+        <LazyWrapper>
+          <DynamicMap
+            title={homePageData.mapTitle}
+            promCards={dataPromCardsDeprecated}
+          />
         </LazyWrapper>
         <FeedbackForm />
       </SectionsWrapper>
@@ -78,77 +95,15 @@ const Home = ({ eventCards, promCards, announcementsCards }: Props) => {
   );
 };
 
-export async function getStaticProps() {
-  const eventCards = [
-    {
-      logo: "images/event-cards/event-card1.webp",
-      date: "09 Aug, 11:00",
-      title: "Desert party",
-      price: "30",
-      location: "Dolche Vita club",
-    },
-    {
-      logo: "images/event-cards/event-card2.webp",
-      date: "04 Jul, 11:00",
-      title: "Hamo Vika",
-      price: "15",
-      location: "Marquee",
-    },
-    {
-      logo: "images/event-cards/event-card3.webp",
-      date: "Every friday, 23:00",
-      title: "Friday night",
-      price: "15",
-      location: "Taj Mahal Sharm",
-    },
-  ];
-
-  const announcementsCards = [
-    {
-      image: "images/announcement-cards/announce-card1.webp",
-      title: "Photographer in Sharm El Sheikh",
-      text: "A photo session in Sharm El Sheikh in the best locations of the city will give you a storm of emotions and beautiful photos and videos as a keepsake",
-      icons: [
-        { iconSrc: "icons/social-icons/instagram.svg", socialLink: "/" },
-        { iconSrc: "icons/social-icons/telegram.svg", socialLink: "/" },
-        { iconSrc: "icons/social-icons/facebook.svg", socialLink: "/" },
-        { iconSrc: "icons/social-icons/youtube.svg", socialLink: "/" },
-        { iconSrc: "icons/social-icons/tiktok.svg", socialLink: "/" },
-      ],
-    },
-    {
-      image: "images/announcement-cards/announce-card2.webp",
-      title: 'Team "Sea of Personnel"',
-      text: "The call is free Book your photo session without prepayment! You will receive ready photos via 3 -5 days!",
-      icons: [
-        { iconSrc: "icons/social-icons/instagram.svg", socialLink: "/" },
-        { iconSrc: "icons/social-icons/telegram.svg", socialLink: "/" },
-        { iconSrc: "icons/social-icons/facebook.svg", socialLink: "/" },
-        { iconSrc: "icons/social-icons/youtube.svg", socialLink: "/" },
-        { iconSrc: "icons/social-icons/tiktok.svg", socialLink: "/" },
-      ],
-    },
-    {
-      image: "images/announcement-cards/announce-card3.webp",
-      title: "Camel riding in Sharm El Sheikh",
-      text: "Rocking peacefully across the sands on a soft-footed camel, it's the perfect way to explore the enchanting desert",
-      icons: [
-        { iconSrc: "icons/social-icons/instagram.svg", socialLink: "/" },
-        { iconSrc: "icons/social-icons/telegram.svg", socialLink: "/" },
-        { iconSrc: "icons/social-icons/facebook.svg", socialLink: "/" },
-        { iconSrc: "icons/social-icons/youtube.svg", socialLink: "/" },
-        { iconSrc: "icons/social-icons/tiktok.svg", socialLink: "/" },
-      ],
-    },
-  ];
-
+export async function getStaticProps({ locale }: any) {
   const promCards = dataPromCards;
+  const homePageData = await fetchData(GetHomePageDocument, { locale });
 
   return {
     props: {
-      eventCards,
+      ...(await serverSideTranslations(locale, ["common", "home-page"])),
       promCards,
-      announcementsCards,
+      homePageData: homePageData.home?.data?.attributes,
     },
   };
 }

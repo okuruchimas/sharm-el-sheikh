@@ -108,9 +108,9 @@ const ReviewForm = ({ handleAddComment }: ReviewFormProps) => {
                   ))}
                 </StarReviews>
                 <Input
-                  label={tCommon("email")}
+                  label={tCommon("labels.email")}
                   type="email"
-                  placeholder={tCommon("email")}
+                  placeholder={tCommon("labels.email")}
                   isLight
                 />
                 <Input

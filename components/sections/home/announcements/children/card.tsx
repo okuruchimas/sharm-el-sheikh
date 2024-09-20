@@ -1,20 +1,37 @@
 // components
 import SubTitle from "../../../../layout/subtitle";
 import SocialIcon from "../../../../layout/social-icon";
+import ReactMarkdown from "react-markdown";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { AnnouncementCardI } from "./types";
+import { AnnouncementFragment } from "../../../../../gql/graphql";
+export interface AnnouncementsProps {
+  image: string;
+  title: string;
+  text: string;
+  icons: AnnouncementFragment["socialLinks"];
+  isFirst: boolean;
+}
 
-const Card = ({ image, title, text, icons, isFirst }: AnnouncementCardI) => (
+const Card = ({ image, title, text, icons, isFirst }: AnnouncementsProps) => (
   <Wrap isFirst={isFirst}>
     <AnnounceImage src={image} alt={title} isFirst={isFirst} />
     <BottomSection>
-      <SubTitle>{title}</SubTitle>
-      <Description>{text}</Description>
+      <div>
+        <SubTitle>{title}</SubTitle>
+        <Description>
+          <ReactMarkdown>{text}</ReactMarkdown>
+        </Description>
+      </div>
       <IconsWrapper>
-        {icons.map((el, index) => (
-          <SocialIcon {...el} key={index} />
+        {icons?.map((el, index) => (
+          <SocialIcon
+            key={index}
+            iconSrc={el?.icon.data?.attributes?.url || ""}
+            iconAlt={el?.icon.data?.attributes?.alternativeText || ""}
+            socialLink={el?.socialLink || ""}
+          />
         ))}
       </IconsWrapper>
     </BottomSection>
@@ -70,6 +87,7 @@ const BottomSection = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     height: "auto",
+    gap: "8px",
   },
 }));
 

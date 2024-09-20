@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 import { IValues } from "../index";
+import { TFunction } from "next-i18next";
 
 export const getValues = (
   values: IValues,
@@ -18,44 +19,122 @@ export const getValues = (
   return values;
 };
 
-export const getValidationSchema = (formType: string) => {
+export const getValidationSchema = (
+  formType: string,
+  labels: IValues,
+  tCommon: TFunction,
+) => {
   const baseSchema = {
     name: Yup.string()
       .matches(
-        /^[a-zA-Z\s'-]+$/,
-        "Name can only contain alphabetic characters and spaces",
+        /^[\p{L}\s'-]+$/u,
+        tCommon("validationErrors.alphabetic", { field: labels.name }),
       )
-      .min(1, "Name is too short - should be 1 chars minimum.")
-      .max(20, "Name is too long - should be 20 chars maximum.")
-      .required("Name is required"),
+      .min(
+        1,
+        tCommon("validationErrors.min", {
+          field: labels.name,
+          min: "1",
+        }),
+      )
+      .max(
+        20,
+        tCommon("validationErrors.max", {
+          field: labels.name,
+          max: "20",
+        }),
+      )
+      .required(
+        tCommon("validationErrors.required", {
+          field: labels.name,
+        }),
+      ),
     email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
+      .email(tCommon("validationErrors.email"))
+      .required(
+        tCommon("validationErrors.required", {
+          field: labels.email,
+        }),
+      ),
     message: Yup.string()
-      .min(1, "Message is too short - should be 1 chars minimum.")
-      .max(200, "Message is too long - should be 200 chars maximum."),
+      .min(
+        1,
+        tCommon("validationErrors.min", {
+          field: labels.message,
+          min: "1",
+        }),
+      )
+      .max(
+        200,
+        tCommon("validationErrors.max", {
+          field: labels.message,
+          max: "200",
+        }),
+      ),
   };
 
   const localSchema = {
     companyName: Yup.string()
-      .min(1, "Company name is too short - should be 1 chars minimum.")
-      .max(50, "Company name is too long - should be 50 chars maximum.")
-      .required("Company name is required"),
+      .min(
+        1,
+        tCommon("validationErrors.min", {
+          field: labels.companyName,
+          min: "1",
+        }),
+      )
+      .max(
+        50,
+        tCommon("validationErrors.max", {
+          field: labels.companyName,
+          max: "50",
+        }),
+      )
+      .required(
+        tCommon("validationErrors.required", {
+          field: labels.companyName,
+        }),
+      ),
     phone: Yup.string()
-      .matches(/^[0-9+\-()\s_]+$/, "Phone number can only contain numbers")
-      .max(20, "Phone number is too long - should be 15 chars maximum.")
-      .required("Phone number is required"),
+      .matches(/^[0-9+\-()\s_]+$/, tCommon("validationErrors.phoneNumber"))
+      .max(
+        20,
+        tCommon("validationErrors.max", {
+          field: labels.phone,
+          max: "15",
+        }),
+      )
+      .required(
+        tCommon("validationErrors.required", {
+          field: labels.phone,
+        }),
+      ),
   };
 
   const intSchema = {
     country: Yup.string()
       .matches(
         /^[a-zA-Z\s'-]+$/,
-        "Country name can only contain alphabetic characters and spaces",
+        tCommon("validationErrors.alphabetic", { field: labels.country }),
       )
-      .min(1, "Country name is too short - should be 1 chars minimum.")
-      .max(20, "Country name is too long - should be 20 chars maximum.")
-      .required("Country is required"),
+      .min(
+        1,
+        tCommon("validationErrors.min", {
+          field: labels.country,
+          min: "20",
+        }),
+      )
+      .max(
+        20,
+        tCommon("validationErrors.max", {
+          field: labels.country,
+          max: "20",
+        }),
+      )
+      .required(
+        tCommon("validationErrors.required", {
+          field: labels.country,
+        }),
+      ),
   };
 
   if (formType === "default") {

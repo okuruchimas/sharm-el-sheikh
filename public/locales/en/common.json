@@ -1,3 +1,21 @@
 {
-  "email": "Email"
+  "buttons": {
+    "contactUs": "Contact us",
+    "more": "More",
+    "viewMore": "View more"
+  },
+  "labels": {
+    "email": "Email",
+    "location": "Location",
+    "phone": "Phone",
+    "price": "Price"
+  },
+  "validationErrors": {
+    "alphabetic": "{{field}} can only contain alphabetic characters and spaces",
+    "email": "Invalid email address",
+    "max": "{{field}} is too long - should be {{max}} chars maximum.",
+    "min": "{{field}} is too short - should be {{min}} chars minimum.",
+    "phoneNumber": "Phone number can only contain numbers",
+    "required": "{{field}} is required"
+  }
 }

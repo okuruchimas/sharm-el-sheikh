@@ -1,3 +1,5 @@
+// hooks
+import { useRouter } from "next/router";
 // components
 import Button from "../../../layout/button";
 // utils
@@ -8,19 +10,26 @@ interface Props {
   imgLink?: string;
   title: string;
   buttonText: string;
+  buttonLink: string;
   isBottomContent?: boolean;
 }
 
-const Banner = ({ imgLink, title, buttonText, isBottomContent }: Props) => {
+const Banner = ({
+  imgLink,
+  title,
+  buttonText,
+  buttonLink,
+  isBottomContent,
+}: Props) => {
   const isTextVariant = !imgLink;
-
+  const router = useRouter();
   return (
     <Wrap isBottomContent={isBottomContent} isTextVariant={isTextVariant}>
       {imgLink ? <Background imgLink={imgLink} /> : null}
       <Title isBottomContent={isBottomContent} isTextVariant={isTextVariant}>
         {title}
       </Title>
-      <Button text={buttonText} />
+      <Button text={buttonText} onClick={() => router.push(buttonLink)} />
     </Wrap>
   );
 };

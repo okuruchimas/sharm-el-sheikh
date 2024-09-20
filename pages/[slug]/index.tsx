@@ -78,6 +78,7 @@ const CompanyPage = ({ card }: Props) => {
         <Banner
           title={card.discountBanner.title || ""}
           buttonText={card.discountBanner.buttonText || t("openCard")}
+          buttonLink={card.discountBanner.buttonLink || ""}
         />
       ) : null}
       {card.services ? <Services services={card.services?.data} /> : null}
