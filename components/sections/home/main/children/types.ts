@@ -1,4 +1,5 @@
 export interface EventCardI {
+  logoAlt?: string;
   logo: string;
   date: string;
   title: string;

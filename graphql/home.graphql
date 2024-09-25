@@ -1,0 +1,57 @@
+query GetHomePage($locale: I18NLocaleCode!) {
+  home(locale: $locale) {
+    data {
+      attributes {
+        ...HomePage
+      }
+    }
+  }
+}
+
+fragment HomePage on Home {
+  heroTitle
+  eventCardsTitle
+  event_cards {
+    data {
+      attributes {
+        ...EventCard
+      }
+    }
+  }
+  promotionsTitle
+  banner1 {
+    title
+    buttonText
+    buttonLink
+    bannerImage {
+      data {
+        attributes {
+          url
+          alternativeText
+        }
+      }
+    }
+  }
+  announcementsTitle
+  announcements {
+    data {
+      attributes {
+        ...Announcement
+      }
+    }
+  }
+  banner2 {
+    title
+    buttonText
+    buttonLink
+    bannerImage {
+      data {
+        attributes {
+          url
+          alternativeText
+        }
+      }
+    }
+  }
+  mapTitle
+}

@@ -1,7 +1,9 @@
 // libs
-import { useState } from "react";
 import { Formik, Form } from "formik";
 import { toast, ToastContainer } from "react-toastify";
+// hooks
+import { useState } from "react";
+import { useTranslation } from "next-i18next";
 // components
 import TypeSwitcher from "./children/type-switcher";
 import Button from "../../../layout/button";
@@ -33,12 +35,23 @@ const FeedbackForm = () => {
   };
 
   const [type, setType] = useState<string>("default");
-  const SignupSchema = getValidationSchema(type);
+  const { t: tPage } = useTranslation("home-page");
+  const { t: tCommon } = useTranslation("common");
+
+  const labels = {
+    name: tPage("feedbackForm.labels.name"),
+    email: tCommon("labels.email"),
+    message: tPage("feedbackForm.labels.message"),
+    companyName: tPage("feedbackForm.labels.companyName"),
+    phone: tCommon("labels.phone"),
+    country: tPage("feedbackForm.labels.country"),
+  };
+
+  const SignupSchema = getValidationSchema(type, labels, tCommon);
 
   return (
     <Wrap id="contact-form">
       <TypeSwitcher currentType={type} setType={setType} />
-
       <Formik
         initialValues={inValues}
         validationSchema={SignupSchema}
@@ -54,10 +67,10 @@ const FeedbackForm = () => {
           });
 
           if (response.ok) {
-            toast.success("Email successfully delivered!");
+            toast.success(tPage("feedbackForm.formSuccess"));
             resetForm();
           } else {
-            toast.error("Failed to send email");
+            toast.error(tPage("feedbackForm.formError"));
           }
           setSubmitting(false);
         }}
@@ -68,47 +81,53 @@ const FeedbackForm = () => {
               <Loader />
             ) : (
               <>
-                <Input label="Name" type="name" placeholder="Name*" />
+                <Input
+                  label={labels.name}
+                  type="name"
+                  placeholder={`${labels.name}*`}
+                />
 
                 {type === "international" ? (
                   <Input
-                    label="Country"
+                    label={labels.country}
                     type="country"
-                    placeholder="Country*"
+                    placeholder={`${labels.country}*`}
                   />
                 ) : null}
 
                 {type !== "default" ? (
                   <>
                     <Input
-                      label="Company name"
+                      label={labels.companyName}
                       type="companyName"
-                      placeholder="Company Name*"
+                      placeholder={`${labels.companyName}*`}
                     />
                     <Input
-                      label="Phone"
+                      label={labels.phone}
                       type="phone"
-                      placeholder="Phone*"
+                      placeholder={`${labels.phone}*`}
                       mask="+99 (999) 999-99-999"
                     />
                   </>
                 ) : null}
 
-                <Input label="Email" type="email" placeholder="Email*" />
-
                 <Input
-                  label="Message"
+                  label={labels.email}
+                  type="email"
+                  placeholder={`${labels.email}*`}
+                />
+                <Input
+                  label={labels.message}
                   type="message"
-                  placeholder="Message"
+                  placeholder={labels.message}
                   as="textarea"
                 />
               </>
             )}
-
             <SubmitButton
               backgroundColor="blue3"
               color="yellow"
-              text="Contact Us"
+              text={tCommon("buttons.contactUs")}
               type="submit"
               disabled={isSubmitting}
             />
@@ -135,6 +154,10 @@ const FormWrap = styled(Form)(({ theme }) => ({
   minHeight: "454px",
   borderRadius: "16px",
   background: theme.colors.yellow,
+
+  textarea: {
+    resize: "none",
+  },
 }));
 
 const SubmitButton = styled(Button)(({ theme }) => ({

@@ -1,37 +1,46 @@
+// hooks
+import { useTranslation } from "next-i18next";
 // components
+import Card from "./children/card";
 import Button from "../../../layout/button";
 import LinkButton from "../../../layout/link-button";
-import Card from "./children/card";
+import SectionWrapper from "../../../layout/section-wrapper";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { AnnouncementCardProps } from "./children/types";
-import SectionWrapper from "../../../layout/section-wrapper";
+import type { HomePageFragment } from "../../../../gql/graphql";
 
-const Announcements = ({ announcementsCards }: AnnouncementCardProps) => {
+export type AnnouncementsProps = {
+  title: string;
+  announcementsCards: HomePageFragment["announcements"];
+};
+
+const Announcements = ({ announcementsCards, title }: AnnouncementsProps) => {
+  const { t } = useTranslation("common");
+
   return (
     <SectionWrapper
-      title="Recent Announcements"
+      title={title}
       titleChildren={
         <MobLink>
-          <LinkButton text="View more" link="/" />
+          <LinkButton text={t("buttons.viewMore")} link="/" />
         </MobLink>
       }
     >
       <CardWrap>
-        {announcementsCards.map(({ image, title, text, icons }, index) => (
+        {announcementsCards?.data.map(({ attributes }, index) => (
           <Card
-            isFirst={index === 0}
             key={index}
-            image={image}
-            title={title}
-            text={text}
-            icons={icons}
+            isFirst={index % 3 === 0}
+            image={attributes?.image.data?.attributes?.url || ""}
+            title={attributes?.title || ""}
+            text={attributes?.text || ""}
+            icons={attributes?.socialLinks}
           />
         ))}
       </CardWrap>
       <ButtonWrap>
-        <Button text="View more" backgroundColor="white" />
+        <Button text={t("buttons.viewMore")} backgroundColor="white" />
       </ButtonWrap>
     </SectionWrapper>
   );
@@ -63,10 +72,12 @@ const MobLink = styled("div")(({ theme }) => ({
   "a, span": {
     display: "none",
   },
+  maxWidth: "max-content",
 
   [theme.breakpoints.mobile]: {
     "a, span": {
       display: "initial",
+      textWrap: "nowrap",
     },
   },
 }));

@@ -1,5 +1,5 @@
 // libs
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 // hooks
 import { useRouter } from "next/router";
@@ -10,20 +10,34 @@ type LocaleMapping = {
   [key: string]: string;
 };
 
-const localeMapping: LocaleMapping = {
-  en: "en",
-  uk: "ua",
-  "ar-EG": "ar",
-};
+enum localeMapping {
+  en = "en",
+  uk = "ua",
+  "ar-EG" = "ar",
+}
 
 const LanguageSelector = () => {
   const [menuVisible, setMenuVisible] = useState<boolean>(false);
 
   const router = useRouter();
   const { locale = "en", locales, asPath } = router;
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const getLocalizedName = (loc: string) => {
-    return localeMapping[loc] || loc;
+    return localeMapping[loc as keyof typeof localeMapping] || loc;
   };
 
   const toggleMenu = () => {
@@ -31,7 +45,7 @@ const LanguageSelector = () => {
   };
 
   return (
-    <Wrap>
+    <Wrap ref={menuRef}>
       <Select onClick={toggleMenu}>
         <CurrentLang>{getLocalizedName(locale)}</CurrentLang>
         <Arrow

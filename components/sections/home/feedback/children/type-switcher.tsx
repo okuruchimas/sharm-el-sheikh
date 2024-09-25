@@ -1,12 +1,14 @@
-// libs
-import { Dispatch, SetStateAction } from "react";
+// hooks
+import { useTranslation } from "next-i18next";
 // utils
 import styled from "@emotion/styled";
+// types
+import type { Dispatch, SetStateAction } from "react";
 
 const types = [
-  { type: "default", value: "Feedback Form" },
-  { type: "local", value: "Local Business Collaboration Form" },
-  { type: "international", value: "International Collaboration Form" },
+  { type: "default", value: "feedbackForm.feedbackForm" },
+  { type: "local", value: "feedbackForm.localBusinessForm" },
+  { type: "international", value: "feedbackForm.internationalForm" },
 ];
 
 interface Props {
@@ -14,6 +16,7 @@ interface Props {
   setType: Dispatch<SetStateAction<string>>;
 }
 const TypeSwitcher = ({ currentType, setType }: Props) => {
+  const { t } = useTranslation("home-page");
   return (
     <Wrap>
       {types.map(({ type, value }) => (
@@ -22,7 +25,7 @@ const TypeSwitcher = ({ currentType, setType }: Props) => {
           key={type}
           onClick={() => setType(type)}
         >
-          {value}
+          {t(value)}
         </Type>
       ))}
     </Wrap>

@@ -26,6 +26,79 @@ export type Scalars = {
   Upload: { input: any; output: any; }
 };
 
+export type Announcement = {
+  __typename?: 'Announcement';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  image: UploadFileEntityResponse;
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<AnnouncementRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  socialLinks?: Maybe<Array<Maybe<ComponentHelpersSocialMedia>>>;
+  text?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type AnnouncementLocalizationsArgs = {
+  filters?: InputMaybe<AnnouncementFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type AnnouncementSocialLinksArgs = {
+  filters?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type AnnouncementEntity = {
+  __typename?: 'AnnouncementEntity';
+  attributes?: Maybe<Announcement>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type AnnouncementEntityResponse = {
+  __typename?: 'AnnouncementEntityResponse';
+  data?: Maybe<AnnouncementEntity>;
+};
+
+export type AnnouncementEntityResponseCollection = {
+  __typename?: 'AnnouncementEntityResponseCollection';
+  data: Array<AnnouncementEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type AnnouncementFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<AnnouncementFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<AnnouncementFiltersInput>;
+  not?: InputMaybe<AnnouncementFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<AnnouncementFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  socialLinks?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  text?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type AnnouncementInput = {
+  image?: InputMaybe<Scalars['ID']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  socialLinks?: InputMaybe<Array<InputMaybe<ComponentHelpersSocialMediaInput>>>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AnnouncementRelationResponseCollection = {
+  __typename?: 'AnnouncementRelationResponseCollection';
+  data: Array<AnnouncementEntity>;
+};
+
 export type BooleanFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
@@ -247,39 +320,6 @@ export type CompanyPromotionCardRelationResponseCollection = {
   data: Array<CompanyPromotionCardEntity>;
 };
 
-export type ComponentComponentsAnnouncement = {
-  __typename?: 'ComponentComponentsAnnouncement';
-  id: Scalars['ID']['output'];
-  image: UploadFileEntityResponse;
-  socialLinkls?: Maybe<Array<Maybe<ComponentHelpersSocialMedia>>>;
-  text: Scalars['String']['output'];
-  title: Scalars['String']['output'];
-};
-
-
-export type ComponentComponentsAnnouncementSocialLinklsArgs = {
-  filters?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type ComponentComponentsAnnouncementFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentComponentsAnnouncementFiltersInput>>>;
-  not?: InputMaybe<ComponentComponentsAnnouncementFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentComponentsAnnouncementFiltersInput>>>;
-  socialLinkls?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
-  text?: InputMaybe<StringFilterInput>;
-  title?: InputMaybe<StringFilterInput>;
-};
-
-export type ComponentComponentsAnnouncementInput = {
-  id?: InputMaybe<Scalars['ID']['input']>;
-  image?: InputMaybe<Scalars['ID']['input']>;
-  socialLinkls?: InputMaybe<Array<InputMaybe<ComponentHelpersSocialMediaInput>>>;
-  text?: InputMaybe<Scalars['String']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
 export type ComponentComponentsBanner = {
   __typename?: 'ComponentComponentsBanner';
   bannerImage?: Maybe<UploadFileEntityResponse>;
@@ -403,7 +443,6 @@ export type EventCard = {
   location: Scalars['String']['output'];
   price: Scalars['String']['output'];
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   url: Scalars['String']['output'];
@@ -446,7 +485,6 @@ export type EventCardFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<EventCardFiltersInput>>>;
   price?: InputMaybe<StringFilterInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
-  slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   url?: InputMaybe<StringFilterInput>;
@@ -458,7 +496,6 @@ export type EventCardInput = {
   location?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
 };
@@ -591,7 +628,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = Comment | CompanyPromotionCard | ComponentComponentsAnnouncement | ComponentComponentsBanner | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | EventCard | Filters | Footer | Header | Home | I18NLocale | Service | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Announcement | Comment | CompanyPromotionCard | ComponentComponentsBanner | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | EventCard | Filters | Footer | Header | Home | I18NLocale | Service | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   __typename?: 'Header';
@@ -640,18 +677,18 @@ export type HeaderRelationResponseCollection = {
 
 export type Home = {
   __typename?: 'Home';
-  announcements: Array<Maybe<ComponentComponentsAnnouncement>>;
+  announcements?: Maybe<AnnouncementRelationResponseCollection>;
   announcementsTitle: Scalars['String']['output'];
-  banner1: Array<Maybe<ComponentComponentsBanner>>;
+  banner1: ComponentComponentsBanner;
   banner2: ComponentComponentsBanner;
-  company_promotion_cards?: Maybe<CompanyPromotionCardRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   eventCardsTitle: Scalars['String']['output'];
   event_cards?: Maybe<EventCardRelationResponseCollection>;
   filters?: Maybe<FiltersRelationResponseCollection>;
-  heroTitle?: Maybe<Scalars['String']['output']>;
+  heroTitle: Scalars['String']['output'];
   locale?: Maybe<Scalars['String']['output']>;
   localizations?: Maybe<HomeRelationResponseCollection>;
+  mapTitle: Scalars['String']['output'];
   promotionsTitle: Scalars['String']['output'];
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -659,21 +696,7 @@ export type Home = {
 
 
 export type HomeAnnouncementsArgs = {
-  filters?: InputMaybe<ComponentComponentsAnnouncementFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type HomeBanner1Args = {
-  filters?: InputMaybe<ComponentComponentsBannerFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type HomeCompany_Promotion_CardsArgs = {
-  filters?: InputMaybe<CompanyPromotionCardFiltersInput>;
+  filters?: InputMaybe<AnnouncementFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -712,15 +735,15 @@ export type HomeEntityResponse = {
 };
 
 export type HomeInput = {
-  announcements?: InputMaybe<Array<InputMaybe<ComponentComponentsAnnouncementInput>>>;
+  announcements?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   announcementsTitle?: InputMaybe<Scalars['String']['input']>;
-  banner1?: InputMaybe<Array<InputMaybe<ComponentComponentsBannerInput>>>;
+  banner1?: InputMaybe<ComponentComponentsBannerInput>;
   banner2?: InputMaybe<ComponentComponentsBannerInput>;
-  company_promotion_cards?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   eventCardsTitle?: InputMaybe<Scalars['String']['input']>;
   event_cards?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   filters?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   heroTitle?: InputMaybe<Scalars['String']['input']>;
+  mapTitle?: InputMaybe<Scalars['String']['input']>;
   promotionsTitle?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -870,6 +893,8 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
+  createAnnouncement?: Maybe<AnnouncementEntityResponse>;
+  createAnnouncementLocalization?: Maybe<AnnouncementEntityResponse>;
   createComment?: Maybe<CommentEntityResponse>;
   createCompanyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
   createCompanyPromotionCardLocalization?: Maybe<CompanyPromotionCardEntityResponse>;
@@ -887,6 +912,7 @@ export type Mutation = {
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  deleteAnnouncement?: Maybe<AnnouncementEntityResponse>;
   deleteComment?: Maybe<CommentEntityResponse>;
   deleteCompanyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
   deleteEventCard?: Maybe<EventCardEntityResponse>;
@@ -912,6 +938,7 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
+  updateAnnouncement?: Maybe<AnnouncementEntityResponse>;
   updateComment?: Maybe<CommentEntityResponse>;
   updateCompanyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
   updateEventCard?: Maybe<EventCardEntityResponse>;
@@ -935,6 +962,19 @@ export type MutationChangePasswordArgs = {
   currentPassword: Scalars['String']['input'];
   password: Scalars['String']['input'];
   passwordConfirmation: Scalars['String']['input'];
+};
+
+
+export type MutationCreateAnnouncementArgs = {
+  data: AnnouncementInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateAnnouncementLocalizationArgs = {
+  data?: InputMaybe<AnnouncementInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
@@ -1025,6 +1065,12 @@ export type MutationCreateUsersPermissionsRoleArgs = {
 
 export type MutationCreateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput;
+};
+
+
+export type MutationDeleteAnnouncementArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
@@ -1128,6 +1174,13 @@ export type MutationResetPasswordArgs = {
   code: Scalars['String']['input'];
   password: Scalars['String']['input'];
   passwordConfirmation: Scalars['String']['input'];
+};
+
+
+export type MutationUpdateAnnouncementArgs = {
+  data: AnnouncementInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
@@ -1242,6 +1295,8 @@ export enum PublicationState {
 
 export type Query = {
   __typename?: 'Query';
+  announcement?: Maybe<AnnouncementEntityResponse>;
+  announcements?: Maybe<AnnouncementEntityResponseCollection>;
   comment?: Maybe<CommentEntityResponse>;
   comments?: Maybe<CommentEntityResponseCollection>;
   companyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
@@ -1266,6 +1321,21 @@ export type Query = {
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
   usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>;
+};
+
+
+export type QueryAnnouncementArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryAnnouncementsArgs = {
+  filters?: InputMaybe<AnnouncementFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -1883,6 +1953,19 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type AnnouncementFragment = { __typename?: 'Announcement', title?: string | null, text?: string | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null };
+
+export type EventCardFragment = { __typename?: 'EventCard', date: string, title: string, price: string, location: string, url: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } };
+
+export type GetHomePageQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetHomePageQuery = { __typename?: 'Query', home?: { __typename?: 'HomeEntityResponse', data?: { __typename?: 'HomeEntity', attributes?: { __typename?: 'Home', heroTitle: string, eventCardsTitle: string, promotionsTitle: string, announcementsTitle: string, mapTitle: string, event_cards?: { __typename?: 'EventCardRelationResponseCollection', data: Array<{ __typename?: 'EventCardEntity', attributes?: { __typename?: 'EventCard', date: string, title: string, price: string, location: string, url: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, banner1: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null }, announcements?: { __typename?: 'AnnouncementRelationResponseCollection', data: Array<{ __typename?: 'AnnouncementEntity', attributes?: { __typename?: 'Announcement', title?: string | null, text?: string | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null } | null }> } | null, banner2: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } } | null } | null } | null };
+
+export type HomePageFragment = { __typename?: 'Home', heroTitle: string, eventCardsTitle: string, promotionsTitle: string, announcementsTitle: string, mapTitle: string, event_cards?: { __typename?: 'EventCardRelationResponseCollection', data: Array<{ __typename?: 'EventCardEntity', attributes?: { __typename?: 'EventCard', date: string, title: string, price: string, location: string, url: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, banner1: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null }, announcements?: { __typename?: 'AnnouncementRelationResponseCollection', data: Array<{ __typename?: 'AnnouncementEntity', attributes?: { __typename?: 'Announcement', title?: string | null, text?: string | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null } | null }> } | null, banner2: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } };
+
 export type GetHeaderQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
 }>;
@@ -1929,6 +2012,134 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+export const EventCardFragmentDoc = new TypedDocumentString(`
+    fragment EventCard on EventCard {
+  date
+  title
+  price
+  location
+  url
+  image {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+}
+    `, {"fragmentName":"EventCard"}) as unknown as TypedDocumentString<EventCardFragment, unknown>;
+export const AnnouncementFragmentDoc = new TypedDocumentString(`
+    fragment Announcement on Announcement {
+  title
+  text
+  image {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  socialLinks {
+    socialLink
+    icon {
+      data {
+        attributes {
+          url
+          alternativeText
+        }
+      }
+    }
+  }
+}
+    `, {"fragmentName":"Announcement"}) as unknown as TypedDocumentString<AnnouncementFragment, unknown>;
+export const HomePageFragmentDoc = new TypedDocumentString(`
+    fragment HomePage on Home {
+  heroTitle
+  eventCardsTitle
+  event_cards {
+    data {
+      attributes {
+        ...EventCard
+      }
+    }
+  }
+  promotionsTitle
+  banner1 {
+    title
+    buttonText
+    buttonLink
+    bannerImage {
+      data {
+        attributes {
+          url
+          alternativeText
+        }
+      }
+    }
+  }
+  announcementsTitle
+  announcements {
+    data {
+      attributes {
+        ...Announcement
+      }
+    }
+  }
+  banner2 {
+    title
+    buttonText
+    buttonLink
+    bannerImage {
+      data {
+        attributes {
+          url
+          alternativeText
+        }
+      }
+    }
+  }
+  mapTitle
+}
+    fragment Announcement on Announcement {
+  title
+  text
+  image {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  socialLinks {
+    socialLink
+    icon {
+      data {
+        attributes {
+          url
+          alternativeText
+        }
+      }
+    }
+  }
+}
+fragment EventCard on EventCard {
+  date
+  title
+  price
+  location
+  url
+  image {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+}`, {"fragmentName":"HomePage"}) as unknown as TypedDocumentString<HomePageFragment, unknown>;
 export const HeaderFragmentDoc = new TypedDocumentString(`
     fragment Header on Header {
   Logo {
@@ -2068,6 +2279,101 @@ fragment Comment on CommentEntity {
     createdAt
   }
 }`, {"fragmentName":"CompanyCard"}) as unknown as TypedDocumentString<CompanyCardFragment, unknown>;
+export const GetHomePageDocument = new TypedDocumentString(`
+    query GetHomePage($locale: I18NLocaleCode!) {
+  home(locale: $locale) {
+    data {
+      attributes {
+        ...HomePage
+      }
+    }
+  }
+}
+    fragment Announcement on Announcement {
+  title
+  text
+  image {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  socialLinks {
+    socialLink
+    icon {
+      data {
+        attributes {
+          url
+          alternativeText
+        }
+      }
+    }
+  }
+}
+fragment EventCard on EventCard {
+  date
+  title
+  price
+  location
+  url
+  image {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+}
+fragment HomePage on Home {
+  heroTitle
+  eventCardsTitle
+  event_cards {
+    data {
+      attributes {
+        ...EventCard
+      }
+    }
+  }
+  promotionsTitle
+  banner1 {
+    title
+    buttonText
+    buttonLink
+    bannerImage {
+      data {
+        attributes {
+          url
+          alternativeText
+        }
+      }
+    }
+  }
+  announcementsTitle
+  announcements {
+    data {
+      attributes {
+        ...Announcement
+      }
+    }
+  }
+  banner2 {
+    title
+    buttonText
+    buttonLink
+    bannerImage {
+      data {
+        attributes {
+          url
+          alternativeText
+        }
+      }
+    }
+  }
+  mapTitle
+}`) as unknown as TypedDocumentString<GetHomePageQuery, GetHomePageQueryVariables>;
 export const GetHeaderDocument = new TypedDocumentString(`
     query GetHeader($locale: I18NLocaleCode!) {
   header(locale: $locale) {

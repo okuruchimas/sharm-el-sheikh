@@ -1,3 +1,5 @@
+// hooks
+import { useTranslation } from "next-i18next";
 // components
 import PromCard from "./children/prom-card";
 import Button from "../../layout/button";
@@ -32,6 +34,8 @@ const Promotions = ({
   disableFilters = false,
   disableViewMore = false,
 }: PromotionsProps) => {
+  const { t } = useTranslation("common");
+
   return (
     <SectionWrapper
       title={title}
@@ -40,7 +44,7 @@ const Promotions = ({
           <FiltersWrap>
             <Dropdown options={sortArr} />
             <MobLink>
-              <LinkButton text="View more" link="/" />
+              <LinkButton text={t("buttons.viewMore")} link="/" />
             </MobLink>
           </FiltersWrap>
         )
@@ -66,7 +70,7 @@ const Promotions = ({
       ) : null}
       {disableViewMore ? null : (
         <ButtonWrap>
-          <Button text="View more" backgroundColor="white" />
+          <Button text={t("buttons.viewMore")} backgroundColor="white" />
         </ButtonWrap>
       )}
     </SectionWrapper>

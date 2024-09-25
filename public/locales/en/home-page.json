@@ -1,0 +1,16 @@
+{
+  "feedbackForm": {
+    "feedbackForm": "Feedback Form",
+    "formError": "Failed to send email",
+    "formSuccess": "Email successfully delivered!",
+    "internationalForm": "International Collaboration Form",
+    "labels": {
+      "companyName": "Company name",
+      "country": "Country",
+      "countryLocation": "Country of location*",
+      "message": "Message",
+      "name": "Name"
+    },
+    "localBusinessForm": "Local Business Collaboration Form"
+  }
+}
