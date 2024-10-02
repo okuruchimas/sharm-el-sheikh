@@ -41,7 +41,11 @@ const Header = ({ logo, navMenu }: HeaderProps) => {
         </ButtonsWrap>
       </WrapperUp>
       <Line />
-      <NavMenu isOpen={isNavbar} navMenu={navMenu} />
+      <NavMenu
+        isOpen={isNavbar}
+        navMenu={navMenu}
+        onClose={() => setIsNavbar(false)}
+      />
     </Wrap>
   );
 };

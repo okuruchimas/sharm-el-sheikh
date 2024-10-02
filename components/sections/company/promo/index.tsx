@@ -1,7 +1,6 @@
 // components
 import Swiper from "../../promotions/children/swiper";
 import Rating from "../../../layout/rating";
-import NextImage from "../../../layout/image";
 // utils
 import styled from "@emotion/styled";
 // types
@@ -41,13 +40,9 @@ const Promo = ({
         </RatingWrapper>
       </TopWrapper>
       <Location>
-        <NextImage
+        <LocationIcon
           src="/icons/promotions-section/location.svg"
           alt="location icon"
-          height="30px"
-          width="30px"
-          mHeight="18px"
-          mWidth="18px"
         />
         <span>{location}</span>
       </Location>
@@ -79,8 +74,18 @@ const SectionWrapper = styled("div")(({ theme }) => ({
   margin: "122px 0 10px",
 
   [theme.breakpoints.mobile]: {
-    height: "308px",
+    height: "340px",
     margin: "30px 0 10px",
+  },
+}));
+
+const LocationIcon = styled("img")(({ theme }) => ({
+  width: "30px",
+  height: "30px",
+
+  [theme.breakpoints.mobile]: {
+    height: "18px",
+    width: "18px",
   },
 }));
 

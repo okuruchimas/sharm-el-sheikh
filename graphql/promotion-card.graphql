@@ -9,6 +9,45 @@ query CompanyPromotionCard($slug: String!, $locale: I18NLocaleCode!) {
   }
 }
 
+query GetCompanyPromotionCardsByFilter(
+  $areaKey: String
+  $category: String
+  $locale: I18NLocaleCode!
+  $page: Int
+  $pageSize: Int
+) {
+  companyPromotionCards(
+    locale: $locale
+    filters: {
+      area: { key: { eq: $areaKey } }
+      categories: { key: { eq: $category } }
+    }
+    pagination: { page: $page, pageSize: $pageSize }
+  ) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      id
+      attributes {
+        ...CompanyCardPreview
+      }
+    }
+  }
+}
+
+query GetPromotionCardsSlugs {
+  companyPromotionCards {
+    data {
+      attributes {
+        slug
+      }
+    }
+  }
+}
+
 fragment CompanyCard on CompanyPromotionCard {
   title
   discount
@@ -32,12 +71,7 @@ fragment CompanyCard on CompanyPromotionCard {
     buttonText
     buttonLink
     bannerImage {
-      data {
-        attributes {
-          url
-          alternativeText
-        }
-      }
+      ...StrapiImage
     }
   }
   touchText
@@ -65,6 +99,50 @@ fragment CompanyCard on CompanyPromotionCard {
       ...Comment
     }
   }
+  area {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+  categories {
+    data {
+      attributes {
+        key
+      }
+    }
+  }
+}
+
+fragment CompanyCardPreview on CompanyPromotionCard {
+  title
+  discount
+  images {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  position {
+    lat
+    lng
+  }
+  averageRating
+  totalComments
+  slug
+  location
+  area {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
 }
 
 fragment Service on ServiceEntity {
@@ -72,12 +150,7 @@ fragment Service on ServiceEntity {
   attributes {
     text
     icon {
-      data {
-        attributes {
-          url
-          alternativeText
-        }
-      }
+      ...StrapiImage
     }
   }
 }

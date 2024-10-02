@@ -1,14 +1,15 @@
-import { PromCardI } from "../../../../../pages/api/prom-cards";
+import { DEFAULT_CENTER } from "./constants";
+import type { CompanyCardPreviewFragment } from "../../../../../gql/graphql";
 
 export const calculateCenter = (
-  locations: PromCardI[],
+  locations: (CompanyCardPreviewFragment | undefined | null)[],
 ): { lat: number; lng: number } => {
   const numLocations = locations.length;
 
   const total = locations.reduce(
     (acc, location) => {
-      acc.lat += location?.position?.lat || 0;
-      acc.lng += location?.position?.lng || 0;
+      acc.lat += Number(location?.position?.lat || DEFAULT_CENTER.lat);
+      acc.lng += Number(location?.position?.lng || DEFAULT_CENTER.lng);
       return acc;
     },
     { lat: 0, lng: 0 },

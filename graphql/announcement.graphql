@@ -2,22 +2,12 @@ fragment Announcement on Announcement {
   title
   text
   image {
-    data {
-      attributes {
-        url
-        alternativeText
-      }
-    }
+    ...StrapiImage
   }
   socialLinks {
     socialLink
     icon {
-      data {
-        attributes {
-          url
-          alternativeText
-        }
-      }
+      ...StrapiImage
     }
   }
 }

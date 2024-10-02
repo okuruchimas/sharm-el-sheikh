@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 const Loader = () => {
-  return <LoadingImg src={"icons/loader.svg"} />;
+  return <LoadingImg src={"icons/loader.svg"} className="loader" />;
 };
 
 const LoadingImg = styled("img")({

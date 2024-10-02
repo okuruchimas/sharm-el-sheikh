@@ -28,13 +28,14 @@ const Wrapper = styled("div")({
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
+  height: "max-content",
 });
 
 const RatingPoints = styled("span")(({ theme }) => ({
   fontWeight: "600",
   fontSize: theme.fontSize.fontS18,
   textAlign: "center",
-  marginLeft: "8px",
+  marginLeft: "3px",
 
   [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS12,

@@ -24,12 +24,7 @@ fragment HomePage on Home {
     buttonText
     buttonLink
     bannerImage {
-      data {
-        attributes {
-          url
-          alternativeText
-        }
-      }
+      ...StrapiImage
     }
   }
   announcementsTitle
@@ -45,12 +40,7 @@ fragment HomePage on Home {
     buttonText
     buttonLink
     bannerImage {
-      data {
-        attributes {
-          url
-          alternativeText
-        }
-      }
+      ...StrapiImage
     }
   }
   mapTitle

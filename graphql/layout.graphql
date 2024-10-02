@@ -20,13 +20,7 @@ query GetFooter($locale: I18NLocaleCode!) {
 
 fragment Header on Header {
   Logo {
-    data {
-      id
-      attributes {
-        url
-        alternativeText
-      }
-    }
+    ...StrapiImage
   }
   Menu {
     id
@@ -38,12 +32,7 @@ fragment Header on Header {
 fragment Footer on Footer {
   socialIcons {
     icon {
-      data {
-        attributes {
-          url
-          alternativeText
-        }
-      }
+      ...StrapiImage
     }
     socialLink
   }
