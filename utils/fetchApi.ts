@@ -41,3 +41,21 @@ export const fetchData = async <Result, Variables>(
 
   return result.data;
 };
+
+export const fetchDataFromApi = async <Result, Variables>(
+  document: TypedDocumentString<Result, Variables>,
+  variables?: Variables,
+): Promise<Result> => {
+  const response = await fetch("/api/gql-data", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      queryDocument: document,
+      variables,
+    }),
+  });
+
+  return (await response.json()) as Result;
+};

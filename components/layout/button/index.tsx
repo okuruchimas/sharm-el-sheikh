@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
 import { MouseEvent, ButtonHTMLAttributes } from "react";
 import { keyframes } from "@emotion/react";
+import Loader from "../loader";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
   color?: string;
   backgroundColor?: string;
+  isLoading?: boolean;
 }
 
 const Button = ({
@@ -13,6 +15,7 @@ const Button = ({
   color = "blue",
   disabled,
   backgroundColor = "yellow",
+  isLoading = false,
   onClick,
   ...rest
 }: Props) => {
@@ -50,7 +53,7 @@ const Button = ({
       onClick={handleClick}
       {...rest}
     >
-      {text}
+      {isLoading ? <Loader /> : text}
     </ButtonStyled>
   );
 };
@@ -93,14 +96,22 @@ export const ButtonStyled = styled("button", {
     width: "max-content",
     height: "52px",
     borderRadius: "16px",
-    padding: "16px 32px",
+    padding: "8px 32px",
     fontSize: theme.fontSize.fontS16,
     color: theme.colors[color],
     background: theme.colors[backgroundColor],
     border: `1px solid ${theme.colors.yellow}`,
     cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
 
     WebkitTapHighlightColor: "transparent",
+
+    ".loader": {
+      height: "30px",
+      width: "30px",
+    },
 
     "&:disabled": {
       cursor: "not-allowed",

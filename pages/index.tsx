@@ -1,9 +1,4 @@
-// mock
-import {
-  dataPromCards,
-  dataPromCardsDeprecated,
-  type PromCardProps,
-} from "./api/prom-cards";
+import { useMemo } from "react";
 // components
 import Head from "next/head";
 import Main from "../components/sections/home/main";
@@ -18,8 +13,16 @@ import dynamic from "next/dynamic";
 import { fetchData } from "../utils/fetchApi";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // types
-import type { EventCardProps } from "../components/sections/home/main/children/types";
-import { GetHomePageDocument, type HomePageFragment } from "../gql/graphql";
+import {
+  GetAreasDocument,
+  GetHomePageDocument,
+  GetCategoriesDocument,
+  GetCompanyPromotionCardsByFilterDocument,
+  type AreaEntity,
+  type CategoryEntity,
+  type HomePageFragment,
+  type GetCompanyPromotionCardsByFilterQuery,
+} from "../gql/graphql";
 
 const DynamicBanner = dynamic(
   () => import("../components/sections/home/banner"),
@@ -38,10 +41,39 @@ const DynamicMap = dynamic(() => import("../components/sections/home/map"), {
   loading: () => <Loader />,
 });
 
-type Props = EventCardProps &
-  PromCardProps & { homePageData: HomePageFragment };
+type Props = {
+  areas: AreaEntity[];
+  categories: CategoryEntity[];
+  homePageData: HomePageFragment;
+  initialPromotions: GetCompanyPromotionCardsByFilterQuery["companyPromotionCards"];
+};
 
-const Home = ({ promCards, homePageData }: Props) => {
+const Home = ({
+  areas,
+  categories,
+  homePageData,
+  initialPromotions,
+}: Props) => {
+  const categoriesMapped = useMemo(
+    () =>
+      categories.map((el) => ({
+        key: el.attributes?.key || "",
+        value: el.attributes?.value || "",
+        iconSrc: el.attributes?.icon.data?.attributes?.url || "",
+        markerIcon: el.attributes?.markerIcon.data?.attributes?.url,
+      })),
+    [categories],
+  );
+
+  const areasMapped = useMemo(
+    () =>
+      areas.map((el) => ({
+        key: el.attributes?.key || "",
+        value: el.attributes?.value || "",
+      })),
+    [areas],
+  );
+
   return (
     <Wrap id="/">
       <Head>
@@ -57,8 +89,10 @@ const Home = ({ promCards, homePageData }: Props) => {
         mobUrl="images/background/mobile-background-gradient.svg"
       >
         <Promotions
-          promCards={promCards}
+          totalInitialCards={initialPromotions?.meta.pagination.total || 0}
+          options={areasMapped}
           title={homePageData.promotionsTitle}
+          initialPromotions={initialPromotions?.data.map((el) => el.attributes)}
         />
         <LazyWrapper>
           <DynamicBanner
@@ -86,7 +120,7 @@ const Home = ({ promCards, homePageData }: Props) => {
         <LazyWrapper>
           <DynamicMap
             title={homePageData.mapTitle}
-            promCards={dataPromCardsDeprecated}
+            categories={categoriesMapped}
           />
         </LazyWrapper>
         <FeedbackForm />
@@ -96,14 +130,27 @@ const Home = ({ promCards, homePageData }: Props) => {
 };
 
 export async function getStaticProps({ locale }: any) {
-  const promCards = dataPromCards;
-  const homePageData = await fetchData(GetHomePageDocument, { locale });
+  const { home } = await fetchData(GetHomePageDocument, { locale });
+  const { areas } = await fetchData(GetAreasDocument, { locale });
+  const { categories } = await fetchData(GetCategoriesDocument, { locale });
+
+  const { companyPromotionCards } = await fetchData(
+    GetCompanyPromotionCardsByFilterDocument,
+    {
+      locale,
+      areaKey: areas?.data[0].attributes?.key,
+      page: 1,
+      pageSize: 3,
+    },
+  );
 
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common", "home-page"])),
-      promCards,
-      homePageData: homePageData.home?.data?.attributes,
+      areas: areas?.data,
+      categories: categories?.data,
+      homePageData: home?.data?.attributes,
+      initialPromotions: companyPromotionCards,
     },
   };
 }

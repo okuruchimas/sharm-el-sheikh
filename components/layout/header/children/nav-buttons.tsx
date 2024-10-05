@@ -7,15 +7,22 @@ import LanguageSelector from "./language-selector";
 // utils
 import styled from "@emotion/styled";
 
-const NavButtons = () => {
+type NavButtonsProps = {
+  onClose?: () => void;
+};
+const NavButtons = ({ onClose }: NavButtonsProps) => {
   const router = useRouter();
   const { t } = useTranslation("common");
 
-  const handleCLick = () => router.push("/#contact-form");
+  const handleCLick = () => {
+    if (onClose) onClose();
+
+    router.push("/#contact-form");
+  };
 
   return (
     <Buttons>
-      <LanguageSelector />
+      <LanguageSelector onClose={onClose} />
       <SearchButton src="/icons/header/search_button.svg" alt="Search button" />
       <ContactButton text={t("buttons.contactUs")} onClick={handleCLick} />
     </Buttons>

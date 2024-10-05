@@ -42,4 +42,22 @@ MyApp.getInitialProps = async (ctx: any) => {
     },
   };
 };
+
+export async function getStaticPaths() {
+  const headerData = await fetchData(GetHeaderDocument);
+
+  const locales = nextI18NextConfig.i18n.locales;
+
+  const paths = headerData?.header?.data?.attributes?.Menu?.flatMap((el) => {
+    return locales.map((locale) => ({
+      params: { slug: el?.Link },
+      locale,
+    }));
+  });
+
+  return {
+    paths: paths,
+    fallback: false,
+  };
+}
 export default appWithTranslation(MyApp, nextI18NextConfig);

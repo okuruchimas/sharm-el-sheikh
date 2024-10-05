@@ -5,11 +5,6 @@ fragment EventCard on EventCard {
   location
   url
   image {
-    data {
-      attributes {
-        url
-        alternativeText
-      }
-    }
+    ...StrapiImage
   }
 }

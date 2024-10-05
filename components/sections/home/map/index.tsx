@@ -1,14 +1,16 @@
-import { useMemo, useState, useCallback } from "react";
 import { MarkerF, GoogleMap, useLoadScript } from "@react-google-maps/api";
+import { useTranslation } from "next-i18next";
+import { useMemo, useState, useEffect } from "react";
 // components
+import Loader from "../../../layout/loader";
 import InfoWindow from "./children/info-window";
 import SectionWrapper from "../../../layout/section-wrapper";
 import LocationsCategoryFilter from "./children/locations-category-filter";
 // utils
 import styled from "@emotion/styled";
 import { calculateCenter } from "./children/utils";
+import { fetchDataFromApi } from "../../../../utils/fetchApi";
 // constants
-import { categoriesOptions } from "./children/constants";
 import {
   libraries,
   DEFAULT_ZOOM,
@@ -17,50 +19,77 @@ import {
 } from "./children/constants";
 // types
 import type { selectOption } from "../../../types/filter";
-import type { PromCardI } from "../../../../pages/api/prom-cards";
+import {
+  type CompanyCardPreviewFragment,
+  GetCompanyPromotionCardsByFilterDocument,
+} from "../../../../gql/graphql";
+
+type Cards = (CompanyCardPreviewFragment | undefined | null)[] | undefined;
 
 type MapProps = {
   title: string;
-  promCards: PromCardI[];
+  categories: selectOption[];
 };
 
-const Map = ({ promCards, title }: MapProps) => {
+const Map = ({ title, categories }: MapProps) => {
   // states
   const [selectedCategory, setSelectedCategory] = useState<selectOption>(
-    categoriesOptions[0],
+    categories[0],
   );
-  const [selectedMarker, setSelectedMarker] = useState<PromCardI | null>(null);
+  const [selectedMarker, setSelectedMarker] = useState<
+    CompanyCardPreviewFragment | null | undefined
+  >(null);
+  const [result, setResult] = useState<Cards>();
   // hooks
+  const { i18n } = useTranslation("common");
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
     libraries,
   });
   // callbacks
-  const handleSelectCategory = useCallback((category: selectOption) => {
+  const handleGetCardByCategory = async (option: selectOption) => {
+    const data = await fetchDataFromApi(
+      GetCompanyPromotionCardsByFilterDocument,
+      {
+        locale: i18n.language,
+        category: option.key,
+      },
+    );
+
+    return data.companyPromotionCards?.data.map((el) => el.attributes);
+  };
+
+  useEffect(() => {
+    handleGetCardByCategory(selectedCategory).then((data) => setResult(data));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleSelectCategory = async (category: selectOption) => {
+    if (selectedCategory.key === category.key) return;
+
+    await handleGetCardByCategory(category).then((data) => setResult(data));
     setSelectedCategory(category);
     setSelectedMarker(null);
-  }, []);
+  };
   // memos
-  const locationsToShow = useMemo(
-    () =>
-      promCards.filter((el) => el.category === selectedCategory.display_value),
-    [promCards, selectedCategory],
-  );
-
   const center = useMemo(() => {
-    if (selectedMarker) return selectedMarker.position;
+    if (selectedMarker)
+      return {
+        lat: Number(selectedMarker.position?.lat || DEFAULT_CENTER.lat),
+        lng: Number(selectedMarker.position?.lng || DEFAULT_CENTER.lng),
+      };
 
-    if (locationsToShow.length) return calculateCenter(locationsToShow);
+    if (result?.length) return calculateCenter(result);
 
     return DEFAULT_CENTER;
-  }, [locationsToShow, selectedMarker]);
+  }, [result, selectedMarker]);
 
   if (loadError || typeof google === "undefined") {
-    return <h1>Error</h1>; // TODO: design required
+    return <h1>Error</h1>;
   }
 
   if (!isLoaded) {
-    return <h1>Loading maps...</h1>; // TODO: design required
+    return <Loader />;
   }
 
   const options = {
@@ -88,8 +117,8 @@ const Map = ({ promCards, title }: MapProps) => {
   return (
     <SectionWrapper title={title}>
       <LocationsCategoryFilter
-        selectedID={selectedCategory.key}
-        options={categoriesOptions}
+        selectedID={selectedCategory?.key}
+        options={categories}
         onSelect={handleSelectCategory}
       />
       {isLoaded ? (
@@ -100,17 +129,23 @@ const Map = ({ promCards, title }: MapProps) => {
             options={options}
             zoom={DEFAULT_ZOOM}
           >
-            {locationsToShow.map((el) => (
-              <MarkerF
-                icon={{
-                  url: "icons/location-marker.svg",
-                  scale: 8,
-                }}
-                key={el.id}
-                position={el.position || DEFAULT_CENTER}
-                onClick={() => setSelectedMarker(el)}
-              />
-            ))}
+            {result
+              ? result.map((el) => (
+                  <MarkerF
+                    icon={
+                      selectedCategory?.markerIcon ||
+                      "icons/location-marker.svg"
+                    }
+                    key={el?.slug}
+                    opacity={el?.slug === selectedMarker?.slug ? 0.6 : 1}
+                    position={{
+                      lng: Number(el?.position?.lng || DEFAULT_CENTER.lng),
+                      lat: Number(el?.position?.lat || DEFAULT_CENTER.lat),
+                    }}
+                    onClick={() => setSelectedMarker(el)}
+                  />
+                ))
+              : null}
           </GoogleMap>
           {selectedMarker && (
             <InfoWindowWrapper>
@@ -134,8 +169,8 @@ const MapWrapper = styled("div")(({ theme }) => ({
 
 const InfoWindowWrapper = styled("div")(({ theme }) => ({
   position: "absolute",
-  bottom: "102px",
-  right: "150px",
+  bottom: "116px",
+  right: "35px",
 
   [theme.breakpoints.mobile]: {
     bottom: "14px",

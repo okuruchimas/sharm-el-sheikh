@@ -1,0 +1,8 @@
+fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}

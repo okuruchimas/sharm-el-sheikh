@@ -1,18 +1,36 @@
-// libs
-import { useState } from "react";
+// hooks
+import { useEffect, useRef, useState } from "react";
+// components
+import Loader from "../loader";
 // utils
 import styled from "@emotion/styled";
 // types
 import type { selectOption } from "../../types/filter";
+import NextImage from "../image";
 
 type FiltersProps = {
   options: selectOption[];
+  isLoading?: boolean;
   onChange?: (option: selectOption) => void;
 };
 
-const Dropdown = ({ options, onChange }: FiltersProps) => {
+const Dropdown = ({ options, isLoading, onChange }: FiltersProps) => {
   const [menuVisible, setMenuVisible] = useState<boolean>(false);
   const [currentObj, setCurrentObj] = useState<selectOption>(options[0]);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
@@ -26,23 +44,41 @@ const Dropdown = ({ options, onChange }: FiltersProps) => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper ref={menuRef}>
       <Select onClick={toggleMenu}>
-        <Text>{currentObj.display_value}</Text>
-        <Arrow
-          src={"icons/promotions-section/arrow-down.svg"}
-          alt={"arrow"}
-          isDown={menuVisible}
-        />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <Text>
+              {currentObj.iconSrc ? (
+                <NextImage
+                  src={currentObj.iconSrc}
+                  width="18px"
+                  height="18px"
+                />
+              ) : null}
+              {currentObj.value}
+            </Text>
+            <Arrow
+              src={"icons/promotions-section/arrow-down.svg"}
+              alt={"arrow"}
+              isDown={menuVisible}
+            />
+          </>
+        )}
       </Select>
       <SelectList menuVisible={menuVisible}>
-        {options.map(({ display_value, key }) => (
+        {options.map((el) => (
           <ListItem
-            key={key}
-            onClick={() => changeHandler({ display_value, key })}
-            isYellow={currentObj.display_value === display_value}
+            key={el.key}
+            onClick={() => changeHandler(el)}
+            isYellow={currentObj.key === el.key}
           >
-            {display_value}
+            {el?.iconSrc ? (
+              <NextImage src={el.iconSrc} width="18px" height="18px" />
+            ) : null}
+            {el.value}
           </ListItem>
         ))}
       </SelectList>
@@ -65,6 +101,9 @@ const Wrapper = styled("div")(({ theme }) => ({
 const Text = styled("span")(({ theme }) => ({
   fontSize: theme.fontSize.fontS16,
   textAlign: "center",
+  display: "flex",
+  alignItems: "center",
+  gap: "8px",
 
   [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS14,
@@ -105,6 +144,7 @@ const ListItem = styled("span", {
   alignItems: "center",
   cursor: "pointer",
   backgroundColor: isYellow ? theme.colors.yellow3 : "initial",
+  gap: "8px",
 
   "&:hover": {
     backgroundColor: theme.colors.yellow3,
@@ -124,8 +164,14 @@ const Select = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "space-between",
   gap: "6px",
-  padding: "16px",
+  padding: "4px 16px",
+  height: "56px",
   cursor: "pointer",
+
+  ".loader": {
+    height: "30px",
+    width: "30px",
+  },
 
   [theme.breakpoints.mobile]: {
     height: "42px",

@@ -9,13 +9,14 @@ import type { HeaderFragment } from "../../../../gql/graphql";
 type IProps = {
   isOpen: boolean;
   navMenu: HeaderFragment["Menu"];
+  onClose: () => void;
 };
 
-const NavMenu = ({ isOpen, navMenu }: IProps) => {
+const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
   return (
     <WrapperDown isOpen={isOpen}>
       <ButtonsWrap>
-        <NavButtons />
+        <NavButtons onClose={onClose} />
       </ButtonsWrap>
       {navMenu?.map((item) => (
         <Link href={item?.Link || ""} key={item?.id}>

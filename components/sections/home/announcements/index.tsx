@@ -55,6 +55,7 @@ const CardWrap = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     gridTemplateColumns: "1fr",
+    margin: "0",
   },
 }));
 
@@ -73,6 +74,7 @@ const MobLink = styled("div")(({ theme }) => ({
     display: "none",
   },
   maxWidth: "max-content",
+  alignSelf: "end",
 
   [theme.breakpoints.mobile]: {
     "a, span": {

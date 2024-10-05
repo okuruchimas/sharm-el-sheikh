@@ -1,13 +1,13 @@
 import { useCallback } from "react";
 // components
 import Dropdown from "../../../../layout/filters";
+import NextImage from "../../../../layout/image";
 // utils
 import styled from "@emotion/styled";
 // constants
 
 // types
 import type { selectOption } from "../../../../types/filter";
-import { categoriesOptions } from "./constants";
 
 type LocationsCategoryFilterProps = {
   options: selectOption[];
@@ -28,7 +28,7 @@ const LocationsCategoryFilter = ({
   return (
     <>
       <DropdownWrapper>
-        <Dropdown options={categoriesOptions} onChange={onSelect} />
+        <Dropdown options={options} onChange={onSelect} />
       </DropdownWrapper>
       <ItemsWrapper>
         {options.map((option) => (
@@ -37,7 +37,10 @@ const LocationsCategoryFilter = ({
             isSelected={option.key === selectedID}
             onClick={handleClick(option)}
           >
-            {option.display_value}
+            {option.iconSrc ? (
+              <NextImage src={option.iconSrc} width="18px" height="18px" />
+            ) : null}
+            <span>{option.value}</span>
           </CategoryItem>
         ))}
       </ItemsWrapper>
@@ -66,6 +69,9 @@ const DropdownWrapper = styled("div")(({ theme }) => ({
 export const CategoryItem = styled("div", {
   shouldForwardProp: (prop) => prop !== "isSelected",
 })<{ isSelected: boolean }>(({ theme, isSelected }) => ({
+  display: "flex",
+  alignItems: "center",
+  gap: "8px",
   padding: "9px 16px",
   borderRadius: "8px",
   backgroundColor: isSelected ? theme.colors.peach : theme.colors.white2,

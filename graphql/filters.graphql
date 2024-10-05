@@ -1,0 +1,27 @@
+query GetAreas($locale: I18NLocaleCode!) {
+  areas(locale: $locale, sort: "index:asc") {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+}
+
+query GetCategories($locale: I18NLocaleCode!) {
+  categories(locale: $locale, sort: "index:asc") {
+    data {
+      attributes {
+        key
+        value
+        icon {
+          ...StrapiImage
+        }
+        markerIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,4 @@
 import { toast, ToastContainer } from "react-toastify";
-import { dataPromCards } from "../api/prom-cards";
 // hooks
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
@@ -9,9 +8,11 @@ import Banner from "../../components/sections/home/banner";
 import Button from "../../components/layout/button";
 import Reviews from "../../components/sections/company/reviews";
 import Services from "../../components/sections/company/services";
+import PromCard from "../../components/sections/promotions/children/prom-card";
 import ReviewForm from "../../components/sections/company/review";
-import Promotions from "../../components/sections/promotions";
+import Placeholder from "../../components/sections/promotions/children/placeholder";
 import YouTubePlayer from "../../components/layout/player";
+import SectionWrapper from "../../components/layout/section-wrapper";
 import SectionsWrapper from "../../components/layout/sections-wrapper";
 // utils
 import styled from "@emotion/styled";
@@ -24,17 +25,21 @@ import { REVIEWS } from "../../components/sections/company/reviews/children/mock
 import {
   type CompanyCardFragment,
   CompanyPromotionCardDocument,
+  GetPromotionCardsSlugsDocument,
+  GetCompanyPromotionCardsByFilterDocument,
 } from "../../gql/graphql";
 // config
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../next-i18next.config";
 interface Props {
   card: CompanyCardFragment;
+  similarSuggestions: { attributes: CompanyCardFragment }[];
 }
 
-const CompanyPage = ({ card }: Props) => {
+const CompanyPage = ({ card, similarSuggestions }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("company-page");
+  const { t: tCommon } = useTranslation("common");
 
   const handleAddComment = async (
     rating: number,
@@ -81,16 +86,32 @@ const CompanyPage = ({ card }: Props) => {
           buttonLink={card.discountBanner.buttonLink || ""}
         />
       ) : null}
-      {card.services ? <Services services={card.services?.data} /> : null}
+      {card.services?.data.length ? (
+        <Services services={card.services?.data} />
+      ) : null}
       {/*<Reviews comments={card.comments?.data || []} />*/}
       <Reviews comments={REVIEWS} />
       <ReviewForm handleAddComment={handleAddComment} />
-      <Promotions
-        promCards={dataPromCards}
-        title={t("similarSuggestions")}
-        disableFilters
-        disableViewMore
-      />
+      <SectionWrapper title={t("similarSuggestions")}>
+        {similarSuggestions.length ? (
+          <SuggestionsWrapper>
+            {similarSuggestions.slice(0, 3).map((card, index) => (
+              <PromCard
+                averageRating={card.attributes.averageRating}
+                totalComments={card.attributes.totalComments}
+                slug={card.attributes.slug}
+                discount={card.attributes.discount}
+                images={card.attributes.images}
+                title={card.attributes.title}
+                location={card.attributes.location}
+                key={index}
+              />
+            ))}
+          </SuggestionsWrapper>
+        ) : (
+          <Placeholder title={tCommon("noDiscounts")} />
+        )}
+      </SectionWrapper>
       <ContactSection>
         <span>
           {card.touchText
@@ -163,14 +184,26 @@ const DescriptionSection = styled("div")(({ theme }) => ({
   },
 }));
 
+const SuggestionsWrapper = styled("div")(({ theme }) => ({
+  display: "grid",
+  gridTemplateColumns: "repeat(3, 1fr)",
+  gap: "16px",
+
+  [theme.breakpoints.mobile]: {
+    gridTemplateColumns: "1fr",
+  },
+}));
+
 export async function getStaticPaths() {
-  const promCards = dataPromCards;
+  const { companyPromotionCards } = await fetchData(
+    GetPromotionCardsSlugsDocument,
+  );
 
   const locales = nextI18NextConfig.i18n.locales;
 
-  const paths = promCards.flatMap((el: CompanyCardFragment) => {
+  const paths = companyPromotionCards?.data.flatMap((el) => {
     return locales.map((locale) => ({
-      params: { slug: el.slug },
+      params: { slug: el?.attributes?.slug || "" },
       locale,
     }));
   });
@@ -184,15 +217,37 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, locale }: any) {
   const { slug: slugP } = params;
 
-  const data = await fetchData(CompanyPromotionCardDocument, {
-    slug: slugP,
-    locale: locale,
-  });
+  const { companyPromotionCards } = await fetchData(
+    CompanyPromotionCardDocument,
+    {
+      slug: slugP,
+      locale: locale,
+    },
+  );
+
+  const category =
+    companyPromotionCards?.data[0].attributes?.categories?.data[0]?.attributes
+      ?.key || "";
+
+  const { companyPromotionCards: suggestions } = await fetchData(
+    GetCompanyPromotionCardsByFilterDocument,
+    {
+      locale,
+      category,
+      page: 1,
+      pageSize: 3,
+    },
+  );
+
+  const filteredSuggestions = suggestions?.data.filter(
+    (el) => el?.attributes?.slug !== slugP,
+  );
 
   return {
     props: {
       ...(await serverSideTranslations(locale, ["company-page", "common"])),
-      card: data.companyPromotionCards?.data[0]?.attributes || {},
+      card: companyPromotionCards?.data[0]?.attributes || {},
+      similarSuggestions: filteredSuggestions,
     },
   };
 }

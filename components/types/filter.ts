@@ -1,4 +1,6 @@
 export type selectOption = {
-  display_value: string;
   key: string;
+  value: string;
+  iconSrc?: string;
+  markerIcon?: string;
 };

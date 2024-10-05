@@ -1,9 +1,9 @@
 // libs
 import Link from "next/link";
 // components
+import Image from "next/image";
 import Swiper from "./swiper";
 import Rating from "../../../layout/rating";
-import SubTitle from "../../../layout/subtitle";
 // utils
 import styled from "@emotion/styled";
 // types
@@ -11,24 +11,34 @@ import type { CompanyCardFragment } from "../../../../gql/graphql";
 
 type PromCardProps = Pick<
   CompanyCardFragment,
-  "discount" | "images" | "location" | "title" | "slug"
->;
+  "discount" | "location" | "title" | "slug" | "averageRating" | "totalComments"
+> & { images?: CompanyCardFragment["images"] };
 const PromCard = ({
-  discount,
+  slug,
+  title,
   images,
   location,
-  title,
-  slug,
+  discount,
+  totalComments,
+  averageRating,
 }: PromCardProps) => {
   return (
     <Wrap>
       <SwiperWrapper>
-        <Swiper images={images} discount={discount} />
+        {images ? (
+          <Swiper images={images} discount={discount} />
+        ) : (
+          <Image
+            src="/images/background/background-prom.svg"
+            alt="placeholder"
+            layout="fill"
+          />
+        )}
       </SwiperWrapper>
       <DownWrap>
         <Up>
-          <SubTitle>{title}</SubTitle>
-          <Rating points={4.5} users={600} />
+          <CardTitle>{title}</CardTitle>
+          <Rating points={averageRating} users={totalComments} />
         </Up>
         <Down>
           <Location>
@@ -70,11 +80,12 @@ const DownWrap = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
-  gap: "16px",
-  padding: "16px 16px 24px",
+  gap: "8px",
+  padding: "24px 16px",
+  overflow: "hidden",
 
   [theme.breakpoints.mobile]: {
-    padding: "10px",
+    padding: "12px",
     gap: "4px",
   },
 }));
@@ -83,6 +94,7 @@ const Up = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
+  gap: "4px",
 
   [theme.breakpoints.mobile]: {
     flexDirection: "column",
@@ -90,9 +102,23 @@ const Up = styled("div")(({ theme }) => ({
   },
 }));
 
+const CardTitle = styled("h3")(({ theme }) => ({
+  fontSize: theme.fontSize.fontS24,
+  color: theme.colors.blue,
+  margin: "0",
+
+  [theme.breakpoints.mobile]: {
+    fontSize: theme.fontSize.fontS16,
+  },
+
+  "@media (max-width: 1250px)": {
+    fontSize: theme.fontSize.fontS20,
+    lineHeight: 1,
+  },
+}));
+
 const Down = styled("div")(({ theme }) => ({
   display: "flex",
-  alignItems: "center",
   justifyContent: "space-between",
 
   [theme.breakpoints.mobile]: {
@@ -101,42 +127,12 @@ const Down = styled("div")(({ theme }) => ({
   },
 }));
 
-const RatingWrap = styled("div")({
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-});
-
-const RatingStar = styled("img")(({ theme }) => ({
-  height: "24px",
-  width: "24px",
-  marginRight: "8px",
-
-  [theme.breakpoints.mobile]: {
-    height: "18px",
-    width: "18px",
-  },
-}));
-
-const RatingPoints = styled("span")(({ theme }) => ({
-  fontWeight: "600",
-  fontSize: theme.fontSize.fontS18,
-  textAlign: "center",
-
-  [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS12,
-  },
-}));
-
-const RatingViews = styled(RatingPoints)(({ theme }) => ({
-  color: theme.colors.grey,
-}));
-
 const Location = styled("div")({
   width: "100%",
   display: "flex",
   flexDirection: "row",
-  alignItems: "center",
+  gap: "8px",
+  height: "max-content",
 });
 
 const LocIcon = styled("img")(({ theme }) => ({
@@ -152,11 +148,15 @@ const LocIcon = styled("img")(({ theme }) => ({
 const LocationPlace = styled("div")(({ theme }) => ({
   fontSize: theme.fontSize.fontS16,
   fontWeight: "400",
-  marginLeft: "8px",
   color: theme.colors.black,
+  alignSelf: "center",
 
   [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS12,
+  },
+
+  "@media (max-width: 1250px)": {
+    fontSize: theme.fontSize.fontS14,
   },
 }));
 

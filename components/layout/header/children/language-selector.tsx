@@ -16,7 +16,11 @@ enum localeMapping {
   "ar-EG" = "ar",
 }
 
-const LanguageSelector = () => {
+type LanguageSelectorProps = {
+  onClose?: () => void;
+};
+
+const LanguageSelector = ({ onClose }: LanguageSelectorProps) => {
   const [menuVisible, setMenuVisible] = useState<boolean>(false);
 
   const router = useRouter();
@@ -43,6 +47,10 @@ const LanguageSelector = () => {
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
+  const handleItemClick = () => {
+    setMenuVisible(false);
+    if (onClose) onClose();
+  };
 
   return (
     <Wrap ref={menuRef}>
@@ -60,7 +68,7 @@ const LanguageSelector = () => {
             <ListItem
               key={index}
               isYellow={locale === loc}
-              onClick={() => setMenuVisible(false)}
+              onClick={handleItemClick}
             >
               {getLocalizedName(loc)}
             </ListItem>
