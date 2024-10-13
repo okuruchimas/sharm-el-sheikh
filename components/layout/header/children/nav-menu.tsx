@@ -59,7 +59,7 @@ const ButtonsWrap = styled("div")(({ theme }) => ({
   },
 }));
 
-const ListItem = styled("text")(({ theme }) => ({
+const ListItem = styled("span")(({ theme }) => ({
   cursor: "pointer",
   fontSize: theme.fontSize.fontS20,
   color: theme.colors.blue,
