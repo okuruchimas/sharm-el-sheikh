@@ -20,6 +20,7 @@ export const theme = {
     yellow2: "#FFC01B",
     yellow3: "rgba(255, 185, 1, 0.2)",
     red: "#ff5449",
+    transparent: "transparent",
   },
   backgrounds: {
     mainSection: "url('images/background/bg-main-section.webp')",

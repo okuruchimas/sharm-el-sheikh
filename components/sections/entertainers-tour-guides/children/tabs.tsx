@@ -10,7 +10,7 @@ const arr = [
 ];
 const Tabs = () => {
   const { route } = useRouter();
-  console.log(route, "router");
+
   return (
     <Wrap>
       {arr.map(({ link, text }) => (
@@ -27,8 +27,9 @@ const Wrap = styled("div")(({ theme }) => ({
   flexDirection: "row",
   justifyContent: "space-between",
   width: "100%",
-  margin: "80px 0 20px",
+  margin: "80px 0 40px",
   borderBottom: `1px solid ${theme.colors.grey}`,
+  overflowX: "auto",
 }));
 
 const Text = styled("span", {
@@ -40,6 +41,7 @@ const Text = styled("span", {
 
   fontSize: "21px",
   textAlign: "center",
+  alignContent: "center",
   color: isActive ? theme.colors.black2 : theme.colors.grey,
 }));
 

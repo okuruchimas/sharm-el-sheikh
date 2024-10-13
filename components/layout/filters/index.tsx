@@ -61,7 +61,7 @@ const Dropdown = ({ options, isLoading, onChange }: FiltersProps) => {
               {currentObj.value}
             </Text>
             <Arrow
-              src={"icons/promotions-section/arrow-down.svg"}
+              src={"/icons/promotions-section/arrow-down.svg"}
               alt={"arrow"}
               isDown={menuVisible}
             />
