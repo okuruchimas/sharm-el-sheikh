@@ -8,7 +8,7 @@ import Flags from "../../../../layout/flags";
 
 const AnimatorCard = () => {
   return (
-    <Wrap>
+    <Wrap className="anime-card">
       <StyledImage
         src="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/banner1_9ca87e6a4b.webp"
         loading="lazy"
