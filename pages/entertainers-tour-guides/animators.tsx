@@ -38,11 +38,17 @@ const Animators = () => {
           options={options}
           onChange={handleOptionSelect}
           isLoading={isLoading}
+          width="100%"
+          height="56px"
+          color="blue"
         />
         <Dropdown
           options={options2}
           onChange={handleOptionSelect}
           isLoading={isLoading}
+          width="100%"
+          height="56px"
+          color="blue"
         />
         <Button
           color="blue"
@@ -70,8 +76,19 @@ const FiltersWrap = styled("div")(({ theme }) => ({
   width: "100%",
   gap: "24px",
   marginBottom: "24px",
+
   button: {
     marginLeft: "auto",
+  },
+
+  [theme.breakpoints.mobile]: {
+    flexDirection: "column",
+    alignItems: "flex-end",
+
+    button: {
+      height: 56,
+      width: "100%",
+    },
   },
 }));
 

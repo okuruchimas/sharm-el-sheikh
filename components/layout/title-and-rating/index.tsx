@@ -16,17 +16,12 @@ const TitleRating = ({ title, averageRating, totalComments }: Props) => {
   );
 };
 
-const Wrap = styled("div")(({ theme }) => ({
+const Wrap = styled("div")({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
   gap: "4px",
-
-  [theme.breakpoints.mobile]: {
-    flexDirection: "column",
-    gap: "8px",
-  },
-}));
+});
 
 const CardTitle = styled("h3")(({ theme }) => ({
   fontSize: theme.fontSize.fontS24,

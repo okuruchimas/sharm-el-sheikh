@@ -26,5 +26,9 @@ const Wrap = styled("div")(({ theme }) => ({
   gridTemplateColumns: "1fr 1fr 1fr 1fr",
   gap: "16px",
   width: "100%",
+
+  [theme.breakpoints.mobile]: {
+    gridTemplateColumns: "1fr",
+  },
 }));
 export default AnimatorCards;

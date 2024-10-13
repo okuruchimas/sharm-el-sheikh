@@ -15,6 +15,12 @@ const AnimatorCard = () => {
         height={298}
         width={266}
       />
+      <IsClub
+        height={40}
+        width={40}
+        src={"/icons/isClub.svg"}
+        className="is club img"
+      />
       <InfoWrap>
         <CompanyName>Name of company</CompanyName>
         <TitleRating
@@ -22,10 +28,7 @@ const AnimatorCard = () => {
           averageRating={4.2}
           totalComments={123}
         />
-        <TextAndIcon
-          src="/icons/promotions-section/location.svg"
-          text="Hotel Name"
-        />
+        <TextAndIcon src="/icons/Hotel.svg" text="Hotel Name" />
         <Flags />
         <LinkIcon href="/" />
       </InfoWrap>
@@ -40,12 +43,22 @@ const Wrap = styled("div")(({ theme }) => ({
   width: "100%",
   background: theme.colors.white,
   borderRadius: 16,
+  position: "relative",
 }));
 
 const StyledImage = styled(Image)({
   borderTopLeftRadius: 16,
   borderTopRightRadius: 16,
 
+  objectFit: "cover",
+});
+
+const IsClub = styled("img")({
+  left: 16,
+  top: 16,
+  position: "absolute",
+  height: 40,
+  width: 40,
   objectFit: "cover",
 });
 

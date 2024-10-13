@@ -31,6 +31,11 @@ const Wrap = styled("div")(({ theme }) => ({
   margin: "80px 0 40px",
   borderBottom: `1px solid ${theme.colors.grey}`,
   overflowX: "auto",
+
+  [theme.breakpoints.mobile]: {
+    width: "calc(100% + 16px)",
+    alignSelf: "flex-start",
+  },
 }));
 
 const Text = styled("span", {

@@ -26,6 +26,7 @@ export const theme = {
   backgrounds: {
     mainSection: "url('images/background/bg-main-section.webp')",
     guides: "url('/images/background/gandt.webp')",
+    guidesMob: "url('/images/background/mob-gandt.webp')",
     banner:
       "linear-gradient(180deg, rgba(254, 254, 254, 0.5) -222.92%, rgba(255, 234, 178, 0.5) 263.82%)",
   },

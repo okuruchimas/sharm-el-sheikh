@@ -28,5 +28,10 @@ const Wrap = styled("div")(({ theme }) => ({
   backgroundImage: theme.backgrounds.guides,
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
+
+  [theme.breakpoints.mobile]: {
+    padding: "110px 16px 32px",
+    backgroundImage: theme.backgrounds.guidesMob,
+  },
 }));
 export default Container;

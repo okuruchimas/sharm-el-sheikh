@@ -30,6 +30,7 @@ declare module "@emotion/react" {
       mainSection: string;
       banner: string;
       guides: string;
+      guidesMob: string;
     };
     fontSize: {
       fontS10: string;
