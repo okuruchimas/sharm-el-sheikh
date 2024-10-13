@@ -4,7 +4,8 @@ import Container from "../../components/sections/entertainers-tour-guides/childr
 import Dropdown from "../../components/layout/filters";
 import { selectOption } from "../../components/types/filter";
 import styled from "@emotion/styled";
-import Button, { ButtonStyled } from "../../components/layout/button";
+import Button from "../../components/layout/button";
+import AnimatorCards from "../../components/sections/entertainers-tour-guides/animators/cards";
 
 const options = [
   { key: "sharm-el-maya", value: "Animation companies" },
@@ -49,6 +50,7 @@ const Animators = () => {
           text="Nearest Animator"
         />
       </FiltersWrap>
+      <AnimatorCards />
     </Container>
   );
 };
