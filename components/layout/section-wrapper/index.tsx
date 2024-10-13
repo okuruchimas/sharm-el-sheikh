@@ -1,6 +1,7 @@
 import React from "react";
 import View from "../header/children/type";
 import styled from "@emotion/styled";
+import { Title } from "../title";
 
 interface Props {
   children: View;
@@ -17,7 +18,7 @@ const SectionWrapper = ({
   return (
     <Wrapper>
       <TitleWrap isColumn={!!isColumn}>
-        <Title>{title}</Title>
+        <Title as="h2">{title}</Title>
         {titleChildren ? titleChildren : null}
       </TitleWrap>
       {children}
@@ -45,14 +46,5 @@ const TitleWrap = styled("div", {
     flexDirection: isColumn ? "column" : "unset",
     alignItems: isColumn ? "normal" : "unset",
     gap: isColumn ? "16px" : "unset",
-  },
-}));
-
-const Title = styled("h2")(({ theme }) => ({
-  fontSize: theme.fontSize.fontS40,
-  color: theme.colors.blue,
-
-  [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS21,
   },
 }));

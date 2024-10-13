@@ -1,12 +1,12 @@
 // hooks
 import { useTranslation } from "next-i18next";
 // components
-import Link from "next/link";
 import NextImage from "../../../../layout/image";
 // utils
 import styled from "@emotion/styled";
 // types
 import type { EventCardI } from "./types";
+import LinkIcon from "../../../../layout/link-icon";
 
 const EventCard = ({
   logo,
@@ -36,9 +36,7 @@ const EventCard = ({
           <BottomText>{`${t("labels.location")}: ${location}`}</BottomText>
         </BottomWrap>
       </InfoWrap>
-      <Link href="/">
-        <LinkIcon src="icons/main-section/circle-arrow.svg" alt="Link" />
-      </Link>
+      <LinkIcon href="/" />
     </Wrap>
   );
 };
@@ -118,26 +116,6 @@ const BottomText = styled("h3")(({ theme }) => ({
     width: "auto",
     fontWeight: "400",
     fontSize: theme.fontSize.fontS12,
-  },
-}));
-
-const LinkIcon = styled("img")(({ theme }) => ({
-  cursor: "pointer",
-  width: "40px",
-  height: "40px",
-  alignSelf: "baseline",
-  transition: "scale 0.3s ease",
-  borderRadius: "50%",
-
-  boxShadow: "0 1px 3px 1px #00000026, 0 1px 2px 0 #0000004d",
-
-  [theme.breakpoints.mobile]: {
-    height: "30px",
-    width: "30px",
-  },
-
-  "&:active, &:focus": {
-    scale: "1.3",
   },
 }));
 

@@ -12,9 +12,19 @@ type FiltersProps = {
   options: selectOption[];
   isLoading?: boolean;
   onChange?: (option: selectOption) => void;
+  width?: string;
+  height?: string;
+  color?: string;
 };
 
-const Dropdown = ({ options, isLoading, onChange }: FiltersProps) => {
+const Dropdown = ({
+  options,
+  isLoading,
+  onChange,
+  width,
+  height,
+  color,
+}: FiltersProps) => {
   const [menuVisible, setMenuVisible] = useState<boolean>(false);
   const [currentObj, setCurrentObj] = useState<selectOption>(options[0]);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -44,13 +54,13 @@ const Dropdown = ({ options, isLoading, onChange }: FiltersProps) => {
   };
 
   return (
-    <Wrapper ref={menuRef}>
+    <Wrapper width={width} height={height} ref={menuRef}>
       <Select onClick={toggleMenu}>
         {isLoading ? (
           <Loader />
         ) : (
           <>
-            <Text>
+            <Text color={color}>
               {currentObj.iconSrc ? (
                 <NextImage
                   src={currentObj.iconSrc}
@@ -61,7 +71,7 @@ const Dropdown = ({ options, isLoading, onChange }: FiltersProps) => {
               {currentObj.value}
             </Text>
             <Arrow
-              src={"icons/promotions-section/arrow-down.svg"}
+              src={"/icons/promotions-section/arrow-down.svg"}
               alt={"arrow"}
               isDown={menuVisible}
             />
@@ -86,19 +96,27 @@ const Dropdown = ({ options, isLoading, onChange }: FiltersProps) => {
   );
 };
 
-const Wrapper = styled("div")(({ theme }) => ({
-  position: "relative",
-  minWidth: "245px",
-  maxWidth: "max-content",
-  border: `1px solid ${theme.colors.grey}`,
-  borderRadius: "12px",
+const Wrapper = styled("div")<{ width?: string; height?: string }>(
+  ({ theme, width, height }) => ({
+    position: "relative",
+    minWidth: "245px",
+    maxWidth: "max-content",
+    border: `1px solid ${theme.colors.grey}`,
+    borderRadius: "12px",
 
-  [theme.breakpoints.mobile]: {
-    minWidth: "168px",
-  },
-}));
+    [theme.breakpoints.mobile]: {
+      minWidth: "168px",
+      width: width ? width : "auto",
+      height: height ? height : "auto",
+      maxWidth: "100%",
+      display: "flex",
+      alignItems: "center",
+    },
+  }),
+);
 
-const Text = styled("span")(({ theme }) => ({
+const Text = styled("span")<{ color?: string }>(({ theme, color }) => ({
+  color: color ? theme.colors[color] : theme.colors.black2,
   fontSize: theme.fontSize.fontS16,
   textAlign: "center",
   display: "flex",
@@ -175,6 +193,7 @@ const Select = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     height: "42px",
+    width: "100%",
   },
 }));
 

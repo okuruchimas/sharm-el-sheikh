@@ -3,11 +3,11 @@ import Link from "next/link";
 // components
 import Image from "next/image";
 import Swiper from "./swiper";
-import Rating from "../../../layout/rating";
 // utils
 import styled from "@emotion/styled";
 // types
 import type { CompanyCardFragment } from "../../../../gql/graphql";
+import TitleRating from "../../../layout/title-and-rating";
 
 type PromCardProps = Pick<
   CompanyCardFragment,
@@ -36,10 +36,11 @@ const PromCard = ({
         )}
       </SwiperWrapper>
       <DownWrap>
-        <Up>
-          <CardTitle>{title}</CardTitle>
-          <Rating points={averageRating} users={totalComments} />
-        </Up>
+        <TitleRating
+          title={title}
+          averageRating={averageRating}
+          totalComments={totalComments}
+        />
         <Down>
           <Location>
             <LocIcon
@@ -87,33 +88,6 @@ const DownWrap = styled("div")(({ theme }) => ({
   [theme.breakpoints.mobile]: {
     padding: "12px",
     gap: "4px",
-  },
-}));
-
-const Up = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
-  gap: "4px",
-
-  [theme.breakpoints.mobile]: {
-    flexDirection: "column",
-    gap: "8px",
-  },
-}));
-
-const CardTitle = styled("h3")(({ theme }) => ({
-  fontSize: theme.fontSize.fontS24,
-  color: theme.colors.blue,
-  margin: "0",
-
-  [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS16,
-  },
-
-  "@media (max-width: 1250px)": {
-    fontSize: theme.fontSize.fontS20,
-    lineHeight: 1,
   },
 }));
 

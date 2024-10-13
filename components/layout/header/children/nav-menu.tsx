@@ -5,6 +5,7 @@ import NavButtons from "./nav-buttons";
 import styled from "@emotion/styled";
 // types
 import type { HeaderFragment } from "../../../../gql/graphql";
+import { useRouter } from "next/router";
 
 type IProps = {
   isOpen: boolean;
@@ -13,6 +14,8 @@ type IProps = {
 };
 
 const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
+  const { route } = useRouter();
+
   return (
     <WrapperDown isOpen={isOpen}>
       <ButtonsWrap>
@@ -20,7 +23,9 @@ const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
       </ButtonsWrap>
       {navMenu?.map((item) => (
         <Link href={item?.Link || ""} key={item?.id}>
-          <ListItem>{item?.Text}</ListItem>
+          <ListItem isActive={route?.includes(item?.Link || "")}>
+            {item?.Text}
+          </ListItem>
         </Link>
       ))}
     </WrapperDown>
@@ -59,10 +64,12 @@ const ButtonsWrap = styled("div")(({ theme }) => ({
   },
 }));
 
-const ListItem = styled("text")(({ theme }) => ({
+const ListItem = styled("span", {
+  shouldForwardProp: (prop) => !["isActive"].includes(prop),
+})<{ isActive: boolean }>(({ theme, isActive }) => ({
   cursor: "pointer",
   fontSize: theme.fontSize.fontS20,
-  color: theme.colors.blue,
+  color: isActive ? theme.colors.blue6 : theme.colors.blue,
   width: "auto",
   textAlign: "center",
   transition: "color 0.25s ease",

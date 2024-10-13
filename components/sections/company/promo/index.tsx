@@ -5,6 +5,7 @@ import Rating from "../../../layout/rating";
 import styled from "@emotion/styled";
 // types
 import type { CompanyCardFragment } from "../../../../gql/graphql";
+import { Title } from "../../../layout/title";
 
 type PromoI = Pick<
   CompanyCardFragment,
@@ -31,7 +32,7 @@ const Promo = ({
         <Swiper images={images} discount={discount} />
       </SwiperWrapper>
       <TopWrapper>
-        <Title>{title}</Title>
+        <TitleStyled>{title}</TitleStyled>
         <RatingWrapper>
           <Rating
             points={averageRating.toFixed(1) || 0}
@@ -118,13 +119,10 @@ const RatingWrapper = styled("div")(({ theme }) => ({
   },
 }));
 
-const Title = styled("h1")(({ theme }) => ({
-  fontSize: theme.fontSize.fontS40,
-  color: theme.colors.blue,
+const TitleStyled = styled(Title)(({ theme }) => ({
   fontWeight: 700,
 
   [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS14,
     fontWeight: 600,
   },
 }));

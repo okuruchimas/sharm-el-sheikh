@@ -18,6 +18,7 @@ declare module "@emotion/react" {
       blue3: string;
       blue4: string;
       blue5: string;
+      blue6: string;
       peach: string;
       yellow: string;
       yellow2: string;
@@ -28,6 +29,8 @@ declare module "@emotion/react" {
     backgrounds: {
       mainSection: string;
       banner: string;
+      guides: string;
+      guidesMob: string;
     };
     fontSize: {
       fontS10: string;

@@ -15,14 +15,18 @@ export const theme = {
     blue3: "#0b7287",
     blue4: "rgba(41, 169, 194, 0.06)",
     blue5: "#29a9c2",
+    blue6: "#3C8E9F",
     peach: "#e8d4c4",
     yellow: "#ffb901",
     yellow2: "#FFC01B",
     yellow3: "rgba(255, 185, 1, 0.2)",
     red: "#ff5449",
+    transparent: "transparent",
   },
   backgrounds: {
     mainSection: "url('images/background/bg-main-section.webp')",
+    guides: "url('/images/background/gandt.webp')",
+    guidesMob: "url('/images/background/mob-gandt.webp')",
     banner:
       "linear-gradient(180deg, rgba(254, 254, 254, 0.5) -222.92%, rgba(255, 234, 178, 0.5) 263.82%)",
   },
