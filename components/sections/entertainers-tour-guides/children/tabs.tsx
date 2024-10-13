@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Link from "next/link";
 import { useRouter } from "next/router";
+
 const arr = [
   { link: "animators", text: "Animators" },
   { link: "taxi-drivers", text: "Taxi Drivers" },
@@ -37,7 +38,7 @@ const Text = styled("span", {
 })<{ isActive: boolean }>(({ theme, isActive }) => ({
   minWidth: "310px",
   height: "48px",
-  borderBottom: isActive ? `1px solid ${theme.colors.yellow}` : "none",
+  borderBottom: isActive ? `4px solid ${theme.colors.yellow}` : "none",
 
   fontSize: "21px",
   textAlign: "center",

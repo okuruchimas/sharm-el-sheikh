@@ -19,12 +19,14 @@ const Container = ({ children }: Props) => {
   );
 };
 
-const Wrap = styled("div")({
+const Wrap = styled("div")(({ theme }) => ({
   minHeight: "100vh",
   display: "flex",
   alignItems: "center",
   flexDirection: "column",
-  padding: "235px 100px 0",
-});
-
+  padding: "235px 100px 80px",
+  backgroundImage: theme.backgrounds.guides,
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+}));
 export default Container;

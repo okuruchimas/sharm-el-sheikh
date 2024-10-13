@@ -70,7 +70,6 @@ const FiltersWrap = styled("div")(({ theme }) => ({
   width: "100%",
   gap: "24px",
   marginBottom: "24px",
-
   button: {
     marginLeft: "auto",
   },

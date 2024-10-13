@@ -18,6 +18,7 @@ const TextAndIcon = ({ src, text }: Props) => {
 const Wrap = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
+  alignItems: "center",
   width: "100%",
 }));
 

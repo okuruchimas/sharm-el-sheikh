@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import Link from "next/link";
 import LinkIcon from "../../../../layout/link-icon";
 import TitleRating from "../../../../layout/title-and-rating";
 import TextAndIcon from "../../../../layout/text-and-icon";
@@ -16,18 +15,20 @@ const AnimatorCard = () => {
         height={298}
         width={266}
       />
-      <CompanyName>Name of company</CompanyName>
-      <TitleRating
-        title="Ameliia Holl"
-        averageRating={4.2}
-        totalComments={123}
-      />
-      <TextAndIcon
-        src="/icons/promotions-section/location.svg"
-        text="Hotel Name"
-      />
-      <Flags />
-      <LinkIcon href="/" />
+      <InfoWrap>
+        <CompanyName>Name of company</CompanyName>
+        <TitleRating
+          title="Ameliia Holl"
+          averageRating={4.2}
+          totalComments={123}
+        />
+        <TextAndIcon
+          src="/icons/promotions-section/location.svg"
+          text="Hotel Name"
+        />
+        <Flags />
+        <LinkIcon href="/" />
+      </InfoWrap>
     </Wrap>
   );
 };
@@ -37,12 +38,29 @@ const Wrap = styled("div")(({ theme }) => ({
   flexDirection: "column",
   height: 468,
   width: "100%",
+  background: theme.colors.white,
+  borderRadius: 16,
 }));
 
 const StyledImage = styled(Image)({
+  borderTopLeftRadius: 16,
+  borderTopRightRadius: 16,
+
   objectFit: "cover",
 });
 
-const CompanyName = styled("div")(({ theme }) => ({}));
+const InfoWrap = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "12px",
+  padding: "16px",
+}));
+
+const CompanyName = styled("div")(({ theme }) => ({
+  width: "max-content",
+  fontSize: theme.fontSize.fontS16,
+  color: theme.colors.grey,
+  borderBottom: `1px solid ${theme.colors.grey}`,
+}));
 
 export default AnimatorCard;

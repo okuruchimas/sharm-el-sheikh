@@ -13,6 +13,10 @@ const AnimatorCards = () => {
       <AnimatorCard />
       <AnimatorCard />
       <AnimatorCard />
+      <AnimatorCard />
+      <AnimatorCard />
+      <AnimatorCard />
+      <AnimatorCard />
     </Wrap>
   );
 };
