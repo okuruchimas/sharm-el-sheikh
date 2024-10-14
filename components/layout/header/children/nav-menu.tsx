@@ -1,5 +1,4 @@
 // components
-import Link from "next/link";
 import NavButtons from "./nav-buttons";
 // utils
 import styled from "@emotion/styled";
@@ -14,7 +13,12 @@ type IProps = {
 };
 
 const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
-  const { route } = useRouter();
+  const router = useRouter();
+
+  const handleClick = (link: string) => () => {
+    onClose();
+    router.push(link);
+  };
 
   return (
     <WrapperDown isOpen={isOpen}>
@@ -22,11 +26,13 @@ const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
         <NavButtons onClose={onClose} />
       </ButtonsWrap>
       {navMenu?.map((item) => (
-        <Link href={item?.Link || ""} key={item?.id}>
-          <ListItem isActive={route?.includes(item?.Link || "")}>
-            {item?.Text}
-          </ListItem>
-        </Link>
+        <ListItem
+          key={item?.id}
+          isActive={router.route?.includes(item?.Link || "")}
+          onClick={handleClick(item?.Link || "")}
+        >
+          {item?.Text}
+        </ListItem>
       ))}
     </WrapperDown>
   );

@@ -8,7 +8,8 @@ import styled from "@emotion/styled";
 import type { EventCardI } from "./types";
 import LinkIcon from "../../../../layout/link-icon";
 
-const EventCard = ({
+const EventCardSmall = ({
+  url,
   logo,
   date,
   title,
@@ -36,7 +37,7 @@ const EventCard = ({
           <BottomText>{`${t("labels.location")}: ${location}`}</BottomText>
         </BottomWrap>
       </InfoWrap>
-      <LinkIcon href="/" />
+      <LinkIcon href={url} />
     </Wrap>
   );
 };
@@ -119,4 +120,4 @@ const BottomText = styled("h3")(({ theme }) => ({
   },
 }));
 
-export default EventCard;
+export default EventCardSmall;

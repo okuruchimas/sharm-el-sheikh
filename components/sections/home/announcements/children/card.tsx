@@ -40,11 +40,12 @@ const Card = ({ image, title, text, icons, isFirst }: AnnouncementsProps) => (
 
 const Wrap = styled("div", {
   shouldForwardProp: (prop) => prop !== "isFirst",
-})<{ isFirst: boolean }>(({ isFirst }) => ({
+})<{ isFirst: boolean }>(({ theme, isFirst }) => ({
   display: "flex",
   flexDirection: "column",
   gridRow: isFirst ? "span 2" : "unset",
   height: "100%",
+  backgroundColor: theme.colors.white,
 }));
 
 const AnnounceImage = styled("img", {

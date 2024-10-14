@@ -3,7 +3,7 @@ import NextImage from "../image";
 import styled from "@emotion/styled";
 
 type RatingProps = {
-  points: number | string;
+  points: number;
   users: number;
 };
 
@@ -18,7 +18,7 @@ const Rating = ({ points, users }: RatingProps) => {
         mHeight="18px"
         mWidth="18px"
       />
-      <RatingPoints>{points}&nbsp;</RatingPoints>
+      <RatingPoints>{points.toFixed(1)}&nbsp;</RatingPoints>
       <RatingViews>{`(${users})`}</RatingViews>
     </Wrapper>
   );
@@ -36,10 +36,6 @@ const RatingPoints = styled("span")(({ theme }) => ({
   fontSize: theme.fontSize.fontS18,
   textAlign: "center",
   marginLeft: "3px",
-
-  [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS12,
-  },
 }));
 
 const RatingViews = styled(RatingPoints)(({ theme }) => ({

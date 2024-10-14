@@ -97,6 +97,7 @@ export const ButtonStyled = styled("button", {
     height: "52px",
     borderRadius: "16px",
     padding: "8px 32px",
+    fontWeight: "600",
     fontSize: theme.fontSize.fontS16,
     color: theme.colors[color],
     background: theme.colors[backgroundColor],

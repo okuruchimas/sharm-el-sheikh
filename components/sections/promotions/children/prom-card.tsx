@@ -8,13 +8,15 @@ import styled from "@emotion/styled";
 // types
 import type { CompanyCardFragment } from "../../../../gql/graphql";
 import TitleRating from "../../../layout/title-and-rating";
+import TextAndIcon from "../../../layout/text-and-icon";
 
 type PromCardProps = Pick<
   CompanyCardFragment,
   "discount" | "location" | "title" | "slug" | "averageRating" | "totalComments"
-> & { images?: CompanyCardFragment["images"] };
+> & { images?: CompanyCardFragment["images"]; time?: string };
 const PromCard = ({
   slug,
+  time,
   title,
   images,
   location,
@@ -42,34 +44,56 @@ const PromCard = ({
           totalComments={totalComments}
         />
         <Down>
-          <Location>
-            <LocIcon
+          <InfoWrap>
+            <TextAndIcon
               src="/icons/promotions-section/location.svg"
-              alt="Location image"
+              text={location || ""}
             />
-            <LocationPlace>{location}</LocationPlace>
-          </Location>
-          <Link href={slug || ""}>
-            <IconButton
-              src={"/icons/promotions-section/circle-arrow-outlined.svg"}
-              alt="promotions-button"
-            />
-          </Link>
+            {time ? (
+              <TextAndIcon src="/icons/time.svg" text={time || ""} />
+            ) : null}
+          </InfoWrap>
+          {!time ? (
+            <Link href={slug || ""}>
+              <IconButton
+                src={"/icons/promotions-section/circle-arrow-outlined.svg"}
+                alt="promotions-button"
+              />
+            </Link>
+          ) : null}
         </Down>
       </DownWrap>
     </Wrap>
   );
 };
 
-const Wrap = styled("div")({
+const Wrap = styled("div")(({ theme }) => ({
   height: "420px",
-});
+  boxShadow: theme.shadows[0],
+  backgroundColor: theme.colors.white,
+  borderRadius: "16px",
+
+  [theme.breakpoints.mobile]: {
+    height: "364px",
+  },
+}));
+
+const InfoWrap = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "8px",
+
+  span: {
+    color: theme.colors.black,
+  },
+}));
 
 const SwiperWrapper = styled("div")({
   height: "60%",
   width: "100%",
   borderRadius: "16px 16px 0 0",
   position: "relative",
+  overflow: "hidden",
 });
 
 const DownWrap = styled("div")(({ theme }) => ({
@@ -88,6 +112,10 @@ const DownWrap = styled("div")(({ theme }) => ({
   [theme.breakpoints.mobile]: {
     padding: "12px",
     gap: "4px",
+
+    img: {
+      alignSelf: "end",
+    },
   },
 }));
 
@@ -97,40 +125,6 @@ const Down = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     flexDirection: "column",
-    alignItems: "flex-end",
-  },
-}));
-
-const Location = styled("div")({
-  width: "100%",
-  display: "flex",
-  flexDirection: "row",
-  gap: "8px",
-  height: "max-content",
-});
-
-const LocIcon = styled("img")(({ theme }) => ({
-  height: "30px",
-  width: "30px",
-
-  [theme.breakpoints.mobile]: {
-    height: "18px",
-    width: "18px",
-  },
-}));
-
-const LocationPlace = styled("div")(({ theme }) => ({
-  fontSize: theme.fontSize.fontS16,
-  fontWeight: "400",
-  color: theme.colors.black,
-  alignSelf: "center",
-
-  [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS12,
-  },
-
-  "@media (max-width: 1250px)": {
-    fontSize: theme.fontSize.fontS14,
   },
 }));
 

@@ -1,0 +1,24 @@
+query GetHotspotsPage($locale: I18NLocaleCode!) {
+  hotspotsPage(locale: $locale) {
+    data {
+      attributes {
+        ...HotspotsPage
+      }
+    }
+  }
+}
+
+fragment HotspotsPage on HotspotsPage {
+  eventsTitle
+  clubsTitle
+  clubsInfo
+  bottomBanner {
+    title
+    subtitle
+    bannerImage {
+      ...StrapiImage
+    }
+    buttonText
+    buttonLink
+  }
+}
