@@ -30,7 +30,7 @@ const Wrap = styled("div")(({ theme }) => ({
   [theme.breakpoints.mobile]: {
     gridTemplateColumns: "1fr",
 
-    ".anime-card:nth-child(2n)": {
+    ".anime-card:nth-of-type(2n)": {
       display: "none",
     },
   },
