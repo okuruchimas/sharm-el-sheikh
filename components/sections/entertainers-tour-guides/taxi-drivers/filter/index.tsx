@@ -1,10 +1,18 @@
-import React from "react";
+import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import styled from "@emotion/styled";
+import { useFormik } from "formik";
+import Button from "../../../../layout/button";
+import Dropdown from "../../../../layout/filters";
+import { selectOption } from "../../../../types/filter";
+// import { StaticTimePicker } from "@mui/x-date-pickers/StaticTimePicker";
+// import { LocalizationProvider } from "@mui/x-date-pickers";
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const arr = [
   { name: "Available Now", value: "available" },
-  { name: "Available at Another Time", value: "available" },
+  { name: "Available at Another Time", value: "unavailable" },
 ];
+
 const arr1 = [
   { name: "economy", value: "economy" },
   { name: "standard", value: "standard" },
@@ -16,36 +24,33 @@ const arr2 = [
   { name: "polish", value: "polish" },
   { name: "ukrainian", value: "ukrainian" },
   { name: "arabic", value: "arabic" },
-  { name: "italian", value: "arabic" },
+  { name: "italian", value: "italian" },
 ];
 
-import { useFormik } from "formik";
+const days = [
+  { key: "mon", value: "Monday" },
+  { key: "tue", value: "Tuesday" },
+  { key: "wed", value: "Wednesday" },
+  { key: "thu", value: "Thursday" },
+  { key: "fri", value: "Friday" },
+  { key: "sat", value: "Saturday" },
+  { key: "sun", value: "Sunday" },
+];
 
-type FormValues = {
-  available: boolean;
-  unavailable: boolean;
-  day: string;
-  fromTime: string;
-  toTime: string;
-  carClass: {
-    economy: boolean;
-    standard: boolean;
-    business: boolean;
-    vans: boolean;
-  };
-  languages: {
-    english: boolean;
-    polish: boolean;
-    ukrainian: boolean;
-    russian: boolean;
-    italian: boolean;
-    arabic: boolean;
-    other: string;
-  };
-  [key: string]: any;
-};
+const lengs = [
+  { key: "other", value: "other" },
+  { key: "polish", value: "polish" },
+  { key: "ukrainian", value: "ukrainian" },
+  { key: "arabic", value: "arabic" },
+  { key: "italian", value: "italian" },
+];
 
-const FilterTaxi = () => {
+interface Props {
+  onCancel: Dispatch<SetStateAction<boolean>>;
+}
+const FilterTaxiForm = ({ onCancel }: Props) => {
+  const [selectedDay, setSelectedDay] = useState<selectOption>(days[0]);
+
   // Ініціалізація форми за допомогою useFormik
   const formik = useFormik({
     initialValues: {
@@ -76,9 +81,20 @@ const FilterTaxi = () => {
     },
   });
 
+  const handleNestedChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    groupName: string,
+  ) => {
+    const { name, checked } = e.target;
+    formik.setFieldValue(`${groupName}.${name}`, checked);
+  };
+
+  const handleDaySelect = (option: selectOption) => {
+    setSelectedDay(option);
+  };
+
   return (
     <Wrap>
-      <Title>Filter</Title>
       <Form onSubmit={formik.handleSubmit}>
         {/* Availability Section */}
         <Section>
@@ -95,7 +111,18 @@ const FilterTaxi = () => {
               {name}
             </CheckboxLabel>
           ))}
-          <TimePicker></TimePicker>
+          {/*<LocalizationProvider dateAdapter={AdapterDayjs}>*/}
+          {/*  <TimePicker>*/}
+          {/*    <Dropdown*/}
+          {/*      options={days}*/}
+          {/*      onChange={handleDaySelect}*/}
+          {/*      width="100%"*/}
+          {/*      height="56px"*/}
+          {/*    />*/}
+
+          {/*    <StaticTimePicker />*/}
+          {/*  </TimePicker>*/}
+          {/*</LocalizationProvider>*/}
         </Section>
 
         <Section>
@@ -105,9 +132,9 @@ const FilterTaxi = () => {
               <input
                 type="checkbox"
                 name={value}
-                onChange={formik.handleChange}
+                onChange={(e) => handleNestedChange(e, "carClass")}
                 // @ts-ignore
-                checked={formik.values[value]}
+                checked={formik.values.carClass[value]}
               />
               {name}
             </CheckboxLabel>
@@ -122,18 +149,29 @@ const FilterTaxi = () => {
               <input
                 type="checkbox"
                 name={value}
-                onChange={formik.handleChange}
+                onChange={(e) => handleNestedChange(e, "languages")}
                 // @ts-ignore
-                checked={formik.values[value]}
+                checked={formik.values.languages[value]}
               />
               {name}
             </CheckboxLabel>
           ))}
+          <Dropdown
+            options={lengs}
+            onChange={handleDaySelect}
+            width="100%"
+            height="56px"
+          />
         </Section>
 
         <Actions>
-          <CancelButton type="button">Cancel</CancelButton>
-          <SaveButton type="submit">Save</SaveButton>
+          <Button
+            onClick={() => onCancel((prev) => !prev)}
+            color="blue"
+            backgroundColor="transparent"
+            text="Cancel"
+          />
+          <Button type="submit" color="blue" text="Save" />
         </Actions>
       </Form>
     </Wrap>
@@ -150,9 +188,8 @@ const Wrap = styled("div")(({ theme }) => ({
   gap: "16px",
   width: "100%",
   maxWidth: "854px",
-  backgroundColor: "#fff",
-  border: "1px solid #ccc",
-  borderRadius: "10px",
+  backgroundColor: theme.colors.white,
+  borderRadius: "16px",
   boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
 
   [theme.breakpoints.mobile]: {
@@ -160,57 +197,46 @@ const Wrap = styled("div")(({ theme }) => ({
   },
 }));
 
-const Title = styled("h3")(({ theme }) => ({
-  fontSize: "24px",
-  fontWeight: "bold",
-  marginBottom: "16px",
-
-  [theme.breakpoints.mobile]: {
-    fontSize: "20px",
-  },
-}));
-
 const Form = styled("form")({
   display: "grid",
-  gap: "16px",
+  gap: 24,
 });
 
 const Section = styled("div")({
   display: "flex",
-  flexDirection: "column",
-  gap: "8px",
+  flexWrap: "wrap",
+  flexDirection: "row",
+  gap: 16,
 });
 
-const SectionTitle = styled("h4")({
-  fontSize: "18px",
-  fontWeight: "600",
-  marginBottom: "8px",
-});
-
-const CheckboxLabel = styled("label")({
-  display: "flex",
-  alignItems: "center",
-  gap: "8px",
-  fontSize: "16px",
-});
+const SectionTitle = styled("h4")(({ theme }) => ({
+  flexBasis: "100%",
+  fontSize: theme.fontSize.fontS21,
+  color: theme.colors.black,
+  fontWeight: 600,
+  marginBottom: 8,
+}));
 
 const TimePicker = styled("div")({
   display: "flex",
+  flexBasis: "100%",
+
   gap: "8px",
   alignItems: "center",
-
-  select: {
-    padding: "8px",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-  },
-
-  input: {
-    padding: "8px",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-  },
 });
+
+const CheckboxLabel = styled("label")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  minWidth: 190,
+  padding: 14,
+  gap: 16,
+  fontSize: theme.fontSize.fontS16,
+
+  "input:checked": {
+    accentColor: theme.colors.yellow,
+  },
+}));
 
 const Actions = styled("div")({
   display: "flex",
@@ -218,22 +244,4 @@ const Actions = styled("div")({
   gap: "16px",
 });
 
-const CancelButton = styled("button")({
-  backgroundColor: "#f5f5f5",
-  color: "#333",
-  border: "1px solid #ccc",
-  borderRadius: "4px",
-  padding: "8px 16px",
-  cursor: "pointer",
-});
-
-const SaveButton = styled("button")({
-  backgroundColor: "#ffc107",
-  color: "#fff",
-  border: "none",
-  borderRadius: "4px",
-  padding: "8px 16px",
-  cursor: "pointer",
-});
-
-export default FilterTaxi;
+export default FilterTaxiForm;

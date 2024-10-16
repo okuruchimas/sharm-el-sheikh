@@ -9,7 +9,7 @@ import TaxiStatus, {
   TaxiStatusProps,
 } from "../../components/sections/entertainers-tour-guides/taxi-drivers/statuses";
 import Image from "next/image";
-import FilterTaxi from "../../components/sections/entertainers-tour-guides/taxi-drivers/filter";
+import FilterTaxiForm from "../../components/sections/entertainers-tour-guides/taxi-drivers/filter";
 
 const options = [
   { key: "most-rvw", value: "Most Reviews" },
@@ -29,6 +29,7 @@ const TaxiDrivers = () => {
   const [isFilter, setIsFilter] = useState(false);
   const [selectedArea, setSelectedArea] = useState<selectOption>(options[0]);
 
+  //async ???
   const handleOptionSelect = async (option: selectOption) => {
     setIsLoading(true);
     setSelectedArea(option);
@@ -56,7 +57,7 @@ const TaxiDrivers = () => {
             alt="icon of a filtre"
           />
         </FilterButton>
-        {isFilter ? <FilterTaxi /> : null}
+        {isFilter ? <FilterTaxiForm onCancel={setIsFilter} /> : null}
 
         <StatusesWrap>
           {statuses.map(({ status, text }) => (

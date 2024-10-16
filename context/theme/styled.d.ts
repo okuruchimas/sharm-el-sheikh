@@ -2,6 +2,7 @@ import "@emotion/react";
 
 declare module "@emotion/react" {
   export interface Theme {
+    palette: { background: { paper: string } };
     colors: {
       white: string;
       white2: string;
