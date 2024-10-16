@@ -24,7 +24,10 @@ declare module "@emotion/react" {
       yellow: string;
       yellow2: string;
       yellow3: string;
+      yellow4: string;
+      green: string;
       red: string;
+      red2: string;
       [key: string]: string;
     };
     backgrounds: {
