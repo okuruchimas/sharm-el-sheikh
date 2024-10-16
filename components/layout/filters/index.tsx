@@ -96,24 +96,25 @@ const Dropdown = ({
   );
 };
 
-const Wrapper = styled("div")<{ width?: string; height?: string }>(
-  ({ theme, width, height }) => ({
-    position: "relative",
-    minWidth: "245px",
-    maxWidth: "max-content",
-    border: `1px solid ${theme.colors.grey}`,
-    borderRadius: "12px",
+const Wrapper = styled("div")<{
+  width?: string;
+  height?: string;
+}>(({ theme, width, height }) => ({
+  position: "relative",
+  minWidth: "245px",
+  maxWidth: "max-content",
+  border: `1px solid ${theme.colors.grey}`,
+  borderRadius: "12px",
 
-    [theme.breakpoints.mobile]: {
-      minWidth: "168px",
-      width: width ? width : "auto",
-      height: height ? height : "auto",
-      maxWidth: "100%",
-      display: "flex",
-      alignItems: "center",
-    },
-  }),
-);
+  [theme.breakpoints.mobile]: {
+    minWidth: "168px",
+    width: width ? width : "auto",
+    height: height ? height : "auto",
+    maxWidth: "100%",
+    display: "flex",
+    alignItems: "center",
+  },
+}));
 
 const Text = styled("span")<{ color?: string }>(({ theme, color }) => ({
   color: color ? theme.colors[color] : theme.colors.black2,
