@@ -81,7 +81,6 @@ const Wrapper = styled(Swiper)({
   position: "relative",
   width: "100%",
   height: "100%",
-  borderRadius: "16px 16px 0 0",
 });
 
 const NextSlideButton = styled.div(({ theme }) => ({

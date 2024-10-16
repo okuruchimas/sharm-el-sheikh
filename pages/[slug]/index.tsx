@@ -20,8 +20,7 @@ import { addComment } from "../../utils/add-comment";
 import { fetchData } from "../../utils/fetchApi";
 // styles
 import "react-toastify/dist/ReactToastify.css";
-// mock
-import { REVIEWS } from "../../components/sections/company/reviews/children/mock-data";
+
 import {
   type CompanyCardFragment,
   CompanyPromotionCardDocument,
@@ -36,7 +35,25 @@ interface Props {
   similarSuggestions: { attributes: CompanyCardFragment }[];
 }
 
-const CompanyPage = ({ card, similarSuggestions }: Props) => {
+const CompanyPage = ({
+  card: {
+    slug,
+    title,
+    images,
+    discount,
+    services,
+    location,
+    comments,
+    touchText,
+    touchLink,
+    description,
+    averageRating,
+    totalComments,
+    discountBanner,
+    youTubeVideoId,
+  },
+  similarSuggestions,
+}: Props) => {
   const router = useRouter();
   const { t } = useTranslation("company-page");
   const { t: tCommon } = useTranslation("common");
@@ -47,8 +64,8 @@ const CompanyPage = ({ card, similarSuggestions }: Props) => {
     email: string,
   ) => {
     try {
-      // await addComment(card.slug, { rating, text, email });
-      // router.reload();
+      await addComment(slug, { rating, text, email });
+      router.reload();
       console.log({ rating, text, email });
       toast.success(t("feedbackSuccess"));
     } catch (error) {
@@ -63,47 +80,42 @@ const CompanyPage = ({ card, similarSuggestions }: Props) => {
       mobUrl="/images/background/mobile-background-gradient.svg"
     >
       <Promo
-        totalComments={card.totalComments}
-        averageRating={card.averageRating}
-        discount={card.discount}
-        images={card.images}
-        title={card.title}
-        location={card.location ?? ""}
+        totalComments={totalComments}
+        averageRating={averageRating}
+        discount={discount}
+        images={images}
+        title={title}
+        location={location ?? ""}
       />
-      {card.description ? (
+      {description ? (
         <DescriptionSection>
           <span>{t("description")}</span>
-          <p>{card.description}</p>
+          <p>{description}</p>
         </DescriptionSection>
       ) : null}
-      {card.youTubeVideoId ? (
-        <YouTubePlayer videoId={card.youTubeVideoId} />
-      ) : null}
-      {card.discountBanner ? (
+      {youTubeVideoId ? <YouTubePlayer videoId={youTubeVideoId} /> : null}
+      {discountBanner ? (
         <Banner
-          title={card.discountBanner.title || ""}
-          buttonText={card.discountBanner.buttonText || t("openCard")}
-          buttonLink={card.discountBanner.buttonLink || ""}
+          title={discountBanner.title || ""}
+          buttonText={discountBanner.buttonText || t("openCard")}
+          buttonLink={discountBanner.buttonLink || ""}
         />
       ) : null}
-      {card.services?.data.length ? (
-        <Services services={card.services?.data} />
-      ) : null}
-      {/*<Reviews comments={card.comments?.data || []} />*/}
-      <Reviews comments={REVIEWS} />
+      {services?.data.length ? <Services services={services?.data} /> : null}
+      <Reviews comments={comments?.data || []} />
       <ReviewForm handleAddComment={handleAddComment} />
       <SectionWrapper title={t("similarSuggestions")}>
         {similarSuggestions.length ? (
           <SuggestionsWrapper>
-            {similarSuggestions.slice(0, 3).map((card, index) => (
+            {similarSuggestions.slice(0, 3).map(({ attributes }, index) => (
               <PromCard
-                averageRating={card.attributes.averageRating}
-                totalComments={card.attributes.totalComments}
-                slug={card.attributes.slug}
-                discount={card.attributes.discount}
-                images={card.attributes.images}
-                title={card.attributes.title}
-                location={card.attributes.location}
+                averageRating={attributes.averageRating}
+                totalComments={attributes.totalComments}
+                slug={attributes.slug}
+                discount={attributes.discount}
+                images={attributes.images}
+                title={attributes.title}
+                location={attributes.location}
                 key={index}
               />
             ))}
@@ -114,14 +126,12 @@ const CompanyPage = ({ card, similarSuggestions }: Props) => {
       </SectionWrapper>
       <ContactSection>
         <span>
-          {card.touchText
-            ? card.touchText
-            : `${t("getInTouchSection.title")} ${card.title}`}
+          {touchText ? touchText : `${t("getInTouchSection.title")} ${title}`}
         </span>
         <Button
           text={t("getInTouchSection.buttonText")}
           backgroundColor="white"
-          onClick={() => router.push(card.touchLink ?? "/")}
+          onClick={() => router.push(touchLink ?? "/")}
         />
       </ContactSection>
       <ToastContainer />
@@ -131,7 +141,6 @@ const CompanyPage = ({ card, similarSuggestions }: Props) => {
 
 const Wrap = styled(SectionsWrapper)(({ theme }) => ({
   minHeight: "100vh",
-  paddingTop: "80px",
   backgroundSize: "contain",
   backgroundRepeat: "no-repeat",
 

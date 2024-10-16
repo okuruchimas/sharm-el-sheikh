@@ -34,10 +34,7 @@ const Promo = ({
       <TopWrapper>
         <TitleStyled>{title}</TitleStyled>
         <RatingWrapper>
-          <Rating
-            points={averageRating.toFixed(1) || 0}
-            users={totalComments || 0}
-          />
+          <Rating points={averageRating || 0} users={totalComments || 0} />
         </RatingWrapper>
       </TopWrapper>
       <Location>
@@ -71,7 +68,7 @@ const ContentWrapper = styled("div")(({ theme }) => ({
 
 const SectionWrapper = styled("div")(({ theme }) => ({
   width: "100%",
-  height: "calc(100vh - 80px)",
+  height: "calc(100vh - 280px)",
   margin: "122px 0 10px",
 
   [theme.breakpoints.mobile]: {
@@ -128,7 +125,8 @@ const TitleStyled = styled(Title)(({ theme }) => ({
 }));
 
 const Location = styled("div")(({ theme }) => ({
-  display: "flex",
+  display: "grid",
+  gridTemplateColumns: "24px 1fr",
   alignItems: "center",
   gap: "16px",
   fontSize: theme.fontSize.fontS24,
@@ -138,6 +136,12 @@ const Location = styled("div")(({ theme }) => ({
     fontSize: theme.fontSize.fontS12,
     fontWeight: 400,
     gap: "8px",
+  },
+
+  span: {
+    overflow: "hidden",
+    textWrap: "nowrap",
+    textOverflow: "ellipsis",
   },
 }));
 

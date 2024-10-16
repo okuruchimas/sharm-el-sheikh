@@ -5,8 +5,5 @@ export interface EventCardI {
   title: string;
   price: string;
   location: string;
-}
-
-export interface EventCardProps {
-  eventCards: EventCardI[];
+  url: string;
 }

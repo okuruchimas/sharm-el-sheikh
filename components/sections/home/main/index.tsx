@@ -1,8 +1,8 @@
 // hooks
 import { useTranslation } from "next-i18next";
 // components
-import EventCard from "./children/event-card";
 import LinkButton from "../../../layout/link-button";
+import EventCardSmall from "./children/event-card-small";
 // utils
 import styled from "@emotion/styled";
 // types
@@ -24,8 +24,9 @@ const Main = ({ eventCards, eventCardsTitle, heroTitle }: MainProps) => {
           <LinkButton text={t("buttons.more")} link="/" />
         </SubtitleWrap>
         {eventCards?.data.map(({ attributes }, index) => (
-          <EventCard
+          <EventCardSmall
             key={index}
+            url={attributes?.url || ""}
             logo={attributes?.image?.data?.attributes?.url ?? ""}
             logoAlt={attributes?.image?.data?.attributes?.alternativeText ?? ""}
             date={attributes?.date || ""}
