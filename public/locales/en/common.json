@@ -1,15 +1,35 @@
 {
+  "404": "Page Not found",
   "buttons": {
     "contactUs": "Contact us",
     "more": "More",
     "viewMore": "View more"
   },
-  "noDiscounts": "Currently no discounts available",
   "labels": {
     "email": "Email",
     "location": "Location",
     "phone": "Phone",
     "price": "Price"
+  },
+  "noDiscounts": "Currently no discounts available",
+  "reviewForm": {
+    "categories": {
+      "cleanliness": "Cleanliness",
+      "communication": "Communication",
+      "food": "Food",
+      "price": "Price",
+      "professionalism": "Professionalism",
+      "programQuality": "Program Quality",
+      "service": "Service"
+    },
+    "noReviews": "Currently, there are no reviews. Be the first to share your experience!",
+    "review": "Review",
+    "sendButton": "Send",
+    "yourReview": "Your review"
+  },
+  "toasts": {
+    "feedbackError": "Error adding comment",
+    "feedbackSuccess": "Thank you for your feedback"
   },
   "validationErrors": {
     "alphabetic": "{{field}} can only contain alphabetic characters and spaces",
@@ -18,6 +38,5 @@
     "min": "{{field}} is too short - should be {{min}} chars minimum.",
     "phoneNumber": "Phone number can only contain numbers",
     "required": "{{field}} is required"
-  },
-  "404": "Page Not found"
+  }
 }

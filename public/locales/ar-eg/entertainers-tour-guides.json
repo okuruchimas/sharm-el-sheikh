@@ -1,0 +1,20 @@
+{
+  "animationCompanies": "شركات الرسوم المتحركة",
+  "buttons": {
+    "nearestAnimator": "أقرب رسام كرتون"
+  },
+  "filters": {
+    "fewestReviews": "أقل عدد من التقييمات",
+    "highestRating": "أعلى تقييم",
+    "lowestRating": "أقل تقييم",
+    "mostReviews": "أكبر عدد من التقييمات"
+  },
+  "pageTitle": "استعن بأفضل المرشدين والممثلين لجعل كل رحلة ومساء لا يُنسى!",
+  "sortBy": "رتب حسب",
+  "tabs": {
+    "animators": "رسامو الكرتون",
+    "photographers": "المصورون",
+    "taxiDrivers": "سائقو التاكسي",
+    "tourOperators": "منظمو الرحلات والمرشدون"
+  }
+}

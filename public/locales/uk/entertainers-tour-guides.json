@@ -1,0 +1,20 @@
+{
+  "animationCompanies": "Анімаційні компанії",
+  "buttons": {
+    "nearestAnimator": "Найближчий аніматор"
+  },
+  "filters": {
+    "fewestReviews": "Найменше відгуків",
+    "highestRating": "Найвищий рейтинг",
+    "lowestRating": "Найнижчий рейтинг",
+    "mostReviews": "Найбільше відгуків"
+  },
+  "pageTitle": "Залучайте найкращих гідів та розважальників, щоб зробити кожну подорож та вечір незабутніми!",
+  "sortBy": "Сортувати за",
+  "tabs": {
+    "animators": "Аніматори",
+    "photographers": "Фотографи",
+    "taxiDrivers": "Таксисти",
+    "tourOperators": "Туроператори та гіди"
+  }
+}

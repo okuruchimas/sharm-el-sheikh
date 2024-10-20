@@ -1,0 +1,125 @@
+query GetAnimatorBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  animators(filters: { slug: { eq: $slug } }, locale: $locale) {
+    data {
+      attributes {
+        slug
+        name
+        profileImg {
+          ...StrapiImage
+        }
+        description
+        workingAtClub
+        hotelName
+        animation_company {
+          data {
+            attributes {
+              value
+            }
+          }
+        }
+        socialLinks {
+          socialLink
+          icon {
+            ...StrapiImage
+          }
+        }
+        skills {
+          value
+        }
+        entertainmentServices {
+          serviceName
+          image {
+            ...StrapiImage
+          }
+          place
+          place
+          duration
+        }
+        languages {
+          data {
+            attributes {
+              key
+              value
+              flagIcon {
+                ...StrapiImage
+              }
+            }
+          }
+        }
+        comments {
+          data {
+            ...Comment
+          }
+        }
+        averageRating
+        totalComments
+      }
+    }
+  }
+}
+
+query GetAnimatorsByFilter(
+  $locale: I18NLocaleCode!
+  $page: Int
+  $pageSize: Int
+  $sort: [String]
+  $companyKey: String
+) {
+  animators(
+    locale: $locale
+    sort: $sort
+    pagination: { page: $page, pageSize: $pageSize }
+    filters: { animation_company: { key: { eq: $companyKey } } }
+  ) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      id
+      attributes {
+        ...AnimatorPreview
+      }
+    }
+  }
+}
+
+query GetAnimatorsSlugs {
+  animators {
+    data {
+      attributes {
+        slug
+      }
+    }
+  }
+}
+
+fragment AnimatorPreview on Animator {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  animation_company {
+    data {
+      attributes {
+        value
+      }
+    }
+  }
+  hotelName
+  languages {
+    data {
+      attributes {
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  averageRating
+  totalComments
+  workingAtClub
+}

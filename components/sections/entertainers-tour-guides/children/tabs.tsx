@@ -1,20 +1,22 @@
-import React from "react";
-import styled from "@emotion/styled";
-import Link from "next/link";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+import Link from "next/link";
+import styled from "@emotion/styled";
 
-const arr = [
-  { link: "animators", text: "Animators" },
-  { link: "taxi-drivers", text: "Taxi Drivers" },
-  { link: "photographers", text: "Photographers" },
-  { link: "tour-and-guides", text: "Tour operators and Guides" },
-];
 const Tabs = () => {
   const { route } = useRouter();
+  const { t } = useTranslation("entertainers-tour-guides");
+
+  const tabs = [
+    { link: "animators", text: t("tabs.animators") },
+    { link: "taxi-drivers", text: t("tabs.taxiDrivers") },
+    { link: "photographers", text: t("tabs.photographers") },
+    { link: "tour-and-guides", text: t("tabs.tourOperators") },
+  ];
 
   return (
     <Wrap>
-      {arr.map(({ link, text }) => (
+      {tabs.map(({ link, text }) => (
         <Link key={link} href={link}>
           <Text isActive={route?.includes(link)}>{text}</Text>
         </Link>
@@ -44,7 +46,7 @@ const Text = styled("span", {
   minWidth: "310px",
   height: "48px",
   borderBottom: isActive ? `4px solid ${theme.colors.yellow}` : "none",
-
+  cursor: "pointer",
   fontSize: "21px",
   textAlign: "center",
   alignContent: "center",

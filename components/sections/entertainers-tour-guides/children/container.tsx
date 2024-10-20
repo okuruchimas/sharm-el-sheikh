@@ -1,4 +1,5 @@
-import React, { ReactNode } from "react";
+import { useTranslation } from "next-i18next";
+import type { ReactNode } from "react";
 import { Title } from "../../../layout/title";
 import Tabs from "./tabs";
 import styled from "@emotion/styled";
@@ -7,12 +8,11 @@ interface Props {
   children: ReactNode;
 }
 const Container = ({ children }: Props) => {
+  const { t } = useTranslation("entertainers-tour-guides");
+
   return (
     <Wrap>
-      <Title>
-        Engage the best guides and entertainers to make every journey and
-        evening unforgettable!
-      </Title>
+      <Title>{t("pageTitle")}</Title>
       <Tabs />
       {children}
     </Wrap>

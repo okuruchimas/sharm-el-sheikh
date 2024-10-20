@@ -1,3 +1,4 @@
+import { REVALIDATE_TIME } from "../../constants/page.constants";
 import { useMemo } from "react";
 import {
   type CategoryEntity,
@@ -103,5 +104,6 @@ export async function getStaticProps({ locale }: any) {
       categories: categories?.data,
       totalEvents: eventCards?.meta.pagination.total || 0,
     },
+    revalidate: REVALIDATE_TIME,
   };
 }

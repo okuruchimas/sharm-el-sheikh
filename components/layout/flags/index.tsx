@@ -1,17 +1,11 @@
-import React from "react";
 import Image from "next/image";
 import styled from "@emotion/styled";
 
-const arr = [
-  "/icons/flags/UA.svg",
-  "/icons/flags/DT.svg",
-  "/icons/flags/IT.svg",
-  "/icons/flags/EN.svg",
-];
-const Flags = () => {
+type FlagsProps = { icons: string[] };
+const Flags = ({ icons }: FlagsProps) => {
   return (
     <Wrap>
-      {arr.map((el) => (
+      {icons.map((el) => (
         <Image key={el} height={24} width={30} src={el} alt="Flag" />
       ))}
     </Wrap>

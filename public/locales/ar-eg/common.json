@@ -1,15 +1,35 @@
 {
+  "404": "الصفحة غير موجودة",
   "buttons": {
     "contactUs": "اتصل بنا",
     "more": "أكثر",
     "viewMore": "عرض المزيد"
   },
-  "noDiscounts": "حاليا لا توجد خصومات متاحة",
   "labels": {
     "email": "البريد الإلكتروني",
     "location": "الموقع",
-    "price": "السعر",
-    "phone": "الهاتف"
+    "phone": "الهاتف",
+    "price": "السعر"
+  },
+  "noDiscounts": "حاليا لا توجد خصومات متاحة",
+  "reviewForm": {
+    "categories": {
+      "cleanliness": "نظافة",
+      "communication": "تواصل",
+      "food": "طعام",
+      "price": "سعر",
+      "professionalism": "الاحتراف",
+      "programQuality": "جودة البرنامج",
+      "service": "خدمة"
+    },
+    "noReviews": "لا توجد تعليقات حاليًا. كن أول من يشارك تجربته!",
+    "review": "مراجعة",
+    "sendButton": "إرسال",
+    "yourReview": "مراجعتك"
+  },
+  "toasts": {
+    "feedbackError": "حدث خطأ أثناء إضافة التعليق",
+    "feedbackSuccess": "شكرا لتعليقاتك"
   },
   "validationErrors": {
     "alphabetic": "يقدر يحتوي بس على حروف ومسافات {{field}}",
@@ -18,6 +38,5 @@
     "min": "قصير جدًا - لازم يكون بحد أدنى {{min}} حروف {{field}}.",
     "phoneNumber": "رقم الهاتف يقدر يحتوي بس على أرقام.",
     "required": "مطلوب {{field}}"
-  },
-  "404": "الصفحة غير موجودة"
+  }
 }

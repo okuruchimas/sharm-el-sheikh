@@ -1,28 +1,12 @@
 {
   "description": "Опис",
-  "feedbackError": "Помилка при додаванні коментаря",
-  "feedbackSuccess": "Дякуємо за ваш відгук",
   "getInTouchSection": {
     "buttonText": "Зв'язатися",
     "title": "Зв'яжіться з"
   },
   "openCard": "Відкрити картку",
-  "reviewFormSection": {
-    "categories": {
-      "cleanliness": "Чистота",
-      "food": "Їжа",
-      "price": "Ціна",
-      "service": "Обслуговування"
-    },
-    "review": "Відгук",
-    "sendButton": "Надіслати",
-    "title": "Як би ви оцінили цей заклад?",
-    "yourReview": "Ваш відгук"
-  },
-  "reviewsSection": {
-    "placeholder": "Зараз відгуків немає. Будьте першим, хто поділиться своїм досвідом!",
-    "title": "Відгуки відвідувачів"
-  },
+  "reviewFormTitle": "Як би ви оцінили цей заклад?",
+  "reviewsSectionTitle": "Відгуки відвідувачів",
   "servicesSection": {
     "title": "Послуги та зручності"
   },

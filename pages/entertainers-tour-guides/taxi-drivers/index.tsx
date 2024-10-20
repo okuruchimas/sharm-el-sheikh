@@ -1,15 +1,16 @@
-import React, { useState } from "react";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import Container from "../../components/sections/entertainers-tour-guides/children/container";
-import Dropdown from "../../components/layout/filters";
-import { selectOption } from "../../components/types/filter";
-import styled from "@emotion/styled";
-import TaxiCards from "../../components/sections/entertainers-tour-guides/taxi-drivers/cards";
+import { REVALIDATE_TIME } from "../../../constants/page.constants";
+import { useState } from "react";
 import TaxiStatus, {
-  TaxiStatusProps,
-} from "../../components/sections/entertainers-tour-guides/taxi-drivers/statuses";
+  type TaxiStatusProps,
+} from "../../../components/sections/entertainers-tour-guides/taxi-drivers/statuses";
 import Image from "next/image";
-import FilterTaxiForm from "../../components/sections/entertainers-tour-guides/taxi-drivers/filter";
+import Dropdown from "../../../components/layout/filters";
+import Container from "../../../components/sections/entertainers-tour-guides/children/container";
+import TaxiCards from "../../../components/sections/entertainers-tour-guides/taxi-drivers/cards";
+import FilterTaxiForm from "../../../components/sections/entertainers-tour-guides/taxi-drivers/filter";
+import type { selectOption } from "../../../components/types/filter";
+import styled from "@emotion/styled";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const options = [
   { key: "most-rvw", value: "Most Reviews" },
@@ -75,6 +76,7 @@ export async function getStaticProps({ locale }: any) {
     props: {
       ...(await serverSideTranslations(locale, ["company-page", "common"])),
     },
+    revalidate: REVALIDATE_TIME,
   };
 }
 
