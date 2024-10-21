@@ -161,28 +161,6 @@ const Animators = ({
   );
 };
 
-export async function getStaticProps({ locale }: any) {
-  const { animationCompanies } = await fetchData(GetAnimationCompaniesDocument);
-  const { animators } = await fetchData(GetAnimatorsByFilterDocument, {
-    locale,
-    page: 1,
-    pageSize: 4,
-  });
-
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, [
-        "entertainers-tour-guides",
-        "common",
-      ])),
-      animators: animators?.data,
-      initialTotalAnimators: animators?.meta.pagination.total,
-      animationCompanies: animationCompanies?.data,
-    },
-    revalidate: REVALIDATE_TIME,
-  };
-}
-
 const FiltersWrap = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
@@ -205,5 +183,27 @@ const FiltersWrap = styled("div")(({ theme }) => ({
     },
   },
 }));
+
+export async function getStaticProps({ locale }: any) {
+  const { animationCompanies } = await fetchData(GetAnimationCompaniesDocument);
+  const { animators } = await fetchData(GetAnimatorsByFilterDocument, {
+    locale,
+    page: 1,
+    pageSize: 4,
+  });
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, [
+        "entertainers-tour-guides",
+        "common",
+      ])),
+      animators: animators?.data,
+      initialTotalAnimators: animators?.meta.pagination.total,
+      animationCompanies: animationCompanies?.data,
+    },
+    revalidate: REVALIDATE_TIME,
+  };
+}
 
 export default Animators;

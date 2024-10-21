@@ -78,15 +78,6 @@ const TaxiDrivers = () => {
   );
 };
 
-export async function getStaticProps({ locale }: any) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["company-page", "common"])),
-    },
-    revalidate: REVALIDATE_TIME,
-  };
-}
-
 const FiltersWrap = styled("div")(({ theme }) => ({
   position: "relative",
   display: "flex",
@@ -113,5 +104,17 @@ const StatusesWrap = styled("div")(({ theme }) => ({
     alignItems: "flex-start",
   },
 }));
+export async function getStaticProps({ locale }: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, [
+        "company-page",
+        "common",
+        "entertainers-tour-guides",
+      ])),
+    },
+    revalidate: REVALIDATE_TIME,
+  };
+}
 
 export default TaxiDrivers;
