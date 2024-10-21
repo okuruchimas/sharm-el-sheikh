@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import Card from "../../children/card";
 import { Animator } from "../../../../../gql/graphql";
@@ -30,7 +29,7 @@ const AnimatorCard = ({ animator }: AnimatorCardProps) => {
       indicator={indicator}
       title={animator.name}
       flagIcons={flags || [""]}
-      imgSrs={animator?.profileImg?.data?.attributes?.url || ""}
+      imgSrc={animator?.profileImg?.data?.attributes?.url || ""}
     />
   );
 };

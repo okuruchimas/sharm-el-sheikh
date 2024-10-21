@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import Image from "next/image";
 import styled from "@emotion/styled";
 import TitleRating from "../../../layout/title-and-rating";
@@ -7,21 +7,21 @@ import Flags from "../../../layout/flags";
 import LinkIcon from "../../../layout/link-icon";
 
 interface Props {
-  imgSrs: string;
+  imgSrc: string;
   title: string;
-  indicator: ReactNode;
   greyText: string;
   hotelName: string;
   flagIcons: string[];
   slug: string;
   averageRating: number;
   totalComments: number;
+  indicator?: ReactNode;
 }
 
 const Card = ({
   slug,
   title,
-  imgSrs,
+  imgSrc,
   greyText,
   hotelName,
   flagIcons,
@@ -31,8 +31,8 @@ const Card = ({
 }: Props) => {
   return (
     <Wrap className="anime-card">
-      <StyledImage src={imgSrs} loading="lazy" height={298} width={266} />
-      {indicator}
+      <StyledImage src={imgSrc} loading="lazy" height={298} width={266} />
+      {indicator ? indicator : null}
       <InfoWrap>
         <GreyText>{greyText}</GreyText>
         <TitleRating
