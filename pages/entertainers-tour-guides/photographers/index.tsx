@@ -80,7 +80,11 @@ const FiltersWrap = styled("div")(({ theme }) => ({
 export async function getStaticProps({ locale }: any) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["company-page", "common"])),
+      ...(await serverSideTranslations(locale, [
+        "company-page",
+        "common",
+        "entertainers-tour-guides",
+      ])),
     },
     revalidate: REVALIDATE_TIME,
   };
