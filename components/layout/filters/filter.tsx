@@ -1,9 +1,10 @@
-import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import styled from "@emotion/styled";
 import { useFormik } from "formik";
-import Button from "../../../../layout/button";
-import Dropdown from "../../../../layout/filters";
-import { selectOption } from "../../../../types/filter";
+import { selectOption } from "../../types/filter";
+import Dropdown from "./index";
+import Button from "../button";
+
 // import { StaticTimePicker } from "@mui/x-date-pickers/StaticTimePicker";
 // import { LocalizationProvider } from "@mui/x-date-pickers";
 // import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -48,7 +49,7 @@ const lengs = [
 interface Props {
   onCancel: Dispatch<SetStateAction<boolean>>;
 }
-const FilterTaxiForm = ({ onCancel }: Props) => {
+const FilterForm = ({ onCancel }: Props) => {
   const [selectedDay, setSelectedDay] = useState<selectOption>(days[0]);
 
   // Ініціалізація форми за допомогою useFormik
@@ -244,4 +245,4 @@ const Actions = styled("div")({
   gap: "16px",
 });
 
-export default FilterTaxiForm;
+export default FilterForm;

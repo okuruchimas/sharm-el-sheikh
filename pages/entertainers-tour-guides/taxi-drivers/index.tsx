@@ -1,16 +1,18 @@
 import { REVALIDATE_TIME } from "../../../constants/page.constants";
-import { useState } from "react";
-import TaxiStatus, {
-  type TaxiStatusProps,
-} from "../../../components/sections/entertainers-tour-guides/taxi-drivers/statuses";
-import Image from "next/image";
-import Dropdown from "../../../components/layout/filters";
-import Container from "../../../components/sections/entertainers-tour-guides/children/container";
-import TaxiCards from "../../../components/sections/entertainers-tour-guides/taxi-drivers/cards";
-import FilterTaxiForm from "../../../components/sections/entertainers-tour-guides/taxi-drivers/filter";
-import type { selectOption } from "../../../components/types/filter";
-import styled from "@emotion/styled";
+import { useMemo, useState } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import TaxiStatus, {
+  TaxiStatusProps,
+} from "../../../components/sections/entertainers-tour-guides/taxi-drivers/statuses";
+import { selectOption } from "../../../components/types/filter";
+import useResponsive from "../../../hooks/useResponsive";
+import Container from "../../../components/sections/entertainers-tour-guides/children/container";
+import Dropdown from "../../../components/layout/filters";
+import FilterButton from "../../../components/layout/filters/button";
+import FilterForm from "../../../components/layout/filters/filter";
+import TaxiCards from "../../../components/sections/entertainers-tour-guides/taxi-drivers/cards";
+import Pagination from "../../../components/layout/pagination";
+import styled from "@emotion/styled";
 
 const options = [
   { key: "most-rvw", value: "Most Reviews" },
@@ -38,6 +40,12 @@ const TaxiDrivers = () => {
     setIsLoading(false);
   };
 
+  //pagin
+  const [page, setPage] = useState<number>(1);
+  const { isMobile } = useResponsive();
+
+  const pageSize = useMemo(() => (isMobile ? 3 : 6), [isMobile]);
+
   return (
     <Container>
       <FiltersWrap>
@@ -50,15 +58,8 @@ const TaxiDrivers = () => {
           color="blue"
         />
 
-        <FilterButton onClick={() => setIsFilter(!isFilter)}>
-          <Image
-            height={56}
-            width={56}
-            src={"/icons/filter.svg"}
-            alt="icon of a filtre"
-          />
-        </FilterButton>
-        {isFilter ? <FilterTaxiForm onCancel={setIsFilter} /> : null}
+        <FilterButton onClick={() => setIsFilter(!isFilter)} />
+        {isFilter ? <FilterForm onCancel={setIsFilter} /> : null}
 
         <StatusesWrap>
           {statuses.map(({ status, text }) => (
@@ -67,6 +68,12 @@ const TaxiDrivers = () => {
         </StatusesWrap>
       </FiltersWrap>
       <TaxiCards />
+      <Pagination
+        currentPage={page}
+        onChangePage={setPage}
+        totalItems={40}
+        pageSize={pageSize}
+      />
     </Container>
   );
 };
@@ -90,8 +97,7 @@ const FiltersWrap = styled("div")(({ theme }) => ({
   marginBottom: "24px",
 
   [theme.breakpoints.mobile]: {
-    flexDirection: "column",
-    alignItems: "flex-end",
+    alignItems: "flex-start",
   },
 }));
 
@@ -102,15 +108,10 @@ const StatusesWrap = styled("div")(({ theme }) => ({
   alignItems: "center",
   gap: "24px",
 
-  [theme.breakpoints.mobile]: {},
-}));
-
-const FilterButton = styled("button")(({ theme }) => ({
-  border: "none",
-  background: "transparent",
-  width: 56,
-  height: 56,
-  [theme.breakpoints.mobile]: {},
+  [theme.breakpoints.mobile]: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+  },
 }));
 
 export default TaxiDrivers;

@@ -1,4 +1,3 @@
-import React from "react";
 import AnimatorCard from "../card";
 import styled from "@emotion/styled";
 import { Animator } from "../../../../../gql/graphql";
