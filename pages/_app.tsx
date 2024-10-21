@@ -1,3 +1,4 @@
+import { REVALIDATE_TIME } from "../constants/page.constants";
 // components
 import App from "next/app";
 import Layout from "../components/layout/layout";
@@ -40,6 +41,7 @@ MyApp.getInitialProps = async (ctx: any) => {
       headerData: headerData.header?.data?.attributes,
       footerData: footerData.footer?.data?.attributes,
     },
+    revalidate: REVALIDATE_TIME,
   };
 };
 

@@ -1,0 +1,20 @@
+{
+  "animationCompanies": "Animation companies",
+  "buttons": {
+    "nearestAnimator": "Nearest Animator"
+  },
+  "filters": {
+    "fewestReviews": "Fewest Reviews",
+    "highestRating": "Highest Rating",
+    "lowestRating": "Lowest Rating",
+    "mostReviews": "Most Reviews"
+  },
+  "pageTitle": "Engage the best guides and entertainers to make every journey and evening unforgettable!",
+  "sortBy": "Sort by",
+  "tabs": {
+    "animators": "Animators",
+    "photographers": "Photographers",
+    "taxiDrivers": "Taxi Drivers",
+    "tourOperators": "Tour operators and Guides"
+  }
+}

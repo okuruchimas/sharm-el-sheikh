@@ -1,3 +1,10 @@
+import { REVALIDATE_TIME } from "../../constants/page.constants";
+import {
+  type CompanyCardFragment,
+  CompanyPromotionCardDocument,
+  GetPromotionCardsSlugsDocument,
+  GetCompanyPromotionCardsByFilterDocument,
+} from "../../gql/graphql";
 import { toast, ToastContainer } from "react-toastify";
 // hooks
 import { useRouter } from "next/router";
@@ -20,16 +27,10 @@ import { addComment } from "../../utils/add-comment";
 import { fetchData } from "../../utils/fetchApi";
 // styles
 import "react-toastify/dist/ReactToastify.css";
-
-import {
-  type CompanyCardFragment,
-  CompanyPromotionCardDocument,
-  GetPromotionCardsSlugsDocument,
-  GetCompanyPromotionCardsByFilterDocument,
-} from "../../gql/graphql";
 // config
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../next-i18next.config";
+
 interface Props {
   card: CompanyCardFragment;
   similarSuggestions: { attributes: CompanyCardFragment }[];
@@ -58,19 +59,31 @@ const CompanyPage = ({
   const { t } = useTranslation("company-page");
   const { t: tCommon } = useTranslation("common");
 
+  const categories = [
+    { name: "service", label: tCommon("reviewForm.categories.service") },
+    { name: "price", label: tCommon("reviewForm.categories.price") },
+    { name: "food", label: tCommon("reviewForm.categories.food") },
+    { name: "clean", label: tCommon("reviewForm.categories.cleanliness") },
+  ];
+
   const handleAddComment = async (
     rating: number,
     text: string,
     email: string,
   ) => {
     try {
-      await addComment(slug, { rating, text, email });
+      await addComment({
+        slug,
+        comment: { rating, text, email },
+        collectionType: "company-promotion-cards",
+      });
+
       router.reload();
       console.log({ rating, text, email });
-      toast.success(t("feedbackSuccess"));
+      toast.success(tCommon("toasts.feedbackSuccess"));
     } catch (error) {
       console.error("Error adding comment:", error);
-      toast.error(t("feedbackError"));
+      toast.error(tCommon("toasts.feedbackError"));
     }
   };
 
@@ -102,12 +115,19 @@ const CompanyPage = ({
         />
       ) : null}
       {services?.data.length ? <Services services={services?.data} /> : null}
-      <Reviews comments={comments?.data || []} />
-      <ReviewForm handleAddComment={handleAddComment} />
+      <Reviews
+        title={t("reviewsSectionTitle")}
+        comments={comments?.data || []}
+      />
+      <ReviewForm
+        title={t("reviewFormTitle")}
+        categories={categories}
+        handleAddComment={handleAddComment}
+      />
       <SectionWrapper title={t("similarSuggestions")}>
         {similarSuggestions.length ? (
           <SuggestionsWrapper>
-            {similarSuggestions.slice(0, 3).map(({ attributes }, index) => (
+            {similarSuggestions.map(({ attributes }, index) => (
               <PromCard
                 averageRating={attributes.averageRating}
                 totalComments={attributes.totalComments}
@@ -258,6 +278,7 @@ export async function getStaticProps({ params, locale }: any) {
       card: companyPromotionCards?.data[0]?.attributes || {},
       similarSuggestions: filteredSuggestions,
     },
+    revalidate: REVALIDATE_TIME,
   };
 }
 

@@ -17,8 +17,16 @@ interface ReviewFormValues {
   email: string;
   review: string;
 }
-
+type Category = {
+  name: string;
+  label: string;
+};
+type StarRating = Category & {
+  value: number;
+};
 type ReviewFormProps = {
+  title: string;
+  categories: Category[];
   handleAddComment: (
     rating: number,
     text: string,
@@ -26,36 +34,26 @@ type ReviewFormProps = {
   ) => Promise<void>;
 };
 
-type StarRatings = {
-  service: number;
-  price: number;
-  food: number;
-  cleanliness: number;
-};
-
-const categories: { name: keyof StarRatings; label: string }[] = [
-  { name: "service", label: "reviewFormSection.categories.service" },
-  { name: "price", label: "reviewFormSection.categories.price" },
-  { name: "food", label: "reviewFormSection.categories.food" },
-  { name: "cleanliness", label: "reviewFormSection.categories.cleanliness" },
-];
-
-const ReviewForm = ({ handleAddComment }: ReviewFormProps) => {
-  const [stars, setStars] = useState<StarRatings>({
-    service: 0,
-    price: 0,
-    food: 0,
-    cleanliness: 0,
-  });
-  const { t } = useTranslation("company-page");
+const ReviewForm = ({
+  title,
+  categories,
+  handleAddComment,
+}: ReviewFormProps) => {
+  const [stars, setStars] = useState<StarRating[]>(
+    categories.map((el) => ({
+      ...el,
+      value: 0,
+    })),
+  );
   const { t: tCommon } = useTranslation("common");
 
   const handleStarChange = useCallback(
-    (categoryName: keyof StarRatings, value: number) => {
-      setStars((prevStars) => ({
-        ...prevStars,
-        [categoryName]: value,
-      }));
+    (categoryName: string, value: number) => {
+      setStars((prevState) =>
+        prevState.map((el) =>
+          el.name === categoryName ? { ...el, value } : el,
+        ),
+      );
     },
     [],
   );
@@ -65,25 +63,21 @@ const ReviewForm = ({ handleAddComment }: ReviewFormProps) => {
       { review, email }: ReviewFormValues,
       { setSubmitting, resetForm }: FormikHelpers<ReviewFormValues>,
     ) => {
-      const overallRating =
-        (stars.service + stars.price + stars.food + stars.cleanliness) / 4;
+      const totalStars = stars.reduce((acc, { value }) => acc + value, 0);
+      const overallRating = totalStars / stars.length;
 
       await handleAddComment(overallRating, review, email);
 
       resetForm();
-      setStars({
-        service: 0,
-        price: 0,
-        food: 0,
-        cleanliness: 0,
-      });
+      setStars((prev) => prev.map((el) => ({ ...el, value: 0 })));
+
       setSubmitting(false);
     },
     [handleAddComment, stars],
   );
 
   return (
-    <SectionWrapper title={t("reviewFormSection.title")}>
+    <SectionWrapper title={title}>
       <Formik
         initialValues={{ email: "", review: "" }}
         validationSchema={ReviewFormValidationSchema}
@@ -96,14 +90,12 @@ const ReviewForm = ({ handleAddComment }: ReviewFormProps) => {
             ) : (
               <>
                 <StarReviews>
-                  {categories.map((category) => (
+                  {stars.map(({ name, value, label }) => (
                     <StarReview
-                      key={category.name}
-                      stars={stars[category.name]}
-                      categoryName={t(category.label)}
-                      onChange={(value) =>
-                        handleStarChange(category.name, value)
-                      }
+                      key={name}
+                      stars={value}
+                      categoryName={label}
+                      onChange={(value) => handleStarChange(name, value)}
                     />
                   ))}
                 </StarReviews>
@@ -114,19 +106,19 @@ const ReviewForm = ({ handleAddComment }: ReviewFormProps) => {
                   isLight
                 />
                 <Input
-                  label={t("reviewFormSection.review")}
+                  label={tCommon("reviewForm.review")}
                   type="review"
-                  placeholder={t("reviewFormSection.yourReview")}
+                  placeholder={tCommon("reviewForm.yourReview")}
                   as="textarea"
                   isLight
                 />
               </>
             )}
             <Button
-              text={t("reviewFormSection.sendButton")}
+              text={tCommon("reviewForm.sendButton")}
               disabled={
                 isSubmitting ||
-                Object.values(stars).some((value) => value === 0)
+                Object.values(stars).some((el) => el.value === 0)
               }
               type="submit"
             />
@@ -166,18 +158,11 @@ const FormWrap = styled(Form)(({ theme }) => ({
   },
 }));
 
-const StarReviews = styled("div")(({ theme }) => ({
-  display: "grid",
-  gap: "24px",
-  gridTemplateColumns: "1fr",
-
-  [theme.breakpoints.mobileHorizontal]: {
-    gridTemplateColumns: "repeat(2, 1fr)",
-  },
-
-  [theme.breakpoints.desktop]: {
-    gridTemplateColumns: "repeat(4, 1fr)",
-  },
-}));
+const StarReviews = styled("div")({
+  display: "flex",
+  columnGap: "40px",
+  rowGap: "24px",
+  flexWrap: "wrap",
+});
 
 export default ReviewForm;

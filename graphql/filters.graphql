@@ -1,5 +1,5 @@
 query GetAreas($locale: I18NLocaleCode!) {
-  areas(locale: $locale, sort: "index:asc") {
+  areas(locale: $locale, sort: "index:desc") {
     data {
       attributes {
         key
@@ -10,7 +10,7 @@ query GetAreas($locale: I18NLocaleCode!) {
 }
 
 query GetCategories($locale: I18NLocaleCode!) {
-  categories(locale: $locale, sort: "index:asc") {
+  categories(locale: $locale, sort: "index:desc") {
     data {
       attributes {
         key
@@ -21,6 +21,17 @@ query GetCategories($locale: I18NLocaleCode!) {
         markerIcon {
           ...StrapiImage
         }
+      }
+    }
+  }
+}
+
+query GetAnimationCompanies {
+  animationCompanies( sort: "index:desc") {
+    data {
+      attributes {
+        key
+        value
       }
     }
   }

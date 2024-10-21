@@ -1,5 +1,5 @@
-import React from "react";
-import Container from "../../components/sections/entertainers-tour-guides/children/container";
+import { REVALIDATE_TIME } from "../../../constants/page.constants";
+import Container from "../../../components/sections/entertainers-tour-guides/children/container";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const TourAndGuides = () => {
@@ -11,6 +11,7 @@ export async function getStaticProps({ locale }: any) {
     props: {
       ...(await serverSideTranslations(locale, ["company-page", "common"])),
     },
+    revalidate: REVALIDATE_TIME,
   };
 }
 

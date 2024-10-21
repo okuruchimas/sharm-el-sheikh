@@ -11,9 +11,9 @@ import { formatDate } from "../../../../utils/formateDate";
 // types
 import { CommentFragment } from "../../../../gql/graphql";
 
-type ReviewsProps = { comments: CommentFragment[] };
-const Reviews = ({ comments }: ReviewsProps) => {
-  const { t } = useTranslation("company-page");
+type ReviewsProps = { title: string; comments: CommentFragment[] };
+const Reviews = ({ comments, title }: ReviewsProps) => {
+  const { t } = useTranslation("common");
 
   const rows = useMemo(() => {
     if (!comments.length) return [];
@@ -27,7 +27,7 @@ const Reviews = ({ comments }: ReviewsProps) => {
   }, [comments]);
 
   return (
-    <SectionWrapper title={t("reviewsSection.title")}>
+    <SectionWrapper title={title}>
       {rows.length ? (
         <ReviewsWrapper>
           <Gradient>
@@ -46,7 +46,7 @@ const Reviews = ({ comments }: ReviewsProps) => {
           </Gradient>
         </ReviewsWrapper>
       ) : (
-        <Placeholder title={t("reviewsSection.placeholder")} />
+        <Placeholder title={t("reviewForm.noReviews")} />
       )}
     </SectionWrapper>
   );
@@ -135,6 +135,26 @@ const Gradient = styled("div")(({ theme }) => ({
     "&::before": {
       background:
         "radial-gradient(65.19% 65.19% at 50% 50%, rgba(254, 254, 254, 0.08) 29%, rgba(254, 254, 254, 0.5) 100%)",
+    },
+  },
+}));
+
+const StyledPlaceholder = styled(Placeholder)(({ theme }) => ({
+  display: "flex",
+  columnGap: "20px",
+
+  [theme.breakpoints.mobile]: {
+    padding: 0,
+    flexDirection: "column",
+  },
+
+  [theme.breakpoints.desktop]: {
+    "&:nth-of-type(2n)": {
+      padding: "0 30px",
+    },
+
+    "&:not(:first-of-type)": {
+      marginTop: "-40px",
     },
   },
 }));

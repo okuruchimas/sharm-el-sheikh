@@ -1,3 +1,4 @@
+import { REVALIDATE_TIME } from "../constants/page.constants";
 import { useMemo } from "react";
 // components
 import Head from "next/head";
@@ -152,6 +153,7 @@ export async function getStaticProps({ locale }: any) {
       homePageData: home?.data?.attributes,
       initialPromotions: companyPromotionCards,
     },
+    revalidate: REVALIDATE_TIME,
   };
 }
 

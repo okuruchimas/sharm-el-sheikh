@@ -14,7 +14,7 @@ const Placeholder = ({ title }: PlaceholderProps) => {
         src="/images/background/background-prom.svg"
         alt="background"
         width="100%"
-        height="50vh"
+        height="370px"
         mWidth="100%"
         mHeight="25vh"
       />

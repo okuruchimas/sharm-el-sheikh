@@ -1,28 +1,12 @@
 {
   "description": "الوصف",
-  "feedbackError": "خطأ في إضافة التعليق",
-  "feedbackSuccess": "شكرًا على ملاحظاتك",
   "getInTouchSection": {
     "buttonText": "اتصل بنا",
     "title": "تواصل مع"
   },
   "openCard": "فتح البطاقة",
-  "reviewFormSection": {
-    "categories": {
-      "cleanliness": "نظافة",
-      "food": "طعام",
-      "price": "سعر",
-      "service": "خدمة"
-    },
-    "review": "مراجعة",
-    "sendButton": "إرسال",
-    "title": "كيف تقيم هذا المنشأة؟",
-    "yourReview": "مراجعتك"
-  },
-  "reviewsSection": {
-    "placeholder": "لا توجد تعليقات حاليًا. كن أول من يشارك تجربته!",
-    "title": "مراجعات الزوار"
-  },
+  "reviewFormTitle": "كيف تقيم هذا المنشأة؟",
+  "reviewsSectionTitle": "مراجعات الزوار",
   "servicesSection": {
     "title": "الخدمات والمرافق"
   },

@@ -7,30 +7,42 @@ import Flags from "../../../layout/flags";
 import LinkIcon from "../../../layout/link-icon";
 
 interface Props {
+  imgSrs: string;
+  title: string;
   indicator: ReactNode;
   greyText: string;
+  hotelName: string;
+  flagIcons: string[];
+  slug: string;
+  averageRating: number;
+  totalComments: number;
 }
 
-const Card = ({ indicator, greyText }: Props) => {
+const Card = ({
+  slug,
+  title,
+  imgSrs,
+  greyText,
+  hotelName,
+  flagIcons,
+  indicator,
+  averageRating,
+  totalComments,
+}: Props) => {
   return (
     <Wrap className="anime-card">
-      <StyledImage
-        src="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/banner1_9ca87e6a4b.webp"
-        loading="lazy"
-        height={298}
-        width={266}
-      />
+      <StyledImage src={imgSrs} loading="lazy" height={298} width={266} />
       {indicator}
       <InfoWrap>
         <GreyText>{greyText}</GreyText>
         <TitleRating
-          title="Ameliia Holl"
-          averageRating={4.2}
-          totalComments={123}
+          title={title}
+          averageRating={averageRating}
+          totalComments={totalComments}
         />
-        <TextAndIcon src="/icons/Hotel.svg" text="Hotel Name" />
-        <Flags />
-        <LinkIcon href="/" />
+        <TextAndIcon src="/icons/Hotel.svg" text={hotelName} />
+        <Flags icons={flagIcons} />
+        <LinkIcon href={slug} />
       </InfoWrap>
     </Wrap>
   );
@@ -44,12 +56,12 @@ const Wrap = styled("div")(({ theme }) => ({
   background: theme.colors.white,
   borderRadius: 16,
   position: "relative",
+  boxShadow: theme.shadows[0],
 }));
 
 const StyledImage = styled(Image)({
   borderTopLeftRadius: 16,
   borderTopRightRadius: 16,
-
   objectFit: "cover",
 });
 
