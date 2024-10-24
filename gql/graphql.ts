@@ -2713,7 +2713,7 @@ export type GetAnimatorBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetAnimatorBySlugQuery = { __typename?: 'Query', animators?: { __typename?: 'AnimatorEntityResponseCollection', data: Array<{ __typename?: 'AnimatorEntity', attributes?: { __typename?: 'Animator', slug: string, name: string, description: string, workingAtClub: boolean, hotelName: string, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, animation_company?: { __typename?: 'AnimationCompanyEntityResponse', data?: { __typename?: 'AnimationCompanyEntity', attributes?: { __typename?: 'AnimationCompany', value: string } | null } | null } | null, socialLinks: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, skills: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null>, entertainmentServices?: Array<{ __typename?: 'ComponentComponentsEntertainmentService', serviceName: string, place: string, duration: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null } | null }> } | null };
+export type GetAnimatorBySlugQuery = { __typename?: 'Query', animators?: { __typename?: 'AnimatorEntityResponseCollection', data: Array<{ __typename?: 'AnimatorEntity', attributes?: { __typename?: 'Animator', slug: string, name: string, description: string, workingAtClub: boolean, hotelName: string, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, animation_company?: { __typename?: 'AnimationCompanyEntityResponse', data?: { __typename?: 'AnimationCompanyEntity', attributes?: { __typename?: 'AnimationCompany', key: string, value: string } | null } | null } | null, socialLinks: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, skills: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null>, entertainmentServices?: Array<{ __typename?: 'ComponentComponentsEntertainmentService', serviceName: string, place: string, price: string, duration: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null } | null }> } | null };
 
 export type GetAnimatorsByFilterQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -3232,6 +3232,7 @@ export const GetAnimatorBySlugDocument = new TypedDocumentString(`
         animation_company {
           data {
             attributes {
+              key
               value
             }
           }
@@ -3251,7 +3252,7 @@ export const GetAnimatorBySlugDocument = new TypedDocumentString(`
             ...StrapiImage
           }
           place
-          place
+          price
           duration
         }
         languages {
@@ -3399,7 +3400,7 @@ fragment StrapiImage on UploadFileEntityResponse {
 }`) as unknown as TypedDocumentString<GetEventCardsQuery, GetEventCardsQueryVariables>;
 export const GetAreasDocument = new TypedDocumentString(`
     query GetAreas($locale: I18NLocaleCode!) {
-  areas(locale: $locale, sort: "index:desc") {
+  areas(locale: $locale, sort: "index:asc") {
     data {
       attributes {
         key
@@ -3411,7 +3412,7 @@ export const GetAreasDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<GetAreasQuery, GetAreasQueryVariables>;
 export const GetCategoriesDocument = new TypedDocumentString(`
     query GetCategories($locale: I18NLocaleCode!) {
-  categories(locale: $locale, sort: "index:desc") {
+  categories(locale: $locale, sort: "index:asc") {
     data {
       attributes {
         key
@@ -3436,7 +3437,7 @@ export const GetCategoriesDocument = new TypedDocumentString(`
 }`) as unknown as TypedDocumentString<GetCategoriesQuery, GetCategoriesQueryVariables>;
 export const GetAnimationCompaniesDocument = new TypedDocumentString(`
     query GetAnimationCompanies {
-  animationCompanies(sort: "index:desc") {
+  animationCompanies(sort: "index:asc") {
     data {
       attributes {
         key

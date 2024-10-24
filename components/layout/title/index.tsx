@@ -7,6 +7,6 @@ export const Title = styled(({ as: Component = "h1", ...props }) => (
   color: theme.colors.blue,
 
   [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS21,
+    fontSize: theme.fontSize.fontS24,
   },
 }));

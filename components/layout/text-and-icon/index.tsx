@@ -5,19 +5,28 @@ import styled from "@emotion/styled";
 interface Props {
   src: string;
   text: string;
+  iconSize?: string;
+  fontSize?: string;
 }
-const TextAndIcon = ({ src, text }: Props) => {
+const TextAndIcon = ({
+  src,
+  text,
+  iconSize = "24px",
+  fontSize = "16px",
+}: Props) => {
   return (
-    <Wrap>
-      <Icon height={24} width={24} src={src} />
-      <Text>{text}</Text>
+    <Wrap iconSize={iconSize}>
+      <Icon height={iconSize} width={iconSize} src={src} />
+      <Text fontSize={fontSize}>{text}</Text>
     </Wrap>
   );
 };
 
-const Wrap = styled("div")(({ theme }) => ({
+const Wrap = styled("div", {
+  shouldForwardProp: (prop) => prop !== "iconSize",
+})<{ iconSize: string }>(({ theme, iconSize }) => ({
   display: "grid",
-  gridTemplateColumns: "24px 1fr",
+  gridTemplateColumns: `${iconSize} 1fr`,
   alignItems: "center",
   gap: 8,
   width: "100%",
@@ -25,9 +34,11 @@ const Wrap = styled("div")(({ theme }) => ({
 
 const Icon = styled(Image)(({ theme }) => ({}));
 
-const Text = styled("span")(({ theme }) => ({
+const Text = styled("div", {
+  shouldForwardProp: (prop) => prop !== "fontSize",
+})<{ fontSize?: string }>(({ theme, fontSize }) => ({
   color: theme.colors.blue,
-  fontSize: theme.fontSize.fontS16,
+  fontSize: fontSize,
   overflow: "hidden",
   textWrap: "nowrap",
   textOverflow: "ellipsis",

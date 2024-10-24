@@ -1,6 +1,6 @@
 import {
-  type Animator,
   type AnimationCompany,
+  type AnimatorPreviewFragment,
   GetAnimatorsByFilterDocument,
   GetAnimationCompaniesDocument,
 } from "../../../gql/graphql";
@@ -22,7 +22,7 @@ import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 // types
 import type { selectOption } from "../../../components/types/filter";
 
-type Animators = { attributes: Animator }[];
+type Animators = { attributes: AnimatorPreviewFragment }[];
 type PageProps = {
   animators: Animators;
   initialTotalAnimators: number;
