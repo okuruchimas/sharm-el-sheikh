@@ -1,12 +1,14 @@
 import Image from "next/image";
 import styled from "@emotion/styled";
+import type { ImageI } from "../../types/image";
 
-type FlagsProps = { icons: string[] };
+type FlagsProps = { icons: ImageI[] };
+
 const Flags = ({ icons }: FlagsProps) => {
   return (
-    <Wrap>
-      {icons.map((el) => (
-        <Image key={el} height={24} width={30} src={el} alt="Flag" />
+    <Wrap className="flags-wrapper">
+      {icons.map(({ src, alt }) => (
+        <Image key={src} height={24} width={30} src={src} alt={alt} />
       ))}
     </Wrap>
   );
@@ -15,9 +17,7 @@ const Flags = ({ icons }: FlagsProps) => {
 const Wrap = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
-  justifyContent: "flex-end",
   gap: "16px",
-  width: "100%",
 }));
 
 export default Flags;

@@ -3,10 +3,10 @@ import Card from "../../children/card";
 
 const PhotographCard = () => {
   const arr = [
-    "/icons/flags/UA.svg",
-    "/icons/flags/DT.svg",
-    "/icons/flags/IT.svg",
-    "/icons/flags/EN.svg",
+    { src: "/icons/flags/UA.svg", alt: "UA" },
+    { src: "/icons/flags/DT.svg", alt: "DT" },
+    { src: "/icons/flags/IT.svg", alt: "IT" },
+    { src: "/icons/flags/EN.svg", alt: "EN" },
   ];
   return (
     <Card

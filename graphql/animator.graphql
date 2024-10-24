@@ -13,6 +13,7 @@ query GetAnimatorBySlug($slug: String!, $locale: I18NLocaleCode!) {
         animation_company {
           data {
             attributes {
+              key
               value
             }
           }
@@ -32,7 +33,7 @@ query GetAnimatorBySlug($slug: String!, $locale: I18NLocaleCode!) {
             ...StrapiImage
           }
           place
-          place
+          price
           duration
         }
         languages {
