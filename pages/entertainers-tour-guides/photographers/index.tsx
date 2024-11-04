@@ -7,7 +7,6 @@ import useResponsive from "../../../hooks/useResponsive";
 import Container from "../../../components/sections/entertainers-tour-guides/children/container";
 import Dropdown from "../../../components/layout/filters";
 import FilterButton from "../../../components/layout/filters/button";
-import FilterForm from "../../../components/layout/filters/filter";
 import PhotographCards from "../../../components/sections/entertainers-tour-guides/photographers/cards";
 import Pagination from "../../../components/layout/pagination";
 
@@ -49,7 +48,7 @@ const Photographers = () => {
         />
 
         <FilterButton onClick={() => setIsFilter(!isFilter)} />
-        {isFilter ? <FilterForm onCancel={setIsFilter} /> : null}
+        {isFilter ? null : null}
       </FiltersWrap>
       <PhotographCards />
       <Pagination

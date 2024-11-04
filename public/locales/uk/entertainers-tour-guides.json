@@ -3,6 +3,15 @@
   "buttons": {
     "nearestAnimator": "Найближчий аніматор"
   },
+  "days": {
+    "mon": "Пн",
+    "tue": "Вт",
+    "wed": "Ср",
+    "thu": "Чт",
+    "fri": "Пт",
+    "sat": "Сб",
+    "sun": "Нд"
+  },
   "filters": {
     "fewestReviews": "Найменше відгуків",
     "highestRating": "Найвищий рейтинг",
@@ -10,11 +19,30 @@
     "mostReviews": "Найбільше відгуків"
   },
   "pageTitle": "Залучайте найкращих гідів та розважальників, щоб зробити кожну подорож та вечір незабутніми!",
+  "placeholders": {
+    "noDrivers": "Водіїв не знайдено",
+    "noAnimators": "Аніматорів не знайдено",
+    "noPhotographers": "Фотографів не знайдено",
+    "noTourOperators": "Туроператорів не знайдено"
+  },
   "sortBy": "Сортувати за",
   "tabs": {
     "animators": "Аніматори",
     "photographers": "Фотографи",
     "taxiDrivers": "Таксисти",
     "tourOperators": "Туроператори та гіди"
+  },
+  "taxiFilterForm": {
+    "availability": "Доступність",
+    "availableNow": "Доступний зараз",
+    "availableLater": "Доступний в інший час",
+    "carClass": "Клас автомобіля",
+    "languagesSpoken": "Мови, якими володіє водій",
+    "otherLanguages": "Інші мови"
+  },
+  "taxiStatus": {
+    "available": "Доступний",
+    "notAvailable": "Недоступний",
+    "doesntWork": "Не працює"
   }
 }

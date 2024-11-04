@@ -27,7 +27,29 @@ query GetCategories($locale: I18NLocaleCode!) {
 }
 
 query GetAnimationCompanies {
-  animationCompanies( sort: "index:asc") {
+  animationCompanies(sort: "index:asc") {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+}
+
+query GetLanguages {
+  languages(sort: "index:asc") {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+}
+
+query GetCarClasses {
+  carClasses {
     data {
       attributes {
         key

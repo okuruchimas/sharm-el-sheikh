@@ -17,7 +17,8 @@ const PhotographCard = () => {
       imgSrc={
         "https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/banner1_9ca87e6a4b.webp"
       }
-      hotelName={"Economy car"}
+      iconText="Economy car"
+      iconSrc="/icons/Hotel.svg"
       greyText={"Mon, Tue, Sat, Sun"}
       flagIcons={arr}
     />

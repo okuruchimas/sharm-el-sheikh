@@ -46,7 +46,8 @@ export const fetchDataFromApi = async <Result, Variables>(
   document: TypedDocumentString<Result, Variables>,
   variables?: Variables,
 ): Promise<Result> => {
-  const response = await fetch("/api/gql-data", {
+  const baseURL = typeof window === "undefined" ? process.env.API_URL : "";
+  const response = await fetch(`${baseURL}/api/gql-data`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

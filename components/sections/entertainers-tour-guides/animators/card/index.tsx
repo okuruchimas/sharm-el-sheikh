@@ -28,7 +28,8 @@ const AnimatorCard = ({ animator }: AnimatorCardProps) => {
       greyText={animator.animation_company?.data?.attributes?.value || ""}
       indicator={indicator}
       flagIcons={flags || []}
-      hotelName={animator.hotelName}
+      iconText={animator.hotelName}
+      iconSrc="/icons/Hotel.svg"
       totalComments={animator.totalComments}
       averageRating={animator.averageRating}
     />

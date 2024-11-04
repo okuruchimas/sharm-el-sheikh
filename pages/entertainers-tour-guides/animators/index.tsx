@@ -71,7 +71,7 @@ const Animators = ({
     () => {
       setPage(1);
 
-      if (!isMobile) {
+      if (!isMobile && pageSize < initialTotalAnimators) {
         handleGetAnimators({ sort: filter, pageNum: 1, company: "" });
       }
     },
@@ -93,6 +93,8 @@ const Animators = ({
   }));
 
   const handleCompanySelect = async (option: selectOption) => {
+    if (option.key === companyKey) return;
+
     setPage(1);
     setCompanyKey(option.key);
     await handleGetAnimators({
@@ -112,6 +114,8 @@ const Animators = ({
   };
 
   const handleFilterSelect = async (option: selectOption) => {
+    if (option.key === filter) return;
+
     setPage(1);
     setFilter(option.key);
     await handleGetAnimators({

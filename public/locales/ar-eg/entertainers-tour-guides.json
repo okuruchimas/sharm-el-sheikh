@@ -3,6 +3,15 @@
   "buttons": {
     "nearestAnimator": "أقرب رسام كرتون"
   },
+  "days": {
+    "mon": "الإثنين",
+    "tue": "الثلاثاء",
+    "wed": "الأربعاء",
+    "thu": "الخميس",
+    "fri": "الجمعة",
+    "sat": "السبت",
+    "sun": "الأحد"
+  },
   "filters": {
     "fewestReviews": "أقل عدد من التقييمات",
     "highestRating": "أعلى تقييم",
@@ -10,11 +19,30 @@
     "mostReviews": "أكبر عدد من التقييمات"
   },
   "pageTitle": "استعن بأفضل المرشدين والممثلين لجعل كل رحلة ومساء لا يُنسى!",
+  "placeholders": {
+    "noDrivers": "لم يتم العثور على سائقين",
+    "noAnimators": "لم يتم العثور على منشطين",
+    "noPhotographers": "لم يتم العثور على مصورين",
+    "noTourOperators": "لم يتم العثور على مشغلي جولات"
+  },
   "sortBy": "رتب حسب",
   "tabs": {
     "animators": "رسامو الكرتون",
     "photographers": "المصورون",
     "taxiDrivers": "سائقو التاكسي",
     "tourOperators": "منظمو الرحلات والمرشدون"
+  },
+  "taxiFilterForm": {
+    "availability": "التوافر",
+    "availableNow": "متاح الآن",
+    "availableLater": "متاح في وقت آخر",
+    "carClass": "فئة السيارة",
+    "languagesSpoken": "اللغات التي يتحدثها السائق",
+    "otherLanguages": "لغات أخرى"
+  },
+  "taxiStatus": {
+    "available": "متاح",
+    "notAvailable": "غير متاح",
+    "doesntWork": "لا يعمل"
   }
 }

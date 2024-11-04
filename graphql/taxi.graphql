@@ -1,0 +1,69 @@
+query GetDriversByFilters(
+  $locale: I18NLocaleCode!
+  $page: Int
+  $pageSize: Int
+  $sort: [String]
+  $languageKeys: [String]
+  $timeFilters: ComponentComponentsWorkScheduleFiltersInput
+  $carClasses: [String]
+) {
+  taxiDrivers(
+    sort: $sort
+    locale: $locale
+    pagination: { page: $page, pageSize: $pageSize }
+    filters: {
+      languages: { key: { in: $languageKeys } }
+      schedule: $timeFilters
+      car_class: { key: { in: $carClasses } }
+    }
+  ) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      attributes {
+        ...TaxiDriverPreview
+      }
+    }
+  }
+}
+
+fragment TaxiDriverPreview on TaxiDriver {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  schedule {
+    dayOfWeek
+    timeSlots {
+      startTime
+      endTime
+    }
+  }
+  languages {
+    data {
+      attributes {
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  car_class {
+    data {
+      attributes {
+        value
+        icon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  totalComments
+  averageRating
+  isNotWorking
+}

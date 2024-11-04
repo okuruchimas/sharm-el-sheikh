@@ -20,6 +20,8 @@ export type Scalars = {
   I18NLocaleCode: { input: any; output: any; }
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: { input: any; output: any; }
+  /** A time string with format HH:mm:ss.SSS */
+  Time: { input: any; output: any; }
   /** The `Upload` scalar type represents a file upload. */
   Upload: { input: any; output: any; }
 };
@@ -377,6 +379,82 @@ export type BooleanFilterInput = {
   startsWith?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type CarClass = {
+  __typename?: 'CarClass';
+  circleIcon?: Maybe<UploadFileEntityResponse>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  icon: UploadFileEntityResponse;
+  key: Scalars['String']['output'];
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<CarClassRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  taxi_drivers?: Maybe<TaxiDriverRelationResponseCollection>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  value: Scalars['String']['output'];
+};
+
+
+export type CarClassLocalizationsArgs = {
+  filters?: InputMaybe<CarClassFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type CarClassTaxi_DriversArgs = {
+  filters?: InputMaybe<TaxiDriverFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type CarClassEntity = {
+  __typename?: 'CarClassEntity';
+  attributes?: Maybe<CarClass>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type CarClassEntityResponse = {
+  __typename?: 'CarClassEntityResponse';
+  data?: Maybe<CarClassEntity>;
+};
+
+export type CarClassEntityResponseCollection = {
+  __typename?: 'CarClassEntityResponseCollection';
+  data: Array<CarClassEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type CarClassFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<CarClassFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  key?: InputMaybe<StringFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<CarClassFiltersInput>;
+  not?: InputMaybe<CarClassFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<CarClassFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  taxi_drivers?: InputMaybe<TaxiDriverFiltersInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  value?: InputMaybe<StringFilterInput>;
+};
+
+export type CarClassInput = {
+  circleIcon?: InputMaybe<Scalars['ID']['input']>;
+  icon?: InputMaybe<Scalars['ID']['input']>;
+  key?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  taxi_drivers?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CarClassRelationResponseCollection = {
+  __typename?: 'CarClassRelationResponseCollection';
+  data: Array<CarClassEntity>;
+};
+
 export type Category = {
   __typename?: 'Category';
   company_promotion_cards?: Maybe<CompanyPromotionCardRelationResponseCollection>;
@@ -464,6 +542,7 @@ export type Comment = {
   email: Scalars['String']['output'];
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   rating: Scalars['Float']['output'];
+  taxi_drivers?: Maybe<TaxiDriverRelationResponseCollection>;
   text: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -479,6 +558,14 @@ export type CommentAnimatorsArgs = {
 
 export type CommentCompany_Promotion_CardsArgs = {
   filters?: InputMaybe<CompanyPromotionCardFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type CommentTaxi_DriversArgs = {
+  filters?: InputMaybe<TaxiDriverFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -512,6 +599,7 @@ export type CommentFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<CommentFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   rating?: InputMaybe<FloatFilterInput>;
+  taxi_drivers?: InputMaybe<TaxiDriverFiltersInput>;
   text?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -522,6 +610,7 @@ export type CommentInput = {
   email?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   rating?: InputMaybe<Scalars['Float']['input']>;
+  taxi_drivers?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   text?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -735,6 +824,34 @@ export type ComponentComponentsEntertainmentServiceInput = {
   serviceName?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type ComponentComponentsWorkSchedule = {
+  __typename?: 'ComponentComponentsWorkSchedule';
+  dayOfWeek: Enum_Componentcomponentsworkschedule_Dayofweek;
+  id: Scalars['ID']['output'];
+  timeSlots: Array<Maybe<ComponentHelpersTimeSlot>>;
+};
+
+
+export type ComponentComponentsWorkScheduleTimeSlotsArgs = {
+  filters?: InputMaybe<ComponentHelpersTimeSlotFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type ComponentComponentsWorkScheduleFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentComponentsWorkScheduleFiltersInput>>>;
+  dayOfWeek?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentComponentsWorkScheduleFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentComponentsWorkScheduleFiltersInput>>>;
+  timeSlots?: InputMaybe<ComponentHelpersTimeSlotFiltersInput>;
+};
+
+export type ComponentComponentsWorkScheduleInput = {
+  dayOfWeek?: InputMaybe<Enum_Componentcomponentsworkschedule_Dayofweek>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  timeSlots?: InputMaybe<Array<InputMaybe<ComponentHelpersTimeSlotInput>>>;
+};
+
 export type ComponentHeaderNavigationMenu = {
   __typename?: 'ComponentHeaderNavigationMenu';
   Link?: Maybe<Scalars['String']['output']>;
@@ -815,6 +932,27 @@ export type ComponentHelpersStringArrayInput = {
   value?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type ComponentHelpersTimeSlot = {
+  __typename?: 'ComponentHelpersTimeSlot';
+  endTime: Scalars['Time']['output'];
+  id: Scalars['ID']['output'];
+  startTime: Scalars['Time']['output'];
+};
+
+export type ComponentHelpersTimeSlotFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentHelpersTimeSlotFiltersInput>>>;
+  endTime?: InputMaybe<TimeFilterInput>;
+  not?: InputMaybe<ComponentHelpersTimeSlotFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentHelpersTimeSlotFiltersInput>>>;
+  startTime?: InputMaybe<TimeFilterInput>;
+};
+
+export type ComponentHelpersTimeSlotInput = {
+  endTime?: InputMaybe<Scalars['Time']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  startTime?: InputMaybe<Scalars['Time']['input']>;
+};
+
 export type DateTimeFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
@@ -839,6 +977,16 @@ export type DateTimeFilterInput = {
   or?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
   startsWith?: InputMaybe<Scalars['DateTime']['input']>;
 };
+
+export enum Enum_Componentcomponentsworkschedule_Dayofweek {
+  Friday = 'Friday',
+  Monday = 'Monday',
+  Saturday = 'Saturday',
+  Sunday = 'Sunday',
+  Thursday = 'Thursday',
+  Tuesday = 'Tuesday',
+  Wednesday = 'Wednesday'
+}
 
 export type EventCard = {
   __typename?: 'EventCard';
@@ -1038,7 +1186,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = AnimationCompany | Animator | Announcement | Area | Category | Comment | CompanyPromotionCard | ComponentComponentsBanner | ComponentComponentsEntertainmentService | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | EventCard | Filters | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Service | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | CompanyPromotionCard | ComponentComponentsBanner | ComponentComponentsEntertainmentService | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTimeSlot | EventCard | Filters | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Service | TaxiDriver | TaxiService | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   __typename?: 'Header';
@@ -1326,6 +1474,7 @@ export type Language = {
   locale?: Maybe<Scalars['String']['output']>;
   localizations?: Maybe<LanguageRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  taxi_drivers?: Maybe<TaxiDriverRelationResponseCollection>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   value: Scalars['String']['output'];
 };
@@ -1341,6 +1490,14 @@ export type LanguageAnimatorsArgs = {
 
 export type LanguageLocalizationsArgs = {
   filters?: InputMaybe<LanguageFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type LanguageTaxi_DriversArgs = {
+  filters?: InputMaybe<TaxiDriverFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -1375,6 +1532,7 @@ export type LanguageFiltersInput = {
   not?: InputMaybe<LanguageFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<LanguageFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  taxi_drivers?: InputMaybe<TaxiDriverFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   value?: InputMaybe<StringFilterInput>;
 };
@@ -1385,6 +1543,7 @@ export type LanguageInput = {
   index?: InputMaybe<Scalars['Int']['input']>;
   key?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  taxi_drivers?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   value?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1404,6 +1563,8 @@ export type Mutation = {
   createAnnouncementLocalization?: Maybe<AnnouncementEntityResponse>;
   createArea?: Maybe<AreaEntityResponse>;
   createAreaLocalization?: Maybe<AreaEntityResponse>;
+  createCarClass?: Maybe<CarClassEntityResponse>;
+  createCarClassLocalization?: Maybe<CarClassEntityResponse>;
   createCategory?: Maybe<CategoryEntityResponse>;
   createCategoryLocalization?: Maybe<CategoryEntityResponse>;
   createComment?: Maybe<CommentEntityResponse>;
@@ -1420,6 +1581,10 @@ export type Mutation = {
   createLanguageLocalization?: Maybe<LanguageEntityResponse>;
   createService?: Maybe<ServiceEntityResponse>;
   createServiceLocalization?: Maybe<ServiceEntityResponse>;
+  createTaxiDriver?: Maybe<TaxiDriverEntityResponse>;
+  createTaxiDriverLocalization?: Maybe<TaxiDriverEntityResponse>;
+  createTaxiService?: Maybe<TaxiServiceEntityResponse>;
+  createTaxiServiceLocalization?: Maybe<TaxiServiceEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   createUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Create a new role */
@@ -1430,6 +1595,7 @@ export type Mutation = {
   deleteAnimator?: Maybe<AnimatorEntityResponse>;
   deleteAnnouncement?: Maybe<AnnouncementEntityResponse>;
   deleteArea?: Maybe<AreaEntityResponse>;
+  deleteCarClass?: Maybe<CarClassEntityResponse>;
   deleteCategory?: Maybe<CategoryEntityResponse>;
   deleteComment?: Maybe<CommentEntityResponse>;
   deleteCompanyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
@@ -1441,6 +1607,8 @@ export type Mutation = {
   deleteHotspotsPage?: Maybe<HotspotsPageEntityResponse>;
   deleteLanguage?: Maybe<LanguageEntityResponse>;
   deleteService?: Maybe<ServiceEntityResponse>;
+  deleteTaxiDriver?: Maybe<TaxiDriverEntityResponse>;
+  deleteTaxiService?: Maybe<TaxiServiceEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Delete an existing role */
@@ -1462,6 +1630,7 @@ export type Mutation = {
   updateAnimator?: Maybe<AnimatorEntityResponse>;
   updateAnnouncement?: Maybe<AnnouncementEntityResponse>;
   updateArea?: Maybe<AreaEntityResponse>;
+  updateCarClass?: Maybe<CarClassEntityResponse>;
   updateCategory?: Maybe<CategoryEntityResponse>;
   updateComment?: Maybe<CommentEntityResponse>;
   updateCompanyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
@@ -1474,6 +1643,8 @@ export type Mutation = {
   updateHotspotsPage?: Maybe<HotspotsPageEntityResponse>;
   updateLanguage?: Maybe<LanguageEntityResponse>;
   updateService?: Maybe<ServiceEntityResponse>;
+  updateTaxiDriver?: Maybe<TaxiDriverEntityResponse>;
+  updateTaxiService?: Maybe<TaxiServiceEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Update an existing role */
@@ -1530,6 +1701,19 @@ export type MutationCreateAreaArgs = {
 
 export type MutationCreateAreaLocalizationArgs = {
   data?: InputMaybe<AreaInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateCarClassArgs = {
+  data: CarClassInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateCarClassLocalizationArgs = {
+  data?: InputMaybe<CarClassInput>;
   id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -1638,6 +1822,32 @@ export type MutationCreateServiceLocalizationArgs = {
 };
 
 
+export type MutationCreateTaxiDriverArgs = {
+  data: TaxiDriverInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateTaxiDriverLocalizationArgs = {
+  data?: InputMaybe<TaxiDriverInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateTaxiServiceArgs = {
+  data: TaxiServiceInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateTaxiServiceLocalizationArgs = {
+  data?: InputMaybe<TaxiServiceInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationCreateUploadFileArgs = {
   data: UploadFileInput;
 };
@@ -1676,6 +1886,12 @@ export type MutationDeleteAnnouncementArgs = {
 
 
 export type MutationDeleteAreaArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeleteCarClassArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -1736,6 +1952,18 @@ export type MutationDeleteLanguageArgs = {
 
 
 export type MutationDeleteServiceArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeleteTaxiDriverArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeleteTaxiServiceArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -1828,6 +2056,13 @@ export type MutationUpdateAreaArgs = {
 };
 
 
+export type MutationUpdateCarClassArgs = {
+  data: CarClassInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationUpdateCategoryArgs = {
   data: CategoryInput;
   id: Scalars['ID']['input'];
@@ -1905,6 +2140,20 @@ export type MutationUpdateServiceArgs = {
 };
 
 
+export type MutationUpdateTaxiDriverArgs = {
+  data: TaxiDriverInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationUpdateTaxiServiceArgs = {
+  data: TaxiServiceInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationUpdateUploadFileArgs = {
   data: UploadFileInput;
   id: Scalars['ID']['input'];
@@ -1967,6 +2216,8 @@ export type Query = {
   announcements?: Maybe<AnnouncementEntityResponseCollection>;
   area?: Maybe<AreaEntityResponse>;
   areas?: Maybe<AreaEntityResponseCollection>;
+  carClass?: Maybe<CarClassEntityResponse>;
+  carClasses?: Maybe<CarClassEntityResponseCollection>;
   categories?: Maybe<CategoryEntityResponseCollection>;
   category?: Maybe<CategoryEntityResponse>;
   comment?: Maybe<CommentEntityResponse>;
@@ -1988,6 +2239,10 @@ export type Query = {
   me?: Maybe<UsersPermissionsMe>;
   service?: Maybe<ServiceEntityResponse>;
   services?: Maybe<ServiceEntityResponseCollection>;
+  taxiDriver?: Maybe<TaxiDriverEntityResponse>;
+  taxiDrivers?: Maybe<TaxiDriverEntityResponseCollection>;
+  taxiService?: Maybe<TaxiServiceEntityResponse>;
+  taxiServices?: Maybe<TaxiServiceEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
   uploadFiles?: Maybe<UploadFileEntityResponseCollection>;
   uploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -2050,6 +2305,21 @@ export type QueryAreaArgs = {
 
 export type QueryAreasArgs = {
   filters?: InputMaybe<AreaFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryCarClassArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryCarClassesArgs = {
+  filters?: InputMaybe<CarClassFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
@@ -2187,6 +2457,36 @@ export type QueryServiceArgs = {
 
 export type QueryServicesArgs = {
   filters?: InputMaybe<ServiceFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryTaxiDriverArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryTaxiDriversArgs = {
+  filters?: InputMaybe<TaxiDriverFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryTaxiServiceArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryTaxiServicesArgs = {
+  filters?: InputMaybe<TaxiServiceFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
@@ -2332,6 +2632,233 @@ export type StringFilterInput = {
   null?: InputMaybe<Scalars['Boolean']['input']>;
   or?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   startsWith?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TaxiDriver = {
+  __typename?: 'TaxiDriver';
+  averageRating: Scalars['Float']['output'];
+  carModel: Scalars['String']['output'];
+  carName: Scalars['String']['output'];
+  car_class?: Maybe<CarClassEntityResponse>;
+  comments?: Maybe<CommentRelationResponseCollection>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  isNotWorking: Scalars['Boolean']['output'];
+  languages?: Maybe<LanguageRelationResponseCollection>;
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<TaxiDriverRelationResponseCollection>;
+  name: Scalars['String']['output'];
+  passengersNum: Scalars['Int']['output'];
+  preferences?: Maybe<Array<Maybe<ComponentHelpersStringArray>>>;
+  profileImg: UploadFileEntityResponse;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  schedule?: Maybe<Array<Maybe<ComponentComponentsWorkSchedule>>>;
+  slug: Scalars['String']['output'];
+  socialLinkls?: Maybe<Array<Maybe<ComponentHelpersSocialMedia>>>;
+  totalComments: Scalars['Int']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type TaxiDriverCommentsArgs = {
+  filters?: InputMaybe<CommentFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TaxiDriverLanguagesArgs = {
+  filters?: InputMaybe<LanguageFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TaxiDriverLocalizationsArgs = {
+  filters?: InputMaybe<TaxiDriverFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TaxiDriverPreferencesArgs = {
+  filters?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TaxiDriverScheduleArgs = {
+  filters?: InputMaybe<ComponentComponentsWorkScheduleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TaxiDriverSocialLinklsArgs = {
+  filters?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type TaxiDriverEntity = {
+  __typename?: 'TaxiDriverEntity';
+  attributes?: Maybe<TaxiDriver>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type TaxiDriverEntityResponse = {
+  __typename?: 'TaxiDriverEntityResponse';
+  data?: Maybe<TaxiDriverEntity>;
+};
+
+export type TaxiDriverEntityResponseCollection = {
+  __typename?: 'TaxiDriverEntityResponseCollection';
+  data: Array<TaxiDriverEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type TaxiDriverFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<TaxiDriverFiltersInput>>>;
+  averageRating?: InputMaybe<FloatFilterInput>;
+  carModel?: InputMaybe<StringFilterInput>;
+  carName?: InputMaybe<StringFilterInput>;
+  car_class?: InputMaybe<CarClassFiltersInput>;
+  comments?: InputMaybe<CommentFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  isNotWorking?: InputMaybe<BooleanFilterInput>;
+  languages?: InputMaybe<LanguageFiltersInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<TaxiDriverFiltersInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<TaxiDriverFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<TaxiDriverFiltersInput>>>;
+  passengersNum?: InputMaybe<IntFilterInput>;
+  preferences?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  schedule?: InputMaybe<ComponentComponentsWorkScheduleFiltersInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  socialLinkls?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  totalComments?: InputMaybe<IntFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type TaxiDriverInput = {
+  averageRating?: InputMaybe<Scalars['Float']['input']>;
+  carModel?: InputMaybe<Scalars['String']['input']>;
+  carName?: InputMaybe<Scalars['String']['input']>;
+  car_class?: InputMaybe<Scalars['ID']['input']>;
+  comments?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  isNotWorking?: InputMaybe<Scalars['Boolean']['input']>;
+  languages?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  passengersNum?: InputMaybe<Scalars['Int']['input']>;
+  preferences?: InputMaybe<Array<InputMaybe<ComponentHelpersStringArrayInput>>>;
+  profileImg?: InputMaybe<Scalars['ID']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  schedule?: InputMaybe<Array<InputMaybe<ComponentComponentsWorkScheduleInput>>>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  socialLinkls?: InputMaybe<Array<InputMaybe<ComponentHelpersSocialMediaInput>>>;
+  totalComments?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type TaxiDriverRelationResponseCollection = {
+  __typename?: 'TaxiDriverRelationResponseCollection';
+  data: Array<TaxiDriverEntity>;
+};
+
+export type TaxiService = {
+  __typename?: 'TaxiService';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  icon: UploadFileEntityResponse;
+  key: Scalars['String']['output'];
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<TaxiServiceRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  subTitle: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type TaxiServiceLocalizationsArgs = {
+  filters?: InputMaybe<TaxiServiceFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type TaxiServiceEntity = {
+  __typename?: 'TaxiServiceEntity';
+  attributes?: Maybe<TaxiService>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type TaxiServiceEntityResponse = {
+  __typename?: 'TaxiServiceEntityResponse';
+  data?: Maybe<TaxiServiceEntity>;
+};
+
+export type TaxiServiceEntityResponseCollection = {
+  __typename?: 'TaxiServiceEntityResponseCollection';
+  data: Array<TaxiServiceEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type TaxiServiceFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<TaxiServiceFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  key?: InputMaybe<StringFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<TaxiServiceFiltersInput>;
+  not?: InputMaybe<TaxiServiceFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<TaxiServiceFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  subTitle?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type TaxiServiceInput = {
+  icon?: InputMaybe<Scalars['ID']['input']>;
+  key?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  subTitle?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TaxiServiceRelationResponseCollection = {
+  __typename?: 'TaxiServiceRelationResponseCollection';
+  data: Array<TaxiServiceEntity>;
+};
+
+export type TimeFilterInput = {
+  and?: InputMaybe<Array<InputMaybe<Scalars['Time']['input']>>>;
+  between?: InputMaybe<Array<InputMaybe<Scalars['Time']['input']>>>;
+  contains?: InputMaybe<Scalars['Time']['input']>;
+  containsi?: InputMaybe<Scalars['Time']['input']>;
+  endsWith?: InputMaybe<Scalars['Time']['input']>;
+  eq?: InputMaybe<Scalars['Time']['input']>;
+  eqi?: InputMaybe<Scalars['Time']['input']>;
+  gt?: InputMaybe<Scalars['Time']['input']>;
+  gte?: InputMaybe<Scalars['Time']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['Time']['input']>>>;
+  lt?: InputMaybe<Scalars['Time']['input']>;
+  lte?: InputMaybe<Scalars['Time']['input']>;
+  ne?: InputMaybe<Scalars['Time']['input']>;
+  nei?: InputMaybe<Scalars['Time']['input']>;
+  not?: InputMaybe<TimeFilterInput>;
+  notContains?: InputMaybe<Scalars['Time']['input']>;
+  notContainsi?: InputMaybe<Scalars['Time']['input']>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['Time']['input']>>>;
+  notNull?: InputMaybe<Scalars['Boolean']['input']>;
+  null?: InputMaybe<Scalars['Boolean']['input']>;
+  or?: InputMaybe<Array<InputMaybe<Scalars['Time']['input']>>>;
+  startsWith?: InputMaybe<Scalars['Time']['input']>;
 };
 
 export type UploadFile = {
@@ -2765,6 +3292,16 @@ export type GetAnimationCompaniesQueryVariables = Exact<{ [key: string]: never; 
 
 export type GetAnimationCompaniesQuery = { __typename?: 'Query', animationCompanies?: { __typename?: 'AnimationCompanyEntityResponseCollection', data: Array<{ __typename?: 'AnimationCompanyEntity', attributes?: { __typename?: 'AnimationCompany', key: string, value: string } | null }> } | null };
 
+export type GetLanguagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLanguagesQuery = { __typename?: 'Query', languages?: { __typename?: 'LanguageEntityResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string } | null }> } | null };
+
+export type GetCarClassesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCarClassesQuery = { __typename?: 'Query', carClasses?: { __typename?: 'CarClassEntityResponseCollection', data: Array<{ __typename?: 'CarClassEntity', attributes?: { __typename?: 'CarClass', key: string, value: string } | null }> } | null };
+
 export type GetHomePageQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
 }>;
@@ -2834,6 +3371,21 @@ export type CompanyCardPreviewFragment = { __typename?: 'CompanyPromotionCard', 
 export type ServiceFragment = { __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null };
 
 export type CommentFragment = { __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null };
+
+export type GetDriversByFiltersQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  languageKeys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  timeFilters?: InputMaybe<ComponentComponentsWorkScheduleFiltersInput>;
+  carClasses?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+}>;
+
+
+export type GetDriversByFiltersQuery = { __typename?: 'Query', taxiDrivers?: { __typename?: 'TaxiDriverEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } }, data: Array<{ __typename?: 'TaxiDriverEntity', attributes?: { __typename?: 'TaxiDriver', slug: string, name: string, totalComments: number, averageRating: number, isNotWorking: boolean, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, schedule?: Array<{ __typename?: 'ComponentComponentsWorkSchedule', dayOfWeek: Enum_Componentcomponentsworkschedule_Dayofweek, timeSlots: Array<{ __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } | null> } | null> | null, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, car_class?: { __typename?: 'CarClassEntityResponse', data?: { __typename?: 'CarClassEntity', attributes?: { __typename?: 'CarClass', value: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null } | null } | null } | null }> } | null };
+
+export type TaxiDriverPreviewFragment = { __typename?: 'TaxiDriver', slug: string, name: string, totalComments: number, averageRating: number, isNotWorking: boolean, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, schedule?: Array<{ __typename?: 'ComponentComponentsWorkSchedule', dayOfWeek: Enum_Componentcomponentsworkschedule_Dayofweek, timeSlots: Array<{ __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } | null> } | null> | null, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, car_class?: { __typename?: 'CarClassEntityResponse', data?: { __typename?: 'CarClassEntity', attributes?: { __typename?: 'CarClass', value: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null } | null } | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -3216,6 +3768,52 @@ export const CompanyCardPreviewFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"CompanyCardPreview"}) as unknown as TypedDocumentString<CompanyCardPreviewFragment, unknown>;
+export const TaxiDriverPreviewFragmentDoc = new TypedDocumentString(`
+    fragment TaxiDriverPreview on TaxiDriver {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  schedule {
+    dayOfWeek
+    timeSlots {
+      startTime
+      endTime
+    }
+  }
+  languages {
+    data {
+      attributes {
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  car_class {
+    data {
+      attributes {
+        value
+        icon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  totalComments
+  averageRating
+  isNotWorking
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`, {"fragmentName":"TaxiDriverPreview"}) as unknown as TypedDocumentString<TaxiDriverPreviewFragment, unknown>;
 export const GetAnimatorBySlugDocument = new TypedDocumentString(`
     query GetAnimatorBySlug($slug: String!, $locale: I18NLocaleCode!) {
   animators(filters: {slug: {eq: $slug}}, locale: $locale) {
@@ -3447,6 +4045,30 @@ export const GetAnimationCompaniesDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<GetAnimationCompaniesQuery, GetAnimationCompaniesQueryVariables>;
+export const GetLanguagesDocument = new TypedDocumentString(`
+    query GetLanguages {
+  languages(sort: "index:asc") {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<GetLanguagesQuery, GetLanguagesQueryVariables>;
+export const GetCarClassesDocument = new TypedDocumentString(`
+    query GetCarClasses {
+  carClasses {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<GetCarClassesQuery, GetCarClassesQueryVariables>;
 export const GetHomePageDocument = new TypedDocumentString(`
     query GetHomePage($locale: I18NLocaleCode!) {
   home(locale: $locale) {
@@ -3773,3 +4395,68 @@ export const GetPromotionCardsSlugsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<GetPromotionCardsSlugsQuery, GetPromotionCardsSlugsQueryVariables>;
+export const GetDriversByFiltersDocument = new TypedDocumentString(`
+    query GetDriversByFilters($locale: I18NLocaleCode!, $page: Int, $pageSize: Int, $sort: [String], $languageKeys: [String], $timeFilters: ComponentComponentsWorkScheduleFiltersInput, $carClasses: [String]) {
+  taxiDrivers(
+    sort: $sort
+    locale: $locale
+    pagination: {page: $page, pageSize: $pageSize}
+    filters: {languages: {key: {in: $languageKeys}}, schedule: $timeFilters, car_class: {key: {in: $carClasses}}}
+  ) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      attributes {
+        ...TaxiDriverPreview
+      }
+    }
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}
+fragment TaxiDriverPreview on TaxiDriver {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  schedule {
+    dayOfWeek
+    timeSlots {
+      startTime
+      endTime
+    }
+  }
+  languages {
+    data {
+      attributes {
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  car_class {
+    data {
+      attributes {
+        value
+        icon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  totalComments
+  averageRating
+  isNotWorking
+}`) as unknown as TypedDocumentString<GetDriversByFiltersQuery, GetDriversByFiltersQueryVariables>;

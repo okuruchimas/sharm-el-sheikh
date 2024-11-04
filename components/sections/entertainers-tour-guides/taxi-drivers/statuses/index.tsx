@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
-import { Status, Statuses } from "../card";
+import { StatusDot, Statuses } from "../card";
 
+export type Status = "available" | "unavailable" | "notwork";
 export interface TaxiStatusProps {
   text: string;
-  status: "available" | "unavailable" | "notwork";
+  status: Status;
 }
 const TaxiStatus = ({ text, status }: TaxiStatusProps) => {
   return (
@@ -29,7 +30,7 @@ const Text = styled("span")(({ theme }) => ({
   [theme.breakpoints.mobile]: {},
 }));
 
-const StatusStyled = styled(Status)(({ theme }) => ({
+const StatusStyled = styled(StatusDot)(({ theme }) => ({
   position: "unset",
   [theme.breakpoints.mobile]: {},
 }));

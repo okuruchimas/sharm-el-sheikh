@@ -13,3 +13,11 @@ export const formatDate = (dateValue: string, dateFormat?: string) => {
 
   return format(date, dateFormat || "dd.MM.yyyy");
 };
+
+export const getDayAndTime = () => {
+  const currentDate = new Date();
+  const dayOfWeek = format(currentDate, "EEEE"); // "Monday"
+  const time = format(currentDate, "HH:mm:ss.SSS"); // "10:00:00.000"
+
+  return { dayOfWeek, time };
+};
