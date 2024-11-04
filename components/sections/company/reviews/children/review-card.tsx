@@ -59,6 +59,7 @@ export const CardWrapper = styled("div", {
   boxShadow: theme.shadows[1],
   backgroundColor: theme.colors.white2,
   transition: "transform 0.3s ease",
+  overflow: "hidden",
 
   "&:hover": {
     zIndex: 1,

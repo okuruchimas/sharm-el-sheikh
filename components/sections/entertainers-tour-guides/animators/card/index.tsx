@@ -1,14 +1,15 @@
 import styled from "@emotion/styled";
 import Card from "../../children/card";
-import { Animator } from "../../../../../gql/graphql";
+import type { AnimatorPreviewFragment } from "../../../../../gql/graphql";
 
 type AnimatorCardProps = {
-  animator: Animator;
+  animator: AnimatorPreviewFragment;
 };
 const AnimatorCard = ({ animator }: AnimatorCardProps) => {
-  const flags = animator.languages?.data.map(
-    (el) => el.attributes?.flagIcon.data?.attributes?.url || "",
-  );
+  const flags = animator.languages?.data.map((el) => ({
+    src: el.attributes?.flagIcon.data?.attributes?.url || "",
+    alt: el.attributes?.value || "",
+  }));
 
   const indicator = animator.workingAtClub ? (
     <IsClub
@@ -21,15 +22,15 @@ const AnimatorCard = ({ animator }: AnimatorCardProps) => {
 
   return (
     <Card
-      totalComments={animator.totalComments}
-      averageRating={animator.averageRating}
       slug={`/entertainers-tour-guides/animators/${animator.slug}`}
-      hotelName={animator.hotelName}
+      title={animator.name}
+      imgSrc={animator?.profileImg?.data?.attributes?.url || ""}
       greyText={animator.animation_company?.data?.attributes?.value || ""}
       indicator={indicator}
-      title={animator.name}
-      flagIcons={flags || [""]}
-      imgSrc={animator?.profileImg?.data?.attributes?.url || ""}
+      flagIcons={flags || []}
+      hotelName={animator.hotelName}
+      totalComments={animator.totalComments}
+      averageRating={animator.averageRating}
     />
   );
 };

@@ -1,9 +1,9 @@
 import AnimatorCard from "../card";
 import styled from "@emotion/styled";
-import { Animator } from "../../../../../gql/graphql";
+import type { AnimatorPreviewFragment } from "../../../../../gql/graphql";
 
 type AnimatorCardsProps = {
-  animators: Animator[];
+  animators: AnimatorPreviewFragment[];
 };
 const AnimatorCards = ({ animators }: AnimatorCardsProps) => {
   return (
