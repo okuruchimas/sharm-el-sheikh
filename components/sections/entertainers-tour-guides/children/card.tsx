@@ -15,7 +15,8 @@ interface Props {
   imgSrc: string;
   title: string;
   greyText: string;
-  hotelName: string;
+  iconSrc: string;
+  iconText: string;
   indicator?: ReactNode;
   flagIcons: ImageI[];
   averageRating: number;
@@ -27,7 +28,8 @@ const Card = ({
   title,
   imgSrc,
   greyText,
-  hotelName,
+  iconSrc,
+  iconText,
   flagIcons,
   indicator,
   averageRating,
@@ -44,7 +46,7 @@ const Card = ({
           averageRating={averageRating}
           totalComments={totalComments}
         />
-        <TextAndIcon src="/icons/Hotel.svg" text={hotelName} />
+        <TextAndIcon src={iconSrc} text={iconText} />
         <FlagsWrapper>
           <Flags icons={flagIcons} />
         </FlagsWrapper>

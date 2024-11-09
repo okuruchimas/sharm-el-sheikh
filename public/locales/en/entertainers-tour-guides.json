@@ -3,6 +3,15 @@
   "buttons": {
     "nearestAnimator": "Nearest Animator"
   },
+  "days": {
+    "mon": "Mon",
+    "tue": "Tue",
+    "wed": "Wed",
+    "thu": "Thu",
+    "fri": "Fri",
+    "sat": "Sat",
+    "sun": "Sun"
+  },
   "filters": {
     "fewestReviews": "Fewest Reviews",
     "highestRating": "Highest Rating",
@@ -10,11 +19,30 @@
     "mostReviews": "Most Reviews"
   },
   "pageTitle": "Engage the best guides and entertainers to make every journey and evening unforgettable!",
+  "placeholders": {
+    "noDrivers": "No Drivers was found",
+    "noAnimators": "No Animators was found",
+    "noPhotographers": "No Photographers was found",
+    "noTourOperators": "No Tour Operators was found"
+  },
   "sortBy": "Sort by",
   "tabs": {
     "animators": "Animators",
     "photographers": "Photographers",
     "taxiDrivers": "Taxi Drivers",
     "tourOperators": "Tour operators and Guides"
+  },
+  "taxiFilterForm": {
+    "availability": "Availability",
+    "availableNow": "Available Now",
+    "availableLater": "Available at Another Time",
+    "carClass": "Car Class",
+    "languagesSpoken": "Languages Spoken by the Driver",
+    "otherLanguages": "Other Languages"
+  },
+  "taxiStatus": {
+    "available": "Available",
+    "notAvailable": "Not Available",
+    "doesntWork": "Doesn't Work"
   }
 }
