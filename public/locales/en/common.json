@@ -5,6 +5,22 @@
     "more": "More",
     "viewMore": "View more"
   },
+  "days": {
+    "mon": "Mon",
+    "tue": "Tue",
+    "wed": "Wed",
+    "thu": "Thu",
+    "fri": "Fri",
+    "sat": "Sat",
+    "sun": "Sun",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  },
   "labels": {
     "email": "Email",
     "location": "Location",
@@ -20,12 +36,19 @@
       "price": "Price",
       "professionalism": "Professionalism",
       "programQuality": "Program Quality",
+      "quality": "Quality",
       "service": "Service"
     },
     "noReviews": "Currently, there are no reviews. Be the first to share your experience!",
     "review": "Review",
     "sendButton": "Send",
     "yourReview": "Your review"
+  },
+  "text": {
+    "entertainersTourGuides": "Entertainers & Tour Guides",
+    "languagesSpoken": "Languages Spoken",
+    "reviews": "Reviews",
+    "similarSuggestions": "Similar Suggestions"
   },
   "toasts": {
     "feedbackError": "Error adding comment",

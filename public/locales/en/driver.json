@@ -1,0 +1,13 @@
+{
+  "contactDriver": "*You can plan your trip in advance by contacting the driver",
+  "passenger": "Passenger",
+  "passengers": "Passengers",
+  "preferences": "Preferences",
+  "reviewFormTitle": "How would you rate this taxi driver?",
+  "taxiDrivers": "Taxi Drivers",
+  "taxiStatus": {
+    "available": "Available",
+    "doesntWork": "Doesn't Work",
+    "notAvailable": "Not Available"
+  }
+}

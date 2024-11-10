@@ -5,6 +5,22 @@
     "more": "Більше",
     "viewMore": "Дивитись більше"
   },
+  "days": {
+    "mon": "Пн",
+    "tue": "Вт",
+    "wed": "Ср",
+    "thu": "Чт",
+    "fri": "Пт",
+    "sat": "Сб",
+    "sun": "Нд",
+    "friday": "П’ятниця",
+    "monday": "Понеділок",
+    "saturday": "Субота",
+    "sunday": "Неділя",
+    "thursday": "Четвер",
+    "tuesday": "Вівторок",
+    "wednesday": "Середа"
+  },
   "labels": {
     "email": "Електронна пошта",
     "location": "Локація",
@@ -20,12 +36,19 @@
       "price": "Ціна",
       "professionalism": "Професіоналізм",
       "programQuality": "Якість програми",
+      "quality": "Якість",
       "service": "Обслуговування"
     },
     "noReviews": "Зараз відгуків немає. Будьте першим, хто поділиться своїм досвідом!",
     "review": "Відгук",
     "sendButton": "Надіслати",
     "yourReview": "Ваш відгук"
+  },
+  "text": {
+    "entertainersTourGuides": "Аніматори та Туристичні Гіди",
+    "languagesSpoken": "Мови, якими володіє",
+    "reviews": "Відгуки",
+    "similarSuggestions": "Схожі пропозиції"
   },
   "toasts": {
     "feedbackError": "Помилка додавання коментаря",

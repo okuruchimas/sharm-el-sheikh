@@ -1,25 +1,24 @@
 import {
-  type Animator,
-  type AnimatorPreviewFragment,
-  type ComponentHeaderNavigationMenu,
-  GetAnimatorBySlugDocument,
-  GetAnimatorsSlugsDocument,
-  GetAnimatorsByFilterDocument,
+  type TaxiDriver,
+  type TaxiDriverPreviewFragment,
+  GetDriversSlugsDocument,
+  GetDriverBySlugDocument,
+  GetDriversByFiltersDocument,
 } from "../../../../gql/graphql";
 import { toast, ToastContainer } from "react-toastify";
 // hooks
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 // components
 import Reviews from "../../../../components/sections/company/reviews";
+import TaxiCard from "../../../../components/sections/entertainers-tour-guides/taxi-drivers/card";
 import BackRoute from "../../../../components/sections/entertainers-tour-guides/children/back-route";
 import ReviewForm from "../../../../components/sections/company/review";
 import Placeholder from "../../../../components/sections/promotions/children/placeholder";
-import AnimatorCard from "../../../../components/sections/entertainers-tour-guides/animators/card";
+import TaxiServices from "../../../../components/sections/taxi-driver/taxi-services";
+import WorkSchedule from "../../../../components/sections/taxi-driver/work-schedule";
 import SectionWrapper from "../../../../components/layout/section-wrapper";
 import SectionsWrapper from "../../../../components/layout/sections-wrapper";
-import AnimatorInfoSection from "../../../../components/sections/animator/animator-info-section";
-import EntertainmentServiceCard from "../../../../components/sections/animator/children/entertainment-service-card";
+import DriverInfoSection from "../../../../components/sections/taxi-driver/driver-info-section";
 // constants
 import { REVALIDATE_TIME } from "../../../../constants/page.constants";
 // utils
@@ -33,40 +32,38 @@ import "react-toastify/dist/ReactToastify.css";
 import nextI18NextConfig from "../../../../next-i18next.config";
 
 interface Props {
-  animator: Animator;
-  navigation: ComponentHeaderNavigationMenu[];
-  similarSuggestions: { attributes: AnimatorPreviewFragment }[];
+  taxiDriver: TaxiDriver;
+  similarSuggestions: { attributes: TaxiDriverPreviewFragment }[];
 }
 
 const AnimatorPage = ({
-  animator: {
+  taxiDriver: {
     name,
     slug,
-    skills,
+    carName,
+    schedule,
+    carModel,
     comments,
     languages,
-    hotelName,
+    car_class,
     profileImg,
-    description,
+    preferences,
     socialLinks,
+    isNotWorking,
+    taxi_services,
+    passengersNum,
     averageRating,
-    workingAtClub,
     totalComments,
-    animation_company,
-    entertainmentServices,
   },
-  navigation,
   similarSuggestions,
 }: Props) => {
-  const { t } = useTranslation("animator");
+  const { t } = useTranslation("driver");
   const { t: tCommon } = useTranslation("common");
-  const router = useRouter();
 
   const categories = [
     { name: "service", label: tCommon("reviewForm.categories.service") },
     { name: "price", label: tCommon("reviewForm.categories.price") },
-    { name: "quality", label: tCommon("reviewForm.categories.programQuality") },
-    { name: "comm", label: tCommon("reviewForm.categories.communication") },
+    { name: "quality", label: tCommon("reviewForm.categories.quality") },
     { name: "prof", label: tCommon("reviewForm.categories.professionalism") },
   ];
 
@@ -84,7 +81,7 @@ const AnimatorPage = ({
       await addComment({
         slug,
         comment: { rating, text, email },
-        collectionType: "animators",
+        collectionType: "taxi-driver",
       });
       toast.success(tCommon("toasts.feedbackSuccess"));
     } catch (error) {
@@ -101,41 +98,31 @@ const AnimatorPage = ({
       >
         <div style={{ width: "100%" }}>
           <BackRoute
-            href={"/entertainers-tour-guides/animators"}
+            href={"/entertainers-tour-guides/taxi-drivers"}
             baseRoute={`${tCommon("text.entertainersTourGuides")} / `}
-            subRoute={`${t("animators")} / `}
+            subRoute={`${t("taxiDrivers")} / `}
             name={name}
           />
-          <AnimatorInfoSection
-            imgSrs={profileImg.data?.attributes?.url || ""}
+          <DriverInfoSection
             name={name}
+            schedule={schedule}
+            imgSrs={profileImg.data?.attributes?.url || ""}
             languages={languagesMapped || []}
-            skills={skills}
-            hotelName={hotelName}
-            description={description}
             socialLinks={socialLinks}
-            companyName={animation_company?.data?.attributes?.value || ""}
             totalComments={totalComments}
             averageRating={averageRating}
-            workingAtClub={workingAtClub}
+            isNotWorking={isNotWorking}
+            preferences={preferences}
           />
         </div>
-        {entertainmentServices?.length ? (
-          <SectionWrapper title={t("entertainmentServices")}>
-            <SuggestionsWrapper>
-              {entertainmentServices?.map((el, index) => (
-                <EntertainmentServiceCard
-                  key={index}
-                  title={el?.serviceName || ""}
-                  price={el?.price || ""}
-                  place={el?.place || ""}
-                  duration={el?.duration || ""}
-                  imgSrc={el?.image?.data?.attributes?.url || ""}
-                />
-              ))}
-            </SuggestionsWrapper>
-          </SectionWrapper>
-        ) : null}
+        <TaxiServices
+          carName={carName}
+          carModel={carModel}
+          car_class={car_class}
+          passengersNum={passengersNum}
+          taxi_services={taxi_services}
+        />
+        <WorkSchedule schedule={schedule} />
         <Reviews
           title={tCommon("text.reviews")}
           comments={comments?.data || []}
@@ -149,10 +136,7 @@ const AnimatorPage = ({
           {similarSuggestions.length ? (
             <SuggestionsWrapper>
               {similarSuggestions.map((el) => (
-                <AnimatorCard
-                  animator={el.attributes}
-                  key={el.attributes.slug}
-                />
+                <TaxiCard key={el.attributes.slug} driver={el.attributes} />
               ))}
             </SuggestionsWrapper>
           ) : (
@@ -187,11 +171,11 @@ const SuggestionsWrapper = styled("div")(({ theme }) => ({
 }));
 
 export async function getStaticPaths() {
-  const { animators } = await fetchData(GetAnimatorsSlugsDocument);
+  const { taxiDrivers } = await fetchData(GetDriversSlugsDocument);
 
   const locales = nextI18NextConfig.i18n.locales;
 
-  const paths = animators?.data.flatMap((el) => {
+  const paths = taxiDrivers?.data.flatMap((el) => {
     return locales.map((locale) => ({
       params: { slug: el?.attributes?.slug || "" },
       locale,
@@ -207,29 +191,29 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, locale }: any) {
   const { slug } = params;
 
-  const { animators } = await fetchData(GetAnimatorBySlugDocument, {
+  const { taxiDrivers } = await fetchData(GetDriverBySlugDocument, {
     slug,
     locale,
   });
 
-  const { animators: suggestions } = await fetchData(
-    GetAnimatorsByFilterDocument,
+  const { taxiDrivers: suggestions } = await fetchData(
+    GetDriversByFiltersDocument,
     {
       locale,
       page: 1,
       pageSize: 4,
       sort: ["averageRating:desc"],
-      companyKey:
-        animators?.data[0].attributes?.animation_company?.data?.attributes
-          ?.key || undefined,
+      carClasses: [
+        taxiDrivers?.data[0].attributes?.car_class?.data?.attributes?.key || "",
+      ],
       slugToExclude: slug,
     },
   );
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["animator", "common"])),
-      animator: animators?.data[0].attributes,
+      ...(await serverSideTranslations(locale, ["common", "driver"])),
+      taxiDriver: taxiDrivers?.data[0].attributes,
       similarSuggestions: suggestions?.data,
     },
     revalidate: REVALIDATE_TIME,

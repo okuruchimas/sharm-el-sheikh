@@ -1,0 +1,13 @@
+{
+  "contactDriver": "*يمكنك التخطيط لرحلتك مسبقًا عن طريق الاتصال بالسائق",
+  "passenger": "راكب",
+  "passengers": "ركاب",
+  "preferences": "تفضيلات",
+  "reviewFormTitle": "كيف تقيم هذا السائق؟",
+  "taxiDrivers": "سائقين التاكسي",
+  "taxiStatus": {
+    "available": "متاح",
+    "doesntWork": "لا يعمل",
+    "notAvailable": "غير متاح"
+  }
+}

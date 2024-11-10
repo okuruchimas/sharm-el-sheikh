@@ -18,16 +18,6 @@ import { useTranslation } from "next-i18next";
 // import { LocalizationProvider } from "@mui/x-date-pickers";
 // import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-const days = [
-  { key: "mon", value: "Monday" },
-  { key: "tue", value: "Tuesday" },
-  { key: "wed", value: "Wednesday" },
-  { key: "thu", value: "Thursday" },
-  { key: "fri", value: "Friday" },
-  { key: "sat", value: "Saturday" },
-  { key: "sun", value: "Sunday" },
-];
-
 export type TaxiFilterFormI = {
   availableNow?: boolean;
   availableLater?: boolean;

@@ -5,6 +5,22 @@
     "more": "أكثر",
     "viewMore": "عرض المزيد"
   },
+  "days": {
+    "mon": "الإثنين",
+    "tue": "الثلاثاء",
+    "wed": "الأربعاء",
+    "thu": "الخميس",
+    "fri": "الجمعة",
+    "sat": "السبت",
+    "sun": "الأحد",
+    "friday": "الجمعة",
+    "monday": "الاثنين",
+    "saturday": "السبت",
+    "sunday": "الأحد",
+    "thursday": "الخميس",
+    "tuesday": "الثلاثاء",
+    "wednesday": "الأربعاء"
+  },
   "labels": {
     "email": "البريد الإلكتروني",
     "location": "الموقع",
@@ -20,12 +36,19 @@
       "price": "سعر",
       "professionalism": "الاحتراف",
       "programQuality": "جودة البرنامج",
+      "quality": "جودة",
       "service": "خدمة"
     },
     "noReviews": "لا توجد تعليقات حاليًا. كن أول من يشارك تجربته!",
     "review": "مراجعة",
     "sendButton": "إرسال",
     "yourReview": "مراجعتك"
+  },
+  "text": {
+    "entertainersTourGuides": "المسليين ومرشدي الجولات",
+    "languagesSpoken": "اللغات المحكية",
+    "reviews": "التقييمات",
+    "similarSuggestions": "اقتراحات مشابهة"
   },
   "toasts": {
     "feedbackError": "حدث خطأ أثناء إضافة التعليق",

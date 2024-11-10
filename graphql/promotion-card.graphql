@@ -15,12 +15,14 @@ query GetCompanyPromotionCardsByFilter(
   $locale: I18NLocaleCode!
   $page: Int
   $pageSize: Int
+  $slugToExclude: String
 ) {
   companyPromotionCards(
     locale: $locale
     filters: {
       area: { key: { eq: $areaKey } }
       categories: { key: { eq: $category } }
+      slug: { ne: $slugToExclude }
     }
     pagination: { page: $page, pageSize: $pageSize }
   ) {

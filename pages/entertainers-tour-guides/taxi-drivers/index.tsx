@@ -9,14 +9,12 @@ import {
 import TaxiFilterForm, {
   type TaxiFilterFormI,
 } from "../../../components/layout/filters/taxi-filter";
-import TaxiStatus, {
-  type Status,
-  type TaxiStatusProps,
-} from "../../../components/sections/entertainers-tour-guides/taxi-drivers/statuses";
+import TaxiStatus from "../../../components/sections/entertainers-tour-guides/taxi-drivers/statuses";
 // hooks
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "next-i18next";
 // constants
+import { TAXI_STATUSES } from "../../../constants/taxi-statuses.constants";
 import { REVALIDATE_TIME } from "../../../constants/page.constants";
 // components
 import useResponsive from "../../../hooks/useResponsive";
@@ -27,7 +25,7 @@ import TaxiCards from "../../../components/sections/entertainers-tour-guides/tax
 import Pagination from "../../../components/layout/pagination";
 // utils
 import styled from "@emotion/styled";
-import { getDayAndTime } from "../../../utils/formateDate";
+import { getCurrentDayAndTime } from "../../../utils/formateDate";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 // types
@@ -65,6 +63,7 @@ const TaxiDrivers = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const { isMobile } = useResponsive();
+  const { t: tDriver } = useTranslation("driver");
   const { i18n, t } = useTranslation("entertainers-tour-guides");
   const pageSize = useMemo(() => (isMobile ? 6 : 12), [isMobile]);
 
@@ -74,11 +73,6 @@ const TaxiDrivers = ({
     { key: "totalComments:asc", value: t("filters.fewestReviews") },
     { key: "averageRating:desc", value: t("filters.highestRating") },
     { key: "averageRating:asc", value: t("filters.lowestRating") },
-  ];
-  const statuses = [
-    { text: t("taxiStatus.available"), status: "available" },
-    { text: t("taxiStatus.notAvailable"), status: "unavailable" },
-    { text: t("taxiStatus.doesntWork"), status: "notwork" },
   ];
 
   const handleGetDrivers = async ({
@@ -93,10 +87,11 @@ const TaxiDrivers = ({
     pageNum: number;
   }) => {
     setIsLoading(true);
-    const { dayOfWeek, time } = getDayAndTime();
 
     const getTimeFilters = () => {
       if (availableNow) {
+        const { dayOfWeek, time } = getCurrentDayAndTime();
+
         return {
           dayOfWeek: { eq: dayOfWeek },
           timeSlots: { startTime: { lte: time }, endTime: { gte: time } },
@@ -138,7 +133,7 @@ const TaxiDrivers = ({
     () => {
       setPage(1);
 
-      if (!isMobile && pageSize < initialTotalDrivers) {
+      if (!isMobile) {
         handleGetDrivers({ sort: "", pageNum: 1 });
       }
     },
@@ -213,8 +208,8 @@ const TaxiDrivers = ({
         ) : null}
 
         <StatusesWrap>
-          {statuses.map(({ status, text }) => (
-            <TaxiStatus key={status} text={text} status={status as Status} />
+          {TAXI_STATUSES.map(({ status, i18nKey }) => (
+            <TaxiStatus key={status} text={tDriver(i18nKey)} status={status} />
           ))}
         </StatusesWrap>
       </FiltersWrap>
@@ -272,7 +267,7 @@ export async function getStaticProps({ locale }: any) {
       initialDrivers: taxiDrivers?.data,
       initialTotalDrivers: taxiDrivers?.meta.pagination.total,
       ...(await serverSideTranslations(locale, [
-        "company-page",
+        "driver",
         "common",
         "entertainers-tour-guides",
       ])),

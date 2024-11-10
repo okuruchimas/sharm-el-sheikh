@@ -2653,7 +2653,8 @@ export type TaxiDriver = {
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   schedule?: Maybe<Array<Maybe<ComponentComponentsWorkSchedule>>>;
   slug: Scalars['String']['output'];
-  socialLinkls?: Maybe<Array<Maybe<ComponentHelpersSocialMedia>>>;
+  socialLinks: Array<Maybe<ComponentHelpersSocialMedia>>;
+  taxi_services?: Maybe<TaxiServiceRelationResponseCollection>;
   totalComments: Scalars['Int']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -2697,9 +2698,17 @@ export type TaxiDriverScheduleArgs = {
 };
 
 
-export type TaxiDriverSocialLinklsArgs = {
+export type TaxiDriverSocialLinksArgs = {
   filters?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TaxiDriverTaxi_ServicesArgs = {
+  filters?: InputMaybe<TaxiServiceFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
@@ -2741,7 +2750,8 @@ export type TaxiDriverFiltersInput = {
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   schedule?: InputMaybe<ComponentComponentsWorkScheduleFiltersInput>;
   slug?: InputMaybe<StringFilterInput>;
-  socialLinkls?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  socialLinks?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  taxi_services?: InputMaybe<TaxiServiceFiltersInput>;
   totalComments?: InputMaybe<IntFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -2761,7 +2771,8 @@ export type TaxiDriverInput = {
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   schedule?: InputMaybe<Array<InputMaybe<ComponentComponentsWorkScheduleInput>>>;
   slug?: InputMaybe<Scalars['String']['input']>;
-  socialLinkls?: InputMaybe<Array<InputMaybe<ComponentHelpersSocialMediaInput>>>;
+  socialLinks?: InputMaybe<Array<InputMaybe<ComponentHelpersSocialMediaInput>>>;
+  taxi_services?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   totalComments?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -2779,6 +2790,7 @@ export type TaxiService = {
   localizations?: Maybe<TaxiServiceRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   subTitle: Scalars['String']['output'];
+  taxi_drivers?: Maybe<TaxiDriverRelationResponseCollection>;
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -2786,6 +2798,14 @@ export type TaxiService = {
 
 export type TaxiServiceLocalizationsArgs = {
   filters?: InputMaybe<TaxiServiceFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TaxiServiceTaxi_DriversArgs = {
+  filters?: InputMaybe<TaxiDriverFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -2819,6 +2839,7 @@ export type TaxiServiceFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<TaxiServiceFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   subTitle?: InputMaybe<StringFilterInput>;
+  taxi_drivers?: InputMaybe<TaxiDriverFiltersInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -2828,6 +2849,7 @@ export type TaxiServiceInput = {
   key?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   subTitle?: InputMaybe<Scalars['String']['input']>;
+  taxi_drivers?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -3248,6 +3270,7 @@ export type GetAnimatorsByFilterQueryVariables = Exact<{
   pageSize?: InputMaybe<Scalars['Int']['input']>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
   companyKey?: InputMaybe<Scalars['String']['input']>;
+  slugToExclude?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -3354,6 +3377,7 @@ export type GetCompanyPromotionCardsByFilterQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
   page?: InputMaybe<Scalars['Int']['input']>;
   pageSize?: InputMaybe<Scalars['Int']['input']>;
+  slugToExclude?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -3372,6 +3396,14 @@ export type ServiceFragment = { __typename?: 'ServiceEntity', id?: string | null
 
 export type CommentFragment = { __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null };
 
+export type GetDriverBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetDriverBySlugQuery = { __typename?: 'Query', taxiDrivers?: { __typename?: 'TaxiDriverEntityResponseCollection', data: Array<{ __typename?: 'TaxiDriverEntity', attributes?: { __typename?: 'TaxiDriver', slug: string, name: string, carModel: string, carName: string, isNotWorking: boolean, passengersNum: number, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, car_class?: { __typename?: 'CarClassEntityResponse', data?: { __typename?: 'CarClassEntity', attributes?: { __typename?: 'CarClass', key: string, value: string, circleIcon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null } | null } | null, preferences?: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null> | null, schedule?: Array<{ __typename?: 'ComponentComponentsWorkSchedule', dayOfWeek: Enum_Componentcomponentsworkschedule_Dayofweek, timeSlots: Array<{ __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } | null> } | null> | null, socialLinks: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null, taxi_services?: { __typename?: 'TaxiServiceRelationResponseCollection', data: Array<{ __typename?: 'TaxiServiceEntity', attributes?: { __typename?: 'TaxiService', title: string, subTitle: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null } | null }> } | null };
+
 export type GetDriversByFiltersQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
   page?: InputMaybe<Scalars['Int']['input']>;
@@ -3380,12 +3412,18 @@ export type GetDriversByFiltersQueryVariables = Exact<{
   languageKeys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
   timeFilters?: InputMaybe<ComponentComponentsWorkScheduleFiltersInput>;
   carClasses?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  slugToExclude?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
 export type GetDriversByFiltersQuery = { __typename?: 'Query', taxiDrivers?: { __typename?: 'TaxiDriverEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } }, data: Array<{ __typename?: 'TaxiDriverEntity', attributes?: { __typename?: 'TaxiDriver', slug: string, name: string, totalComments: number, averageRating: number, isNotWorking: boolean, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, schedule?: Array<{ __typename?: 'ComponentComponentsWorkSchedule', dayOfWeek: Enum_Componentcomponentsworkschedule_Dayofweek, timeSlots: Array<{ __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } | null> } | null> | null, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, car_class?: { __typename?: 'CarClassEntityResponse', data?: { __typename?: 'CarClassEntity', attributes?: { __typename?: 'CarClass', value: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null } | null } | null } | null }> } | null };
 
 export type TaxiDriverPreviewFragment = { __typename?: 'TaxiDriver', slug: string, name: string, totalComments: number, averageRating: number, isNotWorking: boolean, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, schedule?: Array<{ __typename?: 'ComponentComponentsWorkSchedule', dayOfWeek: Enum_Componentcomponentsworkschedule_Dayofweek, timeSlots: Array<{ __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } | null> } | null> | null, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, car_class?: { __typename?: 'CarClassEntityResponse', data?: { __typename?: 'CarClassEntity', attributes?: { __typename?: 'CarClass', value: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null } | null } | null };
+
+export type GetDriversSlugsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetDriversSlugsQuery = { __typename?: 'Query', taxiDrivers?: { __typename?: 'TaxiDriverEntityResponseCollection', data: Array<{ __typename?: 'TaxiDriverEntity', attributes?: { __typename?: 'TaxiDriver', slug: string } | null }> } | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -3892,12 +3930,12 @@ fragment Comment on CommentEntity {
   }
 }`) as unknown as TypedDocumentString<GetAnimatorBySlugQuery, GetAnimatorBySlugQueryVariables>;
 export const GetAnimatorsByFilterDocument = new TypedDocumentString(`
-    query GetAnimatorsByFilter($locale: I18NLocaleCode!, $page: Int, $pageSize: Int, $sort: [String], $companyKey: String) {
+    query GetAnimatorsByFilter($locale: I18NLocaleCode!, $page: Int, $pageSize: Int, $sort: [String], $companyKey: String, $slugToExclude: String) {
   animators(
     locale: $locale
     sort: $sort
     pagination: {page: $page, pageSize: $pageSize}
-    filters: {animation_company: {key: {eq: $companyKey}}}
+    filters: {animation_company: {key: {eq: $companyKey}}, slug: {ne: $slugToExclude}}
   ) {
     meta {
       pagination {
@@ -4337,10 +4375,10 @@ fragment Comment on CommentEntity {
   }
 }`) as unknown as TypedDocumentString<CompanyPromotionCardQuery, CompanyPromotionCardQueryVariables>;
 export const GetCompanyPromotionCardsByFilterDocument = new TypedDocumentString(`
-    query GetCompanyPromotionCardsByFilter($areaKey: String, $category: String, $locale: I18NLocaleCode!, $page: Int, $pageSize: Int) {
+    query GetCompanyPromotionCardsByFilter($areaKey: String, $category: String, $locale: I18NLocaleCode!, $page: Int, $pageSize: Int, $slugToExclude: String) {
   companyPromotionCards(
     locale: $locale
-    filters: {area: {key: {eq: $areaKey}}, categories: {key: {eq: $category}}}
+    filters: {area: {key: {eq: $areaKey}}, categories: {key: {eq: $category}}, slug: {ne: $slugToExclude}}
     pagination: {page: $page, pageSize: $pageSize}
   ) {
     meta {
@@ -4395,13 +4433,103 @@ export const GetPromotionCardsSlugsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<GetPromotionCardsSlugsQuery, GetPromotionCardsSlugsQueryVariables>;
+export const GetDriverBySlugDocument = new TypedDocumentString(`
+    query GetDriverBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  taxiDrivers(filters: {slug: {eq: $slug}}, locale: $locale) {
+    data {
+      attributes {
+        slug
+        name
+        profileImg {
+          ...StrapiImage
+        }
+        carModel
+        carName
+        car_class {
+          data {
+            attributes {
+              key
+              value
+              circleIcon {
+                ...StrapiImage
+              }
+            }
+          }
+        }
+        isNotWorking
+        passengersNum
+        preferences {
+          value
+        }
+        schedule {
+          dayOfWeek
+          timeSlots {
+            startTime
+            endTime
+          }
+        }
+        socialLinks {
+          icon {
+            ...StrapiImage
+          }
+          socialLink
+        }
+        languages {
+          data {
+            attributes {
+              key
+              value
+              flagIcon {
+                ...StrapiImage
+              }
+            }
+          }
+        }
+        comments {
+          data {
+            ...Comment
+          }
+        }
+        averageRating
+        totalComments
+        taxi_services {
+          data {
+            attributes {
+              title
+              subTitle
+              icon {
+                ...StrapiImage
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}
+fragment Comment on CommentEntity {
+  id
+  attributes {
+    text
+    rating
+    createdAt
+  }
+}`) as unknown as TypedDocumentString<GetDriverBySlugQuery, GetDriverBySlugQueryVariables>;
 export const GetDriversByFiltersDocument = new TypedDocumentString(`
-    query GetDriversByFilters($locale: I18NLocaleCode!, $page: Int, $pageSize: Int, $sort: [String], $languageKeys: [String], $timeFilters: ComponentComponentsWorkScheduleFiltersInput, $carClasses: [String]) {
+    query GetDriversByFilters($locale: I18NLocaleCode!, $page: Int, $pageSize: Int, $sort: [String], $languageKeys: [String], $timeFilters: ComponentComponentsWorkScheduleFiltersInput, $carClasses: [String], $slugToExclude: String) {
   taxiDrivers(
     sort: $sort
     locale: $locale
     pagination: {page: $page, pageSize: $pageSize}
-    filters: {languages: {key: {in: $languageKeys}}, schedule: $timeFilters, car_class: {key: {in: $carClasses}}}
+    filters: {languages: {key: {in: $languageKeys}}, schedule: $timeFilters, car_class: {key: {in: $carClasses}}, slug: {ne: $slugToExclude}}
   ) {
     meta {
       pagination {
@@ -4460,3 +4588,14 @@ fragment TaxiDriverPreview on TaxiDriver {
   averageRating
   isNotWorking
 }`) as unknown as TypedDocumentString<GetDriversByFiltersQuery, GetDriversByFiltersQueryVariables>;
+export const GetDriversSlugsDocument = new TypedDocumentString(`
+    query GetDriversSlugs {
+  taxiDrivers {
+    data {
+      attributes {
+        slug
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<GetDriversSlugsQuery, GetDriversSlugsQueryVariables>;

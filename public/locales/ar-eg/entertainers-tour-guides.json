@@ -3,15 +3,6 @@
   "buttons": {
     "nearestAnimator": "أقرب رسام كرتون"
   },
-  "days": {
-    "mon": "الإثنين",
-    "tue": "الثلاثاء",
-    "wed": "الأربعاء",
-    "thu": "الخميس",
-    "fri": "الجمعة",
-    "sat": "السبت",
-    "sun": "الأحد"
-  },
   "filters": {
     "fewestReviews": "أقل عدد من التقييمات",
     "highestRating": "أعلى تقييم",
@@ -39,10 +30,5 @@
     "carClass": "فئة السيارة",
     "languagesSpoken": "اللغات التي يتحدثها السائق",
     "otherLanguages": "لغات أخرى"
-  },
-  "taxiStatus": {
-    "available": "متاح",
-    "notAvailable": "غير متاح",
-    "doesntWork": "لا يعمل"
   }
 }
