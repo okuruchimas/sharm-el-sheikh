@@ -41,6 +41,7 @@ const AnimatorInfoSection = ({
   averageRating,
 }: AnimatorInfoSectionProps) => {
   const { t } = useTranslation("animator");
+  const { t: tCommon } = useTranslation("common");
 
   return (
     <Wrapper>
@@ -92,7 +93,7 @@ const AnimatorInfoSection = ({
         </SkillsWrapper>
       </InfoField>
       <InfoField>
-        <p>{`${t("languagesSpoken")}:`}</p>
+        <p>{`${tCommon("text.languagesSpoken")}:`}</p>
         <Flags icons={languages} />
       </InfoField>
     </Wrapper>
@@ -208,6 +209,7 @@ const CompanyName = styled("p")(({ theme }) => ({
   fontSize: theme.fontSize.fontS24,
   textDecoration: "underline",
   color: theme.colors.grey,
+  fontWeight: 700,
 
   [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS18,

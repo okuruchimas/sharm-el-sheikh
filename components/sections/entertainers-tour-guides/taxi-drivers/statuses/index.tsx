@@ -1,15 +1,18 @@
 import styled from "@emotion/styled";
-import { StatusDot, Statuses } from "../card";
+import { StatusDot } from "../card";
+import {
+  StatusColors,
+  type StatusOptions,
+} from "../../../../../constants/taxi-statuses.constants";
 
-export type Status = "available" | "unavailable" | "notwork";
-export interface TaxiStatusProps {
+interface TaxiStatusProps {
   text: string;
-  status: Status;
+  status: StatusOptions;
 }
 const TaxiStatus = ({ text, status }: TaxiStatusProps) => {
   return (
     <Wrap>
-      <StatusStyled color={Statuses[status]} />
+      <StatusStyled color={StatusColors[status]} />
       <Text>{text}</Text>
     </Wrap>
   );

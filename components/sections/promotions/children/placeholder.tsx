@@ -26,6 +26,7 @@ const Placeholder = ({ title }: PlaceholderProps) => {
 const Wrap = styled("div")({
   width: "100%",
   display: "flex",
+  gap: "6px",
   justifyContent: "center",
   alignItems: "center",
   flexDirection: "column",

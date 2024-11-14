@@ -3,15 +3,6 @@
   "buttons": {
     "nearestAnimator": "Nearest Animator"
   },
-  "days": {
-    "mon": "Mon",
-    "tue": "Tue",
-    "wed": "Wed",
-    "thu": "Thu",
-    "fri": "Fri",
-    "sat": "Sat",
-    "sun": "Sun"
-  },
   "filters": {
     "fewestReviews": "Fewest Reviews",
     "highestRating": "Highest Rating",
@@ -39,10 +30,5 @@
     "carClass": "Car Class",
     "languagesSpoken": "Languages Spoken by the Driver",
     "otherLanguages": "Other Languages"
-  },
-  "taxiStatus": {
-    "available": "Available",
-    "notAvailable": "Not Available",
-    "doesntWork": "Doesn't Work"
   }
 }

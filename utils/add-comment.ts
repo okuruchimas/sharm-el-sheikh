@@ -5,7 +5,10 @@ export type CommentInput = {
   rating: number;
   email: string;
 };
-type CollectionTypesWIthComments = "company-promotion-cards" | "animators";
+type CollectionTypesWIthComments =
+  | "company-promotion-cards"
+  | "animators"
+  | "taxi-driver";
 type AddCommentParams = {
   slug: string;
   comment: CommentInput;
@@ -33,5 +36,6 @@ export async function addComment({
     return await response.json();
   } catch (error) {
     console.error("Failed to add comment:", error);
+    throw error;
   }
 }

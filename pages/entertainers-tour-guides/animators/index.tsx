@@ -71,7 +71,7 @@ const Animators = ({
     () => {
       setPage(1);
 
-      if (!isMobile && pageSize < initialTotalAnimators) {
+      if (!isMobile) {
         handleGetAnimators({ sort: filter, pageNum: 1, company: "" });
       }
     },

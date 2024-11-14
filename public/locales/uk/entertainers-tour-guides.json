@@ -3,15 +3,6 @@
   "buttons": {
     "nearestAnimator": "Найближчий аніматор"
   },
-  "days": {
-    "mon": "Пн",
-    "tue": "Вт",
-    "wed": "Ср",
-    "thu": "Чт",
-    "fri": "Пт",
-    "sat": "Сб",
-    "sun": "Нд"
-  },
   "filters": {
     "fewestReviews": "Найменше відгуків",
     "highestRating": "Найвищий рейтинг",
@@ -39,10 +30,5 @@
     "carClass": "Клас автомобіля",
     "languagesSpoken": "Мови, якими володіє водій",
     "otherLanguages": "Інші мови"
-  },
-  "taxiStatus": {
-    "available": "Доступний",
-    "notAvailable": "Недоступний",
-    "doesntWork": "Не працює"
   }
 }

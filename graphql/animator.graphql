@@ -65,12 +65,16 @@ query GetAnimatorsByFilter(
   $pageSize: Int
   $sort: [String]
   $companyKey: String
+  $slugToExclude: String
 ) {
   animators(
     locale: $locale
     sort: $sort
     pagination: { page: $page, pageSize: $pageSize }
-    filters: { animation_company: { key: { eq: $companyKey } } }
+    filters: {
+      animation_company: { key: { eq: $companyKey } }
+      slug: { ne: $slugToExclude }
+    }
   ) {
     meta {
       pagination {

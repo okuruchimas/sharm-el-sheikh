@@ -88,74 +88,76 @@ const CompanyPage = ({
   };
 
   return (
-    <Wrap
-      url="/images/background/background-gradient.svg"
-      mobUrl="/images/background/mobile-background-gradient.svg"
-    >
-      <Promo
-        totalComments={totalComments}
-        averageRating={averageRating}
-        discount={discount}
-        images={images}
-        title={title}
-        location={location ?? ""}
-      />
-      {description ? (
-        <DescriptionSection>
-          <span>{t("description")}</span>
-          <p>{description}</p>
-        </DescriptionSection>
-      ) : null}
-      {youTubeVideoId ? <YouTubePlayer videoId={youTubeVideoId} /> : null}
-      {discountBanner ? (
-        <Banner
-          title={discountBanner.title || ""}
-          buttonText={discountBanner.buttonText || t("openCard")}
-          buttonLink={discountBanner.buttonLink || ""}
+    <>
+      <Wrap
+        url="/images/background/background-gradient.svg"
+        mobUrl="/images/background/mobile-background-gradient.svg"
+      >
+        <Promo
+          totalComments={totalComments}
+          averageRating={averageRating}
+          discount={discount}
+          images={images}
+          title={title}
+          location={location ?? ""}
         />
-      ) : null}
-      {services?.data.length ? <Services services={services?.data} /> : null}
-      <Reviews
-        title={t("reviewsSectionTitle")}
-        comments={comments?.data || []}
-      />
-      <ReviewForm
-        title={t("reviewFormTitle")}
-        categories={categories}
-        handleAddComment={handleAddComment}
-      />
-      <SectionWrapper title={t("similarSuggestions")}>
-        {similarSuggestions.length ? (
-          <SuggestionsWrapper>
-            {similarSuggestions.map(({ attributes }, index) => (
-              <PromCard
-                averageRating={attributes.averageRating}
-                totalComments={attributes.totalComments}
-                slug={attributes.slug}
-                discount={attributes.discount}
-                images={attributes.images}
-                title={attributes.title}
-                location={attributes.location}
-                key={index}
-              />
-            ))}
-          </SuggestionsWrapper>
-        ) : (
-          <Placeholder title={tCommon("noDiscounts")} />
-        )}
-      </SectionWrapper>
-      <ContactSection>
-        <span>
-          {touchText ? touchText : `${t("getInTouchSection.title")} ${title}`}
-        </span>
-        <Button
-          text={t("getInTouchSection.buttonText")}
-          backgroundColor="white"
-          onClick={() => router.push(touchLink ?? "/")}
+        {description ? (
+          <DescriptionSection>
+            <span>{t("description")}</span>
+            <p>{description}</p>
+          </DescriptionSection>
+        ) : null}
+        {youTubeVideoId ? <YouTubePlayer videoId={youTubeVideoId} /> : null}
+        {discountBanner ? (
+          <Banner
+            title={discountBanner.title || ""}
+            buttonText={discountBanner.buttonText || t("openCard")}
+            buttonLink={discountBanner.buttonLink || ""}
+          />
+        ) : null}
+        {services?.data.length ? <Services services={services?.data} /> : null}
+        <Reviews
+          title={t("reviewsSectionTitle")}
+          comments={comments?.data || []}
         />
-      </ContactSection>
+        <ReviewForm
+          title={t("reviewFormTitle")}
+          categories={categories}
+          handleAddComment={handleAddComment}
+        />
+        <SectionWrapper title={tCommon("text.similarSuggestions")}>
+          {similarSuggestions.length ? (
+            <SuggestionsWrapper>
+              {similarSuggestions.map(({ attributes }, index) => (
+                <PromCard
+                  averageRating={attributes.averageRating}
+                  totalComments={attributes.totalComments}
+                  slug={attributes.slug}
+                  discount={attributes.discount}
+                  images={attributes.images}
+                  title={attributes.title}
+                  location={attributes.location}
+                  key={index}
+                />
+              ))}
+            </SuggestionsWrapper>
+          ) : (
+            <Placeholder title={tCommon("noDiscounts")} />
+          )}
+        </SectionWrapper>
+        <ContactSection>
+          <span>
+            {touchText ? touchText : `${t("getInTouchSection.title")} ${title}`}
+          </span>
+          <Button
+            text={t("getInTouchSection.buttonText")}
+            backgroundColor="white"
+            onClick={() => router.push(touchLink ?? "/")}
+          />
+        </ContactSection>
+      </Wrap>
       <ToastContainer />
-    </Wrap>
+    </>
   );
 };
 
@@ -265,18 +267,15 @@ export async function getStaticProps({ params, locale }: any) {
       category,
       page: 1,
       pageSize: 3,
+      slugToExclude: slugP,
     },
-  );
-
-  const filteredSuggestions = suggestions?.data.filter(
-    (el) => el?.attributes?.slug !== slugP,
   );
 
   return {
     props: {
       ...(await serverSideTranslations(locale, ["company-page", "common"])),
       card: companyPromotionCards?.data[0]?.attributes || {},
-      similarSuggestions: filteredSuggestions,
+      similarSuggestions: suggestions?.data,
     },
     revalidate: REVALIDATE_TIME,
   };

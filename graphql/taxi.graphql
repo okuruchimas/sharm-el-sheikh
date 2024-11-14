@@ -1,3 +1,77 @@
+query GetDriverBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  taxiDrivers(filters: { slug: { eq: $slug } }, locale: $locale) {
+    data {
+      attributes {
+        slug
+        name
+        profileImg {
+          ...StrapiImage
+        }
+        carModel
+        carName
+        car_class {
+          data {
+            attributes {
+              key
+              value
+              circleIcon {
+                ...StrapiImage
+              }
+            }
+          }
+        }
+        isNotWorking
+        passengersNum
+        preferences {
+          value
+        }
+        schedule {
+          dayOfWeek
+          timeSlots {
+            startTime
+            endTime
+          }
+        }
+        socialLinks {
+          icon {
+            ...StrapiImage
+          }
+          socialLink
+        }
+        languages {
+          data {
+            attributes {
+              key
+              value
+              flagIcon {
+                ...StrapiImage
+              }
+            }
+          }
+        }
+        comments {
+          data {
+            ...Comment
+          }
+        }
+        averageRating
+        totalComments
+        taxi_services {
+          data {
+            attributes {
+              title
+              subTitle
+              icon {
+                ...StrapiImage
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 query GetDriversByFilters(
   $locale: I18NLocaleCode!
   $page: Int
@@ -6,6 +80,7 @@ query GetDriversByFilters(
   $languageKeys: [String]
   $timeFilters: ComponentComponentsWorkScheduleFiltersInput
   $carClasses: [String]
+  $slugToExclude: String
 ) {
   taxiDrivers(
     sort: $sort
@@ -15,6 +90,7 @@ query GetDriversByFilters(
       languages: { key: { in: $languageKeys } }
       schedule: $timeFilters
       car_class: { key: { in: $carClasses } }
+      slug: { ne: $slugToExclude }
     }
   ) {
     meta {
@@ -66,4 +142,14 @@ fragment TaxiDriverPreview on TaxiDriver {
   totalComments
   averageRating
   isNotWorking
+}
+
+query GetDriversSlugs {
+  taxiDrivers {
+    data {
+      attributes {
+        slug
+      }
+    }
+  }
 }
