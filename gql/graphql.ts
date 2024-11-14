@@ -534,6 +534,121 @@ export type CategoryRelationResponseCollection = {
   data: Array<CategoryEntity>;
 };
 
+export type Club = {
+  __typename?: 'Club';
+  about: Scalars['String']['output'];
+  averageRating: Scalars['Float']['output'];
+  clubName: Scalars['String']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  food: Scalars['String']['output'];
+  image: UploadFileEntityResponse;
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<ClubRelationResponseCollection>;
+  location: Scalars['String']['output'];
+  phoneNumber: Scalars['String']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  services?: Maybe<ServiceRelationResponseCollection>;
+  slug: Scalars['String']['output'];
+  socialLinks: Array<Maybe<ComponentHelpersSocialMedia>>;
+  totalComments: Scalars['Int']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  workingDays: Array<Maybe<ComponentHelpersWeekDay>>;
+  workingTime: ComponentHelpersTimeSlot;
+};
+
+
+export type ClubLocalizationsArgs = {
+  filters?: InputMaybe<ClubFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ClubServicesArgs = {
+  filters?: InputMaybe<ServiceFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ClubSocialLinksArgs = {
+  filters?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ClubWorkingDaysArgs = {
+  filters?: InputMaybe<ComponentHelpersWeekDayFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type ClubEntity = {
+  __typename?: 'ClubEntity';
+  attributes?: Maybe<Club>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type ClubEntityResponse = {
+  __typename?: 'ClubEntityResponse';
+  data?: Maybe<ClubEntity>;
+};
+
+export type ClubEntityResponseCollection = {
+  __typename?: 'ClubEntityResponseCollection';
+  data: Array<ClubEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type ClubFiltersInput = {
+  about?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<ClubFiltersInput>>>;
+  averageRating?: InputMaybe<FloatFilterInput>;
+  clubName?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  food?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<ClubFiltersInput>;
+  location?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ClubFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ClubFiltersInput>>>;
+  phoneNumber?: InputMaybe<StringFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  services?: InputMaybe<ServiceFiltersInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  socialLinks?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  totalComments?: InputMaybe<IntFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  workingDays?: InputMaybe<ComponentHelpersWeekDayFiltersInput>;
+  workingTime?: InputMaybe<ComponentHelpersTimeSlotFiltersInput>;
+};
+
+export type ClubInput = {
+  about?: InputMaybe<Scalars['String']['input']>;
+  averageRating?: InputMaybe<Scalars['Float']['input']>;
+  clubName?: InputMaybe<Scalars['String']['input']>;
+  food?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['ID']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  services?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  socialLinks?: InputMaybe<Array<InputMaybe<ComponentHelpersSocialMediaInput>>>;
+  totalComments?: InputMaybe<Scalars['Int']['input']>;
+  workingDays?: InputMaybe<Array<InputMaybe<ComponentHelpersWeekDayInput>>>;
+  workingTime?: InputMaybe<ComponentHelpersTimeSlotInput>;
+};
+
+export type ClubRelationResponseCollection = {
+  __typename?: 'ClubRelationResponseCollection';
+  data: Array<ClubEntity>;
+};
+
 export type Comment = {
   __typename?: 'Comment';
   animators?: Maybe<AnimatorRelationResponseCollection>;
@@ -953,6 +1068,24 @@ export type ComponentHelpersTimeSlotInput = {
   startTime?: InputMaybe<Scalars['Time']['input']>;
 };
 
+export type ComponentHelpersWeekDay = {
+  __typename?: 'ComponentHelpersWeekDay';
+  day: Enum_Componenthelpersweekday_Day;
+  id: Scalars['ID']['output'];
+};
+
+export type ComponentHelpersWeekDayFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentHelpersWeekDayFiltersInput>>>;
+  day?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentHelpersWeekDayFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentHelpersWeekDayFiltersInput>>>;
+};
+
+export type ComponentHelpersWeekDayInput = {
+  day?: InputMaybe<Enum_Componenthelpersweekday_Day>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type DateTimeFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
@@ -979,6 +1112,16 @@ export type DateTimeFilterInput = {
 };
 
 export enum Enum_Componentcomponentsworkschedule_Dayofweek {
+  Friday = 'Friday',
+  Monday = 'Monday',
+  Saturday = 'Saturday',
+  Sunday = 'Sunday',
+  Thursday = 'Thursday',
+  Tuesday = 'Tuesday',
+  Wednesday = 'Wednesday'
+}
+
+export enum Enum_Componenthelpersweekday_Day {
   Friday = 'Friday',
   Monday = 'Monday',
   Saturday = 'Saturday',
@@ -1186,7 +1329,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | CompanyPromotionCard | ComponentComponentsBanner | ComponentComponentsEntertainmentService | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTimeSlot | EventCard | Filters | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Service | TaxiDriver | TaxiService | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AnimationCompany | Animator | Announcement | Area | CarClass | Category | Club | Comment | CompanyPromotionCard | ComponentComponentsBanner | ComponentComponentsEntertainmentService | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | EventCard | Filters | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Service | TaxiDriver | TaxiService | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   __typename?: 'Header';
@@ -1567,6 +1710,8 @@ export type Mutation = {
   createCarClassLocalization?: Maybe<CarClassEntityResponse>;
   createCategory?: Maybe<CategoryEntityResponse>;
   createCategoryLocalization?: Maybe<CategoryEntityResponse>;
+  createClub?: Maybe<ClubEntityResponse>;
+  createClubLocalization?: Maybe<ClubEntityResponse>;
   createComment?: Maybe<CommentEntityResponse>;
   createCompanyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
   createCompanyPromotionCardLocalization?: Maybe<CompanyPromotionCardEntityResponse>;
@@ -1597,6 +1742,7 @@ export type Mutation = {
   deleteArea?: Maybe<AreaEntityResponse>;
   deleteCarClass?: Maybe<CarClassEntityResponse>;
   deleteCategory?: Maybe<CategoryEntityResponse>;
+  deleteClub?: Maybe<ClubEntityResponse>;
   deleteComment?: Maybe<CommentEntityResponse>;
   deleteCompanyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
   deleteEventCard?: Maybe<EventCardEntityResponse>;
@@ -1632,6 +1778,7 @@ export type Mutation = {
   updateArea?: Maybe<AreaEntityResponse>;
   updateCarClass?: Maybe<CarClassEntityResponse>;
   updateCategory?: Maybe<CategoryEntityResponse>;
+  updateClub?: Maybe<ClubEntityResponse>;
   updateComment?: Maybe<CommentEntityResponse>;
   updateCompanyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
   updateEventCard?: Maybe<EventCardEntityResponse>;
@@ -1727,6 +1874,19 @@ export type MutationCreateCategoryArgs = {
 
 export type MutationCreateCategoryLocalizationArgs = {
   data?: InputMaybe<CategoryInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateClubArgs = {
+  data: ClubInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateClubLocalizationArgs = {
+  data?: InputMaybe<ClubInput>;
   id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -1903,6 +2063,12 @@ export type MutationDeleteCategoryArgs = {
 };
 
 
+export type MutationDeleteClubArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationDeleteCommentArgs = {
   id: Scalars['ID']['input'];
 };
@@ -2070,6 +2236,13 @@ export type MutationUpdateCategoryArgs = {
 };
 
 
+export type MutationUpdateClubArgs = {
+  data: ClubInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationUpdateCommentArgs = {
   data: CommentInput;
   id: Scalars['ID']['input'];
@@ -2220,6 +2393,8 @@ export type Query = {
   carClasses?: Maybe<CarClassEntityResponseCollection>;
   categories?: Maybe<CategoryEntityResponseCollection>;
   category?: Maybe<CategoryEntityResponse>;
+  club?: Maybe<ClubEntityResponse>;
+  clubs?: Maybe<ClubEntityResponseCollection>;
   comment?: Maybe<CommentEntityResponse>;
   comments?: Maybe<CommentEntityResponseCollection>;
   companyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
@@ -2339,6 +2514,21 @@ export type QueryCategoriesArgs = {
 export type QueryCategoryArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryClubArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryClubsArgs = {
+  filters?: InputMaybe<ClubFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -2548,6 +2738,7 @@ export type ResponseCollectionMeta = {
 
 export type Service = {
   __typename?: 'Service';
+  clubs?: Maybe<ClubRelationResponseCollection>;
   company_promotion_card?: Maybe<CompanyPromotionCardEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   icon: UploadFileEntityResponse;
@@ -2556,6 +2747,14 @@ export type Service = {
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   text: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type ServiceClubsArgs = {
+  filters?: InputMaybe<ClubFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -2585,6 +2784,7 @@ export type ServiceEntityResponseCollection = {
 
 export type ServiceFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ServiceFiltersInput>>>;
+  clubs?: InputMaybe<ClubFiltersInput>;
   company_promotion_card?: InputMaybe<CompanyPromotionCardFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -2598,6 +2798,7 @@ export type ServiceFiltersInput = {
 };
 
 export type ServiceInput = {
+  clubs?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   company_promotion_card?: InputMaybe<Scalars['ID']['input']>;
   icon?: InputMaybe<Scalars['ID']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3285,6 +3486,26 @@ export type AnimatorPreviewFragment = { __typename?: 'Animator', slug: string, n
 
 export type AnnouncementFragment = { __typename?: 'Announcement', title?: string | null, text?: string | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null };
 
+export type GetClubBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetClubBySlugQuery = { __typename?: 'Query', clubs?: { __typename?: 'ClubEntityResponseCollection', data: Array<{ __typename?: 'ClubEntity', attributes?: { __typename?: 'Club', about: string, food: string, phoneNumber: string, slug: string, clubName: string, location: string, totalComments: number, averageRating: number, workingDays: Array<{ __typename?: 'ComponentHelpersWeekDay', day: Enum_Componenthelpersweekday_Day } | null>, socialLinks: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, services?: { __typename?: 'ServiceRelationResponseCollection', data: Array<{ __typename?: 'ServiceEntity', attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, workingTime: { __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } } | null }> } | null };
+
+export type GetClubsByDaysQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+  day?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetClubsByDaysQuery = { __typename?: 'Query', clubs?: { __typename?: 'ClubEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } }, data: Array<{ __typename?: 'ClubEntity', attributes?: { __typename?: 'Club', slug: string, clubName: string, location: string, totalComments: number, averageRating: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, workingTime: { __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } } | null }> } | null };
+
+export type ClubPreviewFragment = { __typename?: 'Club', slug: string, clubName: string, location: string, totalComments: number, averageRating: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, workingTime: { __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } };
+
 export type GetEventCardsQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
   page?: InputMaybe<Scalars['Int']['input']>;
@@ -3486,6 +3707,29 @@ export const AnimatorPreviewFragmentDoc = new TypedDocumentString(`
     }
   }
 }`, {"fragmentName":"AnimatorPreview"}) as unknown as TypedDocumentString<AnimatorPreviewFragment, unknown>;
+export const ClubPreviewFragmentDoc = new TypedDocumentString(`
+    fragment ClubPreview on Club {
+  slug
+  image {
+    ...StrapiImage
+  }
+  clubName
+  location
+  workingTime {
+    startTime
+    endTime
+  }
+  totalComments
+  averageRating
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`, {"fragmentName":"ClubPreview"}) as unknown as TypedDocumentString<ClubPreviewFragment, unknown>;
 export const EventCardFragmentDoc = new TypedDocumentString(`
     fragment EventCard on EventCard {
   date
@@ -3997,6 +4241,101 @@ export const GetAnimatorsSlugsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<GetAnimatorsSlugsQuery, GetAnimatorsSlugsQueryVariables>;
+export const GetClubBySlugDocument = new TypedDocumentString(`
+    query GetClubBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  clubs(filters: {slug: {eq: $slug}}, locale: $locale) {
+    data {
+      attributes {
+        ...ClubPreview
+        workingDays {
+          day
+        }
+        about
+        food
+        phoneNumber
+        socialLinks {
+          socialLink
+          icon {
+            ...StrapiImage
+          }
+        }
+        services {
+          data {
+            attributes {
+              icon {
+                ...StrapiImage
+              }
+              text
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    fragment ClubPreview on Club {
+  slug
+  image {
+    ...StrapiImage
+  }
+  clubName
+  location
+  workingTime {
+    startTime
+    endTime
+  }
+  totalComments
+  averageRating
+}
+fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`) as unknown as TypedDocumentString<GetClubBySlugQuery, GetClubBySlugQueryVariables>;
+export const GetClubsByDaysDocument = new TypedDocumentString(`
+    query GetClubsByDays($locale: I18NLocaleCode!, $page: Int, $pageSize: Int, $day: String) {
+  clubs(
+    locale: $locale
+    filters: {workingDays: {day: {eq: $day}}}
+    pagination: {page: $page, pageSize: $pageSize}
+  ) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      attributes {
+        ...ClubPreview
+      }
+    }
+  }
+}
+    fragment ClubPreview on Club {
+  slug
+  image {
+    ...StrapiImage
+  }
+  clubName
+  location
+  workingTime {
+    startTime
+    endTime
+  }
+  totalComments
+  averageRating
+}
+fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`) as unknown as TypedDocumentString<GetClubsByDaysQuery, GetClubsByDaysQueryVariables>;
 export const GetEventCardsDocument = new TypedDocumentString(`
     query GetEventCards($locale: I18NLocaleCode!, $page: Int, $pageSize: Int) {
   eventCards(

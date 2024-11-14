@@ -13,7 +13,11 @@ import TextAndIcon from "../../../layout/text-and-icon";
 type PromCardProps = Pick<
   CompanyCardFragment,
   "discount" | "location" | "title" | "slug" | "averageRating" | "totalComments"
-> & { images?: CompanyCardFragment["images"]; time?: string };
+> & {
+  images?: CompanyCardFragment["images"];
+  time?: string;
+  handleClick?: () => void;
+};
 const PromCard = ({
   slug,
   time,
@@ -23,6 +27,7 @@ const PromCard = ({
   discount,
   totalComments,
   averageRating,
+  handleClick,
 }: PromCardProps) => {
   return (
     <Wrap>
@@ -37,7 +42,7 @@ const PromCard = ({
           />
         )}
       </SwiperWrapper>
-      <DownWrap>
+      <DownWrap onClick={handleClick} isClickable={!!handleClick}>
         <TitleRating
           title={title}
           averageRating={averageRating}
@@ -96,7 +101,9 @@ const SwiperWrapper = styled("div")({
   overflow: "hidden",
 });
 
-const DownWrap = styled("div")(({ theme }) => ({
+const DownWrap = styled("div", {
+  shouldForwardProp: (prop) => prop !== "isClickable",
+})<{ isClickable?: boolean }>(({ theme, isClickable }) => ({
   height: "40%",
   borderRadius: "0 0 16px 16px",
   backgroundColor: theme.colors.blue4,
@@ -108,6 +115,7 @@ const DownWrap = styled("div")(({ theme }) => ({
   gap: "8px",
   padding: "24px 16px",
   overflow: "hidden",
+  cursor: isClickable ? "pointer" : "initial",
 
   [theme.breakpoints.mobile]: {
     padding: "12px",

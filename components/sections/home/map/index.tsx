@@ -134,7 +134,7 @@ const Map = ({ title, categories }: MapProps) => {
                   <MarkerF
                     icon={
                       selectedCategory?.markerIcon ||
-                      "icons/location-marker.svg"
+                      "/icons/location-marker.svg"
                     }
                     key={el?.slug}
                     opacity={el?.slug === selectedMarker?.slug ? 0.6 : 1}

@@ -55,9 +55,9 @@ export const theme = {
     desktop: "@media (min-width: 1024px)",
   },
   shadows: [
-    "0 0 20px -14px #757779",
-    "1px 1px 10px 1px #054E5C4D",
-    "none",
+    "0 0 20px -14px #757779", // 0
+    "1px 1px 10px 1px #054E5C4D", // 1
+    "0px 1px 3px 1px #00000026", // 2
     "none",
     "none",
     "none",

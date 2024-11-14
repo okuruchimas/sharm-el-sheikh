@@ -1,8 +1,10 @@
 {
   "404": "Page Not found",
   "buttons": {
+    "back": "Back",
     "contactUs": "Contact us",
     "more": "More",
+    "save": "Save",
     "viewMore": "View more"
   },
   "days": {
@@ -45,10 +47,15 @@
     "yourReview": "Your review"
   },
   "text": {
+    "about": "About",
     "entertainersTourGuides": "Entertainers & Tour Guides",
+    "food": "Food:",
     "languagesSpoken": "Languages Spoken",
     "reviews": "Reviews",
-    "similarSuggestions": "Similar Suggestions"
+    "howRateEstablishment": "How would you rate this establishment?",
+    "selectDay": "Select Day",
+    "similarSuggestions": "Similar Suggestions",
+    "workingDays": "Working Days"
   },
   "toasts": {
     "feedbackError": "Error adding comment",

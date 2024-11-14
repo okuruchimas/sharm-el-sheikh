@@ -170,9 +170,7 @@ const ImgWrapper = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.mobile]: {
-    gap: "16px",
     height: "300px",
-    gridTemplateColumns: "1fr",
   },
 }));
 
