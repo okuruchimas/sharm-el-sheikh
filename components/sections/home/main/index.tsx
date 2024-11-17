@@ -21,7 +21,7 @@ const Main = ({ eventCards, eventCardsTitle, heroTitle }: MainProps) => {
       <TopWrap>
         <SubtitleWrap>
           <Subtitle>{eventCardsTitle}</Subtitle>
-          <LinkButton text={t("buttons.more")} link="/" />
+          <LinkButton text={t("buttons.more")} link="/hotspots" />
         </SubtitleWrap>
         {eventCards?.data.map(({ attributes }, index) => (
           <EventCardSmall
@@ -55,7 +55,7 @@ const WrapSection = styled("div")(({ theme }) => ({
   borderRadius: "0 0 30px 30px",
 
   [theme.breakpoints.mobile]: {
-    height: "100dvh",
+    height: "100vh",
     gap: "16px",
     padding: "78px 16px 24px",
     flexDirection: "column-reverse",

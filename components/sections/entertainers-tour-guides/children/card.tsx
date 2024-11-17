@@ -59,8 +59,9 @@ const Card = ({
 const Wrap = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  height: 468,
+  minHeight: 468,
   width: "100%",
+  minWidth: 332,
   background: theme.colors.white,
   borderRadius: 16,
   position: "relative",
@@ -71,13 +72,18 @@ const StyledImage = styled(Image)({
   borderTopLeftRadius: 16,
   borderTopRightRadius: 16,
   objectFit: "cover",
+  height: "50%",
+  minHeight: "50%",
 });
 
 const InfoWrap = styled("div")({
   display: "flex",
   flexDirection: "column",
+  justifyContent: "space-between",
   gap: "12px",
   padding: "16px",
+  height: "50%",
+  maxHeight: "50%",
 });
 
 const GreyText = styled("div")(({ theme }) => ({

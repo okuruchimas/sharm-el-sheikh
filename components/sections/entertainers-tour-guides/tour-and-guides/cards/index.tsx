@@ -24,6 +24,14 @@ const Wrap = styled("div")(({ theme }) => ({
   gap: "16px",
   width: "100%",
 
+  [theme.breakpoints.desktopM]: {
+    gridTemplateColumns: "1fr 1fr 1fr",
+  },
+
+  [theme.breakpoints.desktopS]: {
+    gridTemplateColumns: "1fr 1fr",
+  },
+
   [theme.breakpoints.mobile]: {
     gridTemplateColumns: "1fr",
 
