@@ -78,15 +78,6 @@ fragment CompanyCard on CompanyPromotionCard {
   }
   touchText
   touchLink
-  filters {
-    data {
-      id
-      attributes {
-        text
-        key
-      }
-    }
-  }
   averageRating
   totalComments
   services {
