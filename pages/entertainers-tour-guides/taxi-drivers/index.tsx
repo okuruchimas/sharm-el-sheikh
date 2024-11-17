@@ -187,26 +187,27 @@ const TaxiDrivers = ({
   return (
     <Container>
       <FiltersWrap>
-        <Dropdown
-          options={sortOptions}
-          onChange={handleSortSelect}
-          isLoading={isLoading}
-          width="100%"
-          height="56px"
-          color="blue"
-        />
-
-        <FilterButton onClick={() => setIsFilter(!isFilter)} />
-        {isFilter ? (
-          <TaxiFilterForm
-            onClose={() => setIsFilter(false)}
-            onSubmit={handleFiltersSubmit}
-            defaultValues={filters}
-            languageOptions={languages?.map((el) => el.attributes)}
-            carClassOptions={carClasses?.map((el) => el.attributes)}
+        <ButtonsWrapper>
+          <Dropdown
+            options={sortOptions}
+            onChange={handleSortSelect}
+            isLoading={isLoading}
+            width="100%"
+            height="56px"
+            color="blue"
           />
-        ) : null}
 
+          <FilterButton onClick={() => setIsFilter(!isFilter)} />
+          {isFilter ? (
+            <TaxiFilterForm
+              onClose={() => setIsFilter(false)}
+              onSubmit={handleFiltersSubmit}
+              defaultValues={filters}
+              languageOptions={languages?.map((el) => el.attributes)}
+              carClassOptions={carClasses?.map((el) => el.attributes)}
+            />
+          ) : null}
+        </ButtonsWrapper>
         <StatusesWrap>
           {TAXI_STATUSES.map(({ status, i18nKey }) => (
             <TaxiStatus key={status} text={tDriver(i18nKey)} status={status} />
@@ -230,12 +231,19 @@ const FiltersWrap = styled("div")(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   width: "100%",
-  gap: "32px",
   marginBottom: "24px",
 
   [theme.breakpoints.mobile]: {
     alignItems: "flex-start",
+    flexDirection: "column",
+    gap: 16,
   },
+}));
+
+const ButtonsWrapper = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  gap: "32px",
 }));
 
 const StatusesWrap = styled("div")(({ theme }) => ({
@@ -246,8 +254,9 @@ const StatusesWrap = styled("div")(({ theme }) => ({
   gap: "24px",
 
   [theme.breakpoints.mobile]: {
-    flexDirection: "column",
+    marginLeft: "unset",
     alignItems: "flex-start",
+    flexWrap: "wrap",
   },
 }));
 

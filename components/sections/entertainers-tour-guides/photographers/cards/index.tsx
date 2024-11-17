@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import PhotographCard from "../card";
+import { CardsWrap } from "../../children/cards-wrap";
 
 const PhotographCards = () => {
   return (
@@ -20,15 +21,8 @@ const PhotographCards = () => {
   );
 };
 
-const Wrap = styled("div")(({ theme }) => ({
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr 1fr 1fr",
-  gap: "16px",
-  width: "100%",
-
+const Wrap = styled(CardsWrap)(({ theme }) => ({
   [theme.breakpoints.mobile]: {
-    gridTemplateColumns: "1fr",
-
     ".anime-card:nth-of-type(2n)": {
       display: "none",
     },

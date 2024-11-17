@@ -53,6 +53,8 @@ export const theme = {
     mobile: "@media (max-width: 1024px)",
     mobileHorizontal: "@media (min-width: 600px)",
     desktop: "@media (min-width: 1024px)",
+    desktopS: "@media (max-width: 1244px)",
+    desktopM: "@media (max-width: 1600px)",
   },
   shadows: [
     "0 0 20px -14px #757779", // 0

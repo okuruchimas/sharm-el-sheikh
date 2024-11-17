@@ -56,6 +56,8 @@ declare module "@emotion/react" {
       mobile: string;
       mobileHorizontal: string;
       desktop: string;
+      desktopS: string;
+      desktopM: string;
     };
     shadows: string[];
   }
