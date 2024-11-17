@@ -5,14 +5,14 @@ export type CommentInput = {
   rating: number;
   email: string;
 };
-type CollectionTypesWIthComments =
+type CollectionTypesWithComments =
   | "company-promotion-cards"
   | "animators"
   | "taxi-driver";
 type AddCommentParams = {
   slug: string;
   comment: CommentInput;
-  collectionType: CollectionTypesWIthComments;
+  collectionType: CollectionTypesWithComments;
 };
 
 export async function addComment({

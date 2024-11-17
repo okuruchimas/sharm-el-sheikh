@@ -3,10 +3,12 @@ import { useMemo } from "react";
 import {
   type CategoryEntity,
   type EventCardEntity,
+  type ClubPreviewFragment,
   type HotspotsPageFragment,
   GetEventCardsDocument,
   GetCategoriesDocument,
   GetHotspotsPageDocument,
+  GetClubsByDaysDocument,
 } from "../../gql/graphql";
 // components
 import Map from "../../components/sections/home/map";
@@ -24,12 +26,16 @@ type HotspotsPageProps = {
   categories: CategoryEntity[];
   pageData: HotspotsPageFragment;
   initialEvents: EventCardEntity[];
+  totalClubs: number;
+  initialClubs: { attributes: ClubPreviewFragment }[];
 };
 
 const HotspotsPage = ({
   pageData: { bottomBanner, eventsTitle, clubsTitle, clubsInfo },
   totalEvents,
   initialEvents,
+  totalClubs,
+  initialClubs,
   categories,
 }: HotspotsPageProps) => {
   const categoriesMapped = useMemo(
@@ -56,7 +62,8 @@ const HotspotsPage = ({
       <ClubsContainer
         title={clubsTitle}
         clubsInfo={clubsInfo}
-        totalItems={40}
+        totalItems={totalClubs}
+        initialClubs={initialClubs.map((el) => el.attributes)}
       />
       <Map
         title="Find the necessary location quickly"
@@ -89,11 +96,13 @@ const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
 
 export async function getStaticProps({ locale }: any) {
   const { hotspotsPage } = await fetchData(GetHotspotsPageDocument, { locale });
-  const { eventCards } = await fetchData(GetEventCardsDocument, {
+  const commonParams = {
     locale,
     page: 1,
     pageSize: 3,
-  });
+  };
+  const { eventCards } = await fetchData(GetEventCardsDocument, commonParams);
+  const { clubs } = await fetchData(GetClubsByDaysDocument, commonParams);
   const { categories } = await fetchData(GetCategoriesDocument, { locale });
 
   return {
@@ -103,6 +112,8 @@ export async function getStaticProps({ locale }: any) {
       initialEvents: eventCards?.data,
       categories: categories?.data,
       totalEvents: eventCards?.meta.pagination.total || 0,
+      initialClubs: clubs?.data,
+      totalClubs: clubs?.meta.pagination.total || 0,
     },
     revalidate: REVALIDATE_TIME,
   };

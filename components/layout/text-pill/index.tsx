@@ -6,6 +6,7 @@ const TextPill = styled("span")(({ theme }) => ({
   borderRadius: "8px",
   fontSize: theme.fontSize.fontS16,
   fontWeight: 600,
+  lineHeight: 1.5,
 
   [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS14,

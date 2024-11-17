@@ -4,22 +4,29 @@ import NextImage from "../../../../layout/image";
 
 type StarReviewProps = {
   stars: number;
-  categoryName: string;
+  disabled?: boolean;
+  categoryName?: string;
   onChange: (id: number) => void;
 };
 
-const StarReview = ({ stars, categoryName, onChange }: StarReviewProps) => (
+const StarReview = ({
+  stars,
+  disabled = false,
+  categoryName,
+  onChange,
+}: StarReviewProps) => (
   <Wrapper>
-    <CategoryName>{categoryName}</CategoryName>
+    {categoryName ? <CategoryName>{categoryName}</CategoryName> : null}
     <StarsWrapper>
       {[...Array(5)].map((_, index) => (
         <Image
+          key={index}
           alt={index + 1 > stars ? "star-outlined" : "star-filled"}
           src={`/icons/feedback-section/star-${index + 1 > stars ? "outlined" : "filled"}.svg`}
           width="30px"
           height="30px"
-          key={index}
-          onClick={() => onChange(index + 1)}
+          disabled={disabled}
+          onClick={disabled ? undefined : () => onChange(index + 1)}
         />
       ))}
     </StarsWrapper>
@@ -48,13 +55,19 @@ const StarsWrapper = styled("div")({
   gap: "10px",
 });
 
-const Image = styled(NextImage)({
-  transition: "transform 0.3s ease",
+const Image = styled(NextImage, {
+  shouldForwardProp: (prop) => prop !== "disabled",
+})<{ disabled: boolean }>(({ disabled }) => ({
   cursor: "pointer",
+  ...(disabled
+    ? {}
+    : {
+        transition: "transform 0.3s ease",
 
-  "&:active, &:focus, &:hover": {
-    transform: "scale(1.3)",
-  },
-});
+        "&:active, &:focus, &:hover": {
+          transform: "scale(1.3)",
+        },
+      }),
+}));
 
 export default memo(StarReview);

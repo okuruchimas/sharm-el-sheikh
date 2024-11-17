@@ -121,7 +121,7 @@ const CompanyPage = ({
           comments={comments?.data || []}
         />
         <ReviewForm
-          title={t("reviewFormTitle")}
+          title={tCommon("text.howRateEstablishment")}
           categories={categories}
           handleAddComment={handleAddComment}
         />

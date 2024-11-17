@@ -1,8 +1,10 @@
 {
   "404": "Сторінка не знайдена",
   "buttons": {
+    "back": "Назад",
     "contactUs": "Зв'яжіться з нами",
     "more": "Більше",
+    "save": "Зберегти",
     "viewMore": "Дивитись більше"
   },
   "days": {
@@ -45,10 +47,15 @@
     "yourReview": "Ваш відгук"
   },
   "text": {
+    "about": "Про",
     "entertainersTourGuides": "Аніматори та Туристичні Гіди",
+    "food": "Їжа:",
     "languagesSpoken": "Мови, якими володіє",
     "reviews": "Відгуки",
-    "similarSuggestions": "Схожі пропозиції"
+    "howRateEstablishment": "Як би ви оцінили цей заклад?",
+    "selectDay": "Виберіть День",
+    "similarSuggestions": "Схожі пропозиції",
+    "workingDays": "Робочі дні"
   },
   "toasts": {
     "feedbackError": "Помилка додавання коментаря",

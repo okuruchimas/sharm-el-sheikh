@@ -1,8 +1,10 @@
 {
   "404": "الصفحة غير موجودة",
   "buttons": {
+    "back": "خلف",
     "contactUs": "اتصل بنا",
     "more": "أكثر",
+    "save": "يحفظ",
     "viewMore": "عرض المزيد"
   },
   "days": {
@@ -45,10 +47,15 @@
     "yourReview": "مراجعتك"
   },
   "text": {
+    "about": "عن",
     "entertainersTourGuides": "المسليين ومرشدي الجولات",
+    "food": "طعام:",
     "languagesSpoken": "اللغات المحكية",
     "reviews": "التقييمات",
-    "similarSuggestions": "اقتراحات مشابهة"
+    "howRateEstablishment": "كيف تقيم هذا المنشأة؟",
+    "selectDay": "اختر اليوم",
+    "similarSuggestions": "اقتراحات مشابهة",
+    "workingDays": "أيام العمل"
   },
   "toasts": {
     "feedbackError": "حدث خطأ أثناء إضافة التعليق",
