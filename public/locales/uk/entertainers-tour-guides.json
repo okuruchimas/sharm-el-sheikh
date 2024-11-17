@@ -30,5 +30,11 @@
     "carClass": "Клас автомобіля",
     "languagesSpoken": "Мови, якими володіє водій",
     "otherLanguages": "Інші мови"
+  },
+  "tourGuidesFilters": {
+    "otherLocation": "Інша Локація",
+    "otherStyle": "Інший Стиль",
+    "photographyStyles": "Фотографічні стилі",
+    "workLocations": "Робочі Локації"
   }
 }

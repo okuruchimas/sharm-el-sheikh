@@ -1,26 +1,27 @@
-import styled from "@emotion/styled";
 import Card from "../../children/card";
+import type { PhotographerFragment } from "../../../../../gql/graphql";
 
-const PhotographCard = () => {
-  const arr = [
-    { src: "/icons/flags/UA.svg", alt: "UA" },
-    { src: "/icons/flags/DT.svg", alt: "DT" },
-    { src: "/icons/flags/IT.svg", alt: "IT" },
-    { src: "/icons/flags/EN.svg", alt: "EN" },
-  ];
+type PhotographCardProps = { photographer: PhotographerFragment };
+const PhotographCard = ({ photographer }: PhotographCardProps) => {
+  const flags = photographer.languages?.data.map((el) => ({
+    src: el.attributes?.flagIcon.data?.attributes?.url || "",
+    alt: el.attributes?.value || "",
+  }));
+
+  const styles = photographer.photography_styles?.data.map(
+    (el) => el.attributes?.value,
+  );
+
   return (
     <Card
-      averageRating={0}
-      totalComments={0}
-      slug={""}
-      title={"John Black"}
-      imgSrc={
-        "https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/banner1_9ca87e6a4b.webp"
-      }
-      iconText="Economy car"
-      iconSrc="/icons/Hotel.svg"
-      greyText={"Mon, Tue, Sat, Sun"}
-      flagIcons={arr}
+      slug={`/entertainers-tour-guides/animators/${photographer.slug}`}
+      title={photographer.name}
+      imgSrc={photographer?.profileImg?.data?.attributes?.url || ""}
+      averageRating={photographer.averageRating}
+      totalComments={photographer.totalComments}
+      iconText={styles?.join(", ") || "-"}
+      iconSrc="/icons/camera.svg"
+      flagIcons={flags || []}
     />
   );
 };

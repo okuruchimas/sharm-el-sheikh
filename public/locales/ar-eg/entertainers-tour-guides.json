@@ -30,5 +30,11 @@
     "carClass": "فئة السيارة",
     "languagesSpoken": "اللغات التي يتحدثها السائق",
     "otherLanguages": "لغات أخرى"
+  },
+  "tourGuidesFilters": {
+    "otherLocation": "موقع آخر",
+    "otherStyle": "نمط آخر",
+    "photographyStyles": "أنماط التصوير",
+    "workLocations": "مواقع العمل"
   }
 }

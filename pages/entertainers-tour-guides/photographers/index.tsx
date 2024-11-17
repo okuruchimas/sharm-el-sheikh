@@ -1,60 +1,180 @@
-import { REVALIDATE_TIME } from "../../../constants/page.constants";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import styled from "@emotion/styled";
-import { useMemo, useState } from "react";
-import { selectOption } from "../../../components/types/filter";
+import {
+  GetLocationsDocument,
+  GetPhotographyStylesDocument,
+  GetPhotographersByFiltersDocument,
+  type PhotographerFragment,
+} from "../../../gql/graphql";
+// hooks
 import useResponsive from "../../../hooks/useResponsive";
-import Container from "../../../components/sections/entertainers-tour-guides/children/container";
+import { useTranslation } from "next-i18next";
+import { useEffect, useMemo, useState } from "react";
+// constants
+import { REVALIDATE_TIME } from "../../../constants/page.constants";
+import { RATING_FILTER_OPTIONS } from "../../../constants/filter-options";
+// utils
+import styled from "@emotion/styled";
+import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+// components
 import Dropdown from "../../../components/layout/filters";
+import Container from "../../../components/sections/entertainers-tour-guides/children/container";
+import Pagination from "../../../components/layout/pagination";
 import FilterButton from "../../../components/layout/filters/button";
 import PhotographCards from "../../../components/sections/entertainers-tour-guides/photographers/cards";
-import Pagination from "../../../components/layout/pagination";
+import PhotographersFilters from "../../../components/sections/entertainers-tour-guides/photographers/children/photographers-filter";
+// types
+import type { selectOption } from "../../../components/types/filter";
 
-const options = [
-  { key: "most-rvw", value: "Most Reviews" },
-  { key: "few-rvw", value: "Fewest Reviews" },
-  { key: "h-rt", value: "Highest Rating" },
-  { key: "l-rt", value: "Lowest Rating" },
-];
-const Photographers = () => {
-  const [isLoading, setIsLoading] = useState(false);
+type Photographers = { attributes: PhotographerFragment }[];
+
+type PhotographersProps = {
+  locations: { attributes: selectOption }[];
+  initialTotal: number;
+  photographyStyles: { attributes: selectOption }[];
+  photographers: Photographers;
+};
+
+const Photographers = ({
+  locations,
+  initialTotal,
+  photographers,
+  photographyStyles,
+}: PhotographersProps) => {
+  // result
+  const [result, setResult] = useState<Photographers>(photographers);
+  // pagination
+  const [page, setPage] = useState<number>(1);
+  const [total, setTotal] = useState(initialTotal);
+  // filters
+  const [filter, setFilter] = useState("");
+  const [selectedStyles, setSelectedStyles] = useState<string[]>();
+  const [selectedLocations, setSelectedLocations] = useState<string[]>();
+  // booleans
   const [isFilter, setIsFilter] = useState(false);
-  const [selectedArea, setSelectedArea] = useState<selectOption>(options[0]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  //async ???
-  const handleOptionSelect = async (option: selectOption) => {
+  const { i18n, t } = useTranslation("entertainers-tour-guides");
+  const { isMobile } = useResponsive();
+  const pageSize = useMemo(() => (isMobile ? 3 : 6), [isMobile]);
+  const filterOptions = RATING_FILTER_OPTIONS.map((el) => ({
+    ...el,
+    value: t(el.value),
+  }));
+
+  const handleGetPhotographers = async ({
+    sort,
+    pageNum,
+    styles,
+    locations,
+  }: {
+    sort: string;
+    pageNum: number;
+    styles?: string[];
+    locations?: string[];
+  }) => {
     setIsLoading(true);
-    setSelectedArea(option);
 
+    const { photographers } = await fetchDataFromApi(
+      GetPhotographersByFiltersDocument,
+      {
+        locale: i18n.language,
+        page: pageNum,
+        pageSize: pageSize,
+        sort: sort || undefined,
+        styles: styles?.length ? styles : undefined,
+        locations: locations?.length ? locations : undefined,
+      },
+    );
+
+    setResult(photographers?.data as Photographers);
+    setTotal(photographers?.meta.pagination.total || 0);
     setIsLoading(false);
   };
 
-  //pagin
-  const [page, setPage] = useState<number>(1);
-  const { isMobile } = useResponsive();
+  useEffect(
+    () => {
+      if (!isMobile) {
+        handleGetPhotographers({
+          sort: filter,
+          pageNum: 1,
+          styles: selectedStyles,
+          locations: selectedLocations,
+        });
+        setPage(1);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [pageSize],
+  );
 
-  const pageSize = useMemo(() => (isMobile ? 3 : 6), [isMobile]);
+  const handleSaveFilters = async ({
+    styles,
+    locations,
+  }: {
+    styles?: string[];
+    locations?: string[];
+  }) => {
+    setIsFilter(false);
+    setSelectedStyles(styles);
+    setSelectedLocations(locations);
+
+    await handleGetPhotographers({
+      styles,
+      locations,
+      sort: filter,
+      pageNum: 1,
+    });
+    setPage(1);
+  };
+
+  const handleChangePage = async (pageNumber: number) => {
+    setPage(pageNumber);
+    await handleGetPhotographers({
+      styles: selectedStyles,
+      locations: selectedLocations,
+      sort: filter,
+      pageNum: pageNumber,
+    });
+  };
+
+  const handleChangeSort = async (option: selectOption) => {
+    setFilter(option.key);
+    await handleGetPhotographers({
+      styles: selectedStyles,
+      locations: selectedLocations,
+      sort: option.key,
+      pageNum: page,
+    });
+  };
 
   return (
     <Container>
       <FiltersWrap>
         <Dropdown
-          options={options}
-          onChange={handleOptionSelect}
+          options={filterOptions}
+          onChange={handleChangeSort}
           isLoading={isLoading}
           width="100%"
           height="56px"
           color="blue"
         />
-
         <FilterButton onClick={() => setIsFilter(!isFilter)} />
-        {isFilter ? null : null}
+        {isFilter ? (
+          <PhotographersFilters
+            onClose={() => setIsFilter(false)}
+            selectedStyles={selectedStyles}
+            stylesOptions={photographyStyles.map((el) => el.attributes)}
+            locationsOptions={locations.map((el) => el.attributes)}
+            selectedLocations={selectedLocations}
+            onSave={handleSaveFilters}
+          />
+        ) : null}
       </FiltersWrap>
-      <PhotographCards />
+      <PhotographCards photographers={result.map((el) => el.attributes)} />
       <Pagination
         currentPage={page}
-        onChangePage={setPage}
-        totalItems={40}
+        onChangePage={handleChangePage}
+        totalItems={total}
         pageSize={pageSize}
       />
     </Container>
@@ -77,8 +197,22 @@ const FiltersWrap = styled("div")(({ theme }) => ({
 }));
 
 export async function getStaticProps({ locale }: any) {
+  const { photographers } = await fetchData(GetPhotographersByFiltersDocument, {
+    locale,
+    page: 1,
+    pageSize: 4,
+  });
+
+  const { photographyStyles } = await fetchData(GetPhotographyStylesDocument);
+  const { locations } = await fetchData(GetLocationsDocument);
+
   return {
     props: {
+      photographers: photographers?.data,
+      initialTotal: photographers?.meta.pagination.total || 0,
+      photographyStyles: photographyStyles?.data,
+      locations: locations?.data,
+
       ...(await serverSideTranslations(locale, [
         "company-page",
         "common",

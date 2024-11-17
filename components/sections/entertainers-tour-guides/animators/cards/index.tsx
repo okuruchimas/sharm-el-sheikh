@@ -1,8 +1,8 @@
 import { useTranslation } from "next-i18next";
+import { CardsWrap } from "../../children/cards-wrap";
 import Placeholder from "../../../promotions/children/placeholder";
 import AnimatorCard from "../card";
 import type { AnimatorPreviewFragment } from "../../../../../gql/graphql";
-import { CardsWrap } from "../../children/cards-wrap";
 
 type AnimatorCardsProps = {
   animators: AnimatorPreviewFragment[];

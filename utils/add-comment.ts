@@ -8,7 +8,9 @@ export type CommentInput = {
 type CollectionTypesWithComments =
   | "company-promotion-cards"
   | "animators"
-  | "taxi-driver";
+  | "taxi-driver"
+  | "photographers"
+  | "tour-guides";
 type AddCommentParams = {
   slug: string;
   comment: CommentInput;

@@ -256,7 +256,7 @@ const Stack = styled("div", {
     flexDirection: "column",
     gap: gap || "16px",
 
-    ...(fallDown ? { animation: `${fallDownKF} 0.5s linear ` } : {}),
+    ...(fallDown ? { animation: `${fallDownKF} 0.3s linear` } : {}),
 
     [theme.breakpoints.mobile]: {
       gap: mGap || "8px",
@@ -367,5 +367,5 @@ const CardsWrapper = styled("div", {
     gap: "8px",
   },
 
-  ...(fallDown ? { animation: `${fallDownKF} 0.5s linear ` } : {}),
+  ...(fallDown ? { animation: `${fallDownKF} 0.3s linear` } : {}),
 }));

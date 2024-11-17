@@ -58,3 +58,27 @@ query GetCarClasses {
     }
   }
 }
+
+query GetPhotographyStyles {
+  photographyStyles {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+}
+
+query GetLocations {
+  locations {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+}
+
+

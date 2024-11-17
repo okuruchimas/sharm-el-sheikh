@@ -14,7 +14,7 @@ interface Props {
   slug: string;
   imgSrc: string;
   title: string;
-  greyText: string;
+  greyText?: string;
   iconSrc: string;
   iconText: string;
   indicator?: ReactNode;
@@ -40,7 +40,7 @@ const Card = ({
       <StyledImage src={imgSrc} loading="lazy" height={298} width={266} />
       {indicator ? indicator : null}
       <InfoWrap>
-        <GreyText>{greyText}</GreyText>
+        {greyText ? <GreyText>{greyText}</GreyText> : null}
         <TitleRating
           title={title}
           averageRating={averageRating}
