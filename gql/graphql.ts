@@ -655,10 +655,12 @@ export type Comment = {
   company_promotion_cards?: Maybe<CompanyPromotionCardRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   email: Scalars['String']['output'];
+  photographers?: Maybe<PhotographerRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   rating: Scalars['Float']['output'];
   taxi_drivers?: Maybe<TaxiDriverRelationResponseCollection>;
   text: Scalars['String']['output'];
+  tour_guides?: Maybe<TourGuideRelationResponseCollection>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -679,8 +681,24 @@ export type CommentCompany_Promotion_CardsArgs = {
 };
 
 
+export type CommentPhotographersArgs = {
+  filters?: InputMaybe<PhotographerFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
 export type CommentTaxi_DriversArgs = {
   filters?: InputMaybe<TaxiDriverFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type CommentTour_GuidesArgs = {
+  filters?: InputMaybe<TourGuideFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -712,10 +730,12 @@ export type CommentFiltersInput = {
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<CommentFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<CommentFiltersInput>>>;
+  photographers?: InputMaybe<PhotographerFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   rating?: InputMaybe<FloatFilterInput>;
   taxi_drivers?: InputMaybe<TaxiDriverFiltersInput>;
   text?: InputMaybe<StringFilterInput>;
+  tour_guides?: InputMaybe<TourGuideFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
@@ -723,10 +743,12 @@ export type CommentInput = {
   animators?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   company_promotion_cards?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   email?: InputMaybe<Scalars['String']['input']>;
+  photographers?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   rating?: InputMaybe<Scalars['Float']['input']>;
   taxi_drivers?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   text?: InputMaybe<Scalars['String']['input']>;
+  tour_guides?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
 };
 
 export type CommentRelationResponseCollection = {
@@ -744,7 +766,6 @@ export type CompanyPromotionCard = {
   description?: Maybe<Scalars['String']['output']>;
   discount?: Maybe<Scalars['String']['output']>;
   discountBanner?: Maybe<ComponentComponentsBanner>;
-  filters?: Maybe<FiltersRelationResponseCollection>;
   images: UploadFileRelationResponseCollection;
   locale?: Maybe<Scalars['String']['output']>;
   localizations?: Maybe<CompanyPromotionCardRelationResponseCollection>;
@@ -772,14 +793,6 @@ export type CompanyPromotionCardCategoriesArgs = {
 
 export type CompanyPromotionCardCommentsArgs = {
   filters?: InputMaybe<CommentFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type CompanyPromotionCardFiltersArgs = {
-  filters?: InputMaybe<FiltersFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -835,7 +848,6 @@ export type CompanyPromotionCardFiltersInput = {
   description?: InputMaybe<StringFilterInput>;
   discount?: InputMaybe<StringFilterInput>;
   discountBanner?: InputMaybe<ComponentComponentsBannerFiltersInput>;
-  filters?: InputMaybe<FiltersFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<CompanyPromotionCardFiltersInput>;
@@ -862,7 +874,6 @@ export type CompanyPromotionCardInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   discount?: InputMaybe<Scalars['String']['input']>;
   discountBanner?: InputMaybe<ComponentComponentsBannerInput>;
-  filters?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   images?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   location?: InputMaybe<Scalars['String']['input']>;
   position?: InputMaybe<ComponentHelpersPositionInput>;
@@ -1212,55 +1223,6 @@ export type FileInfoInput = {
   name?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type Filters = {
-  __typename?: 'Filters';
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  key?: Maybe<Scalars['String']['output']>;
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  text?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type FiltersEntity = {
-  __typename?: 'FiltersEntity';
-  attributes?: Maybe<Filters>;
-  id?: Maybe<Scalars['ID']['output']>;
-};
-
-export type FiltersEntityResponse = {
-  __typename?: 'FiltersEntityResponse';
-  data?: Maybe<FiltersEntity>;
-};
-
-export type FiltersEntityResponseCollection = {
-  __typename?: 'FiltersEntityResponseCollection';
-  data: Array<FiltersEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type FiltersFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<FiltersFiltersInput>>>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  key?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<FiltersFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<FiltersFiltersInput>>>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
-  text?: InputMaybe<StringFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type FiltersInput = {
-  key?: InputMaybe<Scalars['String']['input']>;
-  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
-  text?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type FiltersRelationResponseCollection = {
-  __typename?: 'FiltersRelationResponseCollection';
-  data: Array<FiltersEntity>;
-};
-
 export type FloatFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
@@ -1329,7 +1291,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = AnimationCompany | Animator | Announcement | Area | CarClass | Category | Club | Comment | CompanyPromotionCard | ComponentComponentsBanner | ComponentComponentsEntertainmentService | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | EventCard | Filters | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Service | TaxiDriver | TaxiService | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AnimationCompany | Animator | Announcement | Area | CarClass | Category | Club | Comment | CompanyPromotionCard | ComponentComponentsBanner | ComponentComponentsEntertainmentService | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Location | Photographer | PhotographyStyle | Service | TaxiDriver | TaxiService | TourGuide | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   __typename?: 'Header';
@@ -1385,7 +1347,6 @@ export type Home = {
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   eventCardsTitle: Scalars['String']['output'];
   event_cards?: Maybe<EventCardRelationResponseCollection>;
-  filters?: Maybe<FiltersRelationResponseCollection>;
   heroTitle: Scalars['String']['output'];
   locale?: Maybe<Scalars['String']['output']>;
   localizations?: Maybe<HomeRelationResponseCollection>;
@@ -1406,14 +1367,6 @@ export type HomeAnnouncementsArgs = {
 
 export type HomeEvent_CardsArgs = {
   filters?: InputMaybe<EventCardFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type HomeFiltersArgs = {
-  filters?: InputMaybe<FiltersFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -1442,7 +1395,6 @@ export type HomeInput = {
   banner2?: InputMaybe<ComponentComponentsBannerInput>;
   eventCardsTitle?: InputMaybe<Scalars['String']['input']>;
   event_cards?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  filters?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   heroTitle?: InputMaybe<Scalars['String']['input']>;
   mapTitle?: InputMaybe<Scalars['String']['input']>;
   promotionsTitle?: InputMaybe<Scalars['String']['input']>;
@@ -1616,8 +1568,10 @@ export type Language = {
   key: Scalars['String']['output'];
   locale?: Maybe<Scalars['String']['output']>;
   localizations?: Maybe<LanguageRelationResponseCollection>;
+  photographers?: Maybe<PhotographerRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   taxi_drivers?: Maybe<TaxiDriverRelationResponseCollection>;
+  tour_guides?: Maybe<TourGuideRelationResponseCollection>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   value: Scalars['String']['output'];
 };
@@ -1639,8 +1593,24 @@ export type LanguageLocalizationsArgs = {
 };
 
 
+export type LanguagePhotographersArgs = {
+  filters?: InputMaybe<PhotographerFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
 export type LanguageTaxi_DriversArgs = {
   filters?: InputMaybe<TaxiDriverFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type LanguageTour_GuidesArgs = {
+  filters?: InputMaybe<TourGuideFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -1674,8 +1644,10 @@ export type LanguageFiltersInput = {
   localizations?: InputMaybe<LanguageFiltersInput>;
   not?: InputMaybe<LanguageFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<LanguageFiltersInput>>>;
+  photographers?: InputMaybe<PhotographerFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   taxi_drivers?: InputMaybe<TaxiDriverFiltersInput>;
+  tour_guides?: InputMaybe<TourGuideFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   value?: InputMaybe<StringFilterInput>;
 };
@@ -1685,14 +1657,88 @@ export type LanguageInput = {
   flagIcon?: InputMaybe<Scalars['ID']['input']>;
   index?: InputMaybe<Scalars['Int']['input']>;
   key?: InputMaybe<Scalars['String']['input']>;
+  photographers?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   taxi_drivers?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  tour_guides?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   value?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type LanguageRelationResponseCollection = {
   __typename?: 'LanguageRelationResponseCollection';
   data: Array<LanguageEntity>;
+};
+
+export type Location = {
+  __typename?: 'Location';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  key: Scalars['String']['output'];
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<LocationRelationResponseCollection>;
+  photographers?: Maybe<PhotographerRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  value: Scalars['String']['output'];
+};
+
+
+export type LocationLocalizationsArgs = {
+  filters?: InputMaybe<LocationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type LocationPhotographersArgs = {
+  filters?: InputMaybe<PhotographerFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type LocationEntity = {
+  __typename?: 'LocationEntity';
+  attributes?: Maybe<Location>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type LocationEntityResponse = {
+  __typename?: 'LocationEntityResponse';
+  data?: Maybe<LocationEntity>;
+};
+
+export type LocationEntityResponseCollection = {
+  __typename?: 'LocationEntityResponseCollection';
+  data: Array<LocationEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type LocationFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<LocationFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  key?: InputMaybe<StringFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<LocationFiltersInput>;
+  not?: InputMaybe<LocationFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<LocationFiltersInput>>>;
+  photographers?: InputMaybe<PhotographerFiltersInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  value?: InputMaybe<StringFilterInput>;
+};
+
+export type LocationInput = {
+  key?: InputMaybe<Scalars['String']['input']>;
+  photographers?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type LocationRelationResponseCollection = {
+  __typename?: 'LocationRelationResponseCollection';
+  data: Array<LocationEntity>;
 };
 
 export type Mutation = {
@@ -1717,19 +1763,26 @@ export type Mutation = {
   createCompanyPromotionCardLocalization?: Maybe<CompanyPromotionCardEntityResponse>;
   createEventCard?: Maybe<EventCardEntityResponse>;
   createEventCardLocalization?: Maybe<EventCardEntityResponse>;
-  createFilters?: Maybe<FiltersEntityResponse>;
   createFooterLocalization?: Maybe<FooterEntityResponse>;
   createHeaderLocalization?: Maybe<HeaderEntityResponse>;
   createHomeLocalization?: Maybe<HomeEntityResponse>;
   createHotspotsPageLocalization?: Maybe<HotspotsPageEntityResponse>;
   createLanguage?: Maybe<LanguageEntityResponse>;
   createLanguageLocalization?: Maybe<LanguageEntityResponse>;
+  createLocation?: Maybe<LocationEntityResponse>;
+  createLocationLocalization?: Maybe<LocationEntityResponse>;
+  createPhotographer?: Maybe<PhotographerEntityResponse>;
+  createPhotographerLocalization?: Maybe<PhotographerEntityResponse>;
+  createPhotographyStyle?: Maybe<PhotographyStyleEntityResponse>;
+  createPhotographyStyleLocalization?: Maybe<PhotographyStyleEntityResponse>;
   createService?: Maybe<ServiceEntityResponse>;
   createServiceLocalization?: Maybe<ServiceEntityResponse>;
   createTaxiDriver?: Maybe<TaxiDriverEntityResponse>;
   createTaxiDriverLocalization?: Maybe<TaxiDriverEntityResponse>;
   createTaxiService?: Maybe<TaxiServiceEntityResponse>;
   createTaxiServiceLocalization?: Maybe<TaxiServiceEntityResponse>;
+  createTourGuide?: Maybe<TourGuideEntityResponse>;
+  createTourGuideLocalization?: Maybe<TourGuideEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   createUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Create a new role */
@@ -1746,15 +1799,18 @@ export type Mutation = {
   deleteComment?: Maybe<CommentEntityResponse>;
   deleteCompanyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
   deleteEventCard?: Maybe<EventCardEntityResponse>;
-  deleteFilters?: Maybe<FiltersEntityResponse>;
   deleteFooter?: Maybe<FooterEntityResponse>;
   deleteHeader?: Maybe<HeaderEntityResponse>;
   deleteHome?: Maybe<HomeEntityResponse>;
   deleteHotspotsPage?: Maybe<HotspotsPageEntityResponse>;
   deleteLanguage?: Maybe<LanguageEntityResponse>;
+  deleteLocation?: Maybe<LocationEntityResponse>;
+  deletePhotographer?: Maybe<PhotographerEntityResponse>;
+  deletePhotographyStyle?: Maybe<PhotographyStyleEntityResponse>;
   deleteService?: Maybe<ServiceEntityResponse>;
   deleteTaxiDriver?: Maybe<TaxiDriverEntityResponse>;
   deleteTaxiService?: Maybe<TaxiServiceEntityResponse>;
+  deleteTourGuide?: Maybe<TourGuideEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Delete an existing role */
@@ -1783,15 +1839,18 @@ export type Mutation = {
   updateCompanyPromotionCard?: Maybe<CompanyPromotionCardEntityResponse>;
   updateEventCard?: Maybe<EventCardEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
-  updateFilters?: Maybe<FiltersEntityResponse>;
   updateFooter?: Maybe<FooterEntityResponse>;
   updateHeader?: Maybe<HeaderEntityResponse>;
   updateHome?: Maybe<HomeEntityResponse>;
   updateHotspotsPage?: Maybe<HotspotsPageEntityResponse>;
   updateLanguage?: Maybe<LanguageEntityResponse>;
+  updateLocation?: Maybe<LocationEntityResponse>;
+  updatePhotographer?: Maybe<PhotographerEntityResponse>;
+  updatePhotographyStyle?: Maybe<PhotographyStyleEntityResponse>;
   updateService?: Maybe<ServiceEntityResponse>;
   updateTaxiDriver?: Maybe<TaxiDriverEntityResponse>;
   updateTaxiService?: Maybe<TaxiServiceEntityResponse>;
+  updateTourGuide?: Maybe<TourGuideEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Update an existing role */
@@ -1923,11 +1982,6 @@ export type MutationCreateEventCardLocalizationArgs = {
 };
 
 
-export type MutationCreateFiltersArgs = {
-  data: FiltersInput;
-};
-
-
 export type MutationCreateFooterLocalizationArgs = {
   data?: InputMaybe<FooterInput>;
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -1969,6 +2023,45 @@ export type MutationCreateLanguageLocalizationArgs = {
 };
 
 
+export type MutationCreateLocationArgs = {
+  data: LocationInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateLocationLocalizationArgs = {
+  data?: InputMaybe<LocationInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreatePhotographerArgs = {
+  data: PhotographerInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreatePhotographerLocalizationArgs = {
+  data?: InputMaybe<PhotographerInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreatePhotographyStyleArgs = {
+  data: PhotographyStyleInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreatePhotographyStyleLocalizationArgs = {
+  data?: InputMaybe<PhotographyStyleInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationCreateServiceArgs = {
   data: ServiceInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -2003,6 +2096,19 @@ export type MutationCreateTaxiServiceArgs = {
 
 export type MutationCreateTaxiServiceLocalizationArgs = {
   data?: InputMaybe<TaxiServiceInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateTourGuideArgs = {
+  data: TourGuideInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateTourGuideLocalizationArgs = {
+  data?: InputMaybe<TourGuideInput>;
   id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -2086,11 +2192,6 @@ export type MutationDeleteEventCardArgs = {
 };
 
 
-export type MutationDeleteFiltersArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
 export type MutationDeleteFooterArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -2117,6 +2218,24 @@ export type MutationDeleteLanguageArgs = {
 };
 
 
+export type MutationDeleteLocationArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeletePhotographerArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeletePhotographyStyleArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationDeleteServiceArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -2130,6 +2249,12 @@ export type MutationDeleteTaxiDriverArgs = {
 
 
 export type MutationDeleteTaxiServiceArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeleteTourGuideArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -2269,12 +2394,6 @@ export type MutationUpdateFileInfoArgs = {
 };
 
 
-export type MutationUpdateFiltersArgs = {
-  data: FiltersInput;
-  id: Scalars['ID']['input'];
-};
-
-
 export type MutationUpdateFooterArgs = {
   data: FooterInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -2306,6 +2425,27 @@ export type MutationUpdateLanguageArgs = {
 };
 
 
+export type MutationUpdateLocationArgs = {
+  data: LocationInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationUpdatePhotographerArgs = {
+  data: PhotographerInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationUpdatePhotographyStyleArgs = {
+  data: PhotographyStyleInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationUpdateServiceArgs = {
   data: ServiceInput;
   id: Scalars['ID']['input'];
@@ -2322,6 +2462,13 @@ export type MutationUpdateTaxiDriverArgs = {
 
 export type MutationUpdateTaxiServiceArgs = {
   data: TaxiServiceInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationUpdateTourGuideArgs = {
+  data: TourGuideInput;
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -2374,6 +2521,201 @@ export type PaginationArg = {
   start?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export type Photographer = {
+  __typename?: 'Photographer';
+  averageRating: Scalars['Float']['output'];
+  comments?: Maybe<CommentRelationResponseCollection>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  languages?: Maybe<LanguageRelationResponseCollection>;
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<PhotographerRelationResponseCollection>;
+  locations?: Maybe<LocationRelationResponseCollection>;
+  name: Scalars['String']['output'];
+  photography_styles?: Maybe<PhotographyStyleRelationResponseCollection>;
+  profileImg: UploadFileEntityResponse;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  slug: Scalars['String']['output'];
+  socialLinks: Array<Maybe<ComponentHelpersSocialMedia>>;
+  totalComments: Scalars['Int']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type PhotographerCommentsArgs = {
+  filters?: InputMaybe<CommentFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type PhotographerLanguagesArgs = {
+  filters?: InputMaybe<LanguageFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type PhotographerLocalizationsArgs = {
+  filters?: InputMaybe<PhotographerFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type PhotographerLocationsArgs = {
+  filters?: InputMaybe<LocationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type PhotographerPhotography_StylesArgs = {
+  filters?: InputMaybe<PhotographyStyleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type PhotographerSocialLinksArgs = {
+  filters?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type PhotographerEntity = {
+  __typename?: 'PhotographerEntity';
+  attributes?: Maybe<Photographer>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type PhotographerEntityResponse = {
+  __typename?: 'PhotographerEntityResponse';
+  data?: Maybe<PhotographerEntity>;
+};
+
+export type PhotographerEntityResponseCollection = {
+  __typename?: 'PhotographerEntityResponseCollection';
+  data: Array<PhotographerEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type PhotographerFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<PhotographerFiltersInput>>>;
+  averageRating?: InputMaybe<FloatFilterInput>;
+  comments?: InputMaybe<CommentFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  languages?: InputMaybe<LanguageFiltersInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<PhotographerFiltersInput>;
+  locations?: InputMaybe<LocationFiltersInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<PhotographerFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<PhotographerFiltersInput>>>;
+  photography_styles?: InputMaybe<PhotographyStyleFiltersInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  socialLinks?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  totalComments?: InputMaybe<IntFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type PhotographerInput = {
+  averageRating?: InputMaybe<Scalars['Float']['input']>;
+  comments?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  languages?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  locations?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  photography_styles?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  profileImg?: InputMaybe<Scalars['ID']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  socialLinks?: InputMaybe<Array<InputMaybe<ComponentHelpersSocialMediaInput>>>;
+  totalComments?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type PhotographerRelationResponseCollection = {
+  __typename?: 'PhotographerRelationResponseCollection';
+  data: Array<PhotographerEntity>;
+};
+
+export type PhotographyStyle = {
+  __typename?: 'PhotographyStyle';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  key: Scalars['String']['output'];
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<PhotographyStyleRelationResponseCollection>;
+  photographers?: Maybe<PhotographerRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  value: Scalars['String']['output'];
+};
+
+
+export type PhotographyStyleLocalizationsArgs = {
+  filters?: InputMaybe<PhotographyStyleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type PhotographyStylePhotographersArgs = {
+  filters?: InputMaybe<PhotographerFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type PhotographyStyleEntity = {
+  __typename?: 'PhotographyStyleEntity';
+  attributes?: Maybe<PhotographyStyle>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type PhotographyStyleEntityResponse = {
+  __typename?: 'PhotographyStyleEntityResponse';
+  data?: Maybe<PhotographyStyleEntity>;
+};
+
+export type PhotographyStyleEntityResponseCollection = {
+  __typename?: 'PhotographyStyleEntityResponseCollection';
+  data: Array<PhotographyStyleEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type PhotographyStyleFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<PhotographyStyleFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  key?: InputMaybe<StringFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<PhotographyStyleFiltersInput>;
+  not?: InputMaybe<PhotographyStyleFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<PhotographyStyleFiltersInput>>>;
+  photographers?: InputMaybe<PhotographerFiltersInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  value?: InputMaybe<StringFilterInput>;
+};
+
+export type PhotographyStyleInput = {
+  key?: InputMaybe<Scalars['String']['input']>;
+  photographers?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PhotographyStyleRelationResponseCollection = {
+  __typename?: 'PhotographyStyleRelationResponseCollection';
+  data: Array<PhotographyStyleEntity>;
+};
+
 export enum PublicationState {
   Live = 'LIVE',
   Preview = 'PREVIEW'
@@ -2401,8 +2743,6 @@ export type Query = {
   companyPromotionCards?: Maybe<CompanyPromotionCardEntityResponseCollection>;
   eventCard?: Maybe<EventCardEntityResponse>;
   eventCards?: Maybe<EventCardEntityResponseCollection>;
-  filteres?: Maybe<FiltersEntityResponseCollection>;
-  filters?: Maybe<FiltersEntityResponse>;
   footer?: Maybe<FooterEntityResponse>;
   header?: Maybe<HeaderEntityResponse>;
   home?: Maybe<HomeEntityResponse>;
@@ -2411,13 +2751,21 @@ export type Query = {
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   language?: Maybe<LanguageEntityResponse>;
   languages?: Maybe<LanguageEntityResponseCollection>;
+  location?: Maybe<LocationEntityResponse>;
+  locations?: Maybe<LocationEntityResponseCollection>;
   me?: Maybe<UsersPermissionsMe>;
+  photographer?: Maybe<PhotographerEntityResponse>;
+  photographers?: Maybe<PhotographerEntityResponseCollection>;
+  photographyStyle?: Maybe<PhotographyStyleEntityResponse>;
+  photographyStyles?: Maybe<PhotographyStyleEntityResponseCollection>;
   service?: Maybe<ServiceEntityResponse>;
   services?: Maybe<ServiceEntityResponseCollection>;
   taxiDriver?: Maybe<TaxiDriverEntityResponse>;
   taxiDrivers?: Maybe<TaxiDriverEntityResponseCollection>;
   taxiService?: Maybe<TaxiServiceEntityResponse>;
   taxiServices?: Maybe<TaxiServiceEntityResponseCollection>;
+  tourGuide?: Maybe<TourGuideEntityResponse>;
+  tourGuides?: Maybe<TourGuideEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
   uploadFiles?: Maybe<UploadFileEntityResponseCollection>;
   uploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -2575,19 +2923,6 @@ export type QueryEventCardsArgs = {
 };
 
 
-export type QueryFilteresArgs = {
-  filters?: InputMaybe<FiltersFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type QueryFiltersArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
 export type QueryFooterArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   publicationState?: InputMaybe<PublicationState>;
@@ -2639,6 +2974,51 @@ export type QueryLanguagesArgs = {
 };
 
 
+export type QueryLocationArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryLocationsArgs = {
+  filters?: InputMaybe<LocationFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryPhotographerArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryPhotographersArgs = {
+  filters?: InputMaybe<PhotographerFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryPhotographyStyleArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryPhotographyStylesArgs = {
+  filters?: InputMaybe<PhotographyStyleFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
 export type QueryServiceArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -2677,6 +3057,21 @@ export type QueryTaxiServiceArgs = {
 
 export type QueryTaxiServicesArgs = {
   filters?: InputMaybe<TaxiServiceFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryTourGuideArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryTourGuidesArgs = {
+  filters?: InputMaybe<TourGuideFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
@@ -3082,6 +3477,110 @@ export type TimeFilterInput = {
   null?: InputMaybe<Scalars['Boolean']['input']>;
   or?: InputMaybe<Array<InputMaybe<Scalars['Time']['input']>>>;
   startsWith?: InputMaybe<Scalars['Time']['input']>;
+};
+
+export type TourGuide = {
+  __typename?: 'TourGuide';
+  averageRating: Scalars['Float']['output'];
+  comments?: Maybe<CommentRelationResponseCollection>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  languages?: Maybe<LanguageRelationResponseCollection>;
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<TourGuideRelationResponseCollection>;
+  name: Scalars['String']['output'];
+  profileImg: UploadFileEntityResponse;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  slug: Scalars['String']['output'];
+  socialLinks: Array<Maybe<ComponentHelpersSocialMedia>>;
+  totalComments: Scalars['Int']['output'];
+  tours: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type TourGuideCommentsArgs = {
+  filters?: InputMaybe<CommentFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TourGuideLanguagesArgs = {
+  filters?: InputMaybe<LanguageFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TourGuideLocalizationsArgs = {
+  filters?: InputMaybe<TourGuideFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TourGuideSocialLinksArgs = {
+  filters?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type TourGuideEntity = {
+  __typename?: 'TourGuideEntity';
+  attributes?: Maybe<TourGuide>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type TourGuideEntityResponse = {
+  __typename?: 'TourGuideEntityResponse';
+  data?: Maybe<TourGuideEntity>;
+};
+
+export type TourGuideEntityResponseCollection = {
+  __typename?: 'TourGuideEntityResponseCollection';
+  data: Array<TourGuideEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type TourGuideFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<TourGuideFiltersInput>>>;
+  averageRating?: InputMaybe<FloatFilterInput>;
+  comments?: InputMaybe<CommentFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  languages?: InputMaybe<LanguageFiltersInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<TourGuideFiltersInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<TourGuideFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<TourGuideFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  socialLinks?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  totalComments?: InputMaybe<IntFilterInput>;
+  tours?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type TourGuideInput = {
+  averageRating?: InputMaybe<Scalars['Float']['input']>;
+  comments?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  languages?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  profileImg?: InputMaybe<Scalars['ID']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  socialLinks?: InputMaybe<Array<InputMaybe<ComponentHelpersSocialMediaInput>>>;
+  totalComments?: InputMaybe<Scalars['Int']['input']>;
+  tours?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TourGuideRelationResponseCollection = {
+  __typename?: 'TourGuideRelationResponseCollection';
+  data: Array<TourGuideEntity>;
 };
 
 export type UploadFile = {
@@ -3590,7 +4089,7 @@ export type CompanyPromotionCardQueryVariables = Exact<{
 }>;
 
 
-export type CompanyPromotionCardQuery = { __typename?: 'Query', companyPromotionCards?: { __typename?: 'CompanyPromotionCardEntityResponseCollection', data: Array<{ __typename?: 'CompanyPromotionCardEntity', id?: string | null, attributes?: { __typename?: 'CompanyPromotionCard', title: string, discount?: string | null, description?: string | null, youTubeVideoId?: string | null, touchText?: string | null, touchLink?: string | null, averageRating: number, totalComments: number, slug: string, location?: string | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat?: string | null, lng?: string | null } | null, discountBanner?: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null, filters?: { __typename?: 'FiltersRelationResponseCollection', data: Array<{ __typename?: 'FiltersEntity', id?: string | null, attributes?: { __typename?: 'Filters', text?: string | null, key?: string | null } | null }> } | null, services?: { __typename?: 'ServiceRelationResponseCollection', data: Array<{ __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string } | null }> } | null } | null }> } | null };
+export type CompanyPromotionCardQuery = { __typename?: 'Query', companyPromotionCards?: { __typename?: 'CompanyPromotionCardEntityResponseCollection', data: Array<{ __typename?: 'CompanyPromotionCardEntity', id?: string | null, attributes?: { __typename?: 'CompanyPromotionCard', title: string, discount?: string | null, description?: string | null, youTubeVideoId?: string | null, touchText?: string | null, touchLink?: string | null, averageRating: number, totalComments: number, slug: string, location?: string | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat?: string | null, lng?: string | null } | null, discountBanner?: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null, services?: { __typename?: 'ServiceRelationResponseCollection', data: Array<{ __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string } | null }> } | null } | null }> } | null };
 
 export type GetCompanyPromotionCardsByFilterQueryVariables = Exact<{
   areaKey?: InputMaybe<Scalars['String']['input']>;
@@ -3609,7 +4108,7 @@ export type GetPromotionCardsSlugsQueryVariables = Exact<{ [key: string]: never;
 
 export type GetPromotionCardsSlugsQuery = { __typename?: 'Query', companyPromotionCards?: { __typename?: 'CompanyPromotionCardEntityResponseCollection', data: Array<{ __typename?: 'CompanyPromotionCardEntity', attributes?: { __typename?: 'CompanyPromotionCard', slug: string } | null }> } | null };
 
-export type CompanyCardFragment = { __typename?: 'CompanyPromotionCard', title: string, discount?: string | null, description?: string | null, youTubeVideoId?: string | null, touchText?: string | null, touchLink?: string | null, averageRating: number, totalComments: number, slug: string, location?: string | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat?: string | null, lng?: string | null } | null, discountBanner?: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null, filters?: { __typename?: 'FiltersRelationResponseCollection', data: Array<{ __typename?: 'FiltersEntity', id?: string | null, attributes?: { __typename?: 'Filters', text?: string | null, key?: string | null } | null }> } | null, services?: { __typename?: 'ServiceRelationResponseCollection', data: Array<{ __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string } | null }> } | null };
+export type CompanyCardFragment = { __typename?: 'CompanyPromotionCard', title: string, discount?: string | null, description?: string | null, youTubeVideoId?: string | null, touchText?: string | null, touchLink?: string | null, averageRating: number, totalComments: number, slug: string, location?: string | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat?: string | null, lng?: string | null } | null, discountBanner?: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null, services?: { __typename?: 'ServiceRelationResponseCollection', data: Array<{ __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string } | null }> } | null };
 
 export type CompanyCardPreviewFragment = { __typename?: 'CompanyPromotionCard', title: string, discount?: string | null, averageRating: number, totalComments: number, slug: string, location?: string | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat?: string | null, lng?: string | null } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null };
 
@@ -3956,15 +4455,6 @@ export const CompanyCardFragmentDoc = new TypedDocumentString(`
   }
   touchText
   touchLink
-  filters {
-    data {
-      id
-      attributes {
-        text
-        key
-      }
-    }
-  }
   averageRating
   totalComments
   services {
@@ -4657,15 +5147,6 @@ fragment CompanyCard on CompanyPromotionCard {
   }
   touchText
   touchLink
-  filters {
-    data {
-      id
-      attributes {
-        text
-        key
-      }
-    }
-  }
   averageRating
   totalComments
   services {
