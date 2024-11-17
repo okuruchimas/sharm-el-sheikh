@@ -1,8 +1,8 @@
 import { useTranslation } from "next-i18next";
 import Placeholder from "../../../promotions/children/placeholder";
 import AnimatorCard from "../card";
-import styled from "@emotion/styled";
 import type { AnimatorPreviewFragment } from "../../../../../gql/graphql";
+import { CardsWrap } from "../../children/cards-wrap";
 
 type AnimatorCardsProps = {
   animators: AnimatorPreviewFragment[];
@@ -11,33 +11,14 @@ const AnimatorCards = ({ animators }: AnimatorCardsProps) => {
   const { t } = useTranslation("entertainers-tour-guides");
 
   return animators.length ? (
-    <Wrap>
+    <CardsWrap>
       {animators.map((el) => (
         <AnimatorCard animator={el} key={el.slug} />
       ))}
-    </Wrap>
+    </CardsWrap>
   ) : (
     <Placeholder title={t("placeholders.noAnimators")} />
   );
 };
 
-const Wrap = styled("div")(({ theme }) => ({
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr 1fr 1fr",
-  gap: "16px",
-  width: "100%",
-  marginBottom: "24px",
-
-  [theme.breakpoints.desktopM]: {
-    gridTemplateColumns: "1fr 1fr 1fr",
-  },
-
-  [theme.breakpoints.desktopS]: {
-    gridTemplateColumns: "1fr 1fr",
-  },
-
-  [theme.breakpoints.mobile]: {
-    gridTemplateColumns: "1fr",
-  },
-}));
 export default AnimatorCards;
