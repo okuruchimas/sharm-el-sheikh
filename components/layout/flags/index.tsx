@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styled from "@emotion/styled";
-import type { ImageI } from "../../types/image";
+import type { ImageI } from "../../types/images";
 
 type FlagsProps = { icons: ImageI[] };
 

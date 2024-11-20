@@ -10,6 +10,10 @@
     "mostReviews": "أكبر عدد من التقييمات"
   },
   "pageTitle": "استعن بأفضل المرشدين والممثلين لجعل كل رحلة ومساء لا يُنسى!",
+  "photographer": {
+    "photographyStyles": "أنماط التصوير",
+    "reviewFormTitle": "كيف تقيم هذا المصور؟"
+  },
   "placeholders": {
     "noDrivers": "لم يتم العثور على سائقين",
     "noAnimators": "لم يتم العثور على منشطين",
@@ -30,6 +34,10 @@
     "carClass": "فئة السيارة",
     "languagesSpoken": "اللغات التي يتحدثها السائق",
     "otherLanguages": "لغات أخرى"
+  },
+  "tourGuide": {
+    "reviewFormTitle": "كيف تقيم هذا المرشد السياحي؟",
+    "tours": "الجولات"
   },
   "tourGuidesFilters": {
     "otherLocation": "موقع آخر",

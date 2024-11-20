@@ -10,6 +10,10 @@
     "mostReviews": "Найбільше відгуків"
   },
   "pageTitle": "Залучайте найкращих гідів та розважальників, щоб зробити кожну подорож та вечір незабутніми!",
+  "photographer": {
+    "photographyStyles": "Фотографічні стилі",
+    "reviewFormTitle": "Як би ви оцінили цього фотографа?"
+  },
   "placeholders": {
     "noDrivers": "Водіїв не знайдено",
     "noAnimators": "Аніматорів не знайдено",
@@ -30,6 +34,10 @@
     "carClass": "Клас автомобіля",
     "languagesSpoken": "Мови, якими володіє водій",
     "otherLanguages": "Інші мови"
+  },
+  "tourGuide": {
+    "reviewFormTitle": "Як би ви оцінили цього туроператора?",
+    "tours": "Тури"
   },
   "tourGuidesFilters": {
     "otherLocation": "Інша Локація",

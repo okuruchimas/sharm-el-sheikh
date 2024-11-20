@@ -13,7 +13,7 @@ const GuideCard = ({ tourGuide }: GuideCardProps) => {
     <Card
       averageRating={tourGuide.averageRating}
       totalComments={tourGuide.totalComments}
-      slug={tourGuide.slug}
+      slug={`/entertainers-tour-guides/tour-and-guides/${tourGuide.slug}`}
       title={tourGuide.name}
       imgSrc={tourGuide?.profileImg?.data?.attributes?.url || ""}
       iconText={tourGuide.tours}

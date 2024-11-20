@@ -42,6 +42,7 @@ const Route = styled("div")(({ theme }) => ({
     marginTop: "14px",
     marginBottom: "24px",
     fontSize: theme.fontSize.fontS18,
+    lineHeight: 1.4,
   },
 }));
 

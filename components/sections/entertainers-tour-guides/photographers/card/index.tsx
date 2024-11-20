@@ -14,7 +14,7 @@ const PhotographCard = ({ photographer }: PhotographCardProps) => {
 
   return (
     <Card
-      slug={`/entertainers-tour-guides/animators/${photographer.slug}`}
+      slug={`/entertainers-tour-guides/photographers/${photographer.slug}`}
       title={photographer.name}
       imgSrc={photographer?.profileImg?.data?.attributes?.url || ""}
       averageRating={photographer.averageRating}
