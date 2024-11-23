@@ -1,31 +1,24 @@
-import styled from "@emotion/styled";
-import PhotographCard from "../card";
+import { useTranslation } from "next-i18next";
 import { CardsWrap } from "../../children/cards-wrap";
+import Placeholder from "../../../promotions/children/placeholder";
+import PhotographCard from "../card";
+import type { PhotographerFragment } from "../../../../../gql/graphql";
 
-const PhotographCards = () => {
-  return (
-    <Wrap>
-      <PhotographCard />
-      <PhotographCard />
-      <PhotographCard />
-      <PhotographCard />
-      <PhotographCard />
-      <PhotographCard />
-      <PhotographCard />
-      <PhotographCard />
-      <PhotographCard />
-      <PhotographCard />
-      <PhotographCard />
-      <PhotographCard />
-    </Wrap>
+type PhotographCardsProps = {
+  photographers: PhotographerFragment[];
+};
+const PhotographCards = ({ photographers }: PhotographCardsProps) => {
+  const { t } = useTranslation("entertainers-tour-guides");
+
+  return photographers.length ? (
+    <CardsWrap>
+      {photographers.map((el) => (
+        <PhotographCard key={el.slug} photographer={el} />
+      ))}
+    </CardsWrap>
+  ) : (
+    <Placeholder title={t("placeholders.noPhotographers")} />
   );
 };
 
-const Wrap = styled(CardsWrap)(({ theme }) => ({
-  [theme.breakpoints.mobile]: {
-    ".anime-card:nth-of-type(2n)": {
-      display: "none",
-    },
-  },
-}));
 export default PhotographCards;

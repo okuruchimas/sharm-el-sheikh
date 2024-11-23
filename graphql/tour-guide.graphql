@@ -1,0 +1,79 @@
+query GetTourGuideBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  tourGuides(filters: { slug: { eq: $slug } }, locale: $locale) {
+    data {
+      attributes {
+        ...TourGuide
+      }
+    }
+  }
+}
+
+query GetTourGuidesByFilters(
+  $locale: I18NLocaleCode!
+  $page: Int
+  $pageSize: Int
+  $sort: [String]
+  $slugToExclude: String
+) {
+  tourGuides(
+    sort: $sort
+    locale: $locale
+    pagination: { page: $page, pageSize: $pageSize }
+    filters: { slug: { ne: $slugToExclude } }
+  ) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      attributes {
+        ...TourGuide
+      }
+    }
+  }
+}
+
+fragment TourGuide on TourGuide {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  socialLinks {
+    icon {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  languages {
+    data {
+      attributes {
+        key
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  comments {
+    data {
+      ...Comment
+    }
+  }
+  tours
+  description
+  averageRating
+  totalComments
+}
+
+query GetTourGuidesSlugs {
+  tourGuides {
+    data {
+      attributes {
+        slug
+      }
+    }
+  }
+}

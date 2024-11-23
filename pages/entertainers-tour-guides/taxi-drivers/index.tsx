@@ -16,6 +16,7 @@ import { useTranslation } from "next-i18next";
 // constants
 import { TAXI_STATUSES } from "../../../constants/taxi-statuses.constants";
 import { REVALIDATE_TIME } from "../../../constants/page.constants";
+import { RATING_FILTER_OPTIONS } from "../../../constants/filter-options";
 // components
 import useResponsive from "../../../hooks/useResponsive";
 import Container from "../../../components/sections/entertainers-tour-guides/children/container";
@@ -67,13 +68,10 @@ const TaxiDrivers = ({
   const { i18n, t } = useTranslation("entertainers-tour-guides");
   const pageSize = useMemo(() => (isMobile ? 6 : 12), [isMobile]);
 
-  const sortOptions = [
-    { key: "", value: t("sortBy") },
-    { key: "totalComments:desc", value: t("filters.mostReviews") },
-    { key: "totalComments:asc", value: t("filters.fewestReviews") },
-    { key: "averageRating:desc", value: t("filters.highestRating") },
-    { key: "averageRating:asc", value: t("filters.lowestRating") },
-  ];
+  const sortOptions = RATING_FILTER_OPTIONS.map((el) => ({
+    ...el,
+    value: t(el.value),
+  }));
 
   const handleGetDrivers = async ({
     sort,
@@ -131,10 +129,9 @@ const TaxiDrivers = ({
 
   useEffect(
     () => {
-      setPage(1);
-
       if (!isMobile) {
         handleGetDrivers({ sort: "", pageNum: 1 });
+        setPage(1);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -266,7 +263,7 @@ export async function getStaticProps({ locale }: any) {
   const { taxiDrivers } = await fetchData(GetDriversByFiltersDocument, {
     locale,
     page: 1,
-    pageSize: 6,
+    pageSize: 4,
   });
 
   return {

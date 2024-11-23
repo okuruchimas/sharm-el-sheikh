@@ -30,5 +30,11 @@
     "carClass": "Car Class",
     "languagesSpoken": "Languages Spoken by the Driver",
     "otherLanguages": "Other Languages"
+  },
+  "tourGuidesFilters": {
+    "otherLocation": "Other Location",
+    "otherStyle": "Other Style",
+    "photographyStyles": "Photography styles",
+    "workLocations": "Work Locations"
   }
 }

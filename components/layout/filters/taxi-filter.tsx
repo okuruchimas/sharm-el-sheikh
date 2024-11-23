@@ -40,7 +40,7 @@ const TaxiFilterForm = ({
   onClose,
   onSubmit,
 }: Props) => {
-  const [otherLang, setOtherLang] = useState("");
+  const [otherLang, setOtherLang] = useState<selectOption>();
   const formRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation("entertainers-tour-guides");
 
@@ -58,11 +58,17 @@ const TaxiFilterForm = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const langCheckBoxes = languageOptions.slice(0, 2);
-  const langDropdown = [
-    { key: "", value: t("taxiFilterForm.otherLanguages") },
-    ...languageOptions.slice(2, languageOptions.length),
-  ];
+  const langCheckBoxes = languageOptions.slice(0, 6);
+  const langDropdown = languageOptions.slice(6, languageOptions.length);
+  const handleFormSubmit = (values: TaxiFilterFormI) =>
+    onSubmit(
+      otherLang?.key
+        ? {
+            ...values,
+            languageKeys: [...(values.languageKeys || []), otherLang.key],
+          }
+        : values,
+    );
 
   const { setFieldValue, handleSubmit, handleChange, values } =
     useFormik<TaxiFilterFormI>({
@@ -73,7 +79,7 @@ const TaxiFilterForm = ({
         languageKeys: defaultValues?.languageKeys || [],
         timeLater: defaultValues?.timeLater,
       },
-      onSubmit,
+      onSubmit: handleFormSubmit,
     });
 
   const handleCheckBoxChange =
@@ -85,14 +91,6 @@ const TaxiFilterForm = ({
           : [...(values[fieldName] || []), key],
       );
     };
-
-  const handleDropdownSelect = (option: selectOption) => {
-    if ((!option.key.length && !otherLang.length) || otherLang === option.key)
-      return;
-
-    setOtherLang(option.key);
-    handleCheckBoxChange("languageKeys", option.key || otherLang)();
-  };
 
   const handleNowChange = (e: ChangeEvent<HTMLInputElement>) => {
     handleChange(e);
@@ -114,7 +112,7 @@ const TaxiFilterForm = ({
       <Form onSubmit={handleSubmit}>
         <Section>
           <SectionTitle>{t("taxiFilterForm.availability")}</SectionTitle>
-          <CheckboxLabel>
+          <CheckboxLabel style={{ width: "unset" }}>
             <input
               type="checkbox"
               name="availableNow"
@@ -123,7 +121,7 @@ const TaxiFilterForm = ({
             />
             {t("taxiFilterForm.availableNow")}
           </CheckboxLabel>
-          <CheckboxLabel>
+          <CheckboxLabel style={{ width: "unset" }}>
             <input
               type="checkbox"
               name="availableLater"
@@ -174,8 +172,11 @@ const TaxiFilterForm = ({
           ))}
           {langDropdown.length ? (
             <Dropdown
-              options={langDropdown}
-              onChange={handleDropdownSelect}
+              options={[
+                { key: "", value: t("taxiFilterForm.otherLanguages") },
+                ...langDropdown,
+              ]}
+              onChange={setOtherLang}
               width="100%"
               height="56px"
             />
@@ -244,7 +245,7 @@ const TimePicker = styled("div")({
 const CheckboxLabel = styled("label")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  minWidth: 190,
+  width: "calc((100% - 48px) / 4)",
   padding: 14,
   gap: 16,
   fontSize: theme.fontSize.fontS16,
@@ -252,12 +253,23 @@ const CheckboxLabel = styled("label")(({ theme }) => ({
   "input:checked": {
     accentColor: theme.colors.yellow,
   },
+
+  [theme.breakpoints.mobile]: {
+    width: "calc((100% - 16px) / 2)",
+    padding: 12,
+  },
 }));
 
-const Actions = styled("div")({
+const Actions = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "flex-end",
   gap: "16px",
-});
 
+  [theme.breakpoints.mobile]: {
+    button: {
+      minWidth: "calc((100% - 12px) / 2)",
+    },
+    gap: "12px",
+  },
+}));
 export default TaxiFilterForm;

@@ -4,7 +4,9 @@ import {
   GetAnimatorsByFilterDocument,
   GetAnimationCompaniesDocument,
 } from "../../../gql/graphql";
+// constants
 import { REVALIDATE_TIME } from "../../../constants/page.constants";
+import { RATING_FILTER_OPTIONS } from "../../../constants/filter-options";
 // hooks
 import useResponsive from "../../../hooks/useResponsive";
 import { useTranslation } from "next-i18next";
@@ -69,23 +71,19 @@ const Animators = ({
 
   useEffect(
     () => {
-      setPage(1);
-
       if (!isMobile) {
         handleGetAnimators({ sort: filter, pageNum: 1, company: "" });
+        setPage(1);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [pageSize],
   );
 
-  const filterOptions = [
-    { key: "", value: t("sortBy") },
-    { key: "totalComments:desc", value: t("filters.mostReviews") },
-    { key: "totalComments:asc", value: t("filters.fewestReviews") },
-    { key: "averageRating:desc", value: t("filters.highestRating") },
-    { key: "averageRating:asc", value: t("filters.lowestRating") },
-  ];
+  const filterOptions = RATING_FILTER_OPTIONS.map((el) => ({
+    ...el,
+    value: t(el.value),
+  }));
 
   const animationCompaniesMapped = animationCompanies.map((el) => ({
     key: el.attributes.key,
@@ -99,7 +97,7 @@ const Animators = ({
     setCompanyKey(option.key);
     await handleGetAnimators({
       sort: filter,
-      pageNum: page,
+      pageNum: 1,
       company: option.key,
     });
   };
@@ -120,7 +118,7 @@ const Animators = ({
     setFilter(option.key);
     await handleGetAnimators({
       sort: option.key,
-      pageNum: page,
+      pageNum: 1,
       company: companyKey,
     });
   };

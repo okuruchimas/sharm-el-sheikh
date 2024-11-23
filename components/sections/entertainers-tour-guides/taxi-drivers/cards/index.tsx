@@ -1,8 +1,8 @@
 import { useTranslation } from "next-i18next";
+import { CardsWrap } from "../../children/cards-wrap";
 import TaxiCard from "../card";
 import Placeholder from "../../../promotions/children/placeholder";
 import type { TaxiDriverPreviewFragment } from "../../../../../gql/graphql";
-import { CardsWrap } from "../../children/cards-wrap";
 
 type TaxiCardsProps = {
   drivers: TaxiDriverPreviewFragment[];

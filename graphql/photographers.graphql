@@ -1,0 +1,100 @@
+query GetPhotographerBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  photographers(filters: { slug: { eq: $slug } }, locale: $locale) {
+    data {
+      attributes {
+        ...Photographer
+      }
+    }
+  }
+}
+
+query GetPhotographersByFilters(
+  $locale: I18NLocaleCode!
+  $page: Int
+  $pageSize: Int
+  $sort: [String]
+  $styles: [String]
+  $locations: [String]
+  $slugToExclude: String
+) {
+  photographers(
+    sort: $sort
+    locale: $locale
+    pagination: { page: $page, pageSize: $pageSize }
+    filters: {
+      photography_styles: { key: { in: $styles } }
+      locations: { key: { in: $locations } }
+      slug: { ne: $slugToExclude }
+    }
+  ) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      attributes {
+        ...Photographer
+      }
+    }
+  }
+}
+
+fragment Photographer on Photographer {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  socialLinks {
+    icon {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  languages {
+    data {
+      attributes {
+        key
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  comments {
+    data {
+      ...Comment
+    }
+  }
+  photography_styles {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+  locations {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+  description
+  averageRating
+  totalComments
+}
+
+query GetPhotographersSlugs {
+  photographers {
+    data {
+      attributes {
+        slug
+      }
+    }
+  }
+}

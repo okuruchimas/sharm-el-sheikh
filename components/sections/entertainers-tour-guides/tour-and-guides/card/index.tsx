@@ -1,26 +1,24 @@
 import Card from "../../children/card";
+import type { TourGuideFragment } from "../../../../../gql/graphql";
 
-const GuideCard = () => {
-  const arr = [
-    { src: "/icons/flags/UA.svg", alt: "UA" },
-    { src: "/icons/flags/DT.svg", alt: "DT" },
-    { src: "/icons/flags/IT.svg", alt: "IT" },
-    { src: "/icons/flags/EN.svg", alt: "EN" },
-  ];
+type GuideCardProps = { tourGuide: TourGuideFragment };
+
+const GuideCard = ({ tourGuide }: GuideCardProps) => {
+  const flags = tourGuide.languages?.data.map((el) => ({
+    src: el.attributes?.flagIcon.data?.attributes?.url || "",
+    alt: el.attributes?.value || "",
+  }));
 
   return (
     <Card
-      averageRating={0}
-      totalComments={0}
-      slug={""}
-      title={"John Black"}
-      imgSrc={
-        "https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/banner1_9ca87e6a4b.webp"
-      }
-      iconText="Economy car"
-      iconSrc="/icons/Hotel.svg"
-      greyText={"Mon, Tue, Sat, Sun"}
-      flagIcons={arr}
+      averageRating={tourGuide.averageRating}
+      totalComments={tourGuide.totalComments}
+      slug={tourGuide.slug}
+      title={tourGuide.name}
+      imgSrc={tourGuide?.profileImg?.data?.attributes?.url || ""}
+      iconText={tourGuide.tours}
+      iconSrc="/icons/direction.svg"
+      flagIcons={flags || []}
     />
   );
 };
