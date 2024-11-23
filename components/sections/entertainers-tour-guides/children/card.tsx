@@ -7,7 +7,7 @@ import TextAndIcon from "../../../layout/text-and-icon";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { ImageI } from "../../../types/image";
+import type { ImageI } from "../../../types/images";
 import type { ReactNode } from "react";
 
 interface Props {

@@ -1,25 +1,21 @@
 import {
-  type Animator,
-  type AnimatorPreviewFragment,
-  type ComponentHeaderNavigationMenu,
-  GetAnimatorBySlugDocument,
-  GetAnimatorsSlugsDocument,
-  GetAnimatorsByFilterDocument,
+  GetTourGuidesSlugsDocument,
+  GetTourGuideBySlugDocument,
+  GetTourGuidesByFiltersDocument,
+  type TourGuideFragment,
 } from "../../../../gql/graphql";
 import { toast, ToastContainer } from "react-toastify";
 // hooks
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 // components
 import Reviews from "../../../../components/sections/company/reviews";
 import BackRoute from "../../../../components/sections/entertainers-tour-guides/children/back-route";
+import GuideCard from "../../../../components/sections/entertainers-tour-guides/tour-and-guides/card";
 import ReviewForm from "../../../../components/sections/company/review";
 import Placeholder from "../../../../components/sections/promotions/children/placeholder";
-import AnimatorCard from "../../../../components/sections/entertainers-tour-guides/animators/card";
 import SectionWrapper from "../../../../components/layout/section-wrapper";
 import SectionsWrapper from "../../../../components/layout/sections-wrapper";
-import AnimatorInfoSection from "../../../../components/sections/animator/animator-info-section";
-import EntertainmentServiceCard from "../../../../components/sections/animator/children/entertainment-service-card";
+import WorkerInfoSection from "../../../../components/layout/worker-info";
 // constants
 import { REVALIDATE_TIME } from "../../../../constants/page.constants";
 // utils
@@ -32,32 +28,29 @@ import "react-toastify/dist/ReactToastify.css";
 // config
 import nextI18NextConfig from "../../../../next-i18next.config";
 
-interface Props {
-  animator: Animator;
-  similarSuggestions: { attributes: AnimatorPreviewFragment }[];
+interface TourGuidePageProps {
+  tourGuide: TourGuideFragment;
+  similarSuggestions: { attributes: TourGuideFragment }[];
 }
 
-const AnimatorPage = ({
-  animator: {
+const TourGuidePage = ({
+  tourGuide: {
     name,
     slug,
-    skills,
     comments,
     languages,
-    hotelName,
     profileImg,
     description,
     socialLinks,
     averageRating,
-    workingAtClub,
     totalComments,
-    animation_company,
-    entertainmentServices,
+    tours,
   },
   similarSuggestions,
-}: Props) => {
-  const { t } = useTranslation("animator");
+}: TourGuidePageProps) => {
+  const { t } = useTranslation("entertainers-tour-guides");
   const { t: tCommon } = useTranslation("common");
+  const toursMapped = tours.split(", ").map((el) => ({ value: el }));
 
   const categories = [
     { name: "service", label: tCommon("reviewForm.categories.service") },
@@ -81,7 +74,7 @@ const AnimatorPage = ({
       await addComment({
         slug,
         comment: { rating, text, email },
-        collectionType: "animators",
+        collectionType: "tour-guides",
       });
       toast.success(tCommon("toasts.feedbackSuccess"));
     } catch (error) {
@@ -98,47 +91,29 @@ const AnimatorPage = ({
       >
         <div style={{ width: "100%" }}>
           <BackRoute
-            href={"/entertainers-tour-guides/animators"}
+            href={"/entertainers-tour-guides/tour-and-guides"}
             baseRoute={`${tCommon("text.entertainersTourGuides")} / `}
-            subRoute={`${t("animators")} / `}
+            subRoute={`${t("tabs.tourOperators")} / `}
             name={name}
           />
-          <AnimatorInfoSection
+          <WorkerInfoSection
             imgSrs={profileImg.data?.attributes?.url || ""}
             name={name}
+            pillsTitle={`${t("tourGuide.tours")}:`}
             languages={languagesMapped || []}
-            skills={skills}
-            hotelName={hotelName}
-            description={description}
+            pillsText={toursMapped}
+            description={description || ""}
             socialLinks={socialLinks}
-            companyName={animation_company?.data?.attributes?.value || ""}
             totalComments={totalComments}
             averageRating={averageRating}
-            workingAtClub={workingAtClub}
           />
         </div>
-        {entertainmentServices?.length ? (
-          <SectionWrapper title={t("entertainmentServices")}>
-            <SuggestionsWrapper>
-              {entertainmentServices?.map((el, index) => (
-                <EntertainmentServiceCard
-                  key={index}
-                  title={el?.serviceName || ""}
-                  price={el?.price || ""}
-                  place={el?.place || ""}
-                  duration={el?.duration || ""}
-                  imgSrc={el?.image?.data?.attributes?.url || ""}
-                />
-              ))}
-            </SuggestionsWrapper>
-          </SectionWrapper>
-        ) : null}
         <Reviews
           title={tCommon("text.reviews")}
           comments={comments?.data || []}
         />
         <ReviewForm
-          title={t("reviewFormTitle")}
+          title={t("tourGuide.reviewFormTitle")}
           categories={categories}
           handleAddComment={handleAddComment}
         />
@@ -146,10 +121,7 @@ const AnimatorPage = ({
           {similarSuggestions.length ? (
             <SuggestionsWrapper>
               {similarSuggestions.map((el) => (
-                <AnimatorCard
-                  animator={el.attributes}
-                  key={el.attributes.slug}
-                />
+                <GuideCard key={el.attributes.slug} tourGuide={el.attributes} />
               ))}
             </SuggestionsWrapper>
           ) : (
@@ -184,11 +156,11 @@ const SuggestionsWrapper = styled("div")(({ theme }) => ({
 }));
 
 export async function getStaticPaths() {
-  const { animators } = await fetchData(GetAnimatorsSlugsDocument);
+  const { tourGuides } = await fetchData(GetTourGuidesSlugsDocument);
 
   const locales = nextI18NextConfig.i18n.locales;
 
-  const paths = animators?.data.flatMap((el) => {
+  const paths = tourGuides?.data.flatMap((el) => {
     return locales.map((locale) => ({
       params: { slug: el?.attributes?.slug || "" },
       locale,
@@ -204,33 +176,33 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, locale }: any) {
   const { slug } = params;
 
-  const { animators } = await fetchData(GetAnimatorBySlugDocument, {
+  const { tourGuides } = await fetchData(GetTourGuideBySlugDocument, {
     slug,
     locale,
   });
 
-  const { animators: suggestions } = await fetchData(
-    GetAnimatorsByFilterDocument,
+  const { tourGuides: suggestions } = await fetchData(
+    GetTourGuidesByFiltersDocument,
     {
       locale,
       page: 1,
       pageSize: 4,
       sort: ["averageRating:desc"],
-      companyKey:
-        animators?.data[0].attributes?.animation_company?.data?.attributes
-          ?.key || undefined,
       slugToExclude: slug,
     },
   );
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["animator", "common"])),
-      animator: animators?.data[0].attributes,
+      ...(await serverSideTranslations(locale, [
+        "entertainers-tour-guides",
+        "common",
+      ])),
+      tourGuide: tourGuides?.data[0].attributes,
       similarSuggestions: suggestions?.data,
     },
     revalidate: REVALIDATE_TIME,
   };
 }
 
-export default AnimatorPage;
+export default TourGuidePage;

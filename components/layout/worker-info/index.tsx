@@ -2,62 +2,39 @@
 import { useTranslation } from "next-i18next";
 // components
 import Image from "next/image";
-import Flags from "../../../layout/flags";
-import Rating from "../../../layout/rating";
-import SocialIcon from "../../../layout/social-icon";
-import TaxiStatus from "../../entertainers-tour-guides/taxi-drivers/statuses";
-// constants
-import { TAXI_STATUSES } from "../../../../constants/taxi-statuses.constants";
+import Flags from "../flags";
+import Rating from "../rating";
+import TextPill from "../text-pill";
+import SocialIcon from "../social-icon";
 // utils
 import styled from "@emotion/styled";
-import { calculateStatus } from "../../../../utils/calculate-taxi-status";
 // types
-import type { ImageI, SocialLink } from "../../../types/images";
-import type {
-  TaxiDriver,
-  TaxiDriverPreviewFragment,
-} from "../../../../gql/graphql";
+import { ImageI, SocialLink } from "../../types/images";
 
-type DriverInfoSectionProps = {
+type WorkerInfoSectionProps = {
   name: string;
   imgSrs: string;
+  pillsTitle: string;
+  pillsText?: ({ value: string } | null)[];
   languages: ImageI[];
-  schedule: TaxiDriverPreviewFragment["schedule"];
-  socialLinks: (SocialLink | null)[];
-  isNotWorking: boolean;
+  description: string;
+  socialLinks?: (SocialLink | null)[];
   totalComments: number;
   averageRating: number;
-  preferences: TaxiDriver["preferences"];
 };
 
-const DriverInfoSection = ({
+const WorkerInfoSection = ({
   name,
   imgSrs,
-  schedule,
   languages,
+  pillsText,
+  pillsTitle,
   socialLinks,
-  preferences,
-  isNotWorking,
+  description,
   totalComments,
   averageRating,
-}: DriverInfoSectionProps) => {
-  const { t } = useTranslation("driver");
+}: WorkerInfoSectionProps) => {
   const { t: tCommon } = useTranslation("common");
-
-  const status = calculateStatus({ isNotWorking, schedule });
-  const statusI18nKey =
-    TAXI_STATUSES.find((el) => el.status === status)?.i18nKey || "";
-
-  const preferencesMarkup = preferences?.length ? (
-    <div>
-      <Preferences>{`${t("preferences")}:`}</Preferences>
-      <List>
-        {preferences.map((el, index) => (
-          <li key={index}>{el?.value}</li>
-        ))}
-      </List>
-    </div>
-  ) : null;
 
   return (
     <Wrapper>
@@ -66,18 +43,15 @@ const DriverInfoSection = ({
           <Image src={imgSrs} alt={name} layout="fill" />
         </ImgWrapper>
         <TopStack>
-          <StatusWrapper>
-            <TaxiStatus text={t(statusI18nKey)} status={status} />
-          </StatusWrapper>
           <NameRating>
-            <h2>{name}</h2>
+            <p>{name}</p>
             <Rating points={averageRating} users={totalComments} />
           </NameRating>
-          <OnlyMobile>{preferencesMarkup}</OnlyMobile>
-          <Languages>
-            <span>{`${tCommon("text.languagesSpoken")}:`}</span>
+          <Description>{description}</Description>
+          <InfoField>
+            <p>{`${tCommon("text.languagesSpoken")}:`}</p>
             <Flags icons={languages} />
-          </Languages>
+          </InfoField>
           <IconsWrapper>
             {socialLinks?.map((el, index) => (
               <SocialIcon
@@ -90,12 +64,19 @@ const DriverInfoSection = ({
           </IconsWrapper>
         </TopStack>
       </TopWrapper>
-      <OnlyDesktop>{preferencesMarkup}</OnlyDesktop>
+      <InfoField>
+        <p>{pillsTitle}</p>
+        <SkillsWrapper>
+          {pillsText?.map((el) => (
+            <TextPill key={el?.value}>{el?.value}</TextPill>
+          ))}
+        </SkillsWrapper>
+      </InfoField>
     </Wrapper>
   );
 };
 
-export default DriverInfoSection;
+export default WorkerInfoSection;
 
 const Wrapper = styled("div")(({ theme }) => ({
   display: "flex",
@@ -108,25 +89,38 @@ const Wrapper = styled("div")(({ theme }) => ({
   },
 }));
 
-const Languages = styled("div")(({ theme }) => ({
+const InfoField = styled("div")(({ theme }) => ({
   display: "flex",
   gap: "24px",
   width: "100%",
-  flexWrap: "wrap",
   alignItems: "center",
-  margin: "40px 0 8px",
 
-  span: {
+  p: {
     textWrap: "nowrap",
     color: theme.colors.blue,
     fontSize: theme.fontSize.fontS24,
   },
 
   [theme.breakpoints.mobile]: {
-    margin: "0",
     gap: "16px",
     alignItems: "start",
     flexDirection: "column",
+  },
+}));
+
+const SkillsWrapper = styled("div")(({ theme }) => ({
+  display: "flex",
+  gap: "8px",
+  width: "100%",
+
+  [theme.breakpoints.mobile]: {
+    flexWrap: "nowrap",
+    overflowX: "scroll",
+    scrollbarWidth: "none",
+
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
   },
 }));
 
@@ -169,18 +163,18 @@ const ImgWrapper = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.mobile]: {
+    gap: "16px",
     height: "300px",
+    gridTemplateColumns: "1fr",
   },
 }));
 
-const StatusWrapper = styled("div")(({ theme }) => ({
-  fontSize: theme.fontSize.fontS24,
-  color: theme.colors.grey,
-  fontWeight: 700,
-  marginTop: "24px",
+const Description = styled("p")(({ theme }) => ({
+  fontSize: theme.fontSize.fontS21,
+  color: theme.colors.black,
+  lineHeight: 1.52,
 
   [theme.breakpoints.mobile]: {
-    marginTop: "0",
     fontSize: theme.fontSize.fontS18,
   },
 }));
@@ -192,9 +186,9 @@ const NameRating = styled("div")(({ theme }) => ({
   height: "max-content",
   justifyContent: "space-between",
 
-  h2: {
+  p: {
     color: theme.colors.blue,
-    fontWeight: 700,
+    fontWeight: "700",
     fontSize: theme.fontSize.fontS40,
 
     [theme.breakpoints.mobile]: {
@@ -208,50 +202,5 @@ const NameRating = styled("div")(({ theme }) => ({
     [theme.breakpoints.mobile]: {
       fontSize: theme.fontSize.fontS18,
     },
-  },
-}));
-
-const Preferences = styled("h3")(({ theme }) => ({
-  fontSize: theme.fontSize.fontS32,
-  fontWeight: 700,
-  color: theme.colors.blue,
-  marginBottom: "24px",
-
-  [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS16,
-    fontWeight: 400,
-    color: theme.colors.black,
-    marginBottom: "6px",
-  },
-}));
-
-const List = styled("ul")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "16px",
-  marginLeft: "24px",
-
-  [theme.breakpoints.mobile]: {
-    gap: "0",
-  },
-
-  li: {
-    lineHeight: 1.5,
-  },
-}));
-
-const OnlyMobile = styled("div")(({ theme }) => ({
-  display: "none",
-
-  [theme.breakpoints.mobile]: {
-    display: "block",
-  },
-}));
-
-const OnlyDesktop = styled("div")(({ theme }) => ({
-  display: "block",
-
-  [theme.breakpoints.mobile]: {
-    display: "none",
   },
 }));

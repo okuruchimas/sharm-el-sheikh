@@ -1,25 +1,21 @@
 import {
-  type Animator,
-  type AnimatorPreviewFragment,
-  type ComponentHeaderNavigationMenu,
-  GetAnimatorBySlugDocument,
-  GetAnimatorsSlugsDocument,
-  GetAnimatorsByFilterDocument,
+  GetPhotographersSlugsDocument,
+  GetPhotographerBySlugDocument,
+  GetPhotographersByFiltersDocument,
+  type PhotographerFragment,
 } from "../../../../gql/graphql";
 import { toast, ToastContainer } from "react-toastify";
 // hooks
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 // components
 import Reviews from "../../../../components/sections/company/reviews";
 import BackRoute from "../../../../components/sections/entertainers-tour-guides/children/back-route";
 import ReviewForm from "../../../../components/sections/company/review";
 import Placeholder from "../../../../components/sections/promotions/children/placeholder";
-import AnimatorCard from "../../../../components/sections/entertainers-tour-guides/animators/card";
 import SectionWrapper from "../../../../components/layout/section-wrapper";
+import PhotographCard from "../../../../components/sections/entertainers-tour-guides/photographers/card";
 import SectionsWrapper from "../../../../components/layout/sections-wrapper";
-import AnimatorInfoSection from "../../../../components/sections/animator/animator-info-section";
-import EntertainmentServiceCard from "../../../../components/sections/animator/children/entertainment-service-card";
+import WorkerInfoSection from "../../../../components/layout/worker-info";
 // constants
 import { REVALIDATE_TIME } from "../../../../constants/page.constants";
 // utils
@@ -32,37 +28,36 @@ import "react-toastify/dist/ReactToastify.css";
 // config
 import nextI18NextConfig from "../../../../next-i18next.config";
 
-interface Props {
-  animator: Animator;
-  similarSuggestions: { attributes: AnimatorPreviewFragment }[];
+interface PhotographerPageProps {
+  photographer: PhotographerFragment;
+  similarSuggestions: { attributes: PhotographerFragment }[];
 }
 
-const AnimatorPage = ({
-  animator: {
+const PhotographerPage = ({
+  photographer: {
     name,
     slug,
-    skills,
     comments,
     languages,
-    hotelName,
     profileImg,
     description,
     socialLinks,
     averageRating,
-    workingAtClub,
     totalComments,
-    animation_company,
-    entertainmentServices,
+    photography_styles,
   },
   similarSuggestions,
-}: Props) => {
-  const { t } = useTranslation("animator");
+}: PhotographerPageProps) => {
+  const { t } = useTranslation("entertainers-tour-guides");
   const { t: tCommon } = useTranslation("common");
+
+  const stylesMapped = photography_styles?.data.map((el) => ({
+    value: el.attributes?.value || "",
+  }));
 
   const categories = [
     { name: "service", label: tCommon("reviewForm.categories.service") },
     { name: "price", label: tCommon("reviewForm.categories.price") },
-    { name: "quality", label: tCommon("reviewForm.categories.programQuality") },
     { name: "comm", label: tCommon("reviewForm.categories.communication") },
     { name: "prof", label: tCommon("reviewForm.categories.professionalism") },
   ];
@@ -81,7 +76,7 @@ const AnimatorPage = ({
       await addComment({
         slug,
         comment: { rating, text, email },
-        collectionType: "animators",
+        collectionType: "photographers",
       });
       toast.success(tCommon("toasts.feedbackSuccess"));
     } catch (error) {
@@ -98,47 +93,29 @@ const AnimatorPage = ({
       >
         <div style={{ width: "100%" }}>
           <BackRoute
-            href={"/entertainers-tour-guides/animators"}
+            href={"/entertainers-tour-guides/photographers"}
             baseRoute={`${tCommon("text.entertainersTourGuides")} / `}
-            subRoute={`${t("animators")} / `}
+            subRoute={`${t("tabs.photographers")} / `}
             name={name}
           />
-          <AnimatorInfoSection
+          <WorkerInfoSection
             imgSrs={profileImg.data?.attributes?.url || ""}
             name={name}
+            pillsTitle={`${t("photographer.photographyStyles")}:`}
             languages={languagesMapped || []}
-            skills={skills}
-            hotelName={hotelName}
-            description={description}
+            pillsText={stylesMapped}
+            description={description || ""}
             socialLinks={socialLinks}
-            companyName={animation_company?.data?.attributes?.value || ""}
             totalComments={totalComments}
             averageRating={averageRating}
-            workingAtClub={workingAtClub}
           />
         </div>
-        {entertainmentServices?.length ? (
-          <SectionWrapper title={t("entertainmentServices")}>
-            <SuggestionsWrapper>
-              {entertainmentServices?.map((el, index) => (
-                <EntertainmentServiceCard
-                  key={index}
-                  title={el?.serviceName || ""}
-                  price={el?.price || ""}
-                  place={el?.place || ""}
-                  duration={el?.duration || ""}
-                  imgSrc={el?.image?.data?.attributes?.url || ""}
-                />
-              ))}
-            </SuggestionsWrapper>
-          </SectionWrapper>
-        ) : null}
         <Reviews
           title={tCommon("text.reviews")}
           comments={comments?.data || []}
         />
         <ReviewForm
-          title={t("reviewFormTitle")}
+          title={t("photographer.reviewFormTitle")}
           categories={categories}
           handleAddComment={handleAddComment}
         />
@@ -146,9 +123,9 @@ const AnimatorPage = ({
           {similarSuggestions.length ? (
             <SuggestionsWrapper>
               {similarSuggestions.map((el) => (
-                <AnimatorCard
-                  animator={el.attributes}
+                <PhotographCard
                   key={el.attributes.slug}
+                  photographer={el.attributes}
                 />
               ))}
             </SuggestionsWrapper>
@@ -184,11 +161,11 @@ const SuggestionsWrapper = styled("div")(({ theme }) => ({
 }));
 
 export async function getStaticPaths() {
-  const { animators } = await fetchData(GetAnimatorsSlugsDocument);
+  const { photographers } = await fetchData(GetPhotographersSlugsDocument);
 
   const locales = nextI18NextConfig.i18n.locales;
 
-  const paths = animators?.data.flatMap((el) => {
+  const paths = photographers?.data.flatMap((el) => {
     return locales.map((locale) => ({
       params: { slug: el?.attributes?.slug || "" },
       locale,
@@ -204,33 +181,33 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, locale }: any) {
   const { slug } = params;
 
-  const { animators } = await fetchData(GetAnimatorBySlugDocument, {
+  const { photographers } = await fetchData(GetPhotographerBySlugDocument, {
     slug,
     locale,
   });
 
-  const { animators: suggestions } = await fetchData(
-    GetAnimatorsByFilterDocument,
+  const { photographers: suggestions } = await fetchData(
+    GetPhotographersByFiltersDocument,
     {
       locale,
       page: 1,
       pageSize: 4,
       sort: ["averageRating:desc"],
-      companyKey:
-        animators?.data[0].attributes?.animation_company?.data?.attributes
-          ?.key || undefined,
       slugToExclude: slug,
     },
   );
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["animator", "common"])),
-      animator: animators?.data[0].attributes,
+      ...(await serverSideTranslations(locale, [
+        "entertainers-tour-guides",
+        "common",
+      ])),
+      photographer: photographers?.data[0].attributes,
       similarSuggestions: suggestions?.data,
     },
     revalidate: REVALIDATE_TIME,
   };
 }
 
-export default AnimatorPage;
+export default PhotographerPage;

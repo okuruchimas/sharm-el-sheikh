@@ -10,8 +10,7 @@ import TextAndIcon from "../../../layout/text-and-icon";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { ImageI } from "../../../types/image";
-import type { ComponentHelpersSocialMedia } from "../../../../gql/graphql";
+import type { ImageI, SocialLink } from "../../../types/images";
 
 type AnimatorInfoSectionProps = {
   name: string;
@@ -21,7 +20,7 @@ type AnimatorInfoSectionProps = {
   hotelName: string;
   description: string;
   companyName: string;
-  socialLinks: (ComponentHelpersSocialMedia | null)[];
+  socialLinks: (SocialLink | null)[];
   totalComments: number;
   averageRating: number;
   workingAtClub: boolean;
@@ -117,7 +116,6 @@ const InfoField = styled("div")(({ theme }) => ({
   display: "flex",
   gap: "24px",
   width: "100%",
-  flexWrap: "wrap",
   alignItems: "center",
 
   p: {

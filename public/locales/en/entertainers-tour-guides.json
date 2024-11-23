@@ -10,6 +10,10 @@
     "mostReviews": "Most Reviews"
   },
   "pageTitle": "Engage the best guides and entertainers to make every journey and evening unforgettable!",
+  "photographer": {
+    "photographyStyles": "Photography Styles",
+    "reviewFormTitle": "How would you rate this photographer?"
+  },
   "placeholders": {
     "noDrivers": "No Drivers was found",
     "noAnimators": "No Animators was found",
@@ -30,6 +34,10 @@
     "carClass": "Car Class",
     "languagesSpoken": "Languages Spoken by the Driver",
     "otherLanguages": "Other Languages"
+  },
+  "tourGuide": {
+    "reviewFormTitle": "How would you rate this tour operator?",
+    "tours": "Tours"
   },
   "tourGuidesFilters": {
     "otherLocation": "Other Location",

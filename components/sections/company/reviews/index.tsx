@@ -138,23 +138,3 @@ const Gradient = styled("div")(({ theme }) => ({
     },
   },
 }));
-
-const StyledPlaceholder = styled(Placeholder)(({ theme }) => ({
-  display: "flex",
-  columnGap: "20px",
-
-  [theme.breakpoints.mobile]: {
-    padding: 0,
-    flexDirection: "column",
-  },
-
-  [theme.breakpoints.desktop]: {
-    "&:nth-of-type(2n)": {
-      padding: "0 30px",
-    },
-
-    "&:not(:first-of-type)": {
-      marginTop: "-40px",
-    },
-  },
-}));

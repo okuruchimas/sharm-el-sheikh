@@ -152,7 +152,7 @@ const AnimatorPage = ({
 const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
   minHeight: "100vh",
   backgroundRepeat: "no-repeat",
-  backgroundSize: "contain",
+  backgroundSize: "cover",
   paddingTop: "236px",
 
   [theme.breakpoints.mobile]: {
