@@ -11,8 +11,11 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.11.5",
+    "@mui/material": "^6.1.8",
+    "@mui/x-date-pickers": "^7.22.2",
     "@react-google-maps/api": "^2.19.3",
     "date-fns": "^3.6.0",
+    "dayjs": "^1.11.13",
     "formik": "^2.4.6",
     "graphql": "^16.9.0",
     "i18next": "^23.14.0",

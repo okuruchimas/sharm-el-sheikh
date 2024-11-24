@@ -9,6 +9,10 @@
     "lowestRating": "Lowest Rating",
     "mostReviews": "Most Reviews"
   },
+  "labels": {
+    "from": "From",
+    "to": "To"
+  },
   "pageTitle": "Engage the best guides and entertainers to make every journey and evening unforgettable!",
   "photographer": {
     "photographyStyles": "Photography Styles",
@@ -20,6 +24,7 @@
     "noPhotographers": "No Photographers was found",
     "noTourOperators": "No Tour Operators was found"
   },
+  "selectTime": "Select time",
   "sortBy": "Sort by",
   "tabs": {
     "animators": "Animators",

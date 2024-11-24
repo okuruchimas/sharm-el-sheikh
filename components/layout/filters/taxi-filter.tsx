@@ -1,27 +1,32 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { useFormik } from "formik";
+import dayjs, { type Dayjs } from "dayjs";
+import { useFormik, Formik, Form } from "formik";
+import { type ChangeEvent, useEffect, useRef, useState } from "react";
+// hooks
+import { useTranslation } from "next-i18next";
+// components
+import Modal from "../modal";
 import Button from "../button";
 import Dropdown from "./index";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { StaticTimePicker } from "@mui/x-date-pickers/StaticTimePicker";
+// providers
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { ThemeProvider } from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// constants
+import { WEEK_DAYS } from "../../../constants/week-days.constants";
+// utils
 import styled from "@emotion/styled";
-import type { TimePeriod } from "../../../pages/entertainers-tour-guides/taxi-drivers";
+import { createTheme } from "@mui/material/styles";
+// types
 import type { selectOption } from "../../types/filter";
-import { useTranslation } from "next-i18next";
-
-// import { StaticTimePicker } from "@mui/x-date-pickers/StaticTimePicker";
-// import { LocalizationProvider } from "@mui/x-date-pickers";
-// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 export type TaxiFilterFormI = {
   availableNow?: boolean;
   availableLater?: boolean;
-  timeLater?: TimePeriod;
+  day?: string;
+  from?: Dayjs;
+  to?: Dayjs;
   carClasses?: string[];
   languageKeys?: string[];
 };
@@ -41,8 +46,10 @@ const TaxiFilterForm = ({
   onSubmit,
 }: Props) => {
   const [otherLang, setOtherLang] = useState<selectOption>();
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<"from" | "to">();
   const formRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation("entertainers-tour-guides");
+  const { t: tCommon } = useTranslation("common");
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -69,16 +76,18 @@ const TaxiFilterForm = ({
           }
         : values,
     );
-
+  const initialValues = {
+    availableNow: !!defaultValues?.availableNow,
+    availableLater: !!defaultValues?.availableLater,
+    carClasses: defaultValues?.carClasses || [],
+    languageKeys: defaultValues?.languageKeys || [],
+    day: defaultValues?.day,
+    to: defaultValues?.to,
+    from: defaultValues?.from,
+  };
   const { setFieldValue, handleSubmit, handleChange, values } =
     useFormik<TaxiFilterFormI>({
-      initialValues: {
-        availableNow: !!defaultValues?.availableNow,
-        availableLater: !!defaultValues?.availableLater,
-        carClasses: defaultValues?.carClasses || [],
-        languageKeys: defaultValues?.languageKeys || [],
-        timeLater: defaultValues?.timeLater,
-      },
+      initialValues,
       onSubmit: handleFormSubmit,
     });
 
@@ -95,103 +104,194 @@ const TaxiFilterForm = ({
   const handleNowChange = (e: ChangeEvent<HTMLInputElement>) => {
     handleChange(e);
     setFieldValue("availableLater", false);
-    setFieldValue("timeLater", undefined);
+    setFieldValue("to", undefined);
+    setFieldValue("from", undefined);
   };
   const handleLaterChange = (e: ChangeEvent<HTMLInputElement>) => {
     handleChange(e);
     setFieldValue("availableNow", false);
-    setFieldValue("timeLater", {
-      day: "Monday",
-      from: "10:00:00.000",
-      to: "12:00:00.000",
-    });
+  };
+  const handleDayChange = (option: selectOption) => {
+    if (option.key.length) {
+      setFieldValue("availableNow", false);
+      setFieldValue("availableLater", true);
+    }
+
+    setFieldValue("day", option.key.length ? option.key : undefined);
+  };
+
+  const handleSetTime = (value: Dayjs | null) => {
+    if (selectedTimeSlot) {
+      setFieldValue(selectedTimeSlot, dayjs(value));
+    }
+    setFieldValue("availableNow", false);
+    setFieldValue("availableLater", true);
+    setSelectedTimeSlot(undefined);
+  };
+
+  const weekDaysOptions = WEEK_DAYS.map(({ key, value }) => ({
+    key: value,
+    value: tCommon(key),
+  }));
+
+  const muiTheme = createTheme({
+    palette: {
+      primary: {
+        main: "#FFC01B",
+      },
+    },
+  });
+
+  const timePickerLocales = {
+    cancelButtonLabel: tCommon("buttons.cancel"),
+    okButtonLabel: tCommon("buttons.save"),
+    toolbarTitle: t("selectTime"),
   };
 
   return (
     <Wrap ref={formRef}>
-      <Form onSubmit={handleSubmit}>
-        <Section>
-          <SectionTitle>{t("taxiFilterForm.availability")}</SectionTitle>
-          <CheckboxLabel style={{ width: "unset" }}>
-            <input
-              type="checkbox"
-              name="availableNow"
-              onChange={handleNowChange}
-              checked={values["availableNow"]}
-            />
-            {t("taxiFilterForm.availableNow")}
-          </CheckboxLabel>
-          <CheckboxLabel style={{ width: "unset" }}>
-            <input
-              type="checkbox"
-              name="availableLater"
-              onChange={handleLaterChange}
-              checked={values["availableLater"]}
-            />
-            {t("taxiFilterForm.availableLater")}
-          </CheckboxLabel>
-          {/*<LocalizationProvider dateAdapter={AdapterDayjs}>*/}
-          {/*  <TimePicker>*/}
-          {/*    <Dropdown*/}
-          {/*      options={days}*/}
-          {/*      onChange={handleDaySelect}*/}
-          {/*      width="100%"*/}
-          {/*      height="56px"*/}
-          {/*    />*/}
-
-          {/*    <StaticTimePicker />*/}
-          {/*  </TimePicker>*/}
-          {/*</LocalizationProvider>*/}
-        </Section>
-        <Section>
-          <SectionTitle>{t("taxiFilterForm.carClass")}</SectionTitle>
-          {carClassOptions.map(({ key, value }) => (
-            <CheckboxLabel key={value}>
+      <Formik initialValues={initialValues} onSubmit={handleFormSubmit}>
+        <FormWrapper onSubmit={handleSubmit}>
+          <Section>
+            <SectionTitle>{t("taxiFilterForm.availability")}</SectionTitle>
+            <CheckboxLabel style={{ width: "unset" }}>
               <input
                 type="checkbox"
-                name="carClasses"
-                onChange={handleCheckBoxChange("carClasses", key)}
-                checked={values.carClasses?.includes(key)}
+                name="availableNow"
+                onChange={handleNowChange}
+                checked={values["availableNow"]}
               />
-              {value}
+              {t("taxiFilterForm.availableNow")}
             </CheckboxLabel>
-          ))}
-        </Section>
-        <Section>
-          <SectionTitle>{t("taxiFilterForm.languagesSpoken")}</SectionTitle>
-          {langCheckBoxes.map(({ key, value }) => (
-            <CheckboxLabel key={value}>
+            <CheckboxLabel style={{ width: "unset" }}>
               <input
                 type="checkbox"
-                name={"languageKeys"}
-                onChange={handleCheckBoxChange("languageKeys", key)}
-                checked={values.languageKeys?.includes(key)}
+                name="availableLater"
+                onChange={handleLaterChange}
+                checked={values["availableLater"]}
               />
-              {value}
+              {t("taxiFilterForm.availableLater")}
             </CheckboxLabel>
-          ))}
-          {langDropdown.length ? (
-            <Dropdown
-              options={[
-                { key: "", value: t("taxiFilterForm.otherLanguages") },
-                ...langDropdown,
-              ]}
-              onChange={setOtherLang}
-              width="100%"
-              height="56px"
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <TimePickerWrapper>
+                <Dropdown
+                  options={[
+                    { key: "", value: tCommon("text.selectDay") },
+                    ...weekDaysOptions,
+                  ]}
+                  initialValue={
+                    initialValues.day
+                      ? weekDaysOptions.find(
+                          (el) => el.key === initialValues.day,
+                        )
+                      : undefined
+                  }
+                  onChange={handleDayChange}
+                  width="100%"
+                  height="56px"
+                />
+                <ThemeProvider theme={muiTheme}>
+                  <TimeInputWrapper onClick={() => setSelectedTimeSlot("from")}>
+                    <TimePicker
+                      label={t("labels.from")}
+                      name="from"
+                      value={values.from || null}
+                      readOnly
+                      onOpen={() => setSelectedTimeSlot("from")}
+                    />
+                  </TimeInputWrapper>
+                  <TimeInputWrapper
+                    onClick={
+                      values.from ? () => setSelectedTimeSlot("to") : undefined
+                    }
+                  >
+                    <TimePicker
+                      label={t("labels.to")}
+                      name="to"
+                      value={values.to || null}
+                      readOnly
+                      disabled={!values.from}
+                    />
+                  </TimeInputWrapper>
+                  <Modal
+                    isOpen={!!selectedTimeSlot}
+                    onClose={() => setSelectedTimeSlot(undefined)}
+                    width="340px"
+                    mWidth="90%"
+                  >
+                    <PickerWrapper>
+                      <StaticTimePicker
+                        defaultValue={
+                          (selectedTimeSlot === "from"
+                            ? values.from
+                            : values.to || values.from?.add(1, "minute")) ||
+                          dayjs(new Date())
+                        }
+                        onAccept={handleSetTime}
+                        onClose={() => setSelectedTimeSlot(undefined)}
+                        localeText={timePickerLocales}
+                      />
+                    </PickerWrapper>
+                  </Modal>
+                </ThemeProvider>
+              </TimePickerWrapper>
+            </LocalizationProvider>
+          </Section>
+          <Section>
+            <SectionTitle>{t("taxiFilterForm.carClass")}</SectionTitle>
+            {carClassOptions.map(({ key, value }) => (
+              <CheckboxLabel key={value}>
+                <input
+                  type="checkbox"
+                  name="carClasses"
+                  onChange={handleCheckBoxChange("carClasses", key)}
+                  checked={values.carClasses?.includes(key)}
+                />
+                {value}
+              </CheckboxLabel>
+            ))}
+          </Section>
+          <Section>
+            <SectionTitle>{t("taxiFilterForm.languagesSpoken")}</SectionTitle>
+            {langCheckBoxes.map(({ key, value }) => (
+              <CheckboxLabel key={value}>
+                <input
+                  type="checkbox"
+                  name={"languageKeys"}
+                  onChange={handleCheckBoxChange("languageKeys", key)}
+                  checked={values.languageKeys?.includes(key)}
+                />
+                {value}
+              </CheckboxLabel>
+            ))}
+            {langDropdown.length ? (
+              <Dropdown
+                options={[
+                  { key: "", value: t("taxiFilterForm.otherLanguages") },
+                  ...langDropdown,
+                ]}
+                onChange={setOtherLang}
+                width="100%"
+                height="56px"
+              />
+            ) : null}
+          </Section>
+          <Actions>
+            <Button
+              onClick={onClose}
+              color="blue"
+              backgroundColor="transparent"
+              text={tCommon("buttons.cancel")}
             />
-          ) : null}
-        </Section>
-        <Actions>
-          <Button
-            onClick={onClose}
-            color="blue"
-            backgroundColor="transparent"
-            text="Cancel"
-          />
-          <Button type="submit" color="blue" text="Save" />
-        </Actions>
-      </Form>
+            <Button
+              type="submit"
+              color="blue"
+              text={tCommon("buttons.save")}
+              disabled={values.availableLater && !values.day && !values.from}
+            />
+          </Actions>
+        </FormWrapper>
+      </Formik>
     </Wrap>
   );
 };
@@ -214,10 +314,44 @@ const Wrap = styled("div")(({ theme }) => ({
   },
 }));
 
-const Form = styled("form")({
+const FormWrapper = styled(Form)({
   display: "grid",
   gap: 24,
 });
+
+const PickerWrapper = styled("div")({
+  "& .Mui-selected.MuiPickersToolbarText-root": {
+    backgroundColor: "#B6D5DB",
+  },
+
+  ".MuiPickersToolbarText-root": {
+    borderRadius: "8px",
+    padding: "8px",
+  },
+
+  ".MuiTimePickerToolbar-separator": {
+    padding: 0,
+  },
+
+  "& .MuiTimePickerToolbar-ampmLabel": {
+    borderRadius: "8px",
+    padding: "6px",
+    fontSize: "16px",
+  },
+
+  ".MuiTimePickerToolbar-hourMinuteLabel": {
+    alignItems: "center",
+  },
+});
+
+const TimeInputWrapper = styled("div")(({ theme }) => ({
+  width: "100%",
+
+  ".MuiInputBase-root": {
+    borderRadius: "12px",
+    borderColor: theme.colors.black,
+  },
+}));
 
 const Section = styled("div")({
   display: "flex",
@@ -234,13 +368,26 @@ const SectionTitle = styled("h4")(({ theme }) => ({
   marginBottom: 8,
 }));
 
-const TimePicker = styled("div")({
+const TimePickerWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   flexBasis: "100%",
 
   gap: "8px",
   alignItems: "center",
-});
+
+  ".modal-window": {
+    padding: "0",
+  },
+
+  ".MuiFormControl-root": {
+    width: "100%",
+  },
+
+  [theme.breakpoints.mobile]: {
+    flexDirection: "column",
+    gap: "12px",
+  },
+}));
 
 const CheckboxLabel = styled("label")(({ theme }) => ({
   display: "flex",

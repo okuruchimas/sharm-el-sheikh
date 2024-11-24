@@ -154,7 +154,6 @@ const Photographers = ({
           options={filterOptions}
           onChange={handleChangeSort}
           isLoading={isLoading}
-          width="100%"
           height="56px"
           color="blue"
         />
@@ -181,7 +180,7 @@ const Photographers = ({
   );
 };
 
-const FiltersWrap = styled("div")(({ theme }) => ({
+const FiltersWrap = styled("div")({
   position: "relative",
   display: "flex",
   flexDirection: "row",
@@ -189,12 +188,7 @@ const FiltersWrap = styled("div")(({ theme }) => ({
   width: "100%",
   gap: "32px",
   marginBottom: "24px",
-
-  [theme.breakpoints.mobile]: {
-    flexDirection: "column",
-    alignItems: "flex-end",
-  },
-}));
+});
 
 export async function getStaticProps({ locale }: any) {
   const { photographers } = await fetchData(GetPhotographersByFiltersDocument, {

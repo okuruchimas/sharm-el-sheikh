@@ -2,31 +2,35 @@
 import { useEffect, useRef, useState } from "react";
 // components
 import Loader from "../loader";
+import NextImage from "../image";
 // utils
 import styled from "@emotion/styled";
 // types
 import type { selectOption } from "../../types/filter";
-import NextImage from "../image";
 
 type FiltersProps = {
-  options: selectOption[];
-  isLoading?: boolean;
-  onChange?: (option: selectOption) => void;
+  color?: string;
   width?: string;
   height?: string;
-  color?: string;
+  options: selectOption[];
+  initialValue?: selectOption;
+  isLoading?: boolean;
+  onChange?: (option: selectOption) => void;
 };
 
 const Dropdown = ({
-  options,
-  isLoading,
-  onChange,
+  color,
   width,
   height,
-  color,
+  options,
+  initialValue,
+  isLoading,
+  onChange,
 }: FiltersProps) => {
   const [menuVisible, setMenuVisible] = useState<boolean>(false);
-  const [currentObj, setCurrentObj] = useState<selectOption>(options[0]);
+  const [currentObj, setCurrentObj] = useState<selectOption>(
+    initialValue || options[0],
+  );
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

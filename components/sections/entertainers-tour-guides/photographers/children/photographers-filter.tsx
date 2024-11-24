@@ -39,6 +39,7 @@ const PhotographersFilters = ({
   const [otherLocation, setOtherLocation] = useState("");
   const formRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation("entertainers-tour-guides");
+  const { t: tCommon } = useTranslation("common");
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -139,9 +140,13 @@ const PhotographersFilters = ({
           onClick={onClose}
           color="blue"
           backgroundColor="transparent"
-          text="Cancel"
+          text={tCommon("buttons.cancel")}
         />
-        <Button onClick={handleSave} color="blue" text="Save" />
+        <Button
+          onClick={handleSave}
+          color="blue"
+          text={tCommon("buttons.save")}
+        />
       </Actions>
     </Wrap>
   );
