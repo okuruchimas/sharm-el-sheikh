@@ -2,6 +2,7 @@
   "404": "Page Not found",
   "buttons": {
     "back": "Back",
+    "cancel": "Cancel",
     "contactUs": "Contact us",
     "more": "More",
     "save": "Save",

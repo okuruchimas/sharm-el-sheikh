@@ -9,6 +9,10 @@
     "lowestRating": "أقل تقييم",
     "mostReviews": "أكبر عدد من التقييمات"
   },
+  "labels": {
+    "from": "من",
+    "to": "إلى"
+  },
   "pageTitle": "استعن بأفضل المرشدين والممثلين لجعل كل رحلة ومساء لا يُنسى!",
   "photographer": {
     "photographyStyles": "أنماط التصوير",
@@ -20,6 +24,7 @@
     "noPhotographers": "لم يتم العثور على مصورين",
     "noTourOperators": "لم يتم العثور على مشغلي جولات"
   },
+  "selectTime": "حدد الوقت",
   "sortBy": "رتب حسب",
   "tabs": {
     "animators": "رسامو الكرتون",

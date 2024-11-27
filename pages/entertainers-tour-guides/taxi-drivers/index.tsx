@@ -74,9 +74,12 @@ const TaxiDrivers = ({
   }));
 
   const handleGetDrivers = async ({
+    to,
+    day,
+    from,
     sort,
     pageNum,
-    timeLater,
+    availableLater,
     carClasses,
     availableNow,
     languageKeys,
@@ -95,20 +98,30 @@ const TaxiDrivers = ({
           timeSlots: { startTime: { lte: time }, endTime: { gte: time } },
         };
       }
-      if (timeLater) {
-        return {
-          dayOfWeek: { eq: timeLater.day },
-          timeSlots: timeLater.to
+
+      if (availableLater) {
+        const toFormatted = to ? to.format("HH:mm:ss.SSS") : undefined;
+        const fromFormatted = from ? from.format("HH:mm:ss.SSS") : undefined;
+
+        const dayFilter = { dayOfWeek: { eq: day } };
+        const timeFilter = {
+          timeSlots: to
             ? {
-                startTime: { lte: timeLater.to },
-                endTime: { gte: timeLater.from },
+                startTime: { lte: toFormatted },
+                endTime: { gte: fromFormatted },
               }
             : {
-                startTime: { lte: timeLater.from },
-                endTime: { gte: timeLater.from },
+                startTime: { lte: fromFormatted },
+                endTime: { gte: fromFormatted },
               },
         };
+
+        return {
+          ...(day ? dayFilter : {}),
+          ...(from ? timeFilter : {}),
+        };
       }
+
       return undefined;
     };
 
@@ -159,8 +172,10 @@ const TaxiDrivers = ({
         : undefined,
       carClasses: values?.carClasses?.length ? values.carClasses : undefined,
       availableNow: values.availableNow,
-      timeLater: values.availableLater ? values.timeLater : undefined,
       availableLater: values.availableLater,
+      day: values.day,
+      from: values.from,
+      to: values.to,
     };
 
     setFilters(filtersData);

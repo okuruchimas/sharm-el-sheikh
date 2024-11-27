@@ -29,7 +29,12 @@ const Modal = ({
   return isOpen ? (
     <>
       <Backdrop onClick={handleBackdropClick}>
-        <ModalWindow ref={modalRef} width={width} mWidth={mWidth || width}>
+        <ModalWindow
+          ref={modalRef}
+          width={width}
+          mWidth={mWidth || width}
+          className="modal-window"
+        >
           {children}
         </ModalWindow>
       </Backdrop>
@@ -46,7 +51,7 @@ const hiddenOverflow = css`
 
 export default Modal;
 
-const Backdrop = styled("div")(({ theme }) => ({
+const Backdrop = styled("div")({
   width: "100vw",
   height: "100vh",
   backgroundColor: "rgba(19, 33, 61, 0.4)",
@@ -58,19 +63,19 @@ const Backdrop = styled("div")(({ theme }) => ({
   justifyContent: "center",
   zIndex: 1000,
 
-  [theme.breakpoints.mobile]: {
+  "@media (max-width: 1024px)": {
     backgroundColor: "rgba(19, 33, 61, 0.6)",
   },
-}));
+});
 
 const ModalWindow = styled("div", {
   shouldForwardProp: (prop) => !["width", "mWidth"].includes(prop),
-})<{ width: string; mWidth?: string }>(({ theme, width, mWidth }) => ({
+})<{ width: string; mWidth: string }>(({ width, mWidth }) => ({
   width: width,
-  backgroundColor: theme.colors.white,
+  backgroundColor: "#ffffff",
   borderRadius: "16px",
   padding: "24px",
-  boxShadow: theme.shadows[2],
+  boxShadow: "0px 1px 3px 1px #00000026",
   position: "relative",
   overflowY: "scroll",
   overflowX: "hidden",
@@ -81,7 +86,7 @@ const ModalWindow = styled("div", {
     display: "none",
   },
 
-  [theme.breakpoints.mobile]: {
+  "@media (max-width: 1024px)": {
     borderRadius: "12px",
     width: mWidth,
     padding: "16px",
