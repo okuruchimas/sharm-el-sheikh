@@ -12,6 +12,7 @@ fragment HotspotsPage on HotspotsPage {
   eventsTitle
   clubsTitle
   clubsInfo
+  mapTitle
   bottomBanner {
     title
     subtitle

@@ -31,7 +31,7 @@ type HotspotsPageProps = {
 };
 
 const HotspotsPage = ({
-  pageData: { bottomBanner, eventsTitle, clubsTitle, clubsInfo },
+  pageData: { bottomBanner, eventsTitle, clubsTitle, clubsInfo, mapTitle },
   totalEvents,
   initialEvents,
   totalClubs,
@@ -65,10 +65,7 @@ const HotspotsPage = ({
         totalItems={totalClubs}
         initialClubs={initialClubs.map((el) => el.attributes)}
       />
-      <Map
-        title="Find the necessary location quickly"
-        categories={categoriesMapped}
-      />
+      <Map title={mapTitle || ""} categories={categoriesMapped} />
       {bottomBanner ? (
         <HotspotsBanner
           title={bottomBanner.title || ""}

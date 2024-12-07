@@ -52,7 +52,7 @@ const Map = ({ title, categories }: MapProps) => {
       GetCompanyPromotionCardsByFilterDocument,
       {
         locale: i18n.language,
-        category: option.key,
+        category: option.key.split("***") || undefined,
       },
     );
 
@@ -133,8 +133,8 @@ const Map = ({ title, categories }: MapProps) => {
               ? result.map((el) => (
                   <MarkerF
                     icon={
-                      selectedCategory?.markerIcon ||
-                      "/icons/location-marker.svg"
+                      el?.categories?.data[0].attributes?.markerIcon.data
+                        ?.attributes?.url || "/icons/location-marker.svg"
                     }
                     key={el?.slug}
                     opacity={el?.slug === selectedMarker?.slug ? 0.6 : 1}

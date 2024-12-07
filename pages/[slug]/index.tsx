@@ -264,7 +264,7 @@ export async function getStaticProps({ params, locale }: any) {
     GetCompanyPromotionCardsByFilterDocument,
     {
       locale,
-      category,
+      category: [category],
       page: 1,
       pageSize: 3,
       slugToExclude: slugP,

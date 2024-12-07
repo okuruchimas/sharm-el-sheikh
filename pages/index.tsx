@@ -24,6 +24,7 @@ import {
   type HomePageFragment,
   type GetCompanyPromotionCardsByFilterQuery,
 } from "../gql/graphql";
+import { useTranslation } from "next-i18next";
 
 const DynamicBanner = dynamic(
   () => import("../components/sections/home/banner"),
@@ -55,6 +56,8 @@ const Home = ({
   homePageData,
   initialPromotions,
 }: Props) => {
+  const { t } = useTranslation("common");
+
   const categoriesMapped = useMemo(
     () =>
       categories.map((el) => ({
@@ -65,6 +68,9 @@ const Home = ({
       })),
     [categories],
   );
+
+  const allCategories =
+    categories?.map((el) => el.attributes?.key || "").join("***") || "";
 
   const areasMapped = useMemo(
     () =>
@@ -121,7 +127,10 @@ const Home = ({
         <LazyWrapper>
           <DynamicMap
             title={homePageData.mapTitle}
-            categories={categoriesMapped}
+            categories={[
+              { key: allCategories, value: t("labels.all") },
+              ...(categoriesMapped || []),
+            ]}
           />
         </LazyWrapper>
         <FeedbackForm />

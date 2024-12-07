@@ -25,10 +25,12 @@
     "wednesday": "الأربعاء"
   },
   "labels": {
+    "all": "الجميع",
     "email": "البريد الإلكتروني",
     "location": "الموقع",
     "phone": "الهاتف",
-    "price": "السعر"
+    "price": "السعر",
+    "searchByName": "البحث بالاسم"
   },
   "noDiscounts": "حاليا لا توجد خصومات متاحة",
   "reviewForm": {

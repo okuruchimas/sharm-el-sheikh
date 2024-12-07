@@ -1,0 +1,28 @@
+query GetSupportServices($locale: I18NLocaleCode!, $page: Int, $pageSize: Int) {
+  supportServices(
+    locale: $locale
+    pagination: { page: $page, pageSize: $pageSize }
+  ) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      attributes {
+        ...SupportService
+      }
+    }
+  }
+}
+
+fragment SupportService on SupportService {
+  name
+  phoneNumber
+  location
+  mapLink
+  image {
+    ...StrapiImage
+  }
+  category
+}

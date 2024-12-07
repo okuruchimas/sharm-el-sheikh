@@ -25,10 +25,12 @@
     "wednesday": "Середа"
   },
   "labels": {
+    "all": "Усі",
     "email": "Електронна пошта",
     "location": "Локація",
     "phone": "Телефон",
-    "price": "Ціна"
+    "price": "Ціна",
+    "searchByName": "Шукати по назві"
   },
   "noDiscounts": "Наразі знижки відсутні",
   "reviewForm": {

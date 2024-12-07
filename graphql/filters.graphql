@@ -37,8 +37,8 @@ query GetAnimationCompanies {
   }
 }
 
-query GetLanguages {
-  languages(sort: "index:asc") {
+query GetLanguages($locale: I18NLocaleCode!) {
+  languages(locale: $locale, sort: "index:asc") {
     data {
       attributes {
         key
@@ -48,8 +48,8 @@ query GetLanguages {
   }
 }
 
-query GetCarClasses {
-  carClasses {
+query GetCarClasses($locale: I18NLocaleCode!) {
+  carClasses(locale: $locale) {
     data {
       attributes {
         key
@@ -59,8 +59,8 @@ query GetCarClasses {
   }
 }
 
-query GetPhotographyStyles {
-  photographyStyles {
+query GetPhotographyStyles($locale: I18NLocaleCode!) {
+  photographyStyles(locale: $locale) {
     data {
       attributes {
         key
@@ -70,8 +70,19 @@ query GetPhotographyStyles {
   }
 }
 
-query GetLocations {
-  locations {
+query GetLocations($locale: I18NLocaleCode!) {
+  locations(locale: $locale) {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+}
+
+query GetMedicationCategories($locale: I18NLocaleCode!) {
+  medicationCategories(locale: $locale) {
     data {
       attributes {
         key
