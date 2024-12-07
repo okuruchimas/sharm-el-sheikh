@@ -197,8 +197,10 @@ export async function getStaticProps({ locale }: any) {
     pageSize: 4,
   });
 
-  const { photographyStyles } = await fetchData(GetPhotographyStylesDocument);
-  const { locations } = await fetchData(GetLocationsDocument);
+  const { photographyStyles } = await fetchData(GetPhotographyStylesDocument, {
+    locale,
+  });
+  const { locations } = await fetchData(GetLocationsDocument, { locale });
 
   return {
     props: {

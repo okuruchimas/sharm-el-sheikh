@@ -11,7 +11,7 @@ query CompanyPromotionCard($slug: String!, $locale: I18NLocaleCode!) {
 
 query GetCompanyPromotionCardsByFilter(
   $areaKey: String
-  $category: String
+  $category: [String]
   $locale: I18NLocaleCode!
   $page: Int
   $pageSize: Int
@@ -21,7 +21,7 @@ query GetCompanyPromotionCardsByFilter(
     locale: $locale
     filters: {
       area: { key: { eq: $areaKey } }
-      categories: { key: { eq: $category } }
+      categories: { key: { in: $category } }
       slug: { ne: $slugToExclude }
     }
     pagination: { page: $page, pageSize: $pageSize }
@@ -133,6 +133,16 @@ fragment CompanyCardPreview on CompanyPromotionCard {
       attributes {
         key
         value
+      }
+    }
+  }
+  categories {
+    data {
+      attributes {
+        key
+        markerIcon {
+          ...StrapiImage
+        }
       }
     }
   }

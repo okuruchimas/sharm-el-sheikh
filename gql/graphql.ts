@@ -1142,6 +1142,12 @@ export enum Enum_Componenthelpersweekday_Day {
   Wednesday = 'Wednesday'
 }
 
+export enum Enum_Supportservice_Category {
+  AssistanceServices = 'assistance_services',
+  Embassies = 'embassies',
+  EmergencyServices = 'emergency_services'
+}
+
 export type EventCard = {
   __typename?: 'EventCard';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
@@ -1291,7 +1297,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = AnimationCompany | Animator | Announcement | Area | CarClass | Category | Club | Comment | CompanyPromotionCard | ComponentComponentsBanner | ComponentComponentsEntertainmentService | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Location | Photographer | PhotographyStyle | Service | TaxiDriver | TaxiService | TourGuide | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AnimationCompany | Animator | Announcement | Area | CarClass | Category | Club | Comment | CompanyPromotionCard | ComponentComponentsBanner | ComponentComponentsEntertainmentService | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Location | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyStyle | Service | SupportService | TaxiDriver | TaxiService | TourGuide | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   __typename?: 'Header';
@@ -1415,6 +1421,7 @@ export type HotspotsPage = {
   eventsTitle: Scalars['String']['output'];
   locale?: Maybe<Scalars['String']['output']>;
   localizations?: Maybe<HotspotsPageRelationResponseCollection>;
+  mapTitle?: Maybe<Scalars['String']['output']>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -1440,6 +1447,7 @@ export type HotspotsPageInput = {
   clubsInfo?: InputMaybe<Scalars['String']['input']>;
   clubsTitle?: InputMaybe<Scalars['String']['input']>;
   eventsTitle?: InputMaybe<Scalars['String']['input']>;
+  mapTitle?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
@@ -1741,6 +1749,221 @@ export type LocationRelationResponseCollection = {
   data: Array<LocationEntity>;
 };
 
+export type Medication = {
+  __typename?: 'Medication';
+  analogs?: Maybe<Scalars['String']['output']>;
+  contraindications?: Maybe<Array<Maybe<ComponentHelpersStringArray>>>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  dosage?: Maybe<Array<Maybe<ComponentHelpersStringArray>>>;
+  image?: Maybe<UploadFileEntityResponse>;
+  indications?: Maybe<Array<Maybe<ComponentHelpersStringArray>>>;
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<MedicationRelationResponseCollection>;
+  location: Scalars['String']['output'];
+  medication_categories?: Maybe<MedicationCategoryRelationResponseCollection>;
+  name: Scalars['String']['output'];
+  price: Scalars['String']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  sideEffects?: Maybe<Array<Maybe<ComponentHelpersStringArray>>>;
+  slug: Scalars['String']['output'];
+  storage?: Maybe<Array<Maybe<ComponentHelpersStringArray>>>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  warnings?: Maybe<Array<Maybe<ComponentHelpersStringArray>>>;
+};
+
+
+export type MedicationContraindicationsArgs = {
+  filters?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type MedicationDosageArgs = {
+  filters?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type MedicationIndicationsArgs = {
+  filters?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type MedicationLocalizationsArgs = {
+  filters?: InputMaybe<MedicationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type MedicationMedication_CategoriesArgs = {
+  filters?: InputMaybe<MedicationCategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type MedicationSideEffectsArgs = {
+  filters?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type MedicationStorageArgs = {
+  filters?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type MedicationWarningsArgs = {
+  filters?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MedicationCategory = {
+  __typename?: 'MedicationCategory';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  key: Scalars['String']['output'];
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<MedicationCategoryRelationResponseCollection>;
+  medications?: Maybe<MedicationRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  value: Scalars['String']['output'];
+};
+
+
+export type MedicationCategoryLocalizationsArgs = {
+  filters?: InputMaybe<MedicationCategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type MedicationCategoryMedicationsArgs = {
+  filters?: InputMaybe<MedicationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MedicationCategoryEntity = {
+  __typename?: 'MedicationCategoryEntity';
+  attributes?: Maybe<MedicationCategory>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type MedicationCategoryEntityResponse = {
+  __typename?: 'MedicationCategoryEntityResponse';
+  data?: Maybe<MedicationCategoryEntity>;
+};
+
+export type MedicationCategoryEntityResponseCollection = {
+  __typename?: 'MedicationCategoryEntityResponseCollection';
+  data: Array<MedicationCategoryEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type MedicationCategoryFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<MedicationCategoryFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  key?: InputMaybe<StringFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<MedicationCategoryFiltersInput>;
+  medications?: InputMaybe<MedicationFiltersInput>;
+  not?: InputMaybe<MedicationCategoryFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<MedicationCategoryFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  value?: InputMaybe<StringFilterInput>;
+};
+
+export type MedicationCategoryInput = {
+  key?: InputMaybe<Scalars['String']['input']>;
+  medications?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MedicationCategoryRelationResponseCollection = {
+  __typename?: 'MedicationCategoryRelationResponseCollection';
+  data: Array<MedicationCategoryEntity>;
+};
+
+export type MedicationEntity = {
+  __typename?: 'MedicationEntity';
+  attributes?: Maybe<Medication>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type MedicationEntityResponse = {
+  __typename?: 'MedicationEntityResponse';
+  data?: Maybe<MedicationEntity>;
+};
+
+export type MedicationEntityResponseCollection = {
+  __typename?: 'MedicationEntityResponseCollection';
+  data: Array<MedicationEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type MedicationFiltersInput = {
+  analogs?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<MedicationFiltersInput>>>;
+  contraindications?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  dosage?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
+  id?: InputMaybe<IdFilterInput>;
+  indications?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<MedicationFiltersInput>;
+  location?: InputMaybe<StringFilterInput>;
+  medication_categories?: InputMaybe<MedicationCategoryFiltersInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<MedicationFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<MedicationFiltersInput>>>;
+  price?: InputMaybe<StringFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  sideEffects?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  storage?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  warnings?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
+};
+
+export type MedicationInput = {
+  analogs?: InputMaybe<Scalars['String']['input']>;
+  contraindications?: InputMaybe<Array<InputMaybe<ComponentHelpersStringArrayInput>>>;
+  dosage?: InputMaybe<Array<InputMaybe<ComponentHelpersStringArrayInput>>>;
+  image?: InputMaybe<Scalars['ID']['input']>;
+  indications?: InputMaybe<Array<InputMaybe<ComponentHelpersStringArrayInput>>>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  medication_categories?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  price?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  sideEffects?: InputMaybe<Array<InputMaybe<ComponentHelpersStringArrayInput>>>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  storage?: InputMaybe<Array<InputMaybe<ComponentHelpersStringArrayInput>>>;
+  warnings?: InputMaybe<Array<InputMaybe<ComponentHelpersStringArrayInput>>>;
+};
+
+export type MedicationRelationResponseCollection = {
+  __typename?: 'MedicationRelationResponseCollection';
+  data: Array<MedicationEntity>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   /** Change user password. Confirm with the current password. */
@@ -1771,12 +1994,19 @@ export type Mutation = {
   createLanguageLocalization?: Maybe<LanguageEntityResponse>;
   createLocation?: Maybe<LocationEntityResponse>;
   createLocationLocalization?: Maybe<LocationEntityResponse>;
+  createMedication?: Maybe<MedicationEntityResponse>;
+  createMedicationCategory?: Maybe<MedicationCategoryEntityResponse>;
+  createMedicationCategoryLocalization?: Maybe<MedicationCategoryEntityResponse>;
+  createMedicationLocalization?: Maybe<MedicationEntityResponse>;
+  createPharmaciesPageLocalization?: Maybe<PharmaciesPageEntityResponse>;
   createPhotographer?: Maybe<PhotographerEntityResponse>;
   createPhotographerLocalization?: Maybe<PhotographerEntityResponse>;
   createPhotographyStyle?: Maybe<PhotographyStyleEntityResponse>;
   createPhotographyStyleLocalization?: Maybe<PhotographyStyleEntityResponse>;
   createService?: Maybe<ServiceEntityResponse>;
   createServiceLocalization?: Maybe<ServiceEntityResponse>;
+  createSupportService?: Maybe<SupportServiceEntityResponse>;
+  createSupportServiceLocalization?: Maybe<SupportServiceEntityResponse>;
   createTaxiDriver?: Maybe<TaxiDriverEntityResponse>;
   createTaxiDriverLocalization?: Maybe<TaxiDriverEntityResponse>;
   createTaxiService?: Maybe<TaxiServiceEntityResponse>;
@@ -1805,9 +2035,13 @@ export type Mutation = {
   deleteHotspotsPage?: Maybe<HotspotsPageEntityResponse>;
   deleteLanguage?: Maybe<LanguageEntityResponse>;
   deleteLocation?: Maybe<LocationEntityResponse>;
+  deleteMedication?: Maybe<MedicationEntityResponse>;
+  deleteMedicationCategory?: Maybe<MedicationCategoryEntityResponse>;
+  deletePharmaciesPage?: Maybe<PharmaciesPageEntityResponse>;
   deletePhotographer?: Maybe<PhotographerEntityResponse>;
   deletePhotographyStyle?: Maybe<PhotographyStyleEntityResponse>;
   deleteService?: Maybe<ServiceEntityResponse>;
+  deleteSupportService?: Maybe<SupportServiceEntityResponse>;
   deleteTaxiDriver?: Maybe<TaxiDriverEntityResponse>;
   deleteTaxiService?: Maybe<TaxiServiceEntityResponse>;
   deleteTourGuide?: Maybe<TourGuideEntityResponse>;
@@ -1845,9 +2079,13 @@ export type Mutation = {
   updateHotspotsPage?: Maybe<HotspotsPageEntityResponse>;
   updateLanguage?: Maybe<LanguageEntityResponse>;
   updateLocation?: Maybe<LocationEntityResponse>;
+  updateMedication?: Maybe<MedicationEntityResponse>;
+  updateMedicationCategory?: Maybe<MedicationCategoryEntityResponse>;
+  updatePharmaciesPage?: Maybe<PharmaciesPageEntityResponse>;
   updatePhotographer?: Maybe<PhotographerEntityResponse>;
   updatePhotographyStyle?: Maybe<PhotographyStyleEntityResponse>;
   updateService?: Maybe<ServiceEntityResponse>;
+  updateSupportService?: Maybe<SupportServiceEntityResponse>;
   updateTaxiDriver?: Maybe<TaxiDriverEntityResponse>;
   updateTaxiService?: Maybe<TaxiServiceEntityResponse>;
   updateTourGuide?: Maybe<TourGuideEntityResponse>;
@@ -2036,6 +2274,39 @@ export type MutationCreateLocationLocalizationArgs = {
 };
 
 
+export type MutationCreateMedicationArgs = {
+  data: MedicationInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateMedicationCategoryArgs = {
+  data: MedicationCategoryInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateMedicationCategoryLocalizationArgs = {
+  data?: InputMaybe<MedicationCategoryInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateMedicationLocalizationArgs = {
+  data?: InputMaybe<MedicationInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreatePharmaciesPageLocalizationArgs = {
+  data?: InputMaybe<PharmaciesPageInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationCreatePhotographerArgs = {
   data: PhotographerInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -2070,6 +2341,19 @@ export type MutationCreateServiceArgs = {
 
 export type MutationCreateServiceLocalizationArgs = {
   data?: InputMaybe<ServiceInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateSupportServiceArgs = {
+  data: SupportServiceInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateSupportServiceLocalizationArgs = {
+  data?: InputMaybe<SupportServiceInput>;
   id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -2224,6 +2508,23 @@ export type MutationDeleteLocationArgs = {
 };
 
 
+export type MutationDeleteMedicationArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeleteMedicationCategoryArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeletePharmaciesPageArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationDeletePhotographerArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -2237,6 +2538,12 @@ export type MutationDeletePhotographyStyleArgs = {
 
 
 export type MutationDeleteServiceArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeleteSupportServiceArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -2432,6 +2739,26 @@ export type MutationUpdateLocationArgs = {
 };
 
 
+export type MutationUpdateMedicationArgs = {
+  data: MedicationInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationUpdateMedicationCategoryArgs = {
+  data: MedicationCategoryInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationUpdatePharmaciesPageArgs = {
+  data: PharmaciesPageInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationUpdatePhotographerArgs = {
   data: PhotographerInput;
   id: Scalars['ID']['input'];
@@ -2448,6 +2775,13 @@ export type MutationUpdatePhotographyStyleArgs = {
 
 export type MutationUpdateServiceArgs = {
   data: ServiceInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationUpdateSupportServiceArgs = {
+  data: SupportServiceInput;
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -2519,6 +2853,64 @@ export type PaginationArg = {
   page?: InputMaybe<Scalars['Int']['input']>;
   pageSize?: InputMaybe<Scalars['Int']['input']>;
   start?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type PharmaciesPage = {
+  __typename?: 'PharmaciesPage';
+  assistanceDescription: Scalars['String']['output'];
+  categories?: Maybe<CategoryRelationResponseCollection>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  embassiesDescription: Scalars['String']['output'];
+  emergencyDescription: Scalars['String']['output'];
+  filterTitle: Scalars['String']['output'];
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<PharmaciesPageRelationResponseCollection>;
+  mapTitle: Scalars['String']['output'];
+  medicationsTitle: Scalars['String']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  supportServicesTitle: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type PharmaciesPageCategoriesArgs = {
+  filters?: InputMaybe<CategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type PharmaciesPageLocalizationsArgs = {
+  publicationState?: InputMaybe<PublicationState>;
+};
+
+export type PharmaciesPageEntity = {
+  __typename?: 'PharmaciesPageEntity';
+  attributes?: Maybe<PharmaciesPage>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type PharmaciesPageEntityResponse = {
+  __typename?: 'PharmaciesPageEntityResponse';
+  data?: Maybe<PharmaciesPageEntity>;
+};
+
+export type PharmaciesPageInput = {
+  assistanceDescription?: InputMaybe<Scalars['String']['input']>;
+  categories?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  embassiesDescription?: InputMaybe<Scalars['String']['input']>;
+  emergencyDescription?: InputMaybe<Scalars['String']['input']>;
+  filterTitle?: InputMaybe<Scalars['String']['input']>;
+  mapTitle?: InputMaybe<Scalars['String']['input']>;
+  medicationsTitle?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  supportServicesTitle?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PharmaciesPageRelationResponseCollection = {
+  __typename?: 'PharmaciesPageRelationResponseCollection';
+  data: Array<PharmaciesPageEntity>;
 };
 
 export type Photographer = {
@@ -2757,12 +3149,19 @@ export type Query = {
   location?: Maybe<LocationEntityResponse>;
   locations?: Maybe<LocationEntityResponseCollection>;
   me?: Maybe<UsersPermissionsMe>;
+  medication?: Maybe<MedicationEntityResponse>;
+  medicationCategories?: Maybe<MedicationCategoryEntityResponseCollection>;
+  medicationCategory?: Maybe<MedicationCategoryEntityResponse>;
+  medications?: Maybe<MedicationEntityResponseCollection>;
+  pharmaciesPage?: Maybe<PharmaciesPageEntityResponse>;
   photographer?: Maybe<PhotographerEntityResponse>;
   photographers?: Maybe<PhotographerEntityResponseCollection>;
   photographyStyle?: Maybe<PhotographyStyleEntityResponse>;
   photographyStyles?: Maybe<PhotographyStyleEntityResponseCollection>;
   service?: Maybe<ServiceEntityResponse>;
   services?: Maybe<ServiceEntityResponseCollection>;
+  supportService?: Maybe<SupportServiceEntityResponse>;
+  supportServices?: Maybe<SupportServiceEntityResponseCollection>;
   taxiDriver?: Maybe<TaxiDriverEntityResponse>;
   taxiDrivers?: Maybe<TaxiDriverEntityResponseCollection>;
   taxiService?: Maybe<TaxiServiceEntityResponse>;
@@ -2992,6 +3391,42 @@ export type QueryLocationsArgs = {
 };
 
 
+export type QueryMedicationArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryMedicationCategoriesArgs = {
+  filters?: InputMaybe<MedicationCategoryFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryMedicationCategoryArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryMedicationsArgs = {
+  filters?: InputMaybe<MedicationFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryPharmaciesPageArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  publicationState?: InputMaybe<PublicationState>;
+};
+
+
 export type QueryPhotographerArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -3030,6 +3465,21 @@ export type QueryServiceArgs = {
 
 export type QueryServicesArgs = {
   filters?: InputMaybe<ServiceFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QuerySupportServiceArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QuerySupportServicesArgs = {
+  filters?: InputMaybe<SupportServiceFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
@@ -3231,6 +3681,78 @@ export type StringFilterInput = {
   null?: InputMaybe<Scalars['Boolean']['input']>;
   or?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   startsWith?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SupportService = {
+  __typename?: 'SupportService';
+  category: Enum_Supportservice_Category;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  image: UploadFileEntityResponse;
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<SupportServiceRelationResponseCollection>;
+  location: Scalars['String']['output'];
+  mapLink?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  phoneNumber: Scalars['String']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type SupportServiceLocalizationsArgs = {
+  filters?: InputMaybe<SupportServiceFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type SupportServiceEntity = {
+  __typename?: 'SupportServiceEntity';
+  attributes?: Maybe<SupportService>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type SupportServiceEntityResponse = {
+  __typename?: 'SupportServiceEntityResponse';
+  data?: Maybe<SupportServiceEntity>;
+};
+
+export type SupportServiceEntityResponseCollection = {
+  __typename?: 'SupportServiceEntityResponseCollection';
+  data: Array<SupportServiceEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type SupportServiceFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<SupportServiceFiltersInput>>>;
+  category?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<SupportServiceFiltersInput>;
+  location?: InputMaybe<StringFilterInput>;
+  mapLink?: InputMaybe<StringFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<SupportServiceFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<SupportServiceFiltersInput>>>;
+  phoneNumber?: InputMaybe<StringFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type SupportServiceInput = {
+  category?: InputMaybe<Enum_Supportservice_Category>;
+  image?: InputMaybe<Scalars['ID']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  mapLink?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type SupportServiceRelationResponseCollection = {
+  __typename?: 'SupportServiceRelationResponseCollection';
+  data: Array<SupportServiceEntity>;
 };
 
 export type TaxiDriver = {
@@ -4041,25 +4563,40 @@ export type GetAnimationCompaniesQueryVariables = Exact<{ [key: string]: never; 
 
 export type GetAnimationCompaniesQuery = { __typename?: 'Query', animationCompanies?: { __typename?: 'AnimationCompanyEntityResponseCollection', data: Array<{ __typename?: 'AnimationCompanyEntity', attributes?: { __typename?: 'AnimationCompany', key: string, value: string } | null }> } | null };
 
-export type GetLanguagesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetLanguagesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
 
 
 export type GetLanguagesQuery = { __typename?: 'Query', languages?: { __typename?: 'LanguageEntityResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string } | null }> } | null };
 
-export type GetCarClassesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetCarClassesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
 
 
 export type GetCarClassesQuery = { __typename?: 'Query', carClasses?: { __typename?: 'CarClassEntityResponseCollection', data: Array<{ __typename?: 'CarClassEntity', attributes?: { __typename?: 'CarClass', key: string, value: string } | null }> } | null };
 
-export type GetPhotographyStylesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetPhotographyStylesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
 
 
 export type GetPhotographyStylesQuery = { __typename?: 'Query', photographyStyles?: { __typename?: 'PhotographyStyleEntityResponseCollection', data: Array<{ __typename?: 'PhotographyStyleEntity', attributes?: { __typename?: 'PhotographyStyle', key: string, value: string } | null }> } | null };
 
-export type GetLocationsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetLocationsQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
 
 
 export type GetLocationsQuery = { __typename?: 'Query', locations?: { __typename?: 'LocationEntityResponseCollection', data: Array<{ __typename?: 'LocationEntity', attributes?: { __typename?: 'Location', key: string, value: string } | null }> } | null };
+
+export type GetMedicationCategoriesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetMedicationCategoriesQuery = { __typename?: 'Query', medicationCategories?: { __typename?: 'MedicationCategoryEntityResponseCollection', data: Array<{ __typename?: 'MedicationCategoryEntity', attributes?: { __typename?: 'MedicationCategory', key: string, value: string } | null }> } | null };
 
 export type GetHomePageQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -4075,9 +4612,9 @@ export type GetHotspotsPageQueryVariables = Exact<{
 }>;
 
 
-export type GetHotspotsPageQuery = { __typename?: 'Query', hotspotsPage?: { __typename?: 'HotspotsPageEntityResponse', data?: { __typename?: 'HotspotsPageEntity', attributes?: { __typename?: 'HotspotsPage', eventsTitle: string, clubsTitle: string, clubsInfo: string, bottomBanner?: { __typename?: 'ComponentComponentsBanner', title: string, subtitle?: string | null, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null } | null } | null } | null };
+export type GetHotspotsPageQuery = { __typename?: 'Query', hotspotsPage?: { __typename?: 'HotspotsPageEntityResponse', data?: { __typename?: 'HotspotsPageEntity', attributes?: { __typename?: 'HotspotsPage', eventsTitle: string, clubsTitle: string, clubsInfo: string, mapTitle?: string | null, bottomBanner?: { __typename?: 'ComponentComponentsBanner', title: string, subtitle?: string | null, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null } | null } | null } | null };
 
-export type HotspotsPageFragment = { __typename?: 'HotspotsPage', eventsTitle: string, clubsTitle: string, clubsInfo: string, bottomBanner?: { __typename?: 'ComponentComponentsBanner', title: string, subtitle?: string | null, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null };
+export type HotspotsPageFragment = { __typename?: 'HotspotsPage', eventsTitle: string, clubsTitle: string, clubsInfo: string, mapTitle?: string | null, bottomBanner?: { __typename?: 'ComponentComponentsBanner', title: string, subtitle?: string | null, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null };
 
 export type StrapiImageFragment = { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null };
 
@@ -4098,6 +4635,46 @@ export type GetFooterQuery = { __typename?: 'Query', footer?: { __typename?: 'Fo
 export type HeaderFragment = { __typename?: 'Header', Logo?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null, Menu?: Array<{ __typename?: 'ComponentHeaderNavigationMenu', id: string, Text?: string | null, Link?: string | null } | null> | null };
 
 export type FooterFragment = { __typename?: 'Footer', socialIcons?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null };
+
+export type GetMedicationBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetMedicationBySlugQuery = { __typename?: 'Query', medications?: { __typename?: 'MedicationEntityResponseCollection', data: Array<{ __typename?: 'MedicationEntity', attributes?: { __typename?: 'Medication', slug: string, name: string, price: string, analogs?: string | null, location: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null, medication_categories?: { __typename?: 'MedicationCategoryRelationResponseCollection', data: Array<{ __typename?: 'MedicationCategoryEntity', attributes?: { __typename?: 'MedicationCategory', key: string, value: string } | null }> } | null, indications?: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null> | null, dosage?: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null> | null, contraindications?: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null> | null, sideEffects?: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null> | null, storage?: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null> | null, warnings?: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null> | null } | null }> } | null };
+
+export type GetMedicationsByFilterQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+  categories?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  nameFilter?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetMedicationsByFilterQuery = { __typename?: 'Query', medications?: { __typename?: 'MedicationEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } }, data: Array<{ __typename?: 'MedicationEntity', id?: string | null, attributes?: { __typename?: 'Medication', slug: string, name: string, price: string, analogs?: string | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null, medication_categories?: { __typename?: 'MedicationCategoryRelationResponseCollection', data: Array<{ __typename?: 'MedicationCategoryEntity', attributes?: { __typename?: 'MedicationCategory', value: string } | null }> } | null } | null }> } | null };
+
+export type GetMedicationsNamesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+  nameFilter?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetMedicationsNamesQuery = { __typename?: 'Query', medications?: { __typename?: 'MedicationEntityResponseCollection', data: Array<{ __typename?: 'MedicationEntity', id?: string | null, attributes?: { __typename?: 'Medication', slug: string, name: string } | null }> } | null };
+
+export type MedicationFragment = { __typename?: 'Medication', slug: string, name: string, price: string, analogs?: string | null, location: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null, medication_categories?: { __typename?: 'MedicationCategoryRelationResponseCollection', data: Array<{ __typename?: 'MedicationCategoryEntity', attributes?: { __typename?: 'MedicationCategory', key: string, value: string } | null }> } | null, indications?: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null> | null, dosage?: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null> | null, contraindications?: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null> | null, sideEffects?: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null> | null, storage?: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null> | null, warnings?: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null> | null };
+
+export type MedicationPreviewFragment = { __typename?: 'Medication', slug: string, name: string, price: string, analogs?: string | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null, medication_categories?: { __typename?: 'MedicationCategoryRelationResponseCollection', data: Array<{ __typename?: 'MedicationCategoryEntity', attributes?: { __typename?: 'MedicationCategory', value: string } | null }> } | null };
+
+export type GetPharmaciesPageQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetPharmaciesPageQuery = { __typename?: 'Query', pharmaciesPage?: { __typename?: 'PharmaciesPageEntityResponse', data?: { __typename?: 'PharmaciesPageEntity', attributes?: { __typename?: 'PharmaciesPage', mapTitle: string, medicationsTitle: string, supportServicesTitle: string, embassiesDescription: string, assistanceDescription: string, emergencyDescription: string, filterTitle: string, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string, value: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, markerIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null } | null } | null } | null };
+
+export type PharmaciesPageFragment = { __typename?: 'PharmaciesPage', mapTitle: string, medicationsTitle: string, supportServicesTitle: string, embassiesDescription: string, assistanceDescription: string, emergencyDescription: string, filterTitle: string, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string, value: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, markerIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null };
 
 export type GetPhotographerBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -4137,7 +4714,7 @@ export type CompanyPromotionCardQuery = { __typename?: 'Query', companyPromotion
 
 export type GetCompanyPromotionCardsByFilterQueryVariables = Exact<{
   areaKey?: InputMaybe<Scalars['String']['input']>;
-  category?: InputMaybe<Scalars['String']['input']>;
+  category?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
   locale: Scalars['I18NLocaleCode']['input'];
   page?: InputMaybe<Scalars['Int']['input']>;
   pageSize?: InputMaybe<Scalars['Int']['input']>;
@@ -4145,7 +4722,7 @@ export type GetCompanyPromotionCardsByFilterQueryVariables = Exact<{
 }>;
 
 
-export type GetCompanyPromotionCardsByFilterQuery = { __typename?: 'Query', companyPromotionCards?: { __typename?: 'CompanyPromotionCardEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } }, data: Array<{ __typename?: 'CompanyPromotionCardEntity', id?: string | null, attributes?: { __typename?: 'CompanyPromotionCard', title: string, discount?: string | null, averageRating: number, totalComments: number, slug: string, location?: string | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat?: string | null, lng?: string | null } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null } | null }> } | null };
+export type GetCompanyPromotionCardsByFilterQuery = { __typename?: 'Query', companyPromotionCards?: { __typename?: 'CompanyPromotionCardEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } }, data: Array<{ __typename?: 'CompanyPromotionCardEntity', id?: string | null, attributes?: { __typename?: 'CompanyPromotionCard', title: string, discount?: string | null, averageRating: number, totalComments: number, slug: string, location?: string | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat?: string | null, lng?: string | null } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string, markerIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null } | null }> } | null };
 
 export type GetPromotionCardsSlugsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4154,11 +4731,22 @@ export type GetPromotionCardsSlugsQuery = { __typename?: 'Query', companyPromoti
 
 export type CompanyCardFragment = { __typename?: 'CompanyPromotionCard', title: string, discount?: string | null, description?: string | null, youTubeVideoId?: string | null, touchText?: string | null, touchLink?: string | null, averageRating: number, totalComments: number, slug: string, location?: string | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat?: string | null, lng?: string | null } | null, discountBanner?: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null, services?: { __typename?: 'ServiceRelationResponseCollection', data: Array<{ __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string } | null }> } | null };
 
-export type CompanyCardPreviewFragment = { __typename?: 'CompanyPromotionCard', title: string, discount?: string | null, averageRating: number, totalComments: number, slug: string, location?: string | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat?: string | null, lng?: string | null } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null };
+export type CompanyCardPreviewFragment = { __typename?: 'CompanyPromotionCard', title: string, discount?: string | null, averageRating: number, totalComments: number, slug: string, location?: string | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat?: string | null, lng?: string | null } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string, markerIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null };
 
 export type ServiceFragment = { __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null };
 
 export type CommentFragment = { __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null };
+
+export type GetSupportServicesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type GetSupportServicesQuery = { __typename?: 'Query', supportServices?: { __typename?: 'SupportServiceEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } }, data: Array<{ __typename?: 'SupportServiceEntity', attributes?: { __typename?: 'SupportService', name: string, phoneNumber: string, location: string, mapLink?: string | null, category: Enum_Supportservice_Category, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null };
+
+export type SupportServiceFragment = { __typename?: 'SupportService', name: string, phoneNumber: string, location: string, mapLink?: string | null, category: Enum_Supportservice_Category, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } };
 
 export type GetDriverBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -4414,6 +5002,7 @@ export const HotspotsPageFragmentDoc = new TypedDocumentString(`
   eventsTitle
   clubsTitle
   clubsInfo
+  mapTitle
   bottomBanner {
     title
     subtitle
@@ -4468,6 +5057,108 @@ export const FooterFragmentDoc = new TypedDocumentString(`
     }
   }
 }`, {"fragmentName":"Footer"}) as unknown as TypedDocumentString<FooterFragment, unknown>;
+export const MedicationFragmentDoc = new TypedDocumentString(`
+    fragment Medication on Medication {
+  slug
+  name
+  price
+  image {
+    ...StrapiImage
+  }
+  analogs
+  medication_categories {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+  location
+  indications {
+    value
+  }
+  dosage {
+    value
+  }
+  contraindications {
+    value
+  }
+  sideEffects {
+    value
+  }
+  storage {
+    value
+  }
+  warnings {
+    value
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`, {"fragmentName":"Medication"}) as unknown as TypedDocumentString<MedicationFragment, unknown>;
+export const MedicationPreviewFragmentDoc = new TypedDocumentString(`
+    fragment MedicationPreview on Medication {
+  slug
+  name
+  price
+  analogs
+  image {
+    ...StrapiImage
+  }
+  medication_categories {
+    data {
+      attributes {
+        value
+      }
+    }
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`, {"fragmentName":"MedicationPreview"}) as unknown as TypedDocumentString<MedicationPreviewFragment, unknown>;
+export const PharmaciesPageFragmentDoc = new TypedDocumentString(`
+    fragment PharmaciesPage on PharmaciesPage {
+  mapTitle
+  medicationsTitle
+  supportServicesTitle
+  embassiesDescription
+  assistanceDescription
+  emergencyDescription
+  categories {
+    data {
+      attributes {
+        key
+        value
+        icon {
+          ...StrapiImage
+        }
+        markerIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  filterTitle
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`, {"fragmentName":"PharmaciesPage"}) as unknown as TypedDocumentString<PharmaciesPageFragment, unknown>;
 export const CommentFragmentDoc = new TypedDocumentString(`
     fragment Comment on CommentEntity {
   id
@@ -4673,8 +5364,44 @@ export const CompanyCardPreviewFragmentDoc = new TypedDocumentString(`
       }
     }
   }
+  categories {
+    data {
+      attributes {
+        key
+        markerIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
 }
-    `, {"fragmentName":"CompanyCardPreview"}) as unknown as TypedDocumentString<CompanyCardPreviewFragment, unknown>;
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`, {"fragmentName":"CompanyCardPreview"}) as unknown as TypedDocumentString<CompanyCardPreviewFragment, unknown>;
+export const SupportServiceFragmentDoc = new TypedDocumentString(`
+    fragment SupportService on SupportService {
+  name
+  phoneNumber
+  location
+  mapLink
+  image {
+    ...StrapiImage
+  }
+  category
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`, {"fragmentName":"SupportService"}) as unknown as TypedDocumentString<SupportServiceFragment, unknown>;
 export const TaxiDriverPreviewFragmentDoc = new TypedDocumentString(`
     fragment TaxiDriverPreview on TaxiDriver {
   slug
@@ -5098,8 +5825,8 @@ export const GetAnimationCompaniesDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<GetAnimationCompaniesQuery, GetAnimationCompaniesQueryVariables>;
 export const GetLanguagesDocument = new TypedDocumentString(`
-    query GetLanguages {
-  languages(sort: "index:asc") {
+    query GetLanguages($locale: I18NLocaleCode!) {
+  languages(locale: $locale, sort: "index:asc") {
     data {
       attributes {
         key
@@ -5110,8 +5837,8 @@ export const GetLanguagesDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<GetLanguagesQuery, GetLanguagesQueryVariables>;
 export const GetCarClassesDocument = new TypedDocumentString(`
-    query GetCarClasses {
-  carClasses {
+    query GetCarClasses($locale: I18NLocaleCode!) {
+  carClasses(locale: $locale) {
     data {
       attributes {
         key
@@ -5122,8 +5849,8 @@ export const GetCarClassesDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<GetCarClassesQuery, GetCarClassesQueryVariables>;
 export const GetPhotographyStylesDocument = new TypedDocumentString(`
-    query GetPhotographyStyles {
-  photographyStyles {
+    query GetPhotographyStyles($locale: I18NLocaleCode!) {
+  photographyStyles(locale: $locale) {
     data {
       attributes {
         key
@@ -5134,8 +5861,8 @@ export const GetPhotographyStylesDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<GetPhotographyStylesQuery, GetPhotographyStylesQueryVariables>;
 export const GetLocationsDocument = new TypedDocumentString(`
-    query GetLocations {
-  locations {
+    query GetLocations($locale: I18NLocaleCode!) {
+  locations(locale: $locale) {
     data {
       attributes {
         key
@@ -5145,6 +5872,18 @@ export const GetLocationsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<GetLocationsQuery, GetLocationsQueryVariables>;
+export const GetMedicationCategoriesDocument = new TypedDocumentString(`
+    query GetMedicationCategories($locale: I18NLocaleCode!) {
+  medicationCategories(locale: $locale) {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<GetMedicationCategoriesQuery, GetMedicationCategoriesQueryVariables>;
 export const GetHomePageDocument = new TypedDocumentString(`
     query GetHomePage($locale: I18NLocaleCode!) {
   home(locale: $locale) {
@@ -5237,6 +5976,7 @@ export const GetHotspotsPageDocument = new TypedDocumentString(`
   eventsTitle
   clubsTitle
   clubsInfo
+  mapTitle
   bottomBanner {
     title
     subtitle
@@ -5309,6 +6049,161 @@ fragment Footer on Footer {
     socialLink
   }
 }`) as unknown as TypedDocumentString<GetFooterQuery, GetFooterQueryVariables>;
+export const GetMedicationBySlugDocument = new TypedDocumentString(`
+    query GetMedicationBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  medications(filters: {slug: {eq: $slug}}, locale: $locale) {
+    data {
+      attributes {
+        ...Medication
+      }
+    }
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}
+fragment Medication on Medication {
+  slug
+  name
+  price
+  image {
+    ...StrapiImage
+  }
+  analogs
+  medication_categories {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+  location
+  indications {
+    value
+  }
+  dosage {
+    value
+  }
+  contraindications {
+    value
+  }
+  sideEffects {
+    value
+  }
+  storage {
+    value
+  }
+  warnings {
+    value
+  }
+}`) as unknown as TypedDocumentString<GetMedicationBySlugQuery, GetMedicationBySlugQueryVariables>;
+export const GetMedicationsByFilterDocument = new TypedDocumentString(`
+    query GetMedicationsByFilter($locale: I18NLocaleCode!, $page: Int, $pageSize: Int, $categories: [String], $nameFilter: String) {
+  medications(
+    locale: $locale
+    pagination: {page: $page, pageSize: $pageSize}
+    filters: {medication_categories: {key: {in: $categories}}, or: [{name: {contains: $nameFilter}}, {slug: {contains: $nameFilter}}]}
+  ) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      id
+      attributes {
+        ...MedicationPreview
+      }
+    }
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}
+fragment MedicationPreview on Medication {
+  slug
+  name
+  price
+  analogs
+  image {
+    ...StrapiImage
+  }
+  medication_categories {
+    data {
+      attributes {
+        value
+      }
+    }
+  }
+}`) as unknown as TypedDocumentString<GetMedicationsByFilterQuery, GetMedicationsByFilterQueryVariables>;
+export const GetMedicationsNamesDocument = new TypedDocumentString(`
+    query GetMedicationsNames($locale: I18NLocaleCode!, $nameFilter: String) {
+  medications(
+    locale: $locale
+    filters: {or: [{name: {contains: $nameFilter}}, {slug: {contains: $nameFilter}}]}
+  ) {
+    data {
+      id
+      attributes {
+        slug
+        name
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<GetMedicationsNamesQuery, GetMedicationsNamesQueryVariables>;
+export const GetPharmaciesPageDocument = new TypedDocumentString(`
+    query GetPharmaciesPage($locale: I18NLocaleCode!) {
+  pharmaciesPage(locale: $locale) {
+    data {
+      attributes {
+        ...PharmaciesPage
+      }
+    }
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}
+fragment PharmaciesPage on PharmaciesPage {
+  mapTitle
+  medicationsTitle
+  supportServicesTitle
+  embassiesDescription
+  assistanceDescription
+  emergencyDescription
+  categories {
+    data {
+      attributes {
+        key
+        value
+        icon {
+          ...StrapiImage
+        }
+        markerIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  filterTitle
+}`) as unknown as TypedDocumentString<GetPharmaciesPageQuery, GetPharmaciesPageQueryVariables>;
 export const GetPhotographerBySlugDocument = new TypedDocumentString(`
     query GetPhotographerBySlug($slug: String!, $locale: I18NLocaleCode!) {
   photographers(filters: {slug: {eq: $slug}}, locale: $locale) {
@@ -5573,10 +6468,10 @@ fragment Comment on CommentEntity {
   }
 }`) as unknown as TypedDocumentString<CompanyPromotionCardQuery, CompanyPromotionCardQueryVariables>;
 export const GetCompanyPromotionCardsByFilterDocument = new TypedDocumentString(`
-    query GetCompanyPromotionCardsByFilter($areaKey: String, $category: String, $locale: I18NLocaleCode!, $page: Int, $pageSize: Int, $slugToExclude: String) {
+    query GetCompanyPromotionCardsByFilter($areaKey: String, $category: [String], $locale: I18NLocaleCode!, $page: Int, $pageSize: Int, $slugToExclude: String) {
   companyPromotionCards(
     locale: $locale
-    filters: {area: {key: {eq: $areaKey}}, categories: {key: {eq: $category}}, slug: {ne: $slugToExclude}}
+    filters: {area: {key: {eq: $areaKey}}, categories: {key: {in: $category}}, slug: {ne: $slugToExclude}}
     pagination: {page: $page, pageSize: $pageSize}
   ) {
     meta {
@@ -5592,7 +6487,15 @@ export const GetCompanyPromotionCardsByFilterDocument = new TypedDocumentString(
     }
   }
 }
-    fragment CompanyCardPreview on CompanyPromotionCard {
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}
+fragment CompanyCardPreview on CompanyPromotionCard {
   title
   discount
   images {
@@ -5619,6 +6522,16 @@ export const GetCompanyPromotionCardsByFilterDocument = new TypedDocumentString(
       }
     }
   }
+  categories {
+    data {
+      attributes {
+        key
+        markerIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
 }`) as unknown as TypedDocumentString<GetCompanyPromotionCardsByFilterQuery, GetCompanyPromotionCardsByFilterQueryVariables>;
 export const GetPromotionCardsSlugsDocument = new TypedDocumentString(`
     query GetPromotionCardsSlugs {
@@ -5631,6 +6544,39 @@ export const GetPromotionCardsSlugsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<GetPromotionCardsSlugsQuery, GetPromotionCardsSlugsQueryVariables>;
+export const GetSupportServicesDocument = new TypedDocumentString(`
+    query GetSupportServices($locale: I18NLocaleCode!, $page: Int, $pageSize: Int) {
+  supportServices(locale: $locale, pagination: {page: $page, pageSize: $pageSize}) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      attributes {
+        ...SupportService
+      }
+    }
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}
+fragment SupportService on SupportService {
+  name
+  phoneNumber
+  location
+  mapLink
+  image {
+    ...StrapiImage
+  }
+  category
+}`) as unknown as TypedDocumentString<GetSupportServicesQuery, GetSupportServicesQueryVariables>;
 export const GetDriverBySlugDocument = new TypedDocumentString(`
     query GetDriverBySlug($slug: String!, $locale: I18NLocaleCode!) {
   taxiDrivers(filters: {slug: {eq: $slug}}, locale: $locale) {

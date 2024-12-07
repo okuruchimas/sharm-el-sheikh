@@ -15,9 +15,11 @@ const TextAndIcon = ({
   fontSize = "16px",
 }: Props) => {
   return (
-    <Wrap iconSize={iconSize}>
+    <Wrap iconSize={iconSize} className="text-and-icon">
       <Icon height={iconSize} width={iconSize} src={src} />
-      <Text fontSize={fontSize}>{text}</Text>
+      <Text fontSize={fontSize} className="icon-text">
+        {text}
+      </Text>
     </Wrap>
   );
 };

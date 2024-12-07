@@ -15,7 +15,7 @@ export const CardsWrap = styled("div")(({ theme }) => ({
     gridTemplateColumns: "1fr 1fr",
   },
 
-  [theme.breakpoints.mobile]: {
+  [theme.breakpoints.mobileS]: {
     gridTemplateColumns: "1fr",
   },
 }));

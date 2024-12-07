@@ -51,6 +51,7 @@ export const theme = {
   },
   breakpoints: {
     mobile: "@media (max-width: 1024px)",
+    mobileS: "@media (max-width: 740px)",
     mobileHorizontal: "@media (min-width: 600px)",
     desktop: "@media (min-width: 1024px)",
     desktopS: "@media (max-width: 1244px)",
