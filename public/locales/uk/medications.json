@@ -1,0 +1,14 @@
+{
+  "categories": {
+    "assistance_services": "Служби підтримки",
+    "embassies": "Посольства країн",
+    "emergency_services": "Служби екстреної допомоги"
+  },
+  "contraindications": "Протипоказання",
+  "dosage": "Дозування",
+  "indications": "Показання",
+  "sideEffects": "Побічні ефекти",
+  "showOnMap": "Показати на карті",
+  "storage": "Зберігання",
+  "warnings": "Попередження"
+}

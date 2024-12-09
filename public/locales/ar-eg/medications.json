@@ -1,0 +1,14 @@
+{
+  "categories": {
+    "assistance_services": "خدمات المساعدة",
+    "embassies": "سفارات الدول",
+    "emergency_services": "خدمات الطوارئ"
+  },
+  "contraindications": "موانع الاستعمال",
+  "dosage": "الجرعة",
+  "indications": "دواعي الاستخدام",
+  "sideEffects": "الآثار الجانبية",
+  "showOnMap": "عرض على الخريطة",
+  "storage": "التخزين",
+  "warnings": "التحذيرات"
+}

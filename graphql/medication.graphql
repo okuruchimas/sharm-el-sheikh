@@ -1,0 +1,115 @@
+query GetMedicationBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  medications(filters: { slug: { eq: $slug } }, locale: $locale) {
+    data {
+      attributes {
+        ...Medication
+      }
+    }
+  }
+}
+
+query GetMedicationsByFilter(
+  $locale: I18NLocaleCode!
+  $page: Int
+  $pageSize: Int
+  $categories: [String]
+  $nameFilter: String
+) {
+  medications(
+    locale: $locale
+    pagination: { page: $page, pageSize: $pageSize }
+    filters: {
+      medication_categories: { key: { in: $categories } }
+      or: [
+        { name: { contains: $nameFilter } }
+        { slug: { contains: $nameFilter } }
+      ]
+    }
+  ) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      id
+      attributes {
+        ...MedicationPreview
+      }
+    }
+  }
+}
+
+query GetMedicationsNames($locale: I18NLocaleCode!, $nameFilter: String) {
+  medications(
+    locale: $locale
+    filters: {
+      or: [
+        { name: { contains: $nameFilter } }
+        { slug: { contains: $nameFilter } }
+      ]
+    }
+  ) {
+    data {
+      id
+      attributes {
+        slug
+        name
+      }
+    }
+  }
+}
+
+fragment Medication on Medication {
+  slug
+  name
+  price
+  image {
+    ...StrapiImage
+  }
+  analogs
+  medication_categories {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+  location
+  indications {
+    value
+  }
+  dosage {
+    value
+  }
+  contraindications {
+    value
+  }
+  sideEffects {
+    value
+  }
+  storage {
+    value
+  }
+  warnings {
+    value
+  }
+}
+
+fragment MedicationPreview on Medication {
+  slug
+  name
+  price
+  analogs
+  image {
+    ...StrapiImage
+  }
+  medication_categories {
+    data {
+      attributes {
+        value
+      }
+    }
+  }
+}

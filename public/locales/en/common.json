@@ -25,10 +25,12 @@
     "sunday": "Sunday"
   },
   "labels": {
+    "all": "All",
     "email": "Email",
     "location": "Location",
     "phone": "Phone",
-    "price": "Price"
+    "price": "Price",
+    "searchByName": "Search by Name"
   },
   "noDiscounts": "Currently no discounts available",
   "reviewForm": {
