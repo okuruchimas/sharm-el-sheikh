@@ -1,12 +1,15 @@
 // hooks
+import { useState } from "react";
 import { useTranslation } from "next-i18next";
 // components
+import Modal from "../../../layout/modal";
 import LinkButton from "../../../layout/link-button";
+import EventPopup from "../../../layout/event-popup";
 import EventCardSmall from "./children/event-card-small";
 // utils
 import styled from "@emotion/styled";
 // types
-import { HomePageFragment } from "../../../../gql/graphql";
+import { EventCardFragment, HomePageFragment } from "../../../../gql/graphql";
 
 type MainProps = {
   heroTitle: string;
@@ -15,7 +18,12 @@ type MainProps = {
 };
 
 const Main = ({ eventCards, eventCardsTitle, heroTitle }: MainProps) => {
+  const [selectedEvent, setSelectedEvent] =
+    useState<EventCardFragment | null>();
   const { t } = useTranslation("common");
+
+  const handleClosePopup = () => setSelectedEvent(undefined);
+
   return (
     <WrapSection>
       <TopWrap>
@@ -26,16 +34,34 @@ const Main = ({ eventCards, eventCardsTitle, heroTitle }: MainProps) => {
         {eventCards?.data.map(({ attributes }, index) => (
           <EventCardSmall
             key={index}
-            url={attributes?.url || ""}
             logo={attributes?.image?.data?.attributes?.url ?? ""}
             logoAlt={attributes?.image?.data?.attributes?.alternativeText ?? ""}
             date={attributes?.date || ""}
             title={attributes?.title || ""}
             price={attributes?.price || ""}
             location={attributes?.location || ""}
+            onClick={() => setSelectedEvent(attributes)}
           />
         ))}
       </TopWrap>
+      <Modal
+        mWidth="90%"
+        isOpen={!!selectedEvent?.title}
+        onClose={handleClosePopup}
+      >
+        <EventPopup
+          key={selectedEvent?.title}
+          mapUrl={selectedEvent?.mapUrl || ""}
+          logo={selectedEvent?.image.data?.attributes?.url || ""}
+          date={selectedEvent?.date || ""}
+          title={selectedEvent?.title || ""}
+          price={selectedEvent?.price || ""}
+          location={selectedEvent?.location || ""}
+          description={selectedEvent?.description || ""}
+          socialLinks={selectedEvent?.socialLinks || []}
+          onClose={handleClosePopup}
+        />
+      </Modal>
       <Title>{heroTitle}</Title>
     </WrapSection>
   );

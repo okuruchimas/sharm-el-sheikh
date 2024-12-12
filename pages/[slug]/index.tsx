@@ -103,7 +103,7 @@ const CompanyPage = ({
         />
         {description ? (
           <DescriptionSection>
-            <span>{t("description")}</span>
+            <span>{tCommon("labels.description")}</span>
             <p>{description}</p>
           </DescriptionSection>
         ) : null}

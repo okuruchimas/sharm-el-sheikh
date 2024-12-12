@@ -5,5 +5,5 @@ export interface EventCardI {
   title: string;
   price: string;
   location: string;
-  url: string;
+  onClick: () => void;
 }

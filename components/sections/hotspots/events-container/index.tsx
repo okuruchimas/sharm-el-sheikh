@@ -1,19 +1,22 @@
+import {
+  type EventCardEntity,
+  type EventCardFragment,
+  GetEventCardsDocument,
+} from "../../../../gql/graphql";
 // hooks
+import useResponsive from "../../../../hooks/useResponsive";
 import { useTranslation } from "next-i18next";
 import { useCallback, useEffect, useMemo, useState } from "react";
 // components
-import SectionWrapper from "../../../layout/section-wrapper";
+import Modal from "../../../layout/modal";
 import Loader from "../../../layout/loader";
 import EventCard from "./children/event-card";
-import useResponsive from "../../../../hooks/useResponsive";
 import Pagination from "../../../layout/pagination";
-import { fetchDataFromApi } from "../../../../utils/fetchApi";
+import EventPopup from "../../../layout/event-popup";
+import SectionWrapper from "../../../layout/section-wrapper";
 // utils
 import styled from "@emotion/styled";
-import {
-  type EventCardEntity,
-  GetEventCardsDocument,
-} from "../../../../gql/graphql";
+import { fetchDataFromApi } from "../../../../utils/fetchApi";
 
 type EventsContainerProps = {
   title: string;
@@ -29,6 +32,9 @@ const EventsContainer = ({
   const [page, setPage] = useState<number>(1);
   const [result, setResult] = useState<EventCardEntity[]>(initialEvents);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedEvent, setSelectedEvent] =
+    useState<EventCardFragment | null>();
+
   const { isMobile } = useResponsive();
 
   const pageSize = useMemo(() => (isMobile ? 3 : 6), [isMobile]);
@@ -71,6 +77,7 @@ const EventsContainer = ({
     setResult(data);
     setIsLoading(false);
   };
+  const handleClosePopup = () => setSelectedEvent(undefined);
 
   return (
     <SectionWrapper title={title}>
@@ -81,16 +88,35 @@ const EventsContainer = ({
           result?.map(({ attributes }) => (
             <EventCard
               key={attributes?.title}
-              url={attributes?.url || ""}
               logo={attributes?.image.data?.attributes?.url || ""}
               date={attributes?.date || ""}
               title={attributes?.title || ""}
               price={attributes?.price || ""}
               location={attributes?.location || ""}
+              onClick={() => setSelectedEvent(attributes)}
             />
           ))
         )}
       </CardsWrapper>
+      <Modal
+        mWidth="90%"
+        isOpen={!!selectedEvent?.title}
+        onClose={handleClosePopup}
+      >
+        <EventPopup
+          key={selectedEvent?.title}
+          {...selectedEvent}
+          mapUrl={selectedEvent?.mapUrl || ""}
+          logo={selectedEvent?.image.data?.attributes?.url || ""}
+          date={selectedEvent?.date || ""}
+          title={selectedEvent?.title || ""}
+          price={selectedEvent?.price || ""}
+          location={selectedEvent?.location || ""}
+          description={selectedEvent?.description || ""}
+          socialLinks={selectedEvent?.socialLinks || []}
+          onClose={handleClosePopup}
+        />
+      </Modal>
       <Pagination
         isDisabled={isLoading}
         currentPage={page}

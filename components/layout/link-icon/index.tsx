@@ -1,13 +1,28 @@
 import styled from "@emotion/styled";
-
-import React from "react";
 import Link from "next/link";
+import type { KeyboardEvent } from "react";
 
-const LinkIcon = ({ href }: { href: string }) => {
-  return (
+type LinkIconProps = { href?: string; onClick?: () => void };
+
+const LinkIcon = ({ href, onClick }: LinkIconProps) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" && onClick) {
+      onClick();
+    }
+  };
+
+  return href ? (
     <Link href={href}>
       <LinkIconStyled src="/icons/main-section/circle-arrow.svg" alt="Link" />
     </Link>
+  ) : (
+    <LinkIconStyled
+      src="/icons/main-section/circle-arrow.svg"
+      alt="Link"
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+    />
   );
 };
 

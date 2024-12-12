@@ -26,6 +26,7 @@
   },
   "labels": {
     "all": "All",
+    "description": "Description",
     "email": "Email",
     "location": "Location",
     "phone": "Phone",
@@ -52,6 +53,7 @@
   "text": {
     "about": "About",
     "entertainersTourGuides": "Entertainers & Tour Guides",
+    "findAnimatorForTicket": "Find an Animator for Ticket Purchase",
     "food": "Food:",
     "languagesSpoken": "Languages Spoken",
     "reviews": "Reviews",

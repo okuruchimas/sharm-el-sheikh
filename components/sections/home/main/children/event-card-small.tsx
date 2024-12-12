@@ -9,13 +9,13 @@ import type { EventCardI } from "./types";
 import LinkIcon from "../../../../layout/link-icon";
 
 const EventCardSmall = ({
-  url,
   logo,
   date,
   title,
   price,
   logoAlt,
   location,
+  onClick,
 }: EventCardI) => {
   const { t } = useTranslation("common");
 
@@ -37,7 +37,7 @@ const EventCardSmall = ({
           <BottomText>{`${t("labels.location")}: ${location}`}</BottomText>
         </BottomWrap>
       </InfoWrap>
-      <LinkIcon href={url} />
+      <LinkIcon onClick={onClick} />
     </Wrap>
   );
 };

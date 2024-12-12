@@ -15,7 +15,7 @@ const Modal = ({
   isOpen,
   children,
   width = "60%",
-  mWidth,
+  mWidth = "90%",
   onClose,
 }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
@@ -32,7 +32,7 @@ const Modal = ({
         <ModalWindow
           ref={modalRef}
           width={width}
-          mWidth={mWidth || width}
+          mWidth={mWidth}
           className="modal-window"
         >
           {children}

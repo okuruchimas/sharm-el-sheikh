@@ -9,13 +9,13 @@ import styled from "@emotion/styled";
 import type { EventCardI } from "../../../home/main/children/types";
 
 const EventCard = ({
-  url,
   logo,
   date,
   title,
   price,
   logoAlt,
   location,
+  onClick,
 }: EventCardI) => {
   const { t } = useTranslation("common");
 
@@ -33,7 +33,7 @@ const EventCard = ({
             <BottomText>{`${t("labels.price")}: ${price}`}</BottomText>
           </PriceLocation>
         </Stack>
-        <LinkIcon href={url} />
+        <LinkIcon onClick={onClick} />
       </Details>
     </Card>
   );
