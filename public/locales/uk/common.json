@@ -26,6 +26,7 @@
   },
   "labels": {
     "all": "Усі",
+    "description": "Опис",
     "email": "Електронна пошта",
     "location": "Локація",
     "phone": "Телефон",
@@ -52,6 +53,7 @@
   "text": {
     "about": "Про",
     "entertainersTourGuides": "Аніматори та Туристичні Гіди",
+    "findAnimatorForTicket": "Знайдіть аніматора для покупки квитків",
     "food": "Їжа:",
     "languagesSpoken": "Мови, якими володіє",
     "reviews": "Відгуки",

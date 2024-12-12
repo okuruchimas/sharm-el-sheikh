@@ -26,6 +26,7 @@
   },
   "labels": {
     "all": "الجميع",
+    "description": "الوصف",
     "email": "البريد الإلكتروني",
     "location": "الموقع",
     "phone": "الهاتف",
@@ -52,6 +53,7 @@
   "text": {
     "about": "عن",
     "entertainersTourGuides": "المسليين ومرشدي الجولات",
+    "findAnimatorForTicket": "ابحث عن الرسوم المتحركة لشراء التذاكر",
     "food": "طعام:",
     "languagesSpoken": "اللغات المحكية",
     "reviews": "التقييمات",

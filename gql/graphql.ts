@@ -1152,16 +1152,18 @@ export type EventCard = {
   __typename?: 'EventCard';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   date: Scalars['String']['output'];
+  description?: Maybe<Scalars['String']['output']>;
   image: UploadFileEntityResponse;
   index: Scalars['Int']['output'];
   locale?: Maybe<Scalars['String']['output']>;
   localizations?: Maybe<EventCardRelationResponseCollection>;
   location: Scalars['String']['output'];
+  mapUrl?: Maybe<Scalars['String']['output']>;
   price: Scalars['String']['output'];
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  socialLinks?: Maybe<Array<Maybe<ComponentHelpersSocialMedia>>>;
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
-  url: Scalars['String']['output'];
 };
 
 
@@ -1169,6 +1171,13 @@ export type EventCardLocalizationsArgs = {
   filters?: InputMaybe<EventCardFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type EventCardSocialLinksArgs = {
+  filters?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
@@ -1193,29 +1202,33 @@ export type EventCardFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<EventCardFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   date?: InputMaybe<StringFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   index?: InputMaybe<IntFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<EventCardFiltersInput>;
   location?: InputMaybe<StringFilterInput>;
+  mapUrl?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<EventCardFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<EventCardFiltersInput>>>;
   price?: InputMaybe<StringFilterInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  socialLinks?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
-  url?: InputMaybe<StringFilterInput>;
 };
 
 export type EventCardInput = {
   date?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['ID']['input']>;
   index?: InputMaybe<Scalars['Int']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
+  mapUrl?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  socialLinks?: InputMaybe<Array<InputMaybe<ComponentHelpersSocialMediaInput>>>;
   title?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type EventCardRelationResponseCollection = {
@@ -4540,9 +4553,9 @@ export type GetEventCardsQueryVariables = Exact<{
 }>;
 
 
-export type GetEventCardsQuery = { __typename?: 'Query', eventCards?: { __typename?: 'EventCardEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } }, data: Array<{ __typename?: 'EventCardEntity', attributes?: { __typename?: 'EventCard', date: string, title: string, price: string, location: string, url: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null };
+export type GetEventCardsQuery = { __typename?: 'Query', eventCards?: { __typename?: 'EventCardEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } }, data: Array<{ __typename?: 'EventCardEntity', attributes?: { __typename?: 'EventCard', date: string, title: string, price: string, location: string, description?: string | null, mapUrl?: string | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null };
 
-export type EventCardFragment = { __typename?: 'EventCard', date: string, title: string, price: string, location: string, url: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } };
+export type EventCardFragment = { __typename?: 'EventCard', date: string, title: string, price: string, location: string, description?: string | null, mapUrl?: string | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } };
 
 export type GetAreasQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -4603,9 +4616,9 @@ export type GetHomePageQueryVariables = Exact<{
 }>;
 
 
-export type GetHomePageQuery = { __typename?: 'Query', home?: { __typename?: 'HomeEntityResponse', data?: { __typename?: 'HomeEntity', attributes?: { __typename?: 'Home', heroTitle: string, eventCardsTitle: string, promotionsTitle: string, announcementsTitle: string, mapTitle: string, event_cards?: { __typename?: 'EventCardRelationResponseCollection', data: Array<{ __typename?: 'EventCardEntity', attributes?: { __typename?: 'EventCard', date: string, title: string, price: string, location: string, url: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, banner1: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, announcements?: { __typename?: 'AnnouncementRelationResponseCollection', data: Array<{ __typename?: 'AnnouncementEntity', attributes?: { __typename?: 'Announcement', title?: string | null, text?: string | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null } | null }> } | null, banner2: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } } | null } | null } | null };
+export type GetHomePageQuery = { __typename?: 'Query', home?: { __typename?: 'HomeEntityResponse', data?: { __typename?: 'HomeEntity', attributes?: { __typename?: 'Home', heroTitle: string, eventCardsTitle: string, promotionsTitle: string, announcementsTitle: string, mapTitle: string, event_cards?: { __typename?: 'EventCardRelationResponseCollection', data: Array<{ __typename?: 'EventCardEntity', attributes?: { __typename?: 'EventCard', date: string, title: string, price: string, location: string, description?: string | null, mapUrl?: string | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, banner1: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, announcements?: { __typename?: 'AnnouncementRelationResponseCollection', data: Array<{ __typename?: 'AnnouncementEntity', attributes?: { __typename?: 'Announcement', title?: string | null, text?: string | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null } | null }> } | null, banner2: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } } | null } | null } | null };
 
-export type HomePageFragment = { __typename?: 'Home', heroTitle: string, eventCardsTitle: string, promotionsTitle: string, announcementsTitle: string, mapTitle: string, event_cards?: { __typename?: 'EventCardRelationResponseCollection', data: Array<{ __typename?: 'EventCardEntity', attributes?: { __typename?: 'EventCard', date: string, title: string, price: string, location: string, url: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, banner1: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, announcements?: { __typename?: 'AnnouncementRelationResponseCollection', data: Array<{ __typename?: 'AnnouncementEntity', attributes?: { __typename?: 'Announcement', title?: string | null, text?: string | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null } | null }> } | null, banner2: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } };
+export type HomePageFragment = { __typename?: 'Home', heroTitle: string, eventCardsTitle: string, promotionsTitle: string, announcementsTitle: string, mapTitle: string, event_cards?: { __typename?: 'EventCardRelationResponseCollection', data: Array<{ __typename?: 'EventCardEntity', attributes?: { __typename?: 'EventCard', date: string, title: string, price: string, location: string, description?: string | null, mapUrl?: string | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, banner1: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, announcements?: { __typename?: 'AnnouncementRelationResponseCollection', data: Array<{ __typename?: 'AnnouncementEntity', attributes?: { __typename?: 'Announcement', title?: string | null, text?: string | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null } | null }> } | null, banner2: { __typename?: 'ComponentComponentsBanner', title: string, buttonText?: string | null, buttonLink?: string | null, bannerImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } };
 
 export type GetHotspotsPageQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -4893,7 +4906,14 @@ export const EventCardFragmentDoc = new TypedDocumentString(`
   title
   price
   location
-  url
+  description
+  mapUrl
+  socialLinks {
+    socialLink
+    icon {
+      ...StrapiImage
+    }
+  }
   image {
     ...StrapiImage
   }
@@ -4984,7 +5004,14 @@ fragment EventCard on EventCard {
   title
   price
   location
-  url
+  description
+  mapUrl
+  socialLinks {
+    socialLink
+    icon {
+      ...StrapiImage
+    }
+  }
   image {
     ...StrapiImage
   }
@@ -5762,7 +5789,14 @@ export const GetEventCardsDocument = new TypedDocumentString(`
   title
   price
   location
-  url
+  description
+  mapUrl
+  socialLinks {
+    socialLink
+    icon {
+      ...StrapiImage
+    }
+  }
   image {
     ...StrapiImage
   }
@@ -5912,7 +5946,14 @@ fragment EventCard on EventCard {
   title
   price
   location
-  url
+  description
+  mapUrl
+  socialLinks {
+    socialLink
+    icon {
+      ...StrapiImage
+    }
+  }
   image {
     ...StrapiImage
   }

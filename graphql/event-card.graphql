@@ -22,7 +22,14 @@ fragment EventCard on EventCard {
   title
   price
   location
-  url
+  description
+  mapUrl
+  socialLinks {
+    socialLink
+    icon {
+      ...StrapiImage
+    }
+  }
   image {
     ...StrapiImage
   }

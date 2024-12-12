@@ -4,6 +4,7 @@ import TextAndIcon from "../../../layout/text-and-icon";
 // utils
 import styled from "@emotion/styled";
 import type { KeyboardEvent } from "react";
+import LinkIcon from "../../../layout/link-icon";
 
 interface MedicationCardProps {
   title: string;
@@ -40,13 +41,7 @@ const MedicationCard = ({
           <Category>{category}</Category>
           <TextAndIcon src="/icons/cash.svg" text={price} />
         </Row>
-        <LinkIconStyled
-          src="/icons/main-section/circle-arrow.svg"
-          alt={title}
-          onClick={onClick}
-          tabIndex={0}
-          onKeyDown={handleKeyDown}
-        />
+        <LinkIcon onClick={onClick} />
       </InfoWrap>
     </Wrap>
   );
@@ -63,26 +58,6 @@ const Wrap = styled("div")(({ theme }) => ({
   position: "relative",
   boxShadow: theme.shadows[0],
   border: `1px solid ${theme.colors.blue5}`,
-}));
-
-const LinkIconStyled = styled("img")(({ theme }) => ({
-  cursor: "pointer",
-  width: "40px",
-  height: "40px",
-  alignSelf: "baseline",
-  transition: "scale 0.3s ease",
-  borderRadius: "50%",
-
-  boxShadow: "0 1px 3px 1px #00000026, 0 1px 2px 0 #0000004d",
-
-  [theme.breakpoints.mobile]: {
-    height: "30px",
-    width: "30px",
-  },
-
-  "&:active, &:focus": {
-    scale: "1.3",
-  },
 }));
 
 const CardTitle = styled("h3")(({ theme }) => ({
