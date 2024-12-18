@@ -1,10 +1,12 @@
 import { REVALIDATE_TIME } from "../constants/page.constants";
 import { useMemo } from "react";
+import { useTranslation } from "next-i18next";
 // components
 import Head from "next/head";
 import Main from "../components/sections/home/main";
 import Loader from "../components/layout/loader";
 import Promotions from "../components/sections/promotions";
+import HomeNavMenu from "../components/sections/home/home-nav-menu";
 import FeedbackForm from "../components/sections/home/feedback";
 import SectionsWrapper from "../components/layout/sections-wrapper";
 import LazyWrapper from "../components/layout/lazy-wrapper";
@@ -24,7 +26,6 @@ import {
   type HomePageFragment,
   type GetCompanyPromotionCardsByFilterQuery,
 } from "../gql/graphql";
-import { useTranslation } from "next-i18next";
 
 const DynamicBanner = dynamic(
   () => import("../components/sections/home/banner"),
@@ -133,6 +134,7 @@ const Home = ({
             ]}
           />
         </LazyWrapper>
+        <HomeNavMenu menu={homePageData.homeNavMenu} />
         <FeedbackForm />
       </SectionsWrapper>
     </Wrap>
