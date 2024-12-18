@@ -44,4 +44,11 @@ fragment HomePage on Home {
     }
   }
   mapTitle
+  homeNavMenu {
+    text
+    link
+    image {
+      ...StrapiImage
+    }
+  }
 }
