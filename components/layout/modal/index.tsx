@@ -7,6 +7,7 @@ type ModalProps = {
   children: View;
   width?: string;
   mWidth?: string;
+  maxWidth?: string;
   isOpen: boolean;
   onClose: () => void;
 };
@@ -16,6 +17,7 @@ const Modal = ({
   children,
   width = "60%",
   mWidth = "90%",
+  maxWidth,
   onClose,
 }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
@@ -33,6 +35,7 @@ const Modal = ({
           ref={modalRef}
           width={width}
           mWidth={mWidth}
+          maxWidth={maxWidth}
           className="modal-window"
         >
           {children}
@@ -69,26 +72,29 @@ const Backdrop = styled("div")({
 });
 
 const ModalWindow = styled("div", {
-  shouldForwardProp: (prop) => !["width", "mWidth"].includes(prop),
-})<{ width: string; mWidth: string }>(({ width, mWidth }) => ({
-  width: width,
-  backgroundColor: "#ffffff",
-  borderRadius: "16px",
-  padding: "24px",
-  boxShadow: "0px 1px 3px 1px #00000026",
-  position: "relative",
-  overflowY: "scroll",
-  overflowX: "hidden",
-  maxHeight: "95dvh",
-  scrollbarWidth: "none",
+  shouldForwardProp: (prop) => !["width", "mWidth", "maxWidth"].includes(prop),
+})<{ width: string; mWidth: string; maxWidth?: string }>(
+  ({ width, mWidth, maxWidth }) => ({
+    width: width,
+    backgroundColor: "#ffffff",
+    borderRadius: "16px",
+    padding: "24px",
+    boxShadow: "0px 1px 3px 1px #00000026",
+    position: "relative",
+    overflowY: "scroll",
+    overflowX: "hidden",
+    maxHeight: "95dvh",
+    scrollbarWidth: "none",
+    ...(maxWidth ? { maxWidth } : {}),
 
-  "&::-webkit-scrollbar": {
-    display: "none",
-  },
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
 
-  "@media (max-width: 1024px)": {
-    borderRadius: "12px",
-    width: mWidth,
-    padding: "16px",
-  },
-}));
+    "@media (max-width: 1024px)": {
+      borderRadius: "12px",
+      width: mWidth,
+      padding: "16px",
+    },
+  }),
+);

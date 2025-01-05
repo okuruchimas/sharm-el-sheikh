@@ -3,23 +3,32 @@ import Link from "next/link";
 // components
 import Image from "next/image";
 import Swiper from "./swiper";
+import TitleRating from "../../../layout/title-and-rating";
+import TextAndIcon from "../../../layout/text-and-icon";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { CompanyCardFragment } from "../../../../gql/graphql";
-import TitleRating from "../../../layout/title-and-rating";
-import TextAndIcon from "../../../layout/text-and-icon";
+import type { CompanyPreviewFragment } from "../../../../gql/graphql";
 
 type PromCardProps = Pick<
-  CompanyCardFragment,
-  "discount" | "location" | "title" | "slug" | "averageRating" | "totalComments"
+  CompanyPreviewFragment,
+  | "discount"
+  | "location"
+  | "title"
+  | "slug"
+  | "averageRating"
+  | "totalComments"
+  | "categories"
+  | "images"
 > & {
-  images?: CompanyCardFragment["images"];
   time?: string;
+  isPage: boolean;
   handleClick?: () => void;
+  onOpenDiscount: () => void;
 };
 const PromCard = ({
   slug,
+  isPage,
   time,
   title,
   images,
@@ -28,12 +37,17 @@ const PromCard = ({
   totalComments,
   averageRating,
   handleClick,
+  onOpenDiscount,
 }: PromCardProps) => {
   return (
     <Wrap>
       <SwiperWrapper>
         {images ? (
-          <Swiper images={images} discount={discount} />
+          <Swiper
+            images={images}
+            discount={discount?.title}
+            onOpenDiscount={onOpenDiscount}
+          />
         ) : (
           <Image
             src="/images/background/background-prom.svg"
@@ -58,7 +72,7 @@ const PromCard = ({
               <TextAndIcon src="/icons/time.svg" text={time || ""} />
             ) : null}
           </InfoWrap>
-          {!time ? (
+          {isPage ? (
             <Link href={slug || ""}>
               <IconButton
                 src={"/icons/promotions-section/circle-arrow-outlined.svg"}
@@ -129,6 +143,7 @@ const DownWrap = styled("div", {
 
 const Down = styled("div")(({ theme }) => ({
   display: "flex",
+  alignItems: "end",
   justifyContent: "space-between",
 
   [theme.breakpoints.mobile]: {

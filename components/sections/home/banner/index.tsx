@@ -10,8 +10,9 @@ interface Props {
   imgLink?: string;
   title: string;
   buttonText: string;
-  buttonLink: string;
+  buttonLink?: string;
   isBottomContent?: boolean;
+  onClick?: () => void;
 }
 
 const Banner = ({
@@ -19,17 +20,21 @@ const Banner = ({
   title,
   buttonText,
   buttonLink,
+  onClick,
   isBottomContent,
 }: Props) => {
   const isTextVariant = !imgLink;
   const router = useRouter();
+  const handleClick = () =>
+    onClick ? onClick() : () => router.push(buttonLink || "");
+
   return (
     <Wrap isBottomContent={isBottomContent} isTextVariant={isTextVariant}>
       {imgLink ? <Background imgLink={imgLink} /> : null}
       <Title isBottomContent={isBottomContent} isTextVariant={isTextVariant}>
         {title}
       </Title>
-      <Button text={buttonText} onClick={() => router.push(buttonLink)} />
+      <Button text={buttonText} onClick={handleClick} />
     </Wrap>
   );
 };

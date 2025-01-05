@@ -1,4 +1,5 @@
 import { MarkerF, GoogleMap, useLoadScript } from "@react-google-maps/api";
+import useCompanyCard from "../../../../hooks/useCompanyCard";
 import { useTranslation } from "next-i18next";
 import { useMemo, useState, useEffect } from "react";
 // components
@@ -20,11 +21,11 @@ import {
 // types
 import type { selectOption } from "../../../types/filter";
 import {
-  type CompanyCardPreviewFragment,
-  GetCompanyPromotionCardsByFilterDocument,
+  type CompanyPreviewFragment,
+  GetCompaniesByFilterDocument,
 } from "../../../../gql/graphql";
 
-type Cards = (CompanyCardPreviewFragment | undefined | null)[] | undefined;
+type Cards = (CompanyPreviewFragment | undefined | null)[] | undefined;
 
 type MapProps = {
   title: string;
@@ -37,7 +38,7 @@ const Map = ({ title, categories }: MapProps) => {
     categories[0],
   );
   const [selectedMarker, setSelectedMarker] = useState<
-    CompanyCardPreviewFragment | null | undefined
+    CompanyPreviewFragment | null | undefined
   >(null);
   const [result, setResult] = useState<Cards>();
   // hooks
@@ -46,17 +47,15 @@ const Map = ({ title, categories }: MapProps) => {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
     libraries,
   });
+  const { handleInfoWindowClick, renderPopup } = useCompanyCard();
   // callbacks
   const handleGetCardByCategory = async (option: selectOption) => {
-    const data = await fetchDataFromApi(
-      GetCompanyPromotionCardsByFilterDocument,
-      {
-        locale: i18n.language,
-        category: option.key.split("***") || undefined,
-      },
-    );
+    const data = await fetchDataFromApi(GetCompaniesByFilterDocument, {
+      locale: i18n.language,
+      category: option.key.split("***") || undefined,
+    });
 
-    return data.companyPromotionCards?.data.map((el) => el.attributes);
+    return data.companies?.data.map((el) => el.attributes);
   };
 
   useEffect(() => {
@@ -115,46 +114,52 @@ const Map = ({ title, categories }: MapProps) => {
   };
 
   return (
-    <SectionWrapper title={title}>
-      <LocationsCategoryFilter
-        selectedID={selectedCategory?.key}
-        options={categories}
-        onSelect={handleSelectCategory}
-      />
-      {isLoaded ? (
-        <MapWrapper>
-          <GoogleMap
-            mapContainerStyle={mapContainerStyle}
-            center={center}
-            options={options}
-            zoom={DEFAULT_ZOOM}
-          >
-            {result
-              ? result.map((el) => (
-                  <MarkerF
-                    icon={
-                      el?.categories?.data[0].attributes?.markerIcon.data
-                        ?.attributes?.url || "/icons/location-marker.svg"
-                    }
-                    key={el?.slug}
-                    opacity={el?.slug === selectedMarker?.slug ? 0.6 : 1}
-                    position={{
-                      lng: Number(el?.position?.lng || DEFAULT_CENTER.lng),
-                      lat: Number(el?.position?.lat || DEFAULT_CENTER.lat),
-                    }}
-                    onClick={() => setSelectedMarker(el)}
-                  />
-                ))
-              : null}
-          </GoogleMap>
-          {selectedMarker && (
-            <InfoWindowWrapper>
-              <InfoWindow location={selectedMarker} />
-            </InfoWindowWrapper>
-          )}
-        </MapWrapper>
-      ) : null}
-    </SectionWrapper>
+    <>
+      <SectionWrapper title={title}>
+        <LocationsCategoryFilter
+          selectedID={selectedCategory?.key}
+          options={categories}
+          onSelect={handleSelectCategory}
+        />
+        {isLoaded ? (
+          <MapWrapper>
+            <GoogleMap
+              mapContainerStyle={mapContainerStyle}
+              center={center}
+              options={options}
+              zoom={DEFAULT_ZOOM}
+            >
+              {result
+                ? result.map((el) => (
+                    <MarkerF
+                      icon={
+                        el?.categories?.data[0].attributes?.markerIcon.data
+                          ?.attributes?.url || "/icons/location-marker.svg"
+                      }
+                      key={el?.slug}
+                      opacity={el?.slug === selectedMarker?.slug ? 0.6 : 1}
+                      position={{
+                        lng: Number(el?.position?.lng || DEFAULT_CENTER.lng),
+                        lat: Number(el?.position?.lat || DEFAULT_CENTER.lat),
+                      }}
+                      onClick={() => setSelectedMarker(el)}
+                    />
+                  ))
+                : null}
+            </GoogleMap>
+            {selectedMarker && (
+              <InfoWindowWrapper>
+                <InfoWindow
+                  location={selectedMarker}
+                  onClick={handleInfoWindowClick(selectedMarker)}
+                />
+              </InfoWindowWrapper>
+            )}
+          </MapWrapper>
+        ) : null}
+      </SectionWrapper>
+      {renderPopup()}
+    </>
   );
 };
 

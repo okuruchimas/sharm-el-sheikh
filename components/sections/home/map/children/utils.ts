@@ -1,8 +1,8 @@
 import { DEFAULT_CENTER } from "./constants";
-import type { CompanyCardPreviewFragment } from "../../../../../gql/graphql";
+import type { CompanyPreviewFragment } from "../../../../../gql/graphql";
 
 export const calculateCenter = (
-  locations: (CompanyCardPreviewFragment | undefined | null)[],
+  locations: (CompanyPreviewFragment | undefined | null)[],
 ): { lat: number; lng: number } => {
   const numLocations = locations.length;
 

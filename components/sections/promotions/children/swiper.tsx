@@ -6,13 +6,16 @@ import { Autoplay, Navigation } from "swiper/modules";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { CompanyCardFragment } from "../../../../gql/graphql";
+import type { CompanyFragment } from "../../../../gql/graphql";
 // styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 
-type SwiperProps = Pick<CompanyCardFragment, "images" | "discount">;
+type SwiperProps = Pick<CompanyFragment, "images"> & {
+  discount?: string;
+  onOpenDiscount: () => void;
+};
 
 const SwiperButtons = () => {
   const swiper = useSwiper();
@@ -35,7 +38,7 @@ const SwiperButtons = () => {
   );
 };
 
-const ImageSwiper = ({ images, discount }: SwiperProps) => {
+const ImageSwiper = ({ images, discount, onOpenDiscount }: SwiperProps) => {
   return (
     <Wrapper
       slidesPerView={"auto"}
@@ -49,7 +52,9 @@ const ImageSwiper = ({ images, discount }: SwiperProps) => {
       modules={[Autoplay, Navigation]}
     >
       {images?.data.length > 1 ? <SwiperButtons /> : null}
-      {discount ? <Promotion>{discount}</Promotion> : null}
+      {discount ? (
+        <Promotion onClick={onOpenDiscount}>{discount}</Promotion>
+      ) : null}
       {images?.data
         ? images.data.map((el, index) => (
             <Slide key={index}>
@@ -148,6 +153,7 @@ const Promotion = styled.div(({ theme }) => ({
   color: theme.colors.blue,
   fontSize: theme.fontSize.fontS16,
   zIndex: 10,
+  cursor: "pointer",
 
   [theme.breakpoints.mobile]: {
     height: "24px",

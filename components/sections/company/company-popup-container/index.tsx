@@ -15,45 +15,44 @@ import Button from "../../../layout/button";
 import TextPill from "../../../layout/text-pill";
 import NextImage from "../../../layout/image";
 import ServiceCard from "../../../layout/service-card";
-import StarReview from "../../company/review/children/star-review";
+import StarReview from "../review/children/star-review";
 // constants
 import { DayAbv } from "../../../../constants/week-days.constants";
 // types
 import {
-  type Club,
-  type ClubPreviewFragment,
-  GetClubBySlugDocument,
+  type CompanyFragment,
+  type CompanyPreviewFragment,
+  GetCompanyDocument,
 } from "../../../../gql/graphql";
 
-type ClubContainerProps = {
-  clubPreview: ClubPreviewFragment;
-  isLoading: boolean;
+type CompanyPopupContainerProps = {
+  clubPreview: CompanyPreviewFragment;
   onClose: () => void;
 };
 
-const ClubContainer = ({
+const CompanyPopupContainer = ({
   clubPreview,
   onClose,
-  isLoading: isLoadingContainer,
-}: ClubContainerProps) => {
+}: CompanyPopupContainerProps) => {
   const [stars, setStars] = useState(0);
   const [isRated, setIsRated] = useState(false);
-  const [fullData, setFullData] = useState<Club | undefined | null>();
+  const [fullData, setFullData] = useState<
+    CompanyFragment | undefined | null
+  >();
   const [isLoading, setIsLoading] = useState(false);
 
   const { t, i18n } = useTranslation("common");
 
   const getFullClubData = useCallback(async () => {
-    const { clubs } = await fetchDataFromApi(GetClubBySlugDocument, {
+    const { companies } = await fetchDataFromApi(GetCompanyDocument, {
       slug: clubPreview.slug,
       locale: i18n.language,
     });
 
-    setFullData(clubs?.data[0]?.attributes as Club);
+    setFullData(companies?.data[0]?.attributes);
   }, [clubPreview.slug, i18n.language]);
 
-  const isDisabled =
-    isRated || !fullData?.slug || isLoading || isLoadingContainer;
+  const isDisabled = isRated || !fullData?.slug || isLoading;
 
   useEffect(() => {
     getFullClubData();
@@ -75,7 +74,7 @@ const ClubContainer = ({
     await addRating({
       rating: stars,
       slug: clubPreview.slug,
-      collectionType: "clubs",
+      collectionType: "companies",
     }).then(() => {
       const ratedClubs = JSON.parse(localStorage.getItem("ratedClubs") || "[]");
 
@@ -89,23 +88,34 @@ const ClubContainer = ({
     });
   };
 
-  const days = fullData?.workingDays.map((el) =>
-    t(DayAbv[(el?.day || "") as keyof typeof DayAbv] || ""),
-  );
+  const renderSchedule = () => {
+    return clubPreview.schedule?.map((el, index) => {
+      const days = el?.days.map((el) =>
+        t(DayAbv[(el?.day || "") as keyof typeof DayAbv] || ""),
+      );
+
+      return (
+        <DayAndTime key={index}>
+          <Text>{days?.join(", ") || "-"}</Text>
+          <TextPill>{`${formatTime(el?.workTime.startTime)} - ${formatTime(el?.workTime.endTime)}`}</TextPill>
+        </DayAndTime>
+      );
+    });
+  };
 
   return (
     <Wrapper>
       <TopSection>
         <ImgWrapper>
           <Image
-            src={clubPreview.image.data?.attributes?.url || ""}
-            alt={clubPreview.image.data?.attributes?.alternativeText || ""}
+            src={clubPreview.images.data[0].attributes?.url || ""}
+            alt={clubPreview.images.data[0].attributes?.alternativeText || ""}
             layout="fill"
           />
         </ImgWrapper>
         <Stack>
           <RowStack marginBottom="24px">
-            <Name>{clubPreview.clubName}</Name>
+            <Name>{clubPreview.title}</Name>
             <RatingWrapper>
               <Rating
                 points={clubPreview.averageRating}
@@ -113,44 +123,39 @@ const ClubContainer = ({
               />
             </RatingWrapper>
           </RowStack>
-          {fullData?.slug ? (
-            <>
-              <Stack gap="8px" fallDown>
-                <Text fontWeight={"700"}>{t("text.workingDays")}</Text>
-                <DayAndTime>
-                  <Text>{days?.join(", ") || "-"}</Text>
-                  <TextPill>{`${formatTime(fullData?.workingTime.startTime)} - ${formatTime(fullData?.workingTime?.endTime)}`}</TextPill>
-                </DayAndTime>
-              </Stack>
-              <Stack gap="24px" mGap="16px" fallDown>
-                <RowStack>
-                  <NextImage
-                    src={"/icons/promotions-section/location.svg"}
-                    alt="location-marker"
-                    width="36px"
-                    height="36px"
-                  />
-                  <Text>{fullData?.location || "-"}</Text>
-                </RowStack>
-                <RowStack>
-                  <NextImage
-                    src={"/icons/phone.svg"}
-                    alt="location-marker"
-                    width="36px"
-                    height="36px"
-                  />
-                  <Text>{fullData?.phoneNumber || "-"}</Text>
-                </RowStack>
-              </Stack>
-            </>
-          ) : null}
+          <Stack gap="8px">
+            <Text fontWeight={"700"}>{t("text.workingDays")}</Text>
+            <Schedule>{renderSchedule()}</Schedule>
+          </Stack>
+          <Stack gap="24px" mGap="16px">
+            <RowStack>
+              <NextImage
+                src={"/icons/promotions-section/location.svg"}
+                alt="location-marker"
+                width="36px"
+                height="36px"
+              />
+              <Text>{clubPreview?.location || "-"}</Text>
+            </RowStack>
+            {fullData?.phoneNumber ? (
+              <RowStack>
+                <NextImage
+                  src={"/icons/phone.svg"}
+                  alt="location-marker"
+                  width="36px"
+                  height="36px"
+                />
+                <Text>{fullData.phoneNumber}</Text>
+              </RowStack>
+            ) : null}
+          </Stack>
         </Stack>
       </TopSection>
       {fullData?.slug ? (
         <>
           <Stack gap="24px" mGap="16px" fallDown>
             <Title>{t("text.about")}</Title>
-            <Text>{fullData?.about}</Text>
+            <Text>{fullData?.description}</Text>
             <RowStack gap="16px">
               <Title>{t("text.food")}</Title>
               <Text>{fullData?.food}</Text>
@@ -193,11 +198,11 @@ const ClubContainer = ({
   );
 };
 
-export default ClubContainer;
+export default CompanyPopupContainer;
 
 const fallDownKF = keyframes`
-    0% { transform: translateY(-30%); opacity: 0 }
-    50% { transform: translateY(-20%); opacity: 0.2 }
+    0% { transform: translateY(-20%); opacity: 0 }
+    50% { transform: translateY(-10%); opacity: 0.2 }
     100% { transform: translateY(0); opacity: 1}
 `;
 
@@ -274,11 +279,16 @@ const RowStack = styled("div", {
   marginBottom: marginBottom || "0",
 }));
 
-const DayAndTime = styled("div")(({ theme }) => ({
+const Schedule = styled("div")({
   display: "flex",
-  alignItems: "center",
+  flexDirection: "column",
   gap: "8px",
   flexWrap: "wrap",
+});
+
+const DayAndTime = styled("div")(({ theme }) => ({
+  display: "flex",
+  gap: "8px",
 
   [theme.breakpoints.mobile]: {
     justifyContent: "space-between",
