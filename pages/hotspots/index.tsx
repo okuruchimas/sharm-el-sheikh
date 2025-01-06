@@ -1,14 +1,13 @@
-import { REVALIDATE_TIME } from "../../constants/page.constants";
 import { useMemo } from "react";
 import {
   type CategoryEntity,
   type EventCardEntity,
-  type ClubPreviewFragment,
   type HotspotsPageFragment,
+  type CompanyPreviewFragment,
   GetEventCardsDocument,
   GetCategoriesDocument,
   GetHotspotsPageDocument,
-  GetClubsByDaysDocument,
+  GetCompaniesByFilterDocument,
 } from "../../gql/graphql";
 // components
 import Map from "../../components/sections/home/map";
@@ -16,6 +15,9 @@ import ClubsContainer from "../../components/sections/hotspots/clubs-container";
 import EventsContainer from "../../components/sections/hotspots/events-container";
 import SectionsWrapper from "../../components/layout/sections-wrapper";
 import HotspotsBanner from "../../components/sections/hotspots/hotspots-banner";
+// constants
+import { CLUBS } from "../../constants/page-company-categories";
+import { REVALIDATE_TIME } from "../../constants/page.constants";
 // utils
 import styled from "@emotion/styled";
 import { fetchData } from "../../utils/fetchApi";
@@ -27,7 +29,7 @@ type HotspotsPageProps = {
   pageData: HotspotsPageFragment;
   initialEvents: EventCardEntity[];
   totalClubs: number;
-  initialClubs: { attributes: ClubPreviewFragment }[];
+  initialClubs: { attributes: CompanyPreviewFragment }[];
 };
 
 const HotspotsPage = ({
@@ -99,7 +101,10 @@ export async function getStaticProps({ locale }: any) {
     pageSize: 3,
   };
   const { eventCards } = await fetchData(GetEventCardsDocument, commonParams);
-  const { clubs } = await fetchData(GetClubsByDaysDocument, commonParams);
+  const { companies } = await fetchData(GetCompaniesByFilterDocument, {
+    ...commonParams,
+    category: CLUBS,
+  });
   const { categories } = await fetchData(GetCategoriesDocument, { locale });
 
   return {
@@ -109,8 +114,8 @@ export async function getStaticProps({ locale }: any) {
       initialEvents: eventCards?.data,
       categories: categories?.data,
       totalEvents: eventCards?.meta.pagination.total || 0,
-      initialClubs: clubs?.data,
-      totalClubs: clubs?.meta.pagination.total || 0,
+      initialClubs: companies?.data,
+      totalClubs: companies?.meta.pagination.total || 0,
     },
     revalidate: REVALIDATE_TIME,
   };

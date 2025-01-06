@@ -20,11 +20,11 @@ import {
   GetAreasDocument,
   GetHomePageDocument,
   GetCategoriesDocument,
-  GetCompanyPromotionCardsByFilterDocument,
+  GetCompaniesByFilterDocument,
   type AreaEntity,
   type CategoryEntity,
   type HomePageFragment,
-  type GetCompanyPromotionCardsByFilterQuery,
+  type CompanyPreviewFragment,
 } from "../gql/graphql";
 
 const DynamicBanner = dynamic(
@@ -48,7 +48,8 @@ type Props = {
   areas: AreaEntity[];
   categories: CategoryEntity[];
   homePageData: HomePageFragment;
-  initialPromotions: GetCompanyPromotionCardsByFilterQuery["companyPromotionCards"];
+  initialPromotions: { attributes: CompanyPreviewFragment }[];
+  totalInitialPromotions: number;
 };
 
 const Home = ({
@@ -56,6 +57,7 @@ const Home = ({
   categories,
   homePageData,
   initialPromotions,
+  totalInitialPromotions,
 }: Props) => {
   const { t } = useTranslation("common");
 
@@ -97,10 +99,10 @@ const Home = ({
         mobUrl="images/background/mobile-background-gradient.svg"
       >
         <Promotions
-          totalInitialCards={initialPromotions?.meta.pagination.total || 0}
+          totalInitialCards={totalInitialPromotions}
           options={areasMapped}
           title={homePageData.promotionsTitle}
-          initialPromotions={initialPromotions?.data.map((el) => el.attributes)}
+          initialPromotions={initialPromotions?.map((el) => el.attributes)}
         />
         <LazyWrapper>
           <DynamicBanner
@@ -146,15 +148,13 @@ export async function getStaticProps({ locale }: any) {
   const { areas } = await fetchData(GetAreasDocument, { locale });
   const { categories } = await fetchData(GetCategoriesDocument, { locale });
 
-  const { companyPromotionCards } = await fetchData(
-    GetCompanyPromotionCardsByFilterDocument,
-    {
-      locale,
-      areaKey: areas?.data[0].attributes?.key,
-      page: 1,
-      pageSize: 3,
-    },
-  );
+  const { companies } = await fetchData(GetCompaniesByFilterDocument, {
+    locale,
+    areaKey: areas?.data[0].attributes?.key,
+    page: 1,
+    pageSize: 3,
+    discountFilter: { title: { ne: null } },
+  });
 
   return {
     props: {
@@ -162,7 +162,8 @@ export async function getStaticProps({ locale }: any) {
       areas: areas?.data,
       categories: categories?.data,
       homePageData: home?.data?.attributes,
-      initialPromotions: companyPromotionCards,
+      initialPromotions: companies?.data,
+      totalInitialPromotions: companies?.meta.pagination.total || 0,
     },
     revalidate: REVALIDATE_TIME,
   };

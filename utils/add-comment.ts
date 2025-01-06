@@ -6,11 +6,11 @@ export type CommentInput = {
   email: string;
 };
 type CollectionTypesWithComments =
-  | "company-promotion-cards"
   | "animators"
   | "taxi-driver"
   | "photographers"
-  | "tour-guides";
+  | "tour-guides"
+  | "companies";
 type AddCommentParams = {
   slug: string;
   comment: CommentInput;

@@ -1,50 +1,44 @@
-import { useRouter } from "next/router";
 // components
 import Image from "next/image";
 import Rating from "../../../../layout/rating";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { CompanyCardPreviewFragment } from "../../../../../gql/graphql";
+import type { CompanyPreviewFragment } from "../../../../../gql/graphql";
 
 type InfoWindowProps = {
-  location: CompanyCardPreviewFragment | undefined | null;
+  location: CompanyPreviewFragment | undefined | null;
+  onClick: () => void;
 };
 
-const InfoWindow = ({ location }: InfoWindowProps) => {
-  const router = useRouter();
-
-  return (
-    <InfoWindowContent>
-      <Image
-        src={location?.images.data[0].attributes?.url ?? ""}
-        alt={location?.title}
-        width={172}
-        height={113}
-      />
-      <DetailsWrapper>
-        <NameRatingWrapper>
-          <Name onClick={() => router.push(location?.slug || "")}>
-            {location?.title}
-          </Name>
-          <RatingWrapper>
-            <Rating
-              points={location?.averageRating || 0}
-              users={location?.totalComments || 0}
-            />
-          </RatingWrapper>
-        </NameRatingWrapper>
-        <LocationWrapper>
-          <LocIcon
-            src="/icons/promotions-section/location.svg"
-            alt="location-icon"
+const InfoWindow = ({ location, onClick }: InfoWindowProps) => (
+  <InfoWindowContent>
+    <Image
+      src={location?.images.data[0].attributes?.url ?? ""}
+      alt={location?.title}
+      width={172}
+      height={113}
+    />
+    <DetailsWrapper>
+      <NameRatingWrapper>
+        <Name onClick={onClick}>{location?.title}</Name>
+        <RatingWrapper>
+          <Rating
+            points={location?.averageRating || 0}
+            users={location?.totalComments || 0}
           />
-          <LocationText>{location?.location}</LocationText>
-        </LocationWrapper>
-      </DetailsWrapper>
-    </InfoWindowContent>
-  );
-};
+        </RatingWrapper>
+      </NameRatingWrapper>
+      <LocationWrapper>
+        <LocIcon
+          src="/icons/promotions-section/location.svg"
+          alt="location-icon"
+        />
+        <LocationText>{location?.location}</LocationText>
+      </LocationWrapper>
+    </DetailsWrapper>
+  </InfoWindowContent>
+);
 
 const InfoWindowContent = styled("div")(({ theme }) => ({
   maxWidth: "172px",

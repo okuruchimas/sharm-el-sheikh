@@ -1,13 +1,16 @@
+import { PAGE_CATEGORIES } from "../../constants/page-company-categories";
 import { REVALIDATE_TIME } from "../../constants/page.constants";
 import {
-  type CompanyCardFragment,
-  CompanyPromotionCardDocument,
-  GetPromotionCardsSlugsDocument,
-  GetCompanyPromotionCardsByFilterDocument,
+  type CompanyFragment,
+  type CompanyPreviewFragment,
+  GetCompanyDocument,
+  GetCompaniesSlugsDocument,
+  GetCompaniesByFilterDocument,
 } from "../../gql/graphql";
 import { toast, ToastContainer } from "react-toastify";
 // hooks
 import { useRouter } from "next/router";
+import useCompanyCard from "../../hooks/useCompanyCard";
 import { useTranslation } from "next-i18next";
 // components
 import Promo from "../../components/sections/company/promo";
@@ -15,7 +18,6 @@ import Banner from "../../components/sections/home/banner";
 import Button from "../../components/layout/button";
 import Reviews from "../../components/sections/company/reviews";
 import Services from "../../components/sections/company/services";
-import PromCard from "../../components/sections/promotions/children/prom-card";
 import ReviewForm from "../../components/sections/company/review";
 import Placeholder from "../../components/sections/promotions/children/placeholder";
 import YouTubePlayer from "../../components/layout/player";
@@ -32,8 +34,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../next-i18next.config";
 
 interface Props {
-  card: CompanyCardFragment;
-  similarSuggestions: { attributes: CompanyCardFragment }[];
+  card: CompanyFragment;
+  similarSuggestions: { attributes: CompanyPreviewFragment }[];
 }
 
 const CompanyPage = ({
@@ -45,19 +47,19 @@ const CompanyPage = ({
     services,
     location,
     comments,
-    touchText,
-    touchLink,
+    pageData,
+    schedule,
     description,
     averageRating,
     totalComments,
-    discountBanner,
-    youTubeVideoId,
   },
   similarSuggestions,
 }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("company-page");
   const { t: tCommon } = useTranslation("common");
+  const { renderCard, renderDiscountPopup, handleOpenDiscount } =
+    useCompanyCard();
 
   const categories = [
     { name: "service", label: tCommon("reviewForm.categories.service") },
@@ -75,7 +77,7 @@ const CompanyPage = ({
       await addComment({
         slug,
         comment: { rating, text, email },
-        collectionType: "company-promotion-cards",
+        collectionType: "companies",
       });
 
       router.reload();
@@ -85,6 +87,16 @@ const CompanyPage = ({
       console.error("Error adding comment:", error);
       toast.error(tCommon("toasts.feedbackError"));
     }
+  };
+  const preview = {
+    slug,
+    title,
+    images,
+    schedule,
+    location,
+    discount,
+    totalComments,
+    averageRating,
   };
 
   return (
@@ -100,6 +112,7 @@ const CompanyPage = ({
           images={images}
           title={title}
           location={location ?? ""}
+          onOpenDiscount={handleOpenDiscount(preview)}
         />
         {description ? (
           <DescriptionSection>
@@ -107,12 +120,14 @@ const CompanyPage = ({
             <p>{description}</p>
           </DescriptionSection>
         ) : null}
-        {youTubeVideoId ? <YouTubePlayer videoId={youTubeVideoId} /> : null}
-        {discountBanner ? (
+        {pageData?.youTubeVideoId ? (
+          <YouTubePlayer videoId={pageData.youTubeVideoId} />
+        ) : null}
+        {discount ? (
           <Banner
-            title={discountBanner.title || ""}
-            buttonText={discountBanner.buttonText || t("openCard")}
-            buttonLink={discountBanner.buttonLink || ""}
+            title={t("toReceiveDiscount")}
+            buttonText={t("openCard")}
+            onClick={handleOpenDiscount(preview)}
           />
         ) : null}
         {services?.data.length ? <Services services={services?.data} /> : null}
@@ -128,18 +143,9 @@ const CompanyPage = ({
         <SectionWrapper title={tCommon("text.similarSuggestions")}>
           {similarSuggestions.length ? (
             <SuggestionsWrapper>
-              {similarSuggestions.map(({ attributes }, index) => (
-                <PromCard
-                  averageRating={attributes.averageRating}
-                  totalComments={attributes.totalComments}
-                  slug={attributes.slug}
-                  discount={attributes.discount}
-                  images={attributes.images}
-                  title={attributes.title}
-                  location={attributes.location}
-                  key={index}
-                />
-              ))}
+              {similarSuggestions.map(({ attributes }, index) =>
+                attributes ? renderCard(attributes) : null,
+              )}
             </SuggestionsWrapper>
           ) : (
             <Placeholder title={tCommon("noDiscounts")} />
@@ -147,16 +153,19 @@ const CompanyPage = ({
         </SectionWrapper>
         <ContactSection>
           <span>
-            {touchText ? touchText : `${t("getInTouchSection.title")} ${title}`}
+            {pageData?.contactText
+              ? pageData?.contactText
+              : `${t("getInTouchSection.title")} ${title}`}
           </span>
           <Button
             text={t("getInTouchSection.buttonText")}
             backgroundColor="white"
-            onClick={() => router.push(touchLink ?? "/")}
+            onClick={() => router.push(pageData?.contactLink ?? "/")}
           />
         </ContactSection>
       </Wrap>
       <ToastContainer />
+      {renderDiscountPopup()}
     </>
   );
 };
@@ -226,13 +235,13 @@ const SuggestionsWrapper = styled("div")(({ theme }) => ({
 }));
 
 export async function getStaticPaths() {
-  const { companyPromotionCards } = await fetchData(
-    GetPromotionCardsSlugsDocument,
-  );
+  const { companies } = await fetchData(GetCompaniesSlugsDocument, {
+    category: PAGE_CATEGORIES,
+  });
 
   const locales = nextI18NextConfig.i18n.locales;
 
-  const paths = companyPromotionCards?.data.flatMap((el) => {
+  const paths = companies?.data.flatMap((el) => {
     return locales.map((locale) => ({
       params: { slug: el?.attributes?.slug || "" },
       locale,
@@ -248,20 +257,16 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, locale }: any) {
   const { slug: slugP } = params;
 
-  const { companyPromotionCards } = await fetchData(
-    CompanyPromotionCardDocument,
-    {
-      slug: slugP,
-      locale: locale,
-    },
-  );
+  const { companies } = await fetchData(GetCompanyDocument, {
+    slug: slugP,
+    locale: locale,
+  });
 
   const category =
-    companyPromotionCards?.data[0].attributes?.categories?.data[0]?.attributes
-      ?.key || "";
+    companies?.data[0].attributes?.categories?.data[0]?.attributes?.key || "";
 
-  const { companyPromotionCards: suggestions } = await fetchData(
-    GetCompanyPromotionCardsByFilterDocument,
+  const { companies: suggestions } = await fetchData(
+    GetCompaniesByFilterDocument,
     {
       locale,
       category: [category],
@@ -274,7 +279,7 @@ export async function getStaticProps({ params, locale }: any) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ["company-page", "common"])),
-      card: companyPromotionCards?.data[0]?.attributes || {},
+      card: companies?.data[0]?.attributes || {},
       similarSuggestions: suggestions?.data,
     },
     revalidate: REVALIDATE_TIME,

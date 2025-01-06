@@ -1,28 +1,32 @@
-query CompanyPromotionCard($slug: String!, $locale: I18NLocaleCode!) {
-  companyPromotionCards(filters: { slug: { eq: $slug } }, locale: $locale) {
+query GetCompany($slug: String!, $locale: I18NLocaleCode!) {
+  companies(filters: { slug: { eq: $slug } }, locale: $locale) {
     data {
       id
       attributes {
-        ...CompanyCard
+        ...Company
       }
     }
   }
 }
 
-query GetCompanyPromotionCardsByFilter(
+query GetCompaniesByFilter(
   $areaKey: String
   $category: [String]
   $locale: I18NLocaleCode!
   $page: Int
   $pageSize: Int
   $slugToExclude: String
+  $day: String
+  $discountFilter: ComponentComponentsDiscountFiltersInput
 ) {
-  companyPromotionCards(
+  companies(
     locale: $locale
     filters: {
       area: { key: { eq: $areaKey } }
       categories: { key: { in: $category } }
       slug: { ne: $slugToExclude }
+      schedule: { days: { day: { eq: $day } } }
+      discount: $discountFilter
     }
     pagination: { page: $page, pageSize: $pageSize }
   ) {
@@ -34,14 +38,14 @@ query GetCompanyPromotionCardsByFilter(
     data {
       id
       attributes {
-        ...CompanyCardPreview
+        ...CompanyPreview
       }
     }
   }
 }
 
-query GetPromotionCardsSlugs {
-  companyPromotionCards {
+query GetCompaniesSlugs($category: [String]) {
+  companies(filters: { categories: { key: { in: $category } } }) {
     data {
       attributes {
         slug
@@ -50,9 +54,15 @@ query GetPromotionCardsSlugs {
   }
 }
 
-fragment CompanyCard on CompanyPromotionCard {
+fragment Company on Company {
   title
-  discount
+  discount {
+    title
+    terms
+    image {
+      ...StrapiImage
+    }
+  }
   images {
     data {
       id
@@ -67,17 +77,6 @@ fragment CompanyCard on CompanyPromotionCard {
     lng
   }
   description
-  youTubeVideoId
-  discountBanner {
-    title
-    buttonText
-    buttonLink
-    bannerImage {
-      ...StrapiImage
-    }
-  }
-  touchText
-  touchLink
   averageRating
   totalComments
   services {
@@ -107,11 +106,48 @@ fragment CompanyCard on CompanyPromotionCard {
       }
     }
   }
+  food
+  socialLinks {
+    icon {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  pageData {
+    contactLink
+    contactText
+    youTubeVideoId
+  }
+  phoneNumber
+  schedule {
+    days {
+      day
+    }
+    workTime {
+      startTime
+      endTime
+    }
+  }
 }
 
-fragment CompanyCardPreview on CompanyPromotionCard {
+fragment CompanyPreview on Company {
   title
-  discount
+  schedule {
+    days {
+      day
+    }
+    workTime {
+      startTime
+      endTime
+    }
+  }
+  discount {
+    title
+    terms
+    image {
+      ...StrapiImage
+    }
+  }
   images {
     data {
       attributes {

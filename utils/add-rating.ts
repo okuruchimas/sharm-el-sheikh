@@ -1,6 +1,6 @@
 import { getUrl } from "./fetchApi";
 
-type CollectionTypesWithRating = "clubs";
+type CollectionTypesWithRating = "companies";
 type AddRatingParams = {
   slug: string;
   rating: number;

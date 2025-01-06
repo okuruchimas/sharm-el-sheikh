@@ -1,10 +1,11 @@
 import {
-  type CompanyCardPreviewFragment,
-  GetCompanyPromotionCardsByFilterDocument,
+  type CompanyPreviewFragment,
+  GetCompaniesByFilterDocument,
 } from "../../../gql/graphql";
 // hooks
 import { useState } from "react";
 import { useTranslation } from "next-i18next";
+import useCompanyCard from "../../../hooks/useCompanyCard";
 // components
 import Button from "../../layout/button";
 import Dropdown from "../../layout/filters";
@@ -19,7 +20,7 @@ import type { selectOption } from "../../types/filter";
 
 const PAGE_SIZE = 3;
 
-type Cards = (CompanyCardPreviewFragment | undefined | null)[] | undefined;
+type Cards = (CompanyPreviewFragment | undefined | null)[] | undefined;
 
 interface PromotionsProps {
   title: string;
@@ -39,24 +40,21 @@ const Promotions = ({
   const [result, setResult] = useState<Cards>(initialPromotions);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedArea, setSelectedArea] = useState<selectOption>(options[0]);
-
+  const { renderCard, renderPopup, renderDiscountPopup } = useCompanyCard();
   const { t, i18n } = useTranslation("common");
 
   const isShowMore = page * PAGE_SIZE < total;
 
   const handleGetCardByArea = async (option: selectOption, page: number) => {
-    const data = await fetchDataFromApi(
-      GetCompanyPromotionCardsByFilterDocument,
-      {
-        locale: i18n.language,
-        areaKey: option.key,
-        page,
-        pageSize: 3,
-      },
-    );
+    const data = await fetchDataFromApi(GetCompaniesByFilterDocument, {
+      locale: i18n.language,
+      areaKey: option.key,
+      page,
+      pageSize: 3,
+    });
 
-    setTotal(data.companyPromotionCards?.meta.pagination.total || 0);
-    return data.companyPromotionCards?.data.map((el) => el.attributes);
+    setTotal(data.companies?.meta.pagination.total || 0);
+    return data.companies?.data.map((el) => el.attributes);
   };
 
   const handleOptionSelect = async (option: selectOption) => {
@@ -81,48 +79,41 @@ const Promotions = ({
   };
 
   return (
-    <SectionWrapper
-      title={title}
-      titleChildren={
-        <FiltersWrap>
-          <Dropdown
-            options={options}
-            onChange={handleOptionSelect}
-            isLoading={isLoading}
-          />
-        </FiltersWrap>
-      }
-      isColumn
-    >
-      {result?.length ? (
-        <DownWrap>
-          {result.map((card, index) => (
-            <PromCard
-              slug={card?.slug || ""}
-              discount={card?.discount}
-              images={card?.images}
-              title={card?.title || ""}
-              location={card?.location}
-              averageRating={card?.averageRating || 0}
-              totalComments={card?.totalComments || 0}
-              key={index}
+    <>
+      <SectionWrapper
+        title={title}
+        titleChildren={
+          <FiltersWrap>
+            <Dropdown
+              options={options}
+              onChange={handleOptionSelect}
+              isLoading={isLoading}
             />
-          ))}
-        </DownWrap>
-      ) : (
-        <Placeholder title={t("noDiscounts")} />
-      )}
-      {isShowMore ? (
-        <ButtonWrap>
-          <Button
-            text={t("buttons.viewMore")}
-            backgroundColor="white"
-            onClick={handleShowMore}
-            isLoading={isLoading}
-          />
-        </ButtonWrap>
-      ) : null}
-    </SectionWrapper>
+          </FiltersWrap>
+        }
+        isColumn
+      >
+        {result?.length ? (
+          <DownWrap>
+            {result.map((card, index) => (card ? renderCard(card) : null))}
+          </DownWrap>
+        ) : (
+          <Placeholder title={t("noDiscounts")} />
+        )}
+        {isShowMore ? (
+          <ButtonWrap>
+            <Button
+              text={t("buttons.viewMore")}
+              backgroundColor="white"
+              onClick={handleShowMore}
+              isLoading={isLoading}
+            />
+          </ButtonWrap>
+        ) : null}
+      </SectionWrapper>
+      {renderPopup()}
+      {renderDiscountPopup()}
+    </>
   );
 };
 

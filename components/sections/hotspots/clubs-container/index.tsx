@@ -1,29 +1,27 @@
 // hooks
 import useResponsive from "../../../../hooks/useResponsive";
+import useCompanyCard from "../../../../hooks/useCompanyCard";
 import { useTranslation } from "next-i18next";
 import { useEffect, useMemo, useState } from "react";
 // components
-import Modal from "../../../layout/modal";
-import PromCard from "../../promotions/children/prom-card";
 import Dropdown from "../../../layout/filters";
 import Pagination from "../../../layout/pagination";
 import Placeholder from "../../promotions/children/placeholder";
-import ClubContainer from "../club-container";
 import SectionWrapper from "../../../layout/section-wrapper";
 // constants
+import { CLUBS } from "../../../../constants/page-company-categories";
 import { WEEK_DAYS } from "../../../../constants/week-days.constants";
 // utils
 import styled from "@emotion/styled";
-import { formatTime } from "../../../../utils/formateDate";
 import { fetchDataFromApi } from "../../../../utils/fetchApi";
 // types
 import {
-  ClubPreviewFragment,
-  GetClubsByDaysDocument,
+  type CompanyPreviewFragment,
+  GetCompaniesByFilterDocument,
 } from "../../../../gql/graphql";
 import type { selectOption } from "../../../types/filter";
 
-type Clubs = ClubPreviewFragment[] | undefined;
+type Clubs = CompanyPreviewFragment[] | undefined;
 type ClubsContainerProps = {
   title: string;
   totalItems: number;
@@ -44,12 +42,12 @@ const ClubsContainer = ({
   const [total, setTotal] = useState(totalItems);
   // filters
   const [selectedDay, setSelectedDay] = useState("");
-  const [selectedClub, setSelectedClub] = useState<ClubPreviewFragment>();
   // booleans
   const [isLoading, setIsLoading] = useState(false);
   const { t, i18n } = useTranslation("common");
 
   const { isMobile } = useResponsive();
+  const { renderCard, renderDiscountPopup } = useCompanyCard(selectedDay);
 
   const pageSize = useMemo(() => (isMobile ? 3 : 6), [isMobile]);
 
@@ -62,15 +60,16 @@ const ClubsContainer = ({
   }) => {
     setIsLoading(true);
 
-    const { clubs } = await fetchDataFromApi(GetClubsByDaysDocument, {
+    const { companies } = await fetchDataFromApi(GetCompaniesByFilterDocument, {
       day: day || undefined,
       page: pageNum,
       pageSize,
       locale: i18n.language,
+      category: CLUBS,
     });
 
-    setResult(clubs?.data?.map((el) => el.attributes) as Clubs);
-    setTotal(clubs?.meta?.pagination?.total || 0);
+    setResult(companies?.data?.map((el) => el.attributes) as Clubs);
+    setTotal(companies?.meta?.pagination?.total || 0);
     setIsLoading(false);
   };
 
@@ -88,14 +87,6 @@ const ClubsContainer = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [pageSize],
   );
-
-  const handleSelectClub = (club: ClubPreviewFragment) => () => {
-    if (!selectedClub?.slug) {
-      setSelectedClub(club);
-    }
-  };
-
-  const handleClose = () => setSelectedClub(undefined);
 
   const weekDaysOptions = WEEK_DAYS.map(({ key, value }) => ({
     key: value,
@@ -124,64 +115,41 @@ const ClubsContainer = ({
   };
 
   return (
-    <SectionWrapper
-      title={title}
-      titleChildren={
-        <Dropdown
-          options={[
-            { key: "", value: t("text.selectDay") },
-            ...weekDaysOptions,
-          ]}
-          onChange={handleDaySelect}
-          isLoading={isLoading}
-          width="100%"
-          height="56px"
-          color="blue"
-        />
-      }
-    >
-      {result?.length ? (
-        <CardsWrapper>
-          {result?.map((el) => (
-            <PromCard
-              key={el?.slug}
-              slug={el?.slug}
-              images={el?.image?.data ? { data: [el.image.data] } : undefined}
-              title={el?.clubName}
-              location={el?.location}
-              time={`${formatTime(el?.workingTime?.startTime)} - ${formatTime(el?.workingTime?.startTime)}`}
-              averageRating={el?.averageRating}
-              totalComments={el?.totalComments}
-              handleClick={handleSelectClub(el)}
-            />
-          ))}
-        </CardsWrapper>
-      ) : (
-        <Placeholder />
-      )}
-      <Pagination
-        isDisabled={isLoading}
-        currentPage={page}
-        onChangePage={handleChangePage}
-        totalItems={total}
-        pageSize={pageSize}
-      />
-      <InfoWrapper>{clubsInfo}</InfoWrapper>
-      <Modal
-        onClose={handleClose}
-        isOpen={!!selectedClub?.slug}
-        width="60%"
-        mWidth="90%"
-      >
-        {selectedClub?.slug ? (
-          <ClubContainer
-            clubPreview={selectedClub}
+    <>
+      <SectionWrapper
+        title={title}
+        titleChildren={
+          <Dropdown
+            options={[
+              { key: "", value: t("text.selectDay") },
+              ...weekDaysOptions,
+            ]}
+            onChange={handleDaySelect}
             isLoading={isLoading}
-            onClose={handleClose}
+            width="100%"
+            height="56px"
+            color="blue"
           />
-        ) : null}
-      </Modal>
-    </SectionWrapper>
+        }
+      >
+        {result?.length ? (
+          <CardsWrapper>
+            {result?.map((el) => (el ? renderCard(el) : null))}
+          </CardsWrapper>
+        ) : (
+          <Placeholder />
+        )}
+        <Pagination
+          isDisabled={isLoading}
+          currentPage={page}
+          onChangePage={handleChangePage}
+          totalItems={total}
+          pageSize={pageSize}
+        />
+        <InfoWrapper>{clubsInfo}</InfoWrapper>
+      </SectionWrapper>
+      {renderDiscountPopup()}
+    </>
   );
 };
 

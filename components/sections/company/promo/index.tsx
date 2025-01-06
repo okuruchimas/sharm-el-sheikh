@@ -4,11 +4,11 @@ import Rating from "../../../layout/rating";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { CompanyCardFragment } from "../../../../gql/graphql";
 import { Title } from "../../../layout/title";
+import type { CompanyFragment } from "../../../../gql/graphql";
 
 type PromoI = Pick<
-  CompanyCardFragment,
+  CompanyFragment,
   | "images"
   | "discount"
   | "title"
@@ -16,7 +16,9 @@ type PromoI = Pick<
   | "location"
   | "totalComments"
   | "averageRating"
->;
+> & {
+  onOpenDiscount: () => void;
+};
 
 const Promo = ({
   images,
@@ -25,11 +27,16 @@ const Promo = ({
   location,
   totalComments,
   averageRating,
+  onOpenDiscount,
 }: PromoI) => (
   <SectionWrapper>
     <ContentWrapper>
       <SwiperWrapper>
-        <Swiper images={images} discount={discount} />
+        <Swiper
+          images={images}
+          discount={discount?.title}
+          onOpenDiscount={onOpenDiscount}
+        />
       </SwiperWrapper>
       <TopWrapper>
         <TitleStyled>{title}</TitleStyled>
