@@ -73,5 +73,17 @@
     "min": "{{field}} is too short - should be {{min}} chars minimum.",
     "phoneNumber": "Phone number can only contain numbers",
     "required": "{{field}} is required"
+  },
+  "clubTable": {
+    "title": "How to Get Into the Club: Two Options",
+    "tableHead1": "Buy Ticket via Animator",
+    "tableHead2": "Buy Ticket at the Club Entrance",
+    "tableTitle1": "Transfer to and from the club",
+    "tableTitle2": "Club ticket",
+    "tableTitle3": "One free cocktail",
+    "tableTitle4": "Your starting group in the club",
+    "tableTitle5": "Animator to assist with various questions",
+    "findTaxi": "Find a Taxi"
+  }
   }
 }

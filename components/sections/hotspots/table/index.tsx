@@ -3,9 +3,12 @@ import Image from "next/image";
 import useResponsive from "../../../../hooks/useResponsive";
 import React from "react";
 import { Title } from "../../../layout/title";
+import { useTranslation } from "next-i18next";
 
 const ClubOptionsTable = () => {
   const { isMobile } = useResponsive();
+  const { t } = useTranslation("common");
+
   const imgDimension = isMobile ? 30 : 60;
   const imgArrDimension = isMobile ? 8 : 14;
 
@@ -28,15 +31,15 @@ const ClubOptionsTable = () => {
   );
   return (
     <Wrapper>
-      <Title as="h2">How to Get Into the Club: Two Options</Title>
+      <Title as="h2">{t("clubTable.title")}</Title>
 
       <Table>
         <Row>
-          <TableHead>Buy Ticket via Animator</TableHead>
-          <TableHead>Buy Ticket at the Club Entrance</TableHead>
+          <TableHead>{t("clubTable.tableHead1")}</TableHead>
+          <TableHead>{t("clubTable.tableHead2")}</TableHead>
         </Row>
 
-        <TableDataTitle>Transfer to and from the club</TableDataTitle>
+        <TableDataTitle>{t("clubTable.tableTitle1")}</TableDataTitle>
         <Row>
           <TableData>
             <TrueImg />
@@ -57,7 +60,7 @@ const ClubOptionsTable = () => {
           </TableData>
         </Row>
 
-        <TableDataTitle>Club ticket</TableDataTitle>
+        <TableDataTitle>{t("clubTable.tableTitle2")}</TableDataTitle>
         <Row>
           <TableData>
             <TrueImg />
@@ -67,17 +70,7 @@ const ClubOptionsTable = () => {
           </TableData>
         </Row>
 
-        <TableDataTitle>One free cocktail</TableDataTitle>
-        <Row>
-          <TableData>
-            <TrueImg />
-          </TableData>
-          <TableData>
-            <FalseImg />
-          </TableData>
-        </Row>
-
-        <TableDataTitle>Your starting group in the club</TableDataTitle>
+        <TableDataTitle>{t("clubTable.tableTitle3")}</TableDataTitle>
         <Row>
           <TableData>
             <TrueImg />
@@ -87,9 +80,17 @@ const ClubOptionsTable = () => {
           </TableData>
         </Row>
 
-        <TableDataTitle>
-          Animator to assist with various questions
-        </TableDataTitle>
+        <TableDataTitle>{t("clubTable.tableTitle4")}</TableDataTitle>
+        <Row>
+          <TableData>
+            <TrueImg />
+          </TableData>
+          <TableData>
+            <FalseImg />
+          </TableData>
+        </Row>
+
+        <TableDataTitle>{t("clubTable.tableTitle5")}</TableDataTitle>
         <Row>
           <TableData>
             <TrueImg />
