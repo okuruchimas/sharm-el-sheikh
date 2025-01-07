@@ -22,6 +22,7 @@ import { REVALIDATE_TIME } from "../../constants/page.constants";
 import styled from "@emotion/styled";
 import { fetchData } from "../../utils/fetchApi";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import ClubOptionsTable from "../../components/sections/hotspots/table";
 
 type HotspotsPageProps = {
   totalEvents: number;
@@ -67,6 +68,7 @@ const HotspotsPage = ({
         totalItems={totalClubs}
         initialClubs={initialClubs.map((el) => el.attributes)}
       />
+      <ClubOptionsTable />
       <Map title={mapTitle || ""} categories={categoriesMapped} />
       {bottomBanner ? (
         <HotspotsBanner
