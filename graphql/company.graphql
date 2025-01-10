@@ -182,6 +182,12 @@ fragment CompanyPreview on Company {
       }
     }
   }
+  socialLinks {
+    socialLink
+    icon {
+      ...StrapiImage
+    }
+  }
 }
 
 fragment Service on ServiceEntity {

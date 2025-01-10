@@ -5,8 +5,8 @@ import { formatTime, getCurrentDayAndTime } from "../../utils/formateDate";
 // constants
 import { PAGE_CATEGORIES } from "../../constants/page-company-categories";
 // components
-import Image from "next/image";
 import Modal from "../../components/layout/modal";
+import Discount from "../../components/layout/discount";
 import PromCard from "../../components/sections/promotions/children/prom-card";
 import CompanyPopupContainer from "../../components/sections/company/company-popup-container";
 // types
@@ -61,18 +61,13 @@ const useCompanyCard = (selectedDay?: string) => {
         mWidth="90%"
         maxWidth="876px"
       >
-        <div style={{ height: "400px", width: "100%", position: "relative" }}>
-          <Image
-            src={
-              selectedDiscount.discount.image?.data?.attributes?.url ||
-              "/images/background/background-prom.svg"
-            }
-            alt="discount"
-            layout="fill"
-          />
-        </div>
-        <h2>{selectedDiscount.discount.title}</h2>
-        <h2>{selectedDiscount.discount.terms}</h2>
+        <Discount
+          position={selectedDiscount.position}
+          location={selectedDiscount.location}
+          discount={selectedDiscount.discount}
+          socialLinks={selectedDiscount.socialLinks}
+          onClose={() => setSelectedDiscount(undefined)}
+        />
       </Modal>
     ) : null;
 

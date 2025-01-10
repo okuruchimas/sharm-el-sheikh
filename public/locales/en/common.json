@@ -52,6 +52,7 @@
   },
   "text": {
     "about": "About",
+    "discountTerms": "Discount Terms:",
     "entertainersTourGuides": "Entertainers & Tour Guides",
     "findAnimatorForTicket": "Find an Animator for Ticket Purchase",
     "food": "Food:",
@@ -84,6 +85,5 @@
     "tableTitle4": "Your starting group in the club",
     "tableTitle5": "Animator to assist with various questions",
     "findTaxi": "Find a Taxi"
-  }
   }
 }

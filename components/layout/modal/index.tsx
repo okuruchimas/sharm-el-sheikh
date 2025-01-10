@@ -92,7 +92,6 @@ const ModalWindow = styled("div", {
     },
 
     "@media (max-width: 1024px)": {
-      borderRadius: "12px",
       width: mWidth,
       padding: "16px",
     },
