@@ -15,6 +15,10 @@ const GlobalStyles = () => (
         padding: 0;
         margin: 0;
       }
+
+      a {
+        color: unset;
+      }
     `}
   />
 );

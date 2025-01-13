@@ -43,6 +43,7 @@ const CompanyPage = ({
     slug,
     title,
     images,
+    position,
     discount,
     services,
     location,
@@ -95,6 +96,7 @@ const CompanyPage = ({
     schedule,
     location,
     discount,
+    position,
     totalComments,
     averageRating,
   };
@@ -111,6 +113,7 @@ const CompanyPage = ({
           discount={discount}
           images={images}
           title={title}
+          position={position}
           location={location ?? ""}
           onOpenDiscount={handleOpenDiscount(preview)}
         />
