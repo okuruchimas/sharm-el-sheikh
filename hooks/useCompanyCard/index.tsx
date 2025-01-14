@@ -7,7 +7,7 @@ import { PAGE_CATEGORIES } from "../../constants/page-company-categories";
 // components
 import Modal from "../../components/layout/modal";
 import Discount from "../../components/layout/discount";
-import PromCard from "../../components/sections/promotions/children/prom-card";
+import CompanyCard from "../../components/sections/promotions/children/company-card";
 import CompanyPopupContainer from "../../components/sections/company/company-popup-container";
 // types
 import type { CompanyPreviewFragment } from "../../gql/graphql";
@@ -24,9 +24,6 @@ const useCompanyCard = (selectedDay?: string) => {
       PAGE_CATEGORIES.includes(el?.attributes?.key || "=(^_^)="),
     );
 
-  const handleOpenPopup = (data: CompanyPreviewFragment) => () =>
-    setSelectedCompany(data);
-
   const handleClosePopup = () => setSelectedCompany(undefined);
 
   const handleOpenDiscount = (data: CompanyPreviewFragment) => () =>
@@ -34,6 +31,10 @@ const useCompanyCard = (selectedDay?: string) => {
 
   const handleInfoWindowClick = (data: CompanyPreviewFragment) => () =>
     checkIfPage(data) ? router.push(data.slug) : setSelectedCompany(data);
+
+  const handleCompanyCardClick =
+    (data: CompanyPreviewFragment, isPage: boolean) => () =>
+      isPage ? router.push(data.slug) : setSelectedCompany(data);
 
   const renderPopup = () =>
     selectedCompany?.slug ? (
@@ -91,10 +92,9 @@ const useCompanyCard = (selectedDay?: string) => {
     }
 
     return (
-      <PromCard
+      <CompanyCard
         key={companyPreview.slug}
         discount={companyPreview.discount}
-        slug={companyPreview.slug}
         images={companyPreview.images}
         title={companyPreview.title}
         location={companyPreview.location}
@@ -102,7 +102,7 @@ const useCompanyCard = (selectedDay?: string) => {
         averageRating={companyPreview.averageRating}
         totalComments={companyPreview.totalComments}
         isPage={isPage}
-        handleClick={isPage ? undefined : handleOpenPopup(companyPreview)}
+        handleClick={handleCompanyCardClick(companyPreview, isPage)}
         onOpenDiscount={() => {
           setSelectedDiscount(companyPreview);
         }}

@@ -9,7 +9,6 @@ import useCompanyCard from "../../../hooks/useCompanyCard";
 // components
 import Button from "../../layout/button";
 import Dropdown from "../../layout/filters";
-import PromCard from "./children/prom-card";
 import Placeholder from "./children/placeholder";
 import SectionWrapper from "../../layout/section-wrapper";
 // utils
@@ -95,7 +94,7 @@ const Promotions = ({
       >
         {result?.length ? (
           <DownWrap>
-            {result.map((card, index) => (card ? renderCard(card) : null))}
+            {result.map((card) => (card ? renderCard(card) : null))}
           </DownWrap>
         ) : (
           <Placeholder title={t("noDiscounts")} />
@@ -132,10 +131,10 @@ const DownWrap = styled("div")(({ theme }) => ({
   },
 }));
 
-const ButtonWrap = styled("div")(({ theme }) => ({
+const ButtonWrap = styled("div")({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-}));
+});
 
 export default Promotions;

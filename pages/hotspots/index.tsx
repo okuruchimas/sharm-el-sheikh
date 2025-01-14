@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import {
   type CategoryEntity,
   type EventCardEntity,
@@ -9,12 +8,16 @@ import {
   GetHotspotsPageDocument,
   GetCompaniesByFilterDocument,
 } from "../../gql/graphql";
+// hooks
+import { useMemo } from "react";
+import { useTranslation } from "next-i18next";
 // components
 import Map from "../../components/sections/home/map";
 import ClubsContainer from "../../components/sections/hotspots/clubs-container";
 import EventsContainer from "../../components/sections/hotspots/events-container";
 import SectionsWrapper from "../../components/layout/sections-wrapper";
 import HotspotsBanner from "../../components/sections/hotspots/hotspots-banner";
+import ClubOptionsTable from "../../components/sections/hotspots/table";
 // constants
 import { CLUBS } from "../../constants/page-company-categories";
 import { REVALIDATE_TIME } from "../../constants/page.constants";
@@ -22,7 +25,6 @@ import { REVALIDATE_TIME } from "../../constants/page.constants";
 import styled from "@emotion/styled";
 import { fetchData } from "../../utils/fetchApi";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import ClubOptionsTable from "../../components/sections/hotspots/table";
 
 type HotspotsPageProps = {
   totalEvents: number;
@@ -41,6 +43,8 @@ const HotspotsPage = ({
   initialClubs,
   categories,
 }: HotspotsPageProps) => {
+  const { t } = useTranslation("common");
+
   const categoriesMapped = useMemo(
     () =>
       categories.map((el) => ({
@@ -51,6 +55,9 @@ const HotspotsPage = ({
       })),
     [categories],
   );
+
+  const allCategories =
+    categories?.map((el) => el.attributes?.key || "").join("***") || "";
 
   return (
     <Wrapper
@@ -69,7 +76,13 @@ const HotspotsPage = ({
         initialClubs={initialClubs.map((el) => el.attributes)}
       />
       <ClubOptionsTable />
-      <Map title={mapTitle || ""} categories={categoriesMapped} />
+      <Map
+        title={mapTitle || ""}
+        categories={[
+          { key: allCategories, value: t("labels.all") },
+          ...(categoriesMapped || []),
+        ]}
+      />
       {bottomBanner ? (
         <HotspotsBanner
           title={bottomBanner.title || ""}
