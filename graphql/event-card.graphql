@@ -23,7 +23,6 @@ fragment EventCard on EventCard {
   price
   location
   description
-  mapUrl
   socialLinks {
     socialLink
     icon {
@@ -32,5 +31,9 @@ fragment EventCard on EventCard {
   }
   image {
     ...StrapiImage
+  }
+  position {
+    lat
+    lng
   }
 }

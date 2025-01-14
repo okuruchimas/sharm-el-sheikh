@@ -1,25 +1,31 @@
 import styled from "@emotion/styled";
 
-interface Props {
+export type TextAndIconProps = {
   src: string;
   text: string;
   iconSize?: string;
   iconSizeMobile?: string;
   fontSize?: string;
-}
+  fontSizeMobile?: string;
+};
 const TextAndIcon = ({
   src,
   text,
   iconSize = "24px",
   iconSizeMobile,
   fontSize = "16px",
-}: Props) => {
+  fontSizeMobile,
+}: TextAndIconProps) => {
   const sizeProps = { iconSize, iconSizeMobile: iconSizeMobile || iconSize };
 
   return (
     <Wrap className="text-and-icon" {...sizeProps}>
       <Icon src={src} {...sizeProps} />
-      <Text fontSize={fontSize} className="icon-text">
+      <Text
+        fontSize={fontSize}
+        fontSizeMobile={fontSizeMobile || fontSize}
+        className="icon-text"
+      >
         {text}
       </Text>
     </Wrap>
@@ -57,13 +63,19 @@ const Icon = styled("img", {
 );
 
 const Text = styled("div", {
-  shouldForwardProp: (prop) => prop !== "fontSize",
-})<{ fontSize?: string }>(({ theme, fontSize }) => ({
-  color: theme.colors.blue,
-  fontSize: fontSize,
-  overflow: "hidden",
-  textWrap: "nowrap",
-  textOverflow: "ellipsis",
-}));
+  shouldForwardProp: (prop) => !["fontSize", "fontSizeMobile"].includes(prop),
+})<{ fontSize: string; fontSizeMobile: string }>(
+  ({ theme, fontSize, fontSizeMobile }) => ({
+    color: theme.colors.blue,
+    fontSize: fontSize,
+    overflow: "hidden",
+    textWrap: "nowrap",
+    textOverflow: "ellipsis",
+
+    [theme.breakpoints.mobile]: {
+      fontSize: fontSizeMobile,
+    },
+  }),
+);
 
 export default TextAndIcon;

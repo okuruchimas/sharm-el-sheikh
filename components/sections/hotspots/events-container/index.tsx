@@ -106,7 +106,6 @@ const EventsContainer = ({
         <EventPopup
           key={selectedEvent?.title}
           {...selectedEvent}
-          mapUrl={selectedEvent?.mapUrl || ""}
           logo={selectedEvent?.image.data?.attributes?.url || ""}
           date={selectedEvent?.date || ""}
           title={selectedEvent?.title || ""}
@@ -114,6 +113,7 @@ const EventsContainer = ({
           location={selectedEvent?.location || ""}
           description={selectedEvent?.description || ""}
           socialLinks={selectedEvent?.socialLinks || []}
+          position={selectedEvent?.position}
           onClose={handleClosePopup}
         />
       </Modal>
