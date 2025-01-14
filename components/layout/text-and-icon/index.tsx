@@ -1,22 +1,24 @@
-import React from "react";
-import Image from "next/image";
 import styled from "@emotion/styled";
 
 interface Props {
   src: string;
   text: string;
   iconSize?: string;
+  iconSizeMobile?: string;
   fontSize?: string;
 }
 const TextAndIcon = ({
   src,
   text,
   iconSize = "24px",
+  iconSizeMobile,
   fontSize = "16px",
 }: Props) => {
+  const sizeProps = { iconSize, iconSizeMobile: iconSizeMobile || iconSize };
+
   return (
-    <Wrap iconSize={iconSize} className="text-and-icon">
-      <Icon height={iconSize} width={iconSize} src={src} />
+    <Wrap className="text-and-icon" {...sizeProps}>
+      <Icon src={src} {...sizeProps} />
       <Text fontSize={fontSize} className="icon-text">
         {text}
       </Text>
@@ -25,16 +27,34 @@ const TextAndIcon = ({
 };
 
 const Wrap = styled("div", {
-  shouldForwardProp: (prop) => prop !== "iconSize",
-})<{ iconSize: string }>(({ theme, iconSize }) => ({
-  display: "grid",
-  gridTemplateColumns: `${iconSize} 1fr`,
-  alignItems: "center",
-  gap: 8,
-  width: "100%",
-}));
+  shouldForwardProp: (prop) => !["iconSize", "iconSizeMobile"].includes(prop),
+})<{ iconSize: string; iconSizeMobile: string }>(
+  ({ theme, iconSize, iconSizeMobile }) => ({
+    display: "grid",
+    gridTemplateColumns: `${iconSize} 1fr`,
+    alignItems: "center",
+    gap: 8,
+    width: "100%",
 
-const Icon = styled(Image)(({ theme }) => ({}));
+    [theme.breakpoints.mobile]: {
+      gridTemplateColumns: `${iconSizeMobile} 1fr`,
+    },
+  }),
+);
+
+const Icon = styled("img", {
+  shouldForwardProp: (prop) => !["iconSize", "iconSizeMobile"].includes(prop),
+})<{ iconSize: string; iconSizeMobile: string }>(
+  ({ theme, iconSize, iconSizeMobile }) => ({
+    width: iconSize,
+    height: iconSize,
+
+    [theme.breakpoints.mobile]: {
+      width: iconSizeMobile,
+      height: iconSizeMobile,
+    },
+  }),
+);
 
 const Text = styled("div", {
   shouldForwardProp: (prop) => prop !== "fontSize",

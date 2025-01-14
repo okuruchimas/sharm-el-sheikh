@@ -16,6 +16,7 @@ import TextPill from "../../../layout/text-pill";
 import NextImage from "../../../layout/image";
 import ServiceCard from "../../../layout/service-card";
 import StarReview from "../review/children/star-review";
+import LocationLink from "../../../layout/location-link";
 // constants
 import { DayAbv } from "../../../../constants/week-days.constants";
 // types
@@ -128,15 +129,14 @@ const CompanyPopupContainer = ({
             <Schedule>{renderSchedule()}</Schedule>
           </Stack>
           <Stack gap="24px" mGap="16px">
-            <RowStack>
-              <NextImage
-                src={"/icons/promotions-section/location.svg"}
-                alt="location-marker"
-                width="36px"
-                height="36px"
+            <Location>
+              <LocationLink
+                iconSize="36px"
+                iconSizeMobile="30px"
+                text={clubPreview.location || "-"}
+                position={clubPreview.position}
               />
-              <Text>{clubPreview?.location || "-"}</Text>
-            </RowStack>
+            </Location>
             {fullData?.phoneNumber ? (
               <RowStack>
                 <NextImage
@@ -205,6 +205,19 @@ const fallDownKF = keyframes`
     50% { transform: translateY(-10%); opacity: 0.2 }
     100% { transform: translateY(0); opacity: 1}
 `;
+
+const Location = styled("div")(({ theme }) => ({
+  maxWidth: "max-content",
+
+  ".icon-text": {
+    fontSize: theme.fontSize.fontS21,
+    color: theme.colors.black,
+
+    [theme.breakpoints.mobile]: {
+      fontSize: theme.fontSize.fontS16,
+    },
+  },
+}));
 
 const Wrapper = styled("div")(({ theme }) => ({
   backgroundColor: theme.colors.white,

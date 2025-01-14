@@ -1,6 +1,7 @@
 // components
 import Swiper from "../../promotions/children/swiper";
 import Rating from "../../../layout/rating";
+import LocationLink from "../../../layout/location-link";
 // utils
 import styled from "@emotion/styled";
 // types
@@ -25,6 +26,7 @@ const Promo = ({
   discount,
   title,
   location,
+  position,
   totalComments,
   averageRating,
   onOpenDiscount,
@@ -45,11 +47,12 @@ const Promo = ({
         </RatingWrapper>
       </TopWrapper>
       <Location>
-        <LocationIcon
-          src="/icons/promotions-section/location.svg"
-          alt="location icon"
+        <LocationLink
+          text={location || "-"}
+          position={position}
+          iconSize="40px"
+          iconSizeMobile="20px"
         />
-        <span>{location}</span>
       </Location>
     </ContentWrapper>
   </SectionWrapper>
@@ -132,23 +135,17 @@ const TitleStyled = styled(Title)(({ theme }) => ({
 }));
 
 const Location = styled("div")(({ theme }) => ({
-  display: "grid",
-  gridTemplateColumns: "24px 1fr",
-  alignItems: "center",
-  gap: "16px",
-  fontSize: theme.fontSize.fontS24,
-  fontWeight: 500,
+  maxWidth: "max-content",
 
-  [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS12,
-    fontWeight: 400,
-    gap: "8px",
-  },
+  ".icon-text": {
+    fontWeight: 500,
+    fontSize: theme.fontSize.fontS24,
+    color: theme.colors.black,
 
-  span: {
-    overflow: "hidden",
-    textWrap: "nowrap",
-    textOverflow: "ellipsis",
+    [theme.breakpoints.mobile]: {
+      fontSize: theme.fontSize.fontS12,
+      fontWeight: 400,
+    },
   },
 }));
 

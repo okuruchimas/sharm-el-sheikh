@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import Button from "../button";
 import SocialIcon from "../social-icon";
-import TextAndIcon from "../text-and-icon";
+import LocationLink from "../location-link";
 // types
 import type { CompanyPreviewFragment } from "../../../gql/graphql";
 
@@ -40,9 +40,11 @@ const Discount = ({
         />
       </ImgWrapper>
       <Title>{discount?.title}</Title>
-      <TextAndIcon
-        src="/icons/promotions-section/location.svg"
-        text={location || ""}
+      <LocationLink
+        text={location || "-"}
+        position={position}
+        iconSize="36px"
+        iconSizeMobile="30px"
       />
       <SocialIconsWrapper>
         {socialLinks
