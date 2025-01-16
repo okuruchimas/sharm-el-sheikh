@@ -3,22 +3,22 @@ import { useTranslation } from "next-i18next";
 // utils
 import styled from "@emotion/styled";
 // components
-import Link from "next/link";
 import Image from "next/image";
 import Button from "../button";
 import TextPill from "../text-pill";
+import SocialIcon from "../social-icon";
 import TextAndIcon from "../text-and-icon";
+import LocationLink from "../location-link";
 // types
 import type { EventCardI } from "../../sections/home/main/children/types";
 import type { SocialLink } from "../../types/images";
-import SocialIcon from "../social-icon";
+import type { EventCardFragment } from "../../../gql/graphql";
 
 type EventPopupProps = Omit<EventCardI, "onClick"> & {
   description: string;
   socialLinks?: (SocialLink | null)[];
-  mapUrl: string;
   onClose: () => void;
-};
+} & Pick<EventCardFragment, "position">;
 
 const EventPopup = ({
   logo,
@@ -26,8 +26,8 @@ const EventPopup = ({
   title,
   price,
   logoAlt,
-  mapUrl,
   location,
+  position,
   description,
   socialLinks,
   onClose,
@@ -44,19 +44,21 @@ const EventPopup = ({
           <Stack>
             <Name>{title}</Name>
             <TextPillStyled>{date}</TextPillStyled>
-            <LinkStyled href={mapUrl} target="_blank">
-              <TextAndIcon
-                src="/icons/promotions-section/location.svg"
-                text={location}
-                fontSize="21px"
-                iconSize="36px"
-              />
-            </LinkStyled>
+            <LocationLink
+              text={location || "-"}
+              position={position}
+              iconSize="36px"
+              iconSizeMobile="30px"
+              fontSize="21px"
+              fontSizeMobile="18px"
+            />
             <TextAndIcon
               src="/icons/cash.svg"
               text={price}
-              fontSize="21px"
               iconSize="36px"
+              iconSizeMobile="30px"
+              fontSize="21px"
+              fontSizeMobile="18px"
             />
             <IconsWrapper>
               {socialLinks?.map((el, index) => (
@@ -167,10 +169,6 @@ const ImgWrapper = styled("div")(({ theme }) => ({
 
 const TextPillStyled = styled(TextPill)({
   width: "max-content",
-});
-
-const LinkStyled = styled(Link)({
-  textDecoration: "none",
 });
 
 const Title = styled("h2", {

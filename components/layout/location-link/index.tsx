@@ -1,11 +1,9 @@
-import TextAndIcon from "../text-and-icon";
+import TextAndIcon, { type TextAndIconProps } from "../text-and-icon";
 import type { CompanyPreviewFragment } from "../../../gql/graphql";
 
-type Props = {
-  text: string;
-  iconSize?: string;
-  iconSizeMobile?: string;
-} & Pick<CompanyPreviewFragment, "position">;
+type Props = Omit<TextAndIconProps, "src"> &
+  Pick<CompanyPreviewFragment, "position">;
+
 const LocationLink = ({ position, ...props }: Props) => {
   // const mapUrl = position
   //   ? `https://www.google.com/maps?q=${position.lat},${position.lng}`

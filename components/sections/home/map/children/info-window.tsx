@@ -4,6 +4,7 @@ import Rating from "../../../../layout/rating";
 // utils
 import styled from "@emotion/styled";
 // types
+import type { KeyboardEvent } from "react";
 import type { CompanyPreviewFragment } from "../../../../../gql/graphql";
 
 type InfoWindowProps = {
@@ -11,34 +12,42 @@ type InfoWindowProps = {
   onClick: () => void;
 };
 
-const InfoWindow = ({ location, onClick }: InfoWindowProps) => (
-  <InfoWindowContent>
-    <Image
-      src={location?.images.data[0].attributes?.url ?? ""}
-      alt={location?.title}
-      width={172}
-      height={113}
-    />
-    <DetailsWrapper>
-      <NameRatingWrapper>
-        <Name onClick={onClick}>{location?.title}</Name>
-        <RatingWrapper>
-          <Rating
-            points={location?.averageRating || 0}
-            users={location?.totalComments || 0}
+const InfoWindow = ({ location, onClick }: InfoWindowProps) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" && onClick) {
+      onClick();
+    }
+  };
+
+  return (
+    <InfoWindowContent onClick={onClick} onKeyDown={handleKeyDown} tabIndex={0}>
+      <Image
+        src={location?.images.data[0].attributes?.url ?? ""}
+        alt={location?.title}
+        width={172}
+        height={113}
+      />
+      <DetailsWrapper>
+        <NameRatingWrapper>
+          <Name>{location?.title}</Name>
+          <RatingWrapper>
+            <Rating
+              points={location?.averageRating || 0}
+              users={location?.totalComments || 0}
+            />
+          </RatingWrapper>
+        </NameRatingWrapper>
+        <LocationWrapper>
+          <LocIcon
+            src="/icons/promotions-section/location.svg"
+            alt="location-icon"
           />
-        </RatingWrapper>
-      </NameRatingWrapper>
-      <LocationWrapper>
-        <LocIcon
-          src="/icons/promotions-section/location.svg"
-          alt="location-icon"
-        />
-        <LocationText>{location?.location}</LocationText>
-      </LocationWrapper>
-    </DetailsWrapper>
-  </InfoWindowContent>
-);
+          <LocationText>{location?.location}</LocationText>
+        </LocationWrapper>
+      </DetailsWrapper>
+    </InfoWindowContent>
+  );
+};
 
 const InfoWindowContent = styled("div")(({ theme }) => ({
   maxWidth: "172px",
@@ -46,6 +55,7 @@ const InfoWindowContent = styled("div")(({ theme }) => ({
   overflowY: "scroll",
   overflowX: "hidden",
   scrollbarWidth: "none",
+  cursor: "pointer",
 
   "&::-webkit-scrollbar": {
     display: "none",
@@ -90,12 +100,6 @@ const Name = styled("div")(({ theme }) => ({
   fontSize: theme.fontSize.fontS14,
   fontWeight: 600,
   letterSpacing: "0.1px",
-  cursor: "pointer",
-  transition: "color 0.25s ease",
-
-  ":hover": {
-    color: theme.colors.blue3,
-  },
 }));
 
 const LocationWrapper = styled("div")({
@@ -104,10 +108,10 @@ const LocationWrapper = styled("div")({
   gap: "4px",
 });
 
-const LocIcon = styled("img")(({ theme }) => ({
+const LocIcon = styled("img")({
   height: "14px",
   width: "14px",
-}));
+});
 
 const LocationText = styled("span")(({ theme }) => ({
   fontSize: theme.fontSize.fontS10,

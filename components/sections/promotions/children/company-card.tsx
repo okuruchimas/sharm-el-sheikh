@@ -1,5 +1,3 @@
-// libs
-import Link from "next/link";
 // components
 import Image from "next/image";
 import Swiper from "./swiper";
@@ -8,14 +6,14 @@ import TextAndIcon from "../../../layout/text-and-icon";
 // utils
 import styled from "@emotion/styled";
 // types
+import type { KeyboardEvent } from "react";
 import type { CompanyPreviewFragment } from "../../../../gql/graphql";
 
-type PromCardProps = Pick<
+type CompanyCardProps = Pick<
   CompanyPreviewFragment,
   | "discount"
   | "location"
   | "title"
-  | "slug"
   | "averageRating"
   | "totalComments"
   | "categories"
@@ -26,8 +24,7 @@ type PromCardProps = Pick<
   handleClick?: () => void;
   onOpenDiscount: () => void;
 };
-const PromCard = ({
-  slug,
+const CompanyCard = ({
   isPage,
   time,
   title,
@@ -38,7 +35,13 @@ const PromCard = ({
   averageRating,
   handleClick,
   onOpenDiscount,
-}: PromCardProps) => {
+}: CompanyCardProps) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" && handleClick) {
+      handleClick();
+    }
+  };
+
   return (
     <Wrap>
       <SwiperWrapper>
@@ -56,7 +59,7 @@ const PromCard = ({
           />
         )}
       </SwiperWrapper>
-      <DownWrap onClick={handleClick} isClickable={!!handleClick}>
+      <DownWrap onClick={handleClick} onKeyDown={handleKeyDown} tabIndex={0}>
         <TitleRating
           title={title}
           averageRating={averageRating}
@@ -73,12 +76,10 @@ const PromCard = ({
             ) : null}
           </InfoWrap>
           {isPage ? (
-            <Link href={slug || ""}>
-              <IconButton
-                src={"/icons/promotions-section/circle-arrow-outlined.svg"}
-                alt="promotions-button"
-              />
-            </Link>
+            <IconButton
+              src={"/icons/promotions-section/circle-arrow-outlined.svg"}
+              alt="promotions-button"
+            />
           ) : null}
         </Down>
       </DownWrap>
@@ -115,9 +116,7 @@ const SwiperWrapper = styled("div")({
   overflow: "hidden",
 });
 
-const DownWrap = styled("div", {
-  shouldForwardProp: (prop) => prop !== "isClickable",
-})<{ isClickable?: boolean }>(({ theme, isClickable }) => ({
+const DownWrap = styled("div")(({ theme }) => ({
   height: "40%",
   borderRadius: "0 0 16px 16px",
   backgroundColor: theme.colors.blue4,
@@ -129,7 +128,7 @@ const DownWrap = styled("div", {
   gap: "8px",
   padding: "24px 16px",
   overflow: "hidden",
-  cursor: isClickable ? "pointer" : "initial",
+  cursor: "pointer",
 
   [theme.breakpoints.mobile]: {
     padding: "12px",
@@ -155,16 +154,11 @@ const IconButton = styled("img")(({ theme }) => ({
   cursor: "pointer",
   width: "40px",
   height: "40px",
-  transition: "transform 0.3s ease",
 
   [theme.breakpoints.mobile]: {
     width: "30px",
     height: "30px",
   },
-
-  "&:active, &:focus": {
-    transform: "scale(1.3)",
-  },
 }));
 
-export default PromCard;
+export default CompanyCard;
