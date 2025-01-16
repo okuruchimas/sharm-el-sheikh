@@ -1,6 +1,7 @@
 import { getUrl } from "./fetchApi";
 
-type CollectionTypesWithRating = "companies";
+type CollectionTypesWithRating = "companies" | "animation-companies";
+
 type AddRatingParams = {
   slug: string;
   rating: number;
