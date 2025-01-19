@@ -4,21 +4,27 @@ import Link from "next/link";
 import styled from "@emotion/styled";
 
 const Tabs = () => {
-  const { route } = useRouter();
+  const { pathname } = useRouter();
   const { t } = useTranslation("entertainers-tour-guides");
+  const activePage = pathname.split("/").pop();
 
-  const tabs = [
+  let tabs = [
     { link: "animators", text: t("tabs.animators") },
     { link: "taxi-drivers", text: t("tabs.taxiDrivers") },
     { link: "photographers", text: t("tabs.photographers") },
     { link: "tour-and-guides", text: t("tabs.tourOperators") },
   ];
 
+  tabs = [
+    ...tabs.filter((tab) => tab.link === activePage),
+    ...tabs.filter((tab) => tab.link !== activePage),
+  ];
+
   return (
     <Wrap>
       {tabs.map(({ link, text }) => (
         <Link key={link} href={link}>
-          <Text isActive={route?.includes(link)}>{text}</Text>
+          <Text isActive={pathname?.includes(link)}>{text}</Text>
         </Link>
       ))}
     </Wrap>
