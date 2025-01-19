@@ -1,6 +1,6 @@
 import {
-  type AnimationCompany,
   type AnimatorPreviewFragment,
+  type AnimationCompanyPreviewFragment,
   GetAnimatorsByFilterDocument,
   GetAnimationCompaniesDocument,
 } from "../../../gql/graphql";
@@ -17,6 +17,7 @@ import Dropdown from "../../../components/layout/filters";
 import Container from "../../../components/sections/entertainers-tour-guides/children/container";
 import Pagination from "../../../components/layout/pagination";
 import AnimatorCards from "../../../components/sections/entertainers-tour-guides/animators/cards";
+// import AnimationCompanies from "../../../components/sections/entertainers-tour-guides/animators/animation-companies";
 // utils
 import styled from "@emotion/styled";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -28,7 +29,7 @@ type Animators = { attributes: AnimatorPreviewFragment }[];
 type PageProps = {
   animators: Animators;
   initialTotalAnimators: number;
-  animationCompanies: { attributes: AnimationCompany }[];
+  animationCompanies: { attributes: AnimationCompanyPreviewFragment }[];
 };
 const Animators = ({
   animators,
@@ -86,7 +87,7 @@ const Animators = ({
   }));
 
   const animationCompaniesMapped = animationCompanies.map((el) => ({
-    key: el.attributes.key,
+    key: el.attributes.slug,
     value: el.attributes.value,
   }));
 
@@ -125,6 +126,10 @@ const Animators = ({
 
   return (
     <Container>
+      {/*TODO*/}
+      {/*<AnimationCompanies*/}
+      {/*  companies={animationCompanies.map((el) => el.attributes)}*/}
+      {/*/>*/}
       <FiltersWrap>
         <Dropdown
           options={[

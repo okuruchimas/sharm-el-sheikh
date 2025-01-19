@@ -28,12 +28,25 @@ export type Scalars = {
 
 export type AnimationCompany = {
   __typename?: 'AnimationCompany';
+  about?: Maybe<Scalars['String']['output']>;
   animators?: Maybe<AnimatorRelationResponseCollection>;
+  averageRating: Scalars['Float']['output'];
+  complaintsNumber?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  employmentNumber?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<UploadFileEntityResponse>;
   index: Scalars['Int']['output'];
   key: Scalars['String']['output'];
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<AnimationCompanyRelationResponseCollection>;
+  location: Scalars['String']['output'];
+  position?: Maybe<ComponentHelpersPosition>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  slug: Scalars['String']['output'];
+  socialLinks?: Maybe<Array<Maybe<ComponentHelpersSocialMedia>>>;
+  totalComments: Scalars['Int']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  vacancies?: Maybe<Array<Maybe<ComponentHelpersTextWithTitle>>>;
   value: Scalars['String']['output'];
 };
 
@@ -42,6 +55,28 @@ export type AnimationCompanyAnimatorsArgs = {
   filters?: InputMaybe<AnimatorFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type AnimationCompanyLocalizationsArgs = {
+  filters?: InputMaybe<AnimationCompanyFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type AnimationCompanySocialLinksArgs = {
+  filters?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type AnimationCompanyVacanciesArgs = {
+  filters?: InputMaybe<ComponentHelpersTextWithTitleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
@@ -63,25 +98,53 @@ export type AnimationCompanyEntityResponseCollection = {
 };
 
 export type AnimationCompanyFiltersInput = {
+  about?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<AnimationCompanyFiltersInput>>>;
   animators?: InputMaybe<AnimatorFiltersInput>;
+  averageRating?: InputMaybe<FloatFilterInput>;
+  complaintsNumber?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  employmentNumber?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   index?: InputMaybe<IntFilterInput>;
   key?: InputMaybe<StringFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<AnimationCompanyFiltersInput>;
+  location?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<AnimationCompanyFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<AnimationCompanyFiltersInput>>>;
+  position?: InputMaybe<ComponentHelpersPositionFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  socialLinks?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  totalComments?: InputMaybe<IntFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
+  vacancies?: InputMaybe<ComponentHelpersTextWithTitleFiltersInput>;
   value?: InputMaybe<StringFilterInput>;
 };
 
 export type AnimationCompanyInput = {
+  about?: InputMaybe<Scalars['String']['input']>;
   animators?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  averageRating?: InputMaybe<Scalars['Float']['input']>;
+  complaintsNumber?: InputMaybe<Scalars['String']['input']>;
+  employmentNumber?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['ID']['input']>;
   index?: InputMaybe<Scalars['Int']['input']>;
   key?: InputMaybe<Scalars['String']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  position?: InputMaybe<ComponentHelpersPositionInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  socialLinks?: InputMaybe<Array<InputMaybe<ComponentHelpersSocialMediaInput>>>;
+  totalComments?: InputMaybe<Scalars['Int']['input']>;
+  vacancies?: InputMaybe<Array<InputMaybe<ComponentHelpersTextWithTitleInput>>>;
   value?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AnimationCompanyRelationResponseCollection = {
+  __typename?: 'AnimationCompanyRelationResponseCollection';
+  data: Array<AnimationCompanyEntity>;
 };
 
 export type Animator = {
@@ -89,6 +152,7 @@ export type Animator = {
   animation_company?: Maybe<AnimationCompanyEntityResponse>;
   averageRating: Scalars['Float']['output'];
   comments?: Maybe<CommentRelationResponseCollection>;
+  company?: Maybe<CompanyEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description: Scalars['String']['output'];
   entertainmentServices?: Maybe<Array<Maybe<ComponentComponentsEntertainmentService>>>;
@@ -97,6 +161,7 @@ export type Animator = {
   locale?: Maybe<Scalars['String']['output']>;
   localizations?: Maybe<AnimatorRelationResponseCollection>;
   name: Scalars['String']['output'];
+  position?: Maybe<ComponentHelpersPosition>;
   profileImg: UploadFileEntityResponse;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   skills: Array<Maybe<ComponentHelpersStringArray>>;
@@ -174,6 +239,7 @@ export type AnimatorFiltersInput = {
   animation_company?: InputMaybe<AnimationCompanyFiltersInput>;
   averageRating?: InputMaybe<FloatFilterInput>;
   comments?: InputMaybe<CommentFiltersInput>;
+  company?: InputMaybe<CompanyFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
   entertainmentServices?: InputMaybe<ComponentComponentsEntertainmentServiceFiltersInput>;
@@ -185,6 +251,7 @@ export type AnimatorFiltersInput = {
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<AnimatorFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<AnimatorFiltersInput>>>;
+  position?: InputMaybe<ComponentHelpersPositionFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   skills?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
   slug?: InputMaybe<StringFilterInput>;
@@ -198,11 +265,13 @@ export type AnimatorInput = {
   animation_company?: InputMaybe<Scalars['ID']['input']>;
   averageRating?: InputMaybe<Scalars['Float']['input']>;
   comments?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  company?: InputMaybe<Scalars['ID']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   entertainmentServices?: InputMaybe<Array<InputMaybe<ComponentComponentsEntertainmentServiceInput>>>;
   hotelName?: InputMaybe<Scalars['String']['input']>;
   languages?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   name?: InputMaybe<Scalars['String']['input']>;
+  position?: InputMaybe<ComponentHelpersPositionInput>;
   profileImg?: InputMaybe<Scalars['ID']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   skills?: InputMaybe<Array<InputMaybe<ComponentHelpersStringArrayInput>>>;
@@ -654,6 +723,7 @@ export type CommentRelationResponseCollection = {
 
 export type Company = {
   __typename?: 'Company';
+  animators?: Maybe<AnimatorRelationResponseCollection>;
   area?: Maybe<AreaEntityResponse>;
   averageRating: Scalars['Float']['output'];
   categories?: Maybe<CategoryRelationResponseCollection>;
@@ -677,6 +747,15 @@ export type Company = {
   title: Scalars['String']['output'];
   totalComments: Scalars['Int']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  wc: Scalars['Boolean']['output'];
+};
+
+
+export type CompanyAnimatorsArgs = {
+  filters?: InputMaybe<AnimatorFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -751,6 +830,7 @@ export type CompanyEntityResponseCollection = {
 
 export type CompanyFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<CompanyFiltersInput>>>;
+  animators?: InputMaybe<AnimatorFiltersInput>;
   area?: InputMaybe<AreaFiltersInput>;
   averageRating?: InputMaybe<FloatFilterInput>;
   categories?: InputMaybe<CategoryFiltersInput>;
@@ -776,9 +856,11 @@ export type CompanyFiltersInput = {
   title?: InputMaybe<StringFilterInput>;
   totalComments?: InputMaybe<IntFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
+  wc?: InputMaybe<BooleanFilterInput>;
 };
 
 export type CompanyInput = {
+  animators?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   area?: InputMaybe<Scalars['ID']['input']>;
   averageRating?: InputMaybe<Scalars['Float']['input']>;
   categories?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
@@ -798,6 +880,7 @@ export type CompanyInput = {
   socialLinks?: InputMaybe<Array<InputMaybe<ComponentHelpersSocialMediaInput>>>;
   title?: InputMaybe<Scalars['String']['input']>;
   totalComments?: InputMaybe<Scalars['Int']['input']>;
+  wc?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type CompanyRelationResponseCollection = {
@@ -1059,6 +1142,27 @@ export type ComponentHelpersStringArrayInput = {
   value?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type ComponentHelpersTextWithTitle = {
+  __typename?: 'ComponentHelpersTextWithTitle';
+  id: Scalars['ID']['output'];
+  text: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+};
+
+export type ComponentHelpersTextWithTitleFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentHelpersTextWithTitleFiltersInput>>>;
+  not?: InputMaybe<ComponentHelpersTextWithTitleFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentHelpersTextWithTitleFiltersInput>>>;
+  text?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentHelpersTextWithTitleInput = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type ComponentHelpersTimeSlot = {
   __typename?: 'ComponentHelpersTimeSlot';
   endTime: Scalars['Time']['output'];
@@ -1311,7 +1415,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | ComponentComponentsBanner | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Location | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyStyle | Service | SupportService | TaxiDriver | TaxiService | TourGuide | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | ComponentComponentsBanner | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Location | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyStyle | Service | SupportService | TaxiDriver | TaxiService | TourGuide | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   __typename?: 'Header';
@@ -1992,6 +2096,7 @@ export type Mutation = {
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
   createAnimationCompany?: Maybe<AnimationCompanyEntityResponse>;
+  createAnimationCompanyLocalization?: Maybe<AnimationCompanyEntityResponse>;
   createAnimator?: Maybe<AnimatorEntityResponse>;
   createAnimatorLocalization?: Maybe<AnimatorEntityResponse>;
   createAnnouncement?: Maybe<AnnouncementEntityResponse>;
@@ -2127,6 +2232,14 @@ export type MutationChangePasswordArgs = {
 
 export type MutationCreateAnimationCompanyArgs = {
   data: AnimationCompanyInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateAnimationCompanyLocalizationArgs = {
+  data?: InputMaybe<AnimationCompanyInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
@@ -2426,6 +2539,7 @@ export type MutationCreateUsersPermissionsUserArgs = {
 
 export type MutationDeleteAnimationCompanyArgs = {
   id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
@@ -2630,6 +2744,7 @@ export type MutationResetPasswordArgs = {
 export type MutationUpdateAnimationCompanyArgs = {
   data: AnimationCompanyInput;
   id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
@@ -3172,6 +3287,7 @@ export type Query = {
 
 export type QueryAnimationCompaniesArgs = {
   filters?: InputMaybe<AnimationCompanyFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -3180,6 +3296,7 @@ export type QueryAnimationCompaniesArgs = {
 
 export type QueryAnimationCompanyArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
@@ -4457,6 +4574,23 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type GetAnimationCompaniesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAnimationCompaniesQuery = { __typename?: 'Query', animationCompanies?: { __typename?: 'AnimationCompanyEntityResponseCollection', data: Array<{ __typename?: 'AnimationCompanyEntity', attributes?: { __typename?: 'AnimationCompany', value: string, slug: string, totalComments: number, averageRating: number, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null }> } | null };
+
+export type GetAnimationCompanyQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetAnimationCompanyQuery = { __typename?: 'Query', animationCompanies?: { __typename?: 'AnimationCompanyEntityResponseCollection', data: Array<{ __typename?: 'AnimationCompanyEntity', attributes?: { __typename?: 'AnimationCompany', value: string, slug: string, totalComments: number, averageRating: number, about?: string | null, complaintsNumber?: string | null, employmentNumber?: string | null, location: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null, animators?: { __typename?: 'AnimatorRelationResponseCollection', data: Array<{ __typename?: 'AnimatorEntity', attributes?: { __typename?: 'Animator', slug: string, name: string, hotelName: string, averageRating: number, totalComments: number, workingAtClub: boolean, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, animation_company?: { __typename?: 'AnimationCompanyEntityResponse', data?: { __typename?: 'AnimationCompanyEntity', attributes?: { __typename?: 'AnimationCompany', value: string } | null } | null } | null, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null } | null }> } | null, position?: { __typename?: 'ComponentHelpersPosition', lng?: string | null, lat?: string | null } | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, vacancies?: Array<{ __typename?: 'ComponentHelpersTextWithTitle', title: string, text: string } | null> | null } | null }> } | null };
+
+export type AnimationCompanyPreviewFragment = { __typename?: 'AnimationCompany', value: string, slug: string, totalComments: number, averageRating: number, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null };
+
+export type AnimationCompanyFragment = { __typename?: 'AnimationCompany', value: string, slug: string, totalComments: number, averageRating: number, about?: string | null, complaintsNumber?: string | null, employmentNumber?: string | null, location: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null, animators?: { __typename?: 'AnimatorRelationResponseCollection', data: Array<{ __typename?: 'AnimatorEntity', attributes?: { __typename?: 'Animator', slug: string, name: string, hotelName: string, averageRating: number, totalComments: number, workingAtClub: boolean, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, animation_company?: { __typename?: 'AnimationCompanyEntityResponse', data?: { __typename?: 'AnimationCompanyEntity', attributes?: { __typename?: 'AnimationCompany', value: string } | null } | null } | null, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null } | null }> } | null, position?: { __typename?: 'ComponentHelpersPosition', lng?: string | null, lat?: string | null } | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, vacancies?: Array<{ __typename?: 'ComponentHelpersTextWithTitle', title: string, text: string } | null> | null };
+
 export type GetAnimatorBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
   locale: Scalars['I18NLocaleCode']['input'];
@@ -4547,11 +4681,6 @@ export type GetCategoriesQueryVariables = Exact<{
 
 
 export type GetCategoriesQuery = { __typename?: 'Query', categories?: { __typename?: 'CategoryEntityResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string, value: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, markerIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null };
-
-export type GetAnimationCompaniesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetAnimationCompaniesQuery = { __typename?: 'Query', animationCompanies?: { __typename?: 'AnimationCompanyEntityResponseCollection', data: Array<{ __typename?: 'AnimationCompanyEntity', attributes?: { __typename?: 'AnimationCompany', key: string, value: string } | null }> } | null };
 
 export type GetLanguagesQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -4784,6 +4913,24 @@ export const StrapiImageFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"StrapiImage"}) as unknown as TypedDocumentString<StrapiImageFragment, unknown>;
+export const AnimationCompanyPreviewFragmentDoc = new TypedDocumentString(`
+    fragment AnimationCompanyPreview on AnimationCompany {
+  value
+  slug
+  totalComments
+  averageRating
+  image {
+    ...StrapiImage
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`, {"fragmentName":"AnimationCompanyPreview"}) as unknown as TypedDocumentString<AnimationCompanyPreviewFragment, unknown>;
 export const AnimatorPreviewFragmentDoc = new TypedDocumentString(`
     fragment AnimatorPreview on Animator {
   slug
@@ -4821,6 +4968,77 @@ export const AnimatorPreviewFragmentDoc = new TypedDocumentString(`
     }
   }
 }`, {"fragmentName":"AnimatorPreview"}) as unknown as TypedDocumentString<AnimatorPreviewFragment, unknown>;
+export const AnimationCompanyFragmentDoc = new TypedDocumentString(`
+    fragment AnimationCompany on AnimationCompany {
+  value
+  slug
+  totalComments
+  averageRating
+  image {
+    ...StrapiImage
+  }
+  about
+  animators {
+    data {
+      attributes {
+        ...AnimatorPreview
+      }
+    }
+  }
+  complaintsNumber
+  employmentNumber
+  location
+  position {
+    lng
+    lat
+  }
+  socialLinks {
+    icon {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  vacancies {
+    title
+    text
+  }
+}
+    fragment AnimatorPreview on Animator {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  animation_company {
+    data {
+      attributes {
+        value
+      }
+    }
+  }
+  hotelName
+  languages {
+    data {
+      attributes {
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  averageRating
+  totalComments
+  workingAtClub
+}
+fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`, {"fragmentName":"AnimationCompany"}) as unknown as TypedDocumentString<AnimationCompanyFragment, unknown>;
 export const ServiceFragmentDoc = new TypedDocumentString(`
     fragment Service on ServiceEntity {
   id
@@ -5497,6 +5715,113 @@ fragment StrapiImage on UploadFileEntityResponse {
     }
   }
 }`, {"fragmentName":"TourGuide"}) as unknown as TypedDocumentString<TourGuideFragment, unknown>;
+export const GetAnimationCompaniesDocument = new TypedDocumentString(`
+    query GetAnimationCompanies {
+  animationCompanies(sort: "index:asc") {
+    data {
+      attributes {
+        ...AnimationCompanyPreview
+      }
+    }
+  }
+}
+    fragment AnimationCompanyPreview on AnimationCompany {
+  value
+  slug
+  totalComments
+  averageRating
+  image {
+    ...StrapiImage
+  }
+}
+fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`) as unknown as TypedDocumentString<GetAnimationCompaniesQuery, GetAnimationCompaniesQueryVariables>;
+export const GetAnimationCompanyDocument = new TypedDocumentString(`
+    query GetAnimationCompany($slug: String!, $locale: I18NLocaleCode!) {
+  animationCompanies(filters: {slug: {eq: $slug}}, locale: $locale) {
+    data {
+      attributes {
+        ...AnimationCompany
+      }
+    }
+  }
+}
+    fragment AnimationCompany on AnimationCompany {
+  value
+  slug
+  totalComments
+  averageRating
+  image {
+    ...StrapiImage
+  }
+  about
+  animators {
+    data {
+      attributes {
+        ...AnimatorPreview
+      }
+    }
+  }
+  complaintsNumber
+  employmentNumber
+  location
+  position {
+    lng
+    lat
+  }
+  socialLinks {
+    icon {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  vacancies {
+    title
+    text
+  }
+}
+fragment AnimatorPreview on Animator {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  animation_company {
+    data {
+      attributes {
+        value
+      }
+    }
+  }
+  hotelName
+  languages {
+    data {
+      attributes {
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  averageRating
+  totalComments
+  workingAtClub
+}
+fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`) as unknown as TypedDocumentString<GetAnimationCompanyQuery, GetAnimationCompanyQueryVariables>;
 export const GetAnimatorBySlugDocument = new TypedDocumentString(`
     query GetAnimatorBySlug($slug: String!, $locale: I18NLocaleCode!) {
   animators(filters: {slug: {eq: $slug}}, locale: $locale) {
@@ -5935,18 +6260,6 @@ export const GetCategoriesDocument = new TypedDocumentString(`
     }
   }
 }`) as unknown as TypedDocumentString<GetCategoriesQuery, GetCategoriesQueryVariables>;
-export const GetAnimationCompaniesDocument = new TypedDocumentString(`
-    query GetAnimationCompanies {
-  animationCompanies(sort: "index:asc") {
-    data {
-      attributes {
-        key
-        value
-      }
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<GetAnimationCompaniesQuery, GetAnimationCompaniesQueryVariables>;
 export const GetLanguagesDocument = new TypedDocumentString(`
     query GetLanguages($locale: I18NLocaleCode!) {
   languages(locale: $locale, sort: "index:asc") {

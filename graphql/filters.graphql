@@ -26,17 +26,6 @@ query GetCategories($locale: I18NLocaleCode!) {
   }
 }
 
-query GetAnimationCompanies {
-  animationCompanies(sort: "index:asc") {
-    data {
-      attributes {
-        key
-        value
-      }
-    }
-  }
-}
-
 query GetLanguages($locale: I18NLocaleCode!) {
   languages(locale: $locale, sort: "index:asc") {
     data {

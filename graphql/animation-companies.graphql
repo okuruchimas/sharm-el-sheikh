@@ -1,0 +1,64 @@
+query GetAnimationCompanies {
+  animationCompanies(sort: "index:asc") {
+    data {
+      attributes {
+        ...AnimationCompanyPreview
+      }
+    }
+  }
+}
+
+query n($slug: String!, $locale: I18NLocaleCode!) {
+  animationCompanies(filters: { slug: { eq: $slug } }, locale: $locale) {
+    data {
+      attributes {
+        ...AnimationCompany
+      }
+    }
+  }
+}
+
+fragment AnimationCompanyPreview on AnimationCompany {
+  value
+  slug
+  totalComments
+  averageRating
+  image {
+    ...StrapiImage
+  }
+}
+
+fragment AnimationCompany on AnimationCompany {
+  value
+  slug
+  totalComments
+  averageRating
+  image {
+    ...StrapiImage
+  }
+  about
+  animators {
+    data {
+      attributes {
+        ...AnimatorPreview
+      }
+    }
+  }
+  complaintsNumber
+  employmentNumber
+  location
+  position {
+    lng
+    lat
+  }
+  socialLinks {
+    icon {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  vacancies {
+    title
+    text
+  }
+}
