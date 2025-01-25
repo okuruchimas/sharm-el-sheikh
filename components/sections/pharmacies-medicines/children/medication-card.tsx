@@ -93,7 +93,6 @@ const InfoWrap = styled("div")(({ theme }) => ({
 }));
 
 const GreyText = styled("div")(({ theme }) => ({
-  width: "max-content",
   fontSize: theme.fontSize.fontS16,
   color: theme.colors.grey,
 }));
