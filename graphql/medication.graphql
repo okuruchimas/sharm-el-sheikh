@@ -21,8 +21,8 @@ query GetMedicationsByFilter(
     filters: {
       medication_categories: { key: { in: $categories } }
       or: [
-        { name: { contains: $nameFilter } }
-        { slug: { contains: $nameFilter } }
+        { name: { containsi: $nameFilter } }
+        { analogs: { containsi: $nameFilter } }
       ]
     }
   ) {
@@ -45,9 +45,8 @@ query GetMedicationsNames($locale: I18NLocaleCode!, $nameFilter: String) {
     locale: $locale
     filters: {
       or: [
-        { name: { contains: $nameFilter } }
-        { slug: { contains: $nameFilter } }
-        { analogs: { contains: $nameFilter } }
+        { name: { containsi: $nameFilter } }
+        { analogs: { containsi: $nameFilter } }
       ]
     }
   ) {

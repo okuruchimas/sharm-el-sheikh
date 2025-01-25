@@ -193,7 +193,7 @@ const MedicationsContainer = ({
               title={el.name}
               price={el.price}
               category={
-                el.medication_categories?.data[0].attributes?.value || "-"
+                el.medication_categories?.data[0]?.attributes?.value || "-"
               }
               analogs={el.analogs || "-"}
               imgSrc={el?.image?.data?.attributes?.url || ""}
