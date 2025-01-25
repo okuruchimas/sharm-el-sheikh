@@ -1,10 +1,11 @@
 // components
 import Image from "next/image";
+import LinkIcon from "../../../layout/link-icon";
 import TextAndIcon from "../../../layout/text-and-icon";
 // utils
 import styled from "@emotion/styled";
+// types
 import type { KeyboardEvent } from "react";
-import LinkIcon from "../../../layout/link-icon";
 
 interface MedicationCardProps {
   title: string;
@@ -30,7 +31,7 @@ const MedicationCard = ({
   };
 
   return (
-    <Wrap>
+    <Wrap onKeyDown={handleKeyDown} onClick={onClick} tabIndex={0}>
       <StyledImage src={imgSrc} loading="lazy" height={265} width={266} />
       <InfoWrap>
         <div>
@@ -41,7 +42,7 @@ const MedicationCard = ({
           <Category>{category}</Category>
           <TextAndIcon src="/icons/cash.svg" text={price} />
         </Row>
-        <LinkIcon onClick={onClick} />
+        <LinkIcon />
       </InfoWrap>
     </Wrap>
   );
@@ -58,6 +59,7 @@ const Wrap = styled("div")(({ theme }) => ({
   position: "relative",
   boxShadow: theme.shadows[0],
   border: `1px solid ${theme.colors.blue5}`,
+  cursor: "pointer",
 }));
 
 const CardTitle = styled("h3")(({ theme }) => ({

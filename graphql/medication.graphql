@@ -47,6 +47,7 @@ query GetMedicationsNames($locale: I18NLocaleCode!, $nameFilter: String) {
       or: [
         { name: { contains: $nameFilter } }
         { slug: { contains: $nameFilter } }
+        { analogs: { contains: $nameFilter } }
       ]
     }
   ) {

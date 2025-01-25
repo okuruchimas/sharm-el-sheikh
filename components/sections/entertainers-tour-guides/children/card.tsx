@@ -1,3 +1,5 @@
+// hooks
+import { useRouter } from "next/router";
 // components
 import Flags from "../../../layout/flags";
 import Image from "next/image";
@@ -8,7 +10,7 @@ import TextAndIcon from "../../../layout/text-and-icon";
 import styled from "@emotion/styled";
 // types
 import type { ImageI } from "../../../types/images";
-import type { ReactNode } from "react";
+import type { KeyboardEvent, ReactNode } from "react";
 
 interface Props {
   slug: string;
@@ -35,8 +37,22 @@ const Card = ({
   averageRating,
   totalComments,
 }: Props) => {
+  const router = useRouter();
+
+  const handleCardClick = () => router.push(slug);
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter") {
+      handleCardClick();
+    }
+  };
+
   return (
-    <Wrap className="anime-card">
+    <Wrap
+      className="anime-card"
+      onKeyDown={handleKeyDown}
+      onClick={handleCardClick}
+    >
       <StyledImage src={imgSrc} loading="lazy" height={298} width={266} />
       {indicator ? indicator : null}
       <InfoWrap>
@@ -66,6 +82,7 @@ const Wrap = styled("div")(({ theme }) => ({
   borderRadius: 16,
   position: "relative",
   boxShadow: theme.shadows[0],
+  cursor: "pointer",
 }));
 
 const StyledImage = styled(Image)({

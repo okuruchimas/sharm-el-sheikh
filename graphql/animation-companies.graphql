@@ -8,7 +8,7 @@ query GetAnimationCompanies {
   }
 }
 
-query n($slug: String!, $locale: I18NLocaleCode!) {
+query GetAnimationCompany($slug: String!, $locale: I18NLocaleCode!) {
   animationCompanies(filters: { slug: { eq: $slug } }, locale: $locale) {
     data {
       attributes {

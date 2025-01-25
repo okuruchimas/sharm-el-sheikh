@@ -21,7 +21,7 @@ const LinkIcon = ({ href, onClick }: LinkIconProps) => {
       alt="Link"
       onClick={onClick}
       onKeyDown={handleKeyDown}
-      tabIndex={0}
+      tabIndex={onClick ? 0 : -1}
     />
   );
 };
