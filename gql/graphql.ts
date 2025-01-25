@@ -6561,7 +6561,7 @@ export const GetMedicationsByFilterDocument = new TypedDocumentString(`
   medications(
     locale: $locale
     pagination: {page: $page, pageSize: $pageSize}
-    filters: {medication_categories: {key: {in: $categories}}, or: [{name: {contains: $nameFilter}}, {slug: {contains: $nameFilter}}]}
+    filters: {medication_categories: {key: {in: $categories}}, or: [{name: {containsi: $nameFilter}}, {analogs: {containsi: $nameFilter}}]}
   ) {
     meta {
       pagination {
@@ -6604,7 +6604,7 @@ export const GetMedicationsNamesDocument = new TypedDocumentString(`
     query GetMedicationsNames($locale: I18NLocaleCode!, $nameFilter: String) {
   medications(
     locale: $locale
-    filters: {or: [{name: {contains: $nameFilter}}, {slug: {contains: $nameFilter}}, {analogs: {contains: $nameFilter}}]}
+    filters: {or: [{name: {containsi: $nameFilter}}, {analogs: {containsi: $nameFilter}}]}
   ) {
     data {
       id
