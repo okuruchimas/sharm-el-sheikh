@@ -75,7 +75,6 @@ const HotspotsPage = ({
         totalItems={totalClubs}
         initialClubs={initialClubs.map((el) => el.attributes)}
       />
-      <ClubOptionsTable />
       <Map
         title={mapTitle || ""}
         categories={[

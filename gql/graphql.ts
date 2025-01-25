@@ -6604,7 +6604,7 @@ export const GetMedicationsNamesDocument = new TypedDocumentString(`
     query GetMedicationsNames($locale: I18NLocaleCode!, $nameFilter: String) {
   medications(
     locale: $locale
-    filters: {or: [{name: {contains: $nameFilter}}, {slug: {contains: $nameFilter}}]}
+    filters: {or: [{name: {contains: $nameFilter}}, {slug: {contains: $nameFilter}}, {analogs: {contains: $nameFilter}}]}
   ) {
     data {
       id

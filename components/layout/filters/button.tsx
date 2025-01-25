@@ -20,12 +20,12 @@ const FilterButton = ({ onClick }: Props) => {
 
 export default FilterButton;
 
-const FilterButtonStyled = styled("button")(({ theme }) => ({
+const FilterButtonStyled = styled("button")({
   border: "none",
   background: "transparent",
   width: 56,
   height: 56,
   minWidth: 56,
   minHeight: 56,
-  [theme.breakpoints.mobile]: {},
-}));
+  cursor: "pointer",
+});

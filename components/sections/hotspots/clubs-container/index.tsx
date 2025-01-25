@@ -1,13 +1,16 @@
 // hooks
+import { useRouter } from "next/router";
 import useResponsive from "../../../../hooks/useResponsive";
 import useCompanyCard from "../../../../hooks/useCompanyCard";
 import { useTranslation } from "next-i18next";
 import { useEffect, useMemo, useState } from "react";
 // components
+import Button from "../../../layout/button";
 import Dropdown from "../../../layout/filters";
 import Pagination from "../../../layout/pagination";
 import Placeholder from "../../promotions/children/placeholder";
 import SectionWrapper from "../../../layout/section-wrapper";
+import ClubOptionsTable from "../table";
 // constants
 import { CLUBS } from "../../../../constants/page-company-categories";
 import { WEEK_DAYS } from "../../../../constants/week-days.constants";
@@ -48,6 +51,7 @@ const ClubsContainer = ({
 
   const { isMobile } = useResponsive();
   const { renderCard, renderDiscountPopup } = useCompanyCard(selectedDay);
+  const router = useRouter();
 
   const pageSize = useMemo(() => (isMobile ? 3 : 6), [isMobile]);
 
@@ -114,6 +118,9 @@ const ClubsContainer = ({
     });
   };
 
+  const handleFindAnimator = () =>
+    router.push("/entertainers-tour-guides/animators");
+
   return (
     <>
       <SectionWrapper
@@ -146,8 +153,17 @@ const ClubsContainer = ({
           totalItems={total}
           pageSize={pageSize}
         />
-        <InfoWrapper>{clubsInfo}</InfoWrapper>
       </SectionWrapper>
+      <Stack>
+        <ClubOptionsTable />
+        <FindAnimatorSection>
+          <Text>{clubsInfo}</Text>
+          <StyledButton
+            text={t("buttons.findAnimator")}
+            onClick={handleFindAnimator}
+          />
+        </FindAnimatorSection>
+      </Stack>
       {renderDiscountPopup()}
     </>
   );
@@ -165,15 +181,37 @@ const CardsWrapper = styled("div")(({ theme }) => ({
   },
 }));
 
-const InfoWrapper = styled("p")(({ theme }) => ({
-  width: "100%",
-  padding: "32px 16px",
-  backgroundColor: theme.colors.yellow2,
-  borderRadius: "16px",
+const Text = styled("p")(({ theme }) => ({
   fontSize: theme.fontSize.fontS24,
 
   [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS16,
-    padding: "24px 12px",
   },
+}));
+
+const Stack = styled("div")(({ theme }) => ({
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
+
+  [theme.breakpoints.mobile]: {
+    gap: "16px",
+  },
+}));
+
+const FindAnimatorSection = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  gap: "24px",
+
+  [theme.breakpoints.mobile]: {
+    gap: "8px",
+    flexDirection: "column",
+  },
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  textWrap: "nowrap",
 }));
