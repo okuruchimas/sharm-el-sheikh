@@ -68,6 +68,14 @@
     "feedbackError": "Fehler beim Hinzufügen des Kommentars",
     "feedbackSuccess": "Vielen Dank für Ihr Feedback"
   },
+  "animPopAp": {
+    "about": "Über uns",
+    "animators": "Animatoren, die mit uns arbeiten",
+    "vacancies": "Stellenangebote des Unternehmens",
+    "contacts": "Kontakte",
+    "employmentNumber": "Beschäftigungsnummer",
+    "complaintsNumber": "Beschwerden und Vorschläge"
+  },
   "validationErrors": {
     "alphabetic": "{{field}} darf nur alphabetische Zeichen und Leerzeichen enthalten",
     "email": "Ungültige E-Mail-Adresse",

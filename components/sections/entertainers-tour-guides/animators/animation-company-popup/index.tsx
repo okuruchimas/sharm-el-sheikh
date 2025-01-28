@@ -94,10 +94,6 @@ const AnimationCompanyPopup = ({
     });
   };
 
-  useEffect(() => {
-    console.log(fullData, "fullData");
-  }, [fullData]);
-
   return (
     <Wrapper>
       <TopSection>
