@@ -1,0 +1,16 @@
+{
+  "feedbackForm": {
+    "feedbackForm": "Feedback-Formular",
+    "formError": "E-Mail konnte nicht gesendet werden",
+    "formSuccess": "E-Mail erfolgreich zugestellt!",
+    "internationalForm": "Formular für internationale Zusammenarbeit",
+    "labels": {
+      "companyName": "Firmenname",
+      "country": "Land",
+      "countryLocation": "Standortland*",
+      "message": "Nachricht",
+      "name": "Name"
+    },
+    "localBusinessForm": "Formular für lokale Geschäftszusammenarbeit"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "categories": {
+    "assistance_services": "Servizi di Assistenza",
+    "embassies": "Ambasciate dei Paesi",
+    "emergency_services": "Servizi di Emergenza"
+  },
+  "contraindications": "Controindicazioni",
+  "dosage": "Dosaggio",
+  "indications": "Indicazioni",
+  "sideEffects": "Effetti Collaterali",
+  "showOnMap": "Mostra sulla Mappa",
+  "storage": "Conservazione",
+  "warnings": "Avvertenze"
+}

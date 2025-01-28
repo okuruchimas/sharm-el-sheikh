@@ -6,14 +6,12 @@ import { useRouter } from "next/router";
 // utils
 import styled from "@emotion/styled";
 
-type LocaleMapping = {
-  [key: string]: string;
-};
-
 enum localeMapping {
   en = "en",
   uk = "ua",
   "ar-EG" = "ar",
+  de = "de",
+  it = "it",
 }
 
 type LanguageSelectorProps = {

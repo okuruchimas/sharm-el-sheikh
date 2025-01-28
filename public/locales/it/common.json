@@ -1,0 +1,90 @@
+{
+  "404": "Pagina non trovata",
+  "buttons": {
+    "back": "Indietro",
+    "cancel": "Annulla",
+    "contactUs": "Contattaci",
+    "findAnimator": "Trova un Animatore",
+    "more": "Altro",
+    "save": "Salva",
+    "viewMore": "Vedi altro"
+  },
+  "days": {
+    "mon": "Lun",
+    "tue": "Mar",
+    "wed": "Mer",
+    "thu": "Gio",
+    "fri": "Ven",
+    "sat": "Sab",
+    "sun": "Dom",
+    "monday": "Lunedì",
+    "tuesday": "Martedì",
+    "wednesday": "Mercoledì",
+    "thursday": "Giovedì",
+    "friday": "Venerdì",
+    "saturday": "Sabato",
+    "sunday": "Domenica"
+  },
+  "labels": {
+    "all": "Tutti",
+    "description": "Descrizione",
+    "email": "Email",
+    "location": "Posizione",
+    "phone": "Telefono",
+    "price": "Prezzo",
+    "searchByName": "Cerca per nome"
+  },
+  "noDiscounts": "Attualmente nessuno sconto disponibile",
+  "reviewForm": {
+    "categories": {
+      "cleanliness": "Pulizia",
+      "communication": "Comunicazione",
+      "food": "Cibo",
+      "price": "Prezzo",
+      "professionalism": "Professionalità",
+      "programQuality": "Qualità del programma",
+      "quality": "Qualità",
+      "service": "Servizio"
+    },
+    "noReviews": "Attualmente non ci sono recensioni. Sii il primo a condividere la tua esperienza!",
+    "review": "Recensione",
+    "sendButton": "Invia",
+    "yourReview": "La tua recensione"
+  },
+  "text": {
+    "about": "Informazioni",
+    "discountTerms": "Termini dello sconto:",
+    "entertainersTourGuides": "Animatori & Guide Turistiche",
+    "findAnimatorForTicket": "Trova un Animatore per Acquistare il Biglietto",
+    "food": "Cibo:",
+    "languagesSpoken": "Lingue Parlate",
+    "reviews": "Recensioni",
+    "howRateEstablishment": "Come valuteresti questa struttura?",
+    "selectDay": "Seleziona il giorno",
+    "similarSuggestions": "Suggerimenti simili",
+    "workingDays": "Giorni lavorativi"
+  },
+  "toasts": {
+    "feedbackError": "Errore nell'aggiungere il commento",
+    "feedbackSuccess": "Grazie per il tuo feedback"
+  },
+  "validationErrors": {
+    "alphabetic": "{{field}} può contenere solo caratteri alfabetici e spazi",
+    "email": "Indirizzo email non valido",
+    "max": "{{field}} è troppo lungo - massimo {{max}} caratteri.",
+    "min": "{{field}} è troppo corto - minimo {{min}} caratteri.",
+    "phoneNumber": "Il numero di telefono può contenere solo numeri",
+    "required": "{{field}} è obbligatorio"
+  },
+  "clubTable": {
+    "title": "Come entrare nel Club: Due Opzioni",
+    "tableHead1": "Acquista il Biglietto tramite l'Animatore",
+    "tableHead2": "Acquista il Biglietto all'Ingresso del Club",
+    "tableTitle1": "Trasferimento da e per il club",
+    "tableTitle2": "Biglietto del club",
+    "tableTitle3": "Un cocktail gratuito",
+    "tableTitle4": "Il tuo gruppo iniziale nel club",
+    "tableTitle5": "Animatore per varie domande",
+    "findTaxi": "Trova un Taxi"
+  }
+}

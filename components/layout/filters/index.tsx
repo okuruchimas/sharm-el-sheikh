@@ -65,14 +65,14 @@ const Dropdown = ({
         ) : (
           <>
             <Text color={color}>
-              {currentObj.iconSrc ? (
+              {currentObj?.iconSrc ? (
                 <NextImage
                   src={currentObj.iconSrc}
                   width="18px"
                   height="18px"
                 />
               ) : null}
-              {currentObj.value}
+              {currentObj?.value}
             </Text>
             <Arrow
               src={"/icons/promotions-section/arrow-down.svg"}
