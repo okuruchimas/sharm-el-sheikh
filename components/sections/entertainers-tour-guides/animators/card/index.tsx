@@ -4,8 +4,9 @@ import type { AnimatorPreviewFragment } from "../../../../../gql/graphql";
 
 type AnimatorCardProps = {
   animator: AnimatorPreviewFragment;
+  size?: string;
 };
-const AnimatorCard = ({ animator }: AnimatorCardProps) => {
+const AnimatorCard = ({ animator, size }: AnimatorCardProps) => {
   const flags = animator.languages?.data.map((el) => ({
     src: el.attributes?.flagIcon.data?.attributes?.url || "",
     alt: el.attributes?.value || "",
@@ -22,6 +23,7 @@ const AnimatorCard = ({ animator }: AnimatorCardProps) => {
 
   return (
     <Card
+      size={size}
       slug={`/entertainers-tour-guides/animators/${animator.slug}`}
       title={animator.name}
       imgSrc={animator?.profileImg?.data?.attributes?.url || ""}

@@ -28,7 +28,7 @@ import {
 type Cards = (CompanyPreviewFragment | undefined | null)[] | undefined;
 
 type MapProps = {
-  title: string;
+  title?: string;
   categories: selectOption[];
 };
 

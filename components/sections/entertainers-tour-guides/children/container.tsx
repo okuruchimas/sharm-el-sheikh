@@ -12,12 +12,19 @@ const Container = ({ children }: Props) => {
 
   return (
     <Wrap>
-      <Title>{t("pageTitle")}</Title>
-      <Tabs />
+      <StyledTitle>{t("pageTitle")}</StyledTitle>
       {children}
     </Wrap>
   );
 };
+
+const StyledTitle = styled(Title)(({ theme }) => ({
+  marginBottom: 40,
+
+  [theme.breakpoints.mobile]: {
+    marginBottom: 24,
+  },
+}));
 
 const Wrap = styled("div")(({ theme }) => ({
   minHeight: "100vh",

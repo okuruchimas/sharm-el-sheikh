@@ -7,7 +7,11 @@ interface Props {
   averageRating: number;
   totalComments: number;
 }
-const TitleRating = ({ title, averageRating, totalComments }: Props) => {
+const TitleRating = ({
+  title,
+  averageRating = 0,
+  totalComments = 0,
+}: Props) => {
   return (
     <Wrap>
       <CardTitle>{title}</CardTitle>
@@ -27,6 +31,9 @@ const CardTitle = styled("h3")(({ theme }) => ({
   fontSize: theme.fontSize.fontS24,
   color: theme.colors.blue,
   margin: "0",
+  overflow: "hidden",
+  whiteSpace: "nowrap",
+  textOverflow: "ellipsis",
 
   [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS16,

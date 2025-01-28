@@ -5,7 +5,7 @@ import { Title } from "../title";
 
 interface Props {
   children: View;
-  title: string;
+  title?: string;
   titleChildren?: View;
   isColumn?: boolean;
 }
@@ -17,10 +17,12 @@ const SectionWrapper = ({
 }: Props) => {
   return (
     <Wrapper>
-      <TitleWrap isColumn={!!isColumn}>
-        <Title as="h2">{title}</Title>
-        {titleChildren ? titleChildren : null}
-      </TitleWrap>
+      {title || titleChildren ? (
+        <TitleWrap isColumn={!!isColumn}>
+          {title ? <Title as="h2">{title}</Title> : null}
+          {titleChildren ? titleChildren : null}
+        </TitleWrap>
+      ) : null}
       {children}
     </Wrapper>
   );

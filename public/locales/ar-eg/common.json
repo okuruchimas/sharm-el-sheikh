@@ -67,6 +67,14 @@
     "feedbackError": "حدث خطأ أثناء إضافة التعليق",
     "feedbackSuccess": "شكرا لتعليقاتك"
   },
+  "animPopAp": {
+    "about": "حول",
+    "animators": "الرسامون الذين يعملون معنا",
+    "vacancies": "وظائف الشركة",
+    "contacts": "جهات الاتصال",
+    "employmentNumber": "رقم التوظيف",
+    "complaintsNumber": "الشكاوى والاقتراحات"
+  },
   "validationErrors": {
     "alphabetic": "يقدر يحتوي بس على حروف ومسافات {{field}}",
     "email": "البريد الإلكتروني غير صالح",
