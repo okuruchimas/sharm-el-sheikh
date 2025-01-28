@@ -8,6 +8,7 @@ import AnimationCompanyPopup from "../animation-company-popup";
 import styled from "@emotion/styled";
 // types
 import type { AnimationCompanyPreviewFragment } from "../../../../../gql/graphql";
+import { Title } from "../../../../layout/title";
 
 type AnimationCompaniesProps = {
   companies: AnimationCompanyPreviewFragment[];
@@ -23,7 +24,8 @@ const AnimationCompanies = ({ companies }: AnimationCompaniesProps) => {
   const handlePopupClose = () => setSelectedCompany(undefined);
 
   return (
-    <>
+    <Wrapper>
+      <Title>Animation Companies</Title>
       <CardsWrapper>
         {companies.map((el) => (
           <AnimationCompanyCard
@@ -51,14 +53,24 @@ const AnimationCompanies = ({ companies }: AnimationCompaniesProps) => {
           />
         </Modal>
       ) : null}
-    </>
+    </Wrapper>
   );
 };
 
 export default AnimationCompanies;
 
+const Wrapper = styled("div")(({ theme }) => ({
+  margin: "80px 0 0 ",
+  display: "flex",
+  flexDirection: "column",
+  gap: 40,
+  width: "100%",
+  [theme.breakpoints.mobile]: {
+    gap: 24,
+  },
+}));
+
 const CardsWrapper = styled("div")(({ theme }) => ({
-  // TODO: fix styles
   width: "100%",
   display: "grid",
   gridTemplateColumns: "repeat(4, 1fr)",

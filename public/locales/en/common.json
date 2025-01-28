@@ -68,6 +68,14 @@
     "feedbackError": "Error adding comment",
     "feedbackSuccess": "Thank you for your feedback"
   },
+  "animPopAp": {
+    "about": "About",
+    "animators": "Animators who works with us",
+    "vacancies":"Company vacancies",
+    "contacts":"Contacts",
+    "employmentNumber": "Employment number",
+    "complaintsNumber": "Complaints and suggestions"
+  },
   "validationErrors": {
     "alphabetic": "{{field}} can only contain alphabetic characters and spaces",
     "email": "Invalid email address",

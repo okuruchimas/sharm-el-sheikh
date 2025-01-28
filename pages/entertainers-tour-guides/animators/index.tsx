@@ -17,13 +17,63 @@ import Dropdown from "../../../components/layout/filters";
 import Container from "../../../components/sections/entertainers-tour-guides/children/container";
 import Pagination from "../../../components/layout/pagination";
 import AnimatorCards from "../../../components/sections/entertainers-tour-guides/animators/cards";
-// import AnimationCompanies from "../../../components/sections/entertainers-tour-guides/animators/animation-companies";
+import AnimationCompanies from "../../../components/sections/entertainers-tour-guides/animators/animation-companies";
 // utils
 import styled from "@emotion/styled";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 // types
 import type { selectOption } from "../../../components/types/filter";
+import { Title } from "../../../components/layout/title";
+import Map from "../../../components/sections/home/map";
+import Tabs from "../../../components/sections/entertainers-tour-guides/children/tabs";
+
+const cat = [
+  {
+    key: "pharmacy***clubs***restaurants***supermarket***shops",
+    value: "Усі",
+  },
+  {
+    key: "pharmacy",
+    value: "Аптеки",
+    iconSrc:
+      "https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/pharmacy_79ee9e5bb4.svg",
+    markerIcon:
+      "https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/pharmacy_marker_deea5dae67.svg",
+  },
+  {
+    key: "clubs",
+    value: "Clubs",
+    iconSrc:
+      "https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/shops_c5f2c42dfa.svg",
+    markerIcon:
+      "https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/restaurants_marker_3223cd0ad9.svg",
+  },
+  {
+    key: "restaurants",
+    value: "Restaurants",
+    iconSrc:
+      "https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/restaurants_ca02f1a187.svg",
+    markerIcon:
+      "https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/restaurants_marker_3223cd0ad9.svg",
+  },
+  {
+    key: "supermarket",
+    value: "Супермаркет",
+    iconSrc:
+      "https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/Supermarket_a455414d09.svg",
+    markerIcon:
+      "https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/supermarket_marker_89ff3f46a0.svg",
+  },
+  {
+    key: "shops",
+    value: "Магазини",
+    iconSrc:
+      "https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/shops_c5f2c42dfa.svg",
+    markerIcon:
+      "https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/shops_marker_6ed83042bc.svg",
+  },
+];
 
 type Animators = { attributes: AnimatorPreviewFragment }[];
 type PageProps = {
@@ -126,10 +176,11 @@ const Animators = ({
 
   return (
     <Container>
-      {/*TODO*/}
-      {/*<AnimationCompanies*/}
-      {/*  companies={animationCompanies.map((el) => el.attributes)}*/}
-      {/*/>*/}
+      <Map categories={cat} />
+      <AnimationCompanies
+        companies={animationCompanies.map((el) => el.attributes)}
+      />
+      <Tabs />
       <FiltersWrap>
         <Dropdown
           options={[

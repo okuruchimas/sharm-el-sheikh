@@ -68,6 +68,14 @@
     "feedbackError": "Помилка додавання коментаря",
     "feedbackSuccess": "Дякуємо за відгук"
   },
+  "animPopAp": {
+    "about": "Про нас",
+    "animators": "Аніматори, які працюють з нами",
+    "vacancies": "Вакансії компанії",
+    "contacts": "Контакти",
+    "employmentNumber": "Номер для працевлаштування",
+    "complaintsNumber": "Скарги та пропозиції"
+  },
   "validationErrors": {
     "alphabetic": "{{field}} може містити лише літери та пробіли",
     "email": "Некоректна електронна адреса",

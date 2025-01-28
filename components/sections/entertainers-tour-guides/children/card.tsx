@@ -23,6 +23,7 @@ interface Props {
   flagIcons: ImageI[];
   averageRating: number;
   totalComments: number;
+  size?: string;
 }
 
 const Card = ({
@@ -36,6 +37,7 @@ const Card = ({
   indicator,
   averageRating,
   totalComments,
+  size,
 }: Props) => {
   const router = useRouter();
 
@@ -66,7 +68,7 @@ const Card = ({
         <FlagsWrapper>
           <Flags icons={flagIcons} />
         </FlagsWrapper>
-        <LinkIcon href={slug} />
+        {size === "s" ? null : <LinkIcon href={slug} />}
       </InfoWrap>
     </Wrap>
   );

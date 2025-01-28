@@ -5,7 +5,7 @@ import {
 } from "../../../../../gql/graphql";
 // hooks
 import { useTranslation } from "next-i18next";
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 // utils
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
@@ -19,6 +19,10 @@ import Loader from "../../../../layout/loader";
 import StarReview from "../../../company/review/children/star-review";
 import LocationLink from "../../../../layout/location-link";
 import SocialIcon from "../../../../layout/social-icon";
+import { Title } from "../../../../layout/title";
+import { Arrow } from "../../../../layout/header/children/language-selector";
+import VacancyItem from "./vacancy-item";
+import FullData from "./full-data";
 // constants
 // types
 
@@ -90,6 +94,10 @@ const AnimationCompanyPopup = ({
     });
   };
 
+  useEffect(() => {
+    console.log(fullData, "fullData");
+  }, [fullData]);
+
   return (
     <Wrapper>
       <TopSection>
@@ -100,57 +108,37 @@ const AnimationCompanyPopup = ({
             layout="fill"
           />
         </ImgWrapper>
-        <Stack>
-          <RowStack marginBottom="24px">
-            <Name>{companyPreview.value}</Name>
+
+        <InfoWrap>
+          <NameWrap>
+            <Name as="h2">{companyPreview.value}</Name>
             <RatingWrapper>
               <Rating
                 points={companyPreview.averageRating}
                 users={companyPreview.totalComments}
               />
             </RatingWrapper>
-          </RowStack>
-        </Stack>
-      </TopSection>
-      {fullData?.slug ? (
-        <>
-          <Stack gap="24px" mGap="16px" fallDown>
-            <Location>
-              <LocationLink
-                iconSize="36px"
-                iconSizeMobile="30px"
-                text={fullData?.location || "-"}
-                position={fullData?.position}
-              />
-            </Location>
-            <Title>{t("text.about")}</Title>
-            <Text>{fullData?.about}</Text>
-            <Title>employmentNumber</Title>
-            <Text>{fullData?.employmentNumber}</Text>
-            <Title>complaintsNumber</Title>
-            <Text>{fullData?.complaintsNumber}</Text>
-            <IconsWrapper>
-              {fullData.socialLinks?.map((el, index) => (
-                <SocialIcon
-                  key={index}
-                  iconSrc={el?.icon.data?.attributes?.url || ""}
-                  iconAlt={el?.icon.data?.attributes?.alternativeText || ""}
-                  socialLink={el?.socialLink || ""}
-                />
-              ))}
-            </IconsWrapper>
-          </Stack>
-        </>
-      ) : (
-        <Loader />
-      )}
+          </NameWrap>
 
-      <Stack gap="24px" mGap="16px">
-        <div>
-          <Title marginBottom="8px">{t("text.howRateEstablishment")}</Title>
-          <StarReview stars={stars} onChange={setStars} disabled={isDisabled} />
-        </div>
-      </Stack>
+          <Location>
+            <LocationLink
+              iconSize="36px"
+              iconSizeMobile="30px"
+              text={fullData?.location || "-"}
+              position={fullData?.position}
+              fontSizeMobile="18px"
+            />
+          </Location>
+        </InfoWrap>
+      </TopSection>
+
+      {fullData?.slug ? <FullData fullData={fullData} /> : <Loader />}
+
+      <Section>
+        <SectionTitle>{t("text.howRateEstablishment")}</SectionTitle>
+        <StarReview stars={stars} onChange={setStars} disabled={isDisabled} />
+      </Section>
+
       <SaveButton
         text={t("buttons.save")}
         onClick={handleSave}
@@ -164,14 +152,57 @@ const AnimationCompanyPopup = ({
 
 export default AnimationCompanyPopup;
 
-const fallDownKF = keyframes`
-    0% { transform: translateY(-20%); opacity: 0 }
-    50% { transform: translateY(-10%); opacity: 0.2 }
-    100% { transform: translateY(0); opacity: 1}
-`;
+const Wrapper = styled("div")(({ theme }) => ({
+  backgroundColor: theme.colors.white,
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  gap: 40,
+  minHeight: "890px",
+  position: "relative",
+
+  [theme.breakpoints.mobile]: {
+    gap: 24,
+  },
+}));
+
+const NameWrap = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "100%",
+}));
+
+const InfoWrap = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: 24,
+  width: "calc(100% - 184px)",
+
+  [theme.breakpoints.mobile]: {
+    width: "100%",
+  },
+}));
+
+export const Section = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: 16,
+
+  [theme.breakpoints.mobile]: {
+    gap: 8,
+  },
+}));
+
+export const SectionTitle = styled(Title)(({ theme }) => ({
+  fontSize: theme.fontSize.fontS32,
+  fontWeight: 700,
+
+  [theme.breakpoints.mobile]: {},
+}));
 
 const Location = styled("div")(({ theme }) => ({
-  // TODO: fix styles
   maxWidth: "max-content",
 
   ".icon-text": {
@@ -184,23 +215,7 @@ const Location = styled("div")(({ theme }) => ({
   },
 }));
 
-const Wrapper = styled("div")(({ theme }) => ({
-  // TODO: fix styles
-  backgroundColor: theme.colors.white,
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-  gap: "24px",
-  minHeight: "890px",
-  position: "relative",
-
-  [theme.breakpoints.mobile]: {
-    gap: "16px",
-  },
-}));
-
 const BackButton = styled(Button)(({ theme }) => ({
-  // TODO: fix styles
   alignSelf: "end",
 
   [theme.breakpoints.mobile]: {
@@ -213,7 +228,6 @@ const BackButton = styled(Button)(({ theme }) => ({
 }));
 
 const SaveButton = styled(Button)(({ theme }) => ({
-  // TODO: fix styles
   position: "absolute",
   bottom: 0,
   left: 0,
@@ -224,47 +238,17 @@ const SaveButton = styled(Button)(({ theme }) => ({
 }));
 
 const TopSection = styled("div")(({ theme }) => ({
-  // TODO: fix styles
-  display: "grid",
-  gridTemplateColumns: "340px 1fr",
+  display: "flex",
+  flexDirection: "row",
   gap: "24px",
 
   [theme.breakpoints.mobile]: {
     gap: "16px",
-    gridTemplateColumns: "1fr",
+    flexDirection: "column",
   },
 }));
 
-const Stack = styled("div", {
-  shouldForwardProp: (prop) => !["gap", "fallDown", "mGap"].includes(prop),
-})<{ gap?: string; fallDown?: boolean; mGap?: string }>(
-  ({ theme, gap, fallDown, mGap }) => ({
-    // TODO: fix styles
-    display: "flex",
-    flexDirection: "column",
-    gap: gap || "16px",
-
-    ...(fallDown ? { animation: `${fallDownKF} 0.3s linear` } : {}),
-
-    [theme.breakpoints.mobile]: {
-      gap: mGap || "8px",
-    },
-  }),
-);
-
-const RowStack = styled("div", {
-  shouldForwardProp: (prop) => !["gap", "marginBottom"].includes(prop),
-})<{ gap?: string; marginBottom?: string }>(({ gap, marginBottom }) => ({
-  // TODO: fix styles
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  gap: gap || "8px",
-  marginBottom: marginBottom || "0",
-}));
-
 const ImgWrapper = styled("div")(({ theme }) => ({
-  // TODO: fix styles
   position: "relative",
   width: "160px",
   height: "160px",
@@ -281,47 +265,16 @@ const ImgWrapper = styled("div")(({ theme }) => ({
   },
 }));
 
-const Title = styled("h2", {
-  // TODO: fix styles
-  shouldForwardProp: (prop) => prop !== "marginBottom",
-})<{ marginBottom?: string }>(({ theme, marginBottom }) => ({
-  fontSize: theme.fontSize.fontS32,
-  fontWeight: 700,
-  color: theme.colors.blue,
-  marginBottom: marginBottom || "0",
-
-  [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS24,
-  },
-}));
-
-const Text = styled("p", {
-  // TODO: fix styles
-  shouldForwardProp: (prop) => prop !== "fontWeight",
-})<{ fontWeight?: string }>(({ theme, fontWeight }) => ({
-  fontSize: theme.fontSize.fontS21,
-  fontWeight: fontWeight || 400,
-  lineHeight: 1.5,
-
-  [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS16,
-  },
-}));
-
 const Name = styled(Title)(({ theme }) => ({
-  // TODO: fix styles
   fontSize: theme.fontSize.fontS40,
-  width: "100%",
-  marginTop: "10px",
+  fontWeight: 700,
 
   [theme.breakpoints.mobile]: {
-    marginTop: "0",
     fontSize: theme.fontSize.fontS28,
   },
 }));
 
 const RatingWrapper = styled("div")(({ theme }) => ({
-  // TODO: fix styles
   span: {
     fontSize: theme.fontSize.fontS24,
 
@@ -330,14 +283,3 @@ const RatingWrapper = styled("div")(({ theme }) => ({
     },
   },
 }));
-
-const IconsWrapper = styled("div")({
-  // TODO: fix styles
-  display: "flex",
-  gap: "24px",
-
-  img: {
-    width: "40px",
-    height: "40px",
-  },
-});

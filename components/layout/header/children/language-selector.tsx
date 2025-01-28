@@ -145,7 +145,7 @@ const ListItem = styled("span", {
   },
 }));
 
-const Arrow = styled("img", {
+export const Arrow = styled("img", {
   shouldForwardProp: (prop) => prop !== "menuVisible",
 })<{ menuVisible: boolean }>(({ menuVisible }) => ({
   transition: "0.3s",

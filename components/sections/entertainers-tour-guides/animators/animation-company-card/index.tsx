@@ -42,26 +42,26 @@ const AnimationCompanyCard = ({
 };
 
 const Wrap = styled("div")(({ theme }) => ({
-  // TODO: fix styles
   display: "flex",
   flexDirection: "column",
   minHeight: "317px",
   width: "100%",
   background: theme.colors.white,
   borderRadius: 16,
+  border: "1px solid",
+  borderColor: theme.colors.blue5,
   boxShadow: theme.shadows[0],
   overflow: "hidden",
 }));
 
 const ImageWrapper = styled("div")({
-  // TODO: fix styles
   height: "70%",
   minHeight: "70%",
   position: "relative",
 });
 
-const InfoWrap = styled("div")({
-  // TODO: fix styles
+const InfoWrap = styled("div")(({ theme }) => ({
+  borderTop: `1px solid ${theme.colors.blue5}`,
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
@@ -69,6 +69,6 @@ const InfoWrap = styled("div")({
   padding: "16px",
   height: "30%",
   maxHeight: "30%",
-});
+}));
 
 export default AnimationCompanyCard;
