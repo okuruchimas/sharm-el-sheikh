@@ -1,0 +1,16 @@
+{
+  "feedbackForm": {
+    "feedbackForm": "Modulo di feedback",
+    "formError": "Invio email non riuscito",
+    "formSuccess": "Email inviata con successo!",
+    "internationalForm": "Modulo per la collaborazione internazionale",
+    "labels": {
+      "companyName": "Nome dell'azienda",
+      "country": "Paese",
+      "countryLocation": "Paese di ubicazione*",
+      "message": "Messaggio",
+      "name": "Nome"
+    },
+    "localBusinessForm": "Modulo per la collaborazione con aziende locali"
+  }
+}

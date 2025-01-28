@@ -1,0 +1,53 @@
+{
+  "animationCompanies": "Agenzie di animazione",
+  "buttons": {
+    "nearestAnimator": "Animatore più vicino"
+  },
+  "filters": {
+    "fewestReviews": "Meno recensioni",
+    "highestRating": "Valutazione più alta",
+    "lowestRating": "Valutazione più bassa",
+    "mostReviews": "Più recensioni"
+  },
+  "labels": {
+    "from": "Da",
+    "to": "A"
+  },
+  "pageTitle": "Ingaggia le migliori guide ed intrattenitori per rendere ogni viaggio e serata indimenticabili!",
+  "photographer": {
+    "photographyStyles": "Stili fotografici",
+    "reviewFormTitle": "Come valuteresti questo fotografo?"
+  },
+  "placeholders": {
+    "noDrivers": "Nessun autista trovato",
+    "noAnimators": "Nessun animatore trovato",
+    "noPhotographers": "Nessun fotografo trovato",
+    "noTourOperators": "Nessun operatore turistico trovato"
+  },
+  "selectTime": "Seleziona orario",
+  "sortBy": "Ordina per",
+  "tabs": {
+    "animators": "Animatori",
+    "photographers": "Fotografi",
+    "taxiDrivers": "Autisti di taxi",
+    "tourOperators": "Operatori turistici e guide"
+  },
+  "taxiFilterForm": {
+    "availability": "Disponibilità",
+    "availableNow": "Disponibile ora",
+    "availableLater": "Disponibile in un altro momento",
+    "carClass": "Classe dell'auto",
+    "languagesSpoken": "Lingue parlate dal conducente",
+    "otherLanguages": "Altre lingue"
+  },
+  "tourGuide": {
+    "reviewFormTitle": "Come valuteresti questo operatore turistico?",
+    "tours": "Tour"
+  },
+  "tourGuidesFilters": {
+    "otherLocation": "Altra posizione",
+    "otherStyle": "Altro stile",
+    "photographyStyles": "Stili fotografici",
+    "workLocations": "Luoghi di lavoro"
+  }
+}

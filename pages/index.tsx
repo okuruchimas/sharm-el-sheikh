@@ -150,7 +150,7 @@ export async function getStaticProps({ locale }: any) {
 
   const { companies } = await fetchData(GetCompaniesByFilterDocument, {
     locale,
-    areaKey: areas?.data[0].attributes?.key,
+    areaKey: areas?.data[0]?.attributes?.key,
     page: 1,
     pageSize: 3,
     discountFilter: { title: { ne: null } },

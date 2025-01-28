@@ -1,0 +1,13 @@
+{
+  "contactDriver": "*Puoi pianificare il tuo viaggio in anticipo contattando il conducente",
+  "passenger": "Passeggero",
+  "passengers": "Passeggeri",
+  "preferences": "Preferenze",
+  "reviewFormTitle": "Come valuteresti questo tassista?",
+  "taxiDrivers": "Autisti di taxi",
+  "taxiStatus": {
+    "available": "Disponibile",
+    "doesntWork": "Non funziona",
+    "notAvailable": "Non disponibile"
+  }
+}
