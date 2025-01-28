@@ -64,6 +64,14 @@
     "similarSuggestions": "Suggerimenti simili",
     "workingDays": "Giorni lavorativi"
   },
+  "animPopAp": {
+    "about": "Chi siamo",
+    "animators": "Animatori che lavorano con noi",
+    "vacancies": "Offerte di lavoro dell'azienda",
+    "contacts": "Contatti",
+    "employmentNumber": "Numero per l'impiego",
+    "complaintsNumber": "Reclami e suggerimenti"
+  },
   "toasts": {
     "feedbackError": "Errore nell'aggiungere il commento",
     "feedbackSuccess": "Grazie per il tuo feedback"
