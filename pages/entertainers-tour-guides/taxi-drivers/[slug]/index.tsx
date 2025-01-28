@@ -25,11 +25,10 @@ import { REVALIDATE_TIME } from "../../../../constants/page.constants";
 import styled from "@emotion/styled";
 import { addComment } from "../../../../utils/add-comment";
 import { fetchData } from "../../../../utils/fetchApi";
+import { getLocalizedPaths } from "../../../../utils/get-loocalized-paths";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // styles
 import "react-toastify/dist/ReactToastify.css";
-// config
-import nextI18NextConfig from "../../../../next-i18next.config";
 
 interface Props {
   taxiDriver: TaxiDriver;
@@ -173,14 +172,7 @@ const SuggestionsWrapper = styled("div")(({ theme }) => ({
 export async function getStaticPaths() {
   const { taxiDrivers } = await fetchData(GetDriversSlugsDocument);
 
-  const locales = nextI18NextConfig.i18n.locales;
-
-  const paths = taxiDrivers?.data.flatMap((el) => {
-    return locales.map((locale) => ({
-      params: { slug: el?.attributes?.slug || "" },
-      locale,
-    }));
-  });
+  const paths = getLocalizedPaths(taxiDrivers);
 
   return {
     paths,

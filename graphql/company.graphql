@@ -49,6 +49,14 @@ query GetCompaniesSlugs($category: [String]) {
     data {
       attributes {
         slug
+        locale
+        localizations {
+          data {
+            attributes {
+              locale
+            }
+          }
+        }
       }
     }
   }

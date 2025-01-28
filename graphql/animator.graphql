@@ -95,6 +95,14 @@ query GetAnimatorsSlugs {
     data {
       attributes {
         slug
+        locale
+        localizations {
+          data {
+            attributes {
+              locale
+            }
+          }
+        }
       }
     }
   }

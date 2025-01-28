@@ -27,11 +27,10 @@ import SectionsWrapper from "../../components/layout/sections-wrapper";
 import styled from "@emotion/styled";
 import { addComment } from "../../utils/add-comment";
 import { fetchData } from "../../utils/fetchApi";
+import { getLocalizedPaths } from "../../utils/get-loocalized-paths";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // styles
 import "react-toastify/dist/ReactToastify.css";
-// config
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import nextI18NextConfig from "../../next-i18next.config";
 
 interface Props {
   card: CompanyFragment;
@@ -242,21 +241,13 @@ export async function getStaticPaths() {
     category: PAGE_CATEGORIES,
   });
 
-  const locales = nextI18NextConfig.i18n.locales;
-
-  const paths = companies?.data.flatMap((el) => {
-    return locales.map((locale) => ({
-      params: { slug: el?.attributes?.slug || "" },
-      locale,
-    }));
-  });
+  const paths = getLocalizedPaths(companies);
 
   return {
-    paths: paths,
+    paths,
     fallback: false,
   };
 }
-
 export async function getStaticProps({ params, locale }: any) {
   const { slug: slugP } = params;
 
