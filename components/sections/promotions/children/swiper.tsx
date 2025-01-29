@@ -14,6 +14,7 @@ import "swiper/css/autoplay";
 
 type SwiperProps = Pick<CompanyFragment, "images"> & {
   discount?: string;
+  onOpenDiscount: () => void;
 };
 
 const SwiperButtons = () => {
@@ -37,7 +38,7 @@ const SwiperButtons = () => {
   );
 };
 
-const ImageSwiper = ({ images, discount }: SwiperProps) => {
+const ImageSwiper = ({ images, discount, onOpenDiscount }: SwiperProps) => {
   return (
     <Wrapper
       slidesPerView={"auto"}
@@ -51,7 +52,9 @@ const ImageSwiper = ({ images, discount }: SwiperProps) => {
       modules={[Autoplay, Navigation]}
     >
       {images?.data.length > 1 ? <SwiperButtons /> : null}
-      {discount ? <Promotion>{discount}</Promotion> : null}
+      {discount ? (
+        <Promotion onClick={onOpenDiscount}>{discount}</Promotion>
+      ) : null}
       {images?.data
         ? images.data.map((el, index) => (
             <Slide key={index}>
