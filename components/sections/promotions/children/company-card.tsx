@@ -8,6 +8,7 @@ import styled from "@emotion/styled";
 // types
 import type { KeyboardEvent } from "react";
 import type { CompanyPreviewFragment } from "../../../../gql/graphql";
+import { width } from "@mui/system";
 
 type CompanyCardProps = Pick<
   CompanyPreviewFragment,
@@ -37,8 +38,8 @@ const CompanyCard = ({
   onOpenDiscount,
 }: CompanyCardProps) => {
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter" && handleClick) {
-      handleClick();
+    if (event.key === "Enter" && onOpenDiscount) {
+      onOpenDiscount();
     }
   };
 
@@ -46,11 +47,7 @@ const CompanyCard = ({
     <Wrap>
       <SwiperWrapper>
         {images ? (
-          <Swiper
-            images={images}
-            discount={discount?.title}
-            onOpenDiscount={onOpenDiscount}
-          />
+          <Swiper images={images} discount={discount?.title} />
         ) : (
           <Image
             src="/images/background/background-prom.svg"
@@ -59,7 +56,7 @@ const CompanyCard = ({
           />
         )}
       </SwiperWrapper>
-      <DownWrap onClick={handleClick} onKeyDown={handleKeyDown} tabIndex={0}>
+      <DownWrap onClick={onOpenDiscount} onKeyDown={handleKeyDown} tabIndex={0}>
         <TitleRating
           title={title}
           averageRating={averageRating}
@@ -94,7 +91,7 @@ const Wrap = styled("div")(({ theme }) => ({
   borderRadius: "16px",
 
   [theme.breakpoints.mobile]: {
-    height: "364px",
+    height: "384px",
   },
 }));
 
@@ -147,6 +144,7 @@ const Down = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     flexDirection: "column",
+    alignItems: "start",
   },
 }));
 

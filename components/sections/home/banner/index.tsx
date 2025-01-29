@@ -25,8 +25,9 @@ const Banner = ({
 }: Props) => {
   const isTextVariant = !imgLink;
   const router = useRouter();
+
   const handleClick = () =>
-    onClick ? onClick() : () => router.push(buttonLink || "");
+    onClick ? onClick() : router.push(buttonLink || "");
 
   return (
     <Wrap isBottomContent={isBottomContent} isTextVariant={isTextVariant}>

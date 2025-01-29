@@ -6,7 +6,6 @@ import NextImage from "../../../../layout/image";
 import styled from "@emotion/styled";
 // types
 import type { EventCardI } from "./types";
-import LinkIcon from "../../../../layout/link-icon";
 
 const EventCardSmall = ({
   logo,
@@ -20,7 +19,7 @@ const EventCardSmall = ({
   const { t } = useTranslation("common");
 
   return (
-    <Wrap>
+    <Wrap onClick={onClick}>
       <NextImage
         src={logo}
         alt={logoAlt}
@@ -37,7 +36,6 @@ const EventCardSmall = ({
           <BottomText>{`${t("labels.location")}: ${location}`}</BottomText>
         </BottomWrap>
       </InfoWrap>
-      <LinkIcon onClick={onClick} />
     </Wrap>
   );
 };
@@ -52,6 +50,7 @@ const Wrap = styled("div")(({ theme }) => ({
   padding: "16px",
   borderRadius: "16px",
   backgroundColor: theme.colors.white,
+  cursor: "pointer",
 
   [theme.breakpoints.mobile]: {
     width: "100%",
