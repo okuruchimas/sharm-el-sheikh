@@ -30,9 +30,11 @@ const Wrap = styled("div")({
 const CardTitle = styled("h3")(({ theme }) => ({
   fontSize: theme.fontSize.fontS24,
   color: theme.colors.blue,
+  maxWidth: "402px",
+  display: "-webkit-box",
+  WebkitLineClamp: 2,
   margin: "0",
   overflow: "hidden",
-  whiteSpace: "nowrap",
   textOverflow: "ellipsis",
 
   [theme.breakpoints.mobile]: {

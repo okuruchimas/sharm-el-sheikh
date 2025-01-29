@@ -13,6 +13,7 @@ import LocationLink from "../location-link";
 import type { EventCardI } from "../../sections/home/main/children/types";
 import type { SocialLink } from "../../types/images";
 import type { EventCardFragment } from "../../../gql/graphql";
+import Link from "next/link";
 
 type EventPopupProps = Omit<EventCardI, "onClick"> & {
   description: string;
@@ -74,7 +75,9 @@ const EventPopup = ({
         </TopSection>
         <Title>{t("labels.description")}</Title>
         <Text>{description}</Text>
-        <AnimatorLink>{t("text.findAnimatorForTicket")}</AnimatorLink>
+        <Link href="/entertainers-tour-guides/animators">
+          <AnimatorLink>{t("text.findAnimatorForTicket")}</AnimatorLink>
+        </Link>
       </Stack>
       <BackButton
         text={t("buttons.back")}
@@ -215,6 +218,7 @@ const AnimatorLink = styled("p")(({ theme }) => ({
   color: theme.colors.blue,
   textDecoration: "underline",
   fontWeight: 600,
+  cursor: "pointer",
 
   [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS14,
