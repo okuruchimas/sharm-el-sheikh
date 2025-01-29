@@ -72,7 +72,10 @@ const useCompanyCard = (selectedDay?: string) => {
       </Modal>
     ) : null;
 
-  const renderCard = (companyPreview: CompanyPreviewFragment) => {
+  const renderCard = (
+    companyPreview: CompanyPreviewFragment,
+    isHome: boolean = false,
+  ) => {
     const { dayOfWeek } = getCurrentDayAndTime();
 
     const timeSlot = companyPreview?.schedule
@@ -93,6 +96,7 @@ const useCompanyCard = (selectedDay?: string) => {
 
     return (
       <CompanyCard
+        isHome={isHome}
         key={companyPreview.slug}
         discount={companyPreview.discount}
         images={companyPreview.images}

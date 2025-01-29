@@ -8,7 +8,6 @@ import styled from "@emotion/styled";
 // types
 import type { KeyboardEvent } from "react";
 import type { CompanyPreviewFragment } from "../../../../gql/graphql";
-import { width } from "@mui/system";
 
 type CompanyCardProps = Pick<
   CompanyPreviewFragment,
@@ -24,6 +23,7 @@ type CompanyCardProps = Pick<
   isPage: boolean;
   handleClick?: () => void;
   onOpenDiscount: () => void;
+  isHome: boolean;
 };
 const CompanyCard = ({
   isPage,
@@ -36,10 +36,16 @@ const CompanyCard = ({
   averageRating,
   handleClick,
   onOpenDiscount,
+  isHome,
 }: CompanyCardProps) => {
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter" && onOpenDiscount) {
-      onOpenDiscount();
+    if (event.key === "Enter") {
+      if (isHome && onOpenDiscount) {
+        return onOpenDiscount();
+      }
+      if (handleClick) {
+        handleClick();
+      }
     }
   };
 
@@ -47,7 +53,11 @@ const CompanyCard = ({
     <Wrap>
       <SwiperWrapper>
         {images ? (
-          <Swiper images={images} discount={discount?.title} />
+          <Swiper
+            onOpenDiscount={onOpenDiscount}
+            images={images}
+            discount={discount?.title}
+          />
         ) : (
           <Image
             src="/images/background/background-prom.svg"
@@ -56,7 +66,11 @@ const CompanyCard = ({
           />
         )}
       </SwiperWrapper>
-      <DownWrap onClick={onOpenDiscount} onKeyDown={handleKeyDown} tabIndex={0}>
+      <DownWrap
+        onClick={isHome ? onOpenDiscount : handleClick}
+        onKeyDown={handleKeyDown}
+        tabIndex={0}
+      >
         <TitleRating
           title={title}
           averageRating={averageRating}

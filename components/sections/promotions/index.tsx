@@ -94,7 +94,7 @@ const Promotions = ({
       >
         {result?.length ? (
           <DownWrap>
-            {result.map((card) => (card ? renderCard(card) : null))}
+            {result.map((card) => (card ? renderCard(card, true) : null))}
           </DownWrap>
         ) : (
           <Placeholder title={t("noDiscounts")} />
