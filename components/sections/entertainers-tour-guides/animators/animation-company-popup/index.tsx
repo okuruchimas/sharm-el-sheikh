@@ -5,10 +5,9 @@ import {
 } from "../../../../../gql/graphql";
 // hooks
 import { useTranslation } from "next-i18next";
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 // utils
 import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
 import { fetchDataFromApi } from "../../../../../utils/fetchApi";
 import { addRating } from "../../../../../utils/add-rating";
 // components
@@ -18,13 +17,8 @@ import Button from "../../../../layout/button";
 import Loader from "../../../../layout/loader";
 import StarReview from "../../../company/review/children/star-review";
 import LocationLink from "../../../../layout/location-link";
-import SocialIcon from "../../../../layout/social-icon";
 import { Title } from "../../../../layout/title";
-import { Arrow } from "../../../../layout/header/children/language-selector";
-import VacancyItem from "./vacancy-item";
 import FullData from "./full-data";
-// constants
-// types
 
 type AnimationCompanyPopupProps = {
   companyPreview: AnimationCompanyPreviewFragment;
@@ -62,7 +56,7 @@ const AnimationCompanyPopup = ({
     getFullData();
 
     const ratedCompanies = JSON.parse(
-      localStorage.getItem("ratedClubs") || "[]",
+      localStorage.getItem("ratedAnimationCompany") || "[]",
     );
     const ratedCompany = ratedCompanies.find(
       (item: { slug: string }) => item.slug === companyPreview.slug,
@@ -82,13 +76,18 @@ const AnimationCompanyPopup = ({
       slug: companyPreview.slug,
       collectionType: "animation-companies",
     }).then(() => {
-      const ratedClubs = JSON.parse(localStorage.getItem("ratedClubs") || "[]");
+      const ratedAnimationCompanies = JSON.parse(
+        localStorage.getItem("ratedAnimationCompany") || "[]",
+      );
 
-      const updatedRatedClubs = [
-        ...ratedClubs,
+      const updatedRatedAnimationCompanies = [
+        ...ratedAnimationCompanies,
         { slug: companyPreview.slug, rating: stars },
       ];
-      localStorage.setItem("ratedClubs", JSON.stringify(updatedRatedClubs));
+      localStorage.setItem(
+        "ratedAnimationCompany",
+        JSON.stringify(updatedRatedAnimationCompanies),
+      );
       setIsRated(true);
       setIsLoading(false);
     });
@@ -99,7 +98,10 @@ const AnimationCompanyPopup = ({
       <TopSection>
         <ImgWrapper>
           <Image
-            src={companyPreview.image?.data?.attributes?.url || ""}
+            src={
+              companyPreview.image?.data?.attributes?.url ||
+              "/images/background/background-prom.svg"
+            }
             alt={companyPreview.image?.data?.attributes?.alternativeText || ""}
             layout="fill"
           />

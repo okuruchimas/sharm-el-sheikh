@@ -1,37 +1,39 @@
-import React from "react";
+import { useTranslation } from "next-i18next";
+import { Title } from "../../../../layout/title";
 import VacancyItem from "./vacancy-item";
 import SocialIcon from "../../../../layout/social-icon";
-import { Section, SectionTitle } from "./index";
-import { Title } from "../../../../layout/title";
-import { AnimationCompanyFragment } from "../../../../../gql/graphql";
-import { useTranslation } from "next-i18next";
-import styled from "@emotion/styled";
-import AnimatorCards from "../cards";
 import PopApCards from "../cards/pop-ap-cards";
+import { Section, SectionTitle } from "./index";
+import styled from "@emotion/styled";
+import type {
+  AnimationCompanyFragment,
+  AnimatorPreviewFragment,
+} from "../../../../../gql/graphql";
 
 interface Props {
   fullData: AnimationCompanyFragment;
 }
 
-const updateArr = (arr: any) => {
-  console.log(arr);
-
-  if (!arr) return;
-  return arr.map((item: any) => ({ ...item.attributes }));
-};
 const FullData = ({ fullData }: Props) => {
   const { t } = useTranslation("common");
+  const { i18n } = useTranslation("");
 
   const {
-    about,
     vacancies,
     socialLinks,
     employmentNumber,
     complaintsNumber,
     animators,
+    about,
   } = fullData;
 
-  console.log(updateArr(animators?.data), "animators");
+  const animatorsToShow: AnimatorPreviewFragment[] =
+    animators?.data
+      ?.map((el) => el.attributes)
+      ?.filter(
+        (el): el is AnimatorPreviewFragment =>
+          !!el && el.locale === i18n.language,
+      ) || [];
 
   return (
     <>
@@ -42,11 +44,11 @@ const FullData = ({ fullData }: Props) => {
         </Section>
       ) : null}
 
-      {animators ? (
+      {animatorsToShow ? (
         <Section>
           <SectionTitle as="h3">{t("animPopAp.animators")}</SectionTitle>
 
-          <PopApCards animators={updateArr(animators?.data)} />
+          <PopApCards animators={animatorsToShow} />
         </Section>
       ) : null}
 
@@ -78,7 +80,7 @@ const FullData = ({ fullData }: Props) => {
                   socialLink={el?.socialLink || ""}
                 />
               ))}
-            </IconsWrapper>{" "}
+            </IconsWrapper>
           </>
         ) : null}
 

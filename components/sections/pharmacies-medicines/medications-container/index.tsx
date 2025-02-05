@@ -57,7 +57,7 @@ const MedicationsContainer = ({
   const { t, i18n } = useTranslation("common");
   const { isMobile } = useResponsive();
 
-  const pageSize = useMemo(() => (isMobile ? 3 : 6), [isMobile]);
+  const pageSize = useMemo(() => (isMobile ? 4 : 6), [isMobile]);
 
   const handleGetMedications = async ({
     filter,

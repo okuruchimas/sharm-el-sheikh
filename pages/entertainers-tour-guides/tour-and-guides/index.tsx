@@ -10,6 +10,7 @@ import { useTranslation } from "next-i18next";
 import { REVALIDATE_TIME } from "../../../constants/page.constants";
 import { RATING_FILTER_OPTIONS } from "../../../constants/filter-options";
 // components
+import Tabs from "../../../components/sections/entertainers-tour-guides/children/tabs";
 import Dropdown from "../../../components/layout/filters";
 import Container from "../../../components/sections/entertainers-tour-guides/children/container";
 import Pagination from "../../../components/layout/pagination";
@@ -102,6 +103,7 @@ const TourAndGuides = ({ tourGuides, initialTotal }: TourAndGuidesProps) => {
 
   return (
     <Container>
+      <Tabs />
       <FiltersWrap>
         <Dropdown
           options={filterOptions}

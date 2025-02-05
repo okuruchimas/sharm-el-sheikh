@@ -52,6 +52,10 @@ const Wrap = styled("div")(({ theme }) => ({
   backgroundColor: theme.colors.white,
   cursor: "pointer",
 
+  img: {
+    borderRadius: "16px",
+  },
+
   [theme.breakpoints.mobile]: {
     width: "100%",
   },

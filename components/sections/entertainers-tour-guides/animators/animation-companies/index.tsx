@@ -1,31 +1,32 @@
 // hooks
-import { useState } from "react";
+import { useTranslation } from "next-i18next";
 // components
-import Modal from "../../../../layout/modal";
+import { Title } from "../../../../layout/title";
 import AnimationCompanyCard from "../animation-company-card";
-import AnimationCompanyPopup from "../animation-company-popup";
 // utils
 import styled from "@emotion/styled";
 // types
 import type { AnimationCompanyPreviewFragment } from "../../../../../gql/graphql";
-import { Title } from "../../../../layout/title";
+import type { Dispatch } from "react";
 
 type AnimationCompaniesProps = {
   companies: AnimationCompanyPreviewFragment[];
+  setSelectedCompany: Dispatch<AnimationCompanyPreviewFragment | undefined>;
 };
 
-const AnimationCompanies = ({ companies }: AnimationCompaniesProps) => {
-  const [selectedCompany, setSelectedCompany] =
-    useState<AnimationCompanyPreviewFragment>();
+const AnimationCompanies = ({
+  companies,
+  setSelectedCompany,
+}: AnimationCompaniesProps) => {
+  const { t } = useTranslation("entertainers-tour-guides");
+
   const handleCardClick = (data: AnimationCompanyPreviewFragment) => () => {
     setSelectedCompany(data);
   };
 
-  const handlePopupClose = () => setSelectedCompany(undefined);
-
   return (
     <Wrapper>
-      <Title>Animation Companies</Title>
+      <Title>{t("animationCompanies")}</Title>
       <CardsWrapper>
         {companies.map((el) => (
           <AnimationCompanyCard
@@ -41,18 +42,6 @@ const AnimationCompanies = ({ companies }: AnimationCompaniesProps) => {
           />
         ))}
       </CardsWrapper>
-      {selectedCompany ? (
-        <Modal
-          isOpen={!!selectedCompany?.slug}
-          onClose={handlePopupClose}
-          mWidth="90%"
-        >
-          <AnimationCompanyPopup
-            companyPreview={selectedCompany}
-            onClose={handlePopupClose}
-          />
-        </Modal>
-      ) : null}
     </Wrapper>
   );
 };
