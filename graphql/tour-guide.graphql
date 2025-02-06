@@ -28,7 +28,7 @@ query GetTourGuidesByFilters(
     }
     data {
       attributes {
-        ...TourGuide
+        ...TourGuidePreview
       }
     }
   }
@@ -62,10 +62,44 @@ fragment TourGuide on TourGuide {
       ...Comment
     }
   }
-  tours
+  tours {
+    data {
+      attributes {
+        ...TourPreview
+      }
+    }
+  }
   description
   averageRating
   totalComments
+}
+
+fragment TourGuidePreview on TourGuide {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  languages {
+    data {
+      attributes {
+        key
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  averageRating
+  totalComments
+  tours {
+    data {
+      attributes {
+        name
+      }
+    }
+  }
 }
 
 query GetTourGuidesSlugs {

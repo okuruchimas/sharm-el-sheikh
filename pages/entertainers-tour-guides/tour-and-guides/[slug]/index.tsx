@@ -8,14 +8,17 @@ import { toast, ToastContainer } from "react-toastify";
 // hooks
 import { useTranslation } from "next-i18next";
 // components
+import { Title } from "../../../../components/layout/title";
 import Reviews from "../../../../components/sections/company/reviews";
 import BackRoute from "../../../../components/sections/entertainers-tour-guides/children/back-route";
 import GuideCard from "../../../../components/sections/entertainers-tour-guides/tour-and-guides/card";
 import ReviewForm from "../../../../components/sections/company/review";
+import { CardsWrap } from "../../../../components/sections/entertainers-tour-guides/children/cards-wrap";
 import Placeholder from "../../../../components/sections/promotions/children/placeholder";
 import SectionWrapper from "../../../../components/layout/section-wrapper";
 import SectionsWrapper from "../../../../components/layout/sections-wrapper";
 import WorkerInfoSection from "../../../../components/layout/worker-info";
+import EntertainmentServiceCard from "../../../../components/sections/animator/children/entertainment-service-card";
 // constants
 import { REVALIDATE_TIME } from "../../../../constants/page.constants";
 // utils
@@ -49,7 +52,6 @@ const TourGuidePage = ({
 }: TourGuidePageProps) => {
   const { t } = useTranslation("entertainers-tour-guides");
   const { t: tCommon } = useTranslation("common");
-  const toursMapped = tours.split(", ").map((el) => ({ value: el }));
 
   const categories = [
     { name: "service", label: tCommon("reviewForm.categories.service") },
@@ -98,14 +100,34 @@ const TourGuidePage = ({
           <WorkerInfoSection
             imgSrs={profileImg.data?.attributes?.url || ""}
             name={name}
-            pillsTitle={`${t("tourGuide.tours")}:`}
             languages={languagesMapped || []}
-            pillsText={toursMapped}
             description={description || ""}
             socialLinks={socialLinks}
             totalComments={totalComments}
             averageRating={averageRating}
           />
+          {tours ? (
+            <>
+              <Title style={{ marginBottom: "24px" }}>
+                {t("tourGuide.tours")}
+              </Title>
+              <CardsWrap>
+                {tours?.data.map((el) => (
+                  <EntertainmentServiceCard
+                    key={el.attributes?.name}
+                    title={el?.attributes?.name || ""}
+                    price={el?.attributes?.price || ""}
+                    place={el?.attributes?.location || ""}
+                    groupSize={el.attributes?.groupSize}
+                    duration={el?.attributes?.duration || ""}
+                    imgSrc={
+                      el?.attributes?.images?.data[0].attributes?.url || ""
+                    }
+                  />
+                ))}
+              </CardsWrap>
+            </>
+          ) : null}
         </div>
         <Reviews
           title={tCommon("text.reviews")}
