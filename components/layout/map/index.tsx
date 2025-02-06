@@ -1,16 +1,13 @@
 import { MarkerF, GoogleMap, useLoadScript } from "@react-google-maps/api";
-import useCompanyCard from "../../../../hooks/useCompanyCard";
-import { useTranslation } from "next-i18next";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 // components
-import Loader from "../../../layout/loader";
+import Loader from "../../layout/loader";
 import InfoWindow from "./children/info-window";
-import SectionWrapper from "../../../layout/section-wrapper";
+import SectionWrapper from "../../layout/section-wrapper";
 import LocationsCategoryFilter from "./children/locations-category-filter";
 // utils
 import styled from "@emotion/styled";
 import { calculateCenter } from "./children/utils";
-import { fetchDataFromApi } from "../../../../utils/fetchApi";
 // constants
 import {
   libraries,
@@ -19,58 +16,32 @@ import {
   mapContainerStyle,
 } from "./children/constants";
 // types
-import type { selectOption } from "../../../types/filter";
-import {
-  type CompanyPreviewFragment,
-  GetCompaniesByFilterDocument,
-} from "../../../../gql/graphql";
-
-type Cards = (CompanyPreviewFragment | undefined | null)[] | undefined;
+import type { MapCard } from "./children/types";
+import type { selectOption } from "../../types/filter";
 
 type MapProps = {
   title?: string;
-  categories: selectOption[];
+  locations?: MapCard[];
+  categories?: selectOption[];
+  onCategorySelect?: () => void;
+  selectedCategoryID?: string;
+  onInfoWindowClick: (card: MapCard) => void;
 };
-// TODO: remove this whole duplicate folder after refactor
-const Map = ({ title, categories }: MapProps) => {
-  // states
-  const [selectedCategory, setSelectedCategory] = useState<selectOption>(
-    categories[0],
-  );
-  const [selectedMarker, setSelectedMarker] = useState<
-    CompanyPreviewFragment | null | undefined
-  >(null);
-  const [result, setResult] = useState<Cards>();
-  // hooks
-  const { i18n } = useTranslation("common");
+
+const Map = ({
+  title,
+  locations,
+  categories,
+  selectedCategoryID,
+  onInfoWindowClick,
+  onCategorySelect,
+}: MapProps) => {
+  const [selectedMarker, setSelectedMarker] = useState<MapCard>();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
     libraries,
   });
-  const { handleInfoWindowClick, renderPopup } = useCompanyCard();
-  // callbacks
-  const handleGetCardByCategory = async (option: selectOption) => {
-    const data = await fetchDataFromApi(GetCompaniesByFilterDocument, {
-      locale: i18n.language,
-      category: option.key.split("***") || undefined,
-    });
 
-    return data.companies?.data.map((el) => el.attributes);
-  };
-
-  useEffect(() => {
-    handleGetCardByCategory(selectedCategory).then((data) => setResult(data));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleSelectCategory = async (category: selectOption) => {
-    if (selectedCategory.key === category.key) return;
-
-    await handleGetCardByCategory(category).then((data) => setResult(data));
-    setSelectedCategory(category);
-    setSelectedMarker(null);
-  };
-  // memos
   const center = useMemo(() => {
     if (selectedMarker)
       return {
@@ -78,10 +49,10 @@ const Map = ({ title, categories }: MapProps) => {
         lng: Number(selectedMarker.position?.lng || DEFAULT_CENTER.lng),
       };
 
-    if (result?.length) return calculateCenter(result);
+    if (locations?.length) return calculateCenter(locations);
 
     return DEFAULT_CENTER;
-  }, [result, selectedMarker]);
+  }, [locations, selectedMarker]);
 
   if (loadError || typeof google === "undefined") {
     return <h1>Error</h1>;
@@ -116,11 +87,13 @@ const Map = ({ title, categories }: MapProps) => {
   return (
     <>
       <SectionWrapper title={title}>
-        <LocationsCategoryFilter
-          selectedID={selectedCategory?.key}
-          options={categories}
-          onSelect={handleSelectCategory}
-        />
+        {categories && onCategorySelect ? (
+          <LocationsCategoryFilter
+            selectedID={selectedCategoryID}
+            options={categories}
+            onSelect={onCategorySelect}
+          />
+        ) : null}
         {isLoaded ? (
           <MapWrapper>
             <GoogleMap
@@ -129,18 +102,15 @@ const Map = ({ title, categories }: MapProps) => {
               options={options}
               zoom={DEFAULT_ZOOM}
             >
-              {result
-                ? result.map((el) => (
+              {locations
+                ? locations.map((el) => (
                     <MarkerF
-                      icon={
-                        el?.categories?.data[0].attributes?.markerIcon.data
-                          ?.attributes?.url || "/icons/location-marker.svg"
-                      }
-                      key={el?.slug}
-                      opacity={el?.slug === selectedMarker?.slug ? 0.6 : 1}
+                      icon={el.markerIconUrl || "/icons/location-marker.svg"}
+                      key={el.slug}
+                      opacity={el.slug === selectedMarker?.slug ? 0.6 : 1}
                       position={{
-                        lng: Number(el?.position?.lng || DEFAULT_CENTER.lng),
-                        lat: Number(el?.position?.lat || DEFAULT_CENTER.lat),
+                        lng: Number(el.position.lng),
+                        lat: Number(el.position.lat),
                       }}
                       onClick={() => setSelectedMarker(el)}
                     />
@@ -151,14 +121,13 @@ const Map = ({ title, categories }: MapProps) => {
               <InfoWindowWrapper>
                 <InfoWindow
                   location={selectedMarker}
-                  onClick={handleInfoWindowClick(selectedMarker)}
+                  onClick={() => onInfoWindowClick(selectedMarker)}
                 />
               </InfoWindowWrapper>
             )}
           </MapWrapper>
         ) : null}
       </SectionWrapper>
-      {renderPopup()}
     </>
   );
 };

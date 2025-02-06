@@ -1,5 +1,5 @@
-query GetAnimationCompanies {
-  animationCompanies(sort: "index:asc") {
+query GetAnimationCompanies($locale: I18NLocaleCode!) {
+  animationCompanies(sort: "index:asc", locale: $locale) {
     data {
       attributes {
         ...AnimationCompanyPreview
@@ -26,6 +26,11 @@ fragment AnimationCompanyPreview on AnimationCompany {
   image {
     ...StrapiImage
   }
+  location
+  position {
+    lng
+    lat
+  }
 }
 
 fragment AnimationCompany on AnimationCompany {
@@ -41,6 +46,7 @@ fragment AnimationCompany on AnimationCompany {
     data {
       attributes {
         ...AnimatorPreview
+        locale
       }
     }
   }

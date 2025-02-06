@@ -1,11 +1,15 @@
-import React from "react";
+import "swiper/css";
+// hooks
+import useResponsive from "../../../../../hooks/useResponsive";
 import { useTranslation } from "next-i18next";
+// components
 import AnimatorCard from "../card";
 import Placeholder from "../../../promotions/children/placeholder";
-import styled from "@emotion/styled";
-import { AnimatorPreviewFragment } from "../../../../../gql/graphql";
 import { Swiper, SwiperSlide } from "swiper/react";
-import useResponsive from "../../../../../hooks/useResponsive";
+// utils
+import styled from "@emotion/styled";
+// types
+import type { AnimatorPreviewFragment } from "../../../../../gql/graphql";
 
 type AnimatorCardsProps = {
   animators: AnimatorPreviewFragment[];

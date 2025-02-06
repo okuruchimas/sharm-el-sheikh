@@ -11,6 +11,7 @@ import TaxiFilterForm, {
 } from "../../../components/layout/filters/taxi-filter";
 import TaxiStatus from "../../../components/sections/entertainers-tour-guides/taxi-drivers/statuses";
 // hooks
+import useResponsive from "../../../hooks/useResponsive";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "next-i18next";
 // constants
@@ -18,7 +19,7 @@ import { TAXI_STATUSES } from "../../../constants/taxi-statuses.constants";
 import { REVALIDATE_TIME } from "../../../constants/page.constants";
 import { RATING_FILTER_OPTIONS } from "../../../constants/filter-options";
 // components
-import useResponsive from "../../../hooks/useResponsive";
+import Tabs from "../../../components/sections/entertainers-tour-guides/children/tabs";
 import Container from "../../../components/sections/entertainers-tour-guides/children/container";
 import Dropdown from "../../../components/layout/filters";
 import FilterButton from "../../../components/layout/filters/button";
@@ -33,11 +34,7 @@ import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 import type { selectOption } from "../../../components/types/filter";
 
 type Drivers = { attributes: TaxiDriverPreviewFragment }[];
-export type TimePeriod = {
-  day: string;
-  from: string;
-  to?: string;
-};
+
 type TaxiDriversProps = {
   initialTotalDrivers: number;
   initialDrivers: Drivers;
@@ -198,6 +195,7 @@ const TaxiDrivers = ({
 
   return (
     <Container>
+      <Tabs />
       <FiltersWrap>
         <ButtonsWrapper>
           <Dropdown

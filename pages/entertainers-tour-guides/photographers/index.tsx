@@ -16,6 +16,7 @@ import styled from "@emotion/styled";
 import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // components
+import Tabs from "../../../components/sections/entertainers-tour-guides/children/tabs";
 import Dropdown from "../../../components/layout/filters";
 import Container from "../../../components/sections/entertainers-tour-guides/children/container";
 import Pagination from "../../../components/layout/pagination";
@@ -149,6 +150,7 @@ const Photographers = ({
 
   return (
     <Container>
+      <Tabs />
       <FiltersWrap>
         <Dropdown
           options={filterOptions}
