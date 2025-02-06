@@ -25,7 +25,6 @@ import PhotographCards from "../../../components/sections/entertainers-tour-guid
 import PhotographersFilters from "../../../components/sections/entertainers-tour-guides/photographers/children/photographers-filter";
 // types
 import type { selectOption } from "../../../components/types/filter";
-import Tabs from "../../../components/sections/entertainers-tour-guides/children/tabs";
 
 type Photographers = { attributes: PhotographerFragment }[];
 
