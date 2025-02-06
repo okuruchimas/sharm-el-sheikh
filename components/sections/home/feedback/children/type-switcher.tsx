@@ -4,6 +4,8 @@ import { useTranslation } from "next-i18next";
 import styled from "@emotion/styled";
 // types
 import type { Dispatch, SetStateAction } from "react";
+import { getVisibleTabs } from "../../../entertainers-tour-guides/children/tabs";
+import useResponsive from "../../../../../hooks/useResponsive";
 
 const types = [
   { type: "default", value: "feedbackForm.feedbackForm" },
@@ -17,9 +19,18 @@ interface Props {
 }
 const TypeSwitcher = ({ currentType, setType }: Props) => {
   const { t } = useTranslation("home-page");
+  const { isMobile } = useResponsive();
+
+  const activeIndex = types.findIndex(({ type }) => type === currentType);
+
+  const visibleTabs =
+    activeIndex !== -1 ? getVisibleTabs(activeIndex, types) : [];
+
+  const tabsToMap = isMobile ? visibleTabs : types;
+
   return (
     <Wrap>
-      {types.map(({ type, value }) => (
+      {tabsToMap.map(({ type, value }) => (
         <Type
           isActive={type === currentType}
           key={type}
@@ -40,11 +51,13 @@ const Wrap = styled("div")(({ theme }) => ({
   cursor: "pointer",
 
   [theme.breakpoints.mobile]: {
-    width: "100%",
     overflowX: "auto",
     whiteSpace: "nowrap",
     scrollbarWidth: "none",
-
+    borderBottom: `none`,
+    width: "calc(100% + 32px)",
+    marginLeft: -16,
+    justifyContent: "space-between",
     "&::-webkit-scrollbar": {
       display: "none",
     },
@@ -59,6 +72,21 @@ const Type = styled("span", {
   color: isActive ? theme.colors.black : theme.colors.grey1,
   paddingBottom: isActive ? "12px" : "initial",
   borderBottom: isActive ? "4px solid" + theme.colors.yellow2 : "none",
+
+  [theme.breakpoints.mobile]: {
+    padding: "16px 4px",
+    borderBottom: isActive
+      ? `4px solid ${theme.colors.yellow}`
+      : `2px solid ${theme.colors.grey}`,
+    fontSize: isActive ? theme.fontSize.fontS16 : theme.fontSize.fontS14,
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    minWidth: "unset",
+    width: isActive ? "56%" : "18%",
+    alignSelf: "flex-start",
+    textAlign: "center",
+  },
 }));
 
 export default TypeSwitcher;

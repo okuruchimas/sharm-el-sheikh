@@ -31,6 +31,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 // types
 import type { selectOption } from "../../../components/types/filter";
+import Tabs from "../../../components/sections/entertainers-tour-guides/children/tabs";
 
 type Drivers = { attributes: TaxiDriverPreviewFragment }[];
 export type TimePeriod = {
@@ -198,6 +199,7 @@ const TaxiDrivers = ({
 
   return (
     <Container>
+      <Tabs />
       <FiltersWrap>
         <ButtonsWrapper>
           <Dropdown
