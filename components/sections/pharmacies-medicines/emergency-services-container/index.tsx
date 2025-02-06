@@ -55,7 +55,7 @@ const EmergencyServicesContainer = ({
 
   return (
     <SectionWrapper title={title}>
-      <Tabs>
+      <TabsWrap>
         {Object.keys(categories).map((el) => {
           const value = categories[el as keyof typeof categories];
 
@@ -71,7 +71,7 @@ const EmergencyServicesContainer = ({
             </Category>
           );
         })}
-      </Tabs>
+      </TabsWrap>
       <SubTitle>{subTitle}</SubTitle>
       <CardsWrapper>
         <EmergencyServiceCard
@@ -99,7 +99,7 @@ const EmergencyServicesContainer = ({
 
 export default EmergencyServicesContainer;
 
-const Tabs = styled("div")(({ theme }) => ({
+const TabsWrap = styled("div")(({ theme }) => ({
   display: "flex",
   gap: "8px",
 
