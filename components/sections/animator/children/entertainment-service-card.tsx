@@ -10,6 +10,7 @@ type PromCardProps = {
   place: string;
   imgSrc: string;
   duration: string;
+  groupSize?: string;
 };
 const EntertainmentServiceCard = ({
   price,
@@ -17,6 +18,7 @@ const EntertainmentServiceCard = ({
   place,
   imgSrc,
   duration,
+  groupSize,
 }: PromCardProps) => {
   return (
     <Wrap>
@@ -38,6 +40,12 @@ const EntertainmentServiceCard = ({
             src="/icons/promotions-section/location.svg"
             text={place || ""}
           />
+          {groupSize ? (
+            <TextAndIcon
+              src="/icons/promotions-section/location.svg"
+              text={groupSize}
+            />
+          ) : null}
         </Down>
       </DownWrap>
     </Wrap>

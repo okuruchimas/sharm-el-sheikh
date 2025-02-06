@@ -1,0 +1,70 @@
+query GetTours($locale: I18NLocaleCode!) {
+  tours(locale: $locale) {
+    data {
+      attributes {
+        ...TourPreview
+      }
+    }
+  }
+}
+
+fragment Tour on Tour {
+  slug
+  about
+  averageRating
+  totalComments
+  duration
+  groupSize
+  images {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  informationProvider {
+    text
+    link
+  }
+  location
+  name
+  position {
+    lat
+    lng
+  }
+  price
+  tourComponents {
+    value
+  }
+  tour_guides {
+    data {
+      attributes {
+        ...TourGuidePreview
+      }
+    }
+  }
+}
+
+fragment TourPreview on Tour {
+  slug
+  images {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  name
+  price
+  location
+  duration
+  groupSize
+  position {
+    lat
+    lng
+  }
+  averageRating
+  totalComments
+}

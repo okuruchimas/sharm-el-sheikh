@@ -14,7 +14,7 @@ import { ImageI, SocialLink } from "../../types/images";
 type WorkerInfoSectionProps = {
   name: string;
   imgSrs: string;
-  pillsTitle: string;
+  pillsTitle?: string;
   pillsText?: ({ value: string } | null)[];
   languages: ImageI[];
   description: string;

@@ -9,6 +9,9 @@ const GuideCard = ({ tourGuide }: GuideCardProps) => {
     alt: el.attributes?.value || "",
   }));
 
+  const tours =
+    tourGuide.tours?.data.map((el) => el.attributes?.name).join(" ") || "";
+
   return (
     <Card
       averageRating={tourGuide.averageRating}
@@ -16,7 +19,7 @@ const GuideCard = ({ tourGuide }: GuideCardProps) => {
       slug={`/entertainers-tour-guides/tour-and-guides/${tourGuide.slug}`}
       title={tourGuide.name}
       imgSrc={tourGuide?.profileImg?.data?.attributes?.url || ""}
-      iconText={tourGuide.tours}
+      iconText={tours}
       iconSrc="/icons/direction.svg"
       flagIcons={flags || []}
     />
