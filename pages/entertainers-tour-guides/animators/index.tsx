@@ -26,7 +26,7 @@ import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 import type { selectOption } from "../../../components/types/filter";
 import { Title } from "../../../components/layout/title";
 import Map from "../../../components/sections/home/map";
-import Tabs from "../../../components/sections/entertainers-tour-guides/children/tabs";
+import TabsSlider from "../../../components/sections/entertainers-tour-guides/children/tabs";
 
 const cat = [
   {
@@ -180,7 +180,7 @@ const Animators = ({
       <AnimationCompanies
         companies={animationCompanies.map((el) => el.attributes)}
       />
-      <Tabs />
+      <TabsSlider />
       <FiltersWrap>
         <Dropdown
           options={[

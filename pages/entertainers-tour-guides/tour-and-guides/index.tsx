@@ -20,7 +20,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 // types
 import type { selectOption } from "../../../components/types/filter";
-import Tabs from "../../../components/sections/entertainers-tour-guides/children/tabs";
+import TabsSlider from "../../../components/sections/entertainers-tour-guides/children/tabs";
 
 type TourGuides = { attributes: TourGuideFragment }[];
 type TourAndGuidesProps = {
@@ -103,7 +103,7 @@ const TourAndGuides = ({ tourGuides, initialTotal }: TourAndGuidesProps) => {
 
   return (
     <Container>
-      <Tabs />
+      <TabsSlider />
       <FiltersWrap>
         <Dropdown
           options={filterOptions}

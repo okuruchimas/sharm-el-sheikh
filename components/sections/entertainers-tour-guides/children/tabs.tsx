@@ -3,15 +3,9 @@ import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import styled from "@emotion/styled";
 import useResponsive from "../../../../hooks/useResponsive";
-import "swiper/css";
+import { getVisibleTabs } from "./helpers";
 
-export const getVisibleTabs = (activeIndex: number, tabs: any[]) => {
-  const left = activeIndex === 0 ? tabs.length - 1 : activeIndex - 1;
-  const right = activeIndex === tabs.length - 1 ? 0 : activeIndex + 1;
-  return [tabs[left], tabs[activeIndex], tabs[right]];
-};
-
-const Tabs = () => {
+const TabsSlider = () => {
   const { pathname } = useRouter();
   const { t } = useTranslation("entertainers-tour-guides");
   const { isMobile } = useResponsive();
@@ -87,4 +81,4 @@ const Text = styled("span", {
   },
 }));
 
-export default Tabs;
+export default TabsSlider;

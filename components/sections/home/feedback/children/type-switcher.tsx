@@ -4,8 +4,8 @@ import { useTranslation } from "next-i18next";
 import styled from "@emotion/styled";
 // types
 import type { Dispatch, SetStateAction } from "react";
-import { getVisibleTabs } from "../../../entertainers-tour-guides/children/tabs";
 import useResponsive from "../../../../../hooks/useResponsive";
+import { getVisibleTabs } from "../../../entertainers-tour-guides/children/helpers";
 
 const types = [
   { type: "default", value: "feedbackForm.feedbackForm" },
