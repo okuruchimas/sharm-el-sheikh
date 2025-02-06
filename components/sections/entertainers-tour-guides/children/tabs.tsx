@@ -16,7 +16,7 @@ const Tabs = () => {
   const { t } = useTranslation("entertainers-tour-guides");
   const { isMobile } = useResponsive();
 
-  const tabs = [
+  const tabsArr = [
     { link: "animators", text: t("tabs.animators") },
     { link: "taxi-drivers", text: t("tabs.taxiDrivers") },
     { link: "photographers", text: t("tabs.photographers") },
@@ -25,12 +25,12 @@ const Tabs = () => {
 
   const activePage = pathname.split("/").pop();
 
-  const activeIndex = tabs.findIndex(({ link }) => link === activePage);
+  const activeIndex = tabsArr.findIndex(({ link }) => link === activePage);
 
   const visibleTabs =
-    activeIndex !== -1 ? getVisibleTabs(activeIndex, tabs) : [];
+    activeIndex !== -1 ? getVisibleTabs(activeIndex, tabsArr) : [];
 
-  const tabsToMap = isMobile ? visibleTabs : tabs;
+  const tabsToMap = isMobile ? visibleTabs : tabsArr;
 
   return (
     <Wrap>
@@ -86,21 +86,5 @@ const Text = styled("span", {
     alignSelf: "flex-start",
   },
 }));
-
-// const TextMob = styled(Text)(({ theme, isActive }) => ({
-//   minWidth: "310px",
-//   height: "48px",
-//   borderBottom: isActive ? `4px solid ${theme.colors.yellow}` : "none",
-//   cursor: "pointer",
-//   fontSize: "21px",
-//   textAlign: "center",
-//   alignContent: "center",
-//   color: isActive ? theme.colors.black2 : theme.colors.grey,
-//
-//   [theme.breakpoints.mobile]: {
-//     width: "calc(100% + 16px)",
-//     alignSelf: "flex-start",
-//   },
-// }));
 
 export default Tabs;
