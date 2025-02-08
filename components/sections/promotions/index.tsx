@@ -50,6 +50,7 @@ const Promotions = ({
       areaKey: option.key,
       page,
       pageSize: 3,
+      discountFilter: { title: { ne: null } },
     });
 
     setTotal(data.companies?.meta.pagination.total || 0);
