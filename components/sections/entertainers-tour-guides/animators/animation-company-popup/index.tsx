@@ -12,13 +12,12 @@ import { fetchDataFromApi } from "../../../../../utils/fetchApi";
 import { addRating } from "../../../../../utils/add-rating";
 // components
 import Image from "next/image";
-import Rating from "../../../../layout/rating";
-import Button from "../../../../layout/button";
 import Loader from "../../../../layout/loader";
-import StarReview from "../../../company/review/children/star-review";
-import LocationLink from "../../../../layout/location-link";
 import { Title } from "../../../../layout/title";
 import FullData from "./full-data";
+import LocationLink from "../../../../layout/location-link";
+import NameAndRating from "../../../../layout/name-and-rating";
+import StarReviewForm from "../../../../layout/star-review-form";
 
 type AnimationCompanyPopupProps = {
   companyPreview: AnimationCompanyPreviewFragment;
@@ -56,7 +55,7 @@ const AnimationCompanyPopup = ({
     getFullData();
 
     const ratedCompanies = JSON.parse(
-      localStorage.getItem("ratedAnimationCompany") || "[]",
+      localStorage.getItem("ratedAnimationCompanies") || "[]",
     );
     const ratedCompany = ratedCompanies.find(
       (item: { slug: string }) => item.slug === companyPreview.slug,
@@ -77,7 +76,7 @@ const AnimationCompanyPopup = ({
       collectionType: "animation-companies",
     }).then(() => {
       const ratedAnimationCompanies = JSON.parse(
-        localStorage.getItem("ratedAnimationCompany") || "[]",
+        localStorage.getItem("ratedAnimationCompanies") || "[]",
       );
 
       const updatedRatedAnimationCompanies = [
@@ -85,7 +84,7 @@ const AnimationCompanyPopup = ({
         { slug: companyPreview.slug, rating: stars },
       ];
       localStorage.setItem(
-        "ratedAnimationCompany",
+        "ratedAnimationCompanies",
         JSON.stringify(updatedRatedAnimationCompanies),
       );
       setIsRated(true);
@@ -108,15 +107,11 @@ const AnimationCompanyPopup = ({
         </ImgWrapper>
 
         <InfoWrap>
-          <NameWrap>
-            <Name as="h2">{companyPreview.value}</Name>
-            <RatingWrapper>
-              <Rating
-                points={companyPreview.averageRating}
-                users={companyPreview.totalComments}
-              />
-            </RatingWrapper>
-          </NameWrap>
+          <NameAndRating
+            name={companyPreview.value}
+            averageRating={companyPreview.averageRating}
+            totalComments={companyPreview.totalComments}
+          />
 
           <Location>
             <LocationLink
@@ -132,18 +127,14 @@ const AnimationCompanyPopup = ({
 
       {fullData?.slug ? <FullData fullData={fullData} /> : <Loader />}
 
-      <Section>
-        <SectionTitle>{t("text.howRateEstablishment")}</SectionTitle>
-        <StarReview stars={stars} onChange={setStars} disabled={isDisabled} />
-      </Section>
-
-      <SaveButton
-        text={t("buttons.save")}
-        onClick={handleSave}
+      <StarReviewForm
+        stars={stars}
+        isDisabled={isDisabled}
         isLoading={isLoading}
-        disabled={isDisabled || stars < 1}
+        onSave={handleSave}
+        onClose={onClose}
+        onChange={setStars}
       />
-      <BackButton text={t("buttons.back")} onClick={onClose} />
     </Wrapper>
   );
 };
@@ -162,14 +153,6 @@ const Wrapper = styled("div")(({ theme }) => ({
   [theme.breakpoints.mobile]: {
     gap: 24,
   },
-}));
-
-const NameWrap = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
-  alignItems: "center",
-  width: "100%",
 }));
 
 const InfoWrap = styled("div")(({ theme }) => ({
@@ -213,28 +196,6 @@ const Location = styled("div")(({ theme }) => ({
   },
 }));
 
-const BackButton = styled(Button)(({ theme }) => ({
-  alignSelf: "end",
-
-  [theme.breakpoints.mobile]: {
-    position: "sticky",
-    bottom: 0,
-    right: 0,
-    opacity: 0.9,
-    minWidth: "130px",
-  },
-}));
-
-const SaveButton = styled(Button)(({ theme }) => ({
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-
-  [theme.breakpoints.mobile]: {
-    minWidth: "130px",
-  },
-}));
-
 const TopSection = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
@@ -260,24 +221,5 @@ const ImgWrapper = styled("div")(({ theme }) => ({
   [theme.breakpoints.mobile]: {
     height: "200px",
     width: "100%",
-  },
-}));
-
-const Name = styled(Title)(({ theme }) => ({
-  fontSize: theme.fontSize.fontS40,
-  fontWeight: 700,
-
-  [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS28,
-  },
-}));
-
-const RatingWrapper = styled("div")(({ theme }) => ({
-  span: {
-    fontSize: theme.fontSize.fontS24,
-
-    [theme.breakpoints.mobile]: {
-      fontSize: theme.fontSize.fontS18,
-    },
   },
 }));

@@ -57,11 +57,13 @@
     "entertainersTourGuides": "Entertainer & Reiseleiter",
     "findAnimatorForTicket": "Einen Animateur für den Ticketkauf finden",
     "food": "Essen:",
+    "informationProvided": "Informationen zu dieser Tour wurden bereitgestellt",
     "languagesSpoken": "Gesprochene Sprachen",
     "reviews": "Bewertungen",
     "howRateEstablishment": "Wie würden Sie dieses Unternehmen bewerten?",
     "selectDay": "Tag auswählen",
     "similarSuggestions": "Ähnliche Vorschläge",
+    "tourComponents": "Tourkomponenten",
     "workingDays": "Arbeitstage"
   },
   "toasts": {

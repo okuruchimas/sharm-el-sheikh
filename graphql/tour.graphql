@@ -8,6 +8,17 @@ query GetTours($locale: I18NLocaleCode!) {
   }
 }
 
+query GetTour($slug: String!, $locale: I18NLocaleCode!) {
+  tours(filters: { slug: { eq: $slug } }, locale: $locale) {
+    data {
+      attributes {
+        ...Tour
+      }
+    }
+  }
+}
+
+
 fragment Tour on Tour {
   slug
   about

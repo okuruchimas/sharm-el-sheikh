@@ -57,11 +57,13 @@
     "entertainersTourGuides": "Entertainers & Tour Guides",
     "findAnimatorForTicket": "Find an Animator for Ticket Purchase",
     "food": "Food:",
+    "informationProvided": "Information about this tour was provided",
     "languagesSpoken": "Languages Spoken",
     "reviews": "Reviews",
     "howRateEstablishment": "How would you rate this establishment?",
     "selectDay": "Select Day",
     "similarSuggestions": "Similar Suggestions",
+    "tourComponents": "Tour Components",
     "workingDays": "Working Days"
   },
   "toasts": {

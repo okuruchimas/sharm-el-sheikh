@@ -16,6 +16,7 @@ import Map from "../../../components/layout/map";
 import Tabs from "../../../components/sections/entertainers-tour-guides/children/tabs";
 import Modal from "../../../components/layout/modal";
 import Dropdown from "../../../components/layout/filters";
+import TourPopup from "../../../components/sections/entertainers-tour-guides/tour-and-guides/tour-popup";
 import Container from "../../../components/sections/entertainers-tour-guides/children/container";
 import Pagination from "../../../components/layout/pagination";
 import GuidesCards from "../../../components/sections/entertainers-tour-guides/tour-and-guides/cards";
@@ -163,8 +164,7 @@ const TourAndGuides = ({
       </Container>
       {selectedTour ? (
         <Modal isOpen={!!selectedTour?.slug} onClose={handlePopupClose}>
-          <h2>{selectedTour.title}</h2>
-          <p>{selectedTour.subTitle}</p>
+          <TourPopup tourPreview={selectedTour} onClose={handlePopupClose} />
         </Modal>
       ) : null}
     </>

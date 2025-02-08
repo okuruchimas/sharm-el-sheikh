@@ -57,11 +57,13 @@
     "entertainersTourGuides": "Аніматори та Туристичні Гіди",
     "findAnimatorForTicket": "Знайдіть аніматора для покупки квитків",
     "food": "Їжа:",
+    "informationProvided": "Інформація про цей тур була надана",
     "languagesSpoken": "Мови, якими володіє",
     "reviews": "Відгуки",
     "howRateEstablishment": "Як би ви оцінили цей заклад?",
     "selectDay": "Виберіть День",
     "similarSuggestions": "Схожі пропозиції",
+    "tourComponents": "Компоненти туру",
     "workingDays": "Робочі дні"
   },
   "toasts": {

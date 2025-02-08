@@ -57,11 +57,13 @@
     "entertainersTourGuides": "المسليين ومرشدي الجولات",
     "findAnimatorForTicket": "ابحث عن الرسوم المتحركة لشراء التذاكر",
     "food": "طعام:",
+    "informationProvided": "تم توفير معلومات حول هذه الجولة",
     "languagesSpoken": "اللغات المحكية",
     "reviews": "التقييمات",
     "howRateEstablishment": "كيف تقيم هذا المنشأة؟",
     "selectDay": "اختر اليوم",
     "similarSuggestions": "اقتراحات مشابهة",
+    "tourComponents": "مكونات الجولة",
     "workingDays": "أيام العمل"
   },
   "toasts": {

@@ -5094,6 +5094,14 @@ export type GetToursQueryVariables = Exact<{
 
 export type GetToursQuery = { __typename?: 'Query', tours?: { __typename?: 'TourEntityResponseCollection', data: Array<{ __typename?: 'TourEntity', attributes?: { __typename?: 'Tour', slug: string, name: string, price: string, location: string, duration: string, groupSize: string, averageRating: number, totalComments: number, images?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } | null, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null } | null }> } | null };
 
+export type GetTourQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetTourQuery = { __typename?: 'Query', tours?: { __typename?: 'TourEntityResponseCollection', data: Array<{ __typename?: 'TourEntity', attributes?: { __typename?: 'Tour', slug: string, about?: string | null, averageRating: number, totalComments: number, duration: string, groupSize: string, location: string, name: string, price: string, images?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } | null, informationProvider?: { __typename?: 'ComponentHelpersTextWithLink', text: string, link: string } | null, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null, tourComponents?: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null> | null, tour_guides?: { __typename?: 'TourGuideRelationResponseCollection', data: Array<{ __typename?: 'TourGuideEntity', attributes?: { __typename?: 'TourGuide', slug: string, name: string, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, tours?: { __typename?: 'TourRelationResponseCollection', data: Array<{ __typename?: 'TourEntity', attributes?: { __typename?: 'Tour', name: string } | null }> } | null } | null }> } | null } | null }> } | null };
+
 export type TourFragment = { __typename?: 'Tour', slug: string, about?: string | null, averageRating: number, totalComments: number, duration: string, groupSize: string, location: string, name: string, price: string, images?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } | null, informationProvider?: { __typename?: 'ComponentHelpersTextWithLink', text: string, link: string } | null, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null, tourComponents?: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null> | null, tour_guides?: { __typename?: 'TourGuideRelationResponseCollection', data: Array<{ __typename?: 'TourGuideEntity', attributes?: { __typename?: 'TourGuide', slug: string, name: string, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, tours?: { __typename?: 'TourRelationResponseCollection', data: Array<{ __typename?: 'TourEntity', attributes?: { __typename?: 'Tour', name: string } | null }> } | null } | null }> } | null };
 
 export type TourPreviewFragment = { __typename?: 'Tour', slug: string, name: string, price: string, location: string, duration: string, groupSize: string, averageRating: number, totalComments: number, images?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } | null, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null };
@@ -7632,3 +7640,85 @@ export const GetToursDocument = new TypedDocumentString(`
   averageRating
   totalComments
 }`) as unknown as TypedDocumentString<GetToursQuery, GetToursQueryVariables>;
+export const GetTourDocument = new TypedDocumentString(`
+    query GetTour($slug: String!, $locale: I18NLocaleCode!) {
+  tours(filters: {slug: {eq: $slug}}, locale: $locale) {
+    data {
+      attributes {
+        ...Tour
+      }
+    }
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}
+fragment TourGuidePreview on TourGuide {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  languages {
+    data {
+      attributes {
+        key
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  averageRating
+  totalComments
+  tours {
+    data {
+      attributes {
+        name
+      }
+    }
+  }
+}
+fragment Tour on Tour {
+  slug
+  about
+  averageRating
+  totalComments
+  duration
+  groupSize
+  images {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  informationProvider {
+    text
+    link
+  }
+  location
+  name
+  position {
+    lat
+    lng
+  }
+  price
+  tourComponents {
+    value
+  }
+  tour_guides {
+    data {
+      attributes {
+        ...TourGuidePreview
+      }
+    }
+  }
+}`) as unknown as TypedDocumentString<GetTourQuery, GetTourQueryVariables>;
