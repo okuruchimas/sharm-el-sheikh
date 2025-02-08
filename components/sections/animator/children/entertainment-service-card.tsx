@@ -11,6 +11,7 @@ type PromCardProps = {
   imgSrc: string;
   duration: string;
   groupSize?: string;
+  onClick?: () => void;
 };
 const EntertainmentServiceCard = ({
   price,
@@ -19,9 +20,10 @@ const EntertainmentServiceCard = ({
   imgSrc,
   duration,
   groupSize,
+  onClick,
 }: PromCardProps) => {
   return (
-    <Wrap>
+    <Wrap onClick={onClick}>
       <ImgWrapper>
         <Image src={imgSrc} alt="placeholder" layout="fill" />
       </ImgWrapper>

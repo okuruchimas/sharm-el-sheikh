@@ -3,13 +3,17 @@ import {
   GetTourGuideBySlugDocument,
   GetTourGuidesByFiltersDocument,
   type TourGuideFragment,
+  type TourPreviewFragment,
 } from "../../../../gql/graphql";
 import { toast, ToastContainer } from "react-toastify";
 // hooks
+import { useState } from "react";
 import { useTranslation } from "next-i18next";
 // components
+import Modal from "../../../../components/layout/modal";
 import { Title } from "../../../../components/layout/title";
 import Reviews from "../../../../components/sections/company/reviews";
+import TourPopup from "../../../../components/sections/entertainers-tour-guides/tour-and-guides/tour-popup";
 import BackRoute from "../../../../components/sections/entertainers-tour-guides/children/back-route";
 import GuideCard from "../../../../components/sections/entertainers-tour-guides/tour-and-guides/card";
 import ReviewForm from "../../../../components/sections/company/review";
@@ -29,6 +33,7 @@ import { getLocalizedPaths } from "../../../../utils/get-loocalized-paths";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // styles
 import "react-toastify/dist/ReactToastify.css";
+import type { MapCard } from "../../../../components/layout/map/children/types";
 
 interface TourGuidePageProps {
   tourGuide: TourGuideFragment;
@@ -50,6 +55,8 @@ const TourGuidePage = ({
   },
   similarSuggestions,
 }: TourGuidePageProps) => {
+  const [selectedTour, setSelectedTour] = useState<MapCard>();
+
   const { t } = useTranslation("entertainers-tour-guides");
   const { t: tCommon } = useTranslation("common");
 
@@ -83,6 +90,35 @@ const TourGuidePage = ({
       toast.error(tCommon("toasts.feedbackError"));
     }
   };
+
+  const handlePopupClose = () => setSelectedTour(undefined);
+
+  const handleTourClick =
+    ({
+      slug,
+      name,
+      location,
+      images,
+      averageRating,
+      totalComments,
+      position,
+    }: TourPreviewFragment) =>
+    () =>
+      setSelectedTour({
+        slug,
+        title: name,
+        subTitle: location || "",
+        imageSrc:
+          images?.data[0]?.attributes?.url ||
+          "/images/background/background-prom.svg",
+        imageAlt: images?.data[0]?.attributes?.alternativeText || "",
+        averageRating,
+        totalComments,
+        position: {
+          lat: position?.lat || 0,
+          lng: position?.lng || 0,
+        },
+      });
 
   return (
     <>
@@ -123,6 +159,11 @@ const TourGuidePage = ({
                     imgSrc={
                       el?.attributes?.images?.data[0].attributes?.url || ""
                     }
+                    onClick={
+                      el?.attributes
+                        ? handleTourClick(el.attributes)
+                        : undefined
+                    }
                   />
                 ))}
               </CardsWrap>
@@ -151,6 +192,11 @@ const TourGuidePage = ({
         </SectionWrapper>
       </Wrapper>
       <ToastContainer />
+      {selectedTour ? (
+        <Modal isOpen={!!selectedTour?.slug} onClose={handlePopupClose}>
+          <TourPopup tourPreview={selectedTour} onClose={handlePopupClose} />
+        </Modal>
+      ) : null}
     </>
   );
 };

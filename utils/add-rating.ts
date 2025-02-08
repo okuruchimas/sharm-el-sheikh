@@ -1,6 +1,6 @@
 import { getUrl } from "./fetchApi";
 
-type CollectionTypesWithRating = "companies" | "animation-companies";
+type CollectionTypesWithRating = "companies" | "animation-companies" | "tours";
 
 type AddRatingParams = {
   slug: string;

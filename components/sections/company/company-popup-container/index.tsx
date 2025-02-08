@@ -11,12 +11,11 @@ import { fetchDataFromApi } from "../../../../utils/fetchApi";
 import Image from "next/image";
 import Loader from "../../../layout/loader";
 import Rating from "../../../layout/rating";
-import Button from "../../../layout/button";
 import TextPill from "../../../layout/text-pill";
 import NextImage from "../../../layout/image";
 import ServiceCard from "../../../layout/service-card";
-import StarReview from "../review/children/star-review";
 import LocationLink from "../../../layout/location-link";
+import StarReviewForm from "../../../layout/star-review-form";
 // constants
 import { DayAbv } from "../../../../constants/week-days.constants";
 // types
@@ -181,19 +180,14 @@ const CompanyPopupContainer = ({
       ) : (
         <Loader />
       )}
-      <Stack gap="24px" mGap="16px">
-        <div>
-          <Title marginBottom="8px">{t("text.howRateEstablishment")}</Title>
-          <StarReview stars={stars} onChange={setStars} disabled={isDisabled} />
-        </div>
-      </Stack>
-      <SaveButton
-        text={t("buttons.save")}
-        onClick={handleSave}
+      <StarReviewForm
+        stars={stars}
+        isDisabled={isDisabled}
         isLoading={isLoading}
-        disabled={isDisabled || stars < 1}
+        onSave={handleSave}
+        onClose={onClose}
+        onChange={setStars}
       />
-      <BackButton text={t("buttons.back")} onClick={onClose} />
     </Wrapper>
   );
 };
@@ -230,28 +224,6 @@ const Wrapper = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     gap: "16px",
-  },
-}));
-
-const BackButton = styled(Button)(({ theme }) => ({
-  alignSelf: "end",
-
-  [theme.breakpoints.mobile]: {
-    position: "sticky",
-    bottom: 0,
-    right: 0,
-    opacity: 0.9,
-    minWidth: "130px",
-  },
-}));
-
-const SaveButton = styled(Button)(({ theme }) => ({
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-
-  [theme.breakpoints.mobile]: {
-    minWidth: "130px",
   },
 }));
 
