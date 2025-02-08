@@ -33,8 +33,8 @@ const StarReviewForm = ({
           isLoading={isLoading}
           disabled={isDisabled || stars < 1}
         />
-        <BackButton text={t("buttons.back")} onClick={onClose} />
       </Section>
+      <BackButton text={t("buttons.back")} onClick={onClose} />
     </>
   );
 };
@@ -60,6 +60,7 @@ const SectionTitle = styled(Title)(({ theme }) => ({
 
 const BackButton = styled(Button)(({ theme }) => ({
   alignSelf: "end",
+  zIndex: 2,
 
   [theme.breakpoints.mobile]: {
     position: "sticky",

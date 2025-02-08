@@ -54,7 +54,7 @@ const hiddenOverflow = css`
 
 export default Modal;
 
-const Backdrop = styled("div")({
+const Backdrop = styled("div")(({ theme }) => ({
   width: "100vw",
   height: "100vh",
   backgroundColor: "rgba(19, 33, 61, 0.4)",
@@ -66,15 +66,15 @@ const Backdrop = styled("div")({
   justifyContent: "center",
   zIndex: 1000,
 
-  "@media (max-width: 1024px)": {
+  [theme.breakpoints.mobile]: {
     backgroundColor: "rgba(19, 33, 61, 0.6)",
   },
-});
+}));
 
 const ModalWindow = styled("div", {
   shouldForwardProp: (prop) => !["width", "mWidth", "maxWidth"].includes(prop),
 })<{ width: string; mWidth: string; maxWidth?: string }>(
-  ({ width, mWidth, maxWidth }) => ({
+  ({ width, mWidth, maxWidth, theme }) => ({
     width: width,
     backgroundColor: "#ffffff",
     borderRadius: "16px",
@@ -91,7 +91,9 @@ const ModalWindow = styled("div", {
       display: "none",
     },
 
-    "@media (max-width: 1024px)": {
+    [theme.breakpoints.mobile]: {
+      position: "fixed",
+      top: 20,
       width: mWidth,
       padding: "16px",
     },

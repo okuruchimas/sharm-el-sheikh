@@ -81,6 +81,8 @@ export const InformationProvider = styled("div", {
   fontWeight: 700,
 
   [theme.breakpoints.mobileS]: {
+    flexDirection: "column",
+    alignItems: isAr ? "end" : "start",
     fontSize: theme.fontSize.fontS18,
     fontWeight: 600,
   },
