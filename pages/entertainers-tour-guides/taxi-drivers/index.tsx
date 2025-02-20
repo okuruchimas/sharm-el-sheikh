@@ -1,10 +1,12 @@
 import {
   type CarClass,
   type Language,
+  type TaxiSpotFragment,
   type TaxiDriverPreviewFragment,
   GetLanguagesDocument,
   GetCarClassesDocument,
   GetDriversByFiltersDocument,
+  GetTaxiSpotsDocument,
 } from "../../../gql/graphql";
 import TaxiFilterForm, {
   type TaxiFilterFormI,
@@ -19,12 +21,15 @@ import { TAXI_STATUSES } from "../../../constants/taxi-statuses.constants";
 import { REVALIDATE_TIME } from "../../../constants/page.constants";
 import { RATING_FILTER_OPTIONS } from "../../../constants/filter-options";
 // components
+import Map from "../../../components/layout/map";
 import Tabs from "../../../components/sections/entertainers-tour-guides/children/tabs";
+import Modal from "../../../components/layout/modal";
 import Container from "../../../components/sections/entertainers-tour-guides/children/container";
 import Dropdown from "../../../components/layout/filters";
 import FilterButton from "../../../components/layout/filters/button";
 import TaxiCards from "../../../components/sections/entertainers-tour-guides/taxi-drivers/cards";
 import Pagination from "../../../components/layout/pagination";
+import TaxiSpotPopup from "../../../components/sections/entertainers-tour-guides/taxi-drivers/taxi-spot-popup";
 // utils
 import styled from "@emotion/styled";
 import { getCurrentDayAndTime } from "../../../utils/formateDate";
@@ -32,24 +37,28 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 // types
 import type { selectOption } from "../../../components/types/filter";
+import type { MapCard } from "../../../components/layout/map/children/types";
 
 type Drivers = { attributes: TaxiDriverPreviewFragment }[];
 
 type TaxiDriversProps = {
   initialTotalDrivers: number;
   initialDrivers: Drivers;
+  taxiSpots: { attributes: TaxiSpotFragment }[];
   languages: { attributes: Language }[];
   carClasses: { attributes: CarClass }[];
 };
 
 const TaxiDrivers = ({
   languages,
+  taxiSpots,
   carClasses,
   initialDrivers,
   initialTotalDrivers,
 }: TaxiDriversProps) => {
   // result
   const [result, setResult] = useState<Drivers>(initialDrivers);
+  const [selectedSpot, setSelectedSpot] = useState<TaxiSpotFragment>();
   // pagination
   const [page, setPage] = useState<number>(1);
   const [total, setTotal] = useState(initialTotalDrivers);
@@ -193,8 +202,38 @@ const TaxiDrivers = ({
     });
   };
 
+  const locations = taxiSpots
+    .filter((el) => !!el.attributes.position)
+    .map((el) => ({
+      slug: el.attributes.slug,
+      title: el.attributes.name,
+      subTitle: el.attributes.location || "",
+      imageSrc:
+        el.attributes.images?.data[0]?.attributes?.url ||
+        "/images/background/background-prom.svg",
+      imageAlt:
+        el.attributes.images?.data[0]?.attributes?.alternativeText || "",
+      averageRating: el.attributes.averageRating,
+      totalComments: el.attributes.totalComments,
+      position: {
+        lat: el.attributes.position?.lat || 0,
+        lng: el.attributes.position?.lng || 0,
+      },
+    }));
+
+  const handleInfoWindowClick = (card: MapCard) => {
+    const company = taxiSpots.find((el) => el.attributes.slug === card.slug);
+
+    setSelectedSpot(company?.attributes);
+  };
+
+  const handlePopupClose = () => setSelectedSpot(undefined);
+
   return (
     <Container>
+      {locations.length ? (
+        <Map onInfoWindowClick={handleInfoWindowClick} locations={locations} />
+      ) : null}
       <Tabs />
       <FiltersWrap>
         <ButtonsWrapper>
@@ -231,6 +270,11 @@ const TaxiDrivers = ({
         totalItems={total}
         onChangePage={handleChangePage}
       />
+      {selectedSpot ? (
+        <Modal isOpen={!!selectedSpot?.slug} onClose={handlePopupClose}>
+          <TaxiSpotPopup data={selectedSpot} onClose={handlePopupClose} />
+        </Modal>
+      ) : null}
     </Container>
   );
 };
@@ -273,6 +317,7 @@ const StatusesWrap = styled("div")(({ theme }) => ({
 export async function getStaticProps({ locale }: any) {
   const { languages } = await fetchData(GetLanguagesDocument, { locale });
   const { carClasses } = await fetchData(GetCarClassesDocument, { locale });
+  const { taxiSpots } = await fetchData(GetTaxiSpotsDocument, { locale });
   const { taxiDrivers } = await fetchData(GetDriversByFiltersDocument, {
     locale,
     page: 1,
@@ -283,6 +328,7 @@ export async function getStaticProps({ locale }: any) {
     props: {
       languages: languages?.data,
       carClasses: carClasses?.data,
+      taxiSpots: taxiSpots?.data,
       initialDrivers: taxiDrivers?.data,
       initialTotalDrivers: taxiDrivers?.meta.pagination.total,
       ...(await serverSideTranslations(locale, [

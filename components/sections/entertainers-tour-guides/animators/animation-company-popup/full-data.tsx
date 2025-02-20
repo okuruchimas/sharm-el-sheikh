@@ -1,8 +1,10 @@
 import { useTranslation } from "next-i18next";
+import CardsSwiper from "../../../../layout/cards-swiper";
+import AnimatorCard from "../card";
 import { Title } from "../../../../layout/title";
 import VacancyItem from "./vacancy-item";
 import SocialIcon from "../../../../layout/social-icon";
-import PopApCards from "../cards/pop-ap-cards";
+import { SwiperSlide } from "swiper/react";
 import { Section, SectionTitle } from "./index";
 import styled from "@emotion/styled";
 import type {
@@ -16,6 +18,8 @@ interface Props {
 
 const FullData = ({ fullData }: Props) => {
   const { t } = useTranslation("common");
+  const { t: tPage } = useTranslation("entertainers-tour-guides");
+
   const { i18n } = useTranslation("");
 
   const {
@@ -47,8 +51,16 @@ const FullData = ({ fullData }: Props) => {
       {animatorsToShow ? (
         <Section>
           <SectionTitle as="h3">{t("animPopAp.animators")}</SectionTitle>
-
-          <PopApCards animators={animatorsToShow} />
+          <CardsSwiper
+            dataLength={animatorsToShow.length}
+            placeholderText={tPage("placeholders.noAnimators")}
+          >
+            {animatorsToShow.map((el) => (
+              <SwiperSlide key={el?.slug}>
+                <AnimatorCard animator={el} size="s" />
+              </SwiperSlide>
+            ))}
+          </CardsSwiper>
         </Section>
       ) : null}
 

@@ -13,6 +13,7 @@ import type { TaxiDriverPreviewFragment } from "../../../../../gql/graphql";
 
 interface TaxiCardProps {
   driver: TaxiDriverPreviewFragment;
+  size?: string;
 }
 
 const TaxiCard = ({
@@ -27,6 +28,7 @@ const TaxiCard = ({
     averageRating,
     totalComments,
   },
+  size,
 }: TaxiCardProps) => {
   const { t } = useTranslation("common");
 
@@ -43,11 +45,12 @@ const TaxiCard = ({
 
   return (
     <Card
+      size={size}
       slug={`/entertainers-tour-guides/taxi-drivers/${slug}`}
       title={name}
       averageRating={averageRating}
       totalComments={totalComments}
-      imgSrc={profileImg.data?.attributes?.url || ""}
+      imgSrc={profileImg?.data?.attributes?.url || ""}
       iconText={car_class?.data?.attributes?.value || ""}
       iconSrc={car_class?.data?.attributes?.icon.data?.attributes?.url || ""}
       greyText={days?.join(", ") || "-"}
