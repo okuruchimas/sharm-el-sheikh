@@ -1,26 +1,32 @@
 import "swiper/css";
 // hooks
-import useResponsive from "../../../../../hooks/useResponsive";
-import { useTranslation } from "next-i18next";
+import useResponsive from "../../../hooks/useResponsive";
 // components
-import AnimatorCard from "../card";
-import Placeholder from "../../../promotions/children/placeholder";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper } from "swiper/react";
+import Placeholder from "../../sections/promotions/children/placeholder";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { AnimatorPreviewFragment } from "../../../../../gql/graphql";
+import type { ReactNode } from "react";
 
-type AnimatorCardsProps = {
-  animators: AnimatorPreviewFragment[];
+type SwiperCardsProps = {
+  children?: ReactNode;
+  dataLength?: number;
+  placeholderText: string;
 };
-const PopApCards = ({ animators }: AnimatorCardsProps) => {
-  const { t } = useTranslation("entertainers-tour-guides");
+const CardsSwiper = ({
+  children,
+  dataLength,
+  placeholderText,
+}: SwiperCardsProps) => {
   const { isMobile } = useResponsive();
 
-  return animators.length ? (
+  if (!dataLength) return <Placeholder title={placeholderText} />;
+
+  return (
     <Wrapper
       slidesPerView={isMobile ? 2 : 3}
+      isSingleCard={dataLength < 2}
       spaceBetween={12}
       navigation={false}
       pagination={{
@@ -28,18 +34,14 @@ const PopApCards = ({ animators }: AnimatorCardsProps) => {
       }}
       loop
     >
-      {animators.map((el) => (
-        <SwiperSlide key={el.slug}>
-          <AnimatorCard animator={el} size="s" />
-        </SwiperSlide>
-      ))}
+      {children}
     </Wrapper>
-  ) : (
-    <Placeholder title={t("placeholders.noAnimators")} />
   );
 };
 
-const Wrapper = styled(Swiper)(({ theme }) => ({
+export const Wrapper = styled(Swiper, {
+  shouldForwardProp: (prop) => prop !== "isSingleCard",
+})<{ isSingleCard: boolean }>(({ theme, isSingleCard }) => ({
   position: "relative",
   width: "100%",
   height: 360,
@@ -109,11 +111,12 @@ const Wrapper = styled(Swiper)(({ theme }) => ({
         display: "flex",
         maxHeight: "initial",
         height: 302,
-        opacity: 0.8,
+        opacity: isSingleCard ? 1 : 0.8,
       },
       position: "relative",
-      left: "44%",
+      left: isSingleCard ? "24px" : "44%",
     },
   },
 }));
-export default PopApCards;
+
+export default CardsSwiper;

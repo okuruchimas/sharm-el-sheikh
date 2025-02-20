@@ -1436,7 +1436,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | ComponentComponentsBanner | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Location | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyStyle | Service | SupportService | TaxiDriver | TaxiService | Tour | TourGuide | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | ComponentComponentsBanner | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Location | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyStyle | Service | SupportService | TaxiDriver | TaxiService | TaxiSpot | Tour | TourGuide | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   __typename?: 'Header';
@@ -2158,6 +2158,8 @@ export type Mutation = {
   createTaxiDriverLocalization?: Maybe<TaxiDriverEntityResponse>;
   createTaxiService?: Maybe<TaxiServiceEntityResponse>;
   createTaxiServiceLocalization?: Maybe<TaxiServiceEntityResponse>;
+  createTaxiSpot?: Maybe<TaxiSpotEntityResponse>;
+  createTaxiSpotLocalization?: Maybe<TaxiSpotEntityResponse>;
   createTour?: Maybe<TourEntityResponse>;
   createTourGuide?: Maybe<TourGuideEntityResponse>;
   createTourGuideLocalization?: Maybe<TourGuideEntityResponse>;
@@ -2192,6 +2194,7 @@ export type Mutation = {
   deleteSupportService?: Maybe<SupportServiceEntityResponse>;
   deleteTaxiDriver?: Maybe<TaxiDriverEntityResponse>;
   deleteTaxiService?: Maybe<TaxiServiceEntityResponse>;
+  deleteTaxiSpot?: Maybe<TaxiSpotEntityResponse>;
   deleteTour?: Maybe<TourEntityResponse>;
   deleteTourGuide?: Maybe<TourGuideEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -2236,6 +2239,7 @@ export type Mutation = {
   updateSupportService?: Maybe<SupportServiceEntityResponse>;
   updateTaxiDriver?: Maybe<TaxiDriverEntityResponse>;
   updateTaxiService?: Maybe<TaxiServiceEntityResponse>;
+  updateTaxiSpot?: Maybe<TaxiSpotEntityResponse>;
   updateTour?: Maybe<TourEntityResponse>;
   updateTourGuide?: Maybe<TourGuideEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -2529,6 +2533,19 @@ export type MutationCreateTaxiServiceLocalizationArgs = {
 };
 
 
+export type MutationCreateTaxiSpotArgs = {
+  data: TaxiSpotInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateTaxiSpotLocalizationArgs = {
+  data?: InputMaybe<TaxiSpotInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationCreateTourArgs = {
   data: TourInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -2708,6 +2725,12 @@ export type MutationDeleteTaxiDriverArgs = {
 
 
 export type MutationDeleteTaxiServiceArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeleteTaxiSpotArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -2948,6 +2971,13 @@ export type MutationUpdateTaxiDriverArgs = {
 
 export type MutationUpdateTaxiServiceArgs = {
   data: TaxiServiceInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationUpdateTaxiSpotArgs = {
+  data: TaxiSpotInput;
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -3323,6 +3353,8 @@ export type Query = {
   taxiDrivers?: Maybe<TaxiDriverEntityResponseCollection>;
   taxiService?: Maybe<TaxiServiceEntityResponse>;
   taxiServices?: Maybe<TaxiServiceEntityResponseCollection>;
+  taxiSpot?: Maybe<TaxiSpotEntityResponse>;
+  taxiSpots?: Maybe<TaxiSpotEntityResponseCollection>;
   tour?: Maybe<TourEntityResponse>;
   tourGuide?: Maybe<TourGuideEntityResponse>;
   tourGuides?: Maybe<TourGuideEntityResponseCollection>;
@@ -3663,6 +3695,21 @@ export type QueryTaxiServicesArgs = {
 };
 
 
+export type QueryTaxiSpotArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryTaxiSpotsArgs = {
+  filters?: InputMaybe<TaxiSpotFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
 export type QueryTourArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -3934,6 +3981,7 @@ export type TaxiDriver = {
   slug: Scalars['String']['output'];
   socialLinks: Array<Maybe<ComponentHelpersSocialMedia>>;
   taxi_services?: Maybe<TaxiServiceRelationResponseCollection>;
+  taxi_spots?: Maybe<TaxiSpotRelationResponseCollection>;
   totalComments: Scalars['Int']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -3991,6 +4039,14 @@ export type TaxiDriverTaxi_ServicesArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+
+export type TaxiDriverTaxi_SpotsArgs = {
+  filters?: InputMaybe<TaxiSpotFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export type TaxiDriverEntity = {
   __typename?: 'TaxiDriverEntity';
   attributes?: Maybe<TaxiDriver>;
@@ -4031,6 +4087,7 @@ export type TaxiDriverFiltersInput = {
   slug?: InputMaybe<StringFilterInput>;
   socialLinks?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
   taxi_services?: InputMaybe<TaxiServiceFiltersInput>;
+  taxi_spots?: InputMaybe<TaxiSpotFiltersInput>;
   totalComments?: InputMaybe<IntFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -4052,6 +4109,7 @@ export type TaxiDriverInput = {
   slug?: InputMaybe<Scalars['String']['input']>;
   socialLinks?: InputMaybe<Array<InputMaybe<ComponentHelpersSocialMediaInput>>>;
   taxi_services?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  taxi_spots?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   totalComments?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -4135,6 +4193,102 @@ export type TaxiServiceInput = {
 export type TaxiServiceRelationResponseCollection = {
   __typename?: 'TaxiServiceRelationResponseCollection';
   data: Array<TaxiServiceEntity>;
+};
+
+export type TaxiSpot = {
+  __typename?: 'TaxiSpot';
+  about?: Maybe<Scalars['String']['output']>;
+  averageRating: Scalars['Float']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  images: UploadFileRelationResponseCollection;
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<TaxiSpotRelationResponseCollection>;
+  location: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  position: ComponentHelpersPosition;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  slug: Scalars['String']['output'];
+  taxi_drivers?: Maybe<TaxiDriverRelationResponseCollection>;
+  totalComments: Scalars['Int']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type TaxiSpotImagesArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TaxiSpotLocalizationsArgs = {
+  filters?: InputMaybe<TaxiSpotFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TaxiSpotTaxi_DriversArgs = {
+  filters?: InputMaybe<TaxiDriverFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type TaxiSpotEntity = {
+  __typename?: 'TaxiSpotEntity';
+  attributes?: Maybe<TaxiSpot>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type TaxiSpotEntityResponse = {
+  __typename?: 'TaxiSpotEntityResponse';
+  data?: Maybe<TaxiSpotEntity>;
+};
+
+export type TaxiSpotEntityResponseCollection = {
+  __typename?: 'TaxiSpotEntityResponseCollection';
+  data: Array<TaxiSpotEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type TaxiSpotFiltersInput = {
+  about?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<TaxiSpotFiltersInput>>>;
+  averageRating?: InputMaybe<FloatFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<TaxiSpotFiltersInput>;
+  location?: InputMaybe<StringFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<TaxiSpotFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<TaxiSpotFiltersInput>>>;
+  position?: InputMaybe<ComponentHelpersPositionFiltersInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  taxi_drivers?: InputMaybe<TaxiDriverFiltersInput>;
+  totalComments?: InputMaybe<IntFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type TaxiSpotInput = {
+  about?: InputMaybe<Scalars['String']['input']>;
+  averageRating?: InputMaybe<Scalars['Float']['input']>;
+  images?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  position?: InputMaybe<ComponentHelpersPositionInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  taxi_drivers?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  totalComments?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type TaxiSpotRelationResponseCollection = {
+  __typename?: 'TaxiSpotRelationResponseCollection';
+  data: Array<TaxiSpotEntity>;
 };
 
 export type TimeFilterInput = {
@@ -5030,6 +5184,15 @@ export type GetSupportServicesQuery = { __typename?: 'Query', supportServices?: 
 
 export type SupportServiceFragment = { __typename?: 'SupportService', name: string, phoneNumber: string, location: string, mapLink?: string | null, category: Enum_Supportservice_Category, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } };
 
+export type GetTaxiSpotsQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetTaxiSpotsQuery = { __typename?: 'Query', taxiSpots?: { __typename?: 'TaxiSpotEntityResponseCollection', data: Array<{ __typename?: 'TaxiSpotEntity', attributes?: { __typename?: 'TaxiSpot', slug: string, name: string, about?: string | null, locale?: string | null, location: string, averageRating: number, totalComments: number, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position: { __typename?: 'ComponentHelpersPosition', lng: number, lat: number }, taxi_drivers?: { __typename?: 'TaxiDriverRelationResponseCollection', data: Array<{ __typename?: 'TaxiDriverEntity', attributes?: { __typename?: 'TaxiDriver', slug: string, name: string, totalComments: number, averageRating: number, isNotWorking: boolean, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, schedule?: Array<{ __typename?: 'ComponentComponentsWorkSchedule', dayOfWeek: Enum_Componentcomponentsworkschedule_Dayofweek, timeSlots: Array<{ __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } | null> } | null> | null, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, car_class?: { __typename?: 'CarClassEntityResponse', data?: { __typename?: 'CarClassEntity', attributes?: { __typename?: 'CarClass', value: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null } | null } | null } | null }> } | null } | null }> } | null };
+
+export type TaxiSpotFragment = { __typename?: 'TaxiSpot', slug: string, name: string, about?: string | null, locale?: string | null, location: string, averageRating: number, totalComments: number, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position: { __typename?: 'ComponentHelpersPosition', lng: number, lat: number }, taxi_drivers?: { __typename?: 'TaxiDriverRelationResponseCollection', data: Array<{ __typename?: 'TaxiDriverEntity', attributes?: { __typename?: 'TaxiDriver', slug: string, name: string, totalComments: number, averageRating: number, isNotWorking: boolean, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, schedule?: Array<{ __typename?: 'ComponentComponentsWorkSchedule', dayOfWeek: Enum_Componentcomponentsworkschedule_Dayofweek, timeSlots: Array<{ __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } | null> } | null> | null, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, car_class?: { __typename?: 'CarClassEntityResponse', data?: { __typename?: 'CarClassEntity', attributes?: { __typename?: 'CarClass', value: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null } | null } | null } | null }> } | null };
+
 export type GetDriverBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
   locale: Scalars['I18NLocaleCode']['input'];
@@ -5888,6 +6051,80 @@ export const TaxiDriverPreviewFragmentDoc = new TypedDocumentString(`
     }
   }
 }`, {"fragmentName":"TaxiDriverPreview"}) as unknown as TypedDocumentString<TaxiDriverPreviewFragment, unknown>;
+export const TaxiSpotFragmentDoc = new TypedDocumentString(`
+    fragment TaxiSpot on TaxiSpot {
+  slug
+  name
+  about
+  locale
+  location
+  averageRating
+  totalComments
+  images {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  position {
+    lng
+    lat
+  }
+  taxi_drivers {
+    data {
+      attributes {
+        ...TaxiDriverPreview
+      }
+    }
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}
+fragment TaxiDriverPreview on TaxiDriver {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  schedule {
+    dayOfWeek
+    timeSlots {
+      startTime
+      endTime
+    }
+  }
+  languages {
+    data {
+      attributes {
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  car_class {
+    data {
+      attributes {
+        value
+        icon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  totalComments
+  averageRating
+  isNotWorking
+}`, {"fragmentName":"TaxiSpot"}) as unknown as TypedDocumentString<TaxiSpotFragment, unknown>;
 export const TourPreviewFragmentDoc = new TypedDocumentString(`
     fragment TourPreview on Tour {
   slug
@@ -7273,6 +7510,89 @@ fragment SupportService on SupportService {
   }
   category
 }`) as unknown as TypedDocumentString<GetSupportServicesQuery, GetSupportServicesQueryVariables>;
+export const GetTaxiSpotsDocument = new TypedDocumentString(`
+    query GetTaxiSpots($locale: I18NLocaleCode!) {
+  taxiSpots(locale: $locale) {
+    data {
+      attributes {
+        ...TaxiSpot
+      }
+    }
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}
+fragment TaxiSpot on TaxiSpot {
+  slug
+  name
+  about
+  locale
+  location
+  averageRating
+  totalComments
+  images {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  position {
+    lng
+    lat
+  }
+  taxi_drivers {
+    data {
+      attributes {
+        ...TaxiDriverPreview
+      }
+    }
+  }
+}
+fragment TaxiDriverPreview on TaxiDriver {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  schedule {
+    dayOfWeek
+    timeSlots {
+      startTime
+      endTime
+    }
+  }
+  languages {
+    data {
+      attributes {
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  car_class {
+    data {
+      attributes {
+        value
+        icon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  totalComments
+  averageRating
+  isNotWorking
+}`) as unknown as TypedDocumentString<GetTaxiSpotsQuery, GetTaxiSpotsQueryVariables>;
 export const GetDriverBySlugDocument = new TypedDocumentString(`
     query GetDriverBySlug($slug: String!, $locale: I18NLocaleCode!) {
   taxiDrivers(filters: {slug: {eq: $slug}}, locale: $locale) {

@@ -1,0 +1,38 @@
+query GetTaxiSpots($locale: I18NLocaleCode!) {
+  taxiSpots(locale: $locale) {
+    data {
+      attributes {
+        ...TaxiSpot
+      }
+    }
+  }
+}
+
+fragment TaxiSpot on TaxiSpot {
+  slug
+  name
+  about
+  locale
+  location
+  averageRating
+  totalComments
+  images {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  position {
+    lng
+    lat
+  }
+  taxi_drivers {
+    data {
+      attributes {
+        ...TaxiDriverPreview
+      }
+    }
+  }
+}
