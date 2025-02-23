@@ -1268,6 +1268,11 @@ export enum Enum_Componenthelpersweekday_Day {
   Wednesday = 'Wednesday'
 }
 
+export enum Enum_Photographylocation_Type {
+  Location = 'location',
+  Studio = 'studio'
+}
+
 export enum Enum_Supportservice_Category {
   AssistanceServices = 'assistance_services',
   Embassies = 'embassies',
@@ -1436,7 +1441,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | ComponentComponentsBanner | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Location | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyStyle | Service | SupportService | TaxiDriver | TaxiService | TaxiSpot | Tour | TourGuide | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | ComponentComponentsBanner | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Location | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyLocation | PhotographyStyle | Service | SupportService | TaxiDriver | TaxiService | TaxiSpot | Tour | TourGuide | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   __typename?: 'Header';
@@ -2148,6 +2153,8 @@ export type Mutation = {
   createPharmaciesPageLocalization?: Maybe<PharmaciesPageEntityResponse>;
   createPhotographer?: Maybe<PhotographerEntityResponse>;
   createPhotographerLocalization?: Maybe<PhotographerEntityResponse>;
+  createPhotographyLocation?: Maybe<PhotographyLocationEntityResponse>;
+  createPhotographyLocationLocalization?: Maybe<PhotographyLocationEntityResponse>;
   createPhotographyStyle?: Maybe<PhotographyStyleEntityResponse>;
   createPhotographyStyleLocalization?: Maybe<PhotographyStyleEntityResponse>;
   createService?: Maybe<ServiceEntityResponse>;
@@ -2189,6 +2196,7 @@ export type Mutation = {
   deleteMedicationCategory?: Maybe<MedicationCategoryEntityResponse>;
   deletePharmaciesPage?: Maybe<PharmaciesPageEntityResponse>;
   deletePhotographer?: Maybe<PhotographerEntityResponse>;
+  deletePhotographyLocation?: Maybe<PhotographyLocationEntityResponse>;
   deletePhotographyStyle?: Maybe<PhotographyStyleEntityResponse>;
   deleteService?: Maybe<ServiceEntityResponse>;
   deleteSupportService?: Maybe<SupportServiceEntityResponse>;
@@ -2234,6 +2242,7 @@ export type Mutation = {
   updateMedicationCategory?: Maybe<MedicationCategoryEntityResponse>;
   updatePharmaciesPage?: Maybe<PharmaciesPageEntityResponse>;
   updatePhotographer?: Maybe<PhotographerEntityResponse>;
+  updatePhotographyLocation?: Maybe<PhotographyLocationEntityResponse>;
   updatePhotographyStyle?: Maybe<PhotographyStyleEntityResponse>;
   updateService?: Maybe<ServiceEntityResponse>;
   updateSupportService?: Maybe<SupportServiceEntityResponse>;
@@ -2468,6 +2477,19 @@ export type MutationCreatePhotographerLocalizationArgs = {
 };
 
 
+export type MutationCreatePhotographyLocationArgs = {
+  data: PhotographyLocationInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreatePhotographyLocationLocalizationArgs = {
+  data?: InputMaybe<PhotographyLocationInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationCreatePhotographyStyleArgs = {
   data: PhotographyStyleInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -2695,6 +2717,12 @@ export type MutationDeletePharmaciesPageArgs = {
 
 
 export type MutationDeletePhotographerArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeletePhotographyLocationArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -2941,6 +2969,13 @@ export type MutationUpdatePhotographerArgs = {
 };
 
 
+export type MutationUpdatePhotographyLocationArgs = {
+  data: PhotographyLocationInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationUpdatePhotographyStyleArgs = {
   data: PhotographyStyleInput;
   id: Scalars['ID']['input'];
@@ -3113,6 +3148,7 @@ export type Photographer = {
   localizations?: Maybe<PhotographerRelationResponseCollection>;
   locations?: Maybe<LocationRelationResponseCollection>;
   name: Scalars['String']['output'];
+  photography_locations?: Maybe<PhotographyLocationRelationResponseCollection>;
   photography_styles?: Maybe<PhotographyStyleRelationResponseCollection>;
   profileImg: UploadFileEntityResponse;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -3149,6 +3185,14 @@ export type PhotographerLocalizationsArgs = {
 
 export type PhotographerLocationsArgs = {
   filters?: InputMaybe<LocationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type PhotographerPhotography_LocationsArgs = {
+  filters?: InputMaybe<PhotographyLocationFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -3200,6 +3244,7 @@ export type PhotographerFiltersInput = {
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<PhotographerFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<PhotographerFiltersInput>>>;
+  photography_locations?: InputMaybe<PhotographyLocationFiltersInput>;
   photography_styles?: InputMaybe<PhotographyStyleFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
@@ -3215,6 +3260,7 @@ export type PhotographerInput = {
   languages?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   locations?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   name?: InputMaybe<Scalars['String']['input']>;
+  photography_locations?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   photography_styles?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   profileImg?: InputMaybe<Scalars['ID']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3226,6 +3272,105 @@ export type PhotographerInput = {
 export type PhotographerRelationResponseCollection = {
   __typename?: 'PhotographerRelationResponseCollection';
   data: Array<PhotographerEntity>;
+};
+
+export type PhotographyLocation = {
+  __typename?: 'PhotographyLocation';
+  about?: Maybe<Scalars['String']['output']>;
+  averageRating: Scalars['Float']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  images?: Maybe<UploadFileRelationResponseCollection>;
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<PhotographyLocationRelationResponseCollection>;
+  location: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  photographers?: Maybe<PhotographerRelationResponseCollection>;
+  position: ComponentHelpersPosition;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  slug: Scalars['String']['output'];
+  totalComments: Scalars['Int']['output'];
+  type: Enum_Photographylocation_Type;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type PhotographyLocationImagesArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type PhotographyLocationLocalizationsArgs = {
+  filters?: InputMaybe<PhotographyLocationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type PhotographyLocationPhotographersArgs = {
+  filters?: InputMaybe<PhotographerFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type PhotographyLocationEntity = {
+  __typename?: 'PhotographyLocationEntity';
+  attributes?: Maybe<PhotographyLocation>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type PhotographyLocationEntityResponse = {
+  __typename?: 'PhotographyLocationEntityResponse';
+  data?: Maybe<PhotographyLocationEntity>;
+};
+
+export type PhotographyLocationEntityResponseCollection = {
+  __typename?: 'PhotographyLocationEntityResponseCollection';
+  data: Array<PhotographyLocationEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type PhotographyLocationFiltersInput = {
+  about?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<PhotographyLocationFiltersInput>>>;
+  averageRating?: InputMaybe<FloatFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<PhotographyLocationFiltersInput>;
+  location?: InputMaybe<StringFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<PhotographyLocationFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<PhotographyLocationFiltersInput>>>;
+  photographers?: InputMaybe<PhotographerFiltersInput>;
+  position?: InputMaybe<ComponentHelpersPositionFiltersInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  totalComments?: InputMaybe<IntFilterInput>;
+  type?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type PhotographyLocationInput = {
+  about?: InputMaybe<Scalars['String']['input']>;
+  averageRating?: InputMaybe<Scalars['Float']['input']>;
+  images?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  photographers?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  position?: InputMaybe<ComponentHelpersPositionInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  totalComments?: InputMaybe<Scalars['Int']['input']>;
+  type?: InputMaybe<Enum_Photographylocation_Type>;
+};
+
+export type PhotographyLocationRelationResponseCollection = {
+  __typename?: 'PhotographyLocationRelationResponseCollection';
+  data: Array<PhotographyLocationEntity>;
 };
 
 export type PhotographyStyle = {
@@ -3343,6 +3488,8 @@ export type Query = {
   pharmaciesPage?: Maybe<PharmaciesPageEntityResponse>;
   photographer?: Maybe<PhotographerEntityResponse>;
   photographers?: Maybe<PhotographerEntityResponseCollection>;
+  photographyLocation?: Maybe<PhotographyLocationEntityResponse>;
+  photographyLocations?: Maybe<PhotographyLocationEntityResponseCollection>;
   photographyStyle?: Maybe<PhotographyStyleEntityResponse>;
   photographyStyles?: Maybe<PhotographyStyleEntityResponseCollection>;
   service?: Maybe<ServiceEntityResponse>;
@@ -3613,6 +3760,21 @@ export type QueryPhotographerArgs = {
 
 export type QueryPhotographersArgs = {
   filters?: InputMaybe<PhotographerFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryPhotographyLocationArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryPhotographyLocationsArgs = {
+  filters?: InputMaybe<PhotographyLocationFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
@@ -5053,13 +5215,6 @@ export type GetPhotographyStylesQueryVariables = Exact<{
 
 export type GetPhotographyStylesQuery = { __typename?: 'Query', photographyStyles?: { __typename?: 'PhotographyStyleEntityResponseCollection', data: Array<{ __typename?: 'PhotographyStyleEntity', attributes?: { __typename?: 'PhotographyStyle', key: string, value: string } | null }> } | null };
 
-export type GetLocationsQueryVariables = Exact<{
-  locale: Scalars['I18NLocaleCode']['input'];
-}>;
-
-
-export type GetLocationsQuery = { __typename?: 'Query', locations?: { __typename?: 'LocationEntityResponseCollection', data: Array<{ __typename?: 'LocationEntity', attributes?: { __typename?: 'Location', key: string, value: string } | null }> } | null };
-
 export type GetMedicationCategoriesQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
 }>;
@@ -5172,6 +5327,15 @@ export type GetPhotographersSlugsQueryVariables = Exact<{ [key: string]: never; 
 
 
 export type GetPhotographersSlugsQuery = { __typename?: 'Query', photographers?: { __typename?: 'PhotographerEntityResponseCollection', data: Array<{ __typename?: 'PhotographerEntity', attributes?: { __typename?: 'Photographer', slug: string, locale?: string | null, localizations?: { __typename?: 'PhotographerRelationResponseCollection', data: Array<{ __typename?: 'PhotographerEntity', attributes?: { __typename?: 'Photographer', locale?: string | null } | null }> } | null } | null }> } | null };
+
+export type GetPhotographyLocationsQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetPhotographyLocationsQuery = { __typename?: 'Query', photographyLocations?: { __typename?: 'PhotographyLocationEntityResponseCollection', data: Array<{ __typename?: 'PhotographyLocationEntity', attributes?: { __typename?: 'PhotographyLocation', slug: string, about?: string | null, averageRating: number, totalComments: number, createdAt?: any | null, location: string, name: string, type: Enum_Photographylocation_Type, images?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } | null, position: { __typename?: 'ComponentHelpersPosition', lng: number, lat: number }, photographers?: { __typename?: 'PhotographerRelationResponseCollection', data: Array<{ __typename?: 'PhotographerEntity', attributes?: { __typename?: 'Photographer', slug: string, name: string, description?: string | null, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, socialLinks: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null, photography_styles?: { __typename?: 'PhotographyStyleRelationResponseCollection', data: Array<{ __typename?: 'PhotographyStyleEntity', attributes?: { __typename?: 'PhotographyStyle', key: string, value: string } | null }> } | null, locations?: { __typename?: 'LocationRelationResponseCollection', data: Array<{ __typename?: 'LocationEntity', attributes?: { __typename?: 'Location', key: string, value: string } | null }> } | null } | null }> } | null } | null }> } | null };
+
+export type PhotographyLocationFragment = { __typename?: 'PhotographyLocation', slug: string, about?: string | null, averageRating: number, totalComments: number, createdAt?: any | null, location: string, name: string, type: Enum_Photographylocation_Type, images?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } | null, position: { __typename?: 'ComponentHelpersPosition', lng: number, lat: number }, photographers?: { __typename?: 'PhotographerRelationResponseCollection', data: Array<{ __typename?: 'PhotographerEntity', attributes?: { __typename?: 'Photographer', slug: string, name: string, description?: string | null, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, socialLinks: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null, photography_styles?: { __typename?: 'PhotographyStyleRelationResponseCollection', data: Array<{ __typename?: 'PhotographyStyleEntity', attributes?: { __typename?: 'PhotographyStyle', key: string, value: string } | null }> } | null, locations?: { __typename?: 'LocationRelationResponseCollection', data: Array<{ __typename?: 'LocationEntity', attributes?: { __typename?: 'Location', key: string, value: string } | null }> } | null } | null }> } | null };
 
 export type GetSupportServicesQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -5986,6 +6150,100 @@ fragment StrapiImage on UploadFileEntityResponse {
     }
   }
 }`, {"fragmentName":"Photographer"}) as unknown as TypedDocumentString<PhotographerFragment, unknown>;
+export const PhotographyLocationFragmentDoc = new TypedDocumentString(`
+    fragment PhotographyLocation on PhotographyLocation {
+  slug
+  about
+  averageRating
+  totalComments
+  createdAt
+  images {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  position {
+    lng
+    lat
+  }
+  location
+  name
+  photographers {
+    data {
+      attributes {
+        ...Photographer
+      }
+    }
+  }
+  type
+}
+    fragment Comment on CommentEntity {
+  id
+  attributes {
+    text
+    rating
+    createdAt
+  }
+}
+fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}
+fragment Photographer on Photographer {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  socialLinks {
+    icon {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  languages {
+    data {
+      attributes {
+        key
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  comments {
+    data {
+      ...Comment
+    }
+  }
+  photography_styles {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+  locations {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+  description
+  averageRating
+  totalComments
+}`, {"fragmentName":"PhotographyLocation"}) as unknown as TypedDocumentString<PhotographyLocationFragment, unknown>;
 export const SupportServiceFragmentDoc = new TypedDocumentString(`
     fragment SupportService on SupportService {
   name
@@ -6939,18 +7197,6 @@ export const GetPhotographyStylesDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<GetPhotographyStylesQuery, GetPhotographyStylesQueryVariables>;
-export const GetLocationsDocument = new TypedDocumentString(`
-    query GetLocations($locale: I18NLocaleCode!) {
-  locations(locale: $locale) {
-    data {
-      attributes {
-        key
-        value
-      }
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<GetLocationsQuery, GetLocationsQueryVariables>;
 export const GetMedicationCategoriesDocument = new TypedDocumentString(`
     query GetMedicationCategories($locale: I18NLocaleCode!) {
   medicationCategories(locale: $locale) {
@@ -7477,6 +7723,109 @@ export const GetPhotographersSlugsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<GetPhotographersSlugsQuery, GetPhotographersSlugsQueryVariables>;
+export const GetPhotographyLocationsDocument = new TypedDocumentString(`
+    query GetPhotographyLocations($locale: I18NLocaleCode!) {
+  photographyLocations(locale: $locale) {
+    data {
+      attributes {
+        ...PhotographyLocation
+      }
+    }
+  }
+}
+    fragment Comment on CommentEntity {
+  id
+  attributes {
+    text
+    rating
+    createdAt
+  }
+}
+fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}
+fragment Photographer on Photographer {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  socialLinks {
+    icon {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  languages {
+    data {
+      attributes {
+        key
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  comments {
+    data {
+      ...Comment
+    }
+  }
+  photography_styles {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+  locations {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+  description
+  averageRating
+  totalComments
+}
+fragment PhotographyLocation on PhotographyLocation {
+  slug
+  about
+  averageRating
+  totalComments
+  createdAt
+  images {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  position {
+    lng
+    lat
+  }
+  location
+  name
+  photographers {
+    data {
+      attributes {
+        ...Photographer
+      }
+    }
+  }
+  type
+}`) as unknown as TypedDocumentString<GetPhotographyLocationsQuery, GetPhotographyLocationsQueryVariables>;
 export const GetSupportServicesDocument = new TypedDocumentString(`
     query GetSupportServices($locale: I18NLocaleCode!, $page: Int, $pageSize: Int) {
   supportServices(locale: $locale, pagination: {page: $page, pageSize: $pageSize}) {

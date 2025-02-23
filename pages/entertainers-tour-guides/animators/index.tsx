@@ -24,6 +24,7 @@ import AnimationCompanies from "../../../components/sections/entertainers-tour-g
 import AnimationCompanyPopup from "../../../components/sections/entertainers-tour-guides/animators/animation-company-popup";
 // utils
 import styled from "@emotion/styled";
+import { mapLocations } from "../../../utils/location-mapper";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 // types
@@ -140,23 +141,7 @@ const Animators = ({
     setSelectedCompany(company?.attributes);
   };
 
-  const locations = animationCompanies
-    .filter((el) => !!el.attributes.position)
-    .map((el) => ({
-      slug: el.attributes.slug,
-      title: el.attributes.value,
-      subTitle: el.attributes.location || "",
-      imageSrc:
-        el.attributes.image?.data?.attributes?.url ||
-        "/images/background/background-prom.svg",
-      imageAlt: el.attributes.image?.data?.attributes?.alternativeText || "",
-      averageRating: el.attributes.averageRating,
-      totalComments: el.attributes.totalComments,
-      position: {
-        lat: el.attributes.position?.lat || 0,
-        lng: el.attributes.position?.lng || 0,
-      },
-    }));
+  const locations = mapLocations(animationCompanies);
 
   return (
     <>

@@ -1,0 +1,39 @@
+query GetPhotographyLocations($locale: I18NLocaleCode!) {
+  photographyLocations(locale: $locale) {
+    data {
+      attributes {
+        ...PhotographyLocation
+      }
+    }
+  }
+}
+
+fragment PhotographyLocation on PhotographyLocation {
+  slug
+  about
+  averageRating
+  totalComments
+  createdAt
+  images {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  position {
+    lng
+    lat
+  }
+  location
+  name
+  photographers {
+    data {
+      attributes {
+        ...Photographer
+      }
+    }
+  }
+  type
+}

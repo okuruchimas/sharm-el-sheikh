@@ -32,6 +32,7 @@ import Pagination from "../../../components/layout/pagination";
 import TaxiSpotPopup from "../../../components/sections/entertainers-tour-guides/taxi-drivers/taxi-spot-popup";
 // utils
 import styled from "@emotion/styled";
+import { mapLocations } from "../../../utils/location-mapper";
 import { getCurrentDayAndTime } from "../../../utils/formateDate";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
@@ -202,24 +203,7 @@ const TaxiDrivers = ({
     });
   };
 
-  const locations = taxiSpots
-    .filter((el) => !!el.attributes.position)
-    .map((el) => ({
-      slug: el.attributes.slug,
-      title: el.attributes.name,
-      subTitle: el.attributes.location || "",
-      imageSrc:
-        el.attributes.images?.data[0]?.attributes?.url ||
-        "/images/background/background-prom.svg",
-      imageAlt:
-        el.attributes.images?.data[0]?.attributes?.alternativeText || "",
-      averageRating: el.attributes.averageRating,
-      totalComments: el.attributes.totalComments,
-      position: {
-        lat: el.attributes.position?.lat || 0,
-        lng: el.attributes.position?.lng || 0,
-      },
-    }));
+  const locations = mapLocations(taxiSpots);
 
   const handleInfoWindowClick = (card: MapCard) => {
     const company = taxiSpots.find((el) => el.attributes.slug === card.slug);
@@ -294,11 +278,11 @@ const FiltersWrap = styled("div")(({ theme }) => ({
   },
 }));
 
-const ButtonsWrapper = styled("div")(({ theme }) => ({
+const ButtonsWrapper = styled("div")({
   display: "flex",
   flexDirection: "row",
   gap: "32px",
-}));
+});
 
 const StatusesWrap = styled("div")(({ theme }) => ({
   marginLeft: "auto",

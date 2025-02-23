@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import type View from "../header/children/type";
 import { useRef, type MouseEvent } from "react";
-import { css, Global } from "@emotion/react";
+import { css, Global, keyframes } from "@emotion/react";
 
 type ModalProps = {
   children: View;
@@ -54,6 +54,11 @@ const hiddenOverflow = css`
 
 export default Modal;
 
+const scale = keyframes`
+    0% { scale: 0.6; opacity: 0.1 }
+    100% { scale: 1; opacity: 1 }
+`;
+
 const Backdrop = styled("div")(({ theme }) => ({
   width: "100vw",
   height: "100vh",
@@ -86,6 +91,7 @@ const ModalWindow = styled("div", {
     maxHeight: "95dvh",
     scrollbarWidth: "none",
     ...(maxWidth ? { maxWidth } : {}),
+    animation: `${scale} 0.25s ease`,
 
     "&::-webkit-scrollbar": {
       display: "none",

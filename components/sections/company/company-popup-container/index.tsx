@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from "react";
 // utils
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import { addRating } from "../../../../utils/add-rating";
 import { formatTime } from "../../../../utils/formateDate";
 import { fetchDataFromApi } from "../../../../utils/fetchApi";
 // components
@@ -24,6 +23,7 @@ import {
   type CompanyPreviewFragment,
   GetCompanyDocument,
 } from "../../../../gql/graphql";
+import useRatePlace from "../../../../hooks/useRatePlace";
 
 type CompanyPopupContainerProps = {
   clubPreview: CompanyPreviewFragment;
@@ -34,14 +34,18 @@ const CompanyPopupContainer = ({
   clubPreview,
   onClose,
 }: CompanyPopupContainerProps) => {
-  const [stars, setStars] = useState(0);
-  const [isRated, setIsRated] = useState(false);
   const [fullData, setFullData] = useState<
     CompanyFragment | undefined | null
   >();
-  const [isLoading, setIsLoading] = useState(false);
 
   const { t, i18n } = useTranslation("common");
+
+  const { stars, isDisabled, isLoadingRating, handleSave, setStars } =
+    useRatePlace({
+      slug: clubPreview.slug,
+      storageName: "ratedCompanies",
+      collectionType: "companies",
+    });
 
   const getFullClubData = useCallback(async () => {
     const { companies } = await fetchDataFromApi(GetCompanyDocument, {
@@ -52,41 +56,9 @@ const CompanyPopupContainer = ({
     setFullData(companies?.data[0]?.attributes);
   }, [clubPreview.slug, i18n.language]);
 
-  const isDisabled = isRated || !fullData?.slug || isLoading;
-
   useEffect(() => {
     getFullClubData();
-
-    const ratedClubs = JSON.parse(localStorage.getItem("ratedClubs") || "[]");
-    const ratedClub = ratedClubs.find(
-      (item: { slug: string }) => item.slug === clubPreview.slug,
-    );
-
-    if (ratedClub) {
-      setIsRated(true);
-      setStars(ratedClub.rating);
-    }
-  }, [clubPreview.slug, getFullClubData]);
-
-  const handleSave = async () => {
-    setIsLoading(true);
-
-    await addRating({
-      rating: stars,
-      slug: clubPreview.slug,
-      collectionType: "companies",
-    }).then(() => {
-      const ratedClubs = JSON.parse(localStorage.getItem("ratedClubs") || "[]");
-
-      const updatedRatedClubs = [
-        ...ratedClubs,
-        { slug: clubPreview.slug, rating: stars },
-      ];
-      localStorage.setItem("ratedClubs", JSON.stringify(updatedRatedClubs));
-      setIsRated(true);
-      setIsLoading(false);
-    });
-  };
+  }, [getFullClubData]);
 
   const renderSchedule = () => {
     return clubPreview.schedule?.map((el, index) => {
@@ -183,7 +155,7 @@ const CompanyPopupContainer = ({
       <StarReviewForm
         stars={stars}
         isDisabled={isDisabled}
-        isLoading={isLoading}
+        isLoading={isLoadingRating}
         onSave={handleSave}
         onClose={onClose}
         onChange={setStars}

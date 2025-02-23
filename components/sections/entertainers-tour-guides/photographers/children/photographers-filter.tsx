@@ -164,7 +164,6 @@ const Wrap = styled("div")(({ theme }) => ({
   backgroundColor: theme.colors.white,
   borderRadius: "16px",
   boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-  overflow: "hidden",
 
   [theme.breakpoints.mobile]: {
     padding: "16px",

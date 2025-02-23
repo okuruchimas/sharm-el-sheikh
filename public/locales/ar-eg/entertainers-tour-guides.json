@@ -3,6 +3,10 @@
   "buttons": {
     "nearestAnimator": "أقرب رسام كرتون"
   },
+  "categories": {
+    "location": "الموقع",
+    "studio": "استوديو"
+  },
   "filters": {
     "fewestReviews": "أقل عدد من التقييمات",
     "highestRating": "أعلى تقييم",

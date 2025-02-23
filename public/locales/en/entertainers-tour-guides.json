@@ -3,6 +3,10 @@
   "buttons": {
     "nearestAnimator": "Nearest Animator"
   },
+  "categories": {
+    "location": "Location",
+    "studio": "Studio"
+  },
   "filters": {
     "fewestReviews": "Fewest Reviews",
     "highestRating": "Highest Rating",
