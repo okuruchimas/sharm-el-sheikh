@@ -23,7 +23,7 @@ type MapProps = {
   title?: string;
   locations?: MapCard[];
   categories?: selectOption[];
-  onCategorySelect?: () => void;
+  onCategorySelect?: (option: selectOption) => void;
   selectedCategoryID?: string;
   onInfoWindowClick: (card: MapCard) => void;
 };
@@ -83,7 +83,7 @@ const Map = ({
     },
     controlSize: 32,
   };
-
+  console.log(locations);
   return (
     <>
       <SectionWrapper title={title}>

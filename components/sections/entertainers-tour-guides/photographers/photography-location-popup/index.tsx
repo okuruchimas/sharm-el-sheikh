@@ -5,21 +5,25 @@ import useResponsive from "../../../../../hooks/useResponsive";
 import { useTranslation } from "next-i18next";
 // components
 import Image from "next/image";
-import TaxiCard from "../card";
 import CardsSwiper from "../../../../layout/cards-swiper";
 import NameAndRating from "../../../../layout/name-and-rating";
 import StarReviewForm from "../../../../layout/star-review-form";
+import PhotographCard from "../card";
 import { Swiper, SwiperSlide } from "swiper/react";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { TaxiSpotFragment } from "../../../../../gql/graphql";
+import { type PhotographyLocation } from "../../../../../gql/graphql";
+import ReactMarkdown from "react-markdown";
 
-type TaxiSpotPopupProps = {
-  data: TaxiSpotFragment;
+type PhotographyLocationPopupProps = {
+  data: PhotographyLocation;
   onClose: () => void;
 };
-const TaxiSpotPopup = ({ data, onClose }: TaxiSpotPopupProps) => {
+const PhotographyLocationPopup = ({
+  data,
+  onClose,
+}: PhotographyLocationPopupProps) => {
   const { t } = useTranslation("common");
   const { t: tPage } = useTranslation("entertainers-tour-guides");
 
@@ -28,8 +32,8 @@ const TaxiSpotPopup = ({ data, onClose }: TaxiSpotPopupProps) => {
   const { stars, isDisabled, isLoadingRating, handleSave, setStars } =
     useRatePlace({
       slug: data.slug,
-      storageName: "ratedTaxiSpots",
-      collectionType: "taxi-spots",
+      storageName: "ratedPhotographyLocations",
+      collectionType: "photography-locations",
     });
 
   return (
@@ -65,18 +69,18 @@ const TaxiSpotPopup = ({ data, onClose }: TaxiSpotPopupProps) => {
         />
         <Section>
           <h2>{t("text.about")}</h2>
-          <p>{data?.about}</p>
+          <ReactMarkdown>{data.about}</ReactMarkdown>
         </Section>
         <Section>
-          <h2>{tPage("tabs.taxiDrivers")}</h2>
+          <h2>{tPage("tabs.photographers")}</h2>
           <CardsSwiper
-            dataLength={data.taxi_drivers?.data.length}
+            dataLength={data.photographers?.data.length}
             placeholderText={tPage("placeholders.noDrivers")}
           >
-            {data.taxi_drivers?.data.map((el) =>
+            {data.photographers?.data.map((el) =>
               el.attributes ? (
                 <SwiperSlide key={el.attributes?.slug}>
-                  <TaxiCard driver={el.attributes} size="s" />
+                  <PhotographCard photographer={el.attributes} size="s" />
                 </SwiperSlide>
               ) : null,
             )}
@@ -95,7 +99,7 @@ const TaxiSpotPopup = ({ data, onClose }: TaxiSpotPopupProps) => {
   );
 };
 
-export default TaxiSpotPopup;
+export default PhotographyLocationPopup;
 
 const Wrapper = styled("div")(({ theme }) => ({
   backgroundColor: theme.colors.white,

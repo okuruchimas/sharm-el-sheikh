@@ -4,12 +4,12 @@ import {
   GetAnimationCompanyDocument,
 } from "../../../../../gql/graphql";
 // hooks
+import useRatePlace from "../../../../../hooks/useRatePlace";
 import { useTranslation } from "next-i18next";
 import { useState, useEffect, useCallback } from "react";
 // utils
 import styled from "@emotion/styled";
 import { fetchDataFromApi } from "../../../../../utils/fetchApi";
-import { addRating } from "../../../../../utils/add-rating";
 // components
 import Image from "next/image";
 import Loader from "../../../../layout/loader";
@@ -28,14 +28,18 @@ const AnimationCompanyPopup = ({
   companyPreview,
   onClose,
 }: AnimationCompanyPopupProps) => {
-  const [stars, setStars] = useState(0);
-  const [isRated, setIsRated] = useState(false);
   const [fullData, setFullData] = useState<
     AnimationCompanyFragment | undefined | null
   >();
-  const [isLoading, setIsLoading] = useState(false);
 
-  const { t, i18n } = useTranslation("common");
+  const { i18n } = useTranslation("common");
+
+  const { stars, isDisabled, isLoadingRating, handleSave, setStars } =
+    useRatePlace({
+      slug: companyPreview.slug,
+      storageName: "ratedAnimationCompanies",
+      collectionType: "animation-companies",
+    });
 
   const getFullData = useCallback(async () => {
     const { animationCompanies } = await fetchDataFromApi(
@@ -49,48 +53,9 @@ const AnimationCompanyPopup = ({
     setFullData(animationCompanies?.data[0]?.attributes);
   }, [companyPreview.slug, i18n.language]);
 
-  const isDisabled = isRated || !fullData?.slug || isLoading;
-
   useEffect(() => {
     getFullData();
-
-    const ratedCompanies = JSON.parse(
-      localStorage.getItem("ratedAnimationCompanies") || "[]",
-    );
-    const ratedCompany = ratedCompanies.find(
-      (item: { slug: string }) => item.slug === companyPreview.slug,
-    );
-
-    if (ratedCompany) {
-      setIsRated(true);
-      setStars(ratedCompany.rating);
-    }
-  }, [companyPreview.slug, getFullData]);
-
-  const handleSave = async () => {
-    setIsLoading(true);
-
-    await addRating({
-      rating: stars,
-      slug: companyPreview.slug,
-      collectionType: "animation-companies",
-    }).then(() => {
-      const ratedAnimationCompanies = JSON.parse(
-        localStorage.getItem("ratedAnimationCompanies") || "[]",
-      );
-
-      const updatedRatedAnimationCompanies = [
-        ...ratedAnimationCompanies,
-        { slug: companyPreview.slug, rating: stars },
-      ];
-      localStorage.setItem(
-        "ratedAnimationCompanies",
-        JSON.stringify(updatedRatedAnimationCompanies),
-      );
-      setIsRated(true);
-      setIsLoading(false);
-    });
-  };
+  }, [getFullData]);
 
   return (
     <Wrapper>
@@ -130,7 +95,7 @@ const AnimationCompanyPopup = ({
       <StarReviewForm
         stars={stars}
         isDisabled={isDisabled}
-        isLoading={isLoading}
+        isLoading={isLoadingRating}
         onSave={handleSave}
         onClose={onClose}
         onChange={setStars}

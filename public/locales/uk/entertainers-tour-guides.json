@@ -3,6 +3,10 @@
   "buttons": {
     "nearestAnimator": "Найближчий аніматор"
   },
+  "categories": {
+    "location": "Локація",
+    "studio": "Студія"
+  },
   "filters": {
     "fewestReviews": "Найменше відгуків",
     "highestRating": "Найвищий рейтинг",

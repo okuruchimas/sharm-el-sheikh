@@ -3,6 +3,10 @@
   "buttons": {
     "nearestAnimator": "Animatore più vicino"
   },
+  "categories": {
+    "location": "Luogo",
+    "studio": "Studio"
+  },
   "filters": {
     "fewestReviews": "Meno recensioni",
     "highestRating": "Valutazione più alta",

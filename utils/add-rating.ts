@@ -1,10 +1,11 @@
 import { getUrl } from "./fetchApi";
 
-type CollectionTypesWithRating =
+export type CollectionTypesWithRating =
   | "companies"
   | "animation-companies"
   | "tours"
-  | "taxi-spots";
+  | "taxi-spots"
+  | "photography-locations";
 
 type AddRatingParams = {
   slug: string;

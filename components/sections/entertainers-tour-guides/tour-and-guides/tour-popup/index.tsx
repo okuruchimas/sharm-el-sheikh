@@ -1,6 +1,7 @@
 import "swiper/css";
 import { GetTourDocument, type TourFragment } from "../../../../../gql/graphql";
 // hooks
+import useRatePlace from "../../../../../hooks/useRatePlace";
 import useResponsive from "../../../../../hooks/useResponsive";
 import { useTranslation } from "next-i18next";
 import { useCallback, useEffect, useState } from "react";
@@ -14,7 +15,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // utils
 import styled from "@emotion/styled";
 import { fetchDataFromApi } from "../../../../../utils/fetchApi";
-import { addRating } from "../../../../../utils/add-rating";
 // types
 import type { MapCard } from "../../../../layout/map/children/types";
 
@@ -23,13 +23,18 @@ type TourPopupProps = {
   onClose: () => void;
 };
 const TourPopup = ({ tourPreview, onClose }: TourPopupProps) => {
-  const [stars, setStars] = useState(0);
-  const [isRated, setIsRated] = useState(false);
   const [fullData, setFullData] = useState<TourFragment | undefined | null>();
   const [isLoading, setIsLoading] = useState(false);
 
   const { i18n } = useTranslation("common");
   const { isMobile } = useResponsive();
+
+  const { stars, isDisabled, isLoadingRating, handleSave, setStars } =
+    useRatePlace({
+      slug: tourPreview.slug,
+      storageName: "ratedTours",
+      collectionType: "tours",
+    });
 
   const getFullData = useCallback(async () => {
     setIsLoading(true);
@@ -43,41 +48,9 @@ const TourPopup = ({ tourPreview, onClose }: TourPopupProps) => {
     setIsLoading(false);
   }, [tourPreview.slug, i18n.language]);
 
-  const isDisabled = isRated || !fullData?.slug || isLoading;
-
   useEffect(() => {
     getFullData();
-
-    const ratedTours = JSON.parse(localStorage.getItem("ratedTours") || "[]");
-    const ratedTour = ratedTours.find(
-      (item: { slug: string }) => item.slug === tourPreview.slug,
-    );
-
-    if (ratedTour) {
-      setIsRated(true);
-      setStars(ratedTour.rating);
-    }
-  }, [tourPreview.slug, getFullData]);
-
-  const handleSave = async () => {
-    setIsLoading(true);
-
-    await addRating({
-      rating: stars,
-      slug: tourPreview.slug,
-      collectionType: "tours",
-    }).then(() => {
-      const ratedTours = JSON.parse(localStorage.getItem("ratedTours") || "[]");
-
-      const updatedRatedTours = [
-        ...ratedTours,
-        { slug: tourPreview.slug, rating: stars },
-      ];
-      localStorage.setItem("ratedTours", JSON.stringify(updatedRatedTours));
-      setIsRated(true);
-      setIsLoading(false);
-    });
-  };
+  }, [getFullData]);
 
   return (
     <Wrapper>
@@ -130,7 +103,7 @@ const TourPopup = ({ tourPreview, onClose }: TourPopupProps) => {
       <StarReviewForm
         stars={stars}
         isDisabled={isDisabled}
-        isLoading={isLoading}
+        isLoading={isLoadingRating}
         onSave={handleSave}
         onClose={onClose}
         onChange={setStars}

@@ -59,17 +59,6 @@ query GetPhotographyStyles($locale: I18NLocaleCode!) {
   }
 }
 
-query GetLocations($locale: I18NLocaleCode!) {
-  locations(locale: $locale) {
-    data {
-      attributes {
-        key
-        value
-      }
-    }
-  }
-}
-
 query GetMedicationCategories($locale: I18NLocaleCode!) {
   medicationCategories(locale: $locale) {
     data {
