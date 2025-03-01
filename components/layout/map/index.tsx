@@ -83,7 +83,7 @@ const Map = ({
     },
     controlSize: 32,
   };
-  console.log(locations);
+
   return (
     <>
       <SectionWrapper title={title}>

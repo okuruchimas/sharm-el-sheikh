@@ -13,7 +13,6 @@ fragment PhotographyLocation on PhotographyLocation {
   about
   averageRating
   totalComments
-  createdAt
   images {
     data {
       attributes {

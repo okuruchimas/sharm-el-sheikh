@@ -23,7 +23,7 @@ query GetPhotographersByFilters(
     pagination: { page: $page, pageSize: $pageSize }
     filters: {
       photography_styles: { key: { in: $styles } }
-      locations: { key: { in: $locations } }
+      photography_locations: { slug: { in: $locations } }
       slug: { ne: $slugToExclude }
     }
   ) {
@@ -69,14 +69,6 @@ fragment Photographer on Photographer {
     }
   }
   photography_styles {
-    data {
-      attributes {
-        key
-        value
-      }
-    }
-  }
-  locations {
     data {
       attributes {
         key

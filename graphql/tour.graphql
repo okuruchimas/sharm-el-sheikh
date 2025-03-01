@@ -18,6 +18,26 @@ query GetTour($slug: String!, $locale: I18NLocaleCode!) {
   }
 }
 
+query GetTourCategories($locale: I18NLocaleCode!) {
+  tourCategories(locale: $locale, sort: "index:asc") {
+    data {
+      attributes {
+        ...TourCategory
+      }
+    }
+  }
+}
+
+fragment TourCategory on TourCategory {
+  key
+  value
+  icon {
+    ...StrapiImage
+  }
+  markerIcon {
+    ...StrapiImage
+  }
+}
 
 fragment Tour on Tour {
   slug
@@ -78,4 +98,14 @@ fragment TourPreview on Tour {
   }
   averageRating
   totalComments
+  tour_categories {
+    data {
+      attributes {
+        key
+        markerIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
 }
