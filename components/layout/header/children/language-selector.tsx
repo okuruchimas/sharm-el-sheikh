@@ -114,7 +114,6 @@ const ListWrap = styled("div", {
   transition: " opacity 0.25s ease, scale 0.25s ease",
 
   [theme.breakpoints.mobile]: {
-    flexDirection: "row",
     transformOrigin: "top left",
     top: "44px",
     right: "auto",

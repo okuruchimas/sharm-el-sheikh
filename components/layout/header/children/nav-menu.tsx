@@ -20,6 +20,13 @@ const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
     router.push(link);
   };
 
+  const isActive = (str: string) => {
+    if (str === "/") {
+      return router.route === str;
+    }
+    return router.route?.includes(str || "");
+  };
+
   return (
     <WrapperDown isOpen={isOpen}>
       <ButtonsWrap>
@@ -28,7 +35,7 @@ const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
       {navMenu?.map((item) => (
         <ListItem
           key={item?.id}
-          isActive={router.route?.includes(item?.Link || "")}
+          isActive={isActive(item?.Link?.split("/")?.[1] || "/")}
           onClick={handleClick(item?.Link || "")}
         >
           {item?.Text}
