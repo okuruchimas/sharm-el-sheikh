@@ -1,8 +1,10 @@
 import {
-  GetTourGuidesByFiltersDocument,
   GetToursDocument,
+  GetTourCategoriesDocument,
+  GetTourGuidesByFiltersDocument,
   type TourGuideFragment,
   type TourPreviewFragment,
+  type TourCategoryFragment,
 } from "../../../gql/graphql";
 // hooks
 import { useEffect, useMemo, useState } from "react";
@@ -22,7 +24,7 @@ import Pagination from "../../../components/layout/pagination";
 import GuidesCards from "../../../components/sections/entertainers-tour-guides/tour-and-guides/cards";
 // utils
 import styled from "@emotion/styled";
-import { mapLocations } from "../../../utils/location-mapper";
+import { mapLocation } from "../../../utils/location-mapper";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 // types
@@ -34,11 +36,13 @@ type TourAndGuidesProps = {
   initialTotal: number;
   tourGuides: TourGuides;
   tours: { attributes: TourPreviewFragment }[];
+  tourCategories: { attributes: TourCategoryFragment }[];
 };
 const TourAndGuides = ({
   tours,
   tourGuides,
   initialTotal,
+  tourCategories,
 }: TourAndGuidesProps) => {
   // result
   const [result, setResult] = useState<TourGuides>(tourGuides);
@@ -49,6 +53,12 @@ const TourAndGuides = ({
   const [filter, setFilter] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedTour, setSelectedTour] = useState<MapCard>();
+  const [selectedCategory, setSelectedCategory] = useState<selectOption>({
+    value: "all",
+    key: "",
+  });
+
+  const { t: tCommon } = useTranslation("common");
   const { i18n, t } = useTranslation("entertainers-tour-guides");
   const { isMobile } = useResponsive();
   const pageSize = useMemo(() => (isMobile ? 3 : 6), [isMobile]);
@@ -113,20 +123,48 @@ const TourAndGuides = ({
     setPage(1);
   };
 
-  const locations = mapLocations(tours);
+  const locations = selectedCategory.key
+    ? tours
+        .filter(
+          (el) =>
+            el.attributes?.tour_categories?.data[0]?.attributes?.key ===
+            selectedCategory.key,
+        )
+        .map((el) => mapLocation(el, selectedCategory.markerIcon))
+    : tours.map((el) =>
+        mapLocation(
+          el,
+          el.attributes?.tour_categories?.data[0]?.attributes?.markerIcon.data
+            ?.attributes?.url,
+        ),
+      );
 
   const handleInfoWindowClick = (data: MapCard) => setSelectedTour(data);
   const handlePopupClose = () => setSelectedTour(undefined);
 
+  const categories = tourCategories.map((el) => ({
+    key: el?.attributes.key,
+    value: el?.attributes.value,
+    iconSrc: el?.attributes.icon.data?.attributes?.url,
+    markerIcon: el?.attributes.markerIcon?.data?.attributes?.url,
+  }));
+
+  const handleCategorySelect = (option: selectOption) =>
+    setSelectedCategory(option);
+
   return (
     <>
       <Container>
-        {locations.length ? (
-          <Map
-            onInfoWindowClick={handleInfoWindowClick}
-            locations={locations}
-          />
-        ) : null}
+        <Map
+          categories={[
+            { key: "", value: tCommon("labels.all") },
+            ...categories,
+          ]}
+          onInfoWindowClick={handleInfoWindowClick}
+          onCategorySelect={handleCategorySelect}
+          selectedCategoryID={selectedCategory?.key}
+          locations={locations}
+        />
         <Tabs />
         <FiltersWrap>
           <Dropdown
@@ -176,12 +214,16 @@ export async function getStaticProps({ locale }: any) {
     pageSize: 6,
   });
   const { tours } = await fetchData(GetToursDocument, { locale });
+  const { tourCategories } = await fetchData(GetTourCategoriesDocument, {
+    locale,
+  });
 
   return {
     props: {
       tourGuides: tourGuides?.data,
       initialTotal: tourGuides?.meta.pagination.total || 0,
       tours: tours?.data,
+      tourCategories: tourCategories?.data,
       ...(await serverSideTranslations(locale, [
         "company-page",
         "common",
