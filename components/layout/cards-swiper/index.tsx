@@ -23,10 +23,17 @@ const CardsSwiper = ({
 
   if (!dataLength) return <Placeholder title={placeholderText} />;
 
+  const slidesPerView = () => {
+    if (dataLength <= 2) {
+      return 1;
+    }
+    return isMobile ? 2 : 3;
+  };
+
   return (
     <Wrapper
-      slidesPerView={isMobile ? 2 : 3}
-      isSingleCard={dataLength < 2}
+      slidesPerView={slidesPerView()}
+      isSingleCard={dataLength <= 2}
       spaceBetween={12}
       navigation={false}
       pagination={{
