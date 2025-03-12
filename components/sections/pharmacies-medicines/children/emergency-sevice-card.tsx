@@ -67,7 +67,7 @@ const Wrap = styled("div")(({ theme }) => ({
   background: theme.colors.white,
   borderRadius: 16,
   position: "relative",
-  boxShadow: theme.shadows[0],
+  boxShadow: theme.shadows[3],
 }));
 
 const CardTitle = styled("h3")(({ theme }) => ({
@@ -97,7 +97,7 @@ const InfoWrap = styled("div")(({ theme }) => ({
   height: "46%",
   maxHeight: "50%",
   backgroundColor: theme.colors.white,
-
+  borderRadius: 16,
   ".icon-text": {
     color: theme.colors.black,
   },

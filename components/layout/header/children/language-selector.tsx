@@ -86,7 +86,7 @@ const Wrap = styled("div")(({ theme }) => ({
   fontSize: theme.fontSize.fontS18,
 }));
 
-const Select = styled("div")({
+const Select = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
@@ -94,7 +94,10 @@ const Select = styled("div")({
   gap: "6px",
   cursor: "pointer",
   paddingLeft: "16px",
-});
+  [theme.breakpoints.mobile]: {
+    paddingLeft: 0,
+  },
+}));
 
 const ListWrap = styled("div", {
   shouldForwardProp: (prop) => prop !== "isOpen",

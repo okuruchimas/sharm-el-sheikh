@@ -62,6 +62,7 @@ export const theme = {
     "0 0 20px -14px #757779", // 0
     "1px 1px 10px 1px #054E5C4D", // 1
     "0px 1px 3px 1px #00000026", // 2
+    "2px 2px 10px 2px #054E5C4D", // 3
     "none",
     "none",
     "none",
