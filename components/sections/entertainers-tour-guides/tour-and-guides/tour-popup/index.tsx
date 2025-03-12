@@ -52,11 +52,18 @@ const TourPopup = ({ tourPreview, onClose }: TourPopupProps) => {
     getFullData();
   }, [getFullData]);
 
+  const slidesPerView = () => {
+    if ((fullData?.images?.data.length || 0) < 2 && isMobile) {
+      return 1;
+    }
+    return isMobile ? 1.2 : 2.5;
+  };
+
   return (
     <Wrapper>
       <Stack>
         <SwiperStyled
-          slidesPerView={isMobile ? 1.2 : 2.5}
+          slidesPerView={slidesPerView()}
           spaceBetween={12}
           navigation={false}
           pagination={{

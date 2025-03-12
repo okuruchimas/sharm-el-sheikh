@@ -13,7 +13,6 @@ import { fetchDataFromApi } from "../../../../../utils/fetchApi";
 // components
 import Image from "next/image";
 import Loader from "../../../../layout/loader";
-import { Title } from "../../../../layout/title";
 import FullData from "./full-data";
 import LocationLink from "../../../../layout/location-link";
 import NameAndRating from "../../../../layout/name-and-rating";
@@ -77,7 +76,6 @@ const AnimationCompanyPopup = ({
             averageRating={companyPreview.averageRating}
             totalComments={companyPreview.totalComments}
           />
-
           <Location>
             <LocationLink
               iconSize="36px"
@@ -129,23 +127,6 @@ const InfoWrap = styled("div")(({ theme }) => ({
   [theme.breakpoints.mobile]: {
     width: "100%",
   },
-}));
-
-export const Section = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: 16,
-
-  [theme.breakpoints.mobile]: {
-    gap: 8,
-  },
-}));
-
-export const SectionTitle = styled(Title)(({ theme }) => ({
-  fontSize: theme.fontSize.fontS32,
-  fontWeight: 700,
-
-  [theme.breakpoints.mobile]: {},
 }));
 
 const Location = styled("div")(({ theme }) => ({

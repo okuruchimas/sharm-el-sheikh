@@ -24,7 +24,7 @@ const CardsSwiper = ({
   if (!dataLength) return <Placeholder title={placeholderText} />;
 
   const slidesPerView = () => {
-    if (dataLength <= 2) {
+    if (dataLength <= 2 && isMobile) {
       return 1;
     }
     return isMobile ? 2 : 3;

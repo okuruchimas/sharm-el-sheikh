@@ -7,7 +7,9 @@ import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import TaxiCard from "../card";
 import CardsSwiper from "../../../../layout/cards-swiper";
+import LocationLink from "../../../../layout/location-link";
 import NameAndRating from "../../../../layout/name-and-rating";
+import ReactMarkdown from "react-markdown";
 import StarReviewForm from "../../../../layout/star-review-form";
 import { Swiper, SwiperSlide } from "swiper/react";
 // utils
@@ -32,11 +34,18 @@ const TaxiSpotPopup = ({ data, onClose }: TaxiSpotPopupProps) => {
       collectionType: "taxi-spots",
     });
 
+  const slidesPerView = () => {
+    if (data.images?.data.length < 2 && isMobile) {
+      return 1;
+    }
+    return isMobile ? 1.2 : 2.5;
+  };
+
   return (
     <Wrapper>
       <Stack>
         <SwiperStyled
-          slidesPerView={isMobile ? 1.2 : 2.5}
+          slidesPerView={slidesPerView()}
           spaceBetween={12}
           navigation={false}
           pagination={{
@@ -63,9 +72,17 @@ const TaxiSpotPopup = ({ data, onClose }: TaxiSpotPopupProps) => {
           averageRating={data.averageRating}
           totalComments={data.totalComments}
         />
+        <Location>
+          <LocationLink
+            iconSize="36px"
+            iconSizeMobile="30px"
+            text={data.location || "-"}
+            position={data.position}
+          />
+        </Location>
         <Section>
           <h2>{t("text.about")}</h2>
-          <p>{data?.about}</p>
+          <ReactMarkdown>{data?.about}</ReactMarkdown>
         </Section>
         <Section>
           <h2>{tPage("tabs.taxiDrivers")}</h2>
@@ -157,5 +174,18 @@ const Stack = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.mobileS]: {
     gap: "24px",
+  },
+}));
+
+const Location = styled("div")(({ theme }) => ({
+  maxWidth: "max-content",
+
+  ".icon-text": {
+    fontSize: theme.fontSize.fontS21,
+    color: theme.colors.black,
+
+    [theme.breakpoints.mobile]: {
+      fontSize: theme.fontSize.fontS16,
+    },
   },
 }));

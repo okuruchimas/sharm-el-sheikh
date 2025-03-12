@@ -1,16 +1,17 @@
 import {
   type Animator,
   type AnimatorPreviewFragment,
-  type ComponentHeaderNavigationMenu,
   GetAnimatorBySlugDocument,
   GetAnimatorsSlugsDocument,
   GetAnimatorsByFilterDocument,
+  type ComponentComponentsEntertainmentService,
 } from "../../../../gql/graphql";
 import { toast, ToastContainer } from "react-toastify";
 // hooks
-import { useRouter } from "next/router";
+import { useState } from "react";
 import { useTranslation } from "next-i18next";
 // components
+import Modal from "../../../../components/layout/modal";
 import Reviews from "../../../../components/sections/company/reviews";
 import BackRoute from "../../../../components/sections/entertainers-tour-guides/children/back-route";
 import ReviewForm from "../../../../components/sections/company/review";
@@ -19,6 +20,7 @@ import AnimatorCard from "../../../../components/sections/entertainers-tour-guid
 import SectionWrapper from "../../../../components/layout/section-wrapper";
 import SectionsWrapper from "../../../../components/layout/sections-wrapper";
 import AnimatorInfoSection from "../../../../components/sections/animator/animator-info-section";
+import AnimatorServicePopup from "../../../../components/sections/animator/animator-service-popup";
 import EntertainmentServiceCard from "../../../../components/sections/animator/children/entertainment-service-card";
 // constants
 import { REVALIDATE_TIME } from "../../../../constants/page.constants";
@@ -30,7 +32,6 @@ import { getLocalizedPaths } from "../../../../utils/get-loocalized-paths";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // styles
 import "react-toastify/dist/ReactToastify.css";
-// config
 
 interface Props {
   animator: Animator;
@@ -56,6 +57,8 @@ const AnimatorPage = ({
   },
   similarSuggestions,
 }: Props) => {
+  const [selectedService, setSelectedService] =
+    useState<ComponentComponentsEntertainmentService>();
   const { t } = useTranslation("animator");
   const { t: tCommon } = useTranslation("common");
 
@@ -90,6 +93,13 @@ const AnimatorPage = ({
     }
   };
 
+  const handleServiceClick =
+    (data: ComponentComponentsEntertainmentService) => () => {
+      setSelectedService(data);
+    };
+
+  const handlePopupClose = () => setSelectedService(undefined);
+
   return (
     <>
       <Wrapper
@@ -120,16 +130,19 @@ const AnimatorPage = ({
         {entertainmentServices?.length ? (
           <SectionWrapper title={t("entertainmentServices")}>
             <SuggestionsWrapper>
-              {entertainmentServices?.map((el, index) => (
-                <EntertainmentServiceCard
-                  key={index}
-                  title={el?.serviceName || ""}
-                  price={el?.price || ""}
-                  place={el?.place || ""}
-                  duration={el?.duration || ""}
-                  imgSrc={el?.image?.data?.attributes?.url || ""}
-                />
-              ))}
+              {entertainmentServices?.map((el, index) =>
+                el ? (
+                  <EntertainmentServiceCard
+                    key={index}
+                    title={el.serviceName}
+                    price={el.price}
+                    place={el.place}
+                    duration={el.duration}
+                    imgSrc={el.images?.data[0]?.attributes?.url || ""}
+                    onClick={handleServiceClick(el)}
+                  />
+                ) : null,
+              )}
             </SuggestionsWrapper>
           </SectionWrapper>
         ) : null}
@@ -158,6 +171,14 @@ const AnimatorPage = ({
         </SectionWrapper>
       </Wrapper>
       <ToastContainer />
+      {selectedService ? (
+        <Modal isOpen={!!selectedService} onClose={handlePopupClose}>
+          <AnimatorServicePopup
+            data={selectedService}
+            onClose={handlePopupClose}
+          />
+        </Modal>
+      ) : null}
     </>
   );
 };
