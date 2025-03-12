@@ -161,7 +161,6 @@ export type Animator = {
   locale?: Maybe<Scalars['String']['output']>;
   localizations?: Maybe<AnimatorRelationResponseCollection>;
   name: Scalars['String']['output'];
-  position?: Maybe<ComponentHelpersPosition>;
   profileImg: UploadFileEntityResponse;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   skills: Array<Maybe<ComponentHelpersStringArray>>;
@@ -251,7 +250,6 @@ export type AnimatorFiltersInput = {
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<AnimatorFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<AnimatorFiltersInput>>>;
-  position?: InputMaybe<ComponentHelpersPositionFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   skills?: InputMaybe<ComponentHelpersStringArrayFiltersInput>;
   slug?: InputMaybe<StringFilterInput>;
@@ -271,7 +269,6 @@ export type AnimatorInput = {
   hotelName?: InputMaybe<Scalars['String']['input']>;
   languages?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   name?: InputMaybe<Scalars['String']['input']>;
-  position?: InputMaybe<ComponentHelpersPositionInput>;
   profileImg?: InputMaybe<Scalars['ID']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   skills?: InputMaybe<Array<InputMaybe<ComponentHelpersStringArrayInput>>>;
@@ -984,15 +981,24 @@ export type ComponentComponentsDiscountInput = {
 
 export type ComponentComponentsEntertainmentService = {
   __typename?: 'ComponentComponentsEntertainmentService';
+  about?: Maybe<Scalars['String']['output']>;
   duration: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  image: UploadFileEntityResponse;
+  images: UploadFileRelationResponseCollection;
   place: Scalars['String']['output'];
   price: Scalars['String']['output'];
   serviceName: Scalars['String']['output'];
 };
 
+
+export type ComponentComponentsEntertainmentServiceImagesArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export type ComponentComponentsEntertainmentServiceFiltersInput = {
+  about?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<ComponentComponentsEntertainmentServiceFiltersInput>>>;
   duration?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ComponentComponentsEntertainmentServiceFiltersInput>;
@@ -1003,9 +1009,10 @@ export type ComponentComponentsEntertainmentServiceFiltersInput = {
 };
 
 export type ComponentComponentsEntertainmentServiceInput = {
+  about?: InputMaybe<Scalars['String']['input']>;
   duration?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
-  image?: InputMaybe<Scalars['ID']['input']>;
+  images?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   place?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['String']['input']>;
   serviceName?: InputMaybe<Scalars['String']['input']>;
@@ -5116,7 +5123,7 @@ export type GetAnimatorBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetAnimatorBySlugQuery = { __typename?: 'Query', animators?: { __typename?: 'AnimatorEntityResponseCollection', data: Array<{ __typename?: 'AnimatorEntity', attributes?: { __typename?: 'Animator', slug: string, name: string, description: string, workingAtClub: boolean, hotelName: string, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, animation_company?: { __typename?: 'AnimationCompanyEntityResponse', data?: { __typename?: 'AnimationCompanyEntity', attributes?: { __typename?: 'AnimationCompany', key: string, value: string } | null } | null } | null, socialLinks: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, skills: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null>, entertainmentServices?: Array<{ __typename?: 'ComponentComponentsEntertainmentService', serviceName: string, place: string, price: string, duration: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null } | null }> } | null };
+export type GetAnimatorBySlugQuery = { __typename?: 'Query', animators?: { __typename?: 'AnimatorEntityResponseCollection', data: Array<{ __typename?: 'AnimatorEntity', attributes?: { __typename?: 'Animator', slug: string, name: string, description: string, workingAtClub: boolean, hotelName: string, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, animation_company?: { __typename?: 'AnimationCompanyEntityResponse', data?: { __typename?: 'AnimationCompanyEntity', attributes?: { __typename?: 'AnimationCompany', key: string, value: string } | null } | null } | null, socialLinks: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, skills: Array<{ __typename?: 'ComponentHelpersStringArray', value: string } | null>, entertainmentServices?: Array<{ __typename?: 'ComponentComponentsEntertainmentService', serviceName: string, place: string, price: string, duration: string, about?: string | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } } | null> | null, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null } | null }> } | null };
 
 export type GetAnimatorsByFilterQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -6784,12 +6791,18 @@ export const GetAnimatorBySlugDocument = new TypedDocumentString(`
         }
         entertainmentServices {
           serviceName
-          image {
-            ...StrapiImage
+          images {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
           }
           place
           price
           duration
+          about
         }
         languages {
           data {

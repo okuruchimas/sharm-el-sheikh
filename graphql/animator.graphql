@@ -29,12 +29,18 @@ query GetAnimatorBySlug($slug: String!, $locale: I18NLocaleCode!) {
         }
         entertainmentServices {
           serviceName
-          image {
-            ...StrapiImage
+          images {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
           }
           place
           price
           duration
+          about
         }
         languages {
           data {

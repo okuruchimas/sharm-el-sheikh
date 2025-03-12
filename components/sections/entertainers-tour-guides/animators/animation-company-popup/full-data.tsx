@@ -1,11 +1,11 @@
 import { useTranslation } from "next-i18next";
-import CardsSwiper from "../../../../layout/cards-swiper";
-import AnimatorCard from "../card";
 import { Title } from "../../../../layout/title";
-import VacancyItem from "./vacancy-item";
 import SocialIcon from "../../../../layout/social-icon";
+import CardsSwiper from "../../../../layout/cards-swiper";
+import VacancyItem from "./vacancy-item";
+import AnimatorCard from "../card";
+import ReactMarkdown from "react-markdown";
 import { SwiperSlide } from "swiper/react";
-import { Section, SectionTitle } from "./index";
 import styled from "@emotion/styled";
 import type {
   AnimationCompanyFragment,
@@ -44,7 +44,7 @@ const FullData = ({ fullData }: Props) => {
       {about ? (
         <Section>
           <SectionTitle as="h3">{t("animPopAp.about")}</SectionTitle>
-          <Text>{about}</Text>
+          <ReactMarkdown>{about}</ReactMarkdown>
         </Section>
       ) : null}
 
@@ -127,6 +127,31 @@ const VacanciesWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "16px",
+}));
+
+const Section = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: 16,
+
+  "p, li": {
+    fontSize: theme.fontSize.fontS21,
+    lineHeight: 1.5,
+  },
+
+  [theme.breakpoints.mobileS]: {
+    gap: 8,
+    "p, li": {
+      fontSize: theme.fontSize.fontS16,
+    },
+  },
+}));
+
+const SectionTitle = styled(Title)(({ theme }) => ({
+  fontSize: theme.fontSize.fontS32,
+  fontWeight: 700,
+
+  [theme.breakpoints.mobile]: {},
 }));
 
 const Text = styled("p")(({ theme }) => ({

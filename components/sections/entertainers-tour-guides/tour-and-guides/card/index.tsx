@@ -19,7 +19,7 @@ const GuideCard = ({ tourGuide }: GuideCardProps) => {
       slug={`/entertainers-tour-guides/tour-and-guides/${tourGuide.slug}`}
       title={tourGuide.name}
       imgSrc={tourGuide?.profileImg?.data?.attributes?.url || ""}
-      iconText={tours}
+      iconText={tours || "-"}
       iconSrc="/icons/direction.svg"
       flagIcons={flags || []}
     />

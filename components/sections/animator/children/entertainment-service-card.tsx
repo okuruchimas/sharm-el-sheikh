@@ -30,23 +30,14 @@ const EntertainmentServiceCard = ({
       <DownWrap>
         <CardTitle>{title}</CardTitle>
         <Down>
-          <TextAndIcon
-            src="/icons/promotions-section/location.svg"
-            text={duration || ""}
-          />
-          <TextAndIcon
-            src="/icons/promotions-section/location.svg"
-            text={price || ""}
-          />
+          <TextAndIcon src="/icons/time.svg" text={duration || ""} />
+          <TextAndIcon src="/icons/cash.svg" text={price || ""} />
           <TextAndIcon
             src="/icons/promotions-section/location.svg"
             text={place || ""}
           />
           {groupSize ? (
-            <TextAndIcon
-              src="/icons/promotions-section/location.svg"
-              text={groupSize}
-            />
+            <TextAndIcon src="/icons/team.svg" text={groupSize} />
           ) : null}
         </Down>
       </DownWrap>

@@ -1,6 +1,8 @@
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import TextAndIcon from "../../../../layout/text-and-icon";
+import LocationLink from "../../../../layout/location-link";
+import ReactMarkdown from "react-markdown";
 import styled from "@emotion/styled";
 import type { TourFragment } from "../../../../../gql/graphql";
 
@@ -25,10 +27,15 @@ const FullData = ({ fullData }: FullDataProps) => {
   return (
     <>
       <IconsGrid>
-        {renderItem(
-          "/icons/promotions-section/location.svg",
-          fullData?.location || "",
-        )}
+        <Location>
+          <LocationLink
+            iconSize="36px"
+            iconSizeMobile="30px"
+            text={fullData?.location || "-"}
+            position={fullData?.position}
+            fontSizeMobile="18px"
+          />
+        </Location>
         {renderItem("/icons/cash.svg", fullData?.price || "")}
         {renderItem("/icons/time.svg", fullData?.duration || "")}
         {renderItem("/icons/team.svg", fullData?.groupSize || "")}
@@ -51,7 +58,7 @@ const FullData = ({ fullData }: FullDataProps) => {
       </Section>
       <Section>
         <h3>{t("text.about")}</h3>
-        <p>{fullData?.about}</p>
+        <ReactMarkdown>{fullData?.about}</ReactMarkdown>
       </Section>
     </>
   );
@@ -67,6 +74,19 @@ const IconsGrid = styled("div")(({ theme }) => ({
   [theme.breakpoints.mobileS]: {
     gap: "8px",
     gridTemplateColumns: "1fr",
+  },
+}));
+
+const Location = styled("div")(({ theme }) => ({
+  maxWidth: "max-content",
+
+  ".icon-text": {
+    fontSize: theme.fontSize.fontS21,
+    color: theme.colors.black,
+
+    [theme.breakpoints.mobile]: {
+      fontSize: theme.fontSize.fontS16,
+    },
   },
 }));
 
