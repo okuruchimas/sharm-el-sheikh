@@ -73,7 +73,6 @@ const ButtonsWrap = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     display: "initial",
-    marginBottom: "32px",
   },
 }));
 
