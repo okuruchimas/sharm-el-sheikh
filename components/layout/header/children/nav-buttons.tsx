@@ -43,10 +43,13 @@ const Buttons = styled("div")(({ theme }) => ({
   },
 }));
 
-const SearchButton = styled("img")({
+const SearchButton = styled("img")(({ theme }) => ({
   height: "40px",
   width: "40px",
-});
+  [theme.breakpoints.mobile]: {
+    display: "none",
+  },
+}));
 
 const ContactButton = styled(Button)({
   padding: "16px",

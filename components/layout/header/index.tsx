@@ -19,7 +19,7 @@ const Header = ({ logo, navMenu }: HeaderProps) => {
   const [isNavbar, setIsNavbar] = useState<boolean>(false);
 
   return (
-    <Wrap isOpen={isNavbar}>
+    <Wrap isOpen={isNavbar} className="header-wrap">
       <WrapperUp>
         <Link href={"/"} style={{ width: "80%" }}>
           <Logo
@@ -53,6 +53,9 @@ const Header = ({ logo, navMenu }: HeaderProps) => {
 const hiddenOverflow = css`
   body {
     overflow: hidden;
+  }
+  .header-wrap {
+    padding: 52px 16px 0 !important;
   }
 `;
 
@@ -116,6 +119,7 @@ const BurgerIcon = styled("img")(({ theme }) => ({
   display: "none",
 
   [theme.breakpoints.mobile]: {
+    zIndex: 100,
     display: "block",
     height: "30px",
     width: "30px",
