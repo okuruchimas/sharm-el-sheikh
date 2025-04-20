@@ -131,7 +131,7 @@ export const WrapperDown = styled("div", {
     flexDirection: "column",
     alignItems: "flex-start",
     width: "100%",
-    gap: "20px",
+    gap: "24px",
   },
 
   [theme.breakpoints.desktop]: {
