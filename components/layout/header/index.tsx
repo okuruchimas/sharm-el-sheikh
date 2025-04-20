@@ -55,7 +55,7 @@ const hiddenOverflow = css`
     overflow: hidden;
   }
   .header-wrap {
-    padding: 44px 16px 0 !important;
+    padding: 52px 16px 0 !important;
   }
 `;
 
