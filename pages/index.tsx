@@ -158,7 +158,11 @@ export async function getStaticProps({ locale }: any) {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "home-page"])),
+      ...(await serverSideTranslations(locale, [
+        "common",
+        "home-page",
+        "entertainers-tour-guides",
+      ])),
       areas: areas?.data,
       categories: categories?.data,
       homePageData: home?.data?.attributes,

@@ -26,7 +26,10 @@ export default NotFoundPage;
 export async function getStaticProps({ locale }: any) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common"])),
+      ...(await serverSideTranslations(locale, [
+        "common",
+        "entertainers-tour-guides",
+      ])),
     },
   };
 }
@@ -42,5 +45,6 @@ const Wrapper = styled("div")(({ theme }) => ({
 
   h1: {
     color: theme.colors.blue,
+    textAlign: "center",
   },
 }));

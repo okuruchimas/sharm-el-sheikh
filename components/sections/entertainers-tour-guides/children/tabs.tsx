@@ -4,6 +4,7 @@ import Link from "next/link";
 import styled from "@emotion/styled";
 import useResponsive from "../../../../hooks/useResponsive";
 import "swiper/css";
+import useTabs from "../../../../hooks/useTabs";
 
 export const getVisibleTabs = (activeIndex: number, tabs: any[]) => {
   const left = activeIndex === 0 ? tabs.length - 1 : activeIndex - 1;
@@ -15,13 +16,7 @@ const Tabs = () => {
   const { pathname } = useRouter();
   const { t } = useTranslation("entertainers-tour-guides");
   const { isMobile } = useResponsive();
-
-  const tabsArr = [
-    { link: "animators", text: t("tabs.animators") },
-    { link: "taxi-drivers", text: t("tabs.taxiDrivers") },
-    { link: "photographers", text: t("tabs.photographers") },
-    { link: "tour-and-guides", text: t("tabs.tourOperators") },
-  ];
+  const { tabsArr } = useTabs();
 
   const activePage = pathname.split("/").pop();
 
