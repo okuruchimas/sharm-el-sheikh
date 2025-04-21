@@ -1,6 +1,6 @@
 import type { Library } from "@googlemaps/js-api-loader";
 
-export const libraries: Library[] = ["places"];
+export const libraries: Library[] = ["places", "geometry"];
 
 export const DEFAULT_CENTER = {
   lat: 27.963648072647775,

@@ -30,6 +30,9 @@ import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 // types
 import type { MapCard } from "../../../components/layout/map/children/types";
 import type { selectOption } from "../../../components/types/filter";
+import { getCurrentLocation } from "../../../utils/get-location";
+import { useLoadScript } from "@react-google-maps/api";
+import { Library } from "@googlemaps/js-api-loader";
 
 type Animators = { attributes: AnimatorPreviewFragment }[];
 type PageProps = {
@@ -55,7 +58,12 @@ const Animators = ({
   const { isMobile } = useResponsive();
 
   const pageSize = useMemo(() => (isMobile ? 4 : 12), [isMobile]);
-
+  // const libraries: Library[] = ["geometry"];
+  //
+  // const { isLoaded } = useLoadScript({
+  //   googleMapsApiKey: "YOUR_API_KEY",
+  //   libraries,
+  // });
   const handleGetAnimators = async ({
     sort,
     pageNum,
@@ -142,6 +150,64 @@ const Animators = ({
   };
 
   const locations = mapLocations(animationCompanies);
+  const findNearestAnimator = async () => {
+    if (typeof window === "undefined") return;
+    try {
+      const userLocation = await getCurrentLocation();
+      // const userLocation = { lat: 27.9455979, lng: 34.349452 };
+      console.log(1, userLocation, "userLocation");
+      const data = await fetchDataFromApi(GetAnimatorsByFilterDocument, {
+        locale: i18n.language,
+      });
+      console.log(2, data.animators?.data, "allAnimators");
+
+      const animators = data?.animators?.data;
+      if (!google?.maps?.geometry || !animators?.length) {
+        throw new Error("Щось пішло не так з Google API або аніматорами.");
+      }
+      console.log(3, "userLocation");
+
+      const myLatLng = new window.google.maps.LatLng(
+        userLocation.lat,
+        userLocation.lng,
+      );
+      console.log(4, "userLocation");
+
+      let closestAnimator = null;
+      let shortestDistance = Infinity;
+
+      for (const animator of animators) {
+        const location = animator?.attributes?.position;
+        if (!location?.lat || !location?.lng) continue;
+
+        const animatorLatLng = new window.google.maps.LatLng(
+          location.lat,
+          location.lng,
+        );
+        const distance =
+          window.google.maps.geometry.spherical.computeDistanceBetween(
+            myLatLng,
+            animatorLatLng,
+          );
+
+        if (distance < shortestDistance) {
+          shortestDistance = distance;
+          closestAnimator = animator;
+        }
+      }
+
+      if (closestAnimator) {
+        // setResult(closestAnimator);
+        console.log("Найближчий аніматор:", closestAnimator?.attributes?.name);
+        alert(`succes:${closestAnimator?.attributes?.name}`);
+      } else {
+        alert("Не знайдено аніматорів поблизу.");
+      }
+    } catch (error: any) {
+      console.error(error);
+      alert(`Помилка при пошуку аніматора.${error?.code},${error?.message}`);
+    }
+  };
 
   return (
     <>
@@ -180,6 +246,7 @@ const Animators = ({
             color="blue"
           />
           <Button
+            onClick={findNearestAnimator}
             color="blue"
             backgroundColor="transparent"
             text={t("buttons.nearestAnimator")}

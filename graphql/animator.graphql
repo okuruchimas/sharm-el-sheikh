@@ -8,6 +8,10 @@ query GetAnimatorBySlug($slug: String!, $locale: I18NLocaleCode!) {
           ...StrapiImage
         }
         description
+        position {
+          lat
+          lng
+        }
         workingAtClub
         hotelName
         animation_company {
@@ -137,6 +141,10 @@ fragment AnimatorPreview on Animator {
         }
       }
     }
+  }
+  position {
+    lat
+    lng
   }
   averageRating
   totalComments
