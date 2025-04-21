@@ -246,7 +246,7 @@ const Animators = ({
             color="blue"
           />
           <Button
-            onClick={findNearestAnimator}
+            // onClick={findNearestAnimator}
             color="blue"
             backgroundColor="transparent"
             text={t("buttons.nearestAnimator")}
