@@ -42,14 +42,12 @@ const FullData = ({ fullData }: FullDataProps) => {
       </IconsGrid>
       {fullData.informationProvider ? (
         <InformationProvider isAr={i18n.language === "ar-EG"}>
-          <span>{t("text.informationProvided")}</span>
           <Link href={fullData.informationProvider.link}>
             {fullData?.informationProvider.text}
           </Link>
         </InformationProvider>
       ) : null}
       <Section>
-        <h3>{t("text.tourComponents")}</h3>
         <ul>
           {fullData?.tourComponents?.map((el) => (
             <li key={el?.value}>{el?.value}</li>
@@ -57,7 +55,6 @@ const FullData = ({ fullData }: FullDataProps) => {
         </ul>
       </Section>
       <Section>
-        <h3>{t("text.about")}</h3>
         <ReactMarkdown>{fullData?.about}</ReactMarkdown>
       </Section>
     </>
@@ -115,12 +112,6 @@ const Section = styled("div")(({ theme }) => ({
 
   ul: {
     marginLeft: "24px",
-  },
-
-  h3: {
-    fontSize: theme.fontSize.fontS32,
-    fontWeight: 700,
-    color: theme.colors.blue,
   },
 
   "p, li": {

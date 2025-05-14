@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 // components
 import Flags from "../../../layout/flags";
 import Image from "next/image";
-import LinkIcon from "../../../layout/link-icon";
 import TitleRating from "../../../layout/title-and-rating";
 import TextAndIcon from "../../../layout/text-and-icon";
 // utils
@@ -23,7 +22,6 @@ interface Props {
   flagIcons: ImageI[];
   averageRating: number;
   totalComments: number;
-  size?: string;
 }
 
 const Card = ({
@@ -37,7 +35,6 @@ const Card = ({
   indicator,
   averageRating,
   totalComments,
-  size,
 }: Props) => {
   const router = useRouter();
 
@@ -68,7 +65,7 @@ const Card = ({
         <FlagsWrapper>
           <Flags icons={flagIcons} />
         </FlagsWrapper>
-        {size === "s" ? null : <LinkIcon href={slug} />}
+        {/*{size === "s" ? null : <LinkIcon href={slug} />}*/}
       </InfoWrap>
     </Wrap>
   );

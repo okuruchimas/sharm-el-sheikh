@@ -1,6 +1,5 @@
 // components
 import Image from "next/image";
-import LinkIcon from "../../../layout/link-icon";
 import TextAndIcon from "../../../layout/text-and-icon";
 // utils
 import styled from "@emotion/styled";
@@ -42,7 +41,6 @@ const MedicationCard = ({
           <Category>{category}</Category>
           <TextAndIcon src="/icons/cash.svg" text={price} />
         </Row>
-        <LinkIcon />
       </InfoWrap>
     </Wrap>
   );
@@ -69,7 +67,6 @@ const CardTitle = styled("h3")(({ theme }) => ({
   marginBottom: "4px",
 
   [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS16,
     marginBottom: "8px",
   },
 }));
@@ -84,8 +81,8 @@ const StyledImage = styled(Image)({
 const InfoWrap = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  justifyContent: "space-between",
-  padding: "16px",
+  gap: 24,
+  padding: 16,
   height: "43%",
   maxHeight: "50%",
   borderTop: `1px solid ${theme.colors.blue5}`,

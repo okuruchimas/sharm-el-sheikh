@@ -2,7 +2,6 @@
 import { useTranslation } from "next-i18next";
 // components
 import Image from "next/image";
-import LinkIcon from "../../../../layout/link-icon";
 // utils
 import styled from "@emotion/styled";
 // types
@@ -24,7 +23,7 @@ const EventCard = ({
       <ImgWrapper>
         <StyledImage src={logo} alt={logoAlt} layout="fill" objectFit="cover" />
       </ImgWrapper>
-      <Details>
+      <Details onClick={onClick}>
         <Stack>
           <Date>{date}</Date>
           <Title>{title}</Title>
@@ -33,7 +32,7 @@ const EventCard = ({
             <BottomText>{`${t("labels.price")}: ${price}`}</BottomText>
           </PriceLocation>
         </Stack>
-        <LinkIcon onClick={onClick} />
+        {/*<LinkIcon onClick={onClick} />*/}
       </Details>
     </Card>
   );
@@ -75,6 +74,7 @@ const Details = styled("div")(({ theme }) => ({
   flexDirection: "column",
   justifyContent: "space-between",
   borderRadius: "0 0 16px 16px",
+  cursor: "pointer",
 
   img: {
     alignSelf: "end",

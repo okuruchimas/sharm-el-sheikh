@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 // utils
 import styled from "@emotion/styled";
 // types
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { getVisibleTabs } from "../../../entertainers-tour-guides/children/tabs";
 import useResponsive from "../../../../../hooks/useResponsive";
 
@@ -16,26 +16,28 @@ const types = [
 interface Props {
   currentType: string;
   setType: Dispatch<SetStateAction<string>>;
+  typesProp?: { type: string; value: string; icon?: ReactNode }[];
 }
-const TypeSwitcher = ({ currentType, setType }: Props) => {
+const TypeSwitcher = ({ currentType, setType, typesProp = types }: Props) => {
   const { t } = useTranslation("home-page");
   const { isMobile } = useResponsive();
 
-  const activeIndex = types.findIndex(({ type }) => type === currentType);
+  const activeIndex = typesProp.findIndex(({ type }) => type === currentType);
 
   const visibleTabs =
-    activeIndex !== -1 ? getVisibleTabs(activeIndex, types) : [];
+    activeIndex !== -1 ? getVisibleTabs(activeIndex, typesProp) : [];
 
-  const tabsToMap = isMobile ? visibleTabs : types;
+  const tabsToMap = isMobile ? visibleTabs : typesProp;
 
   return (
     <Wrap>
-      {tabsToMap.map(({ type, value }) => (
+      {tabsToMap.map(({ type, value, icon }) => (
         <Type
           isActive={type === currentType}
           key={type}
           onClick={() => setType(type)}
         >
+          {icon ? icon : null}
           {t(value)}
         </Type>
       ))}
@@ -44,9 +46,9 @@ const TypeSwitcher = ({ currentType, setType }: Props) => {
 };
 
 const Wrap = styled("div")(({ theme }) => ({
+  width: "100%",
   display: "flex",
   flexDirection: "row",
-  width: "max-content",
   borderBottom: `1px solid ${theme.colors.grey}`,
   cursor: "pointer",
 
@@ -67,13 +69,30 @@ const Wrap = styled("div")(({ theme }) => ({
 const Type = styled("span", {
   shouldForwardProp: (prop) => prop !== "isActive",
 })<{ isActive: boolean }>(({ theme, isActive }) => ({
+  width: "33.3333%",
+  minWidth: "max-content",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
   padding: "16px",
   fontSize: theme.fontSize.fontS16,
-  color: isActive ? theme.colors.black : theme.colors.grey1,
+  color: isActive ? theme.colors.black : theme.colors.grey,
   paddingBottom: isActive ? "12px" : "initial",
   borderBottom: isActive ? "4px solid" + theme.colors.yellow2 : "none",
 
+  svg: {
+    marginRight: 8,
+    path: {
+      stroke: isActive ? theme.colors.black : theme.colors.grey,
+    },
+
+    [theme.breakpoints.mobile]: {
+      marginBottom: -8,
+    },
+  },
+
   [theme.breakpoints.mobile]: {
+    display: "initial",
     padding: "16px 4px",
     borderBottom: isActive
       ? `4px solid ${theme.colors.yellow}`

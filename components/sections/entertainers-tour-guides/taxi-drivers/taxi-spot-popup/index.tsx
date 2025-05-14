@@ -81,11 +81,9 @@ const TaxiSpotPopup = ({ data, onClose }: TaxiSpotPopupProps) => {
           />
         </Location>
         <Section>
-          <h2>{t("text.about")}</h2>
           <ReactMarkdown>{data?.about}</ReactMarkdown>
         </Section>
         <Section>
-          <h2>{tPage("tabs.taxiDrivers")}</h2>
           <CardsSwiper
             dataLength={data.taxi_drivers?.data.length}
             placeholderText={tPage("placeholders.noDrivers")}
@@ -93,7 +91,7 @@ const TaxiSpotPopup = ({ data, onClose }: TaxiSpotPopupProps) => {
             {data.taxi_drivers?.data.map((el) =>
               el.attributes ? (
                 <SwiperSlide key={el.attributes?.slug}>
-                  <TaxiCard driver={el.attributes} size="s" />
+                  <TaxiCard driver={el.attributes} />
                 </SwiperSlide>
               ) : null,
             )}
@@ -135,12 +133,6 @@ const Section = styled("div")(({ theme }) => ({
 
   ul: {
     marginLeft: "24px",
-  },
-
-  h2: {
-    fontSize: theme.fontSize.fontS32,
-    fontWeight: 700,
-    color: theme.colors.blue,
   },
 
   "p, li": {

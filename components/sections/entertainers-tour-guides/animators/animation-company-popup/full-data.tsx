@@ -43,21 +43,19 @@ const FullData = ({ fullData }: Props) => {
     <>
       {about ? (
         <Section>
-          <SectionTitle as="h3">{t("animPopAp.about")}</SectionTitle>
           <ReactMarkdown>{about}</ReactMarkdown>
         </Section>
       ) : null}
 
       {animatorsToShow ? (
         <Section>
-          <SectionTitle as="h3">{t("animPopAp.animators")}</SectionTitle>
           <CardsSwiper
             dataLength={animatorsToShow.length}
             placeholderText={tPage("placeholders.noAnimators")}
           >
             {animatorsToShow.map((el) => (
               <SwiperSlide key={el?.slug}>
-                <AnimatorCard animator={el} size="s" />
+                <AnimatorCard animator={el} />
               </SwiperSlide>
             ))}
           </CardsSwiper>
@@ -81,19 +79,16 @@ const FullData = ({ fullData }: Props) => {
 
       <Section>
         {socialLinks?.length ? (
-          <>
-            <SectionTitle as="h3">{t("animPopAp.contacts")}</SectionTitle>
-            <IconsWrapper>
-              {socialLinks?.map((el, index) => (
-                <SocialIcon
-                  key={index}
-                  iconSrc={el?.icon.data?.attributes?.url || ""}
-                  iconAlt={el?.icon.data?.attributes?.alternativeText || ""}
-                  socialLink={el?.socialLink || ""}
-                />
-              ))}
-            </IconsWrapper>
-          </>
+          <IconsWrapper>
+            {socialLinks?.map((el, index) => (
+              <SocialIcon
+                key={index}
+                iconSrc={el?.icon.data?.attributes?.url || ""}
+                iconAlt={el?.icon.data?.attributes?.alternativeText || ""}
+                socialLink={el?.socialLink || ""}
+              />
+            ))}
+          </IconsWrapper>
         ) : null}
 
         <NumbersWrap>
