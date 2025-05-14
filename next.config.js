@@ -8,6 +8,14 @@ const nextConfig = {
     domains: ["beautiful-boot-1db2e6c4ea.media.strapiapp.com"],
   },
   i18n,
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      issuer: { and: [/\.(js|ts)x?$/] },
+      use: ["@svgr/webpack"],
+    });
+    return config;
+  },
 };
 
 module.exports = nextConfig;

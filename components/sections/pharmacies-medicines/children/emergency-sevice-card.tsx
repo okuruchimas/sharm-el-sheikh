@@ -35,8 +35,9 @@ const EmergencyServiceCard = ({
       <StyledImage src={imgSrc} loading="lazy" height={265} width={266} />
       <InfoWrap>
         <CardTitle>{title}</CardTitle>
-        <TextAndIcon src="/icons/phone.svg" text={phoneNum} />
+        <TextAndIcon fontSize="18px" src="/icons/phone.svg" text={phoneNum} />
         <TextAndIcon
+          fontSize="18px"
           src="/icons/promotions-section/location.svg"
           text={location}
         />
@@ -61,7 +62,6 @@ const EmergencyServiceCard = ({
 const Wrap = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  minHeight: 484,
   width: "100%",
   minWidth: 250,
   background: theme.colors.white,
@@ -94,7 +94,8 @@ const InfoWrap = styled("div")(({ theme }) => ({
   flexDirection: "column",
   justifyContent: "space-between",
   padding: "16px",
-  height: "46%",
+  gap: 12,
+  height: "auto",
   maxHeight: "50%",
   backgroundColor: theme.colors.white,
   borderRadius: 16,

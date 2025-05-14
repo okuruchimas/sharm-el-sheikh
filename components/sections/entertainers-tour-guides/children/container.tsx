@@ -29,7 +29,6 @@ const StyledTitle = styled(Title)(({ theme }) => ({
 const Wrap = styled("div")(({ theme }) => ({
   minHeight: "100vh",
   display: "flex",
-  alignItems: "center",
   flexDirection: "column",
   padding: "235px 100px 80px",
   backgroundImage: theme.backgrounds.guides,

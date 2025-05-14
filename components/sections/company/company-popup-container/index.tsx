@@ -24,6 +24,7 @@ import {
   GetCompanyDocument,
 } from "../../../../gql/graphql";
 import useRatePlace from "../../../../hooks/useRatePlace";
+import FullData from "./full-data";
 
 type CompanyPopupContainerProps = {
   clubPreview: CompanyPreviewFragment;
@@ -122,36 +123,7 @@ const CompanyPopupContainer = ({
           </Stack>
         </Stack>
       </TopSection>
-      {fullData?.slug ? (
-        <>
-          <Stack gap="24px" mGap="16px" fallDown>
-            <Title>{t("text.about")}</Title>
-            <Text>{fullData?.description}</Text>
-            <RowStack gap="16px">
-              <Title>{t("text.food")}</Title>
-              <Text>{fullData?.food}</Text>
-            </RowStack>
-          </Stack>
-          <CardsWrapper fallDown>
-            {fullData?.services?.data
-              ? fullData?.services?.data?.map((el, index) => (
-                  <ServiceCard
-                    key={index}
-                    index={index}
-                    title={el.attributes?.text || ""}
-                    iconSrc={el.attributes?.icon.data?.attributes?.url ?? ""}
-                    iconAlt={
-                      el.attributes?.icon.data?.attributes?.alternativeText ??
-                      ""
-                    }
-                  />
-                ))
-              : null}
-          </CardsWrapper>
-        </>
-      ) : (
-        <Loader />
-      )}
+      {fullData ? <FullData fullData={fullData} /> : null}
       <StarReviewForm
         stars={stars}
         isDisabled={isDisabled}
@@ -166,7 +138,7 @@ const CompanyPopupContainer = ({
 
 export default CompanyPopupContainer;
 
-const fallDownKF = keyframes`
+export const fallDownKF = keyframes`
     0% { transform: translateY(-20%); opacity: 0 }
     50% { transform: translateY(-10%); opacity: 0.2 }
     100% { transform: translateY(0); opacity: 1}
@@ -210,7 +182,7 @@ const TopSection = styled("div")(({ theme }) => ({
   },
 }));
 
-const Stack = styled("div", {
+export const Stack = styled("div", {
   shouldForwardProp: (prop) => !["gap", "fallDown", "mGap"].includes(prop),
 })<{ gap?: string; fallDown?: boolean; mGap?: string }>(
   ({ theme, gap, fallDown, mGap }) => ({
@@ -280,7 +252,7 @@ const Title = styled("h2", {
   },
 }));
 
-const Text = styled("p", {
+export const Text = styled("p", {
   shouldForwardProp: (prop) => prop !== "fontWeight",
 })<{ fontWeight?: string }>(({ theme, fontWeight }) => ({
   fontSize: theme.fontSize.fontS21,
@@ -311,28 +283,4 @@ const RatingWrapper = styled("div")(({ theme }) => ({
       fontSize: theme.fontSize.fontS18,
     },
   },
-}));
-
-const CardsWrapper = styled("div", {
-  shouldForwardProp: (prop) => prop !== "fallDown",
-})<{ fallDown?: boolean }>(({ theme, fallDown }) => ({
-  width: "100%",
-  display: "grid",
-  gridTemplateColumns: "repeat(4, 1fr)",
-  gap: "16px",
-
-  ".card-title": {
-    fontSize: theme.fontSize.fontS18,
-  },
-
-  ".service-card": {
-    padding: "16px 8px",
-  },
-
-  [theme.breakpoints.mobile]: {
-    gridTemplateColumns: "repeat(2, 1fr)",
-    gap: "8px",
-  },
-
-  ...(fallDown ? { animation: `${fallDownKF} 0.3s linear` } : {}),
 }));

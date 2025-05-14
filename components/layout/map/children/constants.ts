@@ -3,8 +3,8 @@ import type { Library } from "@googlemaps/js-api-loader";
 export const libraries: Library[] = ["places", "geometry"];
 
 export const DEFAULT_CENTER = {
-  lat: 27.963648072647775,
-  lng: 34.399537638329676,
+  lat: 40.963648072647775,
+  lng: 20.399537638329676,
 };
 
 export const DEFAULT_ZOOM = 12;

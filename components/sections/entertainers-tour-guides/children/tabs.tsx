@@ -1,9 +1,7 @@
 import { useRouter } from "next/router";
-import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import styled from "@emotion/styled";
 import useResponsive from "../../../../hooks/useResponsive";
-import "swiper/css";
 import useTabs from "../../../../hooks/useTabs";
 
 export const getVisibleTabs = (activeIndex: number, tabs: any[]) => {
@@ -14,7 +12,6 @@ export const getVisibleTabs = (activeIndex: number, tabs: any[]) => {
 
 const Tabs = () => {
   const { pathname } = useRouter();
-  const { t } = useTranslation("entertainers-tour-guides");
   const { isMobile } = useResponsive();
   const { tabsArr } = useTabs();
 
