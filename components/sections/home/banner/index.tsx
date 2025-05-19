@@ -5,6 +5,7 @@ import Button from "../../../layout/button";
 // utils
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
+import { moveBackground } from "../../../layout/banner/banner";
 
 interface Props {
   imgLink?: string;
@@ -39,12 +40,6 @@ const Banner = ({
     </Wrap>
   );
 };
-
-const moveBackground = keyframes`
-    0% { transform: translateX(0); }
-    50% { transform: translateX(-11%); }
-    100% { transform: translateX(0); }
-`;
 
 const Wrap = styled("div", {
   shouldForwardProp: (prop) =>

@@ -5,6 +5,7 @@ import Button from "../../../layout/button";
 // utils
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
+import { moveBackground } from "../../../layout/banner/banner";
 
 interface Props {
   imgLink?: string;
@@ -29,21 +30,11 @@ const HotspotsBanner = ({
       <Content>
         <Title>{title}</Title>
         <SubTitle>{subtitle}</SubTitle>
-        <Button
-          text={buttonText}
-          onClick={() => router.push(buttonLink)}
-          backgroundColor="transparent"
-        />
+        <Button text={buttonText} onClick={() => router.push(buttonLink)} />
       </Content>
     </Wrap>
   );
 };
-
-const moveBackground = keyframes`
-    0% { transform: translateX(0); }
-    50% { transform: translateX(-11%); }
-    100% { transform: translateX(0); }
-`;
 
 const Wrap = styled("div")(({ theme }) => ({
   position: "relative",
@@ -59,19 +50,19 @@ const Wrap = styled("div")(({ theme }) => ({
   },
 }));
 
-const Background = styled("div", {
-  shouldForwardProp: (prop) => prop !== "imgLink",
-})<{ imgLink?: string }>(({ theme, imgLink }) => ({
-  position: "absolute",
-  top: 0,
-  left: 0,
-  height: "100%",
-  width: "113%",
-  backgroundImage: `url(${imgLink})`,
-  backgroundSize: "cover",
-  backgroundPosition: "0 50%",
-  animation: `${moveBackground} 20s linear infinite`,
-}));
+const Background = styled("div")<{ imgLink?: string }>(
+  ({ theme, imgLink }) => ({
+    position: "absolute",
+    top: 0,
+    left: 0,
+    height: "100%",
+    width: "113%",
+    backgroundImage: `url(${imgLink})`,
+    backgroundSize: "cover",
+    backgroundPosition: "0 50%",
+    animation: `${moveBackground} 20s linear infinite`,
+  }),
+);
 
 const Title = styled("p")(({ theme }) => ({
   fontWeight: "700",

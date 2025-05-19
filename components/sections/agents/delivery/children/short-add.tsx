@@ -11,7 +11,7 @@ const ShortAdd = ({ isEven }: Props) => {
     <Wrapper isEven={isEven}>
       <Content>
         <ImageStyled
-          isEven={isEven}
+          even={isEven.toString()}
           width={240}
           height={210}
           src="/images/announcement-cards/announce-card1.webp"
@@ -81,6 +81,9 @@ const Wrapper = styled("div")<{ isEven: boolean }>(({ theme, isEven }) => ({
   maxWidth: "calc(50% - 40px)",
   backgroundColor: "rgba(41, 169, 194, 0.06)",
   boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
+  [theme.breakpoints.mobile]: {
+    maxWidth: "100%",
+  },
 }));
 
 const FlexContainer = styled("div")(({ theme }) => ({
@@ -95,11 +98,18 @@ const FlexContainer = styled("div")(({ theme }) => ({
 const Content = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
+  [theme.breakpoints.mobile]: {
+    flexDirection: "column",
+  },
 }));
 
-const ImageStyled = styled(Image)<{ isEven: boolean }>(({ theme, isEven }) => ({
+const ImageStyled = styled(Image)<{ even: string }>(({ theme, even }) => ({
   borderBottomLeftRadius: "12px",
-  borderTopLeftRadius: isEven ? "" : "12px",
+  borderTopLeftRadius: even === "true" ? "" : "12px",
+
+  [theme.breakpoints.mobile]: {
+    borderBottomLeftRadius: "unset",
+  },
 }));
 
 const Info = styled("div")(({ theme }) => ({
@@ -118,6 +128,9 @@ const ContactRow = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   gap: "20px",
+  [theme.breakpoints.mobile]: {
+    justifyContent: "flex-end",
+  },
 }));
 
 const IconCircle = styled("div")(({ theme }) => ({
