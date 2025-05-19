@@ -24,18 +24,20 @@ const SectionWrapper = ({
 }: Props) => {
   return (
     <Wrapper mt={mt}>
-      <TopWrapper>
-        {title || titleChildren ? (
-          <TitleWrap isColumn={!!isColumn}>
-            {title ? <Title as="h2">{title}</Title> : null}
-            {titleChildren ? titleChildren : null}
-          </TitleWrap>
-        ) : null}
+      {title || titleChildren || (buttonText && onClick) ? (
+        <TopWrapper>
+          {title || titleChildren ? (
+            <TitleWrap isColumn={!!isColumn}>
+              {title ? <Title as="h2">{title}</Title> : null}
+              {titleChildren ? titleChildren : null}
+            </TitleWrap>
+          ) : null}
 
-        {buttonText && onClick ? (
-          <ButtonStyled text={"See All"} onClick={() => {}} />
-        ) : null}
-      </TopWrapper>
+          {buttonText && onClick ? (
+            <ButtonStyled text={"See All"} onClick={() => {}} />
+          ) : null}
+        </TopWrapper>
+      ) : null}
 
       {children}
     </Wrapper>
@@ -50,11 +52,17 @@ const Wrapper = styled("div")<{ mt: string }>(({ theme, mt }) => ({
   flexDirection: "column",
   gap: "24px",
   width: "100%",
+
+  [theme.breakpoints.mobile]: {
+    gap: "16px",
+    marginTop: "unset",
+  },
 }));
 const TopWrapper = styled("div")({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
+  alignItems: "center",
   gap: "24px",
   width: "100%",
 });

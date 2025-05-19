@@ -38,6 +38,10 @@ export default Advertisements;
 const Wrapper = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
+
+  [theme.breakpoints.mobile]: {
+    gap: 16,
+  },
 }));
 
 const CardWrapper = styled("div")<{
@@ -51,7 +55,10 @@ const CardWrapper = styled("div")<{
   minWidth: "554px",
   width: "100%",
   gap: 8,
+
   [theme.breakpoints.mobile]: {
+    marginTop: "unset",
+    minWidth: "100%",
     maxWidth: "100%",
     alignSelf: "center",
   },
@@ -64,6 +71,12 @@ const CardSection = styled("div")<{ align: "left" | "right" }>(
     flexDirection: "column",
     alignItems: align === "left" ? "flex-start" : "flex-end",
     gap: 8,
+    [theme.breakpoints.mobile]: {
+      marginTop: "unset",
+
+      maxWidth: "100%",
+      alignSelf: "center",
+    },
   }),
 );
 
@@ -73,6 +86,8 @@ const Avatar = styled("div")(({ theme }) => ({
   justifyContent: "center",
   width: 50,
   height: 50,
+  minWidth: 50,
+  minHeight: 50,
   borderRadius: "50%",
   backgroundColor: "rgba(255, 185, 1, 0.08)",
   border: "1px solid",

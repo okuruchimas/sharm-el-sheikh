@@ -1,12 +1,9 @@
 import { useTranslation } from "next-i18next";
-// components
-import Image from "../../components/layout/image";
 // utils
 import styled from "@emotion/styled";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchData } from "../../utils/fetchApi";
 import {
-  GetTourCategoriesDocument,
   GetTourGuidesByFiltersDocument,
   GetToursDocument,
   TourGuideFragment,
@@ -22,9 +19,8 @@ import { useState } from "react";
 import Modal from "../../components/layout/modal";
 import TourPopup from "../../components/sections/entertainers-tour-guides/tour-and-guides/tour-popup";
 import SectionsWrapper from "../../components/layout/sections-wrapper";
-import Tabs from "../../components/sections/entertainers-tour-guides/children/tabs";
-import TypeSwitcher from "../../components/sections/home/feedback/children/type-switcher";
 import Delivery from "../../components/sections/agents/delivery";
+import Banners from "../../components/sections/agents/delivery/children/banners";
 
 type Props = {
   tourGuides: { attributes: TourGuideFragment }[];
@@ -73,6 +69,8 @@ const Agents = ({ tourGuides, tours }: Props) => {
 
       <Delivery />
 
+      <Banners />
+
       {selectedTour ? (
         <Modal isOpen={!!selectedTour?.slug} onClose={handlePopupClose}>
           <TourPopup tourPreview={selectedTour} onClose={handlePopupClose} />
@@ -116,6 +114,6 @@ const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
   paddingTop: "242px",
 
   [theme.breakpoints.mobile]: {
-    paddingTop: "80px",
+    paddingTop: "120px",
   },
 }));
