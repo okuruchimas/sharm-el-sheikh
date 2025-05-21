@@ -1,4 +1,3 @@
-import React from "react";
 import View from "../header/children/type";
 import styled from "@emotion/styled";
 import { Title } from "../title";
@@ -34,7 +33,7 @@ const SectionWrapper = ({
           ) : null}
 
           {buttonText && onClick ? (
-            <ButtonStyled text={"See All"} onClick={() => {}} />
+            <ButtonStyled text={buttonText} onClick={() => {}} />
           ) : null}
         </TopWrapper>
       ) : null}
