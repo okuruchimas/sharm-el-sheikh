@@ -114,10 +114,9 @@ const Delivery = ({ initialAds, initialTotalAds }: DeliveryProps) => {
 
   const handleChangeType = (type: string) => {
     setType(type);
-    setPage(1);
     setSearchValue("");
     handleGetAds({
-      pageNum: 1,
+      pageNum: page,
       publicationType: type,
     });
   };
