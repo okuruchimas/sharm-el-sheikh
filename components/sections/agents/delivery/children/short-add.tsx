@@ -1,12 +1,27 @@
 import TextAndIcon from "../../../../layout/text-and-icon";
-import styled from "@emotion/styled";
 import { Title } from "../../../../layout/title";
 import Image from "next/image";
+import styled from "@emotion/styled";
+import { formatDate } from "../../../../../utils/formateDate";
 
 interface Props {
   isEven: boolean;
+  title: string;
+  location: string;
+  price: string;
+  date: string;
+  imageUrl: string;
+  imageAlt?: string;
 }
-const ShortAdd = ({ isEven }: Props) => {
+const ShortAdd = ({
+  isEven,
+  title,
+  location,
+  price,
+  date,
+  imageUrl,
+  imageAlt,
+}: Props) => {
   return (
     <Wrapper isEven={isEven}>
       <Content>
@@ -14,15 +29,15 @@ const ShortAdd = ({ isEven }: Props) => {
           even={isEven.toString()}
           width={240}
           height={210}
-          src="/images/announcement-cards/announce-card1.webp"
-          alt="photo of add"
+          src={imageUrl}
+          alt={imageAlt}
         />
         <Info>
-          <TitleStyled as="h3">Linen Dress</TitleStyled>
+          <TitleStyled as="h3">{title}</TitleStyled>
           <FlexContainer>
             <TextAndIcon
               src="/icons/promotions-section/location.svg"
-              text={"Meet place"}
+              text={location}
               iconSize="30px"
               iconSizeMobile="30px"
               fontSize="21px"
@@ -30,7 +45,7 @@ const ShortAdd = ({ isEven }: Props) => {
             />
             <TextAndIcon
               src="/icons/cash.svg"
-              text={"120 $"}
+              text={price}
               iconSize="30px"
               iconSizeMobile="30px"
               fontSize="21px"
@@ -38,7 +53,7 @@ const ShortAdd = ({ isEven }: Props) => {
             />
             <TextAndIcon
               src="/icons/time.svg"
-              text={"10.10.2001"}
+              text={formatDate(date)}
               iconSize="30px"
               iconSizeMobile="30px"
               fontSize="21px"

@@ -1,0 +1,60 @@
+query GetAdvertisements(
+  $titleFilter: String
+  $publicationType: String
+  $page: Int
+  $pageSize: Int
+) {
+  advertisements(
+    pagination: { page: $page, pageSize: $pageSize }
+    filters: {
+      title: { containsi: $titleFilter }
+      publicationType: { eq: $publicationType }
+    }
+  ) {
+    data {
+      id
+      attributes {
+        ...Advertisement
+      }
+    }
+    meta {
+      pagination {
+        total
+      }
+    }
+  }
+}
+
+query GetAdsTitles($titleFilter: String) {
+  advertisements(filters: { title: { containsi: $titleFilter } }) {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+}
+
+fragment Advertisement on Advertisement {
+  title
+  description
+  mobile
+  sellerName
+  contactMethod
+  email
+  publicationType
+  location
+  price
+  personalCardLink
+  agree
+  images {
+    data {
+      attributes {
+        alternativeText
+        url
+      }
+    }
+  }
+  createdAt
+}

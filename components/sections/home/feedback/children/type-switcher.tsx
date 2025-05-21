@@ -15,7 +15,7 @@ const types = [
 
 interface Props {
   currentType: string;
-  setType: Dispatch<SetStateAction<string>>;
+  setType: (type: string) => void;
   typesProp?: { type: string; value: string; icon?: ReactNode }[];
 }
 const TypeSwitcher = ({ currentType, setType, typesProp = types }: Props) => {
