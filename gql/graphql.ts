@@ -5391,6 +5391,25 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type GetAdvertisementsQueryVariables = Exact<{
+  titleFilter?: InputMaybe<Scalars['String']['input']>;
+  publicationType?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type GetAdvertisementsQuery = { __typename?: 'Query', advertisements?: { __typename?: 'AdvertisementEntityResponseCollection', data: Array<{ __typename?: 'AdvertisementEntity', id?: string | null, attributes?: { __typename?: 'Advertisement', title: string, description: string, mobile: string, sellerName: string, contactMethod?: string | null, email: string, publicationType: Enum_Advertisement_Publicationtype, location: string, price: string, personalCardLink?: string | null, agree?: boolean | null, createdAt?: any | null, images?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, url: string } | null }> } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
+
+export type GetAdsTitlesQueryVariables = Exact<{
+  titleFilter?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetAdsTitlesQuery = { __typename?: 'Query', advertisements?: { __typename?: 'AdvertisementEntityResponseCollection', data: Array<{ __typename?: 'AdvertisementEntity', id?: string | null, attributes?: { __typename?: 'Advertisement', title: string } | null }> } | null };
+
+export type AdvertisementFragment = { __typename?: 'Advertisement', title: string, description: string, mobile: string, sellerName: string, contactMethod?: string | null, email: string, publicationType: Enum_Advertisement_Publicationtype, location: string, price: string, personalCardLink?: string | null, agree?: boolean | null, createdAt?: any | null, images?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, url: string } | null }> } | null };
+
 export type GetAnimationCompaniesQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
 }>;
@@ -5763,6 +5782,30 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+export const AdvertisementFragmentDoc = new TypedDocumentString(`
+    fragment Advertisement on Advertisement {
+  title
+  description
+  mobile
+  sellerName
+  contactMethod
+  email
+  publicationType
+  location
+  price
+  personalCardLink
+  agree
+  images {
+    data {
+      attributes {
+        alternativeText
+        url
+      }
+    }
+  }
+  createdAt
+}
+    `, {"fragmentName":"Advertisement"}) as unknown as TypedDocumentString<AdvertisementFragment, unknown>;
 export const StrapiImageFragmentDoc = new TypedDocumentString(`
     fragment StrapiImage on UploadFileEntityResponse {
   data {
@@ -6947,6 +6990,59 @@ fragment TourGuidePreview on TourGuide {
     }
   }
 }`, {"fragmentName":"Tour"}) as unknown as TypedDocumentString<TourFragment, unknown>;
+export const GetAdvertisementsDocument = new TypedDocumentString(`
+    query GetAdvertisements($titleFilter: String, $publicationType: String, $page: Int, $pageSize: Int) {
+  advertisements(
+    pagination: {page: $page, pageSize: $pageSize}
+    filters: {title: {containsi: $titleFilter}, publicationType: {eq: $publicationType}}
+  ) {
+    data {
+      id
+      attributes {
+        ...Advertisement
+      }
+    }
+    meta {
+      pagination {
+        total
+      }
+    }
+  }
+}
+    fragment Advertisement on Advertisement {
+  title
+  description
+  mobile
+  sellerName
+  contactMethod
+  email
+  publicationType
+  location
+  price
+  personalCardLink
+  agree
+  images {
+    data {
+      attributes {
+        alternativeText
+        url
+      }
+    }
+  }
+  createdAt
+}`) as unknown as TypedDocumentString<GetAdvertisementsQuery, GetAdvertisementsQueryVariables>;
+export const GetAdsTitlesDocument = new TypedDocumentString(`
+    query GetAdsTitles($titleFilter: String) {
+  advertisements(filters: {title: {containsi: $titleFilter}}) {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<GetAdsTitlesQuery, GetAdsTitlesQueryVariables>;
 export const GetAnimationCompaniesDocument = new TypedDocumentString(`
     query GetAnimationCompanies($locale: I18NLocaleCode!) {
   animationCompanies(sort: "index:asc", locale: $locale) {

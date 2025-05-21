@@ -1,32 +1,40 @@
+import {
+  GetToursDocument,
+  GetAdvertisementsDocument,
+  GetTourGuidesByFiltersDocument,
+  type TourGuideFragment,
+  type TourPreviewFragment,
+  type AdvertisementFragment,
+} from "../../gql/graphql";
+// hooks
+import { useState } from "react";
 import { useTranslation } from "next-i18next";
+// components
+import Map from "../../components/layout/map";
+import Modal from "../../components/layout/modal";
+import Banners from "../../components/sections/agents/delivery/children/banners";
+import Delivery from "../../components/sections/agents/delivery";
+import TourPopup from "../../components/sections/entertainers-tour-guides/tour-and-guides/tour-popup";
+import GuidesCards from "../../components/sections/entertainers-tour-guides/tour-and-guides/cards";
+import SectionWrapper from "../../components/layout/section-wrapper";
+import SectionsWrapper from "../../components/layout/sections-wrapper";
+// constants
+import { REVALIDATE_TIME } from "../../constants/page.constants";
 // utils
 import styled from "@emotion/styled";
+import { mapLocation } from "../../utils/location-mapper";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchData } from "../../utils/fetchApi";
-import {
-  GetTourGuidesByFiltersDocument,
-  GetToursDocument,
-  TourGuideFragment,
-  TourPreviewFragment,
-} from "../../gql/graphql";
-import { REVALIDATE_TIME } from "../../constants/page.constants";
-import GuidesCards from "../../components/sections/entertainers-tour-guides/tour-and-guides/cards";
-import Map from "../../components/layout/map";
-import SectionWrapper from "../../components/layout/section-wrapper";
-import { mapLocation } from "../../utils/location-mapper";
+// types
 import { MapCard } from "../../components/layout/map/children/types";
-import { useState } from "react";
-import Modal from "../../components/layout/modal";
-import TourPopup from "../../components/sections/entertainers-tour-guides/tour-and-guides/tour-popup";
-import SectionsWrapper from "../../components/layout/sections-wrapper";
-import Delivery from "../../components/sections/agents/delivery";
-import Banners from "../../components/sections/agents/delivery/children/banners";
 
 type Props = {
+  ads: { attributes: AdvertisementFragment }[];
+  initialTotalAds: number;
   tourGuides: { attributes: TourGuideFragment }[];
   tours: { attributes: TourPreviewFragment }[];
 };
-const Agents = ({ tourGuides, tours }: Props) => {
+const Agents = ({ ads, initialTotalAds, tourGuides, tours }: Props) => {
   const { t } = useTranslation("common");
   const [selectedTour, setSelectedTour] = useState<MapCard>();
 
@@ -60,14 +68,17 @@ const Agents = ({ tourGuides, tours }: Props) => {
 
       <SectionWrapper
         title={"Tour Operators for You!"}
-        buttonText={"See All"}
+        buttonText={t("buttons.seeAll")}
         onClick={() => {}}
         mt="60px"
       >
         <GuidesCards tourGuides={tourGuides?.map((el) => el.attributes)} />
       </SectionWrapper>
 
-      <Delivery />
+      <Delivery
+        initialAds={ads?.map((el) => el.attributes)}
+        initialTotalAds={initialTotalAds}
+      />
 
       <Banners />
 
@@ -89,14 +100,23 @@ export async function getStaticProps({ locale }: any) {
   });
   const { tours } = await fetchData(GetToursDocument, { locale });
 
+  const { advertisements } = await fetchData(GetAdvertisementsDocument, {
+    page: 1,
+    pageSize: 4,
+    publicationType: "to",
+  });
+
   return {
     props: {
+      ads: advertisements?.data,
+      initialTotalAds: advertisements?.meta.pagination.total,
       tourGuides: tourGuides?.data,
       tours: tours?.data,
       initialTotal: tourGuides?.meta.pagination.total || 0,
       ...(await serverSideTranslations(locale, [
         "company-page",
         "common",
+        "agents",
         "entertainers-tour-guides",
       ])),
     },

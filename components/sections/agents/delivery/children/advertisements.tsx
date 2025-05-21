@@ -1,34 +1,51 @@
 import styled from "@emotion/styled";
 import ShortAdd from "./short-add";
 import Image from "next/image";
+import type { AdvertisementFragment } from "../../../../../gql/graphql";
 
 interface Props {
-  advertisements: any[];
+  advertisements: AdvertisementFragment[];
 }
 
 const Advertisements = ({ advertisements }: Props) => {
   return (
     <Wrapper>
-      {advertisements.map((add, id) => (
-        <CardWrapper
-          isFirst={id === 0}
-          key={id}
-          align={id % 2 === 0 ? "left" : "right"}
-        >
-          <Avatar>
-            <Image
-              width={24}
-              height={24}
-              src="/icons/agents/human.svg"
-              alt="human icon"
-            />
-          </Avatar>
-          <CardSection align={id % 2 === 0 ? "left" : "right"}>
-            <SellerName>{add.name}</SellerName>
-            <ShortAdd isEven={id % 2 === 0} />
-          </CardSection>
-        </CardWrapper>
-      ))}
+      {advertisements.map((add, id) => {
+        const { sellerName, title, price, location, createdAt, images } = add;
+        return (
+          <CardWrapper
+            isFirst={id === 0}
+            key={id}
+            align={id % 2 === 0 ? "left" : "right"}
+          >
+            <Avatar>
+              <Image
+                width={24}
+                height={24}
+                src="/icons/agents/human.svg"
+                alt="human icon"
+              />
+            </Avatar>
+            <CardSection align={id % 2 === 0 ? "left" : "right"}>
+              <SellerName>{sellerName}</SellerName>
+              <ShortAdd
+                isEven={id % 2 === 0}
+                title={title}
+                price={price}
+                location={location}
+                date={createdAt}
+                imageUrl={
+                  images?.data[0]?.attributes?.url ||
+                  "/images/background/background-prom.svg"
+                }
+                imageAlt={
+                  images?.data[0]?.attributes?.alternativeText || "photo of add"
+                }
+              />
+            </CardSection>
+          </CardWrapper>
+        );
+      })}
     </Wrapper>
   );
 };

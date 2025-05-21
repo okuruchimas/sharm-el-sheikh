@@ -129,6 +129,7 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
 };
 
 const Wrap = styled.div({
+  zIndex: 1,
   position: "absolute",
   top: "0",
   right: "calc(50% - 333px)",
