@@ -11,8 +11,17 @@ interface Props {
   as?: string;
   mask?: string;
   isLight?: boolean;
+  isDisabled?: boolean;
 }
-const Input = ({ label, type, mask, placeholder, as, isLight }: Props) => {
+const Input = ({
+  label,
+  type,
+  mask,
+  placeholder,
+  as,
+  isLight,
+  isDisabled,
+}: Props) => {
   const [field, meta] = useField(type);
 
   return (
@@ -24,6 +33,7 @@ const Input = ({ label, type, mask, placeholder, as, isLight }: Props) => {
         isErrorSpan={meta.touched && !!meta.error}
       >
         <Field
+          disabled={isDisabled}
           {...field}
           type={type}
           name={type}
@@ -89,7 +99,7 @@ const InputContainer = styled("div", {
       minWidth: "310px",
       minHeight: isMessage ? "130px" : "58px",
       backgroundColor: theme.colors.white,
-      borderRadius: "16px",
+      borderRadius: "12px",
       padding: isMessage ? "16px 16px" : "0 16px",
       outline: "none",
       fontSize: theme.fontSize.fontS16,
@@ -105,6 +115,11 @@ const InputContainer = styled("div", {
               ? `2px solid ${theme.colors.red}`
               : `1px solid ${theme.colors.yellow}`,
           }),
+
+      "&:disabled": {
+        cursor: "not-allowed",
+        border: `1px solid ${theme.colors.grey}`,
+      },
 
       "&:focus, &:active": {
         backgroundColor: theme.colors.white,

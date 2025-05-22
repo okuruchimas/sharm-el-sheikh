@@ -9,6 +9,7 @@ import styled from "@emotion/styled";
 import type { selectOption } from "../../types/filter";
 
 type FiltersProps = {
+  borderColor?: string;
   color?: string;
   width?: string;
   height?: string;
@@ -19,6 +20,7 @@ type FiltersProps = {
 };
 
 const Dropdown = ({
+  borderColor,
   color,
   width,
   height,
@@ -58,7 +60,12 @@ const Dropdown = ({
   };
 
   return (
-    <Wrapper width={width} height={height} ref={menuRef}>
+    <Wrapper
+      borderColor={borderColor}
+      width={width}
+      height={height}
+      ref={menuRef}
+    >
       <Select onClick={toggleMenu}>
         {isLoading ? (
           <Loader />
@@ -101,13 +108,15 @@ const Dropdown = ({
 };
 
 const Wrapper = styled("div")<{
+  borderColor?: string;
   width?: string;
   height?: string;
-}>(({ theme, width, height }) => ({
+}>(({ theme, width, height, borderColor = "grey" }) => ({
   position: "relative",
   minWidth: "245px",
-  maxWidth: "max-content",
-  border: `1px solid ${theme.colors.grey}`,
+  width: width ? width : "auto",
+  maxWidth: width ? width : "max-content",
+  border: `1px solid ${theme.colors[borderColor]}`,
   borderRadius: "12px",
 
   [theme.breakpoints.mobile]: {

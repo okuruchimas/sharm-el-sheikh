@@ -258,7 +258,7 @@ const ContentWithBgFirst = styled("div")<{ bg?: string; bgMob?: string }>(
     flexDirection: "column",
     alignItems: "flex-start",
     gap: "8px",
-    backgroundImage: "url(icons/agents/agentBg1.svg)",
+    backgroundImage: "url(/icons/agents/agentBg1.svg)",
     backgroundSize: "cover",
     padding: "40px 80px 40px 40px",
     [theme.breakpoints.mobile]: {
@@ -266,7 +266,7 @@ const ContentWithBgFirst = styled("div")<{ bg?: string; bgMob?: string }>(
       padding: "16px",
       minWidth: "100%",
       width: "100%",
-      backgroundImage: "url(icons/agents/agentBg1Mob.svg)",
+      backgroundImage: "url(/icons/agents/agentBg1Mob.svg)",
     },
   }),
 );
@@ -277,7 +277,7 @@ const ContentWithBgSecond = styled(ContentWithBgFirst)(({ theme }) => ({
   minWidth: 518.55,
   height: "370px",
   width: "28%",
-  backgroundImage: "url(icons/agents/agentBg2.svg)",
+  backgroundImage: "url(/icons/agents/agentBg2.svg)",
 
   button: {
     marginTop: 16,
@@ -288,7 +288,7 @@ const ContentWithBgSecond = styled(ContentWithBgFirst)(({ theme }) => ({
     button: {
       marginTop: 0,
     },
-    backgroundImage: "url(icons/agents/agentBg2Mob.svg)",
+    backgroundImage: "url(/icons/agents/agentBg2Mob.svg)",
   },
 }));
 
