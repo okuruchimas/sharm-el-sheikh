@@ -8,6 +8,10 @@ import Loader from "../../../../layout/loader";
 // utils
 import styled from "@emotion/styled";
 import { Title } from "../../../../layout/title";
+import ImageInput from "../../../../layout/image-input";
+import Dropdown from "../../../../layout/filters";
+import FormikDropdown from "../../../../layout/formik-select";
+import CheckboxField from "../../../../layout/checkbox";
 
 interface IAdvertisementValues {
   name: string;
@@ -20,7 +24,8 @@ interface IAdvertisementValues {
   price: string;
   description: string;
   personalCardLink?: string;
-  agree: boolean;
+  coverImages: File[] | null;
+  hasPersonalCard: boolean;
 }
 
 const AddAdvertisementForm = ({ cancelClick }: any) => {
@@ -37,7 +42,8 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
     price: "",
     description: "",
     personalCardLink: "",
-    agree: false,
+    coverImages: [] as File[],
+    hasPersonalCard: false,
   };
 
   return (
@@ -66,7 +72,7 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
           setSubmitting(false);
         }}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, values }) => (
           <FormWrap>
             {isSubmitting ? (
               <Loader />
@@ -82,9 +88,26 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
                   placeholder="Preferred Contact Method*"
                 />
                 <Input type="email" placeholder="Email*" />
-
                 {/* About Advertisement */}
                 <TitleSmallStyled as="h4">About Advertisement</TitleSmallStyled>
+                <FormikDropdown
+                  name="publicationType"
+                  options={[
+                    { key: "", value: "Select publication type" },
+                    {
+                      key: "order-from-egypt",
+                      value: "I want to order something from Egypt",
+                    },
+                    {
+                      key: "order-in-egypt",
+                      value: "I want to place an order in Egypt",
+                    },
+                  ]}
+                  width="100%"
+                  height="56px"
+                  borderColor="yellow"
+                  color="gray"
+                />
                 <Input type="title" placeholder="Title*" />
                 <Input type="location" placeholder="Location*" />
                 <Input type="price" placeholder="Price*" />
@@ -93,14 +116,19 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
                   placeholder="Description*"
                   as="textarea"
                 />
-
-                <Input type="link" placeholder="Link" />
-
-                {/* Confirm checkbox */}
-                {/*<Checkbox*/}
-                {/*  name="agree"*/}
-                {/*  label="I confirm that I am familiar with the transportation rules, have read them, and have no objections"*/}
-                {/*/>*/}
+                <ImageInput
+                  type="coverImages"
+                  label="Download cover art in .webp format*"
+                />
+                <CheckboxField
+                  type="hasPersonalCard"
+                  label="Is your personal card on the website? If so, please provide the link"
+                />
+                <Input
+                  isDisabled={!values.hasPersonalCard}
+                  type="link"
+                  placeholder="Link"
+                />
               </>
             )}
 
@@ -128,8 +156,8 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
   );
 };
 
-const Wrap = styled.div({
-  zIndex: 1,
+const Wrap = styled.div(({ theme }) => ({
+  zIndex: 10,
   position: "absolute",
   top: "0",
   right: "calc(50% - 333px)",
@@ -139,7 +167,11 @@ const Wrap = styled.div({
   borderRadius: "16px",
   display: "flex",
   flexDirection: "column",
-});
+
+  [theme.breakpoints.mobile]: {
+    right: 0,
+  },
+}));
 
 const TitleStyled = styled(Title)(({ theme }) => ({
   color: theme.colors.black,
@@ -164,6 +196,9 @@ const FormWrap = styled(Form)(({ theme }) => ({
 
   "input,textarea": {
     minWidth: "608px",
+    width: "100%",
+  },
+  ".input-wrap": {
     width: "100%",
   },
 
