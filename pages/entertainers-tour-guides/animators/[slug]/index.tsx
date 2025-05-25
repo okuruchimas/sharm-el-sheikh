@@ -121,7 +121,7 @@ const AnimatorPage = ({
             hotelName={hotelName}
             description={description}
             socialLinks={socialLinks}
-            companyName={animation_company?.data?.attributes?.value || ""}
+            companyName={animation_company?.data?.attributes?.name || ""}
             totalComments={totalComments}
             averageRating={averageRating}
             workingAtClub={workingAtClub}
@@ -232,7 +232,7 @@ export async function getStaticProps({ params, locale }: any) {
       sort: ["averageRating:desc"],
       companyKey:
         animators?.data[0].attributes?.animation_company?.data?.attributes
-          ?.key || undefined,
+          ?.slug || undefined,
       slugToExclude: slug,
     },
   );

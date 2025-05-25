@@ -19,7 +19,7 @@ query GetAnimationCompany($slug: String!, $locale: I18NLocaleCode!) {
 }
 
 fragment AnimationCompanyPreview on AnimationCompany {
-  value
+  name
   slug
   totalComments
   averageRating
@@ -34,7 +34,7 @@ fragment AnimationCompanyPreview on AnimationCompany {
 }
 
 fragment AnimationCompany on AnimationCompany {
-  value
+  name
   slug
   totalComments
   averageRating
