@@ -30,12 +30,12 @@ const AnimationCompanies = ({
       <CardsWrapper>
         {companies.map((el) => (
           <AnimationCompanyCard
-            key={el.value}
+            key={el.name}
             imgSrc={
               el.image?.data?.attributes?.url ||
               "/images/background/background-prom.svg"
             }
-            title={el.value}
+            title={el.name}
             averageRating={el.averageRating || 0}
             totalComments={el.totalComments || 0}
             onClick={handleCardClick(el)}

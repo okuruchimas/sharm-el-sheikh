@@ -17,6 +17,7 @@ import { WEEK_DAYS } from "../../../../constants/week-days.constants";
 // utils
 import styled from "@emotion/styled";
 import { fetchDataFromApi } from "../../../../utils/fetchApi";
+import { getCurrentDayAndTime } from "../../../../utils/formateDate";
 // types
 import {
   type CompanyPreviewFragment,
@@ -44,9 +45,11 @@ const ClubsContainer = ({
   const [page, setPage] = useState<number>(1);
   const [total, setTotal] = useState(totalItems);
   // filters
-  const [selectedDay, setSelectedDay] = useState("");
   // booleans
   const [isLoading, setIsLoading] = useState(false);
+  const { dayOfWeek } = getCurrentDayAndTime();
+
+  const [selectedDay, setSelectedDay] = useState(dayOfWeek);
   const { t, i18n } = useTranslation("common");
 
   const { isMobile } = useResponsive();
@@ -131,9 +134,9 @@ const ClubsContainer = ({
               { key: "", value: t("text.selectDay") },
               ...weekDaysOptions,
             ]}
+            initialValue={weekDaysOptions.find((el) => el.key === selectedDay)}
             onChange={handleDaySelect}
             isLoading={isLoading}
-            width="100%"
             height="56px"
             color="blue"
           />

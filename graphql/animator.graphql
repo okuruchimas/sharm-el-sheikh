@@ -17,8 +17,8 @@ query GetAnimatorBySlug($slug: String!, $locale: I18NLocaleCode!) {
         animation_company {
           data {
             attributes {
-              key
-              value
+              slug
+              name
             }
           }
         }
@@ -82,7 +82,7 @@ query GetAnimatorsByFilter(
     sort: $sort
     pagination: { page: $page, pageSize: $pageSize }
     filters: {
-      animation_company: { key: { eq: $companyKey } }
+      animation_company: { slug: { eq: $companyKey } }
       slug: { ne: $slugToExclude }
     }
   ) {
@@ -127,7 +127,7 @@ fragment AnimatorPreview on Animator {
   animation_company {
     data {
       attributes {
-        value
+        name
       }
     }
   }

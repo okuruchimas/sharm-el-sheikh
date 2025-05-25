@@ -104,7 +104,7 @@ const Animators = ({
 
   const animationCompaniesMapped = animationCompanies.map((el) => ({
     key: el.attributes.slug,
-    value: el.attributes.value,
+    value: el.attributes.name,
   }));
 
   const handleCompanySelect = async (option: selectOption) => {

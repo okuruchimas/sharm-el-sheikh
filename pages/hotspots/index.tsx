@@ -24,6 +24,7 @@ import { REVALIDATE_TIME } from "../../constants/page.constants";
 // utils
 import styled from "@emotion/styled";
 import { fetchData } from "../../utils/fetchApi";
+import { getCurrentDayAndTime } from "../../utils/formateDate";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 type HotspotsPageProps = {
@@ -115,8 +116,11 @@ export async function getStaticProps({ locale }: any) {
     pageSize: 3,
   };
   const { eventCards } = await fetchData(GetEventCardsDocument, commonParams);
+  const { dayOfWeek } = getCurrentDayAndTime();
+
   const { companies } = await fetchData(GetCompaniesByFilterDocument, {
     ...commonParams,
+    day: dayOfWeek,
     category: CLUBS,
   });
   const { categories } = await fetchData(GetCategoriesDocument, { locale });
