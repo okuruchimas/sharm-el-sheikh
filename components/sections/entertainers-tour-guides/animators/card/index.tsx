@@ -27,7 +27,7 @@ const AnimatorCard = ({ animator, size }: AnimatorCardProps) => {
       slug={`/entertainers-tour-guides/animators/${animator.slug}`}
       title={animator.name}
       imgSrc={animator?.profileImg?.data?.attributes?.url || ""}
-      greyText={animator.animation_company?.data?.attributes?.value || ""}
+      greyText={animator.animation_company?.data?.attributes?.name || ""}
       indicator={indicator}
       flagIcons={flags || []}
       iconText={animator.hotelName}

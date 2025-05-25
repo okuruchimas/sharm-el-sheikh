@@ -72,7 +72,7 @@ const AnimationCompanyPopup = ({
 
         <InfoWrap>
           <NameAndRating
-            name={companyPreview.value}
+            name={companyPreview.name}
             averageRating={companyPreview.averageRating}
             totalComments={companyPreview.totalComments}
           />
