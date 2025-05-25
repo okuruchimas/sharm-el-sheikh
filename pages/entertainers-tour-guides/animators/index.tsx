@@ -252,7 +252,9 @@ const Animators = ({
             text={t("buttons.nearestAnimator")}
           />
         </FiltersWrap>
-        <AnimatorCards animators={result.map((el) => el.attributes)} />
+        {result ? (
+          <AnimatorCards animators={result.map((el) => el.attributes)} />
+        ) : null}
         <Pagination
           isDisabled={isLoading}
           currentPage={page}
