@@ -3,28 +3,30 @@ import { Title } from "../../../../layout/title";
 import Image from "next/image";
 import styled from "@emotion/styled";
 import { formatDate } from "../../../../../utils/formateDate";
+import FullAdd from "./full-add";
+import { useState } from "react";
+import { AdvertisementFragment } from "../../../../../gql/graphql";
+import { ContactRow } from "./seller-info";
 
 interface Props {
   isEven: boolean;
-  title: string;
-  location: string;
-  price: string;
-  date: string;
-  imageUrl: string;
-  imageAlt?: string;
+  add: AdvertisementFragment;
 }
-const ShortAdd = ({
-  isEven,
-  title,
-  location,
-  price,
-  date,
-  imageUrl,
-  imageAlt,
-}: Props) => {
+const ShortAdd = ({ isEven, add }: Props) => {
+  const [isFull, setIsFull] = useState(false);
+  const { title, price, location, createdAt, images, ...rest } = add;
+
+  const date = formatDate(createdAt);
+
+  const image = images?.data[0]?.attributes;
+  const imageUrl = image?.url || "/images/background/background-prom.svg";
+  const imageAlt = image?.alternativeText || "photo of add";
+
+  const handlePopupClick = () => setIsFull((prev) => !prev);
+
   return (
     <Wrapper isEven={isEven}>
-      <Content>
+      <Content onClick={handlePopupClick}>
         <ImageStyled
           even={isEven.toString()}
           width={240}
@@ -53,33 +55,28 @@ const ShortAdd = ({
             />
             <TextAndIcon
               src="/icons/time.svg"
-              text={formatDate(date)}
+              text={date}
               iconSize="30px"
               iconSizeMobile="30px"
               fontSize="21px"
               fontSizeMobile="18px"
             />
           </FlexContainer>
-          <ContactRow>
-            <IconCircle>
-              <Image
-                width={24}
-                height={24}
-                src="/icons/agents/phone.svg"
-                alt="phone icon"
-              />
-            </IconCircle>
-            <IconCircle>
-              <Image
-                width={24}
-                height={24}
-                src="/icons/agents/mail.svg"
-                alt="mail icon"
-              />
-            </IconCircle>
-          </ContactRow>
+          <ContactRow email={add.email} mobile={add.mobile} />
         </Info>
       </Content>
+
+      <FullAdd
+        title={title}
+        price={price}
+        location={location}
+        date={date}
+        imageUrl={imageUrl}
+        imageAlt={imageAlt}
+        isOpen={isFull}
+        otherAddInfo={rest}
+        onClose={handlePopupClick}
+      />
     </Wrapper>
   );
 };
@@ -101,18 +98,27 @@ const Wrapper = styled("div")<{ isEven: boolean }>(({ theme, isEven }) => ({
   },
 }));
 
-const FlexContainer = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexWrap: "wrap",
-  gap: 8,
-  ".text-and-icon": {
-    width: "max-content",
-  },
-}));
+export const FlexContainer = styled("div")<{ gap?: string }>(
+  ({ theme, gap = 8 }) => ({
+    display: "flex",
+    flexWrap: "wrap",
+    gap: gap,
+
+    ".text-and-icon": {
+      width: "max-content",
+    },
+  }),
+);
 
 const Content = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
+  cursor: "pointer",
+
+  img: {
+    objectFit: "cover",
+  },
+
   [theme.breakpoints.mobile]: {
     flexDirection: "column",
   },
@@ -131,32 +137,11 @@ const Info = styled("div")(({ theme }) => ({
   padding: 16,
   display: "flex",
   flexDirection: "column",
+  gap: 16,
 }));
 
 const TitleStyled = styled(Title)(({ theme }) => ({
   fontSize: theme.fontSize.fontS24,
-  marginBottom: 16,
-}));
-
-const ContactRow = styled("div")(({ theme }) => ({
-  marginTop: "auto",
-  display: "flex",
-  flexDirection: "row",
-  gap: "20px",
-  [theme.breakpoints.mobile]: {
-    justifyContent: "flex-end",
-  },
-}));
-
-const IconCircle = styled("div")(({ theme }) => ({
-  height: 40,
-  width: 40,
-  borderRadius: "50%",
-  alignSelf: "flex-end",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  backgroundColor: theme.colors.yellow,
 }));
 
 export default ShortAdd;
