@@ -1,7 +1,7 @@
 import Card from "../../children/card";
-import type { TourGuideFragment } from "../../../../../gql/graphql";
+import type { TourGuidePreviewFragment } from "../../../../../gql/graphql";
 
-type GuideCardProps = { tourGuide: TourGuideFragment };
+type GuideCardProps = { tourGuide: TourGuidePreviewFragment };
 
 const GuideCard = ({ tourGuide }: GuideCardProps) => {
   const flags = tourGuide.languages?.data.map((el) => ({

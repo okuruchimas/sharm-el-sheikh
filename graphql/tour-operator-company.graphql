@@ -1,0 +1,45 @@
+query GetTourOperatorCompanies($locale: I18NLocaleCode!) {
+  tourOperatorCompanies(locale: $locale) {
+    data {
+      attributes {
+        ...TourOperatorCompany
+      }
+    }
+  }
+}
+
+fragment TourOperatorCompany on TourOperatorCompany {
+  name
+  slug
+  totalComments
+  averageRating
+  image {
+    ...StrapiImage
+  }
+  about
+  tour_guides {
+    data {
+      attributes {
+        ...TourGuidePreview
+        locale
+      }
+    }
+  }
+  complaintsNumber
+  employmentNumber
+  location
+  position {
+    lng
+    lat
+  }
+  socialLinks {
+    icon {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  vacancies {
+    title
+    text
+  }
+}

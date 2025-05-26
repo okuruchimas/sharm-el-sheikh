@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Arrow } from "../../../../layout/header/children/language-selector";
+import { useState } from "react";
+import { Arrow } from "../../header/children/language-selector";
 import styled from "@emotion/styled";
 
 interface Props {
