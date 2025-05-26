@@ -5,7 +5,8 @@ export type CollectionTypesWithRating =
   | "animation-companies"
   | "tours"
   | "taxi-spots"
-  | "photography-locations";
+  | "photography-locations"
+  | "tour-operator-companies";
 
 type AddRatingParams = {
   slug: string;

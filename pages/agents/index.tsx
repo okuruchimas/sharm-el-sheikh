@@ -1,10 +1,10 @@
 import {
-  GetToursDocument,
   GetAdvertisementsDocument,
   GetTourGuidesByFiltersDocument,
+  GetTourOperatorCompaniesDocument,
   type TourGuideFragment,
-  type TourPreviewFragment,
   type AdvertisementFragment,
+  type TourOperatorCompanyFragment,
 } from "../../gql/graphql";
 // hooks
 import { useState } from "react";
@@ -14,9 +14,9 @@ import Map from "../../components/layout/map";
 import Modal from "../../components/layout/modal";
 import Banners from "../../components/sections/agents/delivery/children/banners";
 import Delivery from "../../components/sections/agents/delivery";
-import TourPopup from "../../components/sections/entertainers-tour-guides/tour-and-guides/tour-popup";
 import GuidesCards from "../../components/sections/entertainers-tour-guides/tour-and-guides/cards";
 import SectionWrapper from "../../components/layout/section-wrapper";
+import CompanyFullInfo from "../../components/layout/company-full-info";
 import SectionsWrapper from "../../components/layout/sections-wrapper";
 // constants
 import { REVALIDATE_TIME } from "../../constants/page.constants";
@@ -32,22 +32,30 @@ type Props = {
   ads: { attributes: AdvertisementFragment }[];
   initialTotalAds: number;
   tourGuides: { attributes: TourGuideFragment }[];
-  tours: { attributes: TourPreviewFragment }[];
+  tourOperatorCompanies: { attributes: TourOperatorCompanyFragment }[];
 };
-const Agents = ({ ads, initialTotalAds, tourGuides, tours }: Props) => {
+const Agents = ({
+  ads,
+  initialTotalAds,
+  tourGuides,
+  tourOperatorCompanies,
+}: Props) => {
   const { t } = useTranslation("common");
-  const [selectedTour, setSelectedTour] = useState<MapCard>();
+  const [selectedOperatorCompany, setSelectedOperatorCompany] =
+    useState<TourOperatorCompanyFragment>();
 
-  const locations = tours.map((el) =>
-    mapLocation(
-      el,
-      el.attributes?.tour_categories?.data[0]?.attributes?.markerIcon.data
-        ?.attributes?.url,
-    ),
+  const locations = tourOperatorCompanies.map((el) =>
+    mapLocation(el, "/icons/tour-operator-company-map-marker.svg"),
   );
 
-  const handleInfoWindowClick = (data: MapCard) => setSelectedTour(data);
-  const handlePopupClose = () => setSelectedTour(undefined);
+  const handleInfoWindowClick = (previewData: MapCard) => {
+    setSelectedOperatorCompany(
+      tourOperatorCompanies.find(
+        (el) => el.attributes.slug === previewData.slug,
+      )?.attributes || undefined,
+    );
+  };
+  const handlePopupClose = () => setSelectedOperatorCompany(undefined);
 
   return (
     <Wrapper
@@ -82,9 +90,15 @@ const Agents = ({ ads, initialTotalAds, tourGuides, tours }: Props) => {
 
       <Banners />
 
-      {selectedTour ? (
-        <Modal isOpen={!!selectedTour?.slug} onClose={handlePopupClose}>
-          <TourPopup tourPreview={selectedTour} onClose={handlePopupClose} />
+      {selectedOperatorCompany ? (
+        <Modal
+          isOpen={!!selectedOperatorCompany?.slug}
+          onClose={handlePopupClose}
+        >
+          <CompanyFullInfo
+            companyData={selectedOperatorCompany}
+            onClose={handlePopupClose}
+          />
         </Modal>
       ) : null}
     </Wrapper>
@@ -98,7 +112,11 @@ export async function getStaticProps({ locale }: any) {
     page: 1,
     pageSize: 4,
   });
-  const { tours } = await fetchData(GetToursDocument, { locale });
+
+  const { tourOperatorCompanies } = await fetchData(
+    GetTourOperatorCompaniesDocument,
+    { locale },
+  );
 
   const { advertisements } = await fetchData(GetAdvertisementsDocument, {
     page: 1,
@@ -111,7 +129,7 @@ export async function getStaticProps({ locale }: any) {
       ads: advertisements?.data,
       initialTotalAds: advertisements?.meta.pagination.total,
       tourGuides: tourGuides?.data,
-      tours: tours?.data,
+      tourOperatorCompanies: tourOperatorCompanies?.data,
       initialTotal: tourGuides?.meta.pagination.total || 0,
       ...(await serverSideTranslations(locale, [
         "company-page",

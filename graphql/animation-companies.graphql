@@ -2,7 +2,7 @@ query GetAnimationCompanies($locale: I18NLocaleCode!) {
   animationCompanies(sort: "index:asc", locale: $locale) {
     data {
       attributes {
-        ...AnimationCompanyPreview
+        ...AnimationCompany
       }
     }
   }
