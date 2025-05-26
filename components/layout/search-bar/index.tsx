@@ -104,6 +104,10 @@ const Wrapper = styled("div")(({ theme }) => ({
   position: "relative",
   width: "100%",
   maxWidth: "468px",
+
+  [theme.breakpoints.mobile]: {
+    maxWidth: "100%",
+  },
 }));
 
 const InputWrapper = styled("div")(({ theme }) => ({
