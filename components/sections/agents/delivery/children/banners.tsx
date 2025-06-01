@@ -67,7 +67,7 @@ const Banners = () => {
   return (
     <Wrap>
       <BannerWrap>
-        <BannerBackground imgLink="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/hotspots_banner_521458623b.webp" />
+        <BannerBackground imgLink="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/307a41bd8d8b9bbe74008481b8e75d513b032331_3aafa7a914.webp" />
         <ContentWithBgFirst>
           <BannerTitle>Travel Horizon</BannerTitle>
           <BannerSubTitle>
@@ -83,7 +83,7 @@ const Banners = () => {
       </BannerWrap>
 
       <BannerWrap>
-        <BannerBackground imgLink="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/hotspots_banner_521458623b.webp" />
+        <BannerBackground imgLink="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/bcb1e0c7995ac4e605f2c9f2eb1475462aa0d391_eb32285b58.webp" />
         <ContentWithBgSecond>
           <BannerTitle>Go Wild Adventures</BannerTitle>
           <BannerSubTitle>
@@ -99,11 +99,9 @@ const Banners = () => {
       </BannerWrap>
 
       <BannerWrap bg="blue7">
-        <ShapeLeft imgLink={"/images/announcement-cards/announce-card1.webp"} />
+        <ShapeLeft imgLink="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/d40e9dd76f3eb61f8cf76693fa1931198e636def_a4c6b98b09.webp" />
 
-        <ShapeRight
-          imgLink={"/images/announcement-cards/announce-card2.webp"}
-        />
+        <ShapeRight imgLink="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/636d4054c813ee25c7aa1667549ab442fb5d8e44_7629b596a1.webp" />
         <Content>
           <BannerTitle>
             Find a trusted tour operator in Europe and plan the trip of your
@@ -167,6 +165,8 @@ const ShapeLeft = styled("div")<{ imgLink?: string }>(({ theme, imgLink }) => ({
   clipPath: `path("M283.148 -40.9727C361.288 -40.3625 438.351 -28.04 494.073 0.270378C550.236 28.8052 572.815 68.6694 578.819 109.248C585.446 154.028 592.545 205.628 528.997 236.27C466.249 266.526 367.192 260.808 283.148 251.814C215.987 244.628 172.061 216.718 121.664 192.682C67.6737 166.931 -5.03545 146.805 -15.763 109.248C-27.5091 68.1254 8.07805 25.9093 65.7499 -3.0743C122.742 -31.7161 203.651 -41.5935 283.148 -40.9727Z")`,
   backgroundImage: `url(${imgLink})`,
   [theme.breakpoints.mobile]: {
+    backgroundSize: "128%",
+    backgroundPosition: "unset",
     minWidth: "48%",
     width: "48%",
     clipPath: `path("M51.2286 -10.9865C78.7923 -10.6855 105.976 -4.60638 125.631 9.36005C145.443 23.4373 153.407 43.1036 155.525 63.1225C157.863 85.2139 160.367 110.67 137.951 125.787C115.817 140.713 80.8747 137.892 51.2286 133.455C27.5378 129.91 12.0431 116.141 -5.73399 104.283C-24.779 91.5791 -50.4268 81.6507 -54.2109 63.1225C-58.3543 42.8352 -45.8011 22.0086 -25.4576 7.71001C-5.35402 -6.41995 23.1865 -11.2928 51.2286 -10.9865Z")`,
@@ -188,6 +188,8 @@ const ShapeRight = styled("div")<{ imgLink?: string }>(
     backgroundImage: `url(${imgLink})`,
 
     [theme.breakpoints.mobile]: {
+      backgroundSize: "144%",
+      backgroundPosition: "unset",
       width: "52%",
       clipPath: `path("M104.393 -1.43534C129.883 -0.252975 157.736 -4.09366 176.919 8.0489C196.877 20.6828 203.036 41.1478 201.862 60.2624C200.74 78.5311 187.326 94.1816 170.775 108.053C152.399 123.455 132.564 140.991 104.393 141.953C75.5033 142.94 50.9129 128.182 31.3997 112.813C12.8844 98.2298 2.35285 79.9828 0.675753 60.2624C-1.12838 39.0482 -0.879693 14.3954 21.8786 0.857307C43.9372 -12.2646 75.838 -2.75988 104.393 -1.43534Z")`,
     },
