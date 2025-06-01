@@ -318,7 +318,7 @@ const Text = styled("p")(({ theme }) => ({
   },
 }));
 
-const IconsWrapper = styled("div")({
+const IconsWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   gap: "24px",
 
@@ -326,13 +326,20 @@ const IconsWrapper = styled("div")({
     width: "40px",
     height: "40px",
   },
-});
+
+  [theme.breakpoints.mobile]: {
+    marginBottom: "16px",
+  },
+}));
 
 const NumbersWrap = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
   gap: 16,
+  [theme.breakpoints.mobile]: {
+    flexDirection: "column",
+  },
 }));
 
 const NumberContainer = styled("div")(({ theme }) => ({

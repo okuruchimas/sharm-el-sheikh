@@ -80,7 +80,7 @@ const Wrap = styled("div")(({ theme }) => ({
   background: theme.colors.white,
   borderRadius: 16,
   position: "relative",
-  boxShadow: theme.shadows[0],
+  boxShadow: theme.shadows[1],
   cursor: "pointer",
 }));
 
