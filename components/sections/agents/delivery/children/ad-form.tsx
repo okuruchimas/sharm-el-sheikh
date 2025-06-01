@@ -140,13 +140,13 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
                 color="black"
                 onClick={cancelClick}
               />
-              <SubmitButton
-                backgroundColor="yellow"
-                color="white"
-                text="Save"
-                type="submit"
-                disabled={isSubmitting}
-              />
+              {/*<SubmitButton*/}
+              {/*  backgroundColor="yellow"*/}
+              {/*  color="white"*/}
+              {/*  text="Save"*/}
+              {/*  type="submit"*/}
+              {/*  disabled={isSubmitting}*/}
+              {/*/>*/}
             </ButtonWrap>
           </FormWrap>
         )}
