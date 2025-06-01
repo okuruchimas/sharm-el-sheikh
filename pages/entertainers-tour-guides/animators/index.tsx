@@ -1,8 +1,8 @@
 import {
-  type AnimatorPreviewFragment,
-  type AnimationCompanyPreviewFragment,
   GetAnimatorsByFilterDocument,
   GetAnimationCompaniesDocument,
+  type AnimatorPreviewFragment,
+  type AnimationCompanyFragment,
 } from "../../../gql/graphql";
 // constants
 import { REVALIDATE_TIME } from "../../../constants/page.constants";
@@ -20,17 +20,17 @@ import Dropdown from "../../../components/layout/filters";
 import Container from "../../../components/sections/entertainers-tour-guides/children/container";
 import Pagination from "../../../components/layout/pagination";
 import AnimatorCards from "../../../components/sections/entertainers-tour-guides/animators/cards";
+import CompanyFullInfo from "../../../components/layout/company-full-info";
 import AnimationCompanies from "../../../components/sections/entertainers-tour-guides/animators/animation-companies";
-import AnimationCompanyPopup from "../../../components/sections/entertainers-tour-guides/animators/animation-company-popup";
 // utils
 import styled from "@emotion/styled";
 import { mapLocations } from "../../../utils/location-mapper";
+import { getCurrentLocation } from "../../../utils/get-location";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 // types
 import type { MapCard } from "../../../components/layout/map/children/types";
 import type { selectOption } from "../../../components/types/filter";
-import { getCurrentLocation } from "../../../utils/get-location";
 import { useLoadScript } from "@react-google-maps/api";
 import { Library } from "@googlemaps/js-api-loader";
 
@@ -38,7 +38,7 @@ type Animators = { attributes: AnimatorPreviewFragment }[];
 type PageProps = {
   animators: Animators;
   initialTotalAnimators: number;
-  animationCompanies: { attributes: AnimationCompanyPreviewFragment }[];
+  animationCompanies: { attributes: AnimationCompanyFragment }[];
 };
 const Animators = ({
   animators,
@@ -52,7 +52,7 @@ const Animators = ({
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<Animators>(animators);
   const [selectedCompany, setSelectedCompany] =
-    useState<AnimationCompanyPreviewFragment>();
+    useState<AnimationCompanyFragment>();
 
   const { i18n, t } = useTranslation("entertainers-tour-guides");
   const { isMobile } = useResponsive();
@@ -141,12 +141,11 @@ const Animators = ({
   };
 
   const handlePopupClose = () => setSelectedCompany(undefined);
-  const handleInfoWindowClick = (card: MapCard) => {
-    const company = animationCompanies.find(
-      (el) => el.attributes.slug === card.slug,
+  const handleInfoWindowClick = (previewData: MapCard) => {
+    setSelectedCompany(
+      animationCompanies.find((el) => el.attributes.slug === previewData.slug)
+        ?.attributes || undefined,
     );
-
-    setSelectedCompany(company?.attributes);
   };
 
   const locations = mapLocations(animationCompanies);
@@ -265,8 +264,8 @@ const Animators = ({
       </Container>
       {selectedCompany ? (
         <Modal isOpen={!!selectedCompany?.slug} onClose={handlePopupClose}>
-          <AnimationCompanyPopup
-            companyPreview={selectedCompany}
+          <CompanyFullInfo
+            companyData={selectedCompany}
             onClose={handlePopupClose}
           />
         </Modal>

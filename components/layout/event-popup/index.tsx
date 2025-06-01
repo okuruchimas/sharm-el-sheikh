@@ -73,7 +73,6 @@ const EventPopup = ({
             </IconsWrapper>
           </Stack>
         </TopSection>
-        <Title>{t("labels.description")}</Title>
         <Text>{description}</Text>
         <Link href="/entertainers-tour-guides/animators">
           <AnimatorLink>{t("text.findAnimatorForTicket")}</AnimatorLink>

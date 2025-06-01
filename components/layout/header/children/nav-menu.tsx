@@ -32,10 +32,16 @@ const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
 
   const handleSubClick = (link: string) => () => {
     onClose();
-    if (asPath.includes("entertainers-tour-guides")) {
-      return push(`${link}`);
+
+    if (link.startsWith("/")) {
+      return push(link);
     }
-    return push(`entertainers-tour-guides/${link}`);
+
+    if (link.startsWith("entertainers-tour-guides")) {
+      return push(`/${link}`);
+    }
+
+    return push(`/entertainers-tour-guides/${link}`);
   };
 
   const isActive = (str: string) => {

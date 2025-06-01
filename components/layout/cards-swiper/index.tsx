@@ -1,8 +1,10 @@
 import "swiper/css";
+import "swiper/css/pagination";
 // hooks
 import useResponsive from "../../../hooks/useResponsive";
 // components
 import { Swiper } from "swiper/react";
+import { Pagination } from "swiper/modules";
 import Placeholder from "../../sections/promotions/children/placeholder";
 // utils
 import styled from "@emotion/styled";
@@ -32,6 +34,7 @@ const CardsSwiper = ({
 
   return (
     <Wrapper
+      modules={[Pagination]}
       slidesPerView={slidesPerView()}
       isSingleCard={dataLength <= 2}
       spaceBetween={12}
@@ -51,7 +54,7 @@ export const Wrapper = styled(Swiper, {
 })<{ isSingleCard: boolean }>(({ theme, isSingleCard }) => ({
   position: "relative",
   width: "100%",
-  height: 360,
+  height: 388,
 
   [theme.breakpoints.mobile]: {
     width: "calc(100% + 32px)",
@@ -60,6 +63,7 @@ export const Wrapper = styled(Swiper, {
 
   ".swiper-wrapper": {
     alignItems: "center",
+    height: 360,
   },
 
   ".swiper-slide": {
@@ -69,6 +73,29 @@ export const Wrapper = styled(Swiper, {
         display: "none",
       },
     },
+  },
+
+  ".swiper-pagination-bullets": {
+    zIndex: 5,
+    display: "flex",
+    justifyContent: "center",
+    marginTop: 16,
+    gap: 6,
+  },
+
+  ".swiper-pagination-bullet": {
+    width: 12,
+    height: 12,
+    background: theme.colors.white,
+    borderRadius: "50%",
+    border: "1px solid",
+    borderColor: theme.colors.yellow,
+    opacity: 1,
+    transition: "background 0.3s ease",
+  },
+
+  ".swiper-pagination-bullet-active": {
+    background: theme.colors.yellow,
   },
 
   ".anime-card": {

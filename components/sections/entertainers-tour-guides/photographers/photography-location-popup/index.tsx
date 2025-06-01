@@ -84,11 +84,9 @@ const PhotographyLocationPopup = ({
           />
         </Location>
         <Section>
-          <h2>{t("text.about")}</h2>
           <ReactMarkdown>{data.about}</ReactMarkdown>
         </Section>
         <Section>
-          <h2>{tPage("tabs.photographers")}</h2>
           <CardsSwiper
             dataLength={data.photographers?.data.length}
             placeholderText={tPage("placeholders.noDrivers")}
@@ -96,7 +94,7 @@ const PhotographyLocationPopup = ({
             {data.photographers?.data.map((el) =>
               el.attributes ? (
                 <SwiperSlide key={el.attributes?.slug}>
-                  <PhotographCard photographer={el.attributes} size="s" />
+                  <PhotographCard photographer={el.attributes} />
                 </SwiperSlide>
               ) : null,
             )}
@@ -138,12 +136,6 @@ const Section = styled("div")(({ theme }) => ({
 
   ul: {
     marginLeft: "24px",
-  },
-
-  h2: {
-    fontSize: theme.fontSize.fontS32,
-    fontWeight: 700,
-    color: theme.colors.blue,
   },
 
   "p, li": {

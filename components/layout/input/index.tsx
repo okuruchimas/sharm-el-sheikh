@@ -5,25 +5,35 @@ import InputMask from "react-input-mask";
 import styled from "@emotion/styled";
 
 interface Props {
-  label: string;
+  label?: string;
   type: string;
   placeholder: string;
   as?: string;
   mask?: string;
   isLight?: boolean;
+  isDisabled?: boolean;
 }
-const Input = ({ label, type, mask, placeholder, as, isLight }: Props) => {
+const Input = ({
+  label,
+  type,
+  mask,
+  placeholder,
+  as,
+  isLight,
+  isDisabled,
+}: Props) => {
   const [field, meta] = useField(type);
 
   return (
     <InputWrap className="input-wrap">
-      <Label htmlFor={type}>{label}</Label>
+      {label ? <Label htmlFor={type}>{label}</Label> : null}
       <InputContainer
         isLight={isLight}
         isMessage={!!as}
         isErrorSpan={meta.touched && !!meta.error}
       >
         <Field
+          disabled={isDisabled}
           {...field}
           type={type}
           name={type}
@@ -45,19 +55,21 @@ const Input = ({ label, type, mask, placeholder, as, isLight }: Props) => {
           <ErrorIcon src="/icons/feedback-section/icon.svg" />
         )}
       </InputContainer>
-      <ErrorWrap>
-        <ErrorStyled name={type} component="span" />
-      </ErrorWrap>
+      {meta.error ? (
+        <ErrorWrap>
+          <ErrorStyled name={type} component="span" />
+        </ErrorWrap>
+      ) : null}
     </InputWrap>
   );
 };
 
-const InputWrap = styled("div")({
+const InputWrap = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   position: "relative",
   margin: "0 auto",
-});
+}));
 
 const Label = styled("label")(({ theme }) => ({
   position: "absolute",
@@ -83,12 +95,11 @@ const InputContainer = styled("div", {
   ({ theme, isMessage, isErrorSpan, isLight }) => ({
     display: "flex",
     alignItems: "center",
-
     "input, textarea": {
       minWidth: "310px",
       minHeight: isMessage ? "130px" : "58px",
       backgroundColor: theme.colors.white,
-      borderRadius: "16px",
+      borderRadius: "12px",
       padding: isMessage ? "16px 16px" : "0 16px",
       outline: "none",
       fontSize: theme.fontSize.fontS16,
@@ -99,7 +110,16 @@ const InputContainer = styled("div", {
               ? `2px solid ${theme.colors.red}`
               : `1px solid ${theme.colors.yellow}`,
           }
-        : { border: isErrorSpan ? `2px solid ${theme.colors.red}` : "none" }),
+        : {
+            border: isErrorSpan
+              ? `2px solid ${theme.colors.red}`
+              : `1px solid ${theme.colors.yellow}`,
+          }),
+
+      "&:disabled": {
+        cursor: "not-allowed",
+        border: `1px solid ${theme.colors.grey}`,
+      },
 
       "&:focus, &:active": {
         backgroundColor: theme.colors.white,

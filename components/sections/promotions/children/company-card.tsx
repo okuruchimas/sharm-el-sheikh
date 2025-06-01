@@ -86,12 +86,6 @@ const CompanyCard = ({
               <TextAndIcon src="/icons/time.svg" text={time || ""} />
             ) : null}
           </InfoWrap>
-          {isPage ? (
-            <IconButton
-              src={"/icons/promotions-section/circle-arrow-outlined.svg"}
-              alt="promotions-button"
-            />
-          ) : null}
         </Down>
       </DownWrap>
     </Wrap>
@@ -159,17 +153,6 @@ const Down = styled("div")(({ theme }) => ({
   [theme.breakpoints.mobile]: {
     flexDirection: "column",
     alignItems: "start",
-  },
-}));
-
-const IconButton = styled("img")(({ theme }) => ({
-  cursor: "pointer",
-  width: "40px",
-  height: "40px",
-
-  [theme.breakpoints.mobile]: {
-    width: "30px",
-    height: "30px",
   },
 }));
 
