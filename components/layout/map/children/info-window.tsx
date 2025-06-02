@@ -26,6 +26,7 @@ const InfoWindow = ({ location, onClick }: InfoWindowProps) => {
         alt={location.imageAlt}
         width={172}
         height={113}
+        objectFit="cover"
       />
       <DetailsWrapper>
         <NameRatingWrapper>

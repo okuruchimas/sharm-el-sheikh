@@ -149,4 +149,5 @@ fragment AnimatorPreview on Animator {
   averageRating
   totalComments
   workingAtClub
+  location
 }
