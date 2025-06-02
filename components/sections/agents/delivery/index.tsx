@@ -1,7 +1,7 @@
 import {
-  GetAdsTitlesDocument,
-  GetAdvertisementsDocument,
-  type AdvertisementFragment,
+  type DeliveryFragment,
+  GetDeliveriesDocument,
+  GetDeliveriesTitlesDocument,
 } from "../../../../gql/graphql";
 import { useState } from "react";
 // icons
@@ -12,10 +12,10 @@ import Member from "../../../../public/icons/agents/member.svg";
 import Button from "../../../layout/button";
 import SearchBar from "../../../layout/search-bar";
 import Pagination from "../../../layout/pagination";
+import Deliveries from "./children/deliveries";
 import Placeholder from "../../promotions/children/placeholder";
 import TypeSwitcher from "../../home/feedback/children/type-switcher";
 import SectionWrapper from "../../../layout/section-wrapper";
-import Advertisements from "./children/advertisements";
 import AddAdvertisementForm from "./children/ad-form";
 // utils
 import styled from "@emotion/styled";
@@ -27,17 +27,20 @@ import { useTranslation } from "next-i18next";
 const PAGE_SIZE = 4;
 
 type DeliveryProps = {
-  initialAds?: AdvertisementFragment[];
-  initialTotalAds: number;
+  initialDeliveries?: DeliveryFragment[];
+  initialTotalDeliveries: number;
 };
 
-const Delivery = ({ initialAds, initialTotalAds }: DeliveryProps) => {
+const Delivery = ({
+  initialDeliveries,
+  initialTotalDeliveries,
+}: DeliveryProps) => {
   const [page, setPage] = useState<number>(1);
-  const [total, setTotal] = useState(initialTotalAds);
+  const [total, setTotal] = useState(initialTotalDeliveries);
   const [type, setType] = useState<string>("to");
   const [isLoading, setIsLoading] = useState(false);
-  const [result, setResult] = useState<AdvertisementFragment[] | undefined>(
-    initialAds,
+  const [result, setResult] = useState<DeliveryFragment[] | undefined>(
+    initialDeliveries,
   );
   const [searchValue, setSearchValue] = useState<string>("");
   const [isAddFrom, setAddFrom] = useState<boolean>(false);
@@ -67,11 +70,14 @@ const Delivery = ({ initialAds, initialTotalAds }: DeliveryProps) => {
     setSearchValue(query);
 
     if (query.length) {
-      const { advertisements } = await fetchDataFromApi(GetAdsTitlesDocument, {
-        titleFilter: query,
-      });
+      const { deliveries } = await fetchDataFromApi(
+        GetDeliveriesTitlesDocument,
+        {
+          titleFilter: query,
+        },
+      );
 
-      const options = advertisements?.data.map((el) => ({
+      const options = deliveries?.data.map((el) => ({
         key: el.attributes?.title || "",
         value: el.attributes?.title || "",
       }));
@@ -96,7 +102,7 @@ const Delivery = ({ initialAds, initialTotalAds }: DeliveryProps) => {
     query?: string;
   }) => {
     setIsLoading(true);
-    const data = await fetchDataFromApi(GetAdvertisementsDocument, {
+    const data = await fetchDataFromApi(GetDeliveriesDocument, {
       page: pageNum,
       pageSize: PAGE_SIZE,
       titleFilter: query || undefined,
@@ -104,11 +110,11 @@ const Delivery = ({ initialAds, initialTotalAds }: DeliveryProps) => {
     });
 
     setResult(
-      data?.advertisements?.data.map((el) => el.attributes) as
-        | AdvertisementFragment[]
+      data?.deliveries?.data.map((el) => el.attributes) as
+        | DeliveryFragment[]
         | undefined,
     );
-    setTotal(data.advertisements?.meta.pagination.total || 0);
+    setTotal(data.deliveries?.meta.pagination.total || 0);
     setIsLoading(false);
   };
 
@@ -137,7 +143,7 @@ const Delivery = ({ initialAds, initialTotalAds }: DeliveryProps) => {
       pageNum: 1,
     });
   };
-
+  console.log(result);
   return (
     <SectionWrapper title={"Bring from Egypt or Send there? Easy!"} mt="60px">
       <TypeSwitcher
@@ -160,7 +166,7 @@ const Delivery = ({ initialAds, initialTotalAds }: DeliveryProps) => {
       </SearchWrapper>
       {result?.length ? (
         <>
-          <Advertisements advertisements={result} />
+          <Deliveries deliveries={result} />
           <Pagination
             isDisabled={isLoading}
             currentPage={page}

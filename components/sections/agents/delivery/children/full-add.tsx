@@ -3,7 +3,7 @@ import TextAndIcon from "../../../../layout/text-and-icon";
 import Image from "next/image";
 import styled from "@emotion/styled";
 import { Title } from "../../../../layout/title";
-import { AdvertisementFragment } from "../../../../../gql/graphql";
+import type { DeliveryFragment } from "../../../../../gql/graphql";
 import { SellerInfo } from "./seller-info";
 import { FlexContainer } from "./short-add";
 import Button from "../../../../layout/button";
@@ -19,7 +19,7 @@ interface Props {
   imageAlt?: string;
   otherAddInfo: OtherAdInfo;
 }
-type OtherAdInfo = Omit<AdvertisementFragment, "title" | "price" | "location">;
+type OtherAdInfo = Omit<DeliveryFragment, "title" | "price" | "location">;
 const FullAdd = ({
   title,
   location,
@@ -31,14 +31,8 @@ const FullAdd = ({
   onClose,
   otherAddInfo,
 }: Props) => {
-  const {
-    description,
-    contactMethod,
-    sellerName,
-    mobile,
-    email,
-    personalCardLink,
-  } = otherAddInfo;
+  const { description, contactMethod, name, mobile, email, personalCardLink } =
+    otherAddInfo;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -79,14 +73,14 @@ const FullAdd = ({
         </TopWrap>
         <Description>{description}</Description>
         <SellerInfo
-          sellerName={sellerName}
+          sellerName={name}
           email={email}
           mobile={mobile}
           personalCardLink={personalCardLink}
         />
         <Description>
           <b>My preferred contact method:</b> <br />
-          {contactMethod}
+          {contactMethod || "-"}
         </Description>
         <Button
           text="Back"

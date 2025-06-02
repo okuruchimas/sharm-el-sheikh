@@ -5,13 +5,13 @@ import { useTranslation } from "next-i18next";
 import Input from "../../../../layout/input";
 import Button from "../../../../layout/button";
 import Loader from "../../../../layout/loader";
-// utils
-import styled from "@emotion/styled";
 import { Title } from "../../../../layout/title";
 import ImageInput from "../../../../layout/image-input";
-import Dropdown from "../../../../layout/filters";
-import FormikDropdown from "../../../../layout/formik-select";
 import CheckboxField from "../../../../layout/checkbox";
+import FormikDropdown from "../../../../layout/formik-select";
+// utils
+import { getUrl } from "../../../../../utils/fetchApi";
+import styled from "@emotion/styled";
 
 interface IAdvertisementValues {
   name: string;
@@ -24,7 +24,7 @@ interface IAdvertisementValues {
   price: string;
   description: string;
   personalCardLink?: string;
-  coverImages: File[] | null;
+  images: File[] | null;
   hasPersonalCard: boolean;
 }
 
@@ -42,7 +42,7 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
     price: "",
     description: "",
     personalCardLink: "",
-    coverImages: [] as File[],
+    images: [] as File[],
     hasPersonalCard: false,
   };
 
@@ -50,25 +50,57 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
     <Wrap>
       <Formik
         initialValues={initialValues}
-        onSubmit={async (values, { setSubmitting, resetForm }) => {
+        onSubmit={async (
+          {
+            images,
+            publicationType,
+            hasPersonalCard,
+            personalCardLink,
+            ...restData
+          },
+          { setSubmitting, resetForm },
+        ) => {
           try {
-            const response = await fetch("/api/add-advertisement", {
+            const formData = new FormData();
+
+            const data = {
+              ...restData,
+              personalCardLink,
+              publicationType:
+                hasPersonalCard && !!personalCardLink
+                  ? "member"
+                  : publicationType,
+              publishedAt: null,
+            };
+
+            formData.append("data", JSON.stringify(data));
+
+            if (images && images.length > 0) {
+              images.forEach((file: File) => {
+                formData.append("files.images", file);
+              });
+            }
+
+            const response = await fetch(getUrl("deliveries"), {
               method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(values),
+              body: formData,
             });
 
             if (response.ok) {
               toast.success("Advertisement submitted successfully!");
               resetForm();
             } else {
-              toast.error("Failed to submit advertisement.");
+              const errorData = await response.json();
+              toast.error(
+                "Failed to submit advertisement: " +
+                  (errorData?.error?.message || "Unknown error"),
+              );
             }
           } catch (error) {
             toast.error("An unexpected error occurred.");
+            console.error(error);
           }
+
           setSubmitting(false);
         }}
       >
@@ -95,11 +127,11 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
                   options={[
                     { key: "", value: "Select publication type" },
                     {
-                      key: "order-from-egypt",
+                      key: "from",
                       value: "I want to order something from Egypt",
                     },
                     {
-                      key: "order-in-egypt",
+                      key: "to",
                       value: "I want to place an order in Egypt",
                     },
                   ]}
@@ -117,7 +149,7 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
                   as="textarea"
                 />
                 <ImageInput
-                  type="coverImages"
+                  type="images"
                   label="Download cover art in .webp format*"
                 />
                 <CheckboxField
@@ -126,7 +158,7 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
                 />
                 <Input
                   isDisabled={!values.hasPersonalCard}
-                  type="link"
+                  type="personalCardLink"
                   placeholder="Link"
                 />
               </>
@@ -140,13 +172,14 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
                 color="black"
                 onClick={cancelClick}
               />
-              {/*<SubmitButton*/}
-              {/*  backgroundColor="yellow"*/}
-              {/*  color="white"*/}
-              {/*  text="Save"*/}
-              {/*  type="submit"*/}
-              {/*  disabled={isSubmitting}*/}
-              {/*/>*/}
+              <SubmitButton
+                backgroundColor="yellow"
+                color="white"
+                text="Save"
+                type="submit"
+                disabled={true}
+                // disabled={isSubmitting}
+              />
             </ButtonWrap>
           </FormWrap>
         )}

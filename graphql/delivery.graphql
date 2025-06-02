@@ -1,10 +1,10 @@
-query GetAdvertisements(
+query GetDeliveries(
   $titleFilter: String
   $publicationType: String
   $page: Int
   $pageSize: Int
 ) {
-  advertisements(
+  deliveries(
     pagination: { page: $page, pageSize: $pageSize }
     filters: {
       title: { containsi: $titleFilter }
@@ -14,7 +14,7 @@ query GetAdvertisements(
     data {
       id
       attributes {
-        ...Advertisement
+        ...Delivery
       }
     }
     meta {
@@ -25,8 +25,8 @@ query GetAdvertisements(
   }
 }
 
-query GetAdsTitles($titleFilter: String) {
-  advertisements(filters: { title: { containsi: $titleFilter } }) {
+query GetDeliveriesTitles($titleFilter: String) {
+  deliveries(filters: { title: { containsi: $titleFilter } }) {
     data {
       id
       attributes {
@@ -36,11 +36,11 @@ query GetAdsTitles($titleFilter: String) {
   }
 }
 
-fragment Advertisement on Advertisement {
+fragment Delivery on Delivery {
   title
   description
   mobile
-  sellerName
+  name
   contactMethod
   email
   publicationType

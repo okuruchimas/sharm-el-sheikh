@@ -5,12 +5,12 @@ import styled from "@emotion/styled";
 import { formatDate } from "../../../../../utils/formateDate";
 import FullAdd from "./full-add";
 import { useState } from "react";
-import { AdvertisementFragment } from "../../../../../gql/graphql";
+import { type DeliveryFragment } from "../../../../../gql/graphql";
 import { ContactRow } from "./seller-info";
 
 interface Props {
   isEven: boolean;
-  add: AdvertisementFragment;
+  add: DeliveryFragment;
 }
 const ShortAdd = ({ isEven, add }: Props) => {
   const [isFull, setIsFull] = useState(false);
