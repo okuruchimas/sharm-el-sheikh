@@ -3,12 +3,22 @@ import ShortAdd from "./short-add";
 import Image from "next/image";
 import type { DeliveryFragment } from "../../../../../gql/graphql";
 import { AvatarWrap } from "./seller-info";
+import Loader from "../../../../layout/loader";
 
 interface Props {
   deliveries: DeliveryFragment[];
+  isLoading: boolean;
 }
 
-const Deliveries = ({ deliveries }: Props) => {
+const Deliveries = ({ deliveries, isLoading }: Props) => {
+  if (isLoading) {
+    return (
+      <LoaderWrapper>
+        <Loader />
+      </LoaderWrapper>
+    );
+  }
+
   return (
     <Wrapper>
       {deliveries.map((add, id) => (
@@ -83,3 +93,13 @@ const CardSection = styled("div")<{ align: "left" | "right" }>(
 );
 
 const SellerName = styled("div")(({ theme }) => ({}));
+
+const LoaderWrapper = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  minHeight: "350px",
+
+  [theme.breakpoints.mobile]: {
+    minHeight: "437px",
+  },
+}));

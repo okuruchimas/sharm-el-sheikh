@@ -143,7 +143,7 @@ const Delivery = ({
       pageNum: 1,
     });
   };
-  console.log(result);
+
   return (
     <SectionWrapper title={"Bring from Egypt or Send there? Easy!"} mt="60px">
       <TypeSwitcher
@@ -166,7 +166,7 @@ const Delivery = ({
       </SearchWrapper>
       {result?.length ? (
         <>
-          <Deliveries deliveries={result} />
+          <Deliveries deliveries={result} isLoading={isLoading} />
           <Pagination
             isDisabled={isLoading}
             currentPage={page}
