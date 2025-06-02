@@ -8,6 +8,7 @@ import {
 import { REVALIDATE_TIME } from "../../../constants/page.constants";
 import { RATING_FILTER_OPTIONS } from "../../../constants/filter-options";
 // hooks
+import { useRouter } from "next/router";
 import useResponsive from "../../../hooks/useResponsive";
 import { useTranslation } from "next-i18next";
 import { useEffect, useMemo, useState } from "react";
@@ -50,14 +51,20 @@ const Animators = ({
   const [filter, setFilter] = useState("");
   const [companyKey, setCompanyKey] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [result, setResult] = useState<Animators>(animators);
+  const [result, setResult] = useState<Animators>();
   const [selectedCompany, setSelectedCompany] =
     useState<AnimationCompanyFragment>();
 
   const { i18n, t } = useTranslation("entertainers-tour-guides");
   const { isMobile } = useResponsive();
-
+  const router = useRouter();
   const pageSize = useMemo(() => (isMobile ? 4 : 12), [isMobile]);
+
+  useEffect(() => {
+    const initialSlice = animators.slice(0, pageSize);
+    setResult(initialSlice);
+  }, [animators, pageSize]);
+
   // const libraries: Library[] = ["geometry"];
   //
   // const { isLoaded } = useLoadScript({
@@ -85,17 +92,6 @@ const Animators = ({
     setTotal(data.animators?.meta.pagination.total || 0);
     setIsLoading(false);
   };
-
-  useEffect(
-    () => {
-      if (!isMobile) {
-        handleGetAnimators({ sort: filter, pageNum: 1, company: "" });
-        setPage(1);
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [pageSize],
-  );
 
   const filterOptions = RATING_FILTER_OPTIONS.map((el) => ({
     ...el,
@@ -141,14 +137,31 @@ const Animators = ({
   };
 
   const handlePopupClose = () => setSelectedCompany(undefined);
-  const handleInfoWindowClick = (previewData: MapCard) => {
-    setSelectedCompany(
-      animationCompanies.find((el) => el.attributes.slug === previewData.slug)
-        ?.attributes || undefined,
+  const handleInfoWindowClick = (card: MapCard) => {
+    const company = animationCompanies.find(
+      (el) => el.attributes.slug === card.slug,
     );
+
+    if (company) {
+      setSelectedCompany(company?.attributes);
+
+      return;
+    }
+
+    const animator = animators.find((el) => el.attributes.slug === card.slug);
+
+    if (!company && animator) {
+      router.push(
+        `/entertainers-tour-guides/animators/${animator.attributes.slug}`,
+      );
+    }
   };
 
-  const locations = mapLocations(animationCompanies);
+  const locations = [
+    ...mapLocations(animationCompanies, "/icons/animator-company-marker.svg"),
+    ...mapLocations(animators, "/icons/animator-marker.svg"),
+  ];
+
   const findNearestAnimator = async () => {
     if (typeof window === "undefined") return;
     try {
@@ -304,8 +317,6 @@ export async function getStaticProps({ locale }: any) {
   );
   const { animators } = await fetchData(GetAnimatorsByFilterDocument, {
     locale,
-    page: 1,
-    pageSize: 4,
   });
 
   return {

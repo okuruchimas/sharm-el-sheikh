@@ -8,12 +8,17 @@ export const mapLocations = (data: any, markerIcon?: string): MapCard[] =>
 export const mapLocation = (data: any, markerIconUrl?: string) => ({
   slug: data.attributes.slug,
   title: data.attributes.name || data.attributes.value || "-",
-  subTitle: data.attributes.location || "",
+  subTitle: data.attributes.location || "-",
   imageSrc:
     data.attributes.images?.data[0]?.attributes?.url ||
     data.attributes.image?.data?.attributes?.url ||
+    data.attributes.profileImg?.data?.attributes?.url ||
     "/images/background/background-prom.svg",
-  imageAlt: data.attributes.images?.data[0]?.attributes?.alternativeText || "",
+  imageAlt:
+    data.attributes.images?.data[0]?.attributes?.alternativeText ||
+    data.attributes.image?.data?.attributes?.alternativeText ||
+    data.attributes.profileImg?.data?.attributes?.alternativeText ||
+    "",
   averageRating: data.attributes.averageRating,
   totalComments: data.attributes.totalComments,
   position: {
