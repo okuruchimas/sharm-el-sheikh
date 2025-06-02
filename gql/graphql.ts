@@ -26,86 +26,6 @@ export type Scalars = {
   Upload: { input: any; output: any; }
 };
 
-export type Advertisement = {
-  __typename?: 'Advertisement';
-  agree?: Maybe<Scalars['Boolean']['output']>;
-  contactMethod?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  description: Scalars['String']['output'];
-  email: Scalars['String']['output'];
-  images?: Maybe<UploadFileRelationResponseCollection>;
-  location: Scalars['String']['output'];
-  mobile: Scalars['String']['output'];
-  personalCardLink?: Maybe<Scalars['String']['output']>;
-  price: Scalars['String']['output'];
-  publicationType: Enum_Advertisement_Publicationtype;
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  sellerName: Scalars['String']['output'];
-  title: Scalars['String']['output'];
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-
-export type AdvertisementImagesArgs = {
-  filters?: InputMaybe<UploadFileFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type AdvertisementEntity = {
-  __typename?: 'AdvertisementEntity';
-  attributes?: Maybe<Advertisement>;
-  id?: Maybe<Scalars['ID']['output']>;
-};
-
-export type AdvertisementEntityResponse = {
-  __typename?: 'AdvertisementEntityResponse';
-  data?: Maybe<AdvertisementEntity>;
-};
-
-export type AdvertisementEntityResponseCollection = {
-  __typename?: 'AdvertisementEntityResponseCollection';
-  data: Array<AdvertisementEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type AdvertisementFiltersInput = {
-  agree?: InputMaybe<BooleanFilterInput>;
-  and?: InputMaybe<Array<InputMaybe<AdvertisementFiltersInput>>>;
-  contactMethod?: InputMaybe<StringFilterInput>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  description?: InputMaybe<StringFilterInput>;
-  email?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  location?: InputMaybe<StringFilterInput>;
-  mobile?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<AdvertisementFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<AdvertisementFiltersInput>>>;
-  personalCardLink?: InputMaybe<StringFilterInput>;
-  price?: InputMaybe<StringFilterInput>;
-  publicationType?: InputMaybe<StringFilterInput>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
-  sellerName?: InputMaybe<StringFilterInput>;
-  title?: InputMaybe<StringFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type AdvertisementInput = {
-  agree?: InputMaybe<Scalars['Boolean']['input']>;
-  contactMethod?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  images?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  location?: InputMaybe<Scalars['String']['input']>;
-  mobile?: InputMaybe<Scalars['String']['input']>;
-  personalCardLink?: InputMaybe<Scalars['String']['input']>;
-  price?: InputMaybe<Scalars['String']['input']>;
-  publicationType?: InputMaybe<Enum_Advertisement_Publicationtype>;
-  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
-  sellerName?: InputMaybe<Scalars['String']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
 export type AnimationCompany = {
   __typename?: 'AnimationCompany';
   about?: Maybe<Scalars['String']['output']>;
@@ -1338,11 +1258,85 @@ export type DateTimeFilterInput = {
   startsWith?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-export enum Enum_Advertisement_Publicationtype {
-  From = 'from',
-  Member = 'member',
-  To = 'to'
-}
+export type Delivery = {
+  __typename?: 'Delivery';
+  agree?: Maybe<Scalars['Boolean']['output']>;
+  contactMethod?: Maybe<Scalars['String']['output']>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description: Scalars['String']['output'];
+  email: Scalars['String']['output'];
+  images?: Maybe<UploadFileRelationResponseCollection>;
+  location: Scalars['String']['output'];
+  mobile: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  personalCardLink?: Maybe<Scalars['String']['output']>;
+  price: Scalars['String']['output'];
+  publicationType: Enum_Delivery_Publicationtype;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type DeliveryImagesArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type DeliveryEntity = {
+  __typename?: 'DeliveryEntity';
+  attributes?: Maybe<Delivery>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type DeliveryEntityResponse = {
+  __typename?: 'DeliveryEntityResponse';
+  data?: Maybe<DeliveryEntity>;
+};
+
+export type DeliveryEntityResponseCollection = {
+  __typename?: 'DeliveryEntityResponseCollection';
+  data: Array<DeliveryEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type DeliveryFiltersInput = {
+  agree?: InputMaybe<BooleanFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<DeliveryFiltersInput>>>;
+  contactMethod?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  email?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  location?: InputMaybe<StringFilterInput>;
+  mobile?: InputMaybe<StringFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<DeliveryFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<DeliveryFiltersInput>>>;
+  personalCardLink?: InputMaybe<StringFilterInput>;
+  price?: InputMaybe<StringFilterInput>;
+  publicationType?: InputMaybe<StringFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type DeliveryInput = {
+  agree?: InputMaybe<Scalars['Boolean']['input']>;
+  contactMethod?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  images?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  mobile?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  personalCardLink?: InputMaybe<Scalars['String']['input']>;
+  price?: InputMaybe<Scalars['String']['input']>;
+  publicationType?: InputMaybe<Enum_Delivery_Publicationtype>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
 
 export enum Enum_Componentcomponentsworkschedule_Dayofweek {
   Friday = 'Friday',
@@ -1362,6 +1356,12 @@ export enum Enum_Componenthelpersweekday_Day {
   Thursday = 'Thursday',
   Tuesday = 'Tuesday',
   Wednesday = 'Wednesday'
+}
+
+export enum Enum_Delivery_Publicationtype {
+  From = 'from',
+  Member = 'member',
+  To = 'to'
 }
 
 export enum Enum_Photographylocation_Type {
@@ -1537,7 +1537,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = Advertisement | AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | ComponentComponentsBanner | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyLocation | PhotographyStyle | Service | SupportService | TaxiDriver | TaxiService | TaxiSpot | Tour | TourCategory | TourGuide | TourOperatorCompany | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | ComponentComponentsBanner | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | Delivery | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyLocation | PhotographyStyle | Service | SupportService | TaxiDriver | TaxiService | TaxiSpot | Tour | TourCategory | TourGuide | TourOperatorCompany | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   __typename?: 'Header';
@@ -2145,7 +2145,6 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
-  createAdvertisement?: Maybe<AdvertisementEntityResponse>;
   createAnimationCompany?: Maybe<AnimationCompanyEntityResponse>;
   createAnimationCompanyLocalization?: Maybe<AnimationCompanyEntityResponse>;
   createAnimator?: Maybe<AnimatorEntityResponse>;
@@ -2161,6 +2160,7 @@ export type Mutation = {
   createComment?: Maybe<CommentEntityResponse>;
   createCompany?: Maybe<CompanyEntityResponse>;
   createCompanyLocalization?: Maybe<CompanyEntityResponse>;
+  createDelivery?: Maybe<DeliveryEntityResponse>;
   createEventCard?: Maybe<EventCardEntityResponse>;
   createEventCardLocalization?: Maybe<EventCardEntityResponse>;
   createFooterLocalization?: Maybe<FooterEntityResponse>;
@@ -2204,7 +2204,6 @@ export type Mutation = {
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
-  deleteAdvertisement?: Maybe<AdvertisementEntityResponse>;
   deleteAnimationCompany?: Maybe<AnimationCompanyEntityResponse>;
   deleteAnimator?: Maybe<AnimatorEntityResponse>;
   deleteAnnouncement?: Maybe<AnnouncementEntityResponse>;
@@ -2213,6 +2212,7 @@ export type Mutation = {
   deleteCategory?: Maybe<CategoryEntityResponse>;
   deleteComment?: Maybe<CommentEntityResponse>;
   deleteCompany?: Maybe<CompanyEntityResponse>;
+  deleteDelivery?: Maybe<DeliveryEntityResponse>;
   deleteEventCard?: Maybe<EventCardEntityResponse>;
   deleteFooter?: Maybe<FooterEntityResponse>;
   deleteHeader?: Maybe<HeaderEntityResponse>;
@@ -2251,7 +2251,6 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
-  updateAdvertisement?: Maybe<AdvertisementEntityResponse>;
   updateAnimationCompany?: Maybe<AnimationCompanyEntityResponse>;
   updateAnimator?: Maybe<AnimatorEntityResponse>;
   updateAnnouncement?: Maybe<AnnouncementEntityResponse>;
@@ -2260,6 +2259,7 @@ export type Mutation = {
   updateCategory?: Maybe<CategoryEntityResponse>;
   updateComment?: Maybe<CommentEntityResponse>;
   updateCompany?: Maybe<CompanyEntityResponse>;
+  updateDelivery?: Maybe<DeliveryEntityResponse>;
   updateEventCard?: Maybe<EventCardEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateFooter?: Maybe<FooterEntityResponse>;
@@ -2296,11 +2296,6 @@ export type MutationChangePasswordArgs = {
   currentPassword: Scalars['String']['input'];
   password: Scalars['String']['input'];
   passwordConfirmation: Scalars['String']['input'];
-};
-
-
-export type MutationCreateAdvertisementArgs = {
-  data: AdvertisementInput;
 };
 
 
@@ -2397,6 +2392,11 @@ export type MutationCreateCompanyLocalizationArgs = {
   data?: InputMaybe<CompanyInput>;
   id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateDeliveryArgs = {
+  data: DeliveryInput;
 };
 
 
@@ -2663,11 +2663,6 @@ export type MutationCreateUsersPermissionsUserArgs = {
 };
 
 
-export type MutationDeleteAdvertisementArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
 export type MutationDeleteAnimationCompanyArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -2712,6 +2707,11 @@ export type MutationDeleteCommentArgs = {
 export type MutationDeleteCompanyArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeleteDeliveryArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -2896,12 +2896,6 @@ export type MutationResetPasswordArgs = {
 };
 
 
-export type MutationUpdateAdvertisementArgs = {
-  data: AdvertisementInput;
-  id: Scalars['ID']['input'];
-};
-
-
 export type MutationUpdateAnimationCompanyArgs = {
   data: AnimationCompanyInput;
   id: Scalars['ID']['input'];
@@ -2954,6 +2948,12 @@ export type MutationUpdateCompanyArgs = {
   data: CompanyInput;
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationUpdateDeliveryArgs = {
+  data: DeliveryInput;
+  id: Scalars['ID']['input'];
 };
 
 
@@ -3514,8 +3514,6 @@ export enum PublicationState {
 
 export type Query = {
   __typename?: 'Query';
-  advertisement?: Maybe<AdvertisementEntityResponse>;
-  advertisements?: Maybe<AdvertisementEntityResponseCollection>;
   animationCompanies?: Maybe<AnimationCompanyEntityResponseCollection>;
   animationCompany?: Maybe<AnimationCompanyEntityResponse>;
   animator?: Maybe<AnimatorEntityResponse>;
@@ -3532,6 +3530,8 @@ export type Query = {
   comments?: Maybe<CommentEntityResponseCollection>;
   companies?: Maybe<CompanyEntityResponseCollection>;
   company?: Maybe<CompanyEntityResponse>;
+  deliveries?: Maybe<DeliveryEntityResponseCollection>;
+  delivery?: Maybe<DeliveryEntityResponse>;
   eventCard?: Maybe<EventCardEntityResponse>;
   eventCards?: Maybe<EventCardEntityResponseCollection>;
   footer?: Maybe<FooterEntityResponse>;
@@ -3580,19 +3580,6 @@ export type Query = {
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
   usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>;
-};
-
-
-export type QueryAdvertisementArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type QueryAdvertisementsArgs = {
-  filters?: InputMaybe<AdvertisementFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -3711,6 +3698,19 @@ export type QueryCompaniesArgs = {
 export type QueryCompanyArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryDeliveriesArgs = {
+  filters?: InputMaybe<DeliveryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryDeliveryArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -5394,25 +5394,6 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
-export type GetAdvertisementsQueryVariables = Exact<{
-  titleFilter?: InputMaybe<Scalars['String']['input']>;
-  publicationType?: InputMaybe<Scalars['String']['input']>;
-  page?: InputMaybe<Scalars['Int']['input']>;
-  pageSize?: InputMaybe<Scalars['Int']['input']>;
-}>;
-
-
-export type GetAdvertisementsQuery = { __typename?: 'Query', advertisements?: { __typename?: 'AdvertisementEntityResponseCollection', data: Array<{ __typename?: 'AdvertisementEntity', id?: string | null, attributes?: { __typename?: 'Advertisement', title: string, description: string, mobile: string, sellerName: string, contactMethod?: string | null, email: string, publicationType: Enum_Advertisement_Publicationtype, location: string, price: string, personalCardLink?: string | null, agree?: boolean | null, createdAt?: any | null, images?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, url: string } | null }> } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
-
-export type GetAdsTitlesQueryVariables = Exact<{
-  titleFilter?: InputMaybe<Scalars['String']['input']>;
-}>;
-
-
-export type GetAdsTitlesQuery = { __typename?: 'Query', advertisements?: { __typename?: 'AdvertisementEntityResponseCollection', data: Array<{ __typename?: 'AdvertisementEntity', id?: string | null, attributes?: { __typename?: 'Advertisement', title: string } | null }> } | null };
-
-export type AdvertisementFragment = { __typename?: 'Advertisement', title: string, description: string, mobile: string, sellerName: string, contactMethod?: string | null, email: string, publicationType: Enum_Advertisement_Publicationtype, location: string, price: string, personalCardLink?: string | null, agree?: boolean | null, createdAt?: any | null, images?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, url: string } | null }> } | null };
-
 export type GetAnimationCompaniesQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
 }>;
@@ -5497,6 +5478,25 @@ export type CompanyPreviewFragment = { __typename?: 'Company', title: string, av
 export type ServiceFragment = { __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null };
 
 export type CommentFragment = { __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null };
+
+export type GetDeliveriesQueryVariables = Exact<{
+  titleFilter?: InputMaybe<Scalars['String']['input']>;
+  publicationType?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type GetDeliveriesQuery = { __typename?: 'Query', deliveries?: { __typename?: 'DeliveryEntityResponseCollection', data: Array<{ __typename?: 'DeliveryEntity', id?: string | null, attributes?: { __typename?: 'Delivery', title: string, description: string, mobile: string, name: string, contactMethod?: string | null, email: string, publicationType: Enum_Delivery_Publicationtype, location: string, price: string, personalCardLink?: string | null, agree?: boolean | null, createdAt?: any | null, images?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, url: string } | null }> } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
+
+export type GetDeliveriesTitlesQueryVariables = Exact<{
+  titleFilter?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetDeliveriesTitlesQuery = { __typename?: 'Query', deliveries?: { __typename?: 'DeliveryEntityResponseCollection', data: Array<{ __typename?: 'DeliveryEntity', id?: string | null, attributes?: { __typename?: 'Delivery', title: string } | null }> } | null };
+
+export type DeliveryFragment = { __typename?: 'Delivery', title: string, description: string, mobile: string, name: string, contactMethod?: string | null, email: string, publicationType: Enum_Delivery_Publicationtype, location: string, price: string, personalCardLink?: string | null, agree?: boolean | null, createdAt?: any | null, images?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, url: string } | null }> } | null };
 
 export type GetEventCardsQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -5794,30 +5794,6 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
-export const AdvertisementFragmentDoc = new TypedDocumentString(`
-    fragment Advertisement on Advertisement {
-  title
-  description
-  mobile
-  sellerName
-  contactMethod
-  email
-  publicationType
-  location
-  price
-  personalCardLink
-  agree
-  images {
-    data {
-      attributes {
-        alternativeText
-        url
-      }
-    }
-  }
-  createdAt
-}
-    `, {"fragmentName":"Advertisement"}) as unknown as TypedDocumentString<AdvertisementFragment, unknown>;
 export const StrapiImageFragmentDoc = new TypedDocumentString(`
     fragment StrapiImage on UploadFileEntityResponse {
   data {
@@ -6167,6 +6143,30 @@ export const CompanyPreviewFragmentDoc = new TypedDocumentString(`
     }
   }
 }`, {"fragmentName":"CompanyPreview"}) as unknown as TypedDocumentString<CompanyPreviewFragment, unknown>;
+export const DeliveryFragmentDoc = new TypedDocumentString(`
+    fragment Delivery on Delivery {
+  title
+  description
+  mobile
+  name
+  contactMethod
+  email
+  publicationType
+  location
+  price
+  personalCardLink
+  agree
+  images {
+    data {
+      attributes {
+        alternativeText
+        url
+      }
+    }
+  }
+  createdAt
+}
+    `, {"fragmentName":"Delivery"}) as unknown as TypedDocumentString<DeliveryFragment, unknown>;
 export const EventCardFragmentDoc = new TypedDocumentString(`
     fragment EventCard on EventCard {
   date
@@ -7075,59 +7075,6 @@ fragment TourGuidePreview on TourGuide {
     }
   }
 }`, {"fragmentName":"Tour"}) as unknown as TypedDocumentString<TourFragment, unknown>;
-export const GetAdvertisementsDocument = new TypedDocumentString(`
-    query GetAdvertisements($titleFilter: String, $publicationType: String, $page: Int, $pageSize: Int) {
-  advertisements(
-    pagination: {page: $page, pageSize: $pageSize}
-    filters: {title: {containsi: $titleFilter}, publicationType: {eq: $publicationType}}
-  ) {
-    data {
-      id
-      attributes {
-        ...Advertisement
-      }
-    }
-    meta {
-      pagination {
-        total
-      }
-    }
-  }
-}
-    fragment Advertisement on Advertisement {
-  title
-  description
-  mobile
-  sellerName
-  contactMethod
-  email
-  publicationType
-  location
-  price
-  personalCardLink
-  agree
-  images {
-    data {
-      attributes {
-        alternativeText
-        url
-      }
-    }
-  }
-  createdAt
-}`) as unknown as TypedDocumentString<GetAdvertisementsQuery, GetAdvertisementsQueryVariables>;
-export const GetAdsTitlesDocument = new TypedDocumentString(`
-    query GetAdsTitles($titleFilter: String) {
-  advertisements(filters: {title: {containsi: $titleFilter}}) {
-    data {
-      id
-      attributes {
-        title
-      }
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<GetAdsTitlesQuery, GetAdsTitlesQueryVariables>;
 export const GetAnimationCompaniesDocument = new TypedDocumentString(`
     query GetAnimationCompanies($locale: I18NLocaleCode!) {
   animationCompanies(sort: "index:asc", locale: $locale) {
@@ -7685,6 +7632,59 @@ export const GetCompaniesSlugsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<GetCompaniesSlugsQuery, GetCompaniesSlugsQueryVariables>;
+export const GetDeliveriesDocument = new TypedDocumentString(`
+    query GetDeliveries($titleFilter: String, $publicationType: String, $page: Int, $pageSize: Int) {
+  deliveries(
+    pagination: {page: $page, pageSize: $pageSize}
+    filters: {title: {containsi: $titleFilter}, publicationType: {eq: $publicationType}}
+  ) {
+    data {
+      id
+      attributes {
+        ...Delivery
+      }
+    }
+    meta {
+      pagination {
+        total
+      }
+    }
+  }
+}
+    fragment Delivery on Delivery {
+  title
+  description
+  mobile
+  name
+  contactMethod
+  email
+  publicationType
+  location
+  price
+  personalCardLink
+  agree
+  images {
+    data {
+      attributes {
+        alternativeText
+        url
+      }
+    }
+  }
+  createdAt
+}`) as unknown as TypedDocumentString<GetDeliveriesQuery, GetDeliveriesQueryVariables>;
+export const GetDeliveriesTitlesDocument = new TypedDocumentString(`
+    query GetDeliveriesTitles($titleFilter: String) {
+  deliveries(filters: {title: {containsi: $titleFilter}}) {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<GetDeliveriesTitlesQuery, GetDeliveriesTitlesQueryVariables>;
 export const GetEventCardsDocument = new TypedDocumentString(`
     query GetEventCards($locale: I18NLocaleCode!, $page: Int, $pageSize: Int) {
   eventCards(

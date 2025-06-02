@@ -1,9 +1,9 @@
 import {
-  GetAdvertisementsDocument,
+  GetDeliveriesDocument,
   GetTourGuidesByFiltersDocument,
   GetTourOperatorCompaniesDocument,
+  type DeliveryFragment,
   type TourGuideFragment,
-  type AdvertisementFragment,
   type TourOperatorCompanyFragment,
 } from "../../gql/graphql";
 // hooks
@@ -29,14 +29,14 @@ import { fetchData } from "../../utils/fetchApi";
 import { MapCard } from "../../components/layout/map/children/types";
 
 type Props = {
-  ads: { attributes: AdvertisementFragment }[];
-  initialTotalAds: number;
+  deliveries: { attributes: DeliveryFragment }[];
+  initialTotalDeliveries: number;
   tourGuides: { attributes: TourGuideFragment }[];
   tourOperatorCompanies: { attributes: TourOperatorCompanyFragment }[];
 };
 const Agents = ({
-  ads,
-  initialTotalAds,
+  deliveries,
+  initialTotalDeliveries,
   tourGuides,
   tourOperatorCompanies,
 }: Props) => {
@@ -84,8 +84,8 @@ const Agents = ({
       </SectionWrapper>
 
       <Delivery
-        initialAds={ads?.map((el) => el.attributes)}
-        initialTotalAds={initialTotalAds}
+        initialDeliveries={deliveries?.map((el) => el.attributes)}
+        initialTotalDeliveries={initialTotalDeliveries}
       />
 
       <Banners />
@@ -118,7 +118,7 @@ export async function getStaticProps({ locale }: any) {
     { locale },
   );
 
-  const { advertisements } = await fetchData(GetAdvertisementsDocument, {
+  const { deliveries } = await fetchData(GetDeliveriesDocument, {
     page: 1,
     pageSize: 4,
     publicationType: "to",
@@ -126,8 +126,8 @@ export async function getStaticProps({ locale }: any) {
 
   return {
     props: {
-      ads: advertisements?.data,
-      initialTotalAds: advertisements?.meta.pagination.total,
+      deliveries: deliveries?.data,
+      initialTotalDeliveries: deliveries?.meta.pagination.total,
       tourGuides: tourGuides?.data,
       tourOperatorCompanies: tourOperatorCompanies?.data,
       initialTotal: tourGuides?.meta.pagination.total || 0,

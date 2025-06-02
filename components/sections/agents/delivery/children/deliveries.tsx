@@ -1,17 +1,17 @@
 import styled from "@emotion/styled";
 import ShortAdd from "./short-add";
 import Image from "next/image";
-import type { AdvertisementFragment } from "../../../../../gql/graphql";
+import type { DeliveryFragment } from "../../../../../gql/graphql";
 import { AvatarWrap } from "./seller-info";
 
 interface Props {
-  advertisements: AdvertisementFragment[];
+  deliveries: DeliveryFragment[];
 }
 
-const Advertisements = ({ advertisements }: Props) => {
+const Deliveries = ({ deliveries }: Props) => {
   return (
     <Wrapper>
-      {advertisements.map((add, id) => (
+      {deliveries.map((add, id) => (
         <CardWrapper
           isFirst={id === 0}
           key={id}
@@ -26,7 +26,7 @@ const Advertisements = ({ advertisements }: Props) => {
             />
           </AvatarWrap>
           <CardSection align={id % 2 === 0 ? "left" : "right"}>
-            <SellerName>{add.sellerName}</SellerName>
+            <SellerName>{add.name}</SellerName>
             <ShortAdd isEven={id % 2 === 0} add={add} />
           </CardSection>
         </CardWrapper>
@@ -35,7 +35,7 @@ const Advertisements = ({ advertisements }: Props) => {
   );
 };
 
-export default Advertisements;
+export default Deliveries;
 
 const Wrapper = styled("div")(({ theme }) => ({
   display: "flex",
