@@ -1,8 +1,59 @@
 {
   "addAdvertisement": "Add Advertisement",
-  "memberOffers": "Member Offers",
+  "banners": {
+    "1": {
+      "button": "Book Your Adventure",
+      "subTitle": "Journeys to the most beautiful corners of the planet. <0/> From mountain peaks to tropical islands.",
+      "title": "Travel Horizon"
+    },
+    "2": {
+      "button": "Dive into Adventure",
+      "subTitle": "Extreme tours for true adventure lovers! Rafting, trekking, safaris, and more.",
+      "title": "Go Wild Adventures"
+    },
+    "3": {
+      "button": "Contact",
+      "title": "Find a trusted tour operator in Europe and plan the trip of your dreams!"
+    },
+    "4": {
+      "button": "Go to Pharmacies & Medicines",
+      "title": "Visit the Pharmacies & Medicines page to learn about medications, their availability, uses, dosages, stock in nearby pharmacies, and the option to find alternatives if needed"
+    }
+  },
+  "form": {
+    "aboutAdvertisement": "About Advertisement",
+    "description": "Description*",
+    "downloadCoverArt": "Download cover art in .webp format*",
+    "email": "Email*",
+    "link": "Link",
+    "location": "Location*",
+    "mobile": "Mobile*",
+    "orderFromEgypt": "I want to order something from Egypt",
+    "orderInEgypt": "I want to place an order in Egypt",
+    "personalCardOnWebsite": "Is your personal card on the website? If so, please provide the link",
+    "personalData": "Personal Data",
+    "preferredContactMethod": "Preferred Contact Method*",
+    "price": "Price*",
+    "selectType": "Select publication type",
+    "title": "Title*",
+    "toasts": {
+      "failedToSubmit": "Failed to submit advertisement: ",
+      "success": "Advertisement submitted successfully!",
+      "unexpectedError": "An unexpected error occurred."
+    },
+    "yourName": "Your Name*"
+  },
   "noAddsFound": "No Advertisement found",
-  "orderToEgypt": "Order Delivery to Egypt",
-  "receiveFromEgypt": "Receive from Egypt",
+  "preferredMethod": "My preferred contact method:",
+  "sectionTitles": {
+    "bringOrSend": "Bring from Egypt or Send there? Easy!",
+    "mapTourCompanies": "Map of Tour Operator Companies",
+    "operatorsForYou": "Tour Operators for You!"
+  },
+  "tabs": {
+    "memberOffers": "Member Offers",
+    "orderToEgypt": "Order Delivery to Egypt",
+    "receiveFromEgypt": "Receive from Egypt"
+  },
   "typeToSearch": "Type to search"
 }

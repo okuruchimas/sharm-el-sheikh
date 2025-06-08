@@ -41,6 +41,7 @@ const Agents = ({
   tourOperatorCompanies,
 }: Props) => {
   const { t } = useTranslation("common");
+  const { t: tPage } = useTranslation("agents");
   const [selectedOperatorCompany, setSelectedOperatorCompany] =
     useState<TourOperatorCompanyFragment>();
 
@@ -62,7 +63,7 @@ const Agents = ({
       url="/images/background/background-gradient.svg"
       mobUrl="/images/background/mobile-background-gradient.svg"
     >
-      <SectionWrapper title={"Map of Tour Operator Companies"}>
+      <SectionWrapper title={tPage("sectionTitles.mapTourCompanies")}>
         <Map
           zoom={3}
           centerProp={{
@@ -75,7 +76,7 @@ const Agents = ({
       </SectionWrapper>
 
       <SectionWrapper
-        title={"Tour Operators for You!"}
+        title={tPage("sectionTitles.operatorsForYou")}
         buttonText={t("buttons.seeAll")}
         onClick={() => {}}
         mt="60px"

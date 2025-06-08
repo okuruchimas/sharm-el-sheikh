@@ -1,4 +1,3 @@
-import React from "react";
 import {
   BannerBackground,
   BannerSubTitle,
@@ -8,6 +7,7 @@ import {
 import styled from "@emotion/styled";
 import Button from "../../../../layout/button";
 import { useRouter } from "next/router";
+import { Trans, useTranslation } from "next-i18next";
 
 const pillsImages = [
   { imgLink: "/icons/agents/pills/pill6.webp", size: 240, l: 8, t: 0 },
@@ -63,20 +63,24 @@ const pillsImages = [
 
 const Banners = () => {
   const router = useRouter();
+  const { t } = useTranslation("agents");
 
   return (
     <Wrap>
       <BannerWrap>
         <BannerBackground imgLink="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/307a41bd8d8b9bbe74008481b8e75d513b032331_3aafa7a914.webp" />
         <ContentWithBgFirst>
-          <BannerTitle>Travel Horizon</BannerTitle>
+          <BannerTitle>{t("banners.1.title")}</BannerTitle>
           <BannerSubTitle>
-            Journeys to the most beautiful corners of the planet. <br /> From
-            mountain peaks to tropical islands.
+            <Trans
+              t={t}
+              i18nKey="banners.1.subTitle"
+              components={[<br key={""} />]}
+            />
           </BannerSubTitle>
 
           <StyledButton
-            text={"Book Your Adventure"}
+            text={t("banners.1.button")}
             onClick={() => router.push("/")}
           />
         </ContentWithBgFirst>
@@ -85,14 +89,11 @@ const Banners = () => {
       <BannerWrap>
         <BannerBackground imgLink="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/bcb1e0c7995ac4e605f2c9f2eb1475462aa0d391_eb32285b58.webp" />
         <ContentWithBgSecond>
-          <BannerTitle>Go Wild Adventures</BannerTitle>
-          <BannerSubTitle>
-            Extreme tours for true adventure lovers! Rafting, trekking, safaris,
-            and more.
-          </BannerSubTitle>
+          <BannerTitle>{t("banners.2.title")}</BannerTitle>
+          <BannerSubTitle>{t("banners.2.subTitle")}</BannerSubTitle>
 
           <StyledButton
-            text={"Dive into Adventure"}
+            text={t("banners.2.button")}
             onClick={() => router.push("/")}
           />
         </ContentWithBgSecond>
@@ -103,11 +104,11 @@ const Banners = () => {
 
         <ShapeRight imgLink="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/636d4054c813ee25c7aa1667549ab442fb5d8e44_7629b596a1.webp" />
         <Content>
-          <BannerTitle>
-            Find a trusted tour operator in Europe and plan the trip of your
-            dreams!
-          </BannerTitle>
-          <StyledButton text={"Contact"} onClick={() => router.push("/")} />
+          <BannerTitle>{t("banners.3.title")}</BannerTitle>
+          <StyledButton
+            text={t("banners.3.button")}
+            onClick={() => router.push("/")}
+          />
         </Content>
       </BannerWrap>
 
@@ -124,13 +125,9 @@ const Banners = () => {
           />
         ))}
         <ContentThird>
-          <BannerTitle>
-            Visit the Pharmacies & Medicines page to learn about medications,
-            their availability, uses, dosages, stock in nearby pharmacies, and
-            the option to find alternatives if needed
-          </BannerTitle>
+          <BannerTitle>{t("banners.4.title")}</BannerTitle>
           <StyledButton
-            text={"Go to Pharmacies & Medicines "}
+            text={t("banners.4.button")}
             onClick={() => router.push("/")}
           />
         </ContentThird>

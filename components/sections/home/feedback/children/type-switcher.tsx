@@ -29,13 +29,19 @@ const TypeSwitcher = ({ currentType, setType, typesProp = types }: Props) => {
 
   const tabsToMap = isMobile ? visibleTabs : typesProp;
 
+  const handleClick = (type: string) => () => {
+    if (type !== currentType) {
+      setType(type);
+    }
+  };
+
   return (
     <Wrap>
       {tabsToMap.map(({ type, value, icon }) => (
         <Type
           isActive={type === currentType}
           key={type}
-          onClick={() => setType(type)}
+          onClick={handleClick(type)}
         >
           {icon ? icon : null}
           {t(value)}

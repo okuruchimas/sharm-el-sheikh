@@ -1,8 +1,59 @@
 {
   "addAdvertisement": "Anzeige hinzufügen",
-  "memberOffers": "Angebote für Mitglieder",
-  "noAddsFound": "Keine Anzeige gefunden",
-  "orderToEgypt": "Lieferung nach Ägypten bestellen",
-  "receiveFromEgypt": "Aus Ägypten empfangen",
+  "banners": {
+    "1": {
+      "button": "Buche dein Abenteuer",
+      "subTitle": "Reisen zu den schönsten Orten der Welt. <0/> Von Berggipfeln bis zu tropischen Inseln.",
+      "title": "Reisehorizont"
+    },
+    "2": {
+      "button": "Stürz dich ins Abenteuer",
+      "subTitle": "Extremtouren für wahre Abenteurer! Rafting, Trekking, Safaris und mehr.",
+      "title": "Wilde Abenteuer"
+    },
+    "3": {
+      "button": "Kontakt",
+      "title": "Finde einen vertrauenswürdigen Reiseveranstalter in Europa und plane deine Traumreise!"
+    },
+    "4": {
+      "button": "Zu Apotheken & Medikamente",
+      "title": "Besuche die Seite Apotheken & Medikamente, um Verfügbarkeit, Anwendung, Dosierung und Alternativen zu erfahren"
+    }
+  },
+  "form": {
+    "aboutAdvertisement": "Über die Anzeige",
+    "description": "Beschreibung*",
+    "downloadCoverArt": "Titelbild im .webp-Format herunterladen*",
+    "email": "E-Mail*",
+    "link": "Link",
+    "location": "Standort*",
+    "mobile": "Mobilnummer*",
+    "orderFromEgypt": "Ich möchte etwas aus Ägypten bestellen",
+    "orderInEgypt": "Ich möchte in Ägypten etwas bestellen",
+    "personalCardOnWebsite": "Ist Ihre persönliche Karte auf der Website? Wenn ja, bitte Link angeben",
+    "personalData": "Persönliche Daten",
+    "preferredContactMethod": "Bevorzugte Kontaktmethode*",
+    "price": "Preis*",
+    "selectType": "Veröffentlichungstyp auswählen",
+    "title": "Titel*",
+    "toasts": {
+      "failedToSubmit": "Anzeige konnte nicht gesendet werden: ",
+      "success": "Anzeige erfolgreich eingereicht!",
+      "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten."
+    },
+    "yourName": "Ihr Name*"
+  },
+  "noAddsFound": "Keine Anzeigen gefunden",
+  "preferredMethod": "Meine bevorzugte Kontaktmethode:",
+  "sectionTitles": {
+    "bringOrSend": "Aus Ägypten bringen oder dorthin senden? Ganz einfach!",
+    "mapTourCompanies": "Karte der Reiseveranstalter",
+    "operatorsForYou": "Reiseveranstalter für Sie!"
+  },
+  "tabs": {
+    "memberOffers": "Angebote von Mitgliedern",
+    "orderToEgypt": "Lieferung nach Ägypten bestellen",
+    "receiveFromEgypt": "Aus Ägypten empfangen"
+  },
   "typeToSearch": "Zum Suchen eingeben"
 }

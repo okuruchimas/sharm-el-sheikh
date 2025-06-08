@@ -1,7 +1,7 @@
 import { useField, useFormikContext } from "formik";
 import styled from "@emotion/styled";
 import { ChangeEvent, useRef, useState } from "react";
-import { toast } from "react-toastify";
+import { useTranslation } from "next-i18next";
 
 interface Props {
   type: string;
@@ -14,6 +14,7 @@ const MultiImageInput = ({ type, label, maxFiles = 4 }: Props) => {
   const [field, meta] = useField<File[]>(type);
   const { setFieldValue } = useFormikContext();
   const [previews, setPreviews] = useState<string[]>([]);
+  const { t } = useTranslation("common");
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -49,7 +50,7 @@ const MultiImageInput = ({ type, label, maxFiles = 4 }: Props) => {
           disabled={(field.value?.length || 0) >= maxFiles}
           onClick={() => fileInputRef.current?.click()}
         >
-          + Download
+          {"+ " + t("buttons.download")}
         </UploadButton>
         <Progress>{progress}</Progress>
       </TopRow>
