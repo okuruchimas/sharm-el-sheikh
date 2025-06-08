@@ -1,8 +1,59 @@
 {
   "addAdvertisement": "Aggiungi annuncio",
-  "memberOffers": "Offerte per i membri",
+  "banners": {
+    "1": {
+      "button": "Prenota la tua avventura",
+      "subTitle": "Viaggi verso gli angoli più belli del pianeta. <0/> Dalle cime montuose alle isole tropicali.",
+      "title": "Orizzonte di Viaggio"
+    },
+    "2": {
+      "button": "Tuffati nell'avventura",
+      "subTitle": "Tour estremi per veri amanti dell'avventura! Rafting, trekking, safari e altro.",
+      "title": "Avventure Selvagge"
+    },
+    "3": {
+      "button": "Contatto",
+      "title": "Trova un tour operator affidabile in Europa e pianifica il viaggio dei tuoi sogni!"
+    },
+    "4": {
+      "button": "Vai a Farmacie & Medicinali",
+      "title": "Visita la pagina Farmacie & Medicinali per conoscere disponibilità, usi, dosaggi e alternative"
+    }
+  },
+  "form": {
+    "aboutAdvertisement": "Informazioni sull'annuncio",
+    "description": "Descrizione*",
+    "downloadCoverArt": "Scarica copertina in formato .webp*",
+    "email": "Email*",
+    "link": "Link",
+    "location": "Località*",
+    "mobile": "Cellulare*",
+    "orderFromEgypt": "Voglio ordinare qualcosa dall'Egitto",
+    "orderInEgypt": "Voglio fare un ordine in Egitto",
+    "personalCardOnWebsite": "La tua scheda personale è sul sito? Se sì, inserisci il link",
+    "personalData": "Dati personali",
+    "preferredContactMethod": "Metodo di contatto preferito*",
+    "price": "Prezzo*",
+    "selectType": "Seleziona tipo di pubblicazione",
+    "title": "Titolo*",
+    "toasts": {
+      "failedToSubmit": "Invio annuncio fallito: ",
+      "success": "Annuncio inviato con successo!",
+      "unexpectedError": "Si è verificato un errore imprevisto."
+    },
+    "yourName": "Il tuo nome*"
+  },
   "noAddsFound": "Nessun annuncio trovato",
-  "orderToEgypt": "Ordina con consegna in Egitto",
-  "receiveFromEgypt": "Ricevi dall'Egitto",
+  "preferredMethod": "Metodo di contatto preferito:",
+  "sectionTitles": {
+    "bringOrSend": "Portare dall'Egitto o inviare lì? Facile!",
+    "mapTourCompanies": "Mappa dei tour operator",
+    "operatorsForYou": "Tour operator per te!"
+  },
+  "tabs": {
+    "memberOffers": "Offerte dei membri",
+    "orderToEgypt": "Ordina consegna in Egitto",
+    "receiveFromEgypt": "Ricevi dall'Egitto"
+  },
   "typeToSearch": "Digita per cercare"
 }

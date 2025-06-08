@@ -29,7 +29,8 @@ interface IAdvertisementValues {
 }
 
 const AddAdvertisementForm = ({ cancelClick }: any) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("agents");
+  const { t: tCommon } = useTranslation("common");
 
   const initialValues: IAdvertisementValues = {
     name: "",
@@ -87,17 +88,17 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
             });
 
             if (response.ok) {
-              toast.success("Advertisement submitted successfully!");
+              toast.success(t("form.toasts.success"));
               resetForm();
             } else {
               const errorData = await response.json();
               toast.error(
-                "Failed to submit advertisement: " +
-                  (errorData?.error?.message || "Unknown error"),
+                t("form.toasts.failedToSubmit") +
+                  (errorData?.error?.message || " Unknown error"),
               );
             }
           } catch (error) {
-            toast.error("An unexpected error occurred.");
+            toast.error(t("form.toasts.unexpectedError"));
             console.error(error);
           }
 
@@ -110,29 +111,33 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
               <Loader />
             ) : (
               <>
-                <TitleStyled as="h3">Add Advertisement</TitleStyled>
+                <TitleStyled as="h3">{t("addAdvertisement")}</TitleStyled>
                 {/* Personal Data */}
-                <TitleSmallStyled as="h4">Personal Data</TitleSmallStyled>
-                <Input type="name" placeholder="Your Name*" />
-                <Input type="mobile" placeholder="Mobile*" />
+                <TitleSmallStyled as="h4">
+                  {t("form.personalData")}
+                </TitleSmallStyled>
+                <Input type="name" placeholder={t("form.yourName")} />
+                <Input type="mobile" placeholder={t("form.mobile")} />
                 <Input
                   type="contactMethod"
-                  placeholder="Preferred Contact Method*"
+                  placeholder={t("form.preferredContactMethod")}
                 />
-                <Input type="email" placeholder="Email*" />
+                <Input type="email" placeholder={t("form.email")} />
                 {/* About Advertisement */}
-                <TitleSmallStyled as="h4">About Advertisement</TitleSmallStyled>
+                <TitleSmallStyled as="h4">
+                  {t("form.aboutAdvertisement")}
+                </TitleSmallStyled>
                 <FormikDropdown
                   name="publicationType"
                   options={[
-                    { key: "", value: "Select publication type" },
+                    { key: "", value: t("form.selectType") },
                     {
                       key: "from",
-                      value: "I want to order something from Egypt",
+                      value: t("form.orderFromEgypt"),
                     },
                     {
                       key: "to",
-                      value: "I want to place an order in Egypt",
+                      value: t("form.orderInEgypt"),
                     },
                   ]}
                   width="100%"
@@ -140,33 +145,30 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
                   borderColor="yellow"
                   color="gray"
                 />
-                <Input type="title" placeholder="Title*" />
-                <Input type="location" placeholder="Location*" />
-                <Input type="price" placeholder="Price*" />
+                <Input type="title" placeholder={t("form.title")} />
+                <Input type="location" placeholder={t("form.location")} />
+                <Input type="price" placeholder={t("form.price")} />
                 <Input
                   type="description"
-                  placeholder="Description*"
+                  placeholder={t("form.description")}
                   as="textarea"
                 />
-                <ImageInput
-                  type="images"
-                  label="Download cover art in .webp format*"
-                />
+                <ImageInput type="images" label={t("form.downloadCoverArt")} />
                 <CheckboxField
                   type="hasPersonalCard"
-                  label="Is your personal card on the website? If so, please provide the link"
+                  label={t("form.personalCardOnWebsite")}
                 />
                 <Input
                   isDisabled={!values.hasPersonalCard}
                   type="personalCardLink"
-                  placeholder="Link"
+                  placeholder={t("form.link")}
                 />
               </>
             )}
 
             <ButtonWrap>
               <Button
-                text="Cancel"
+                text={tCommon("buttons.cancel")}
                 type="reset"
                 backgroundColor="gray"
                 color="black"
@@ -175,7 +177,7 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
               <SubmitButton
                 backgroundColor="yellow"
                 color="white"
-                text="Save"
+                text={tCommon("buttons.save")}
                 type="submit"
                 disabled={true}
                 // disabled={isSubmitting}

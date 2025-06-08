@@ -7,6 +7,7 @@ import type { DeliveryFragment } from "../../../../../gql/graphql";
 import { SellerInfo } from "./seller-info";
 import { FlexContainer } from "./short-add";
 import Button from "../../../../layout/button";
+import { useTranslation } from "next-i18next";
 
 interface Props {
   isOpen: boolean;
@@ -33,6 +34,7 @@ const FullAdd = ({
 }: Props) => {
   const { description, contactMethod, name, mobile, email, personalCardLink } =
     otherAddInfo;
+  const { t } = useTranslation("agents");
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -79,7 +81,7 @@ const FullAdd = ({
           personalCardLink={personalCardLink}
         />
         <Description>
-          <b>My preferred contact method:</b> <br />
+          <b>{t("preferredMethod")}</b> <br />
           {contactMethod || "-"}
         </Description>
         <Button

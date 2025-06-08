@@ -52,17 +52,17 @@ const Delivery = ({
     {
       icon: <Member />,
       type: "member",
-      value: t("memberOffers"),
+      value: t("tabs.memberOffers"),
     },
     {
       icon: <Car />,
       type: "to",
-      value: t("orderToEgypt"),
+      value: t("tabs.orderToEgypt"),
     },
     {
       icon: <Box />,
       type: "from",
-      value: t("receiveFromEgypt"),
+      value: t("tabs.receiveFromEgypt"),
     },
   ];
 
@@ -145,7 +145,7 @@ const Delivery = ({
   };
 
   return (
-    <SectionWrapper title={"Bring from Egypt or Send there? Easy!"} mt="60px">
+    <SectionWrapper title={t("sectionTitles.bringOrSend")} mt="60px">
       <TypeSwitcher
         currentType={type}
         setType={handleChangeType}
