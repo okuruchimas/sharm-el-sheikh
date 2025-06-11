@@ -61,6 +61,11 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
           },
           { setSubmitting, resetForm },
         ) => {
+          if (images && images.length > 4) {
+            setSubmitting(false);
+            return toast.error("Too much images");
+          }
+
           try {
             const formData = new FormData();
 
@@ -179,8 +184,7 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
                 color="white"
                 text={tCommon("buttons.save")}
                 type="submit"
-                disabled={true}
-                // disabled={isSubmitting}
+                disabled={isSubmitting}
               />
             </ButtonWrap>
           </FormWrap>

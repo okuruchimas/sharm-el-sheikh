@@ -104,6 +104,10 @@ const InputContainer = styled("div", {
       outline: "none",
       fontSize: theme.fontSize.fontS16,
 
+      [theme.breakpoints.mobile]: {
+        minWidth: "auto",
+      },
+
       ...(isLight
         ? {
             border: isErrorSpan
