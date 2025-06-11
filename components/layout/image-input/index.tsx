@@ -52,7 +52,7 @@ const MultiImageInput = ({ type, label, maxFiles = 4 }: Props) => {
         >
           {"+ " + t("buttons.download")}
         </UploadButton>
-        <Progress>{progress}</Progress>
+        <Progress isRed={field.value?.length > maxFiles}>{progress}</Progress>
       </TopRow>
 
       <HiddenInput
@@ -85,10 +85,10 @@ const TopRow = styled.div({
   gap: "16px",
 });
 
-const Progress = styled.div(({ theme }) => ({
+const Progress = styled.div<{ isRed?: boolean }>(({ theme, isRed }) => ({
   fontSize: theme.fontSize.fontS14,
   fontWeight: 500,
-  color: theme.colors.grey3,
+  color: isRed ? theme.colors.red : theme.colors.grey3,
 }));
 
 const InputWrap = styled.div({
@@ -135,27 +135,37 @@ const Gallery = styled.div({
   flexWrap: "wrap",
 });
 
-const PreviewBlock = styled.div({
+const PreviewBlock = styled.div(({ theme }) => ({
   position: "relative",
   width: "150px",
   borderRadius: "12px",
   overflow: "hidden",
   boxShadow: "0 0 4px rgba(0,0,0,0.15)",
-});
+  [theme.breakpoints.mobile]: {
+    width: "100%",
+    height: 200,
+  },
+}));
 
-const ImagePreview = styled("img")({
+const ImagePreview = styled("img")(({ theme }) => ({
   width: "100%",
   height: "100px",
   objectFit: "cover",
   borderTopLeftRadius: "12px",
   borderTopRightRadius: "12px",
-});
+  [theme.breakpoints.mobile]: {
+    height: 160,
+  },
+}));
 
 const FileName = styled("div")({
-  padding: "6px 8px",
+  padding: "6px 40px 6px 8px",
   fontSize: "14px",
   fontWeight: 500,
   backgroundColor: "#fff",
+  overflow: "hidden",
+  textWrap: "nowrap",
+  textOverflow: "ellipsis",
 });
 
 const DeleteIcon = styled.div({
