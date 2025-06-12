@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import { Title } from "../../../../layout/title";
+import { Title } from "../../../layout/title";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";

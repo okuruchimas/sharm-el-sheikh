@@ -12,7 +12,7 @@ import { useTranslation } from "next-i18next";
 // components
 import Map from "../../components/layout/map";
 import Modal from "../../components/layout/modal";
-import Banners from "../../components/sections/agents/delivery/children/banners";
+import Banners from "../../components/sections/agents/children/banners";
 import Delivery from "../../components/sections/agents/delivery";
 import GuidesCards from "../../components/sections/entertainers-tour-guides/tour-and-guides/cards";
 import SectionWrapper from "../../components/layout/section-wrapper";

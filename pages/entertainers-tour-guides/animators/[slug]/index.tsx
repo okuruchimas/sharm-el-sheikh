@@ -21,7 +21,6 @@ import SectionWrapper from "../../../../components/layout/section-wrapper";
 import SectionsWrapper from "../../../../components/layout/sections-wrapper";
 import AnimatorInfoSection from "../../../../components/sections/animator/animator-info-section";
 import AnimatorServicePopup from "../../../../components/sections/animator/animator-service-popup";
-import EntertainmentServiceCard from "../../../../components/sections/animator/children/entertainment-service-card";
 // constants
 import { REVALIDATE_TIME } from "../../../../constants/page.constants";
 // utils
@@ -32,6 +31,7 @@ import { getLocalizedPaths } from "../../../../utils/get-loocalized-paths";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // styles
 import "react-toastify/dist/ReactToastify.css";
+import UniversalCard from "../../../../components/layout/universal-card";
 
 interface Props {
   animator: Animator;
@@ -132,7 +132,7 @@ const AnimatorPage = ({
             <SuggestionsWrapper>
               {entertainmentServices?.map((el, index) =>
                 el ? (
-                  <EntertainmentServiceCard
+                  <UniversalCard
                     key={index}
                     title={el.serviceName}
                     price={el.price}

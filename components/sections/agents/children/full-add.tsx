@@ -1,12 +1,12 @@
-import Modal from "../../../../layout/modal";
-import TextAndIcon from "../../../../layout/text-and-icon";
+import Modal from "../../../layout/modal";
+import TextAndIcon from "../../../layout/text-and-icon";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import { Title } from "../../../../layout/title";
-import type { DeliveryFragment } from "../../../../../gql/graphql";
+import { Title } from "../../../layout/title";
+import type { DeliveryFragment } from "../../../../gql/graphql";
 import { SellerInfo } from "./seller-info";
 import { FlexContainer } from "./short-add";
-import Button from "../../../../layout/button";
+import Button from "../../../layout/button";
 import { useTranslation } from "next-i18next";
 
 interface Props {

@@ -2,15 +2,15 @@ import { Formik, Form } from "formik";
 import { toast, ToastContainer } from "react-toastify";
 import { useTranslation } from "next-i18next";
 // components
-import Input from "../../../../layout/input";
-import Button from "../../../../layout/button";
-import Loader from "../../../../layout/loader";
-import { Title } from "../../../../layout/title";
-import ImageInput from "../../../../layout/image-input";
-import CheckboxField from "../../../../layout/checkbox";
-import FormikDropdown from "../../../../layout/formik-select";
+import Input from "../../../layout/input";
+import Button from "../../../layout/button";
+import Loader from "../../../layout/loader";
+import { Title } from "../../../layout/title";
+import ImageInput from "../../../layout/image-input";
+import CheckboxField from "../../../layout/checkbox";
+import FormikDropdown from "../../../layout/formik-select";
 // utils
-import { getUrl } from "../../../../../utils/fetchApi";
+import { getUrl } from "../../../../utils/fetchApi";
 import styled from "@emotion/styled";
 
 interface IAdvertisementValues {

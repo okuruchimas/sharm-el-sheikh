@@ -3,9 +3,9 @@ import {
   BannerSubTitle,
   BannerTitle,
   BannerWrap,
-} from "../../../../layout/banner/banner";
+} from "../../../layout/banner/banner";
 import styled from "@emotion/styled";
-import Button from "../../../../layout/button";
+import Button from "../../../layout/button";
 import { useRouter } from "next/router";
 import { Trans, useTranslation } from "next-i18next";
 

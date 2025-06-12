@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import ShortAdd from "./short-add";
 import Image from "next/image";
-import type { DeliveryFragment } from "../../../../../gql/graphql";
+import type { DeliveryFragment } from "../../../../gql/graphql";
 import { AvatarWrap } from "./seller-info";
-import Loader from "../../../../layout/loader";
+import Loader from "../../../layout/loader";
 
 interface Props {
   deliveries: DeliveryFragment[];

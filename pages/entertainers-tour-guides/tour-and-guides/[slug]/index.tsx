@@ -22,7 +22,6 @@ import Placeholder from "../../../../components/sections/promotions/children/pla
 import SectionWrapper from "../../../../components/layout/section-wrapper";
 import SectionsWrapper from "../../../../components/layout/sections-wrapper";
 import WorkerInfoSection from "../../../../components/layout/worker-info";
-import EntertainmentServiceCard from "../../../../components/sections/animator/children/entertainment-service-card";
 // constants
 import { REVALIDATE_TIME } from "../../../../constants/page.constants";
 // utils
@@ -34,6 +33,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // styles
 import "react-toastify/dist/ReactToastify.css";
 import type { MapCard } from "../../../../components/layout/map/children/types";
+import UniversalCard from "../../../../components/layout/universal-card";
 
 interface TourGuidePageProps {
   tourGuide: TourGuideFragment;
@@ -149,7 +149,7 @@ const TourGuidePage = ({
               </Title>
               <CardsWrap>
                 {tours?.data.map((el) => (
-                  <EntertainmentServiceCard
+                  <UniversalCard
                     key={el.attributes?.name}
                     title={el?.attributes?.name || ""}
                     price={el?.attributes?.price || ""}

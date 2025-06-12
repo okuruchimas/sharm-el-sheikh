@@ -4,73 +4,65 @@ import Image from "../../components/layout/image";
 // utils
 import styled from "@emotion/styled";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import HotOffers from "../../components/sections/advertisements/hot";
+import All from "../../components/sections/advertisements/all";
+import New from "../../components/sections/advertisements/new";
+import CreateAddForm from "../../components/sections/advertisements/children/adv-form";
+import { useState } from "react";
+import SectionWrapper from "../../components/layout/section-wrapper";
+import { handle } from "mdast-util-to-markdown/lib/handle";
+import SectionsWrapper from "../../components/layout/sections-wrapper";
 
-const Advertisement = () => {
+const Advertisements = () => {
+  const [isForm, setIsForm] = useState<boolean>(false);
   const { t } = useTranslation("common");
-
+  const handleClick = () => {
+    setIsForm((prev) => !prev);
+  };
   return (
-    <Wrapper>
-      <Image
-        width="300px"
-        height="120px"
-        alt="placeholder image"
-        src="/images/background/background-prom.svg"
-        priority
-      />
-      <h1>
-        {t("comingSoon")}
-        <span />
-      </h1>
+    <Wrapper
+      url="/images/background/background-gradient.svg"
+      mobUrl="/images/background/mobile-background-gradient.svg"
+    >
+      <HotOffers />
+
+      <SectionWrapper
+        title={"Check New Ads"}
+        buttonText={"Add Advertisement"}
+        onClick={handleClick}
+      >
+        <New />
+      </SectionWrapper>
+
+      <SectionWrapper title={"All Advertisements"}>
+        <All buttonClick={handleClick} />
+      </SectionWrapper>
+
+      {isForm ? <CreateAddForm cancelClick={handleClick} /> : null}
     </Wrapper>
   );
 };
-export default Advertisement;
+export default Advertisements;
 
 export async function getStaticProps({ locale }: any) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common"])),
+      ...(await serverSideTranslations(locale, ["common", "agents"])),
     },
   };
 }
 
-const Wrapper = styled("div")(({ theme }) => ({
+const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  gap: "20px",
+  gap: "80px",
   alignItems: "center",
   justifyContent: "center",
 
-  height: "calc(100vh - 55px)",
+  paddingTop: "242px",
 
-  "@keyframes dots": {
-    "10%": {
-      content: '"."',
-    },
-    "40%": {
-      content: '".."',
-    },
-    "60%": {
-      content: '"..."',
-    },
-    "100%": {
-      content: '""',
-    },
-  },
-
-  h1: {
-    margin: "0 auto",
-    color: theme.colors.blue,
-    textAlign: "center",
-    maxWidth: "80%",
-    span: {
-      display: "inline-block",
-      height: 18,
-      width: 1,
-      "&::before": {
-        animation: "dots 2s linear infinite",
-        content: '""',
-      },
-    },
+  [theme.breakpoints.mobile]: {
+    paddingTop: "120px",
+    gap: "32px",
   },
 }));
