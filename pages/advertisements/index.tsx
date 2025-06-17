@@ -1,6 +1,5 @@
 import { useTranslation } from "next-i18next";
 // components
-import Image from "../../components/layout/image";
 // utils
 import styled from "@emotion/styled";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -10,10 +9,15 @@ import New from "../../components/sections/advertisements/new";
 import CreateAddForm from "../../components/sections/advertisements/children/adv-form";
 import { useState } from "react";
 import SectionWrapper from "../../components/layout/section-wrapper";
-import { handle } from "mdast-util-to-markdown/lib/handle";
 import SectionsWrapper from "../../components/layout/sections-wrapper";
+import { fetchData } from "../../utils/fetchApi";
+import { DeliveryFragment, GetDeliveriesDocument } from "../../gql/graphql";
 
-const Advertisements = () => {
+export interface IAdvertisements {
+  advertisements: DeliveryFragment[];
+}
+
+const Advertisements = ({ advertisements }: IAdvertisements) => {
   const [isForm, setIsForm] = useState<boolean>(false);
   const { t } = useTranslation("common");
   const handleClick = () => {
@@ -31,11 +35,11 @@ const Advertisements = () => {
         buttonText={"Add Advertisement"}
         onClick={handleClick}
       >
-        <New />
+        <New advertisements={advertisements} />
       </SectionWrapper>
 
       <SectionWrapper title={"All Advertisements"}>
-        <All buttonClick={handleClick} />
+        <All advertisements={advertisements} buttonClick={handleClick} />
       </SectionWrapper>
 
       {isForm ? <CreateAddForm cancelClick={handleClick} /> : null}
@@ -45,8 +49,15 @@ const Advertisements = () => {
 export default Advertisements;
 
 export async function getStaticProps({ locale }: any) {
+  const { deliveries } = await fetchData(GetDeliveriesDocument, {
+    page: 1,
+    pageSize: 4,
+    publicationType: "to",
+  });
+
   return {
     props: {
+      advertisements: deliveries?.data?.map((el) => el.attributes),
       ...(await serverSideTranslations(locale, ["common", "agents"])),
     },
   };

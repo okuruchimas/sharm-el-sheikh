@@ -30,14 +30,31 @@ const UniversalCard = ({
       <DownWrap>
         <CardTitle>{title}</CardTitle>
         <Down>
-          <TextAndIcon src="/icons/time.svg" text={duration || ""} />
-          <TextAndIcon src="/icons/cash.svg" text={price || ""} />
           <TextAndIcon
+            fontSize="18px"
+            iconSize="30px"
+            src="/icons/time.svg"
+            text={duration || ""}
+          />
+          <TextAndIcon
+            fontSize="18px"
+            iconSize="30px"
+            src="/icons/cash.svg"
+            text={price || ""}
+          />
+          <TextAndIcon
+            fontSize="18px"
+            iconSize="30px"
             src="/icons/promotions-section/location.svg"
             text={place || ""}
           />
           {groupSize ? (
-            <TextAndIcon src="/icons/team.svg" text={groupSize} />
+            <TextAndIcon
+              fontSize="18px"
+              iconSize="30px"
+              src="/icons/team.svg"
+              text={groupSize}
+            />
           ) : null}
         </Down>
       </DownWrap>
@@ -65,9 +82,11 @@ const Wrap = styled("div")(({ theme }) => ({
   boxShadow: theme.shadows[0],
   backgroundColor: theme.colors.white,
   borderRadius: "16px",
+  minWidth: "404px",
 
   [theme.breakpoints.mobile]: {
     height: "364px",
+    minWidth: "344px",
   },
 }));
 
