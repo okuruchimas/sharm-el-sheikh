@@ -218,14 +218,13 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, locale }: any) {
   const { slug } = params;
 
-  const { animators } = await fetchData(GetAnimatorBySlugDocument, {
+  const animatorPromise = fetchData(GetAnimatorBySlugDocument, {
     slug,
     locale,
   });
 
-  const { animators: suggestions } = await fetchData(
-    GetAnimatorsByFilterDocument,
-    {
+  const suggestionsPromise = animatorPromise.then(({ animators }) =>
+    fetchData(GetAnimatorsByFilterDocument, {
       locale,
       page: 1,
       pageSize: 4,
@@ -234,8 +233,13 @@ export async function getStaticProps({ params, locale }: any) {
         animators?.data[0].attributes?.animation_company?.data?.attributes
           ?.slug || undefined,
       slugToExclude: slug,
-    },
+    }),
   );
+
+  const [{ animators }, { animators: suggestions }] = await Promise.all([
+    animatorPromise,
+    suggestionsPromise,
+  ]);
 
   return {
     props: {

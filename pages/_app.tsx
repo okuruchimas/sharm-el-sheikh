@@ -32,14 +32,17 @@ MyApp.getInitialProps = async (ctx: any) => {
   const appProps = await App.getInitialProps(ctx);
 
   const locale = ctx.ctx.locale || "en";
-  const headerData = await fetchData(GetHeaderDocument, { locale });
-  const footerData = await fetchData(GetFooterDocument, { locale });
+
+  const [{ header: headerData }, { footer: footerData }] = await Promise.all([
+    fetchData(GetHeaderDocument, { locale }),
+    fetchData(GetFooterDocument, { locale }),
+  ]);
 
   return {
     ...appProps,
     pageProps: {
-      headerData: headerData.header?.data?.attributes,
-      footerData: footerData.footer?.data?.attributes,
+      headerData: headerData?.data?.attributes,
+      footerData: footerData?.data?.attributes,
     },
     revalidate: REVALIDATE_TIME,
   };

@@ -252,7 +252,7 @@ export async function getStaticProps({ params, locale }: any) {
   const { slug: slugP } = params;
   const { companies } = await fetchData(GetCompanyDocument, {
     slug: slugP,
-    locale: locale,
+    locale,
   });
   const category =
     companies?.data[0].attributes?.categories?.data[0]?.attributes?.key || "";

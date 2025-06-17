@@ -108,22 +108,20 @@ const Agents = ({
 export default Agents;
 
 export async function getStaticProps({ locale }: any) {
-  const { tourGuides } = await fetchData(GetTourGuidesByFiltersDocument, {
-    locale,
-    page: 1,
-    pageSize: 4,
-  });
-
-  const { tourOperatorCompanies } = await fetchData(
-    GetTourOperatorCompaniesDocument,
-    { locale },
-  );
-
-  const { deliveries } = await fetchData(GetDeliveriesDocument, {
-    page: 1,
-    pageSize: 4,
-    publicationType: "to",
-  });
+  const [{ tourGuides }, { tourOperatorCompanies }, { deliveries }] =
+    await Promise.all([
+      fetchData(GetTourGuidesByFiltersDocument, {
+        locale,
+        page: 1,
+        pageSize: 4,
+      }),
+      fetchData(GetTourOperatorCompaniesDocument, { locale }),
+      fetchData(GetDeliveriesDocument, {
+        page: 1,
+        pageSize: 4,
+        publicationType: "to",
+      }),
+    ]);
 
   return {
     props: {

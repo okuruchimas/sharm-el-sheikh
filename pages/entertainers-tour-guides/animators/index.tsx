@@ -3,6 +3,9 @@ import {
   GetAnimationCompaniesDocument,
   type AnimatorPreviewFragment,
   type AnimationCompanyFragment,
+  GetTourGuidesByFiltersDocument,
+  GetTourOperatorCompaniesDocument,
+  GetDeliveriesDocument,
 } from "../../../gql/graphql";
 // constants
 import { REVALIDATE_TIME } from "../../../constants/page.constants";
@@ -311,13 +314,12 @@ const FiltersWrap = styled("div")(({ theme }) => ({
 }));
 
 export async function getStaticProps({ locale }: any) {
-  const { animationCompanies } = await fetchData(
-    GetAnimationCompaniesDocument,
-    { locale },
-  );
-  const { animators } = await fetchData(GetAnimatorsByFilterDocument, {
-    locale,
-  });
+  const [{ animationCompanies }, { animators }] = await Promise.all([
+    fetchData(GetAnimationCompaniesDocument, { locale }),
+    fetchData(GetAnimatorsByFilterDocument, {
+      locale,
+    }),
+  ]);
 
   return {
     props: {

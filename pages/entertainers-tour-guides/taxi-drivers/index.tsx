@@ -299,14 +299,17 @@ const StatusesWrap = styled("div")(({ theme }) => ({
 }));
 
 export async function getStaticProps({ locale }: any) {
-  const { languages } = await fetchData(GetLanguagesDocument, { locale });
-  const { carClasses } = await fetchData(GetCarClassesDocument, { locale });
-  const { taxiSpots } = await fetchData(GetTaxiSpotsDocument, { locale });
-  const { taxiDrivers } = await fetchData(GetDriversByFiltersDocument, {
-    locale,
-    page: 1,
-    pageSize: 4,
-  });
+  const [{ languages }, { carClasses }, { taxiSpots }, { taxiDrivers }] =
+    await Promise.all([
+      fetchData(GetLanguagesDocument, { locale }),
+      fetchData(GetCarClassesDocument, { locale }),
+      fetchData(GetTaxiSpotsDocument, { locale }),
+      fetchData(GetDriversByFiltersDocument, {
+        locale,
+        page: 1,
+        pageSize: 4,
+      }),
+    ]);
 
   return {
     props: {
