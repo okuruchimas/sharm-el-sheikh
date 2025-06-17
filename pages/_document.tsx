@@ -25,6 +25,10 @@ const Document = () => {
           sizes="16x16"
           href="/icons/favicon/favicon-16x16.svg"
         />
+        <meta
+          name="google-site-verification"
+          content="f7HcZSyaucjIeystLdWIZ0zO4v45MQArSp6M3ZvYKVM"
+        />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
 
