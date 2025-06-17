@@ -38,7 +38,10 @@ const Document = () => {
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.go-go.live" />
-        <meta property="og:image" content="/images/business-card.webp" />
+        <meta
+          property="og:image"
+          content="https://www.go-go.live/images/business-card.png"
+        />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta
@@ -49,7 +52,10 @@ const Document = () => {
           name="twitter:description"
           content="Helping travelers find top places to eat, relax, and explore in Sharm El Sheikh."
         />
-        <meta name="twitter:image" content="/images/business-card.webp" />
+        <meta
+          name="twitter:image"
+          content="https://www.go-go.live/images/business-card.png"
+        />
 
         <link rel="canonical" href="https://www.go-go.live" />
       </Head>
