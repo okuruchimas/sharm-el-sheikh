@@ -1,5 +1,6 @@
+import "swiper/css";
+import "swiper/css/pagination";
 import { useTranslation } from "next-i18next";
-// components
 // utils
 import styled from "@emotion/styled";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";

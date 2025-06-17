@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
 import OfferCard from "./card";
+import { SwiperWrapper } from "../new";
+import { SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import useResponsive from "../../../../hooks/useResponsive";
 
 const TEXTS = [
   "Hot Offers",
@@ -38,6 +42,9 @@ const offerCardsData = [
 ];
 
 const Hot = () => {
+  const { isMobile } = useResponsive();
+  const slidesPerView = isMobile ? 1 : 2;
+
   return (
     <Wrapper>
       <MarqueeWrapper>
@@ -48,9 +55,23 @@ const Hot = () => {
         </TextTrack>
       </MarqueeWrapper>
       <CardsWrapper>
-        {offerCardsData.map((item, i) => (
-          <OfferCard key={i} {...item} />
-        ))}
+        <SwiperWrapper
+          modules={[Pagination]}
+          slidesPerView={slidesPerView}
+          isSingleCard={false}
+          spaceBetween={12}
+          navigation={false}
+          pagination={{
+            clickable: true,
+          }}
+          loop
+        >
+          {offerCardsData.map((item, i) => (
+            <SwiperSlide key={i}>
+              <OfferCard {...item} />
+            </SwiperSlide>
+          ))}
+        </SwiperWrapper>
       </CardsWrapper>
     </Wrapper>
   );

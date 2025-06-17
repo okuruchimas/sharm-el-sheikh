@@ -119,14 +119,14 @@ const InputWrapper = styled("div")(({ theme }) => ({
 
 const SearchButton = styled("button")(({ theme }) => ({
   position: "absolute",
-  left: "4px",
+  left: "16px",
   width: "40px",
   height: "40px",
   zIndex: 1,
   cursor: "pointer",
   display: "flex",
   alignItems: "center",
-  justifyContent: "center",
+  justifyContent: "flex-start",
   backgroundColor: "unset",
   border: "none",
   borderRadius: "50%",

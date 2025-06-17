@@ -1,5 +1,3 @@
-import "swiper/css";
-import "swiper/css/pagination";
 import styled from "@emotion/styled";
 import UniversalCard from "../../../layout/universal-card";
 import { DeliveryFragment } from "../../../../gql/graphql";
@@ -55,7 +53,7 @@ const Wrapper = styled("div")(({ theme }) => ({
   gap: 16,
 }));
 
-const SwiperWrapper = styled(Swiper, {
+export const SwiperWrapper = styled(Swiper, {
   shouldForwardProp: (prop) => prop !== "isSingleCard",
 })<{ isSingleCard: boolean }>(({ theme, isSingleCard }) => ({
   width: "100%",
@@ -68,12 +66,10 @@ const SwiperWrapper = styled(Swiper, {
 
   ".swiper-wrapper": {
     alignItems: "center",
-    [theme.breakpoints.mobile]: {},
   },
 
   ".swiper-slide": {
     alignContent: "center",
-    [theme.breakpoints.mobile]: {},
   },
 
   ".swiper-pagination-bullets": {
@@ -96,17 +92,5 @@ const SwiperWrapper = styled(Swiper, {
 
   ".swiper-pagination-bullet-active": {
     background: theme.colors.yellow,
-  },
-
-  ".swiper-slide-prev": {
-    [theme.breakpoints.mobile]: {},
-  },
-
-  ".swiper-slide-active": {
-    [theme.breakpoints.mobile]: {},
-  },
-
-  ".swiper-slide-next": {
-    [theme.breakpoints.mobile]: {},
   },
 }));

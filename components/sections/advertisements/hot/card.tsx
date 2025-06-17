@@ -60,14 +60,20 @@ const Card = styled.div(({ theme }) => ({
   borderRadius: 16,
   overflow: "hidden",
   background: theme.colors.white,
-  boxShadow: theme.shadows[0],
+  border: "1px solid",
+  borderColor: theme.colors.yellow,
   display: "flex",
   flexDirection: "row",
   padding: "16px",
   gap: 16,
+
+  [theme.breakpoints.mobile]: {
+    flexDirection: "column",
+    padding: "12px",
+  },
 }));
 
-const ImageWrap = styled.div({
+const ImageWrap = styled.div(({ theme }) => ({
   position: "relative",
   width: 268,
   height: 298,
@@ -75,7 +81,11 @@ const ImageWrap = styled.div({
   img: {
     borderRadius: 16,
   },
-});
+  [theme.breakpoints.mobile]: {
+    width: "100%",
+    height: 220,
+  },
+}));
 
 const VipStar = styled.div(({ theme }) => ({
   position: "absolute",
