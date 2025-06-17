@@ -109,21 +109,24 @@ const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
 }));
 
 export async function getStaticProps({ locale }: any) {
-  const { hotspotsPage } = await fetchData(GetHotspotsPageDocument, { locale });
   const commonParams = {
     locale,
     page: 1,
     pageSize: 3,
   };
-  const { eventCards } = await fetchData(GetEventCardsDocument, commonParams);
   const { dayOfWeek } = getCurrentDayAndTime();
 
-  const { companies } = await fetchData(GetCompaniesByFilterDocument, {
-    ...commonParams,
-    day: dayOfWeek,
-    category: CLUBS,
-  });
-  const { categories } = await fetchData(GetCategoriesDocument, { locale });
+  const [{ hotspotsPage }, { eventCards }, { companies }, { categories }] =
+    await Promise.all([
+      fetchData(GetHotspotsPageDocument, { locale }),
+      fetchData(GetEventCardsDocument, commonParams),
+      fetchData(GetCompaniesByFilterDocument, {
+        ...commonParams,
+        day: dayOfWeek,
+        category: CLUBS,
+      }),
+      fetchData(GetCategoriesDocument, { locale }),
+    ]);
 
   return {
     props: {

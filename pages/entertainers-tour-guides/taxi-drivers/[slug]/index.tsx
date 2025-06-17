@@ -183,14 +183,9 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, locale }: any) {
   const { slug } = params;
 
-  const { taxiDrivers } = await fetchData(GetDriverBySlugDocument, {
-    slug,
-    locale,
-  });
-
-  const { taxiDrivers: suggestions } = await fetchData(
-    GetDriversByFiltersDocument,
-    {
+  const driverPromise = fetchData(GetDriverBySlugDocument, { slug, locale });
+  const suggestionsPromise = driverPromise.then(({ taxiDrivers }) =>
+    fetchData(GetDriversByFiltersDocument, {
       locale,
       page: 1,
       pageSize: 4,
@@ -199,8 +194,13 @@ export async function getStaticProps({ params, locale }: any) {
         taxiDrivers?.data[0].attributes?.car_class?.data?.attributes?.key || "",
       ],
       slugToExclude: slug,
-    },
+    }),
   );
+
+  const [{ taxiDrivers }, { taxiDrivers: suggestions }] = await Promise.all([
+    driverPromise,
+    suggestionsPromise,
+  ]);
 
   return {
     props: {

@@ -4,6 +4,9 @@ import {
   GetPhotographersByFiltersDocument,
   type PhotographyLocation,
   type PhotographerFragment,
+  GetTourGuidesByFiltersDocument,
+  GetTourOperatorCompaniesDocument,
+  GetDeliveriesDocument,
 } from "../../../gql/graphql";
 // hooks
 import useResponsive from "../../../hooks/useResponsive";
@@ -270,22 +273,20 @@ const FiltersWrap = styled("div")({
 });
 
 export async function getStaticProps({ locale }: any) {
-  const { photographers } = await fetchData(GetPhotographersByFiltersDocument, {
-    locale,
-    page: 1,
-    pageSize: 4,
-  });
-
-  const { photographyStyles } = await fetchData(GetPhotographyStylesDocument, {
-    locale,
-  });
-
-  const { photographyLocations } = await fetchData(
-    GetPhotographyLocationsDocument,
-    {
-      locale,
-    },
-  );
+  const [{ photographers }, { photographyStyles }, { photographyLocations }] =
+    await Promise.all([
+      fetchData(GetPhotographersByFiltersDocument, {
+        locale,
+        page: 1,
+        pageSize: 4,
+      }),
+      fetchData(GetPhotographyStylesDocument, {
+        locale,
+      }),
+      fetchData(GetPhotographyLocationsDocument, {
+        locale,
+      }),
+    ]);
 
   return {
     props: {

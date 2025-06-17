@@ -208,15 +208,15 @@ const FiltersWrap = styled("div")(({ theme }) => ({
 }));
 
 export async function getStaticProps({ locale }: any) {
-  const { tourGuides } = await fetchData(GetTourGuidesByFiltersDocument, {
-    locale,
-    page: 1,
-    pageSize: 6,
-  });
-  const { tours } = await fetchData(GetToursDocument, { locale });
-  const { tourCategories } = await fetchData(GetTourCategoriesDocument, {
-    locale,
-  });
+  const [{ tourGuides }, { tours }, { tourCategories }] = await Promise.all([
+    fetchData(GetTourGuidesByFiltersDocument, {
+      locale,
+      page: 1,
+      pageSize: 6,
+    }),
+    fetchData(GetToursDocument, { locale }),
+    fetchData(GetTourCategoriesDocument, { locale }),
+  ]);
 
   return {
     props: {

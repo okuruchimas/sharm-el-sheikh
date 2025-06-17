@@ -236,21 +236,24 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, locale }: any) {
   const { slug } = params;
 
-  const { tourGuides } = await fetchData(GetTourGuideBySlugDocument, {
+  const tourGuidePromise = fetchData(GetTourGuideBySlugDocument, {
     slug,
     locale,
   });
-
-  const { tourGuides: suggestions } = await fetchData(
-    GetTourGuidesByFiltersDocument,
-    {
+  const suggestionsPromise = tourGuidePromise.then(({ tourGuides }) =>
+    fetchData(GetTourGuidesByFiltersDocument, {
       locale,
       page: 1,
       pageSize: 4,
       sort: ["averageRating:desc"],
       slugToExclude: slug,
-    },
+    }),
   );
+
+  const [{ tourGuides }, { tourGuides: suggestions }] = await Promise.all([
+    tourGuidePromise,
+    suggestionsPromise,
+  ]);
 
   return {
     props: {

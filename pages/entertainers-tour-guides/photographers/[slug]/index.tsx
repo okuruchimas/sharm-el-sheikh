@@ -173,20 +173,23 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, locale }: any) {
   const { slug } = params;
 
-  const { photographers } = await fetchData(GetPhotographerBySlugDocument, {
+  const photographerPromise = fetchData(GetPhotographerBySlugDocument, {
     slug,
     locale,
   });
 
-  const { photographers: suggestions } = await fetchData(
-    GetPhotographersByFiltersDocument,
-    {
+  const suggestionsPromise = photographerPromise.then(({ photographers }) =>
+    fetchData(GetPhotographersByFiltersDocument, {
       locale,
       page: 1,
       pageSize: 4,
       sort: ["averageRating:desc"],
       slugToExclude: slug,
-    },
+    }),
+  );
+
+  const [{ photographers }, { photographers: suggestions }] = await Promise.all(
+    [photographerPromise, suggestionsPromise],
   );
 
   return {
