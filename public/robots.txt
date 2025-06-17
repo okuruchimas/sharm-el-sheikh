@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.go-go.live
+
+# Sitemaps
+Sitemap: https://www.go-go.live/sitemap.xml
