@@ -25,16 +25,14 @@ const Document = () => {
           sizes="16x16"
           href="/icons/favicon/favicon-16x16.svg"
         />
-        <meta
-          name="google-site-verification"
-          content="f7HcZSyaucjIeystLdWIZ0zO4v45MQArSp6M3ZvYKVM"
-        />
+        <link rel="canonical" href="https://www.go-go.live" />
+
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
 
         <meta
           property="og:title"
-          content="Sharm Explorer – Discover the Best of Sharm El Sheikh"
+          content="Discover the Best of Sharm El Sheikh"
         />
         <meta
           property="og:description"
@@ -50,7 +48,7 @@ const Document = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Sharm Explorer – Discover the Best of Sharm El Sheikh"
+          content="Discover the Best of Sharm El Sheikh"
         />
         <meta
           name="twitter:description"
@@ -61,7 +59,10 @@ const Document = () => {
           content="https://www.go-go.live/images/business-card.png"
         />
 
-        <link rel="canonical" href="https://www.go-go.live" />
+        <meta
+          name="google-site-verification"
+          content="f7HcZSyaucjIeystLdWIZ0zO4v45MQArSp6M3ZvYKVM"
+        />
       </Head>
       <body>
         <Main />
