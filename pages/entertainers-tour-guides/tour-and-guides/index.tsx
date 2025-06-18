@@ -31,6 +31,7 @@ import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 import type { MapCard } from "../../../components/layout/map/children/types";
 import type { selectOption } from "../../../components/types/filter";
 import { mapCategory } from "../../../utils/mappers";
+import { getLayoutData } from "../../../utils/get-layout-data";
 
 type TourGuides = { attributes: TourGuideFragment }[];
 type TourAndGuidesProps = {
@@ -203,7 +204,14 @@ const FiltersWrap = styled("div")(({ theme }) => ({
 }));
 
 export async function getStaticProps({ locale }: any) {
-  const [{ tourGuides }, { tours }, { tourCategories }] = await Promise.all([
+  const layoutDataPromise = getLayoutData(locale);
+
+  const [
+    { tourGuides },
+    { tours },
+    { tourCategories },
+    { headerData, footerData },
+  ] = await Promise.all([
     fetchData(GetTourGuidesByFiltersDocument, {
       locale,
       page: 1,
@@ -211,6 +219,7 @@ export async function getStaticProps({ locale }: any) {
     }),
     fetchData(GetToursDocument, { locale }),
     fetchData(GetTourCategoriesDocument, { locale }),
+    layoutDataPromise,
   ]);
 
   return {
@@ -219,6 +228,8 @@ export async function getStaticProps({ locale }: any) {
       initialTotal: tourGuides?.meta.pagination.total || 0,
       tours: tours?.data,
       tourCategories: tourCategories?.data,
+      headerData,
+      footerData,
       ...(await serverSideTranslations(locale, [
         "company-page",
         "common",

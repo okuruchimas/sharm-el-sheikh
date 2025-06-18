@@ -4,6 +4,7 @@ import Image from "../components/layout/image";
 // utils
 import styled from "@emotion/styled";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { getLayoutData } from "../utils/get-layout-data";
 
 const NotFoundPage = () => {
   const { t } = useTranslation("common");
@@ -24,12 +25,16 @@ const NotFoundPage = () => {
 export default NotFoundPage;
 
 export async function getStaticProps({ locale }: any) {
+  const { headerData, footerData } = await getLayoutData(locale);
+
   return {
     props: {
       ...(await serverSideTranslations(locale, [
         "common",
         "entertainers-tour-guides",
       ])),
+      headerData,
+      footerData,
     },
   };
 }

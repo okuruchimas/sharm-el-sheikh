@@ -26,6 +26,7 @@ import { fetchData } from "../../utils/fetchApi";
 import { getCurrentDayAndTime } from "../../utils/formateDate";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { mapCategory } from "../../utils/mappers";
+import { getLayoutData } from "../../utils/get-layout-data";
 
 type HotspotsPageProps = {
   totalEvents: number;
@@ -110,17 +111,24 @@ export async function getStaticProps({ locale }: any) {
   };
   const { dayOfWeek } = getCurrentDayAndTime();
 
-  const [{ hotspotsPage }, { eventCards }, { companies }, { categories }] =
-    await Promise.all([
-      fetchData(GetHotspotsPageDocument, { locale }),
-      fetchData(GetEventCardsDocument, commonParams),
-      fetchData(GetCompaniesByFilterDocument, {
-        ...commonParams,
-        day: dayOfWeek,
-        category: CLUBS,
-      }),
-      fetchData(GetCategoriesDocument, { locale }),
-    ]);
+  const layoutDataPromise = getLayoutData(locale);
+  const [
+    { hotspotsPage },
+    { eventCards },
+    { companies },
+    { categories },
+    { headerData, footerData },
+  ] = await Promise.all([
+    fetchData(GetHotspotsPageDocument, { locale }),
+    fetchData(GetEventCardsDocument, commonParams),
+    fetchData(GetCompaniesByFilterDocument, {
+      ...commonParams,
+      day: dayOfWeek,
+      category: CLUBS,
+    }),
+    fetchData(GetCategoriesDocument, { locale }),
+    layoutDataPromise,
+  ]);
 
   return {
     props: {
@@ -131,6 +139,8 @@ export async function getStaticProps({ locale }: any) {
       totalEvents: eventCards?.meta.pagination.total || 0,
       initialClubs: companies?.data,
       totalClubs: companies?.meta.pagination.total || 0,
+      headerData,
+      footerData,
     },
     revalidate: REVALIDATE_TIME,
   };

@@ -27,6 +27,7 @@ import {
   type CompanyPreviewFragment,
 } from "../gql/graphql";
 import { mapCategory } from "../utils/mappers";
+import { getLayoutData } from "../utils/get-layout-data";
 
 const DynamicBanner = dynamic(
   () => import("../components/sections/home/banner"),
@@ -149,14 +150,21 @@ export async function getStaticProps({ locale }: any) {
       discountFilter: { title: { ne: null } },
     }),
   );
+  const layoutDataPromise = getLayoutData(locale);
 
-  const [{ home }, { areas }, { categories }, { companies }] =
-    await Promise.all([
-      fetchData(GetHomePageDocument, { locale }),
-      areasPromise,
-      fetchData(GetCategoriesDocument, { locale }),
-      companiesPromise,
-    ]);
+  const [
+    { home },
+    { areas },
+    { categories },
+    { companies },
+    { headerData, footerData },
+  ] = await Promise.all([
+    fetchData(GetHomePageDocument, { locale }),
+    areasPromise,
+    fetchData(GetCategoriesDocument, { locale }),
+    companiesPromise,
+    layoutDataPromise,
+  ]);
 
   return {
     props: {
@@ -170,6 +178,8 @@ export async function getStaticProps({ locale }: any) {
       homePageData: home?.data?.attributes,
       initialPromotions: companies?.data,
       totalInitialPromotions: companies?.meta.pagination.total || 0,
+      headerData,
+      footerData,
     },
     revalidate: REVALIDATE_TIME,
   };
