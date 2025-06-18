@@ -26,6 +26,7 @@ import { getLocalizedPaths } from "../../../../utils/get-loocalized-paths";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // styles
 import "react-toastify/dist/ReactToastify.css";
+import { getLayoutData } from "../../../../utils/get-layout-data";
 
 interface PhotographerPageProps {
   photographer: PhotographerFragment;
@@ -172,6 +173,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params, locale }: any) {
   const { slug } = params;
+  const layoutDataPromise = getLayoutData(locale);
 
   const photographerPromise = fetchData(GetPhotographerBySlugDocument, {
     slug,
@@ -188,9 +190,15 @@ export async function getStaticProps({ params, locale }: any) {
     }),
   );
 
-  const [{ photographers }, { photographers: suggestions }] = await Promise.all(
-    [photographerPromise, suggestionsPromise],
-  );
+  const [
+    { photographers },
+    { photographers: suggestions },
+    { headerData, footerData },
+  ] = await Promise.all([
+    photographerPromise,
+    suggestionsPromise,
+    layoutDataPromise,
+  ]);
 
   return {
     props: {
@@ -200,6 +208,8 @@ export async function getStaticProps({ params, locale }: any) {
       ])),
       photographer: photographers?.data[0].attributes,
       similarSuggestions: suggestions?.data,
+      headerData,
+      footerData,
     },
     revalidate: REVALIDATE_TIME,
   };

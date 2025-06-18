@@ -32,6 +32,7 @@ import { getLocalizedPaths } from "../../../../utils/get-loocalized-paths";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // styles
 import "react-toastify/dist/ReactToastify.css";
+import { getLayoutData } from "../../../../utils/get-layout-data";
 
 interface Props {
   animator: Animator;
@@ -217,6 +218,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params, locale }: any) {
   const { slug } = params;
+  const layoutDataPromise = getLayoutData(locale);
 
   const animatorPromise = fetchData(GetAnimatorBySlugDocument, {
     slug,
@@ -236,9 +238,14 @@ export async function getStaticProps({ params, locale }: any) {
     }),
   );
 
-  const [{ animators }, { animators: suggestions }] = await Promise.all([
+  const [
+    { animators },
+    { animators: suggestions },
+    { headerData, footerData },
+  ] = await Promise.all([
     animatorPromise,
     suggestionsPromise,
+    layoutDataPromise,
   ]);
 
   return {
@@ -246,6 +253,8 @@ export async function getStaticProps({ params, locale }: any) {
       ...(await serverSideTranslations(locale, ["animator", "common"])),
       animator: animators?.data[0].attributes,
       similarSuggestions: suggestions?.data,
+      headerData,
+      footerData,
     },
     revalidate: REVALIDATE_TIME,
   };

@@ -39,6 +39,7 @@ import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 // types
 import type { selectOption } from "../../../components/types/filter";
 import type { MapCard } from "../../../components/layout/map/children/types";
+import { getLayoutData } from "../../../utils/get-layout-data";
 
 type Drivers = { attributes: TaxiDriverPreviewFragment }[];
 
@@ -299,17 +300,24 @@ const StatusesWrap = styled("div")(({ theme }) => ({
 }));
 
 export async function getStaticProps({ locale }: any) {
-  const [{ languages }, { carClasses }, { taxiSpots }, { taxiDrivers }] =
-    await Promise.all([
-      fetchData(GetLanguagesDocument, { locale }),
-      fetchData(GetCarClassesDocument, { locale }),
-      fetchData(GetTaxiSpotsDocument, { locale }),
-      fetchData(GetDriversByFiltersDocument, {
-        locale,
-        page: 1,
-        pageSize: 4,
-      }),
-    ]);
+  const layoutDataPromise = getLayoutData(locale);
+  const [
+    { languages },
+    { carClasses },
+    { taxiSpots },
+    { taxiDrivers },
+    { headerData, footerData },
+  ] = await Promise.all([
+    fetchData(GetLanguagesDocument, { locale }),
+    fetchData(GetCarClassesDocument, { locale }),
+    fetchData(GetTaxiSpotsDocument, { locale }),
+    fetchData(GetDriversByFiltersDocument, {
+      locale,
+      page: 1,
+      pageSize: 4,
+    }),
+    layoutDataPromise,
+  ]);
 
   return {
     props: {
@@ -318,6 +326,8 @@ export async function getStaticProps({ locale }: any) {
       taxiSpots: taxiSpots?.data,
       initialDrivers: taxiDrivers?.data,
       initialTotalDrivers: taxiDrivers?.meta.pagination.total,
+      headerData,
+      footerData,
       ...(await serverSideTranslations(locale, [
         "driver",
         "common",

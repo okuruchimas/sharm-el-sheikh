@@ -37,6 +37,7 @@ import type { MapCard } from "../../../components/layout/map/children/types";
 import type { selectOption } from "../../../components/types/filter";
 import { useLoadScript } from "@react-google-maps/api";
 import { Library } from "@googlemaps/js-api-loader";
+import { getLayoutData } from "../../../utils/get-layout-data";
 
 type Animators = { attributes: AnimatorPreviewFragment }[];
 type PageProps = {
@@ -314,12 +315,16 @@ const FiltersWrap = styled("div")(({ theme }) => ({
 }));
 
 export async function getStaticProps({ locale }: any) {
-  const [{ animationCompanies }, { animators }] = await Promise.all([
-    fetchData(GetAnimationCompaniesDocument, { locale }),
-    fetchData(GetAnimatorsByFilterDocument, {
-      locale,
-    }),
-  ]);
+  const layoutDataPromise = getLayoutData(locale);
+
+  const [{ animationCompanies }, { animators }, { headerData, footerData }] =
+    await Promise.all([
+      fetchData(GetAnimationCompaniesDocument, { locale }),
+      fetchData(GetAnimatorsByFilterDocument, {
+        locale,
+      }),
+      layoutDataPromise,
+    ]);
 
   return {
     props: {
@@ -330,6 +335,8 @@ export async function getStaticProps({ locale }: any) {
       animators: animators?.data,
       initialTotalAnimators: animators?.meta.pagination.total,
       animationCompanies: animationCompanies?.data,
+      footerData,
+      headerData,
     },
     revalidate: REVALIDATE_TIME,
   };

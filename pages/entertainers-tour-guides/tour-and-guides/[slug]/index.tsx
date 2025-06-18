@@ -34,6 +34,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // styles
 import "react-toastify/dist/ReactToastify.css";
 import type { MapCard } from "../../../../components/layout/map/children/types";
+import { getLayoutData } from "../../../../utils/get-layout-data";
 
 interface TourGuidePageProps {
   tourGuide: TourGuideFragment;
@@ -235,6 +236,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params, locale }: any) {
   const { slug } = params;
+  const layoutDataPromise = getLayoutData(locale);
 
   const tourGuidePromise = fetchData(GetTourGuideBySlugDocument, {
     slug,
@@ -250,9 +252,14 @@ export async function getStaticProps({ params, locale }: any) {
     }),
   );
 
-  const [{ tourGuides }, { tourGuides: suggestions }] = await Promise.all([
+  const [
+    { tourGuides },
+    { tourGuides: suggestions },
+    { footerData, headerData },
+  ] = await Promise.all([
     tourGuidePromise,
     suggestionsPromise,
+    layoutDataPromise,
   ]);
 
   return {
@@ -263,6 +270,8 @@ export async function getStaticProps({ params, locale }: any) {
       ])),
       tourGuide: tourGuides?.data[0].attributes,
       similarSuggestions: suggestions?.data,
+      footerData,
+      headerData,
     },
     revalidate: REVALIDATE_TIME,
   };
