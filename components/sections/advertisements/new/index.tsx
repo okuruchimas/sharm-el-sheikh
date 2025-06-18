@@ -6,39 +6,46 @@ import { SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import useResponsive from "../../../../hooks/useResponsive";
 import { SwiperCardsWrapper } from "../../entertainers-tour-guides/children/cards-wrap";
+import Placeholder from "../../promotions/children/placeholder";
+import { useTranslation } from "next-i18next";
 
 interface Props {
-  advertisements: AdvertisementFragment[];
+  advertisements?: AdvertisementFragment[];
 }
 const New = ({ advertisements }: Props) => {
   const { slidesPerView } = useResponsive();
+  const { t } = useTranslation("agents");
 
   return (
     <Wrapper>
-      <SwiperCardsWrapper
-        modules={[Pagination]}
-        slidesPerView={slidesPerView}
-        isSingleCard={false}
-        spaceBetween={12}
-        navigation={false}
-        pagination={{
-          clickable: true,
-        }}
-        loop
-      >
-        {advertisements?.map((el, index) => (
-          <SwiperSlide key={index}>
-            <UniversalCard
-              title={el.title}
-              price={el.price}
-              place={el.location}
-              duration={formatDate(el.createdAt)}
-              imgSrc={el.images?.data[0]?.attributes?.url || ""}
-              // onClick={handleServiceClick(el)}
-            />
-          </SwiperSlide>
-        ))}
-      </SwiperCardsWrapper>
+      {advertisements?.length ? (
+        <SwiperCardsWrapper
+          modules={[Pagination]}
+          slidesPerView={slidesPerView}
+          isSingleCard={false}
+          spaceBetween={12}
+          navigation={false}
+          pagination={{
+            clickable: true,
+          }}
+          loop
+        >
+          {advertisements?.map((el, index) => (
+            <SwiperSlide key={index}>
+              <UniversalCard
+                title={el.title}
+                price={el.price}
+                place={el.location}
+                duration={formatDate(el.createdAt)}
+                imgSrc={el.images?.data[0]?.attributes?.url || ""}
+                // onClick={handleServiceClick(el)}
+              />
+            </SwiperSlide>
+          ))}
+        </SwiperCardsWrapper>
+      ) : (
+        <Placeholder title={t("noAddsFound")} />
+      )}
     </Wrapper>
   );
 };

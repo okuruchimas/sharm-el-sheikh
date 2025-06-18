@@ -3,12 +3,17 @@ query GetAdvertisements(
   $categoryKey: String
   $page: Int
   $pageSize: Int
+  $vipFilter: BooleanFilterInput
+  $timeFilter: DateTimeFilterInput
 ) {
   advertisements(
     pagination: { page: $page, pageSize: $pageSize }
+    sort: ["createdAt:desc"]
     filters: {
       title: { containsi: $titleFilter }
       category: { eq: $categoryKey }
+      isVip: $vipFilter
+      createdAt: $timeFilter
     }
   ) {
     data {
@@ -46,7 +51,6 @@ query GetAdvertisementCategories($locale: I18NLocaleCode!) {
     }
   }
 }
-
 
 fragment Advertisement on Advertisement {
   title

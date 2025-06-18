@@ -6,55 +6,50 @@ import { Pagination } from "swiper/modules";
 import useResponsive from "../../../../hooks/useResponsive";
 import { SwiperCardsWrapper } from "../../entertainers-tour-guides/children/cards-wrap";
 import { AdvertisementFragment } from "../../../../gql/graphql";
-
-const TEXTS = [
-  "Hot Offers",
-  "Hot Offers",
-  "Hot Offers",
-  "Hot Offers",
-  "Hot Offers",
-  "Hot Offers",
-  "Hot Offers",
-  "Hot Offers",
-  "Hot Offers",
-];
+import Placeholder from "../../promotions/children/placeholder";
+import { useTranslation } from "next-i18next";
 
 interface Props {
-  advertisements: AdvertisementFragment[];
+  advertisements?: AdvertisementFragment[];
 }
+
 const Hot = ({ advertisements }: Props) => {
   const { isMobile } = useResponsive();
   const slidesPerView = isMobile ? 1 : 2;
+  const { t } = useTranslation("agents");
+  const { t: tAds } = useTranslation("advertisements");
 
   return (
     <Wrapper>
       <MarqueeWrapper>
         <TextTrack>
-          {[...TEXTS, ...TEXTS].map((text, i) => (
-            <TextItem key={i}>{text}</TextItem>
+          {Array.from({ length: 22 }, (_, i) => (
+            <TextItem key={i}>{tAds("hotOffers")}</TextItem>
           ))}
         </TextTrack>
       </MarqueeWrapper>
 
-      <CardsWrapper>
-        <SwiperCardsWrapper
-          modules={[Pagination]}
-          slidesPerView={slidesPerView}
-          isSingleCard={false}
-          spaceBetween={12}
-          navigation={false}
-          pagination={{
-            clickable: true,
-          }}
-          loop
-        >
-          {advertisements.map((item, i) => (
-            <SwiperSlide key={i}>
-              <OfferCard {...item} />
-            </SwiperSlide>
-          ))}
-        </SwiperCardsWrapper>
-      </CardsWrapper>
+      {advertisements?.length ? (
+        <CardsWrapper>
+          <SwiperCardsWrapper
+            modules={[Pagination]}
+            slidesPerView={slidesPerView}
+            isSingleCard={false}
+            spaceBetween={12}
+            navigation={false}
+            pagination={{ clickable: true }}
+            loop
+          >
+            {advertisements.map((item, i) => (
+              <SwiperSlide key={i}>
+                <OfferCard {...item} />
+              </SwiperSlide>
+            ))}
+          </SwiperCardsWrapper>
+        </CardsWrapper>
+      ) : (
+        <Placeholder title={t("noAddsFound")} />
+      )}
     </Wrapper>
   );
 };

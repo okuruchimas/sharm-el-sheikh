@@ -35,12 +35,16 @@ export interface IAdvertisements {
   advertisements: AdvertisementFragment[];
   totalAdvertisements: number;
   advertisementCategories: selectOption[];
+  vipAdvertisements?: AdvertisementFragment[];
+  latestAdvertisements?: AdvertisementFragment[];
 }
 
 const Advertisements = ({
   advertisements,
   totalAdvertisements,
   advertisementCategories,
+  vipAdvertisements,
+  latestAdvertisements,
 }: IAdvertisements) => {
   const [isForm, setIsForm] = useState<boolean>(false);
   const { t } = useTranslation("advertisements");
@@ -64,14 +68,14 @@ const Advertisements = ({
       url="/images/background/background-gradient.svg"
       mobUrl="/images/background/mobile-background-gradient.svg"
     >
-      <HotOffers advertisements={advertisements} />
+      <HotOffers advertisements={vipAdvertisements} />
 
       <SectionWrapper
         title={t("checkNewAds")}
         buttonText={tAgents("addAdvertisement")}
         onClick={handleClick}
       >
-        <New advertisements={advertisements} />
+        <New advertisements={latestAdvertisements} />
       </SectionWrapper>
 
       <SectionWrapper title={t("allAdvertisements")}>
@@ -122,21 +126,38 @@ const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
 }));
 
 export async function getStaticProps({ locale }: any) {
-  const [{ advertisements }, { advertisementCategories }] = await Promise.all([
+  const fourteenDaysAgo = new Date();
+  fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
+  const isoDate = fourteenDaysAgo.toISOString();
+
+  const [
+    { advertisements },
+    { advertisementCategories },
+    { advertisements: vipAds },
+    { advertisements: latestAds },
+  ] = await Promise.all([
     fetchData(GetAdvertisementsDocument, {
       page: 1,
       pageSize: 12,
     }),
     fetchData(GetAdvertisementCategoriesDocument, { locale }),
+    fetchData(GetAdvertisementsDocument, {
+      vipFilter: { eq: true },
+    }),
+    fetchData(GetAdvertisementsDocument, {
+      timeFilter: { gte: isoDate },
+    }),
   ]);
 
   return {
     props: {
       advertisements: advertisements?.data?.map((el) => el.attributes),
-      totalAdvertisements: advertisements?.meta.pagination.total,
+      totalAdvertisements: advertisements?.meta.pagination.total || 0,
       advertisementCategories: advertisementCategories?.data.map(
         (el) => el.attributes,
       ),
+      vipAdvertisements: vipAds?.data.map((el) => el.attributes),
+      latestAdvertisements: latestAds?.data.map((el) => el.attributes),
       ...(await serverSideTranslations(locale, [
         "common",
         "agents",
