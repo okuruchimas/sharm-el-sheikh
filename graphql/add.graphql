@@ -1,0 +1,59 @@
+query GetAdds(
+  $titleFilter: String
+  $categoryKey: String
+  $page: Int
+  $pageSize: Int
+) {
+  adds(
+    pagination: { page: $page, pageSize: $pageSize }
+    filters: {
+      title: { containsi: $titleFilter }
+      category: { eq: $categoryKey }
+    }
+  ) {
+    data {
+      id
+      attributes {
+        ...Add
+      }
+    }
+    meta {
+      pagination {
+        total
+      }
+    }
+  }
+}
+
+query GetAddsTitles($titleFilter: String) {
+  deliveries(filters: { title: { containsi: $titleFilter } }) {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+}
+
+fragment Add on Add {
+  title
+  description
+  category
+  mobile
+  name
+  contactMethod
+  email
+  location
+  price
+  isVip
+  images {
+    data {
+      attributes {
+        alternativeText
+        url
+      }
+    }
+  }
+  createdAt
+}

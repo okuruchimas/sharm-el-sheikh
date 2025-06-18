@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import UniversalCard from "../../../layout/universal-card";
 import SearchBar from "../../../layout/search-bar";
@@ -6,14 +6,14 @@ import { selectOption } from "../../../types/filter";
 import Button from "../../../layout/button";
 import Dropdown from "../../../layout/filters";
 import { categoryOptions } from "../children/adv-form";
-import { DeliveryFragment } from "../../../../gql/graphql";
+import { AddFragment } from "../../../../gql/graphql";
 import { formatDate } from "../../../../utils/formateDate";
 import Pagination from "../../../layout/pagination";
 import useResponsive from "../../../../hooks/useResponsive";
 
 interface Props {
   buttonClick: () => void;
-  advertisements: DeliveryFragment[];
+  advertisements: AddFragment[];
 }
 const All = ({ buttonClick, advertisements }: Props) => {
   const [searchValue, setSearchValue] = useState<string>("");

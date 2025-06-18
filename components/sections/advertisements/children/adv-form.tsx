@@ -25,6 +25,7 @@ interface IAdvertisementValues {
   price: string;
   description: string;
   images: File[] | null;
+  contactMethod: string;
 }
 
 export const categoryOptions = [
@@ -55,6 +56,7 @@ const CreateAddForm = ({ cancelClick }: any) => {
     price: "",
     description: "",
     images: [] as File[],
+    contactMethod: "",
   };
 
   return (

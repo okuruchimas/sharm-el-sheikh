@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import UniversalCard from "../../../layout/universal-card";
-import { DeliveryFragment } from "../../../../gql/graphql";
+import { AddFragment } from "../../../../gql/graphql";
 import { formatDate } from "../../../../utils/formateDate";
 import { SwiperSlide } from "swiper/react";
 import { Swiper } from "swiper/react";
@@ -8,7 +8,7 @@ import { Pagination } from "swiper/modules";
 import useResponsive from "../../../../hooks/useResponsive";
 
 interface Props {
-  advertisements: DeliveryFragment[];
+  advertisements: AddFragment[];
 }
 const New = ({ advertisements }: Props) => {
   const { isMobile } = useResponsive();

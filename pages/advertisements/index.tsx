@@ -12,10 +12,10 @@ import { useState } from "react";
 import SectionWrapper from "../../components/layout/section-wrapper";
 import SectionsWrapper from "../../components/layout/sections-wrapper";
 import { fetchData } from "../../utils/fetchApi";
-import { DeliveryFragment, GetDeliveriesDocument } from "../../gql/graphql";
+import { type AddFragment, GetAddsDocument } from "../../gql/graphql";
 
 export interface IAdvertisements {
-  advertisements: DeliveryFragment[];
+  advertisements: AddFragment[];
 }
 
 const Advertisements = ({ advertisements }: IAdvertisements) => {
@@ -50,15 +50,14 @@ const Advertisements = ({ advertisements }: IAdvertisements) => {
 export default Advertisements;
 
 export async function getStaticProps({ locale }: any) {
-  const { deliveries } = await fetchData(GetDeliveriesDocument, {
+  const { adds } = await fetchData(GetAddsDocument, {
     page: 1,
     pageSize: 4,
-    publicationType: "to",
   });
 
   return {
     props: {
-      advertisements: deliveries?.data?.map((el) => el.attributes),
+      advertisements: adds?.data?.map((el) => el.attributes),
       ...(await serverSideTranslations(locale, ["common", "agents"])),
     },
   };
