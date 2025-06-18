@@ -20,6 +20,8 @@ import { fetchData } from "../../utils/fetchApi";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // types
 import type { selectOption } from "../../components/types/filter";
+import { mapCategory } from "../../utils/mappers";
+import { getLayoutData } from "../../utils/get-layout-data";
 
 type PharmaciesPageProps = {
   pageData: PharmaciesPageFragment;
@@ -46,13 +48,7 @@ const PharmaciesPage = ({
   const { t } = useTranslation("common");
 
   const categoriesMapped = useMemo(
-    () =>
-      categories?.data.map((el) => ({
-        key: el.attributes?.key || "",
-        value: el.attributes?.value || "",
-        iconSrc: el.attributes?.icon.data?.attributes?.url || "",
-        markerIcon: el.attributes?.markerIcon.data?.attributes?.url,
-      })),
+    () => categories?.data.map(mapCategory),
     [categories],
   );
 
@@ -71,6 +67,7 @@ const PharmaciesPage = ({
           ...(categoriesMapped || []),
         ]}
       />
+
       <MedicationsContainer
         title={medicationsTitle}
         filterTitle={filterTitle}
@@ -105,6 +102,7 @@ export async function getStaticProps({ locale }: any) {
     locale,
   });
 
+  const { headerData, footerData } = await getLayoutData(locale);
   const { medicationCategories } = await fetchData(
     GetMedicationCategoriesDocument,
     {
@@ -130,6 +128,8 @@ export async function getStaticProps({ locale }: any) {
       initialMedications: medications?.data,
       totalMedications: medications?.meta.pagination.total || 0,
       medicationCategories: medicationCategories?.data,
+      headerData,
+      footerData,
     },
     revalidate: REVALIDATE_TIME,
   };

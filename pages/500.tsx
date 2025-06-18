@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getLayoutData } from "../utils/get-layout-data";
 
-const NotFoundPage = () => {
+const ErrorPage = () => {
   const { t } = useTranslation("common");
 
   return (
@@ -18,11 +18,11 @@ const NotFoundPage = () => {
         src="/images/background/background-prom.svg"
         priority
       />
-      <h1>{t("404")}</h1>
+      <h1>{t("500")}</h1>
     </Wrapper>
   );
 };
-export default NotFoundPage;
+export default ErrorPage;
 
 export async function getStaticProps({ locale }: any) {
   const { headerData, footerData } = await getLayoutData(locale);

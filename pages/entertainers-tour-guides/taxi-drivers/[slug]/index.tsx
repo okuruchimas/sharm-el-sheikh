@@ -29,6 +29,7 @@ import { getLocalizedPaths } from "../../../../utils/get-loocalized-paths";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // styles
 import "react-toastify/dist/ReactToastify.css";
+import { getLayoutData } from "../../../../utils/get-layout-data";
 
 interface Props {
   taxiDriver: TaxiDriver;
@@ -183,14 +184,10 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, locale }: any) {
   const { slug } = params;
 
-  const { taxiDrivers } = await fetchData(GetDriverBySlugDocument, {
-    slug,
-    locale,
-  });
-
-  const { taxiDrivers: suggestions } = await fetchData(
-    GetDriversByFiltersDocument,
-    {
+  const layoutDataPromise = getLayoutData(locale);
+  const driverPromise = fetchData(GetDriverBySlugDocument, { slug, locale });
+  const suggestionsPromise = driverPromise.then(({ taxiDrivers }) =>
+    fetchData(GetDriversByFiltersDocument, {
       locale,
       page: 1,
       pageSize: 4,
@@ -199,14 +196,22 @@ export async function getStaticProps({ params, locale }: any) {
         taxiDrivers?.data[0].attributes?.car_class?.data?.attributes?.key || "",
       ],
       slugToExclude: slug,
-    },
+    }),
   );
+
+  const [
+    { taxiDrivers },
+    { taxiDrivers: suggestions },
+    { headerData, footerData },
+  ] = await Promise.all([driverPromise, suggestionsPromise, layoutDataPromise]);
 
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common", "driver"])),
       taxiDriver: taxiDrivers?.data[0].attributes,
       similarSuggestions: suggestions?.data,
+      headerData,
+      footerData,
     },
     revalidate: REVALIDATE_TIME,
   };

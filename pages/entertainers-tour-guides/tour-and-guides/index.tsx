@@ -30,6 +30,8 @@ import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 // types
 import type { MapCard } from "../../../components/layout/map/children/types";
 import type { selectOption } from "../../../components/types/filter";
+import { mapCategory } from "../../../utils/mappers";
+import { getLayoutData } from "../../../utils/get-layout-data";
 
 type TourGuides = { attributes: TourGuideFragment }[];
 type TourAndGuidesProps = {
@@ -142,13 +144,7 @@ const TourAndGuides = ({
   const handleInfoWindowClick = (data: MapCard) => setSelectedTour(data);
   const handlePopupClose = () => setSelectedTour(undefined);
 
-  const categories = tourCategories.map((el) => ({
-    key: el?.attributes.key,
-    value: el?.attributes.value,
-    iconSrc: el?.attributes.icon.data?.attributes?.url,
-    markerIcon: el?.attributes.markerIcon?.data?.attributes?.url,
-  }));
-
+  const categories = tourCategories.map((el) => mapCategory(el));
   const handleCategorySelect = (option: selectOption) =>
     setSelectedCategory(option);
 
@@ -208,15 +204,23 @@ const FiltersWrap = styled("div")(({ theme }) => ({
 }));
 
 export async function getStaticProps({ locale }: any) {
-  const { tourGuides } = await fetchData(GetTourGuidesByFiltersDocument, {
-    locale,
-    page: 1,
-    pageSize: 6,
-  });
-  const { tours } = await fetchData(GetToursDocument, { locale });
-  const { tourCategories } = await fetchData(GetTourCategoriesDocument, {
-    locale,
-  });
+  const layoutDataPromise = getLayoutData(locale);
+
+  const [
+    { tourGuides },
+    { tours },
+    { tourCategories },
+    { headerData, footerData },
+  ] = await Promise.all([
+    fetchData(GetTourGuidesByFiltersDocument, {
+      locale,
+      page: 1,
+      pageSize: 6,
+    }),
+    fetchData(GetToursDocument, { locale }),
+    fetchData(GetTourCategoriesDocument, { locale }),
+    layoutDataPromise,
+  ]);
 
   return {
     props: {
@@ -224,6 +228,8 @@ export async function getStaticProps({ locale }: any) {
       initialTotal: tourGuides?.meta.pagination.total || 0,
       tours: tours?.data,
       tourCategories: tourCategories?.data,
+      headerData,
+      footerData,
       ...(await serverSideTranslations(locale, [
         "company-page",
         "common",

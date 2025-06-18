@@ -1,16 +1,11 @@
-import "swiper/css";
-import "swiper/css/pagination";
-import {
-  type AdvertisementFragment,
-  GetAdvertisementsDocument,
-  GetAdvertisementCategoriesDocument,
-} from "../../gql/graphql";
-import { useState } from "react";
 import { useTranslation } from "next-i18next";
+// components
+import Image from "../../components/layout/image";
 // utils
 import styled from "@emotion/styled";
 import { fetchData } from "../../utils/fetchApi";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { getLayoutData } from "../../utils/get-layout-data";
 // components
 import New from "../../components/sections/advertisements/new";
 import All from "../../components/sections/advertisements/all";
@@ -32,6 +27,12 @@ import {
 import { useRouter } from "next/router";
 import FullAdd from "../../components/sections/agents/children/full-add";
 import { formatDate } from "../../utils/formateDate";
+import {
+  AdvertisementFragment,
+  GetAdvertisementCategoriesDocument,
+  GetAdvertisementsDocument,
+} from "../../gql/graphql";
+import { useState } from "react";
 
 export interface IAdvertisements {
   advertisements: AdvertisementFragment[];
@@ -174,10 +175,13 @@ const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
 }));
 
 export async function getStaticProps({ locale }: any) {
+  const layoutDataPromise = getLayoutData(locale);
+
   const [
     { advertisements },
     { advertisementCategories },
     { advertisements: vipAds },
+    { headerData, footerData },
   ] = await Promise.all([
     fetchData(GetAdvertisementsDocument, {
       page: 1,
@@ -187,10 +191,13 @@ export async function getStaticProps({ locale }: any) {
     fetchData(GetAdvertisementsDocument, {
       vipFilter: { eq: true },
     }),
+    layoutDataPromise,
   ]);
 
   return {
     props: {
+      headerData,
+      footerData,
       advertisements: advertisements?.data?.map((el) => el.attributes),
       totalAdvertisements: advertisements?.meta.pagination.total || 0,
       advertisementCategories: advertisementCategories?.data.map(

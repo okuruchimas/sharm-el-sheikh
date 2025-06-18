@@ -26,6 +26,8 @@ import {
   type HomePageFragment,
   type CompanyPreviewFragment,
 } from "../gql/graphql";
+import { mapCategory } from "../utils/mappers";
+import { getLayoutData } from "../utils/get-layout-data";
 
 const DynamicBanner = dynamic(
   () => import("../components/sections/home/banner"),
@@ -62,13 +64,7 @@ const Home = ({
   const { t } = useTranslation("common");
 
   const categoriesMapped = useMemo(
-    () =>
-      categories.map((el) => ({
-        key: el.attributes?.key || "",
-        value: el.attributes?.value || "",
-        iconSrc: el.attributes?.icon.data?.attributes?.url || "",
-        markerIcon: el.attributes?.markerIcon.data?.attributes?.url,
-      })),
+    () => categories.map(mapCategory),
     [categories],
   );
 
@@ -144,17 +140,31 @@ const Home = ({
 };
 
 export async function getStaticProps({ locale }: any) {
-  const { home } = await fetchData(GetHomePageDocument, { locale });
-  const { areas } = await fetchData(GetAreasDocument, { locale });
-  const { categories } = await fetchData(GetCategoriesDocument, { locale });
+  const areasPromise = fetchData(GetAreasDocument, { locale });
+  const companiesPromise = areasPromise.then(({ areas }) =>
+    fetchData(GetCompaniesByFilterDocument, {
+      locale,
+      areaKey: areas?.data[0]?.attributes?.key,
+      page: 1,
+      pageSize: 3,
+      discountFilter: { title: { ne: null } },
+    }),
+  );
+  const layoutDataPromise = getLayoutData(locale);
 
-  const { companies } = await fetchData(GetCompaniesByFilterDocument, {
-    locale,
-    areaKey: areas?.data[0]?.attributes?.key,
-    page: 1,
-    pageSize: 3,
-    discountFilter: { title: { ne: null } },
-  });
+  const [
+    { home },
+    { areas },
+    { categories },
+    { companies },
+    { headerData, footerData },
+  ] = await Promise.all([
+    fetchData(GetHomePageDocument, { locale }),
+    areasPromise,
+    fetchData(GetCategoriesDocument, { locale }),
+    companiesPromise,
+    layoutDataPromise,
+  ]);
 
   return {
     props: {
@@ -168,6 +178,8 @@ export async function getStaticProps({ locale }: any) {
       homePageData: home?.data?.attributes,
       initialPromotions: companies?.data,
       totalInitialPromotions: companies?.meta.pagination.total || 0,
+      headerData,
+      footerData,
     },
     revalidate: REVALIDATE_TIME,
   };

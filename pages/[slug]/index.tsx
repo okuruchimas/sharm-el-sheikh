@@ -31,6 +31,7 @@ import { getLocalizedPaths } from "../../utils/get-loocalized-paths";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // styles
 import "react-toastify/dist/ReactToastify.css";
+import { getLayoutData } from "../../utils/get-layout-data";
 
 interface Props {
   card: CompanyFragment;
@@ -250,9 +251,11 @@ export async function getStaticPaths() {
 }
 export async function getStaticProps({ params, locale }: any) {
   const { slug: slugP } = params;
+
+  const { headerData, footerData } = await getLayoutData(locale);
   const { companies } = await fetchData(GetCompanyDocument, {
     slug: slugP,
-    locale: locale,
+    locale,
   });
   const category =
     companies?.data[0].attributes?.categories?.data[0]?.attributes?.key || "";
@@ -273,6 +276,8 @@ export async function getStaticProps({ params, locale }: any) {
       ...(await serverSideTranslations(locale, ["company-page", "common"])),
       card: companies?.data[0]?.attributes || {},
       similarSuggestions: suggestions?.data,
+      headerData,
+      footerData,
     },
     revalidate: REVALIDATE_TIME,
   };

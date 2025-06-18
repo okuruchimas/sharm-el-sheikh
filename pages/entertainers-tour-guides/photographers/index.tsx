@@ -4,6 +4,9 @@ import {
   GetPhotographersByFiltersDocument,
   type PhotographyLocation,
   type PhotographerFragment,
+  GetTourGuidesByFiltersDocument,
+  GetTourOperatorCompaniesDocument,
+  GetDeliveriesDocument,
 } from "../../../gql/graphql";
 // hooks
 import useResponsive from "../../../hooks/useResponsive";
@@ -31,6 +34,7 @@ import PhotographyLocationPopup from "../../../components/sections/entertainers-
 // types
 import type { selectOption } from "../../../components/types/filter";
 import type { MapCard } from "../../../components/layout/map/children/types";
+import { getLayoutData } from "../../../utils/get-layout-data";
 
 type Photographers = { attributes: PhotographerFragment }[];
 
@@ -270,22 +274,27 @@ const FiltersWrap = styled("div")({
 });
 
 export async function getStaticProps({ locale }: any) {
-  const { photographers } = await fetchData(GetPhotographersByFiltersDocument, {
-    locale,
-    page: 1,
-    pageSize: 4,
-  });
+  const layoutDataPromise = getLayoutData(locale);
 
-  const { photographyStyles } = await fetchData(GetPhotographyStylesDocument, {
-    locale,
-  });
-
-  const { photographyLocations } = await fetchData(
-    GetPhotographyLocationsDocument,
-    {
+  const [
+    { photographers },
+    { photographyStyles },
+    { photographyLocations },
+    { headerData, footerData },
+  ] = await Promise.all([
+    fetchData(GetPhotographersByFiltersDocument, {
       locale,
-    },
-  );
+      page: 1,
+      pageSize: 4,
+    }),
+    fetchData(GetPhotographyStylesDocument, {
+      locale,
+    }),
+    fetchData(GetPhotographyLocationsDocument, {
+      locale,
+    }),
+    layoutDataPromise,
+  ]);
 
   return {
     props: {
@@ -293,6 +302,8 @@ export async function getStaticProps({ locale }: any) {
       initialTotal: photographers?.meta.pagination.total || 0,
       photographyStyles: photographyStyles?.data,
       photographyLocations: photographyLocations?.data,
+      headerData,
+      footerData,
 
       ...(await serverSideTranslations(locale, [
         "company-page",

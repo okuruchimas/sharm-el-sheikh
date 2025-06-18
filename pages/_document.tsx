@@ -25,11 +25,43 @@ const Document = () => {
           sizes="16x16"
           href="/icons/favicon/favicon-16x16.svg"
         />
+        <link rel="canonical" href="https://www.go-go.live" />
+
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
+
         <meta
-          name="description"
-          content="Helping travelers discover the best places in Sharm El Sheikh. Find top restaurants, beaches, hotels, and attractions with our tips and recommendations. Plan your trip easily and comfortably with us."
+          property="og:title"
+          content="Discover the Best of Sharm El Sheikh"
+        />
+        <meta
+          property="og:description"
+          content="Helping travelers discover the best places in Sharm El Sheikh. Find top restaurants, beaches, hotels, and attractions with our tips and recommendations."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.go-go.live" />
+        <meta
+          property="og:image"
+          content="https://www.go-go.live/images/business-card.png"
+        />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Discover the Best of Sharm El Sheikh"
+        />
+        <meta
+          name="twitter:description"
+          content="Helping travelers find top places to eat, relax, and explore in Sharm El Sheikh."
+        />
+        <meta
+          name="twitter:image"
+          content="https://www.go-go.live/images/business-card.png"
+        />
+
+        <meta
+          name="google-site-verification"
+          content="f7HcZSyaucjIeystLdWIZ0zO4v45MQArSp6M3ZvYKVM"
         />
       </Head>
       <body>

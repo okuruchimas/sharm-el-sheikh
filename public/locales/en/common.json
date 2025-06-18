@@ -1,5 +1,6 @@
 {
   "404": "Page Not found",
+  "500": "Sorry, something went wrong. Please try again later.",
   "comingSoon": "This page coming soon",
   "buttons": {
     "back": "Back",

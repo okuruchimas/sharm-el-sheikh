@@ -34,6 +34,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import "react-toastify/dist/ReactToastify.css";
 import type { MapCard } from "../../../../components/layout/map/children/types";
 import UniversalCard from "../../../../components/layout/universal-card";
+import { getLayoutData } from "../../../../utils/get-layout-data";
 
 interface TourGuidePageProps {
   tourGuide: TourGuideFragment;
@@ -235,22 +236,31 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params, locale }: any) {
   const { slug } = params;
+  const layoutDataPromise = getLayoutData(locale);
 
-  const { tourGuides } = await fetchData(GetTourGuideBySlugDocument, {
+  const tourGuidePromise = fetchData(GetTourGuideBySlugDocument, {
     slug,
     locale,
   });
-
-  const { tourGuides: suggestions } = await fetchData(
-    GetTourGuidesByFiltersDocument,
-    {
+  const suggestionsPromise = tourGuidePromise.then(({ tourGuides }) =>
+    fetchData(GetTourGuidesByFiltersDocument, {
       locale,
       page: 1,
       pageSize: 4,
       sort: ["averageRating:desc"],
       slugToExclude: slug,
-    },
+    }),
   );
+
+  const [
+    { tourGuides },
+    { tourGuides: suggestions },
+    { footerData, headerData },
+  ] = await Promise.all([
+    tourGuidePromise,
+    suggestionsPromise,
+    layoutDataPromise,
+  ]);
 
   return {
     props: {
@@ -260,6 +270,8 @@ export async function getStaticProps({ params, locale }: any) {
       ])),
       tourGuide: tourGuides?.data[0].attributes,
       similarSuggestions: suggestions?.data,
+      footerData,
+      headerData,
     },
     revalidate: REVALIDATE_TIME,
   };

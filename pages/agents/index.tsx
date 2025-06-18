@@ -27,6 +27,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchData } from "../../utils/fetchApi";
 // types
 import { MapCard } from "../../components/layout/map/children/types";
+import { getLayoutData } from "../../utils/get-layout-data";
 import { SwiperCardsWrapper } from "../../components/sections/entertainers-tour-guides/children/cards-wrap";
 import GuideCard from "../../components/sections/entertainers-tour-guides/tour-and-guides/card";
 import { Pagination } from "swiper/modules";
@@ -129,22 +130,26 @@ const Agents = ({
 export default Agents;
 
 export async function getStaticProps({ locale }: any) {
-  const { tourGuides } = await fetchData(GetTourGuidesByFiltersDocument, {
-    locale,
-    page: 1,
-    pageSize: 4,
-  });
-
-  const { tourOperatorCompanies } = await fetchData(
-    GetTourOperatorCompaniesDocument,
-    { locale },
-  );
-
-  const { deliveries } = await fetchData(GetDeliveriesDocument, {
-    page: 1,
-    pageSize: 4,
-    publicationType: "to",
-  });
+  const layoutDataPromise = getLayoutData(locale);
+  const [
+    { tourGuides },
+    { tourOperatorCompanies },
+    { deliveries },
+    { headerData, footerData },
+  ] = await Promise.all([
+    fetchData(GetTourGuidesByFiltersDocument, {
+      locale,
+      page: 1,
+      pageSize: 4,
+    }),
+    fetchData(GetTourOperatorCompaniesDocument, { locale }),
+    fetchData(GetDeliveriesDocument, {
+      page: 1,
+      pageSize: 4,
+      publicationType: "to",
+    }),
+    layoutDataPromise,
+  ]);
 
   return {
     props: {
@@ -159,6 +164,8 @@ export async function getStaticProps({ locale }: any) {
         "agents",
         "entertainers-tour-guides",
       ])),
+      headerData,
+      footerData,
     },
     revalidate: REVALIDATE_TIME,
   };

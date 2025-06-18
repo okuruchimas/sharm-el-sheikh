@@ -17,7 +17,6 @@ import ClubsContainer from "../../components/sections/hotspots/clubs-container";
 import EventsContainer from "../../components/sections/hotspots/events-container";
 import SectionsWrapper from "../../components/layout/sections-wrapper";
 import HotspotsBanner from "../../components/sections/hotspots/hotspots-banner";
-import ClubOptionsTable from "../../components/sections/hotspots/table";
 // constants
 import { CLUBS } from "../../constants/page-company-categories";
 import { REVALIDATE_TIME } from "../../constants/page.constants";
@@ -26,6 +25,8 @@ import styled from "@emotion/styled";
 import { fetchData } from "../../utils/fetchApi";
 import { getCurrentDayAndTime } from "../../utils/formateDate";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { mapCategory } from "../../utils/mappers";
+import { getLayoutData } from "../../utils/get-layout-data";
 
 type HotspotsPageProps = {
   totalEvents: number;
@@ -47,13 +48,7 @@ const HotspotsPage = ({
   const { t } = useTranslation("common");
 
   const categoriesMapped = useMemo(
-    () =>
-      categories.map((el) => ({
-        key: el.attributes?.key || "",
-        value: el.attributes?.value || "",
-        iconSrc: el.attributes?.icon.data?.attributes?.url || "",
-        markerIcon: el.attributes?.markerIcon.data?.attributes?.url,
-      })),
+    () => categories.map(mapCategory),
     [categories],
   );
 
@@ -109,21 +104,31 @@ const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
 }));
 
 export async function getStaticProps({ locale }: any) {
-  const { hotspotsPage } = await fetchData(GetHotspotsPageDocument, { locale });
   const commonParams = {
     locale,
     page: 1,
     pageSize: 3,
   };
-  const { eventCards } = await fetchData(GetEventCardsDocument, commonParams);
   const { dayOfWeek } = getCurrentDayAndTime();
 
-  const { companies } = await fetchData(GetCompaniesByFilterDocument, {
-    ...commonParams,
-    day: dayOfWeek,
-    category: CLUBS,
-  });
-  const { categories } = await fetchData(GetCategoriesDocument, { locale });
+  const layoutDataPromise = getLayoutData(locale);
+  const [
+    { hotspotsPage },
+    { eventCards },
+    { companies },
+    { categories },
+    { headerData, footerData },
+  ] = await Promise.all([
+    fetchData(GetHotspotsPageDocument, { locale }),
+    fetchData(GetEventCardsDocument, commonParams),
+    fetchData(GetCompaniesByFilterDocument, {
+      ...commonParams,
+      day: dayOfWeek,
+      category: CLUBS,
+    }),
+    fetchData(GetCategoriesDocument, { locale }),
+    layoutDataPromise,
+  ]);
 
   return {
     props: {
@@ -134,6 +139,8 @@ export async function getStaticProps({ locale }: any) {
       totalEvents: eventCards?.meta.pagination.total || 0,
       initialClubs: companies?.data,
       totalClubs: companies?.meta.pagination.total || 0,
+      headerData,
+      footerData,
     },
     revalidate: REVALIDATE_TIME,
   };
