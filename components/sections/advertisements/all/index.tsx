@@ -6,14 +6,14 @@ import { selectOption } from "../../../types/filter";
 import Button from "../../../layout/button";
 import Dropdown from "../../../layout/filters";
 import { categoryOptions } from "../children/adv-form";
-import { AddFragment } from "../../../../gql/graphql";
 import { formatDate } from "../../../../utils/formateDate";
 import Pagination from "../../../layout/pagination";
 import useResponsive from "../../../../hooks/useResponsive";
+import type { AdvertisementFragment } from "../../../../gql/graphql";
 
 interface Props {
   buttonClick: () => void;
-  advertisements: AddFragment[];
+  advertisements: AdvertisementFragment[];
 }
 const All = ({ buttonClick, advertisements }: Props) => {
   const [searchValue, setSearchValue] = useState<string>("");

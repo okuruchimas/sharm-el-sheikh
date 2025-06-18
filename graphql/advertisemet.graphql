@@ -1,10 +1,10 @@
-query GetAdds(
+query GetAdvertisements(
   $titleFilter: String
   $categoryKey: String
   $page: Int
   $pageSize: Int
 ) {
-  adds(
+  advertisements(
     pagination: { page: $page, pageSize: $pageSize }
     filters: {
       title: { containsi: $titleFilter }
@@ -14,7 +14,7 @@ query GetAdds(
     data {
       id
       attributes {
-        ...Add
+        ...Advertisement
       }
     }
     meta {
@@ -25,7 +25,7 @@ query GetAdds(
   }
 }
 
-query GetAddsTitles($titleFilter: String) {
+query GetAdvertisementsTitles($titleFilter: String) {
   deliveries(filters: { title: { containsi: $titleFilter } }) {
     data {
       id
@@ -36,7 +36,7 @@ query GetAddsTitles($titleFilter: String) {
   }
 }
 
-fragment Add on Add {
+fragment Advertisement on Advertisement {
   title
   description
   category
