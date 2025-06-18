@@ -5631,7 +5631,14 @@ export type GetAdvertisementsTitlesQueryVariables = Exact<{
 }>;
 
 
-export type GetAdvertisementsTitlesQuery = { __typename?: 'Query', deliveries?: { __typename?: 'DeliveryEntityResponseCollection', data: Array<{ __typename?: 'DeliveryEntity', id?: string | null, attributes?: { __typename?: 'Delivery', title: string } | null }> } | null };
+export type GetAdvertisementsTitlesQuery = { __typename?: 'Query', advertisements?: { __typename?: 'AdvertisementEntityResponseCollection', data: Array<{ __typename?: 'AdvertisementEntity', id?: string | null, attributes?: { __typename?: 'Advertisement', title: string } | null }> } | null };
+
+export type GetAdvertisementCategoriesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetAdvertisementCategoriesQuery = { __typename?: 'Query', advertisementCategories?: { __typename?: 'AdvertisementCategoryEntityResponseCollection', data: Array<{ __typename?: 'AdvertisementCategoryEntity', attributes?: { __typename?: 'AdvertisementCategory', key: string, value: string } | null }> } | null };
 
 export type AdvertisementFragment = { __typename?: 'Advertisement', title: string, description: string, category: string, mobile: string, name: string, contactMethod: string, email: string, location: string, price: string, isVip?: boolean | null, createdAt?: any | null, images?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, url: string } | null }> } | null };
 
@@ -7381,7 +7388,7 @@ export const GetAdvertisementsDocument = new TypedDocumentString(`
 }`) as unknown as TypedDocumentString<GetAdvertisementsQuery, GetAdvertisementsQueryVariables>;
 export const GetAdvertisementsTitlesDocument = new TypedDocumentString(`
     query GetAdvertisementsTitles($titleFilter: String) {
-  deliveries(filters: {title: {containsi: $titleFilter}}) {
+  advertisements(filters: {title: {containsi: $titleFilter}}) {
     data {
       id
       attributes {
@@ -7391,6 +7398,18 @@ export const GetAdvertisementsTitlesDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<GetAdvertisementsTitlesQuery, GetAdvertisementsTitlesQueryVariables>;
+export const GetAdvertisementCategoriesDocument = new TypedDocumentString(`
+    query GetAdvertisementCategories($locale: I18NLocaleCode!) {
+  advertisementCategories(sort: "index:asc", locale: $locale) {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<GetAdvertisementCategoriesQuery, GetAdvertisementCategoriesQueryVariables>;
 export const GetAnimationCompaniesDocument = new TypedDocumentString(`
     query GetAnimationCompanies($locale: I18NLocaleCode!) {
   animationCompanies(sort: "index:asc", locale: $locale) {

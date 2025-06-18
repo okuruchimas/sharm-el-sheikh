@@ -37,6 +37,7 @@
     "selectType": "اختر نوع المنشور",
     "title": "العنوان*",
     "toasts": {
+      "tooManyImages": "عدد كبير جدًا من الصور",
       "failedToSubmit": "فشل في إرسال الإعلان: ",
       "success": "تم إرسال الإعلان بنجاح!",
       "unexpectedError": "حدث خطأ غير متوقع."

@@ -26,7 +26,7 @@ query GetAdvertisements(
 }
 
 query GetAdvertisementsTitles($titleFilter: String) {
-  deliveries(filters: { title: { containsi: $titleFilter } }) {
+  advertisements(filters: { title: { containsi: $titleFilter } }) {
     data {
       id
       attributes {
@@ -35,6 +35,18 @@ query GetAdvertisementsTitles($titleFilter: String) {
     }
   }
 }
+
+query GetAdvertisementCategories($locale: I18NLocaleCode!) {
+  advertisementCategories(sort: "index:asc", locale: $locale) {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+}
+
 
 fragment Advertisement on Advertisement {
   title

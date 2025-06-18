@@ -1,8 +1,10 @@
 import { useField } from "formik";
 import styled from "@emotion/styled";
+import { useTranslation } from "next-i18next";
 
 const VipSwitch = ({ label }: { label: string }) => {
   const [field, , helpers] = useField("isVip");
+  const { t } = useTranslation("advertisements");
 
   return (
     <SwitchContainer>
@@ -14,11 +16,7 @@ const VipSwitch = ({ label }: { label: string }) => {
       />
       <Description>
         <strong>{label}</strong>
-        <small>
-          The VIP feature for advertisements ensures priority placement at the
-          top of the list with additional display of extended information to
-          attract more attention.
-        </small>
+        <small>{t("vipDescription")}</small>
       </Description>
     </SwitchContainer>
   );

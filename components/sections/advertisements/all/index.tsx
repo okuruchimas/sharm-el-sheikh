@@ -1,47 +1,127 @@
+import {
+  GetAdvertisementsDocument,
+  GetAdvertisementsTitlesDocument,
+  type AdvertisementFragment,
+} from "../../../../gql/graphql";
+// hooks
+import useResponsive from "../../../../hooks/useResponsive";
+import { useTranslation } from "next-i18next";
 import { useMemo, useState } from "react";
-import styled from "@emotion/styled";
-import UniversalCard from "../../../layout/universal-card";
-import SearchBar from "../../../layout/search-bar";
-import { selectOption } from "../../../types/filter";
+// components
 import Button from "../../../layout/button";
 import Dropdown from "../../../layout/filters";
-import { categoryOptions } from "../children/adv-form";
-import { formatDate } from "../../../../utils/formateDate";
+import SearchBar from "../../../layout/search-bar";
 import Pagination from "../../../layout/pagination";
-import useResponsive from "../../../../hooks/useResponsive";
-import type { AdvertisementFragment } from "../../../../gql/graphql";
+import Placeholder from "../../promotions/children/placeholder";
+import UniversalCard from "../../../layout/universal-card";
+// utils
+import styled from "@emotion/styled";
+import { formatDate } from "../../../../utils/formateDate";
+import { fetchDataFromApi } from "../../../../utils/fetchApi";
+// types
+import type { selectOption } from "../../../types/filter";
 
 interface Props {
   buttonClick: () => void;
-  advertisements: AdvertisementFragment[];
+  totalAdvertisements: number;
+  initialAdvertisements: AdvertisementFragment[];
+  advertisementCategories: selectOption[];
 }
-const All = ({ buttonClick, advertisements }: Props) => {
+const All = ({
+  buttonClick,
+  initialAdvertisements,
+  totalAdvertisements,
+  advertisementCategories,
+}: Props) => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [filterOptions, setFilterOptions] = useState<selectOption[]>();
   const [isLoading, setIsLoading] = useState(false);
-
+  const [result, setResult] = useState<AdvertisementFragment[] | undefined>(
+    initialAdvertisements,
+  );
+  const [selectedCategory, setSelectedCategory] = useState<selectOption>();
   //pagination
   const [page, setPage] = useState<number>(1);
-  const [total, setTotal] = useState(10);
+  const [total, setTotal] = useState(totalAdvertisements);
   const { isMobile } = useResponsive();
 
-  const handleChangePage = async (pageNumber: number) => {
-    // setPage(pageNumber);
+  const { t } = useTranslation("agents");
+
+  const pageSize = useMemo(() => (isMobile ? 4 : 12), [isMobile]);
+
+  const handleGetAds = async ({
+    pageNum,
+    query,
+    category,
+  }: {
+    pageNum: number;
+    query?: string;
+    category?: string;
+  }) => {
+    setIsLoading(true);
+    const data = await fetchDataFromApi(GetAdvertisementsDocument, {
+      page: pageNum,
+      pageSize: pageSize,
+      titleFilter: query || undefined,
+      categoryKey: category || undefined,
+    });
+
+    setResult(
+      data?.advertisements?.data.map((el) => el.attributes) as
+        | AdvertisementFragment[]
+        | undefined,
+    );
+    setTotal(data.advertisements?.meta.pagination.total || 0);
+    setIsLoading(false);
   };
-  const pageSize = useMemo(() => (isMobile ? 6 : 2), [isMobile]);
+
+  const handleChangePage = async (pageNumber: number) => {
+    setPage(pageNumber);
+    await handleGetAds({
+      pageNum: pageNumber,
+      category: selectedCategory?.key,
+    });
+  };
 
   const handleSearchChange = async (query: string) => {
     setSearchValue(query);
 
     if (query.length) {
+      const { advertisements } = await fetchDataFromApi(
+        GetAdvertisementsTitlesDocument,
+        {
+          titleFilter: query,
+        },
+      );
+
+      const options = advertisements?.data.map((el) => ({
+        key: el.attributes?.title || "",
+        value: el.attributes?.title || "",
+      }));
+
+      setFilterOptions(options);
     } else {
       setFilterOptions(undefined);
     }
   };
 
-  const handleSearch = async (query: string) => {};
+  const handleSearch = async (query: string) => {
+    setPage(1);
 
-  const handleOptionSelect = async (option: selectOption) => {};
+    await handleGetAds({
+      query,
+      pageNum: 1,
+    });
+  };
+
+  const handleCategorySelect = async (option: selectOption) => {
+    setPage(1);
+
+    await handleGetAds({
+      category: option.key,
+      pageNum: 1,
+    });
+  };
 
   return (
     <Wrapper>
@@ -50,38 +130,44 @@ const All = ({ buttonClick, advertisements }: Props) => {
           value={searchValue}
           onSetValue={setSearchValue}
           options={filterOptions}
-          placeholder="Type To Search"
+          placeholder={t("typeToSearch")}
           debounceDelay={600}
           onChange={handleSearchChange}
           onSearch={handleSearch}
         />
         <Dropdown
-          options={categoryOptions}
-          onChange={handleOptionSelect}
+          options={advertisementCategories}
+          onChange={handleCategorySelect}
           isLoading={isLoading}
         />
-        <Button onClick={buttonClick} text={"Add Advertisement"} />
+        <Button onClick={buttonClick} text={t("addAdvertisement")} />
       </SearchWrapper>
-      <AdvertisementsWrap>
-        {[...advertisements, ...advertisements]?.map((el, index) => (
-          <UniversalCard
-            key={index}
-            title={el.title}
-            price={el.price}
-            place={el.location}
-            duration={formatDate(el.createdAt)}
-            imgSrc={el.images?.data[0]?.attributes?.url || ""}
-            // onClick={handleServiceClick(el)}
+      {result?.length ? (
+        <>
+          <AdvertisementsWrap>
+            {result?.map((el, index) => (
+              <UniversalCard
+                key={index}
+                title={el.title}
+                price={el.price}
+                place={el.location}
+                duration={formatDate(el.createdAt)}
+                imgSrc={el.images?.data[0]?.attributes?.url || ""}
+                // onClick={handleServiceClick(el)}
+              />
+            ))}
+          </AdvertisementsWrap>
+          <Pagination
+            isDisabled={isLoading}
+            currentPage={page}
+            onChangePage={handleChangePage}
+            totalItems={total}
+            pageSize={pageSize}
           />
-        ))}
-      </AdvertisementsWrap>
-      <Pagination
-        isDisabled={isLoading}
-        currentPage={page}
-        onChangePage={handleChangePage}
-        totalItems={total}
-        pageSize={pageSize}
-      />
+        </>
+      ) : (
+        <Placeholder title={t("noAddsFound")} />
+      )}
     </Wrapper>
   );
 };

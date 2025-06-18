@@ -37,6 +37,7 @@
     "selectType": "Veröffentlichungstyp auswählen",
     "title": "Titel*",
     "toasts": {
+      "tooManyImages": "Zu viele Bilder",
       "failedToSubmit": "Anzeige konnte nicht gesendet werden: ",
       "success": "Anzeige erfolgreich eingereicht!",
       "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten."

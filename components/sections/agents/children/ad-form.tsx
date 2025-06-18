@@ -12,6 +12,7 @@ import FormikDropdown from "../../../layout/formik-select";
 // utils
 import { getUrl } from "../../../../utils/fetchApi";
 import styled from "@emotion/styled";
+import "react-toastify/dist/ReactToastify.css";
 
 interface IAdvertisementValues {
   name: string;
@@ -63,7 +64,7 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
         ) => {
           if (images && images.length > 4) {
             setSubmitting(false);
-            return toast.error("Too much images");
+            return toast.error(t("form.toasts.tooManyImages"));
           }
 
           try {

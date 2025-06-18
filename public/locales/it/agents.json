@@ -37,6 +37,7 @@
     "selectType": "Seleziona tipo di pubblicazione",
     "title": "Titolo*",
     "toasts": {
+      "tooManyImages": "Troppe immagini",
       "failedToSubmit": "Invio annuncio fallito: ",
       "success": "Annuncio inviato con successo!",
       "unexpectedError": "Si è verificato un errore imprevisto."
