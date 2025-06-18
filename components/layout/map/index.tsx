@@ -59,7 +59,7 @@ const Map = ({
     if (locations?.length) return calculateCenter(locations);
 
     return centerProp;
-  }, [locations, selectedMarker]);
+  }, [locations, selectedMarker, centerProp]);
 
   if (loadError || typeof google === "undefined") {
     return <h1>Error</h1>;
