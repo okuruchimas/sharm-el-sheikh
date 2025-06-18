@@ -1,31 +1,27 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
 import TextAndIcon from "../../../layout/text-and-icon";
-
-type OfferCardProps = {
-  image: string;
-  title: string;
-  description: string;
-  category: string;
-  price: string;
-  location: string;
-  date: string;
-};
+import { formatDate } from "../../../../utils/formateDate";
+import { AdvertisementFragment } from "../../../../gql/graphql";
 
 const OfferCard = ({
-  image,
+  images,
   title,
   description,
   category,
   price,
   location,
-  date,
-}: OfferCardProps) => {
+  createdAt,
+}: AdvertisementFragment) => {
+  const imageUrl =
+    images?.data[0]?.attributes?.url ||
+    "/images/background/background-prom.svg";
+
   return (
     <Card>
       <TopContent>
         <ImageWrap>
-          <Image src={image} alt={title} layout="fill" objectFit="cover" />
+          <Image src={imageUrl} alt={title} layout="fill" objectFit="cover" />
           <VipStar>
             <Image
               src="/icons/starg.svg"
@@ -43,7 +39,10 @@ const OfferCard = ({
             text={location || ""}
           />
           <TextAndIcon src="/icons/cash.svg" text={price || ""} />
-          <TextAndIcon src="/icons/time.svg" text={date || ""} />
+          <TextAndIcon
+            src="/icons/time.svg"
+            text={formatDate(createdAt) || ""}
+          />
         </Details>
       </TopContent>
       <Content>
@@ -70,6 +69,8 @@ const Card = styled.div(({ theme }) => ({
   [theme.breakpoints.mobile]: {
     flexDirection: "column",
     padding: "12px",
+    maxHeight: 612,
+    minHeight: 612,
   },
 }));
 
@@ -129,6 +130,14 @@ const CategoryTag = styled.div(({ theme }) => ({
 const Description = styled.p(({ theme }) => ({
   fontSize: theme.fontSize.fontS16,
   lineHeight: "20px",
+
+  [theme.breakpoints.mobile]: {
+    display: "-webkit-box",
+    "-webkit-box-orient": "vertical",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    "-webkit-line-clamp": "9",
+  },
 }));
 
 const Title = styled.h3(({ theme }) => ({

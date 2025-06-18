@@ -56,12 +56,11 @@ const Wrap = styled("div")(({ theme }) => ({
 
 const ImageWrapper = styled("div")({
   height: "70%",
-  minHeight: "70%",
   position: "relative",
+  minHeight: "224px",
 });
 
 const InfoWrap = styled("div")(({ theme }) => ({
-  borderTop: `1px solid ${theme.colors.blue5}`,
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",

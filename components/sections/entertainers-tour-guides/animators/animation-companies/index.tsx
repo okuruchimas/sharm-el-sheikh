@@ -8,6 +8,10 @@ import styled from "@emotion/styled";
 // types
 import type { AnimationCompanyPreviewFragment } from "../../../../../gql/graphql";
 import type { Dispatch } from "react";
+import useResponsive from "../../../../../hooks/useResponsive";
+import { Pagination } from "swiper/modules";
+import { SwiperCardsWrapper } from "../../children/cards-wrap";
+import { SwiperSlide } from "swiper/react";
 
 type AnimationCompaniesProps = {
   companies: AnimationCompanyPreviewFragment[];
@@ -19,6 +23,7 @@ const AnimationCompanies = ({
   setSelectedCompany,
 }: AnimationCompaniesProps) => {
   const { t } = useTranslation("entertainers-tour-guides");
+  const { slidesPerView } = useResponsive();
 
   const handleCardClick = (data: AnimationCompanyPreviewFragment) => () => {
     setSelectedCompany(data);
@@ -27,21 +32,33 @@ const AnimationCompanies = ({
   return (
     <Wrapper>
       <Title>{t("animationCompanies")}</Title>
-      <CardsWrapper>
-        {companies.map((el) => (
-          <AnimationCompanyCard
-            key={el.name}
-            imgSrc={
-              el.image?.data?.attributes?.url ||
-              "/images/background/background-prom.svg"
-            }
-            title={el.name}
-            averageRating={el.averageRating || 0}
-            totalComments={el.totalComments || 0}
-            onClick={handleCardClick(el)}
-          />
+      <SwiperCardsWrapper
+        modules={[Pagination]}
+        slidesPerView={slidesPerView}
+        isSingleCard={false}
+        spaceBetween={12}
+        navigation={false}
+        pagination={{
+          clickable: true,
+        }}
+        loop
+      >
+        {companies.map((el, index) => (
+          <SwiperSlide key={index}>
+            <AnimationCompanyCard
+              key={el.name}
+              imgSrc={
+                el.image?.data?.attributes?.url ||
+                "/images/background/background-prom.svg"
+              }
+              title={el.name}
+              averageRating={el.averageRating || 0}
+              totalComments={el.totalComments || 0}
+              onClick={handleCardClick(el)}
+            />
+          </SwiperSlide>
         ))}
-      </CardsWrapper>
+      </SwiperCardsWrapper>
     </Wrapper>
   );
 };

@@ -87,6 +87,7 @@ const Wrap = styled("div")(({ theme }) => ({
   backgroundColor: theme.colors.white,
   borderRadius: "16px",
   minWidth: "404px",
+  border: `1px solid ${theme.colors.blue5}`,
 
   [theme.breakpoints.mobile]: {
     height: "364px",
@@ -110,7 +111,6 @@ const DownWrap = styled("div")(({ theme }) => ({
   height: "40%",
   borderRadius: "0 0 16px 16px",
   backgroundColor: theme.colors.blue4,
-  border: `1px solid ${theme.colors.blue5}`,
   borderTopStyle: "none",
   display: "flex",
   flexDirection: "column",

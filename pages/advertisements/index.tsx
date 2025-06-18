@@ -1,5 +1,3 @@
-import "swiper/css";
-import "swiper/css/pagination";
 import { useTranslation } from "next-i18next";
 // utils
 import styled from "@emotion/styled";
@@ -32,7 +30,7 @@ const Advertisements = ({ advertisements }: IAdvertisements) => {
       url="/images/background/background-gradient.svg"
       mobUrl="/images/background/mobile-background-gradient.svg"
     >
-      <HotOffers />
+      <HotOffers advertisements={advertisements} />
 
       <SectionWrapper
         title={"Check New Ads"}
