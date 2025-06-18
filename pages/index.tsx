@@ -139,10 +139,7 @@ const Home = ({
 };
 
 export async function getStaticProps({ locale }: any) {
-  // const { home } = await fetchData(GetHomePageDocument, { locale });
   const areasPromise = fetchData(GetAreasDocument, { locale });
-  // const { categories } = await fetchData(GetCategoriesDocument, { locale });
-
   const companiesPromise = areasPromise.then(({ areas }) =>
     fetchData(GetCompaniesByFilterDocument, {
       locale,
@@ -152,13 +149,6 @@ export async function getStaticProps({ locale }: any) {
       discountFilter: { title: { ne: null } },
     }),
   );
-  // const { companies } = await fetchData(GetCompaniesByFilterDocument, {
-  //   locale,
-  //   areaKey: areas?.data[0]?.attributes?.key,
-  //   page: 1,
-  //   pageSize: 3,
-  //   discountFilter: { title: { ne: null } },
-  // });
 
   const [{ home }, { areas }, { categories }, { companies }] =
     await Promise.all([
