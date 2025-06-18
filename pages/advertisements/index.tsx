@@ -19,6 +19,17 @@ import CreateAddForm from "../../components/sections/advertisements/children/adv
 import SectionWrapper from "../../components/layout/section-wrapper";
 import SectionsWrapper from "../../components/layout/sections-wrapper";
 import type { selectOption } from "../../components/types/filter";
+import {
+  BannerBackground,
+  BannerSubTitle,
+  BannerTitle,
+  BannerWrap,
+} from "../../components/layout/banner/banner";
+import {
+  BannerStyledButton,
+  ContentWithBgFirst,
+} from "../../components/sections/agents/children/banners";
+import { useRouter } from "next/router";
 
 export interface IAdvertisements {
   advertisements: AdvertisementFragment[];
@@ -34,6 +45,7 @@ const Advertisements = ({
   const [isForm, setIsForm] = useState<boolean>(false);
   const { t } = useTranslation("advertisements");
   const { t: tAgents } = useTranslation("agents");
+  const { push } = useRouter();
 
   const adCategories = [
     { key: "other", value: t("category") },
@@ -41,8 +53,12 @@ const Advertisements = ({
   ];
 
   const handleClick = () => {
+    if (!isForm) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
     setIsForm((prev) => !prev);
   };
+
   return (
     <Wrapper
       url="/images/background/background-gradient.svg"
@@ -67,6 +83,19 @@ const Advertisements = ({
         />
       </SectionWrapper>
 
+      <BannerWrap>
+        <BannerBackground imgLink="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/b082125564d53afd56fcfeb74e2bb673121236e2_71efebeea0.webp" />
+        <ContentWithBgFirst>
+          <BannerTitle>Upgrade Your World with the Latest Phones!</BannerTitle>
+          <BannerSubTitle>
+            Explore, Choose, and Buy Now at Unbeatable Prices. <br />
+            Don’t Miss Out — Grab Yours Today!
+          </BannerSubTitle>
+
+          <BannerStyledButton text="Choose" onClick={() => push("/")} />
+        </ContentWithBgFirst>
+      </BannerWrap>
+
       {isForm ? (
         <CreateAddForm
           cancelClick={handleClick}
@@ -76,7 +105,21 @@ const Advertisements = ({
     </Wrapper>
   );
 };
-export default Advertisements;
+
+const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "80px",
+  alignItems: "center",
+  justifyContent: "center",
+
+  paddingTop: "242px",
+
+  [theme.breakpoints.mobile]: {
+    paddingTop: "120px",
+    gap: "32px",
+  },
+}));
 
 export async function getStaticProps({ locale }: any) {
   const [{ advertisements }, { advertisementCategories }] = await Promise.all([
@@ -102,18 +145,4 @@ export async function getStaticProps({ locale }: any) {
     },
   };
 }
-
-const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "80px",
-  alignItems: "center",
-  justifyContent: "center",
-
-  paddingTop: "242px",
-
-  [theme.breakpoints.mobile]: {
-    paddingTop: "120px",
-    gap: "32px",
-  },
-}));
+export default Advertisements;

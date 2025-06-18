@@ -127,6 +127,7 @@ const Content = styled("div")(({ theme }) => ({
 const ImageStyled = styled(Image)<{ even: string }>(({ theme, even }) => ({
   borderBottomLeftRadius: "12px",
   borderTopLeftRadius: even === "true" ? "" : "12px",
+  borderTopRightRadius: even === "true" ? "12px" : "",
 
   [theme.breakpoints.mobile]: {
     borderBottomLeftRadius: "unset",

@@ -187,6 +187,7 @@ const Wrap = styled.div(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     right: 0,
+    top: "164px",
   },
 }));
 
