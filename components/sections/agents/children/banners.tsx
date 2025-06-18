@@ -3,9 +3,9 @@ import {
   BannerSubTitle,
   BannerTitle,
   BannerWrap,
-} from "../../../../layout/banner/banner";
+} from "../../../layout/banner/banner";
 import styled from "@emotion/styled";
-import Button from "../../../../layout/button";
+import Button from "../../../layout/button";
 import { useRouter } from "next/router";
 import { Trans, useTranslation } from "next-i18next";
 
@@ -62,7 +62,7 @@ const pillsImages = [
 ];
 
 const Banners = () => {
-  const router = useRouter();
+  const { push } = useRouter();
   const { t } = useTranslation("agents");
 
   return (
@@ -79,9 +79,9 @@ const Banners = () => {
             />
           </BannerSubTitle>
 
-          <StyledButton
+          <BannerStyledButton
             text={t("banners.1.button")}
-            onClick={() => router.push("/")}
+            onClick={() => push("/")}
           />
         </ContentWithBgFirst>
       </BannerWrap>
@@ -92,9 +92,9 @@ const Banners = () => {
           <BannerTitle>{t("banners.2.title")}</BannerTitle>
           <BannerSubTitle>{t("banners.2.subTitle")}</BannerSubTitle>
 
-          <StyledButton
+          <BannerStyledButton
             text={t("banners.2.button")}
-            onClick={() => router.push("/")}
+            onClick={() => push("/")}
           />
         </ContentWithBgSecond>
       </BannerWrap>
@@ -105,9 +105,9 @@ const Banners = () => {
         <ShapeRight imgLink="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/636d4054c813ee25c7aa1667549ab442fb5d8e44_7629b596a1.webp" />
         <Content>
           <BannerTitle>{t("banners.3.title")}</BannerTitle>
-          <StyledButton
+          <BannerStyledButton
             text={t("banners.3.button")}
-            onClick={() => router.push("/")}
+            onClick={() => push("/")}
           />
         </Content>
       </BannerWrap>
@@ -128,7 +128,7 @@ const Banners = () => {
           <BannerTitle>{t("banners.4.title")}</BannerTitle>
           <StyledButton
             text={t("banners.4.button")}
-            onClick={() => router.push("/")}
+            onClick={() => push("/")}
           />
         </ContentThird>
       </BannerWrap>
@@ -247,28 +247,29 @@ const Content = styled("div")(({ theme }) => ({
   },
 }));
 
-const ContentWithBgFirst = styled("div")<{ bg?: string; bgMob?: string }>(
-  ({ theme, bg, bgMob }) => ({
-    zIndex: 1,
-    maxHeight: "50%",
-    minWidth: 869,
-    color: theme.colors.white,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    gap: "8px",
-    backgroundImage: "url(/icons/agents/agentBg1.svg)",
-    backgroundSize: "cover",
-    padding: "40px 80px 40px 40px",
-    [theme.breakpoints.mobile]: {
-      marginTop: "auto",
-      padding: "16px",
-      minWidth: "100%",
-      width: "100%",
-      backgroundImage: "url(/icons/agents/agentBg1Mob.svg)",
-    },
-  }),
-);
+export const ContentWithBgFirst = styled("div")<{
+  bg?: string;
+  bgMob?: string;
+}>(({ theme, bg, bgMob }) => ({
+  zIndex: 1,
+  maxHeight: "50%",
+  minWidth: 869,
+  color: theme.colors.white,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  gap: "8px",
+  backgroundImage: "url(/icons/agents/agentBg1.svg)",
+  backgroundSize: "cover",
+  padding: "40px 80px 40px 40px",
+  [theme.breakpoints.mobile]: {
+    marginTop: "auto",
+    padding: "16px",
+    minWidth: "100%",
+    width: "100%",
+    backgroundImage: "url(/icons/agents/agentBg1Mob.svg)",
+  },
+}));
 
 const ContentWithBgSecond = styled(ContentWithBgFirst)(({ theme }) => ({
   justifyContent: "center",
@@ -313,11 +314,31 @@ const ContentThird = styled("div")(({ theme }) => ({
   },
 }));
 
-const StyledButton = styled(Button)({
+const StyledButton = styled(Button)(({ theme }) => ({
   alignSelf: "flex-end",
   backgroundColor: "#F4C542",
   color: "#000",
   width: "max-content",
-});
+}));
+
+export const BannerStyledButton = styled(StyledButton)(({ theme }) => ({
+  [theme.breakpoints.mobile]: {
+    zIndex: 10,
+    position: "absolute",
+    right: 16,
+    bottom: 16,
+    width: 40,
+    maxWidth: 40,
+    minWidth: 40,
+    height: 40,
+    fontSize: 0,
+    padding: 0,
+    borderRadius: "50%",
+    backgroundImage: "url(/icons/arrow1ur.svg)",
+    backgroundPosition: "center",
+    backgroundSize: "auto",
+    backgroundRepeat: "no-repeat",
+  },
+}));
 
 export default Banners;

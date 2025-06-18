@@ -1,0 +1,73 @@
+query GetAdvertisements(
+  $titleFilter: String
+  $categoryKey: String
+  $page: Int
+  $pageSize: Int
+  $vipFilter: BooleanFilterInput
+) {
+  advertisements(
+    pagination: { page: $page, pageSize: $pageSize }
+    sort: ["createdAt:desc"]
+    filters: {
+      title: { containsi: $titleFilter }
+      category: { eq: $categoryKey }
+      isVip: $vipFilter
+    }
+  ) {
+    data {
+      id
+      attributes {
+        ...Advertisement
+      }
+    }
+    meta {
+      pagination {
+        total
+      }
+    }
+  }
+}
+
+query GetAdvertisementsTitles($titleFilter: String) {
+  advertisements(filters: { title: { containsi: $titleFilter } }) {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+}
+
+query GetAdvertisementCategories($locale: I18NLocaleCode!) {
+  advertisementCategories(sort: "index:asc", locale: $locale) {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+}
+
+fragment Advertisement on Advertisement {
+  title
+  description
+  category
+  mobile
+  name
+  contactMethod
+  email
+  location
+  price
+  isVip
+  images {
+    data {
+      attributes {
+        alternativeText
+        url
+      }
+    }
+  }
+  createdAt
+}

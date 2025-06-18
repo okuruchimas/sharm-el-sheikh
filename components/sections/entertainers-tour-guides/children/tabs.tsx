@@ -46,9 +46,9 @@ const Wrap = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     width: "calc(100% + 32px)",
-    marginLeft: -16,
     alignSelf: "flex-start",
     borderBottom: "none",
+    margin: "32px 0 32px -16px",
   },
 }));
 

@@ -12,7 +12,7 @@ import { useTranslation } from "next-i18next";
 // components
 import Map from "../../components/layout/map";
 import Modal from "../../components/layout/modal";
-import Banners from "../../components/sections/agents/delivery/children/banners";
+import Banners from "../../components/sections/agents/children/banners";
 import Delivery from "../../components/sections/agents/delivery";
 import GuidesCards from "../../components/sections/entertainers-tour-guides/tour-and-guides/cards";
 import SectionWrapper from "../../components/layout/section-wrapper";
@@ -28,11 +28,16 @@ import { fetchData } from "../../utils/fetchApi";
 // types
 import { MapCard } from "../../components/layout/map/children/types";
 import { getLayoutData } from "../../utils/get-layout-data";
+import { SwiperCardsWrapper } from "../../components/sections/entertainers-tour-guides/children/cards-wrap";
+import GuideCard from "../../components/sections/entertainers-tour-guides/tour-and-guides/card";
+import { Pagination } from "swiper/modules";
+import useResponsive from "../../hooks/useResponsive";
+import { SwiperSlide } from "swiper/react";
 
 type Props = {
-  deliveries: { attributes: DeliveryFragment }[];
+  deliveries: DeliveryFragment[];
   initialTotalDeliveries: number;
-  tourGuides: { attributes: TourGuideFragment }[];
+  tourGuides: TourGuideFragment[];
   tourOperatorCompanies: { attributes: TourOperatorCompanyFragment }[];
 };
 const Agents = ({
@@ -45,11 +50,11 @@ const Agents = ({
   const { t: tPage } = useTranslation("agents");
   const [selectedOperatorCompany, setSelectedOperatorCompany] =
     useState<TourOperatorCompanyFragment>();
+  const { slidesPerView } = useResponsive();
 
   const locations = tourOperatorCompanies.map((el) =>
     mapLocation(el, "/icons/tour-operator-company-map-marker.svg"),
   );
-
   const handleInfoWindowClick = (previewData: MapCard) => {
     setSelectedOperatorCompany(
       tourOperatorCompanies.find(
@@ -82,11 +87,27 @@ const Agents = ({
         onClick={() => {}}
         mt="60px"
       >
-        <GuidesCards tourGuides={tourGuides?.map((el) => el.attributes)} />
+        <SwiperCardsWrapper
+          modules={[Pagination]}
+          slidesPerView={slidesPerView}
+          isSingleCard={false}
+          spaceBetween={12}
+          navigation={false}
+          pagination={{
+            clickable: true,
+          }}
+          loop
+        >
+          {tourGuides.map((el) => (
+            <SwiperSlide key={el.slug}>
+              <GuideCard tourGuide={el} />
+            </SwiperSlide>
+          ))}
+        </SwiperCardsWrapper>
       </SectionWrapper>
 
       <Delivery
-        initialDeliveries={deliveries?.map((el) => el.attributes)}
+        initialDeliveries={deliveries}
         initialTotalDeliveries={initialTotalDeliveries}
       />
 
@@ -132,9 +153,9 @@ export async function getStaticProps({ locale }: any) {
 
   return {
     props: {
-      deliveries: deliveries?.data,
+      deliveries: deliveries?.data?.map((el) => el.attributes),
       initialTotalDeliveries: deliveries?.meta.pagination.total,
-      tourGuides: tourGuides?.data,
+      tourGuides: tourGuides?.data?.map((el) => el.attributes),
       tourOperatorCompanies: tourOperatorCompanies?.data,
       initialTotal: tourGuides?.meta.pagination.total || 0,
       ...(await serverSideTranslations(locale, [

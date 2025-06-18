@@ -37,6 +37,7 @@
     "selectType": "Select publication type",
     "title": "Title*",
     "toasts": {
+      "tooManyImages": "Too many images",
       "failedToSubmit": "Failed to submit advertisement: ",
       "success": "Advertisement submitted successfully!",
       "unexpectedError": "An unexpected error occurred."

@@ -32,8 +32,9 @@ export const BannerTitle = styled("h2")(({ theme }) => ({
   marginBottom: "12px",
 
   [theme.breakpoints.mobile]: {
-    fontSize: theme.fontSize.fontS18,
+    fontSize: theme.fontSize.fontS16,
     marginBottom: 0,
+    paddingTop: 16,
   },
 }));
 

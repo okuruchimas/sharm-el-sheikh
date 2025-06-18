@@ -33,7 +33,7 @@ const SectionWrapper = ({
           ) : null}
 
           {buttonText && onClick ? (
-            <ButtonStyled text={buttonText} onClick={() => {}} />
+            <ButtonStyled text={buttonText} onClick={onClick} />
           ) : null}
         </TopWrapper>
       ) : null}
@@ -57,6 +57,7 @@ const Wrapper = styled("div")<{ mt: string }>(({ theme, mt }) => ({
     marginTop: "unset",
   },
 }));
+
 const TopWrapper = styled("div")({
   display: "flex",
   flexDirection: "row",
@@ -65,17 +66,18 @@ const TopWrapper = styled("div")({
   gap: "24px",
   width: "100%",
 });
+
 const ButtonStyled = styled(Button)({
   minWidth: 120,
-  padding: "8px 12px",
+  width: "auto",
 });
+
 const TitleWrap = styled("div", {
   shouldForwardProp: (prop) => prop !== "isColumn",
 })<{ isColumn: boolean }>(({ theme, isColumn }) => ({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  width: "100%",
 
   [theme.breakpoints.mobile]: {
     flexDirection: isColumn ? "column" : "unset",

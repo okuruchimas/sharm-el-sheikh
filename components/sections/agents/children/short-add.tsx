@@ -1,11 +1,11 @@
-import TextAndIcon from "../../../../layout/text-and-icon";
-import { Title } from "../../../../layout/title";
+import TextAndIcon from "../../../layout/text-and-icon";
+import { Title } from "../../../layout/title";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import { formatDate } from "../../../../../utils/formateDate";
+import { formatDate } from "../../../../utils/formateDate";
 import FullAdd from "./full-add";
 import { useState } from "react";
-import { type DeliveryFragment } from "../../../../../gql/graphql";
+import { type DeliveryFragment } from "../../../../gql/graphql";
 import { ContactRow } from "./seller-info";
 
 interface Props {
@@ -127,6 +127,7 @@ const Content = styled("div")(({ theme }) => ({
 const ImageStyled = styled(Image)<{ even: string }>(({ theme, even }) => ({
   borderBottomLeftRadius: "12px",
   borderTopLeftRadius: even === "true" ? "" : "12px",
+  borderTopRightRadius: even === "true" ? "12px" : "",
 
   [theme.breakpoints.mobile]: {
     borderBottomLeftRadius: "unset",

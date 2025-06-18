@@ -2,49 +2,54 @@ import { Formik, Form } from "formik";
 import { toast, ToastContainer } from "react-toastify";
 import { useTranslation } from "next-i18next";
 // components
-import Input from "../../../../layout/input";
-import Button from "../../../../layout/button";
-import Loader from "../../../../layout/loader";
-import { Title } from "../../../../layout/title";
-import ImageInput from "../../../../layout/image-input";
-import CheckboxField from "../../../../layout/checkbox";
-import FormikDropdown from "../../../../layout/formik-select";
+import Input from "../../../layout/input";
+import Button from "../../../layout/button";
+import Loader from "../../../layout/loader";
+import { Title } from "../../../layout/title";
+import ImageInput from "../../../layout/image-input";
+import FormikDropdown from "../../../layout/formik-select";
 // utils
-import { getUrl } from "../../../../../utils/fetchApi";
+import { getUrl } from "../../../../utils/fetchApi";
 import styled from "@emotion/styled";
+import IsVip from "./is-vip";
+import type { selectOption } from "../../../types/filter";
+import "react-toastify/dist/ReactToastify.css";
 
 interface IAdvertisementValues {
+  isVip: boolean;
   name: string;
   mobile: string;
-  contactMethod: string;
   email: string;
-  publicationType: string;
+  category: string;
   title: string;
   location: string;
   price: string;
   description: string;
-  personalCardLink?: string;
   images: File[] | null;
-  hasPersonalCard: boolean;
+  contactMethod: string;
 }
 
-const AddAdvertisementForm = ({ cancelClick }: any) => {
+type Props = {
+  cancelClick: () => void;
+  advertisementCategories: selectOption[];
+};
+const CreateAddForm = ({ cancelClick, advertisementCategories }: Props) => {
   const { t } = useTranslation("agents");
+  const { t: tAd } = useTranslation("advertisements");
   const { t: tCommon } = useTranslation("common");
 
   const initialValues: IAdvertisementValues = {
+    isVip: false,
     name: "",
     mobile: "",
-    contactMethod: "",
     email: "",
-    publicationType: "",
     title: "",
+    category: "",
     location: "",
     price: "",
     description: "",
-    personalCardLink: "",
     images: [] as File[],
-    hasPersonalCard: false,
+    contactMethod: "",
   };
 
   return (
@@ -52,18 +57,12 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
       <Formik
         initialValues={initialValues}
         onSubmit={async (
-          {
-            images,
-            publicationType,
-            hasPersonalCard,
-            personalCardLink,
-            ...restData
-          },
+          { images, category, ...restData },
           { setSubmitting, resetForm },
         ) => {
           if (images && images.length > 4) {
             setSubmitting(false);
-            return toast.error("Too much images");
+            return toast.error(t("form.toasts.tooManyImages"));
           }
 
           try {
@@ -71,11 +70,7 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
 
             const data = {
               ...restData,
-              personalCardLink,
-              publicationType:
-                hasPersonalCard && !!personalCardLink
-                  ? "member"
-                  : publicationType,
+              category: category || "other",
               publishedAt: null,
             };
 
@@ -87,7 +82,7 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
               });
             }
 
-            const response = await fetch(getUrl("deliveries"), {
+            const response = await fetch(getUrl("advertisements"), {
               method: "POST",
               body: formData,
             });
@@ -116,6 +111,7 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
               <Loader />
             ) : (
               <>
+                <IsVip label={tAd("vipAdvertisement")} />
                 <TitleStyled as="h3">{t("addAdvertisement")}</TitleStyled>
                 {/* Personal Data */}
                 <TitleSmallStyled as="h4">
@@ -132,25 +128,16 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
                 <TitleSmallStyled as="h4">
                   {t("form.aboutAdvertisement")}
                 </TitleSmallStyled>
+
+                <Input type="title" placeholder={t("form.title")} />
                 <FormikDropdown
-                  name="publicationType"
-                  options={[
-                    { key: "", value: t("form.selectType") },
-                    {
-                      key: "from",
-                      value: t("form.orderFromEgypt"),
-                    },
-                    {
-                      key: "to",
-                      value: t("form.orderInEgypt"),
-                    },
-                  ]}
+                  name="category"
+                  options={advertisementCategories}
                   width="100%"
                   height="56px"
                   borderColor="yellow"
                   color="gray"
                 />
-                <Input type="title" placeholder={t("form.title")} />
                 <Input type="location" placeholder={t("form.location")} />
                 <Input type="price" placeholder={t("form.price")} />
                 <Input
@@ -159,15 +146,6 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
                   as="textarea"
                 />
                 <ImageInput type="images" label={t("form.downloadCoverArt")} />
-                <CheckboxField
-                  type="hasPersonalCard"
-                  label={t("form.personalCardOnWebsite")}
-                />
-                <Input
-                  isDisabled={!values.hasPersonalCard}
-                  type="personalCardLink"
-                  placeholder={t("form.link")}
-                />
               </>
             )}
 
@@ -198,7 +176,7 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
 const Wrap = styled.div(({ theme }) => ({
   zIndex: 10,
   position: "absolute",
-  top: "0",
+  top: "250px",
   right: "calc(50% - 333px)",
   width: "100%",
   maxWidth: 658,
@@ -209,6 +187,7 @@ const Wrap = styled.div(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     right: 0,
+    top: "164px",
   },
 }));
 
@@ -257,4 +236,4 @@ const SubmitButton = styled(Button)(({ theme }) => ({
   minWidth: "120px",
 }));
 
-export default AddAdvertisementForm;
+export default CreateAddForm;

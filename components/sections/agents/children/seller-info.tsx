@@ -1,10 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import { Title } from "../../../../layout/title";
+import { Title } from "../../../layout/title";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
+import useResponsive from "../../../../hooks/useResponsive";
 
 interface PropsContactRow {
   email: string;
@@ -21,6 +22,8 @@ export const SellerInfo = ({
   mobile,
   personalCardLink,
 }: Props) => {
+  const { isMobile } = useResponsive();
+
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(email);
@@ -33,10 +36,10 @@ export const SellerInfo = ({
   return (
     <Wrapper>
       <InfoWrap>
-        <AvatarWrap size={100}>
+        <AvatarWrap size={isMobile ? 60 : 100}>
           <Image
-            width={50}
-            height={50}
+            width={isMobile ? 36 : 50}
+            height={isMobile ? 36 : 50}
             src="/icons/agents/human.svg"
             alt="human icon"
           />
@@ -94,7 +97,7 @@ const Wrapper = styled("div")(({ theme }) => ({
   [theme.breakpoints.mobile]: {
     flexDirection: "column",
     alignItems: "flex-end",
-    gap: "4px",
+    gap: 0,
   },
 }));
 
@@ -106,6 +109,7 @@ const ContactRowWrap = styled("div")(({ theme }) => ({
   gap: "20px",
   [theme.breakpoints.mobile]: {
     justifyContent: "flex-end",
+    marginTop: 8,
   },
 }));
 

@@ -12,11 +12,11 @@ import Member from "../../../../public/icons/agents/member.svg";
 import Button from "../../../layout/button";
 import SearchBar from "../../../layout/search-bar";
 import Pagination from "../../../layout/pagination";
-import Deliveries from "./children/deliveries";
+import Deliveries from "../children/deliveries";
 import Placeholder from "../../promotions/children/placeholder";
 import TypeSwitcher from "../../home/feedback/children/type-switcher";
 import SectionWrapper from "../../../layout/section-wrapper";
-import AddAdvertisementForm from "./children/ad-form";
+import AddAdvertisementForm from "../children/ad-form";
 // utils
 import styled from "@emotion/styled";
 import { fetchDataFromApi } from "../../../../utils/fetchApi";

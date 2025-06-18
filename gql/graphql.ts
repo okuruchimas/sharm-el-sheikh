@@ -26,6 +26,147 @@ export type Scalars = {
   Upload: { input: any; output: any; }
 };
 
+export type Advertisement = {
+  __typename?: 'Advertisement';
+  category: Scalars['String']['output'];
+  contactMethod: Scalars['String']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description: Scalars['String']['output'];
+  email: Scalars['String']['output'];
+  images?: Maybe<UploadFileRelationResponseCollection>;
+  isVip?: Maybe<Scalars['Boolean']['output']>;
+  location: Scalars['String']['output'];
+  mobile: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  price: Scalars['String']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type AdvertisementImagesArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type AdvertisementCategory = {
+  __typename?: 'AdvertisementCategory';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  index: Scalars['Int']['output'];
+  key: Scalars['String']['output'];
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<AdvertisementCategoryRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  value: Scalars['String']['output'];
+};
+
+
+export type AdvertisementCategoryLocalizationsArgs = {
+  filters?: InputMaybe<AdvertisementCategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type AdvertisementCategoryEntity = {
+  __typename?: 'AdvertisementCategoryEntity';
+  attributes?: Maybe<AdvertisementCategory>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type AdvertisementCategoryEntityResponse = {
+  __typename?: 'AdvertisementCategoryEntityResponse';
+  data?: Maybe<AdvertisementCategoryEntity>;
+};
+
+export type AdvertisementCategoryEntityResponseCollection = {
+  __typename?: 'AdvertisementCategoryEntityResponseCollection';
+  data: Array<AdvertisementCategoryEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type AdvertisementCategoryFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<AdvertisementCategoryFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  index?: InputMaybe<IntFilterInput>;
+  key?: InputMaybe<StringFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<AdvertisementCategoryFiltersInput>;
+  not?: InputMaybe<AdvertisementCategoryFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<AdvertisementCategoryFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  value?: InputMaybe<StringFilterInput>;
+};
+
+export type AdvertisementCategoryInput = {
+  index?: InputMaybe<Scalars['Int']['input']>;
+  key?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AdvertisementCategoryRelationResponseCollection = {
+  __typename?: 'AdvertisementCategoryRelationResponseCollection';
+  data: Array<AdvertisementCategoryEntity>;
+};
+
+export type AdvertisementEntity = {
+  __typename?: 'AdvertisementEntity';
+  attributes?: Maybe<Advertisement>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type AdvertisementEntityResponse = {
+  __typename?: 'AdvertisementEntityResponse';
+  data?: Maybe<AdvertisementEntity>;
+};
+
+export type AdvertisementEntityResponseCollection = {
+  __typename?: 'AdvertisementEntityResponseCollection';
+  data: Array<AdvertisementEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type AdvertisementFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<AdvertisementFiltersInput>>>;
+  category?: InputMaybe<StringFilterInput>;
+  contactMethod?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  email?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  isVip?: InputMaybe<BooleanFilterInput>;
+  location?: InputMaybe<StringFilterInput>;
+  mobile?: InputMaybe<StringFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<AdvertisementFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<AdvertisementFiltersInput>>>;
+  price?: InputMaybe<StringFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type AdvertisementInput = {
+  category?: InputMaybe<Scalars['String']['input']>;
+  contactMethod?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  images?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  isVip?: InputMaybe<Scalars['Boolean']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  mobile?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  price?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type AnimationCompany = {
   __typename?: 'AnimationCompany';
   about?: Maybe<Scalars['String']['output']>;
@@ -1537,7 +1678,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | ComponentComponentsBanner | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | Delivery | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyLocation | PhotographyStyle | Service | SupportService | TaxiDriver | TaxiService | TaxiSpot | Tour | TourCategory | TourGuide | TourOperatorCompany | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Advertisement | AdvertisementCategory | AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | ComponentComponentsBanner | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | Delivery | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyLocation | PhotographyStyle | Service | SupportService | TaxiDriver | TaxiService | TaxiSpot | Tour | TourCategory | TourGuide | TourOperatorCompany | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   __typename?: 'Header';
@@ -2145,6 +2286,9 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
+  createAdvertisement?: Maybe<AdvertisementEntityResponse>;
+  createAdvertisementCategory?: Maybe<AdvertisementCategoryEntityResponse>;
+  createAdvertisementCategoryLocalization?: Maybe<AdvertisementCategoryEntityResponse>;
   createAnimationCompany?: Maybe<AnimationCompanyEntityResponse>;
   createAnimationCompanyLocalization?: Maybe<AnimationCompanyEntityResponse>;
   createAnimator?: Maybe<AnimatorEntityResponse>;
@@ -2204,6 +2348,8 @@ export type Mutation = {
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  deleteAdvertisement?: Maybe<AdvertisementEntityResponse>;
+  deleteAdvertisementCategory?: Maybe<AdvertisementCategoryEntityResponse>;
   deleteAnimationCompany?: Maybe<AnimationCompanyEntityResponse>;
   deleteAnimator?: Maybe<AnimatorEntityResponse>;
   deleteAnnouncement?: Maybe<AnnouncementEntityResponse>;
@@ -2251,6 +2397,8 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
+  updateAdvertisement?: Maybe<AdvertisementEntityResponse>;
+  updateAdvertisementCategory?: Maybe<AdvertisementCategoryEntityResponse>;
   updateAnimationCompany?: Maybe<AnimationCompanyEntityResponse>;
   updateAnimator?: Maybe<AnimatorEntityResponse>;
   updateAnnouncement?: Maybe<AnnouncementEntityResponse>;
@@ -2296,6 +2444,24 @@ export type MutationChangePasswordArgs = {
   currentPassword: Scalars['String']['input'];
   password: Scalars['String']['input'];
   passwordConfirmation: Scalars['String']['input'];
+};
+
+
+export type MutationCreateAdvertisementArgs = {
+  data: AdvertisementInput;
+};
+
+
+export type MutationCreateAdvertisementCategoryArgs = {
+  data: AdvertisementCategoryInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateAdvertisementCategoryLocalizationArgs = {
+  data?: InputMaybe<AdvertisementCategoryInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
@@ -2663,6 +2829,17 @@ export type MutationCreateUsersPermissionsUserArgs = {
 };
 
 
+export type MutationDeleteAdvertisementArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteAdvertisementCategoryArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationDeleteAnimationCompanyArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -2893,6 +3070,19 @@ export type MutationResetPasswordArgs = {
   code: Scalars['String']['input'];
   password: Scalars['String']['input'];
   passwordConfirmation: Scalars['String']['input'];
+};
+
+
+export type MutationUpdateAdvertisementArgs = {
+  data: AdvertisementInput;
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateAdvertisementCategoryArgs = {
+  data: AdvertisementCategoryInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
@@ -3514,6 +3704,10 @@ export enum PublicationState {
 
 export type Query = {
   __typename?: 'Query';
+  advertisement?: Maybe<AdvertisementEntityResponse>;
+  advertisementCategories?: Maybe<AdvertisementCategoryEntityResponseCollection>;
+  advertisementCategory?: Maybe<AdvertisementCategoryEntityResponse>;
+  advertisements?: Maybe<AdvertisementEntityResponseCollection>;
   animationCompanies?: Maybe<AnimationCompanyEntityResponseCollection>;
   animationCompany?: Maybe<AnimationCompanyEntityResponse>;
   animator?: Maybe<AnimatorEntityResponse>;
@@ -3580,6 +3774,34 @@ export type Query = {
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
   usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>;
+};
+
+
+export type QueryAdvertisementArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryAdvertisementCategoriesArgs = {
+  filters?: InputMaybe<AdvertisementCategoryFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryAdvertisementCategoryArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryAdvertisementsArgs = {
+  filters?: InputMaybe<AdvertisementFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -5394,6 +5616,33 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type GetAdvertisementsQueryVariables = Exact<{
+  titleFilter?: InputMaybe<Scalars['String']['input']>;
+  categoryKey?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+  vipFilter?: InputMaybe<BooleanFilterInput>;
+}>;
+
+
+export type GetAdvertisementsQuery = { __typename?: 'Query', advertisements?: { __typename?: 'AdvertisementEntityResponseCollection', data: Array<{ __typename?: 'AdvertisementEntity', id?: string | null, attributes?: { __typename?: 'Advertisement', title: string, description: string, category: string, mobile: string, name: string, contactMethod: string, email: string, location: string, price: string, isVip?: boolean | null, createdAt?: any | null, images?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, url: string } | null }> } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
+
+export type GetAdvertisementsTitlesQueryVariables = Exact<{
+  titleFilter?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetAdvertisementsTitlesQuery = { __typename?: 'Query', advertisements?: { __typename?: 'AdvertisementEntityResponseCollection', data: Array<{ __typename?: 'AdvertisementEntity', id?: string | null, attributes?: { __typename?: 'Advertisement', title: string } | null }> } | null };
+
+export type GetAdvertisementCategoriesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetAdvertisementCategoriesQuery = { __typename?: 'Query', advertisementCategories?: { __typename?: 'AdvertisementCategoryEntityResponseCollection', data: Array<{ __typename?: 'AdvertisementCategoryEntity', attributes?: { __typename?: 'AdvertisementCategory', key: string, value: string } | null }> } | null };
+
+export type AdvertisementFragment = { __typename?: 'Advertisement', title: string, description: string, category: string, mobile: string, name: string, contactMethod: string, email: string, location: string, price: string, isVip?: boolean | null, createdAt?: any | null, images?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, url: string } | null }> } | null };
+
 export type GetAnimationCompaniesQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
 }>;
@@ -5794,6 +6043,29 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+export const AdvertisementFragmentDoc = new TypedDocumentString(`
+    fragment Advertisement on Advertisement {
+  title
+  description
+  category
+  mobile
+  name
+  contactMethod
+  email
+  location
+  price
+  isVip
+  images {
+    data {
+      attributes {
+        alternativeText
+        url
+      }
+    }
+  }
+  createdAt
+}
+    `, {"fragmentName":"Advertisement"}) as unknown as TypedDocumentString<AdvertisementFragment, unknown>;
 export const StrapiImageFragmentDoc = new TypedDocumentString(`
     fragment StrapiImage on UploadFileEntityResponse {
   data {
@@ -7075,6 +7347,71 @@ fragment TourGuidePreview on TourGuide {
     }
   }
 }`, {"fragmentName":"Tour"}) as unknown as TypedDocumentString<TourFragment, unknown>;
+export const GetAdvertisementsDocument = new TypedDocumentString(`
+    query GetAdvertisements($titleFilter: String, $categoryKey: String, $page: Int, $pageSize: Int, $vipFilter: BooleanFilterInput) {
+  advertisements(
+    pagination: {page: $page, pageSize: $pageSize}
+    sort: ["createdAt:desc"]
+    filters: {title: {containsi: $titleFilter}, category: {eq: $categoryKey}, isVip: $vipFilter}
+  ) {
+    data {
+      id
+      attributes {
+        ...Advertisement
+      }
+    }
+    meta {
+      pagination {
+        total
+      }
+    }
+  }
+}
+    fragment Advertisement on Advertisement {
+  title
+  description
+  category
+  mobile
+  name
+  contactMethod
+  email
+  location
+  price
+  isVip
+  images {
+    data {
+      attributes {
+        alternativeText
+        url
+      }
+    }
+  }
+  createdAt
+}`) as unknown as TypedDocumentString<GetAdvertisementsQuery, GetAdvertisementsQueryVariables>;
+export const GetAdvertisementsTitlesDocument = new TypedDocumentString(`
+    query GetAdvertisementsTitles($titleFilter: String) {
+  advertisements(filters: {title: {containsi: $titleFilter}}) {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<GetAdvertisementsTitlesQuery, GetAdvertisementsTitlesQueryVariables>;
+export const GetAdvertisementCategoriesDocument = new TypedDocumentString(`
+    query GetAdvertisementCategories($locale: I18NLocaleCode!) {
+  advertisementCategories(sort: "index:asc", locale: $locale) {
+    data {
+      attributes {
+        key
+        value
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<GetAdvertisementCategoriesQuery, GetAdvertisementCategoriesQueryVariables>;
 export const GetAnimationCompaniesDocument = new TypedDocumentString(`
     query GetAnimationCompanies($locale: I18NLocaleCode!) {
   animationCompanies(sort: "index:asc", locale: $locale) {

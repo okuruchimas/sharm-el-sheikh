@@ -57,7 +57,7 @@ export const theme = {
     mobileS: "@media (max-width: 740px)",
     mobileHorizontal: "@media (min-width: 600px)",
     desktop: "@media (min-width: 1024px)",
-    desktopS: "@media (max-width: 1244px)",
+    desktopS: "@media (max-width: 1344px)",
     desktopM: "@media (max-width: 1600px)",
   },
   shadows: [
@@ -65,7 +65,7 @@ export const theme = {
     "1px 1px 10px 1px #054E5C4D", // 1
     "0px 1px 3px 1px #00000026", // 2
     "2px 2px 10px 2px #054E5C4D", // 3
-    "none",
+    "2px 2px 2px 2px #054E5C4D",
     "none",
     "none",
     "none",

@@ -1,8 +1,8 @@
 // components
 import Image from "next/image";
-import TextAndIcon from "../../../layout/text-and-icon";
 // utils
 import styled from "@emotion/styled";
+import TextAndIcon from "../text-and-icon";
 
 type PromCardProps = {
   title: string;
@@ -13,7 +13,7 @@ type PromCardProps = {
   groupSize?: string;
   onClick?: () => void;
 };
-const EntertainmentServiceCard = ({
+const UniversalCard = ({
   price,
   title,
   place,
@@ -25,19 +25,40 @@ const EntertainmentServiceCard = ({
   return (
     <Wrap onClick={onClick}>
       <ImgWrapper>
-        <Image src={imgSrc} alt="placeholder" layout="fill" />
+        <Image
+          src={imgSrc || "/images/background/background-prom.svg"}
+          alt="placeholder"
+          layout="fill"
+        />
       </ImgWrapper>
       <DownWrap>
         <CardTitle>{title}</CardTitle>
         <Down>
-          <TextAndIcon src="/icons/time.svg" text={duration || ""} />
-          <TextAndIcon src="/icons/cash.svg" text={price || ""} />
           <TextAndIcon
+            fontSize="18px"
+            iconSize="30px"
+            src="/icons/time.svg"
+            text={duration || ""}
+          />
+          <TextAndIcon
+            fontSize="18px"
+            iconSize="30px"
+            src="/icons/cash.svg"
+            text={price || ""}
+          />
+          <TextAndIcon
+            fontSize="18px"
+            iconSize="30px"
             src="/icons/promotions-section/location.svg"
             text={place || ""}
           />
           {groupSize ? (
-            <TextAndIcon src="/icons/team.svg" text={groupSize} />
+            <TextAndIcon
+              fontSize="18px"
+              iconSize="30px"
+              src="/icons/team.svg"
+              text={groupSize}
+            />
           ) : null}
         </Down>
       </DownWrap>
@@ -65,9 +86,12 @@ const Wrap = styled("div")(({ theme }) => ({
   boxShadow: theme.shadows[0],
   backgroundColor: theme.colors.white,
   borderRadius: "16px",
+  minWidth: "404px",
+  border: `1px solid ${theme.colors.blue5}`,
 
   [theme.breakpoints.mobile]: {
     height: "364px",
+    minWidth: "344px",
   },
 }));
 
@@ -87,7 +111,6 @@ const DownWrap = styled("div")(({ theme }) => ({
   height: "40%",
   borderRadius: "0 0 16px 16px",
   backgroundColor: theme.colors.blue4,
-  border: `1px solid ${theme.colors.blue5}`,
   borderTopStyle: "none",
   display: "flex",
   flexDirection: "column",
@@ -111,4 +134,4 @@ const Down = styled("div")({
   gridTemplateColumns: "1fr 1fr",
 });
 
-export default EntertainmentServiceCard;
+export default UniversalCard;
