@@ -17,7 +17,6 @@ import ClubsContainer from "../../components/sections/hotspots/clubs-container";
 import EventsContainer from "../../components/sections/hotspots/events-container";
 import SectionsWrapper from "../../components/layout/sections-wrapper";
 import HotspotsBanner from "../../components/sections/hotspots/hotspots-banner";
-import ClubOptionsTable from "../../components/sections/hotspots/table";
 // constants
 import { CLUBS } from "../../constants/page-company-categories";
 import { REVALIDATE_TIME } from "../../constants/page.constants";
@@ -26,6 +25,7 @@ import styled from "@emotion/styled";
 import { fetchData } from "../../utils/fetchApi";
 import { getCurrentDayAndTime } from "../../utils/formateDate";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { mapCategory } from "../../utils/mappers";
 
 type HotspotsPageProps = {
   totalEvents: number;
@@ -47,13 +47,7 @@ const HotspotsPage = ({
   const { t } = useTranslation("common");
 
   const categoriesMapped = useMemo(
-    () =>
-      categories.map((el) => ({
-        key: el.attributes?.key || "",
-        value: el.attributes?.value || "",
-        iconSrc: el.attributes?.icon.data?.attributes?.url || "",
-        markerIcon: el.attributes?.markerIcon.data?.attributes?.url,
-      })),
+    () => categories.map(mapCategory),
     [categories],
   );
 

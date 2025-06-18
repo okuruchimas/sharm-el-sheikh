@@ -26,6 +26,7 @@ import {
   type HomePageFragment,
   type CompanyPreviewFragment,
 } from "../gql/graphql";
+import { mapCategory } from "../utils/mappers";
 
 const DynamicBanner = dynamic(
   () => import("../components/sections/home/banner"),
@@ -62,13 +63,7 @@ const Home = ({
   const { t } = useTranslation("common");
 
   const categoriesMapped = useMemo(
-    () =>
-      categories.map((el) => ({
-        key: el.attributes?.key || "",
-        value: el.attributes?.value || "",
-        iconSrc: el.attributes?.icon.data?.attributes?.url || "",
-        markerIcon: el.attributes?.markerIcon.data?.attributes?.url,
-      })),
+    () => categories.map(mapCategory),
     [categories],
   );
 

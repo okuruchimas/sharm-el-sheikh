@@ -30,6 +30,7 @@ import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
 // types
 import type { MapCard } from "../../../components/layout/map/children/types";
 import type { selectOption } from "../../../components/types/filter";
+import { mapCategory } from "../../../utils/mappers";
 
 type TourGuides = { attributes: TourGuideFragment }[];
 type TourAndGuidesProps = {
@@ -142,13 +143,7 @@ const TourAndGuides = ({
   const handleInfoWindowClick = (data: MapCard) => setSelectedTour(data);
   const handlePopupClose = () => setSelectedTour(undefined);
 
-  const categories = tourCategories.map((el) => ({
-    key: el?.attributes.key,
-    value: el?.attributes.value,
-    iconSrc: el?.attributes.icon.data?.attributes?.url,
-    markerIcon: el?.attributes.markerIcon?.data?.attributes?.url,
-  }));
-
+  const categories = tourCategories.map((el) => mapCategory(el));
   const handleCategorySelect = (option: selectOption) =>
     setSelectedCategory(option);
 
