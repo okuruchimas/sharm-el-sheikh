@@ -1,5 +1,6 @@
 {
   "404": "Seite nicht gefunden",
+  "500": "Entschuldigung, etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut.",
   "comingSoon": " Diese Seite kommt bald",
   "buttons": {
     "back": "Zurück",

@@ -1,5 +1,6 @@
 {
   "404": "Pagina non trovata",
+  "500": "Ci dispiace, qualcosa è andato storto. Per favore riprova più tardi.",
   "comingSoon": "Questa pagina arriverà presto",
   "buttons": {
     "back": "Indietro",
