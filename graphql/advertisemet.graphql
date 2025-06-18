@@ -4,7 +4,6 @@ query GetAdvertisements(
   $page: Int
   $pageSize: Int
   $vipFilter: BooleanFilterInput
-  $timeFilter: DateTimeFilterInput
 ) {
   advertisements(
     pagination: { page: $page, pageSize: $pageSize }
@@ -13,7 +12,6 @@ query GetAdvertisements(
       title: { containsi: $titleFilter }
       category: { eq: $categoryKey }
       isVip: $vipFilter
-      createdAt: $timeFilter
     }
   ) {
     data {

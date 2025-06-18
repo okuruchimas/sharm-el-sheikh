@@ -4,6 +4,10 @@ import TextAndIcon from "../../../layout/text-and-icon";
 import { formatDate } from "../../../../utils/formateDate";
 import { AdvertisementFragment } from "../../../../gql/graphql";
 
+interface Props extends AdvertisementFragment {
+  onClick?: () => void;
+}
+
 const OfferCard = ({
   images,
   title,
@@ -12,13 +16,14 @@ const OfferCard = ({
   price,
   location,
   createdAt,
-}: AdvertisementFragment) => {
+  onClick,
+}: Props) => {
   const imageUrl =
     images?.data[0]?.attributes?.url ||
     "/images/background/background-prom.svg";
 
   return (
-    <Card>
+    <Card onClick={onClick}>
       <TopContent>
         <ImageWrap>
           <Image src={imageUrl} alt={title} layout="fill" objectFit="cover" />

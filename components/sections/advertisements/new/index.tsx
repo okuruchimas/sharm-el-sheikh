@@ -11,8 +11,9 @@ import { useTranslation } from "next-i18next";
 
 interface Props {
   advertisements?: AdvertisementFragment[];
+  onElementClick: (ad: AdvertisementFragment) => void;
 }
-const New = ({ advertisements }: Props) => {
+const New = ({ advertisements, onElementClick }: Props) => {
   const { slidesPerView } = useResponsive();
   const { t } = useTranslation("agents");
 
@@ -30,18 +31,20 @@ const New = ({ advertisements }: Props) => {
           }}
           loop
         >
-          {advertisements?.map((el, index) => (
-            <SwiperSlide key={index}>
-              <UniversalCard
-                title={el.title}
-                price={el.price}
-                place={el.location}
-                duration={formatDate(el.createdAt)}
-                imgSrc={el.images?.data[0]?.attributes?.url || ""}
-                // onClick={handleServiceClick(el)}
-              />
-            </SwiperSlide>
-          ))}
+          {advertisements?.map((el, index) =>
+            el ? (
+              <SwiperSlide key={index}>
+                <UniversalCard
+                  title={el.title}
+                  price={el.price}
+                  place={el.location}
+                  duration={formatDate(el.createdAt)}
+                  imgSrc={el.images?.data[0]?.attributes?.url || ""}
+                  onClick={() => onElementClick(el)}
+                />
+              </SwiperSlide>
+            ) : null,
+          )}
         </SwiperCardsWrapper>
       ) : (
         <Placeholder title={t("noAddsFound")} />

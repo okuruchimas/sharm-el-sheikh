@@ -11,9 +11,10 @@ import { useTranslation } from "next-i18next";
 
 interface Props {
   advertisements?: AdvertisementFragment[];
+  onElementClick: (ad: AdvertisementFragment) => void;
 }
 
-const Hot = ({ advertisements }: Props) => {
+const Hot = ({ advertisements, onElementClick }: Props) => {
   const { isMobile } = useResponsive();
   const slidesPerView = isMobile ? 1 : 2;
   const { t } = useTranslation("agents");
@@ -42,7 +43,7 @@ const Hot = ({ advertisements }: Props) => {
           >
             {advertisements.map((item, i) => (
               <SwiperSlide key={i}>
-                <OfferCard {...item} />
+                <OfferCard {...item} onClick={() => onElementClick(item)} />
               </SwiperSlide>
             ))}
           </SwiperCardsWrapper>

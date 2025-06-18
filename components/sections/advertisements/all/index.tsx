@@ -26,12 +26,14 @@ interface Props {
   totalAdvertisements: number;
   initialAdvertisements: AdvertisementFragment[];
   advertisementCategories: selectOption[];
+  onElementClick: (ad: AdvertisementFragment) => void;
 }
 const All = ({
   buttonClick,
   initialAdvertisements,
   totalAdvertisements,
   advertisementCategories,
+  onElementClick,
 }: Props) => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [filterOptions, setFilterOptions] = useState<selectOption[]>();
@@ -153,7 +155,7 @@ const All = ({
                 place={el.location}
                 duration={formatDate(el.createdAt)}
                 imgSrc={el.images?.data[0]?.attributes?.url || ""}
-                // onClick={handleServiceClick(el)}
+                onClick={() => onElementClick(el)}
               />
             ))}
           </AdvertisementsWrap>

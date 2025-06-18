@@ -20,7 +20,10 @@ interface Props {
   imageAlt?: string;
   otherAddInfo: OtherAdInfo;
 }
-type OtherAdInfo = Omit<DeliveryFragment, "title" | "price" | "location">;
+type OtherAdInfo = Omit<
+  DeliveryFragment,
+  "title" | "price" | "location" | "publicationType"
+>;
 const FullAdd = ({
   title,
   location,

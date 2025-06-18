@@ -5622,7 +5622,6 @@ export type GetAdvertisementsQueryVariables = Exact<{
   page?: InputMaybe<Scalars['Int']['input']>;
   pageSize?: InputMaybe<Scalars['Int']['input']>;
   vipFilter?: InputMaybe<BooleanFilterInput>;
-  timeFilter?: InputMaybe<DateTimeFilterInput>;
 }>;
 
 
@@ -7349,11 +7348,11 @@ fragment TourGuidePreview on TourGuide {
   }
 }`, {"fragmentName":"Tour"}) as unknown as TypedDocumentString<TourFragment, unknown>;
 export const GetAdvertisementsDocument = new TypedDocumentString(`
-    query GetAdvertisements($titleFilter: String, $categoryKey: String, $page: Int, $pageSize: Int, $vipFilter: BooleanFilterInput, $timeFilter: DateTimeFilterInput) {
+    query GetAdvertisements($titleFilter: String, $categoryKey: String, $page: Int, $pageSize: Int, $vipFilter: BooleanFilterInput) {
   advertisements(
     pagination: {page: $page, pageSize: $pageSize}
     sort: ["createdAt:desc"]
-    filters: {title: {containsi: $titleFilter}, category: {eq: $categoryKey}, isVip: $vipFilter, createdAt: $timeFilter}
+    filters: {title: {containsi: $titleFilter}, category: {eq: $categoryKey}, isVip: $vipFilter}
   ) {
     data {
       id

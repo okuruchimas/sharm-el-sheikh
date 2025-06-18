@@ -30,6 +30,8 @@ import {
   ContentWithBgFirst,
 } from "../../components/sections/agents/children/banners";
 import { useRouter } from "next/router";
+import FullAdd from "../../components/sections/agents/children/full-add";
+import { formatDate } from "../../utils/formateDate";
 
 export interface IAdvertisements {
   advertisements: AdvertisementFragment[];
@@ -47,6 +49,10 @@ const Advertisements = ({
   latestAdvertisements,
 }: IAdvertisements) => {
   const [isForm, setIsForm] = useState<boolean>(false);
+  const [fullAd, setFullAd] = useState<AdvertisementFragment | undefined>(
+    undefined,
+  );
+
   const { t } = useTranslation("advertisements");
   const { t: tAgents } = useTranslation("agents");
   const { push } = useRouter();
@@ -63,19 +69,32 @@ const Advertisements = ({
     setIsForm((prev) => !prev);
   };
 
+  const handlePopupClick = (fullAd: AdvertisementFragment) => {
+    return setFullAd((prev) => (!!prev ? undefined : fullAd));
+  };
+  const handlePopupClose = () => {
+    setFullAd(undefined);
+  };
+
   return (
     <Wrapper
       url="/images/background/background-gradient.svg"
       mobUrl="/images/background/mobile-background-gradient.svg"
     >
-      <HotOffers advertisements={vipAdvertisements} />
+      <HotOffers
+        advertisements={vipAdvertisements}
+        onElementClick={handlePopupClick}
+      />
 
       <SectionWrapper
         title={t("checkNewAds")}
         buttonText={tAgents("addAdvertisement")}
         onClick={handleClick}
       >
-        <New advertisements={latestAdvertisements} />
+        <New
+          onElementClick={handlePopupClick}
+          advertisements={latestAdvertisements}
+        />
       </SectionWrapper>
 
       <SectionWrapper title={t("allAdvertisements")}>
@@ -84,6 +103,7 @@ const Advertisements = ({
           totalAdvertisements={totalAdvertisements}
           buttonClick={handleClick}
           advertisementCategories={adCategories}
+          onElementClick={handlePopupClick}
         />
       </SectionWrapper>
 
@@ -100,12 +120,40 @@ const Advertisements = ({
         </ContentWithBgFirst>
       </BannerWrap>
 
-      {isForm ? (
-        <CreateAddForm
-          cancelClick={handleClick}
-          advertisementCategories={adCategories}
-        />
-      ) : null}
+      {/*{fullAd ? (*/}
+      {/*  <FullAdd*/}
+      {/*    title={fullAd.title}*/}
+      {/*    price={fullAd.price}*/}
+      {/*    location={fullAd.location}*/}
+      {/*    date={formatDate(fullAd.createdAt)}*/}
+      {/*    imageUrl={*/}
+      {/*      fullAd.images?.data[0]?.attributes?.url ||*/}
+      {/*      "/images/background/background-prom.svg"*/}
+      {/*    }*/}
+      {/*    imageAlt={*/}
+      {/*      fullAd.images?.data[0]?.attributes?.alternativeText ||*/}
+      {/*      "photo of advertisement"*/}
+      {/*    }*/}
+      {/*    isOpen={!!fullAd}*/}
+      {/*    otherAddInfo={{*/}
+      {/*      description: fullAd.description,*/}
+      {/*      contactMethod: fullAd.contactMethod,*/}
+      {/*      name: fullAd.name,*/}
+      {/*      mobile: fullAd.mobile,*/}
+      {/*      email: fullAd.email,*/}
+      {/*      createdAt: fullAd.createdAt,*/}
+      {/*      images: fullAd.images,*/}
+      {/*    }}*/}
+      {/*    onClose={handlePopupClose}*/}
+      {/*  />*/}
+      {/*) : null}*/}
+
+      {/*{isForm ? (*/}
+      {/*  <CreateAddForm*/}
+      {/*    cancelClick={handleClick}*/}
+      {/*    advertisementCategories={adCategories}*/}
+      {/*  />*/}
+      {/*) : null}*/}
     </Wrapper>
   );
 };
@@ -126,15 +174,10 @@ const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
 }));
 
 export async function getStaticProps({ locale }: any) {
-  const fourteenDaysAgo = new Date();
-  fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
-  const isoDate = fourteenDaysAgo.toISOString();
-
   const [
     { advertisements },
     { advertisementCategories },
     { advertisements: vipAds },
-    { advertisements: latestAds },
   ] = await Promise.all([
     fetchData(GetAdvertisementsDocument, {
       page: 1,
@@ -143,9 +186,6 @@ export async function getStaticProps({ locale }: any) {
     fetchData(GetAdvertisementCategoriesDocument, { locale }),
     fetchData(GetAdvertisementsDocument, {
       vipFilter: { eq: true },
-    }),
-    fetchData(GetAdvertisementsDocument, {
-      timeFilter: { gte: isoDate },
     }),
   ]);
 
@@ -157,7 +197,9 @@ export async function getStaticProps({ locale }: any) {
         (el) => el.attributes,
       ),
       vipAdvertisements: vipAds?.data.map((el) => el.attributes),
-      latestAdvertisements: latestAds?.data.map((el) => el.attributes),
+      latestAdvertisements: advertisements?.data
+        .slice(0, 8)
+        .map((el) => el.attributes),
       ...(await serverSideTranslations(locale, [
         "common",
         "agents",
