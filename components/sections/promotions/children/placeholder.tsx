@@ -2,6 +2,7 @@
 import NextImage from '../../../layout/image';
 // utils
 import styled from '@emotion/styled';
+import { DEFAULT_IMAGE } from '../../../../constants/images.constants';
 
 type PlaceholderProps = {
   title?: string;
@@ -11,7 +12,7 @@ const Placeholder = ({ title }: PlaceholderProps) => {
   return (
     <Wrap>
       <NextImage
-        src="/images/background/background-prom.svg"
+        src={DEFAULT_IMAGE}
         alt="background"
         width="100%"
         height="370px"

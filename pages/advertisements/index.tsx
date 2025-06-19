@@ -32,6 +32,11 @@ import { GetStaticPropsContext } from 'next';
 import FullAdd from '../../components/sections/agents/children/full-add';
 import { formatDate } from '../../utils/formateDate';
 import CreateAddForm from '../../components/sections/advertisements/children/adv-form';
+import {
+  BACKGROUND_GRADIENT,
+  BACKGROUND_GRADIENT_MOBILE,
+  DEFAULT_IMAGE,
+} from '../../constants/images.constants';
 
 export interface IAdvertisements {
   advertisements: AdvertisementFragment[];
@@ -77,10 +82,7 @@ const Advertisements = ({
   };
 
   return (
-    <Wrapper
-      url="/images/background/background-gradient.svg"
-      mobUrl="/images/background/mobile-background-gradient.svg"
-    >
+    <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
       <HotOffers
         advertisements={vipAdvertisements}
         onElementClick={handlePopupClick}
@@ -126,10 +128,7 @@ const Advertisements = ({
           price={fullAd.price}
           location={fullAd.location}
           date={formatDate(fullAd.createdAt)}
-          imageUrl={
-            fullAd.images?.data[0]?.attributes?.url ||
-            '/images/background/background-prom.svg'
-          }
+          imageUrl={fullAd.images?.data[0]?.attributes?.url || DEFAULT_IMAGE}
           imageAlt={
             fullAd.images?.data[0]?.attributes?.alternativeText ||
             'photo of advertisement'

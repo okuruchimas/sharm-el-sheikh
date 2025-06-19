@@ -33,6 +33,10 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import 'react-toastify/dist/ReactToastify.css';
 import { getLayoutData } from '../../utils/get-layout-data';
 import { GetStaticPropsContext } from 'next';
+import {
+  BACKGROUND_GRADIENT,
+  BACKGROUND_GRADIENT_MOBILE,
+} from '../../constants/images.constants';
 
 interface Props {
   card: CompanyFragment;
@@ -104,10 +108,7 @@ const CompanyPage = ({
 
   return (
     <>
-      <Wrap
-        url="/images/background/background-gradient.svg"
-        mobUrl="/images/background/mobile-background-gradient.svg"
-      >
+      <Wrap url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
         <Promo
           totalComments={totalComments}
           averageRating={averageRating}

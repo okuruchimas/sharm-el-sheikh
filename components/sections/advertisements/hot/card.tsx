@@ -3,6 +3,7 @@ import Image from 'next/image';
 import TextAndIcon from '../../../layout/text-and-icon';
 import { formatDate } from '../../../../utils/formateDate';
 import { AdvertisementFragment } from '../../../../gql/graphql';
+import { DEFAULT_IMAGE } from '../../../../constants/images.constants';
 
 interface Props extends AdvertisementFragment {
   onClick?: () => void;
@@ -18,9 +19,7 @@ const OfferCard = ({
   createdAt,
   onClick,
 }: Props) => {
-  const imageUrl =
-    images?.data[0]?.attributes?.url ||
-    '/images/background/background-prom.svg';
+  const imageUrl = images?.data[0]?.attributes?.url || DEFAULT_IMAGE;
 
   return (
     <Card onClick={onClick}>

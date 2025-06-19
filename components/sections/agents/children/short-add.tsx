@@ -7,6 +7,7 @@ import FullAdd from './full-add';
 import { useState } from 'react';
 import { type DeliveryFragment } from '../../../../gql/graphql';
 import { ContactRow } from './seller-info';
+import { DEFAULT_IMAGE } from '../../../../constants/images.constants';
 
 interface Props {
   isEven: boolean;
@@ -19,7 +20,7 @@ const ShortAdd = ({ isEven, add }: Props) => {
   const date = formatDate(createdAt);
 
   const image = images?.data[0]?.attributes;
-  const imageUrl = image?.url || '/images/background/background-prom.svg';
+  const imageUrl = image?.url || DEFAULT_IMAGE;
   const imageAlt = image?.alternativeText || 'photo of add';
 
   const handlePopupClick = () => setIsFull(prev => !prev);
