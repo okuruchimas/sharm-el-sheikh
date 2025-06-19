@@ -23,6 +23,7 @@ import type {
   TourGuidePreviewFragment,
   TourOperatorCompanyFragment,
 } from '../../../gql/graphql';
+import { DEFAULT_IMAGE } from '../../../constants/images.constants';
 
 export type CompanyType = 'animator' | 'tour';
 
@@ -92,10 +93,7 @@ const CompanyFullInfo = ({ companyData, onClose }: Props) => {
       <TopSection>
         <ImgWrapper>
           <Image
-            src={
-              companyData.image?.data?.attributes?.url ||
-              '/images/background/background-prom.svg'
-            }
+            src={companyData.image?.data?.attributes?.url || DEFAULT_IMAGE}
             alt={
               companyData.image?.data?.attributes?.alternativeText ||
               'company logo'

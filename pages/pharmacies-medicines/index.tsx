@@ -22,6 +22,10 @@ import type { selectOption } from '../../components/types/filter';
 import { mapCategory } from '../../utils/mappers';
 import { getLayoutData } from '../../utils/get-layout-data';
 import { GetStaticPropsContext } from 'next';
+import {
+  BACKGROUND_GRADIENT,
+  BACKGROUND_GRADIENT_MOBILE,
+} from '../../constants/images.constants';
 
 type PharmaciesPageProps = {
   pageData: PharmaciesPageFragment;
@@ -56,10 +60,7 @@ const PharmaciesPage = ({
     categories?.data.map(el => el.attributes?.key || '').join('***') || '';
 
   return (
-    <Wrapper
-      url="/images/background/background-gradient.svg"
-      mobUrl="/images/background/mobile-background-gradient.svg"
-    >
+    <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
       <Map
         title={mapTitle}
         categories={[

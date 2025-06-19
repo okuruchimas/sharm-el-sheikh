@@ -3,6 +3,7 @@ import Image from 'next/image';
 // utils
 import styled from '@emotion/styled';
 import TextAndIcon from '../text-and-icon';
+import { DEFAULT_IMAGE } from '../../../constants/images.constants';
 
 type PromCardProps = {
   title: string;
@@ -17,7 +18,7 @@ const UniversalCard = ({
   price,
   title,
   place,
-  imgSrc,
+  imgSrc = DEFAULT_IMAGE,
   duration,
   groupSize,
   onClick,
@@ -25,11 +26,7 @@ const UniversalCard = ({
   return (
     <Wrap onClick={onClick}>
       <ImgWrapper>
-        <Image
-          src={imgSrc || '/images/background/background-prom.svg'}
-          alt="placeholder"
-          layout="fill"
-        />
+        <Image src={imgSrc} alt="placeholder" layout="fill" />
       </ImgWrapper>
       <DownWrap>
         <CardTitle>{title}</CardTitle>

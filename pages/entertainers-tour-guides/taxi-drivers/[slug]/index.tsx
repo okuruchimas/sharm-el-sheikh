@@ -31,6 +31,10 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import 'react-toastify/dist/ReactToastify.css';
 import { getLayoutData } from '../../../../utils/get-layout-data';
 import { GetStaticPropsContext } from 'next';
+import {
+  BACKGROUND_GRADIENT,
+  BACKGROUND_GRADIENT_MOBILE,
+} from '../../../../constants/images.constants';
 
 interface Props {
   taxiDriver: TaxiDriver;
@@ -93,10 +97,7 @@ const AnimatorPage = ({
 
   return (
     <>
-      <Wrapper
-        url="/images/background/background-gradient.svg"
-        mobUrl="/images/background/mobile-background-gradient.svg"
-      >
+      <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
         <div style={{ width: '100%' }}>
           <BackRoute
             href={'/entertainers-tour-guides/taxi-drivers'}

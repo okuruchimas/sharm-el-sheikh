@@ -29,6 +29,10 @@ import {
 import { mapCategory } from '../utils/mappers';
 import { getLayoutData } from '../utils/get-layout-data';
 import { GetStaticPropsContext } from 'next';
+import {
+  BACKGROUND_GRADIENT,
+  BACKGROUND_GRADIENT_MOBILE,
+} from '../constants/images.constants';
 
 const DynamicBanner = dynamic(
   () => import('../components/sections/home/banner'),
@@ -92,8 +96,8 @@ const Home = ({
         heroTitle={homePageData.heroTitle || ''}
       />
       <SectionsWrapper
-        url="images/background/background-gradient.svg"
-        mobUrl="images/background/mobile-background-gradient.svg"
+        url={BACKGROUND_GRADIENT}
+        mobUrl={BACKGROUND_GRADIENT_MOBILE}
       >
         <Promotions
           totalInitialCards={totalInitialPromotions}

@@ -33,6 +33,10 @@ import { Pagination } from 'swiper/modules';
 import useResponsive from '../../hooks/useResponsive';
 import { SwiperSlide } from 'swiper/react';
 import { GetStaticPropsContext } from 'next';
+import {
+  BACKGROUND_GRADIENT,
+  BACKGROUND_GRADIENT_MOBILE,
+} from '../../constants/images.constants';
 
 type Props = {
   deliveries: DeliveryFragment[];
@@ -64,10 +68,7 @@ const Agents = ({
   const handlePopupClose = () => setSelectedOperatorCompany(undefined);
 
   return (
-    <Wrapper
-      url="/images/background/background-gradient.svg"
-      mobUrl="/images/background/mobile-background-gradient.svg"
-    >
+    <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
       <SectionWrapper title={tPage('sectionTitles.mapTourCompanies')}>
         <Map
           zoom={3}

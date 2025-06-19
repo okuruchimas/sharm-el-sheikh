@@ -8,6 +8,7 @@ import styled from '@emotion/styled';
 // types
 import type { KeyboardEvent } from 'react';
 import type { CompanyPreviewFragment } from '../../../../gql/graphql';
+import { DEFAULT_IMAGE } from '../../../../constants/images.constants';
 
 type CompanyCardProps = Pick<
   CompanyPreviewFragment,
@@ -57,11 +58,7 @@ const CompanyCard = ({
             discount={discount?.title}
           />
         ) : (
-          <Image
-            src="/images/background/background-prom.svg"
-            alt="placeholder"
-            layout="fill"
-          />
+          <Image src={DEFAULT_IMAGE} alt="placeholder" layout="fill" />
         )}
       </SwiperWrapper>
       <DownWrap

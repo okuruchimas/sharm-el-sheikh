@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { getLayoutData } from '../utils/get-layout-data';
 import { GetStaticPropsContext } from 'next';
+import { DEFAULT_IMAGE } from '../constants/images.constants';
 
 const NotFoundPage = () => {
   const { t } = useTranslation('common');
@@ -16,7 +17,7 @@ const NotFoundPage = () => {
         width="300px"
         height="120px"
         alt="placeholder image"
-        src="/images/background/background-prom.svg"
+        src={DEFAULT_IMAGE}
         priority
       />
       <h1>{t('404')}</h1>

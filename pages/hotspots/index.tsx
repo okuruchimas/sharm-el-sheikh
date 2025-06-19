@@ -28,6 +28,10 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { mapCategory } from '../../utils/mappers';
 import { getLayoutData } from '../../utils/get-layout-data';
 import { GetStaticPropsContext } from 'next';
+import {
+  BACKGROUND_GRADIENT,
+  BACKGROUND_GRADIENT_MOBILE,
+} from '../../constants/images.constants';
 
 type HotspotsPageProps = {
   totalEvents: number;
@@ -57,10 +61,7 @@ const HotspotsPage = ({
     categories?.map(el => el.attributes?.key || '').join('***') || '';
 
   return (
-    <Wrapper
-      url="/images/background/background-gradient.svg"
-      mobUrl="/images/background/mobile-background-gradient.svg"
-    >
+    <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
       <EventsContainer
         title={eventsTitle}
         initialEvents={initialEvents}

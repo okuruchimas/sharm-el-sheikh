@@ -12,6 +12,7 @@ import useResponsive from '../../../../../hooks/useResponsive';
 import { Pagination } from 'swiper/modules';
 import { SwiperCardsWrapper } from '../../children/cards-wrap';
 import { SwiperSlide } from 'swiper/react';
+import { DEFAULT_IMAGE } from '../../../../../constants/images.constants';
 
 type AnimationCompaniesProps = {
   companies: AnimationCompanyPreviewFragment[];
@@ -46,10 +47,7 @@ const AnimationCompanies = ({
           <SwiperSlide key={index}>
             <AnimationCompanyCard
               key={el.name}
-              imgSrc={
-                el.image?.data?.attributes?.url ||
-                '/images/background/background-prom.svg'
-              }
+              imgSrc={el.image?.data?.attributes?.url || DEFAULT_IMAGE}
               title={el.name}
               averageRating={el.averageRating || 0}
               totalComments={el.totalComments || 0}

@@ -36,6 +36,11 @@ import type { MapCard } from '../../../../components/layout/map/children/types';
 import UniversalCard from '../../../../components/layout/universal-card';
 import { getLayoutData } from '../../../../utils/get-layout-data';
 import { GetStaticPropsContext } from 'next';
+import {
+  BACKGROUND_GRADIENT,
+  BACKGROUND_GRADIENT_MOBILE,
+  DEFAULT_IMAGE,
+} from '../../../../constants/images.constants';
 
 interface TourGuidePageProps {
   tourGuide: TourGuideFragment;
@@ -110,9 +115,7 @@ const TourGuidePage = ({
         slug,
         title: name,
         subTitle: location || '',
-        imageSrc:
-          images?.data[0]?.attributes?.url ||
-          '/images/background/background-prom.svg',
+        imageSrc: images?.data[0]?.attributes?.url || DEFAULT_IMAGE,
         imageAlt: images?.data[0]?.attributes?.alternativeText || '',
         averageRating,
         totalComments,
@@ -124,10 +127,7 @@ const TourGuidePage = ({
 
   return (
     <>
-      <Wrapper
-        url="/images/background/background-gradient.svg"
-        mobUrl="/images/background/mobile-background-gradient.svg"
-      >
+      <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
         <div style={{ width: '100%' }}>
           <BackRoute
             href={'/entertainers-tour-guides/tour-and-guides'}

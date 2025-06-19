@@ -1,4 +1,5 @@
 import type { MapCard } from '../components/layout/map/children/types';
+import { BACKGROUND_GRADIENT } from '../constants/images.constants';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -15,7 +16,7 @@ export const mapLocation = (data: any, markerIconUrl?: string) => ({
     data.attributes.images?.data[0]?.attributes?.url ||
     data.attributes.image?.data?.attributes?.url ||
     data.attributes.profileImg?.data?.attributes?.url ||
-    '/images/background/background-prom.svg',
+    BACKGROUND_GRADIENT,
   imageAlt:
     data.attributes.images?.data[0]?.attributes?.alternativeText ||
     data.attributes.image?.data?.attributes?.alternativeText ||

@@ -9,6 +9,7 @@ import SocialIcon from '../social-icon';
 import LocationLink from '../location-link';
 // types
 import type { CompanyPreviewFragment } from '../../../gql/graphql';
+import { DEFAULT_IMAGE } from '../../../constants/images.constants';
 
 type EventPopupProps = Pick<
   CompanyPreviewFragment,
@@ -30,10 +31,7 @@ const Discount = ({
     <Wrapper>
       <ImgWrapper>
         <Image
-          src={
-            discount?.image?.data?.attributes?.url ||
-            '/images/background/background-prom.svg'
-          }
+          src={discount?.image?.data?.attributes?.url || DEFAULT_IMAGE}
           alt="discount"
           layout="fill"
           objectFit="cover"
