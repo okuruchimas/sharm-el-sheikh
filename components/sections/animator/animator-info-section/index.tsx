@@ -46,7 +46,7 @@ const AnimatorInfoSection = ({
     <Wrapper>
       <TopWrapper>
         <ImgWrapper>
-          <Image src={imgSrs} alt={name} layout="fill" />
+          <Image src={imgSrs} alt={name} layout="fill" priority />
         </ImgWrapper>
         <TopStack>
           <CompanyName>{companyName}</CompanyName>

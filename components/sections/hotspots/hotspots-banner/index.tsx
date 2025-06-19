@@ -93,7 +93,7 @@ const Content = styled('div')(({ theme }) => ({
   alignItems: 'end',
   gap: '8px',
   padding: '70px 230px 11px 16px',
-  backgroundImage: 'url(images/banners/hotspots-banner-bg.svg)',
+  backgroundImage: 'url(/images/banners/hotspots-banner-bg.svg)',
   backgroundSize: 'cover',
 
   [theme.breakpoints.mobile]: {

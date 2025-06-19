@@ -240,14 +240,6 @@ const FormWrap = styled(Form)({
 
   'input,textarea': {
     minWidth: '608px',
-    width: '100%',
-  },
-  '.input-wrap': {
-    width: '100%',
-  },
-
-  textarea: {
-    resize: 'none',
   },
 });
 
