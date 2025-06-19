@@ -69,5 +69,3 @@ query GetMedicationCategories($locale: I18NLocaleCode!) {
     }
   }
 }
-
-

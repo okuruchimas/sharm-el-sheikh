@@ -4,24 +4,24 @@ import {
   GetPharmaciesPageDocument,
   GetMedicationsByFilterDocument,
   GetMedicationCategoriesDocument,
-  GetSupportServicesDocument,
-} from "../../gql/graphql";
-import { REVALIDATE_TIME } from "../../constants/page.constants";
-import { useMemo } from "react";
-import { useTranslation } from "next-i18next";
+} from '../../gql/graphql';
+import { REVALIDATE_TIME } from '../../constants/page.constants';
+import { useMemo } from 'react';
+import { useTranslation } from 'next-i18next';
 // components
-import Map from "../../components/sections/home/map";
-import SectionsWrapper from "../../components/layout/sections-wrapper";
-import MedicationsContainer from "../../components/sections/pharmacies-medicines/medications-container";
-import EmergencyServicesContainer from "../../components/sections/pharmacies-medicines/emergency-services-container";
+import Map from '../../components/sections/home/map';
+import SectionsWrapper from '../../components/layout/sections-wrapper';
+import MedicationsContainer from '../../components/sections/pharmacies-medicines/medications-container';
+import EmergencyServicesContainer from '../../components/sections/pharmacies-medicines/emergency-services-container';
 // utils
-import styled from "@emotion/styled";
-import { fetchData } from "../../utils/fetchApi";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import styled from '@emotion/styled';
+import { fetchData } from '../../utils/fetchApi';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 // types
-import type { selectOption } from "../../components/types/filter";
-import { mapCategory } from "../../utils/mappers";
-import { getLayoutData } from "../../utils/get-layout-data";
+import type { selectOption } from '../../components/types/filter';
+import { mapCategory } from '../../utils/mappers';
+import { getLayoutData } from '../../utils/get-layout-data';
+import { GetStaticPropsContext } from 'next';
 
 type PharmaciesPageProps = {
   pageData: PharmaciesPageFragment;
@@ -45,7 +45,7 @@ const PharmaciesPage = ({
   initialMedications,
   medicationCategories,
 }: PharmaciesPageProps) => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation('common');
 
   const categoriesMapped = useMemo(
     () => categories?.data.map(mapCategory),
@@ -53,7 +53,7 @@ const PharmaciesPage = ({
   );
 
   const allCategories =
-    categories?.data.map((el) => el.attributes?.key || "").join("***") || "";
+    categories?.data.map(el => el.attributes?.key || '').join('***') || '';
 
   return (
     <Wrapper
@@ -63,7 +63,7 @@ const PharmaciesPage = ({
       <Map
         title={mapTitle}
         categories={[
-          { key: allCategories, value: t("labels.all") },
+          { key: allCategories, value: t('labels.all') },
           ...(categoriesMapped || []),
         ]}
       />
@@ -72,8 +72,8 @@ const PharmaciesPage = ({
         title={medicationsTitle}
         filterTitle={filterTitle}
         initialTotalItems={totalMedications}
-        initialMedications={initialMedications?.map((el) => el.attributes)}
-        categoriesOptions={medicationCategories?.map((el) => el.attributes)}
+        initialMedications={initialMedications?.map(el => el.attributes)}
+        categoriesOptions={medicationCategories?.map(el => el.attributes)}
       />
       <EmergencyServicesContainer
         title={supportServicesTitle}
@@ -88,21 +88,21 @@ const PharmaciesPage = ({
 export default PharmaciesPage;
 
 const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
-  minHeight: "100vh",
-  backgroundRepeat: "no-repeat",
-  paddingTop: "236px",
+  minHeight: '100vh',
+  backgroundRepeat: 'no-repeat',
+  paddingTop: '236px',
 
   [theme.breakpoints.mobile]: {
-    paddingTop: "80px",
+    paddingTop: '80px',
   },
 }));
 
-export async function getStaticProps({ locale }: any) {
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
   const { pharmaciesPage } = await fetchData(GetPharmaciesPageDocument, {
     locale,
   });
 
-  const { headerData, footerData } = await getLayoutData(locale);
+  const { headerData, footerData } = await getLayoutData(locale!);
   const { medicationCategories } = await fetchData(
     GetMedicationCategoriesDocument,
     {
@@ -123,7 +123,7 @@ export async function getStaticProps({ locale }: any) {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "medications"])),
+      ...(await serverSideTranslations(locale!, ['common', 'medications'])),
       pageData: pharmaciesPage?.data?.attributes,
       initialMedications: medications?.data,
       totalMedications: medications?.meta.pagination.total || 0,

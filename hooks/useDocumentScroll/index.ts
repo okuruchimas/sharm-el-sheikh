@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import throttle from 'lodash.throttle';
 
-const throttle = require("lodash.throttle");
+type ScrollCallback = (data: {
+  previousScrollTop: number;
+  currentScrollTop: number;
+}) => void;
 
-function useDocumentScrollThrottled(callback: {
-  (callbackData: any): void;
-  (arg0: { previousScrollTop: number; currentScrollTop: number }): void;
-}) {
+function useDocumentScrollThrottled(callback: ScrollCallback) {
   const [, setScrollPosition] = useState(0);
   let previousScrollTop = 0;
 
@@ -13,7 +14,7 @@ function useDocumentScrollThrottled(callback: {
     const { scrollTop: currentScrollTop } =
       document.documentElement || document.body;
 
-    setScrollPosition((previousPosition) => {
+    setScrollPosition(previousPosition => {
       previousScrollTop = previousPosition;
       return currentScrollTop;
     });
@@ -24,10 +25,11 @@ function useDocumentScrollThrottled(callback: {
   const handleDocumentScrollThrottled = throttle(handleDocumentScroll, 250);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleDocumentScrollThrottled);
+    window.addEventListener('scroll', handleDocumentScrollThrottled);
 
     return () =>
-      window.removeEventListener("scroll", handleDocumentScrollThrottled);
+      window.removeEventListener('scroll', handleDocumentScrollThrottled);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
 

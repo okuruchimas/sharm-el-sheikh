@@ -1,11 +1,13 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import nodemailer from "nodemailer";
+import { NextApiRequest, NextApiResponse } from 'next';
+import nodemailer from 'nodemailer';
 
-const getMessage = (req: Record<string, any>): string => {
-  let emailMessage = "";
+const getMessage = (
+  req: Record<string, string | number | boolean | null | undefined>,
+): string => {
+  let emailMessage = '';
 
   for (const key in req) {
-    if (req.hasOwnProperty(key) && req[key]) {
+    if (Object.prototype.hasOwnProperty.call(req, key) && req[key]) {
       emailMessage += `${key}: ${req[key]} <br>`;
     }
   }
@@ -17,16 +19,16 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  if (req.method === "POST") {
+  if (req.method === 'POST') {
     const { name, email } = req.body;
 
     const message = getMessage(req.body);
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: 'gmail',
       auth: {
-        user: process.env.GMAIL_USER, // ваша пошта Gmail
-        pass: process.env.GMAIL_PASS, // ваш пароль додатку Gmail
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
       },
     });
 
@@ -42,18 +44,18 @@ export default async function handler(
       from: process.env.GMAIL_USER,
       replyTo: process.env.GMAIL_USER,
       to: email,
-      subject: "Your feedback has been successfully received!",
-      html: "<h2>Thank you for sharing your experience.</h2> <p>Your opinion is very important to us. We will get in touch with you once we have reviewed your feedback.</p>  <p>If you have any additional questions or suggestions, please feel free to contact us by replying to this email.</p>  <h3>Thank you again for your feedback!</h3>",
+      subject: 'Your feedback has been successfully received!',
+      html: '<h2>Thank you for sharing your experience.</h2> <p>Your opinion is very important to us. We will get in touch with you once we have reviewed your feedback.</p>  <p>If you have any additional questions or suggestions, please feel free to contact us by replying to this email.</p>  <h3>Thank you again for your feedback!</h3>',
     };
 
     try {
       await transporter.sendMail(feedbackOptions);
       await transporter.sendMail(answerOptions);
-      res.status(200).json({ message: "Email sent successfully" });
+      res.status(200).json({ message: 'Email sent successfully' });
     } catch (error) {
-      res.status(500).json({ message: "Failed to send email", error });
+      res.status(500).json({ message: 'Failed to send email', error });
     }
   } else {
-    res.status(405).json({ message: "Method not allowed" });
+    res.status(405).json({ message: 'Method not allowed' });
   }
 }

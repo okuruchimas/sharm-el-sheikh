@@ -1,10 +1,10 @@
 // components
-import Image from "next/image";
-import TextAndIcon from "../../../layout/text-and-icon";
+import Image from 'next/image';
+import TextAndIcon from '../../../layout/text-and-icon';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 // types
-import type { KeyboardEvent } from "react";
+import type { KeyboardEvent } from 'react';
 
 interface MedicationCardProps {
   title: string;
@@ -24,7 +24,7 @@ const MedicationCard = ({
   onClick,
 }: MedicationCardProps) => {
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter" && onClick) {
+    if (event.key === 'Enter' && onClick) {
       onClick();
     }
   };
@@ -46,67 +46,67 @@ const MedicationCard = ({
   );
 };
 
-const Wrap = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
+const Wrap = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
   minHeight: 470,
-  width: "100%",
+  width: '100%',
   minWidth: 300,
   background: theme.colors.white,
   borderRadius: 16,
-  position: "relative",
+  position: 'relative',
   boxShadow: theme.shadows[0],
   border: `1px solid ${theme.colors.blue5}`,
-  cursor: "pointer",
+  cursor: 'pointer',
 }));
 
-const CardTitle = styled("h3")(({ theme }) => ({
+const CardTitle = styled('h3')(({ theme }) => ({
   fontSize: theme.fontSize.fontS24,
   color: theme.colors.blue,
-  margin: "0",
-  marginBottom: "4px",
+  margin: '0',
+  marginBottom: '4px',
 
   [theme.breakpoints.mobile]: {
-    marginBottom: "8px",
+    marginBottom: '8px',
   },
 }));
 
 const StyledImage = styled(Image)({
   borderTopLeftRadius: 16,
   borderTopRightRadius: 16,
-  objectFit: "cover",
-  height: "57%",
+  objectFit: 'cover',
+  height: '57%',
 });
 
-const InfoWrap = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
+const InfoWrap = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
   gap: 24,
   padding: 16,
-  height: "43%",
-  maxHeight: "50%",
+  height: '43%',
+  maxHeight: '50%',
   borderTop: `1px solid ${theme.colors.blue5}`,
   backgroundColor: theme.colors.blue4,
 }));
 
-const GreyText = styled("div")(({ theme }) => ({
+const GreyText = styled('div')(({ theme }) => ({
   fontSize: theme.fontSize.fontS16,
   color: theme.colors.grey,
 }));
 
-const Category = styled("div")(({ theme }) => ({
-  padding: "6px 12px",
+const Category = styled('div')(({ theme }) => ({
+  padding: '6px 12px',
   color: theme.colors.blue,
   backgroundColor: theme.colors.white2,
-  borderRadius: "8px",
+  borderRadius: '8px',
 }));
 
-const Row = styled("div")({
-  display: "flex",
-  justifyContent: "space-between",
+const Row = styled('div')({
+  display: 'flex',
+  justifyContent: 'space-between',
 
-  ".text-and-icon": {
-    width: "unset",
+  '.text-and-icon': {
+    width: 'unset',
   },
 });
 

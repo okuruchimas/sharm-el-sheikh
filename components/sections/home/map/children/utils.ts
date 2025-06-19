@@ -1,5 +1,5 @@
-import { DEFAULT_CENTER } from "./constants";
-import type { CompanyPreviewFragment } from "../../../../../gql/graphql";
+import { DEFAULT_CENTER } from './constants';
+import type { CompanyPreviewFragment } from '../../../../../gql/graphql';
 
 export const calculateCenter = (
   locations: (CompanyPreviewFragment | undefined | null)[],

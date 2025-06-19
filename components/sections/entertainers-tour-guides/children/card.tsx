@@ -1,15 +1,15 @@
 // hooks
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 // components
-import Flags from "../../../layout/flags";
-import Image from "next/image";
-import TitleRating from "../../../layout/title-and-rating";
-import TextAndIcon from "../../../layout/text-and-icon";
+import Flags from '../../../layout/flags';
+import Image from 'next/image';
+import TitleRating from '../../../layout/title-and-rating';
+import TextAndIcon from '../../../layout/text-and-icon';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 // types
-import type { ImageI } from "../../../types/images";
-import type { KeyboardEvent, ReactNode } from "react";
+import type { ImageI } from '../../../types/images';
+import type { KeyboardEvent, ReactNode } from 'react';
 
 interface Props {
   slug: string;
@@ -41,7 +41,7 @@ const Card = ({
   const handleCardClick = () => router.push(slug);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       handleCardClick();
     }
   };
@@ -71,47 +71,47 @@ const Card = ({
   );
 };
 
-const Wrap = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
+const Wrap = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
   minHeight: 468,
-  width: "100%",
+  width: '100%',
   minWidth: 332,
   background: theme.colors.white,
   borderRadius: 16,
-  position: "relative",
+  position: 'relative',
   boxShadow: theme.shadows[1],
-  cursor: "pointer",
+  cursor: 'pointer',
 }));
 
 const StyledImage = styled(Image)({
   borderTopLeftRadius: 16,
   borderTopRightRadius: 16,
-  objectFit: "cover",
-  height: "50%",
-  minHeight: "50%",
+  objectFit: 'cover',
+  height: '50%',
+  minHeight: '50%',
 });
 
-const InfoWrap = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-  gap: "12px",
-  padding: "16px",
-  height: "50%",
-  maxHeight: "50%",
+const InfoWrap = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  gap: '12px',
+  padding: '16px',
+  height: '50%',
+  maxHeight: '50%',
 });
 
-const GreyText = styled("div")(({ theme }) => ({
-  width: "max-content",
+const GreyText = styled('div')(({ theme }) => ({
+  width: 'max-content',
   fontSize: theme.fontSize.fontS16,
   color: theme.colors.grey,
 }));
 
-const FlagsWrapper = styled("div")({
-  ".flags-wrapper": {
-    width: "100%",
-    justifyContent: "flex-end",
+const FlagsWrapper = styled('div')({
+  '.flags-wrapper': {
+    width: '100%',
+    justifyContent: 'flex-end',
   },
 });
 

@@ -1,8 +1,8 @@
-import { useTranslation } from "next-i18next";
-import Button from "../button";
-import { Title } from "../title";
-import StarReview from "../../sections/company/review/children/star-review";
-import styled from "@emotion/styled";
+import { useTranslation } from 'next-i18next';
+import Button from '../button';
+import { Title } from '../title';
+import StarReview from '../../sections/company/review/children/star-review';
+import styled from '@emotion/styled';
 
 type StarReviewFormProps = {
   stars: number;
@@ -20,30 +20,30 @@ const StarReviewForm = ({
   onClose,
   onChange,
 }: StarReviewFormProps) => {
-  const { t, i18n } = useTranslation("common");
+  const { t } = useTranslation('common');
 
   return (
     <>
       <Section>
-        <SectionTitle>{t("text.howRateEstablishment")}</SectionTitle>
+        <SectionTitle>{t('text.howRateEstablishment')}</SectionTitle>
         <StarReview stars={stars} onChange={onChange} disabled={isDisabled} />
         <SaveButton
-          text={t("buttons.save")}
+          text={t('buttons.save')}
           onClick={onSave}
           isLoading={isLoading}
           disabled={isDisabled || stars < 1}
         />
       </Section>
-      <BackButton text={t("buttons.back")} onClick={onClose} />
+      <BackButton text={t('buttons.back')} onClick={onClose} />
     </>
   );
 };
 
 export default StarReviewForm;
 
-const Section = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
+const Section = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
   gap: 16,
 
   [theme.breakpoints.mobile]: {
@@ -59,24 +59,24 @@ const SectionTitle = styled(Title)(({ theme }) => ({
 }));
 
 const BackButton = styled(Button)(({ theme }) => ({
-  alignSelf: "end",
+  alignSelf: 'end',
   zIndex: 2,
 
   [theme.breakpoints.mobile]: {
-    position: "sticky",
+    position: 'sticky',
     bottom: 0,
     right: 0,
     opacity: 0.9,
-    minWidth: "130px",
+    minWidth: '130px',
   },
 }));
 
 const SaveButton = styled(Button)(({ theme }) => ({
-  position: "absolute",
+  position: 'absolute',
   bottom: 0,
   left: 0,
 
   [theme.breakpoints.mobile]: {
-    minWidth: "130px",
+    minWidth: '130px',
   },
 }));

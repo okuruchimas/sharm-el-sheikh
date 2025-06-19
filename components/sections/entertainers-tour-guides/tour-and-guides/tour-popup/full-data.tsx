@@ -1,17 +1,17 @@
-import { useTranslation } from "next-i18next";
-import Link from "next/link";
-import TextAndIcon from "../../../../layout/text-and-icon";
-import LocationLink from "../../../../layout/location-link";
-import ReactMarkdown from "react-markdown";
-import styled from "@emotion/styled";
-import type { TourFragment } from "../../../../../gql/graphql";
+import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
+import TextAndIcon from '../../../../layout/text-and-icon';
+import LocationLink from '../../../../layout/location-link';
+import ReactMarkdown from 'react-markdown';
+import styled from '@emotion/styled';
+import type { TourFragment } from '../../../../../gql/graphql';
 
 type FullDataProps = {
   fullData: TourFragment;
 };
 
 const FullData = ({ fullData }: FullDataProps) => {
-  const { t, i18n } = useTranslation("common");
+  const { i18n } = useTranslation('common');
 
   const renderItem = (src: string, text: string) => (
     <TextAndIcon
@@ -31,17 +31,17 @@ const FullData = ({ fullData }: FullDataProps) => {
           <LocationLink
             iconSize="36px"
             iconSizeMobile="30px"
-            text={fullData?.location || "-"}
+            text={fullData?.location || '-'}
             position={fullData?.position}
             fontSizeMobile="18px"
           />
         </Location>
-        {renderItem("/icons/cash.svg", fullData?.price || "")}
-        {renderItem("/icons/time.svg", fullData?.duration || "")}
-        {renderItem("/icons/team.svg", fullData?.groupSize || "")}
+        {renderItem('/icons/cash.svg', fullData?.price || '')}
+        {renderItem('/icons/time.svg', fullData?.duration || '')}
+        {renderItem('/icons/team.svg', fullData?.groupSize || '')}
       </IconsGrid>
       {fullData.informationProvider ? (
-        <InformationProvider isAr={i18n.language === "ar-EG"}>
+        <InformationProvider isAr={i18n.language === 'ar-EG'}>
           <Link href={fullData.informationProvider.link}>
             {fullData?.informationProvider.text}
           </Link>
@@ -49,7 +49,7 @@ const FullData = ({ fullData }: FullDataProps) => {
       ) : null}
       <Section>
         <ul>
-          {fullData?.tourComponents?.map((el) => (
+          {fullData?.tourComponents?.map(el => (
             <li key={el?.value}>{el?.value}</li>
           ))}
         </ul>
@@ -63,21 +63,21 @@ const FullData = ({ fullData }: FullDataProps) => {
 
 export default FullData;
 
-const IconsGrid = styled("div")(({ theme }) => ({
-  display: "grid",
-  gap: "24px",
-  gridTemplateColumns: "1fr 1fr",
+const IconsGrid = styled('div')(({ theme }) => ({
+  display: 'grid',
+  gap: '24px',
+  gridTemplateColumns: '1fr 1fr',
 
   [theme.breakpoints.mobileS]: {
-    gap: "8px",
-    gridTemplateColumns: "1fr",
+    gap: '8px',
+    gridTemplateColumns: '1fr',
   },
 }));
 
-const Location = styled("div")(({ theme }) => ({
-  maxWidth: "max-content",
+const Location = styled('div')(({ theme }) => ({
+  maxWidth: 'max-content',
 
-  ".icon-text": {
+  '.icon-text': {
     fontSize: theme.fontSize.fontS21,
     color: theme.colors.black,
 
@@ -87,47 +87,47 @@ const Location = styled("div")(({ theme }) => ({
   },
 }));
 
-export const InformationProvider = styled("div", {
-  shouldForwardProp: (prop) => prop !== "isAr",
+export const InformationProvider = styled('div', {
+  shouldForwardProp: prop => prop !== 'isAr',
 })<{ isAr: boolean }>(({ theme, isAr }) => ({
-  display: "flex",
-  flexDirection: isAr ? "row-reverse" : "row",
-  gap: "8px",
+  display: 'flex',
+  flexDirection: isAr ? 'row-reverse' : 'row',
+  gap: '8px',
   color: theme.colors.blue,
   fontSize: theme.fontSize.fontS24,
   fontWeight: 700,
 
   [theme.breakpoints.mobileS]: {
-    flexDirection: "column",
-    alignItems: isAr ? "end" : "start",
+    flexDirection: 'column',
+    alignItems: isAr ? 'end' : 'start',
     fontSize: theme.fontSize.fontS18,
     fontWeight: 600,
   },
 }));
 
-const Section = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "16px",
+const Section = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '16px',
 
   ul: {
-    marginLeft: "24px",
+    marginLeft: '24px',
   },
 
-  "p, li": {
+  'p, li': {
     fontSize: theme.fontSize.fontS21,
     lineHeight: 1.5,
   },
 
   [theme.breakpoints.mobileS]: {
-    gap: "8px",
+    gap: '8px',
 
     h3: {
       fontSize: theme.fontSize.fontS24,
       fontWeight: 700,
     },
 
-    "p, li": {
+    'p, li': {
       fontSize: theme.fontSize.fontS16,
     },
   },

@@ -1,27 +1,27 @@
 // components
-import NavButtons from "./nav-buttons";
+import NavButtons from './nav-buttons';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 // types
 import type {
   ComponentHeaderNavigationMenu,
   HeaderFragment,
-} from "../../../../gql/graphql";
-import { useRouter } from "next/router";
-import React, { Fragment, ReactNode, useState } from "react";
-import useTabs from "../../../../hooks/useTabs";
-import { Arrow } from "./language-selector";
-import useResponsive from "../../../../hooks/useResponsive";
+} from '../../../../gql/graphql';
+import { useRouter } from 'next/router';
+import React, { Fragment, ReactNode, useState } from 'react';
+import useTabs from '../../../../hooks/useTabs';
+import { Arrow } from './language-selector';
+import useResponsive from '../../../../hooks/useResponsive';
 
 type IProps = {
   isOpen: boolean;
-  navMenu: HeaderFragment["Menu"];
+  navMenu: HeaderFragment['Menu'];
   onClose: () => void;
 };
 
 const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
   const [isSubMenu, setSubMenu] = useState<boolean>(false);
-  const { push, route, asPath } = useRouter();
+  const { push, route } = useRouter();
   const { tabsArr } = useTabs();
   const { isMobile } = useResponsive();
 
@@ -33,11 +33,11 @@ const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
   const handleSubClick = (link: string) => () => {
     onClose();
 
-    if (link.startsWith("/")) {
+    if (link.startsWith('/')) {
       return push(link);
     }
 
-    if (link.startsWith("entertainers-tour-guides")) {
+    if (link.startsWith('entertainers-tour-guides')) {
       return push(`/${link}`);
     }
 
@@ -45,23 +45,23 @@ const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
   };
 
   const isActive = (str: string) => {
-    if (str === "/") {
+    if (str === '/') {
       return route === str;
     }
-    return route?.includes(str || "");
+    return route?.includes(str || '');
   };
   const menuItemRender = (
     item: ComponentHeaderNavigationMenu | null,
   ): ReactNode | null => {
     if (!item) return null;
 
-    const itemLink = item?.Link?.split("/")?.[1].replace(/\s+/g, "");
+    const itemLink = item?.Link?.split('/')?.[1].replace(/\s+/g, '');
 
-    if (isMobile && item?.Link?.includes("entertainers-tour-guides")) {
+    if (isMobile && item?.Link?.includes('entertainers-tour-guides')) {
       return (
         <>
           <ListItem
-            isActive={isActive(itemLink || "/")}
+            isActive={isActive(itemLink || '/')}
             onClick={() => setSubMenu(!isSubMenu)}
           >
             <ImgMenu src={`/icons/header/menu/${itemLink}.svg`} alt="" />
@@ -69,24 +69,24 @@ const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
             <Text>{item?.Text}</Text>
 
             <ArrowStyled
-              src={"/icons/header/dropdown-arrow.svg"}
-              alt={"arrow"}
+              src={'/icons/header/dropdown-arrow.svg'}
+              alt={'arrow'}
               menuVisible={isSubMenu}
             />
           </ListItem>
           {isSubMenu
-            ? tabsArr.map((item) => (
+            ? tabsArr.map(item => (
                 <SubListItem
-                  key={item.text}
-                  isActive={isActive(item?.link?.split("/")?.[1] || "/")}
-                  onClick={handleSubClick(item?.link || "")}
+                  key={item.value}
+                  isActive={isActive(item?.type?.split('/')?.[1] || '/')}
+                  onClick={handleSubClick(item?.type || '')}
                 >
                   <ImgMenu
-                    src={`/icons/header/menu/${item?.link}.svg`}
+                    src={`/icons/header/menu/${item?.type}.svg`}
                     alt=""
                   />
 
-                  <Text>{item?.text}</Text>
+                  <Text>{item?.value}</Text>
                 </SubListItem>
               ))
             : null}
@@ -96,8 +96,8 @@ const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
 
     return (
       <ListItem
-        isActive={isActive(itemLink || "/")}
-        onClick={handleClick(item?.Link || "")}
+        isActive={isActive(itemLink || '/')}
+        onClick={handleClick(item?.Link || '')}
       >
         {isMobile ? (
           <ImgMenu src={`/icons/header/menu/${itemLink || 1}.svg`} alt="" />
@@ -112,70 +112,70 @@ const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
       <ButtonsWrap>
         <NavButtons onClose={onClose} />
       </ButtonsWrap>
-      {navMenu?.map((item) => (
+      {navMenu?.map(item => (
         <Fragment key={item?.id}>{menuItemRender(item)}</Fragment>
       ))}
     </WrapperDown>
   );
 };
 
-export const WrapperDown = styled("div", {
-  shouldForwardProp: (prop: string) => prop !== "isOpen",
+export const WrapperDown = styled('div', {
+  shouldForwardProp: (prop: string) => prop !== 'isOpen',
 })<{ isOpen: boolean }>(({ theme, isOpen }) => ({
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  gap: "32px",
-  transition: "height 0.5s ease, opacity 0.5s ease",
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: '32px',
+  transition: 'height 0.5s ease, opacity 0.5s ease',
 
   [theme.breakpoints.mobile]: {
-    position: "relative",
+    position: 'relative',
     top: -56,
-    overflow: "hidden",
-    height: isOpen ? "100dvh" : "0px",
+    overflow: 'hidden',
+    height: isOpen ? '100dvh' : '0px',
     opacity: isOpen ? 1 : 0.7,
-    flexDirection: "column",
-    alignItems: "flex-start",
-    width: "100%",
-    gap: "24px",
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: '100%',
+    gap: '24px',
   },
 
   [theme.breakpoints.desktop]: {
-    maxHeight: "44px",
+    maxHeight: '44px',
   },
 }));
 
-const ButtonsWrap = styled("div")(({ theme }) => ({
-  display: "none",
+const ButtonsWrap = styled('div')(({ theme }) => ({
+  display: 'none',
 
   [theme.breakpoints.mobile]: {
-    display: "initial",
+    display: 'initial',
   },
 }));
 
-const ListItem = styled("span", {
-  shouldForwardProp: (prop) => !["isActive"].includes(prop),
+const ListItem = styled('span', {
+  shouldForwardProp: prop => !['isActive'].includes(prop),
 })<{ isActive: boolean }>(({ theme, isActive }) => ({
-  cursor: "pointer",
+  cursor: 'pointer',
   fontSize: theme.fontSize.fontS20,
   color: isActive ? theme.colors.blue6 : theme.colors.blue,
-  width: "auto",
-  textAlign: "center",
-  transition: "height 0.5s ease, color 0.25s ease",
+  width: 'auto',
+  textAlign: 'center',
+  transition: 'height 0.5s ease, color 0.25s ease',
 
-  "&:hover": {
+  '&:hover': {
     color: theme.colors.blue3,
   },
 
   [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS18,
     fontWeight: 500,
-    display: "flex",
-    alignItems: "flex-end",
+    display: 'flex',
+    alignItems: 'flex-end',
     gap: 8,
-    maxWidth: "100%",
+    maxWidth: '100%',
 
-    "&:hover": {
+    '&:hover': {
       color: theme.colors.blue,
     },
   },
@@ -190,22 +190,22 @@ const SubListItem = styled(ListItem)(({ theme }) => ({
   },
 }));
 
-const Text = styled("span")(({ theme }) => ({
+const Text = styled('span')(({ theme }) => ({
   [theme.breakpoints.mobile]: {
-    display: "inline-block",
-    textWrap: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
+    display: 'inline-block',
+    textWrap: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 }));
 
-const ImgMenu = styled("img")(({ theme }) => ({
+const ImgMenu = styled('img')(({ theme }) => ({
   [theme.breakpoints.mobile]: {},
 }));
 
 const ArrowStyled = styled(Arrow)(({ theme }) => ({
   marginTop: 4,
-  alignSelf: "center",
+  alignSelf: 'center',
   [theme.breakpoints.mobile]: {},
 }));
 export default NavMenu;

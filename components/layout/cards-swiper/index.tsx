@@ -1,15 +1,15 @@
-import "swiper/css";
-import "swiper/css/pagination";
+import 'swiper/css';
+import 'swiper/css/pagination';
 // hooks
-import useResponsive from "../../../hooks/useResponsive";
+import useResponsive from '../../../hooks/useResponsive';
 // components
-import { Swiper } from "swiper/react";
-import { Pagination } from "swiper/modules";
-import Placeholder from "../../sections/promotions/children/placeholder";
+import { Swiper } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import Placeholder from '../../sections/promotions/children/placeholder';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 // types
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
 type SwiperCardsProps = {
   children?: ReactNode;
@@ -50,82 +50,82 @@ const CardsSwiper = ({
 };
 
 export const Wrapper = styled(Swiper, {
-  shouldForwardProp: (prop) => prop !== "isSingleCard",
+  shouldForwardProp: prop => prop !== 'isSingleCard',
 })<{ isSingleCard: boolean }>(({ theme, isSingleCard }) => ({
-  position: "relative",
-  width: "100%",
+  position: 'relative',
+  width: '100%',
   height: 388,
 
   [theme.breakpoints.mobile]: {
-    width: "calc(100% + 32px)",
+    width: 'calc(100% + 32px)',
     marginLeft: -16,
   },
 
-  ".swiper-wrapper": {
-    alignItems: "center",
+  '.swiper-wrapper': {
+    alignItems: 'center',
     height: 360,
   },
 
-  ".swiper-slide": {
-    alignContent: "center",
+  '.swiper-slide': {
+    alignContent: 'center',
     [theme.breakpoints.mobile]: {
-      ".anime-card": {
-        display: "none",
+      '.anime-card': {
+        display: 'none',
       },
     },
   },
 
-  ".swiper-pagination-bullets": {
+  '.swiper-pagination-bullets': {
     zIndex: 5,
-    display: "flex",
-    justifyContent: "center",
+    display: 'flex',
+    justifyContent: 'center',
     marginTop: 16,
     gap: 6,
   },
 
-  ".swiper-pagination-bullet": {
+  '.swiper-pagination-bullet': {
     width: 12,
     height: 12,
     background: theme.colors.white,
-    borderRadius: "50%",
-    border: "1px solid",
+    borderRadius: '50%',
+    border: '1px solid',
     borderColor: theme.colors.yellow,
     opacity: 1,
-    transition: "background 0.3s ease",
+    transition: 'background 0.3s ease',
   },
 
-  ".swiper-pagination-bullet-active": {
+  '.swiper-pagination-bullet-active': {
     background: theme.colors.yellow,
   },
 
-  ".anime-card": {
+  '.anime-card': {
     maxHeight: 302,
     height: 302,
-    minHeight: "unset",
-    minWidth: "unset",
+    minHeight: 'unset',
+    minWidth: 'unset',
     opacity: 0.8,
-    transition: "height 0.5s ease, opacity 0.5s ease, width 0.5s ease",
-    margin: "auto 0",
+    transition: 'height 0.5s ease, opacity 0.5s ease, width 0.5s ease',
+    margin: 'auto 0',
   },
 
-  ".swiper-slide-prev": {
+  '.swiper-slide-prev': {
     [theme.breakpoints.mobile]: {
-      ".anime-card": {
-        display: "flex",
+      '.anime-card': {
+        display: 'flex',
       },
-      position: "relative",
-      left: "7%",
+      position: 'relative',
+      left: '7%',
     },
   },
 
-  ".swiper-slide-active": {
+  '.swiper-slide-active': {
     [theme.breakpoints.mobile]: {
-      position: "relative",
+      position: 'relative',
       left: 30,
-      ".anime-card": {
-        display: "flex",
+      '.anime-card': {
+        display: 'flex',
         minWidth: 276,
-        width: "calc(90vw - 64px)",
+        width: 'calc(90vw - 64px)',
         maxHeight: 342,
         height: 342,
         opacity: 1,
@@ -133,22 +133,22 @@ export const Wrapper = styled(Swiper, {
     },
   },
 
-  ".swiper-slide-next": {
-    ".anime-card": {
+  '.swiper-slide-next': {
+    '.anime-card': {
       maxHeight: 342,
       height: 342,
       opacity: 1,
     },
 
     [theme.breakpoints.mobile]: {
-      ".anime-card": {
-        display: "flex",
-        maxHeight: "initial",
+      '.anime-card': {
+        display: 'flex',
+        maxHeight: 'initial',
         height: 302,
         opacity: isSingleCard ? 1 : 0.8,
       },
-      position: "relative",
-      left: isSingleCard ? "24px" : "44%",
+      position: 'relative',
+      left: isSingleCard ? '24px' : '44%',
     },
   },
 }));

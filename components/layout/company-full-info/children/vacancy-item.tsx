@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Arrow } from "../../header/children/language-selector";
-import styled from "@emotion/styled";
+import { useState } from 'react';
+import { Arrow } from '../../header/children/language-selector';
+import styled from '@emotion/styled';
 
 interface Props {
   title: string;
@@ -14,8 +14,8 @@ const VacancyItem = ({ title, text }: Props) => {
       <ButtonWrap onClick={() => setIsDescr(!isDescr)}>
         <VacancyTitle>{title}</VacancyTitle>
         <VacancyArrow
-          src={"/icons/header/dropdown-arrow.svg"}
-          alt={"arrow"}
+          src={'/icons/header/dropdown-arrow.svg'}
+          alt={'arrow'}
           menuVisible={isDescr}
         />
       </ButtonWrap>
@@ -26,41 +26,41 @@ const VacancyItem = ({ title, text }: Props) => {
   );
 };
 
-const VacancyWrap = styled("div")(({ theme }) => ({
+const VacancyWrap = styled('div')(({ theme }) => ({
   backgroundColor: theme.colors.yellow5,
-  padding: "16px",
-  borderRadius: "8px",
+  padding: '16px',
+  borderRadius: '8px',
   border: `1px solid ${theme.colors.yellow}`,
-  position: "relative",
+  position: 'relative',
 }));
 
-const ButtonWrap = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
-  alignItems: "center",
-  cursor: "pointer",
-}));
+const ButtonWrap = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  cursor: 'pointer',
+});
 
-const VacancyTitle = styled("div")(({ theme }) => ({
+const VacancyTitle = styled('div')(({ theme }) => ({
   fontSize: theme.fontSize.fontS24,
   fontWeight: 700,
 }));
 
-const VacancyArrow = styled(Arrow)(({ theme }) => ({
+const VacancyArrow = styled(Arrow)({
   height: 11,
-}));
+});
 
-const VacancyDescriptionWrapper = styled("div")<{ isDescr: boolean }>(
-  ({ theme, isDescr }) => ({
-    maxHeight: isDescr ? "200px" : "0",
-    overflow: "hidden",
-    transition: "max-height 0.5s ease",
+const VacancyDescriptionWrapper = styled('div')<{ isDescr: boolean }>(
+  ({ isDescr }) => ({
+    maxHeight: isDescr ? '200px' : '0',
+    overflow: 'hidden',
+    transition: 'max-height 0.5s ease',
   }),
 );
 
-const VacancyDescription = styled("div")(({ theme }) => ({
-  marginTop: "16px",
+const VacancyDescription = styled('div')(({ theme }) => ({
+  marginTop: '16px',
   fontSize: theme.fontSize.fontS18,
   fontWeight: 400,
   color: theme.colors.black,

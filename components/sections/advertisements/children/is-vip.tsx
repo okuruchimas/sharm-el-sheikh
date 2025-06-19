@@ -1,10 +1,10 @@
-import { useField } from "formik";
-import styled from "@emotion/styled";
-import { useTranslation } from "next-i18next";
+import { useField } from 'formik';
+import styled from '@emotion/styled';
+import { useTranslation } from 'next-i18next';
 
 const VipSwitch = ({ label }: { label: string }) => {
-  const [field, , helpers] = useField("isVip");
-  const { t } = useTranslation("advertisements");
+  const [field, , helpers] = useField('isVip');
+  const { t } = useTranslation('advertisements');
 
   return (
     <SwitchContainer>
@@ -16,7 +16,7 @@ const VipSwitch = ({ label }: { label: string }) => {
       />
       <Description>
         <strong>{label}</strong>
-        <small>{t("vipDescription")}</small>
+        <small>{t('vipDescription')}</small>
       </Description>
     </SwitchContainer>
   );
@@ -33,25 +33,25 @@ const SwitchContainer = styled.div`
 `;
 
 const Switch = styled.label<{ checked: boolean }>(({ checked }) => ({
-  position: "relative",
-  display: "inline-block",
+  position: 'relative',
+  display: 'inline-block',
   minWidth: 50,
   height: 28,
-  backgroundColor: checked ? "#FFD700" : "#ccc",
+  backgroundColor: checked ? '#FFD700' : '#ccc',
   borderRadius: 28,
-  cursor: "pointer",
-  transition: "background-color 0.2s",
+  cursor: 'pointer',
+  transition: 'background-color 0.2s',
 
-  "&::before": {
+  '&::before': {
     content: '""',
-    position: "absolute",
+    position: 'absolute',
     width: 22,
     height: 22,
     left: checked ? 26 : 4,
     bottom: 3,
-    backgroundColor: "#fff",
-    borderRadius: "50%",
-    transition: "left 0.2s",
+    backgroundColor: '#fff',
+    borderRadius: '50%',
+    transition: 'left 0.2s',
   },
 }));
 

@@ -1,30 +1,30 @@
 // hooks
-import useRatePlace from "../../../hooks/useRatePlace";
-import { useTranslation } from "next-i18next";
+import useRatePlace from '../../../hooks/useRatePlace';
+import { useTranslation } from 'next-i18next';
 // components
-import Image from "next/image";
-import { Title } from "../title";
-import GuideCard from "../../sections/entertainers-tour-guides/tour-and-guides/card";
-import SocialIcon from "../social-icon";
-import CardsSwiper from "../cards-swiper";
-import VacancyItem from "./children/vacancy-item";
-import LocationLink from "../location-link";
-import AnimatorCard from "../../sections/entertainers-tour-guides/animators/card";
-import ReactMarkdown from "react-markdown";
-import NameAndRating from "../name-and-rating";
-import { SwiperSlide } from "swiper/react";
-import StarReviewForm from "../star-review-form";
+import Image from 'next/image';
+import { Title } from '../title';
+import GuideCard from '../../sections/entertainers-tour-guides/tour-and-guides/card';
+import SocialIcon from '../social-icon';
+import CardsSwiper from '../cards-swiper';
+import VacancyItem from './children/vacancy-item';
+import LocationLink from '../location-link';
+import AnimatorCard from '../../sections/entertainers-tour-guides/animators/card';
+import ReactMarkdown from 'react-markdown';
+import NameAndRating from '../name-and-rating';
+import { SwiperSlide } from 'swiper/react';
+import StarReviewForm from '../star-review-form';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 // types
 import type {
   AnimatorPreviewFragment,
   AnimationCompanyFragment,
   TourGuidePreviewFragment,
   TourOperatorCompanyFragment,
-} from "../../../gql/graphql";
+} from '../../../gql/graphql';
 
-export type CompanyType = "animator" | "tour";
+export type CompanyType = 'animator' | 'tour';
 
 type Props = {
   companyData: AnimationCompanyFragment | TourOperatorCompanyFragment;
@@ -32,14 +32,14 @@ type Props = {
 };
 
 const CompanyFullInfo = ({ companyData, onClose }: Props) => {
-  const { t, i18n } = useTranslation("common");
-  const { t: tPage } = useTranslation("entertainers-tour-guides");
+  const { t, i18n } = useTranslation('common');
+  const { t: tPage } = useTranslation('entertainers-tour-guides');
   const { vacancies, socialLinks, employmentNumber, complaintsNumber, about } =
     companyData;
   const getCompanyType = (
     data: AnimationCompanyFragment | TourOperatorCompanyFragment,
   ): CompanyType => {
-    return "animators" in data ? "animator" : "tour";
+    return 'animators' in data ? 'animator' : 'tour';
   };
 
   const companyType = getCompanyType(companyData);
@@ -48,19 +48,19 @@ const CompanyFullInfo = ({ companyData, onClose }: Props) => {
     useRatePlace({
       slug: companyData.slug,
       storageName:
-        companyType === "animator"
-          ? "ratedAnimationCompanies"
-          : "ratedTourOperatorCompanies",
+        companyType === 'animator'
+          ? 'ratedAnimationCompanies'
+          : 'ratedTourOperatorCompanies',
       collectionType:
-        companyType === "animator"
-          ? "animation-companies"
-          : "tour-operator-companies",
+        companyType === 'animator'
+          ? 'animation-companies'
+          : 'tour-operator-companies',
     });
 
   const animatorsToShow: AnimatorPreviewFragment[] =
-    companyType === "animator"
+    companyType === 'animator'
       ? (companyData as AnimationCompanyFragment).animators?.data
-          ?.map((el) => el.attributes)
+          ?.map(el => el.attributes)
           ?.filter(
             (el): el is AnimatorPreviewFragment =>
               !!el && el.locale === i18n.language,
@@ -68,9 +68,9 @@ const CompanyFullInfo = ({ companyData, onClose }: Props) => {
       : [];
 
   const guidesToShow: TourGuidePreviewFragment[] =
-    companyType === "tour"
+    companyType === 'tour'
       ? (companyData as TourOperatorCompanyFragment).tour_guides?.data
-          ?.map((el) => el.attributes)
+          ?.map(el => el.attributes)
           ?.filter(
             (el): el is TourGuidePreviewFragment =>
               !!el && el.locale === i18n.language,
@@ -94,11 +94,11 @@ const CompanyFullInfo = ({ companyData, onClose }: Props) => {
           <Image
             src={
               companyData.image?.data?.attributes?.url ||
-              "/images/background/background-prom.svg"
+              '/images/background/background-prom.svg'
             }
             alt={
               companyData.image?.data?.attributes?.alternativeText ||
-              "company logo"
+              'company logo'
             }
             layout="fill"
           />
@@ -133,17 +133,17 @@ const CompanyFullInfo = ({ companyData, onClose }: Props) => {
           <CardsSwiper
             dataLength={animatorsToShow.length + guidesToShow.length}
             placeholderText={tPage(
-              companyType === "animator"
-                ? "placeholders.noAnimators"
-                : "placeholders.noTourOperators",
+              companyType === 'animator'
+                ? 'placeholders.noAnimators'
+                : 'placeholders.noTourOperators',
             )}
           >
-            {animatorsToShow.map((animator) => (
+            {animatorsToShow.map(animator => (
               <SwiperSlide key={animator.slug}>
                 <AnimatorCard animator={animator} />
               </SwiperSlide>
             ))}
-            {guidesToShow.map((guide) => (
+            {guidesToShow.map(guide => (
               <SwiperSlide key={guide.slug}>
                 <GuideCard tourGuide={guide} />
               </SwiperSlide>
@@ -154,15 +154,15 @@ const CompanyFullInfo = ({ companyData, onClose }: Props) => {
 
       {vacancies?.length ? (
         <Section>
-          <SectionTitle as="h3">{t("animPopAp.vacancies")}</SectionTitle>
+          <SectionTitle as="h3">{t('animPopAp.vacancies')}</SectionTitle>
           <VacanciesWrapper>
             {vacancies
               ?.filter(Boolean)
               .map((vacancy, index) => (
                 <VacancyItem
                   key={index}
-                  title={vacancy?.title || ""}
-                  text={vacancy?.text || ""}
+                  title={vacancy?.title || ''}
+                  text={vacancy?.text || ''}
                 />
               ))}
           </VacanciesWrapper>
@@ -175,9 +175,9 @@ const CompanyFullInfo = ({ companyData, onClose }: Props) => {
             {socialLinks.map((el, index) => (
               <SocialIcon
                 key={index}
-                iconSrc={el?.icon.data?.attributes?.url || ""}
-                iconAlt={el?.icon.data?.attributes?.alternativeText || ""}
-                socialLink={el?.socialLink || ""}
+                iconSrc={el?.icon.data?.attributes?.url || ''}
+                iconAlt={el?.icon.data?.attributes?.alternativeText || ''}
+                socialLink={el?.socialLink || ''}
               />
             ))}
           </IconsWrapper>
@@ -185,12 +185,12 @@ const CompanyFullInfo = ({ companyData, onClose }: Props) => {
 
         <NumbersWrap>
           <StatItem
-            title={t("animPopAp.employmentNumber")}
-            value={employmentNumber || ""}
+            title={t('animPopAp.employmentNumber')}
+            value={employmentNumber || ''}
           />
           <StatItem
-            title={t("animPopAp.complaintsNumber")}
-            value={complaintsNumber || ""}
+            title={t('animPopAp.complaintsNumber')}
+            value={complaintsNumber || ''}
           />
         </NumbersWrap>
       </Section>
@@ -208,35 +208,35 @@ const CompanyFullInfo = ({ companyData, onClose }: Props) => {
 
 export default CompanyFullInfo;
 
-const Wrapper = styled("div")(({ theme }) => ({
+const Wrapper = styled('div')(({ theme }) => ({
   backgroundColor: theme.colors.white,
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
   gap: 40,
-  minHeight: "890px",
-  position: "relative",
+  minHeight: '890px',
+  position: 'relative',
 
   [theme.breakpoints.mobile]: {
     gap: 24,
   },
 }));
 
-const InfoWrap = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
+const InfoWrap = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
   gap: 24,
-  width: "calc(100% - 184px)",
+  width: 'calc(100% - 184px)',
 
   [theme.breakpoints.mobile]: {
-    width: "100%",
+    width: '100%',
   },
 }));
 
-const Location = styled("div")(({ theme }) => ({
-  maxWidth: "max-content",
+const Location = styled('div')(({ theme }) => ({
+  maxWidth: 'max-content',
 
-  ".icon-text": {
+  '.icon-text': {
     fontSize: theme.fontSize.fontS21,
     color: theme.colors.black,
 
@@ -246,31 +246,31 @@ const Location = styled("div")(({ theme }) => ({
   },
 }));
 
-const TopSection = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  gap: "24px",
+const TopSection = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '24px',
 
   [theme.breakpoints.mobile]: {
-    gap: "16px",
-    flexDirection: "column",
+    gap: '16px',
+    flexDirection: 'column',
   },
 }));
 
-const ImgWrapper = styled("div")(({ theme }) => ({
-  position: "relative",
-  width: "160px",
-  height: "160px",
-  borderRadius: "16px",
-  overflow: "hidden",
+const ImgWrapper = styled('div')(({ theme }) => ({
+  position: 'relative',
+  width: '160px',
+  height: '160px',
+  borderRadius: '16px',
+  overflow: 'hidden',
   img: {
-    objectFit: "cover",
+    objectFit: 'cover',
   },
   border: `2px solid ${theme.colors.yellow}`,
 
   [theme.breakpoints.mobile]: {
-    height: "200px",
-    width: "100%",
+    height: '200px',
+    width: '100%',
   },
 }));
 
@@ -279,25 +279,25 @@ const NumTitle = styled(Title)(({ theme }) => ({
   fontWeight: 700,
 }));
 
-const VacanciesWrapper = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "16px",
-}));
+const VacanciesWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '16px',
+});
 
-const Section = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
+const Section = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
   gap: 16,
 
-  "p, li": {
+  'p, li': {
     fontSize: theme.fontSize.fontS21,
     lineHeight: 1.5,
   },
 
   [theme.breakpoints.mobileS]: {
     gap: 8,
-    "p, li": {
+    'p, li': {
       fontSize: theme.fontSize.fontS16,
     },
   },
@@ -308,7 +308,7 @@ const SectionTitle = styled(Title)(({ theme }) => ({
   fontWeight: 700,
 }));
 
-const Text = styled("p")(({ theme }) => ({
+const Text = styled('p')(({ theme }) => ({
   fontSize: theme.fontSize.fontS21,
   lineHeight: theme.fontSize.fontS32,
   fontWeight: 400,
@@ -318,32 +318,32 @@ const Text = styled("p")(({ theme }) => ({
   },
 }));
 
-const IconsWrapper = styled("div")(({ theme }) => ({
-  display: "flex",
-  gap: "24px",
+const IconsWrapper = styled('div')(({ theme }) => ({
+  display: 'flex',
+  gap: '24px',
 
   img: {
-    width: "40px",
-    height: "40px",
+    width: '40px',
+    height: '40px',
   },
 
   [theme.breakpoints.mobile]: {
-    marginBottom: "16px",
+    marginBottom: '16px',
   },
 }));
 
-const NumbersWrap = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
+const NumbersWrap = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
   gap: 16,
   [theme.breakpoints.mobile]: {
-    flexDirection: "column",
+    flexDirection: 'column',
   },
 }));
 
-const NumberContainer = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
+const NumberContainer = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
   gap: 12,
-}));
+});

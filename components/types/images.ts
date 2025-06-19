@@ -1,4 +1,4 @@
-import type { StrapiImageFragment } from "../../gql/graphql";
+import type { StrapiImageFragment } from '../../gql/graphql';
 
 export type ImageI = { src: string; alt: string };
 

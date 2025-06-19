@@ -4,37 +4,38 @@ import {
   GetTourGuidesByFiltersDocument,
   type TourGuideFragment,
   type TourPreviewFragment,
-} from "../../../../gql/graphql";
-import { toast, ToastContainer } from "react-toastify";
+} from '../../../../gql/graphql';
+import { toast, ToastContainer } from 'react-toastify';
 // hooks
-import { useState } from "react";
-import { useTranslation } from "next-i18next";
+import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 // components
-import Modal from "../../../../components/layout/modal";
-import { Title } from "../../../../components/layout/title";
-import Reviews from "../../../../components/sections/company/reviews";
-import TourPopup from "../../../../components/sections/entertainers-tour-guides/tour-and-guides/tour-popup";
-import BackRoute from "../../../../components/sections/entertainers-tour-guides/children/back-route";
-import GuideCard from "../../../../components/sections/entertainers-tour-guides/tour-and-guides/card";
-import ReviewForm from "../../../../components/sections/company/review";
-import { CardsWrap } from "../../../../components/sections/entertainers-tour-guides/children/cards-wrap";
-import Placeholder from "../../../../components/sections/promotions/children/placeholder";
-import SectionWrapper from "../../../../components/layout/section-wrapper";
-import SectionsWrapper from "../../../../components/layout/sections-wrapper";
-import WorkerInfoSection from "../../../../components/layout/worker-info";
+import Modal from '../../../../components/layout/modal';
+import { Title } from '../../../../components/layout/title';
+import Reviews from '../../../../components/sections/company/reviews';
+import TourPopup from '../../../../components/sections/entertainers-tour-guides/tour-and-guides/tour-popup';
+import BackRoute from '../../../../components/sections/entertainers-tour-guides/children/back-route';
+import GuideCard from '../../../../components/sections/entertainers-tour-guides/tour-and-guides/card';
+import ReviewForm from '../../../../components/sections/company/review';
+import { CardsWrap } from '../../../../components/sections/entertainers-tour-guides/children/cards-wrap';
+import Placeholder from '../../../../components/sections/promotions/children/placeholder';
+import SectionWrapper from '../../../../components/layout/section-wrapper';
+import SectionsWrapper from '../../../../components/layout/sections-wrapper';
+import WorkerInfoSection from '../../../../components/layout/worker-info';
 // constants
-import { REVALIDATE_TIME } from "../../../../constants/page.constants";
+import { REVALIDATE_TIME } from '../../../../constants/page.constants';
 // utils
-import styled from "@emotion/styled";
-import { addComment } from "../../../../utils/add-comment";
-import { fetchData } from "../../../../utils/fetchApi";
-import { getLocalizedPaths } from "../../../../utils/get-loocalized-paths";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import styled from '@emotion/styled';
+import { addComment } from '../../../../utils/add-comment';
+import { fetchData } from '../../../../utils/fetchApi';
+import { getLocalizedPaths } from '../../../../utils/get-loocalized-paths';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 // styles
-import "react-toastify/dist/ReactToastify.css";
-import type { MapCard } from "../../../../components/layout/map/children/types";
-import UniversalCard from "../../../../components/layout/universal-card";
-import { getLayoutData } from "../../../../utils/get-layout-data";
+import 'react-toastify/dist/ReactToastify.css';
+import type { MapCard } from '../../../../components/layout/map/children/types';
+import UniversalCard from '../../../../components/layout/universal-card';
+import { getLayoutData } from '../../../../utils/get-layout-data';
+import { GetStaticPropsContext } from 'next';
 
 interface TourGuidePageProps {
   tourGuide: TourGuideFragment;
@@ -58,20 +59,20 @@ const TourGuidePage = ({
 }: TourGuidePageProps) => {
   const [selectedTour, setSelectedTour] = useState<MapCard>();
 
-  const { t } = useTranslation("entertainers-tour-guides");
-  const { t: tCommon } = useTranslation("common");
+  const { t } = useTranslation('entertainers-tour-guides');
+  const { t: tCommon } = useTranslation('common');
 
   const categories = [
-    { name: "service", label: tCommon("reviewForm.categories.service") },
-    { name: "price", label: tCommon("reviewForm.categories.price") },
-    { name: "quality", label: tCommon("reviewForm.categories.programQuality") },
-    { name: "comm", label: tCommon("reviewForm.categories.communication") },
-    { name: "prof", label: tCommon("reviewForm.categories.professionalism") },
+    { name: 'service', label: tCommon('reviewForm.categories.service') },
+    { name: 'price', label: tCommon('reviewForm.categories.price') },
+    { name: 'quality', label: tCommon('reviewForm.categories.programQuality') },
+    { name: 'comm', label: tCommon('reviewForm.categories.communication') },
+    { name: 'prof', label: tCommon('reviewForm.categories.professionalism') },
   ];
 
-  const languagesMapped = languages?.data.map((el) => ({
-    src: el.attributes?.flagIcon.data?.attributes?.url || "",
-    alt: el.attributes?.value || "",
+  const languagesMapped = languages?.data.map(el => ({
+    src: el.attributes?.flagIcon.data?.attributes?.url || '',
+    alt: el.attributes?.value || '',
   }));
 
   const handleAddComment = async (
@@ -83,12 +84,12 @@ const TourGuidePage = ({
       await addComment({
         slug,
         comment: { rating, text, email },
-        collectionType: "tour-guides",
+        collectionType: 'tour-guides',
       });
-      toast.success(tCommon("toasts.feedbackSuccess"));
+      toast.success(tCommon('toasts.feedbackSuccess'));
     } catch (error) {
-      console.error("Error adding comment:", error);
-      toast.error(tCommon("toasts.feedbackError"));
+      console.error('Error adding comment:', error);
+      toast.error(tCommon('toasts.feedbackError'));
     }
   };
 
@@ -108,11 +109,11 @@ const TourGuidePage = ({
       setSelectedTour({
         slug,
         title: name,
-        subTitle: location || "",
+        subTitle: location || '',
         imageSrc:
           images?.data[0]?.attributes?.url ||
-          "/images/background/background-prom.svg",
-        imageAlt: images?.data[0]?.attributes?.alternativeText || "",
+          '/images/background/background-prom.svg',
+        imageAlt: images?.data[0]?.attributes?.alternativeText || '',
         averageRating,
         totalComments,
         position: {
@@ -127,38 +128,38 @@ const TourGuidePage = ({
         url="/images/background/background-gradient.svg"
         mobUrl="/images/background/mobile-background-gradient.svg"
       >
-        <div style={{ width: "100%" }}>
+        <div style={{ width: '100%' }}>
           <BackRoute
-            href={"/entertainers-tour-guides/tour-and-guides"}
-            baseRoute={`${tCommon("text.entertainersTourGuides")} / `}
-            subRoute={`${t("tabs.tourOperators")} / `}
+            href={'/entertainers-tour-guides/tour-and-guides'}
+            baseRoute={`${tCommon('text.entertainersTourGuides')} / `}
+            subRoute={`${t('tabs.tourOperators')} / `}
             name={name}
           />
           <WorkerInfoSection
-            imgSrs={profileImg.data?.attributes?.url || ""}
+            imgSrs={profileImg.data?.attributes?.url || ''}
             name={name}
             languages={languagesMapped || []}
-            description={description || ""}
+            description={description || ''}
             socialLinks={socialLinks}
             totalComments={totalComments}
             averageRating={averageRating}
           />
           {tours ? (
             <>
-              <Title style={{ marginBottom: "24px" }}>
-                {t("tourGuide.tours")}
+              <Title style={{ marginBottom: '24px' }}>
+                {t('tourGuide.tours')}
               </Title>
               <CardsWrap>
-                {tours?.data.map((el) => (
+                {tours?.data.map(el => (
                   <UniversalCard
                     key={el.attributes?.name}
-                    title={el?.attributes?.name || ""}
-                    price={el?.attributes?.price || ""}
-                    place={el?.attributes?.location || ""}
+                    title={el?.attributes?.name || ''}
+                    price={el?.attributes?.price || ''}
+                    place={el?.attributes?.location || ''}
                     groupSize={el.attributes?.groupSize}
-                    duration={el?.attributes?.duration || ""}
+                    duration={el?.attributes?.duration || ''}
                     imgSrc={
-                      el?.attributes?.images?.data[0].attributes?.url || ""
+                      el?.attributes?.images?.data[0].attributes?.url || ''
                     }
                     onClick={
                       el?.attributes
@@ -172,18 +173,18 @@ const TourGuidePage = ({
           ) : null}
         </div>
         <Reviews
-          title={tCommon("text.reviews")}
+          title={tCommon('text.reviews')}
           comments={comments?.data || []}
         />
         <ReviewForm
-          title={t("tourGuide.reviewFormTitle")}
+          title={t('tourGuide.reviewFormTitle')}
           categories={categories}
           handleAddComment={handleAddComment}
         />
-        <SectionWrapper title={tCommon("text.similarSuggestions")}>
+        <SectionWrapper title={tCommon('text.similarSuggestions')}>
           {similarSuggestions.length ? (
             <SuggestionsWrapper>
-              {similarSuggestions.map((el) => (
+              {similarSuggestions.map(el => (
                 <GuideCard key={el.attributes.slug} tourGuide={el.attributes} />
               ))}
             </SuggestionsWrapper>
@@ -203,23 +204,23 @@ const TourGuidePage = ({
 };
 
 const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
-  minHeight: "100vh",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-  paddingTop: "236px",
+  minHeight: '100vh',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  paddingTop: '236px',
 
   [theme.breakpoints.mobile]: {
-    paddingTop: "80px",
+    paddingTop: '80px',
   },
 }));
 
-const SuggestionsWrapper = styled("div")(({ theme }) => ({
-  display: "grid",
-  gridTemplateColumns: "repeat(4, 1fr)",
-  gap: "16px",
+const SuggestionsWrapper = styled('div')(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  gap: '16px',
 
   [theme.breakpoints.mobile]: {
-    gridTemplateColumns: "1fr",
+    gridTemplateColumns: '1fr',
   },
 }));
 
@@ -230,28 +231,33 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: "blocking",
+    fallback: 'blocking',
   };
 }
 
-export async function getStaticProps({ params, locale }: any) {
+export async function getStaticProps({
+  params,
+  locale,
+}: GetStaticPropsContext) {
+  if (!params || typeof params.slug !== 'string') {
+    return { notFound: true };
+  }
+
   const { slug } = params;
-  const layoutDataPromise = getLayoutData(locale);
+
+  const layoutDataPromise = getLayoutData(locale!);
 
   const tourGuidePromise = fetchData(GetTourGuideBySlugDocument, {
     slug,
     locale,
   });
-  const suggestionsPromise = tourGuidePromise.then(({ tourGuides }) =>
-    fetchData(GetTourGuidesByFiltersDocument, {
-      locale,
-      page: 1,
-      pageSize: 4,
-      sort: ["averageRating:desc"],
-      slugToExclude: slug,
-    }),
-  );
-
+  const suggestionsPromise = fetchData(GetTourGuidesByFiltersDocument, {
+    locale,
+    page: 1,
+    pageSize: 4,
+    sort: ['averageRating:desc'],
+    slugToExclude: slug,
+  });
   const [
     { tourGuides },
     { tourGuides: suggestions },
@@ -264,9 +270,9 @@ export async function getStaticProps({ params, locale }: any) {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, [
-        "entertainers-tour-guides",
-        "common",
+      ...(await serverSideTranslations(locale!, [
+        'entertainers-tour-guides',
+        'common',
       ])),
       tourGuide: tourGuides?.data[0].attributes,
       similarSuggestions: suggestions?.data,

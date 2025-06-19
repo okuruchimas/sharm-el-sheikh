@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format } from 'date-fns';
 
 export const formatDate = (dateValue: string, dateFormat?: string) => {
   const date = new Date(dateValue);
@@ -8,16 +8,16 @@ export const formatDate = (dateValue: string, dateFormat?: string) => {
       `Invalid date value: "${dateValue}". Please provide a valid date string in ISO format.`,
     );
 
-    return "-";
+    return '-';
   }
 
-  return format(date, dateFormat || "dd.MM.yyyy");
+  return format(date, dateFormat || 'dd.MM.yyyy');
 };
 
 export const getCurrentDayAndTime = () => {
   const currentDate = new Date();
-  const dayOfWeek = format(currentDate, "EEEE"); // "Monday"
-  const time = format(currentDate, "HH:mm:ss.SSS"); // "10:00:00.000"
+  const dayOfWeek = format(currentDate, 'EEEE'); // "Monday"
+  const time = format(currentDate, 'HH:mm:ss.SSS'); // "10:00:00.000"
 
   return { dayOfWeek, time };
 };
@@ -28,7 +28,7 @@ export const formatTime = (timeValue: string) => {
     console.error(
       `Invalid time value: "${timeValue}". Please provide a valid time string in "HH:mm:ss.SSS" format.`,
     );
-    return "-";
+    return '-';
   }
-  return format(time, "HH:mm");
+  return format(time, 'HH:mm');
 };

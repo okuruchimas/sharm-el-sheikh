@@ -1,13 +1,13 @@
-import Modal from "../../../layout/modal";
-import TextAndIcon from "../../../layout/text-and-icon";
-import Image from "next/image";
-import styled from "@emotion/styled";
-import { Title } from "../../../layout/title";
-import type { DeliveryFragment } from "../../../../gql/graphql";
-import { SellerInfo } from "./seller-info";
-import { FlexContainer } from "./short-add";
-import Button from "../../../layout/button";
-import { useTranslation } from "next-i18next";
+import Modal from '../../../layout/modal';
+import TextAndIcon from '../../../layout/text-and-icon';
+import Image from 'next/image';
+import styled from '@emotion/styled';
+import { Title } from '../../../layout/title';
+import type { DeliveryFragment } from '../../../../gql/graphql';
+import { SellerInfo } from './seller-info';
+import { FlexContainer } from './short-add';
+import Button from '../../../layout/button';
+import { useTranslation } from 'next-i18next';
 
 interface Props {
   isOpen: boolean;
@@ -22,7 +22,7 @@ interface Props {
 }
 type OtherAdInfo = Omit<
   DeliveryFragment,
-  "title" | "price" | "location" | "publicationType"
+  'title' | 'price' | 'location' | 'publicationType'
 >;
 const FullAdd = ({
   title,
@@ -37,7 +37,7 @@ const FullAdd = ({
 }: Props) => {
   const { description, contactMethod, name, mobile, email, personalCardLink } =
     otherAddInfo;
-  const { t } = useTranslation("agents");
+  const { t } = useTranslation('agents');
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -84,8 +84,8 @@ const FullAdd = ({
           personalCardLink={personalCardLink}
         />
         <Description>
-          <b>{t("preferredMethod")}</b> <br />
-          {contactMethod || "-"}
+          <b>{t('preferredMethod')}</b> <br />
+          {contactMethod || '-'}
         </Description>
         <Button
           text="Back"
@@ -101,65 +101,65 @@ const FullAdd = ({
 
 export default FullAdd;
 
-const Content = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "24px",
-  alignItems: "flex-start",
-  width: "100%",
+const Content = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '24px',
+  alignItems: 'flex-start',
+  width: '100%',
 
   button: {
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
   },
 
   [theme.breakpoints.mobile]: {},
 }));
 
-const TopWrap = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  gap: "24px",
-  alignItems: "center",
-  justifyContent: "space-between",
-  width: "100%",
+const TopWrap = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '24px',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  width: '100%',
 
   [theme.breakpoints.mobile]: {
-    flexDirection: "column",
+    flexDirection: 'column',
   },
 }));
 
-const ImgWrapper = styled("div")(({ theme }) => ({
-  position: "relative",
-  width: "100%",
-  height: "340px",
-  borderRadius: "16px",
-  overflow: "hidden",
+const ImgWrapper = styled('div')(({ theme }) => ({
+  position: 'relative',
+  width: '100%',
+  height: '340px',
+  borderRadius: '16px',
+  overflow: 'hidden',
   img: {
-    objectFit: "cover",
+    objectFit: 'cover',
   },
   border: `2px solid ${theme.colors.yellow}`,
 
   [theme.breakpoints.mobile]: {
-    minHeight: "200px",
-    width: "100%",
+    minHeight: '200px',
+    width: '100%',
   },
 }));
 
-const InfoWrap = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "60px",
-  alignItems: "flex-start",
+const InfoWrap = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '60px',
+  alignItems: 'flex-start',
 
   [theme.breakpoints.mobile]: {
-    gap: "16px",
-    alignSelf: "flex-start",
+    gap: '16px',
+    alignSelf: 'flex-start',
   },
 }));
 
-const Description = styled("span")(({ theme }) => ({
+const Description = styled('span')(({ theme }) => ({
   fontSize: theme.fontSize.fontS21,
   fontWeight: 400,
-  lineHeight: "32px",
+  lineHeight: '32px',
   [theme.breakpoints.mobile]: {},
 }));

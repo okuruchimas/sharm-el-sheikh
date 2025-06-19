@@ -1,6 +1,7 @@
-import * as Yup from "yup";
-import { IValues } from "../index";
-import { TFunction } from "next-i18next";
+import * as Yup from 'yup';
+import { IValues } from '../index';
+// eslint-disable-next-line import/named
+import { TFunction } from 'next-i18next';
 
 export const getValues = (
   values: IValues,
@@ -8,11 +9,11 @@ export const getValues = (
 ): Partial<IValues> => {
   const { name, email, message, companyName, phone } = values;
 
-  if (formType === "default") {
+  if (formType === 'default') {
     return { name, email, message };
   }
 
-  if (formType === "local") {
+  if (formType === 'local') {
     return { name, email, message, companyName, phone };
   }
 
@@ -28,47 +29,47 @@ export const getValidationSchema = (
     name: Yup.string()
       .matches(
         /^[\p{L}\s'-]+$/u,
-        tCommon("validationErrors.alphabetic", { field: labels.name }),
+        tCommon('validationErrors.alphabetic', { field: labels.name }),
       )
       .min(
         1,
-        tCommon("validationErrors.min", {
+        tCommon('validationErrors.min', {
           field: labels.name,
-          min: "1",
+          min: '1',
         }),
       )
       .max(
         20,
-        tCommon("validationErrors.max", {
+        tCommon('validationErrors.max', {
           field: labels.name,
-          max: "20",
+          max: '20',
         }),
       )
       .required(
-        tCommon("validationErrors.required", {
+        tCommon('validationErrors.required', {
           field: labels.name,
         }),
       ),
     email: Yup.string()
-      .email(tCommon("validationErrors.email"))
+      .email(tCommon('validationErrors.email'))
       .required(
-        tCommon("validationErrors.required", {
+        tCommon('validationErrors.required', {
           field: labels.email,
         }),
       ),
     message: Yup.string()
       .min(
         1,
-        tCommon("validationErrors.min", {
+        tCommon('validationErrors.min', {
           field: labels.message,
-          min: "1",
+          min: '1',
         }),
       )
       .max(
         200,
-        tCommon("validationErrors.max", {
+        tCommon('validationErrors.max', {
           field: labels.message,
-          max: "200",
+          max: '200',
         }),
       ),
   };
@@ -77,34 +78,34 @@ export const getValidationSchema = (
     companyName: Yup.string()
       .min(
         1,
-        tCommon("validationErrors.min", {
+        tCommon('validationErrors.min', {
           field: labels.companyName,
-          min: "1",
+          min: '1',
         }),
       )
       .max(
         50,
-        tCommon("validationErrors.max", {
+        tCommon('validationErrors.max', {
           field: labels.companyName,
-          max: "50",
+          max: '50',
         }),
       )
       .required(
-        tCommon("validationErrors.required", {
+        tCommon('validationErrors.required', {
           field: labels.companyName,
         }),
       ),
     phone: Yup.string()
-      .matches(/^[0-9+\-()\s_]+$/, tCommon("validationErrors.phoneNumber"))
+      .matches(/^[0-9+\-()\s_]+$/, tCommon('validationErrors.phoneNumber'))
       .max(
         20,
-        tCommon("validationErrors.max", {
+        tCommon('validationErrors.max', {
           field: labels.phone,
-          max: "15",
+          max: '15',
         }),
       )
       .required(
-        tCommon("validationErrors.required", {
+        tCommon('validationErrors.required', {
           field: labels.phone,
         }),
       ),
@@ -114,34 +115,34 @@ export const getValidationSchema = (
     country: Yup.string()
       .matches(
         /^[a-zA-Z\s'-]+$/,
-        tCommon("validationErrors.alphabetic", { field: labels.country }),
+        tCommon('validationErrors.alphabetic', { field: labels.country }),
       )
       .min(
         1,
-        tCommon("validationErrors.min", {
+        tCommon('validationErrors.min', {
           field: labels.country,
-          min: "20",
+          min: '20',
         }),
       )
       .max(
         20,
-        tCommon("validationErrors.max", {
+        tCommon('validationErrors.max', {
           field: labels.country,
-          max: "20",
+          max: '20',
         }),
       )
       .required(
-        tCommon("validationErrors.required", {
+        tCommon('validationErrors.required', {
           field: labels.country,
         }),
       ),
   };
 
-  if (formType === "default") {
+  if (formType === 'default') {
     return Yup.object().shape(baseSchema);
   }
 
-  if (formType === "local") {
+  if (formType === 'local') {
     return Yup.object().shape({ ...baseSchema, ...localSchema });
   }
 

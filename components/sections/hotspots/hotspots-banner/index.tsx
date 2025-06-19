@@ -1,11 +1,10 @@
 // hooks
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 // components
-import Button from "../../../layout/button";
+import Button from '../../../layout/button';
 // utils
-import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
-import { moveBackground } from "../../../layout/banner/banner";
+import styled from '@emotion/styled';
+import { moveBackground } from '../../../layout/banner/banner';
 
 interface Props {
   imgLink?: string;
@@ -36,37 +35,35 @@ const HotspotsBanner = ({
   );
 };
 
-const Wrap = styled("div")(({ theme }) => ({
-  position: "relative",
-  overflow: "hidden",
-  borderRadius: "16px",
-  width: "100%",
-  minHeight: "370px",
-  display: "flex",
-  alignItems: "end",
+const Wrap = styled('div')(({ theme }) => ({
+  position: 'relative',
+  overflow: 'hidden',
+  borderRadius: '16px',
+  width: '100%',
+  minHeight: '370px',
+  display: 'flex',
+  alignItems: 'end',
 
   [theme.breakpoints.mobile]: {
-    minHeight: "250px",
+    minHeight: '250px',
   },
 }));
 
-const Background = styled("div")<{ imgLink?: string }>(
-  ({ theme, imgLink }) => ({
-    position: "absolute",
-    top: 0,
-    left: 0,
-    height: "100%",
-    width: "113%",
-    backgroundImage: `url(${imgLink})`,
-    backgroundSize: "cover",
-    backgroundPosition: "0 50%",
-    animation: `${moveBackground} 20s linear infinite`,
-  }),
-);
+const Background = styled('div')<{ imgLink?: string }>(({ imgLink }) => ({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  height: '100%',
+  width: '113%',
+  backgroundImage: `url(${imgLink})`,
+  backgroundSize: 'cover',
+  backgroundPosition: '0 50%',
+  animation: `${moveBackground} 20s linear infinite`,
+}));
 
-const Title = styled("p")(({ theme }) => ({
-  fontWeight: "700",
-  width: "100%",
+const Title = styled('p')(({ theme }) => ({
+  fontWeight: '700',
+  width: '100%',
   fontSize: theme.fontSize.fontS32,
   zIndex: 1,
   color: theme.colors.white,
@@ -76,8 +73,8 @@ const Title = styled("p")(({ theme }) => ({
   },
 }));
 
-const SubTitle = styled("p")(({ theme }) => ({
-  fontWeight: "400",
+const SubTitle = styled('p')(({ theme }) => ({
+  fontWeight: '400',
   fontSize: theme.fontSize.fontS18,
   zIndex: 1,
   color: theme.colors.white,
@@ -87,25 +84,25 @@ const SubTitle = styled("p")(({ theme }) => ({
   },
 }));
 
-const Content = styled("div")(({ theme }) => ({
+const Content = styled('div')(({ theme }) => ({
   zIndex: 1,
-  maxHeight: "50%",
+  maxHeight: '50%',
   color: theme.colors.white,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "end",
-  gap: "8px",
-  padding: "70px 230px 11px 16px",
-  backgroundImage: "url(images/banners/hotspots-banner-bg.svg)",
-  backgroundSize: "cover",
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'end',
+  gap: '8px',
+  padding: '70px 230px 11px 16px',
+  backgroundImage: 'url(images/banners/hotspots-banner-bg.svg)',
+  backgroundSize: 'cover',
 
   [theme.breakpoints.mobile]: {
-    padding: "30px 20px 2px 8px",
+    padding: '30px 20px 2px 8px',
   },
 
   button: {
-    border: "none",
-    marginRight: "50px",
+    border: 'none',
+    marginRight: '50px',
   },
 }));
 

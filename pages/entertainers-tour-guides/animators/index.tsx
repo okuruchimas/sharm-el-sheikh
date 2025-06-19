@@ -3,41 +3,36 @@ import {
   GetAnimationCompaniesDocument,
   type AnimatorPreviewFragment,
   type AnimationCompanyFragment,
-  GetTourGuidesByFiltersDocument,
-  GetTourOperatorCompaniesDocument,
-  GetDeliveriesDocument,
-} from "../../../gql/graphql";
+} from '../../../gql/graphql';
 // constants
-import { REVALIDATE_TIME } from "../../../constants/page.constants";
-import { RATING_FILTER_OPTIONS } from "../../../constants/filter-options";
+import { REVALIDATE_TIME } from '../../../constants/page.constants';
+import { RATING_FILTER_OPTIONS } from '../../../constants/filter-options';
 // hooks
-import { useRouter } from "next/router";
-import useResponsive from "../../../hooks/useResponsive";
-import { useTranslation } from "next-i18next";
-import { useEffect, useMemo, useState } from "react";
+import { useRouter } from 'next/router';
+import useResponsive from '../../../hooks/useResponsive';
+import { useTranslation } from 'next-i18next';
+import { useEffect, useMemo, useState } from 'react';
 // components
-import Map from "../../../components/layout/map";
-import Tabs from "../../../components/sections/entertainers-tour-guides/children/tabs";
-import Modal from "../../../components/layout/modal";
-import Button from "../../../components/layout/button";
-import Dropdown from "../../../components/layout/filters";
-import Container from "../../../components/sections/entertainers-tour-guides/children/container";
-import Pagination from "../../../components/layout/pagination";
-import AnimatorCards from "../../../components/sections/entertainers-tour-guides/animators/cards";
-import CompanyFullInfo from "../../../components/layout/company-full-info";
-import AnimationCompanies from "../../../components/sections/entertainers-tour-guides/animators/animation-companies";
+import Map from '../../../components/layout/map';
+import Tabs from '../../../components/sections/entertainers-tour-guides/children/tabs';
+import Modal from '../../../components/layout/modal';
+import Button from '../../../components/layout/button';
+import Dropdown from '../../../components/layout/filters';
+import Container from '../../../components/sections/entertainers-tour-guides/children/container';
+import Pagination from '../../../components/layout/pagination';
+import AnimatorCards from '../../../components/sections/entertainers-tour-guides/animators/cards';
+import CompanyFullInfo from '../../../components/layout/company-full-info';
+import AnimationCompanies from '../../../components/sections/entertainers-tour-guides/animators/animation-companies';
 // utils
-import styled from "@emotion/styled";
-import { mapLocations } from "../../../utils/location-mapper";
-import { getCurrentLocation } from "../../../utils/get-location";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
+import styled from '@emotion/styled';
+import { mapLocations } from '../../../utils/location-mapper';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { fetchData, fetchDataFromApi } from '../../../utils/fetchApi';
 // types
-import type { MapCard } from "../../../components/layout/map/children/types";
-import type { selectOption } from "../../../components/types/filter";
-import { useLoadScript } from "@react-google-maps/api";
-import { Library } from "@googlemaps/js-api-loader";
-import { getLayoutData } from "../../../utils/get-layout-data";
+import type { MapCard } from '../../../components/layout/map/children/types';
+import type { selectOption } from '../../../components/types/filter';
+import { getLayoutData } from '../../../utils/get-layout-data';
+import { GetStaticPropsContext } from 'next';
 
 type Animators = { attributes: AnimatorPreviewFragment }[];
 type PageProps = {
@@ -52,14 +47,14 @@ const Animators = ({
 }: PageProps) => {
   const [page, setPage] = useState<number>(1);
   const [total, setTotal] = useState(initialTotalAnimators);
-  const [filter, setFilter] = useState("");
-  const [companyKey, setCompanyKey] = useState("");
+  const [filter, setFilter] = useState('');
+  const [companyKey, setCompanyKey] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<Animators>();
   const [selectedCompany, setSelectedCompany] =
     useState<AnimationCompanyFragment>();
 
-  const { i18n, t } = useTranslation("entertainers-tour-guides");
+  const { i18n, t } = useTranslation('entertainers-tour-guides');
   const { isMobile } = useResponsive();
   const router = useRouter();
   const pageSize = useMemo(() => (isMobile ? 4 : 12), [isMobile]);
@@ -97,12 +92,12 @@ const Animators = ({
     setIsLoading(false);
   };
 
-  const filterOptions = RATING_FILTER_OPTIONS.map((el) => ({
+  const filterOptions = RATING_FILTER_OPTIONS.map(el => ({
     ...el,
     value: t(el.value),
   }));
 
-  const animationCompaniesMapped = animationCompanies.map((el) => ({
+  const animationCompaniesMapped = animationCompanies.map(el => ({
     key: el.attributes.slug,
     value: el.attributes.name,
   }));
@@ -143,7 +138,7 @@ const Animators = ({
   const handlePopupClose = () => setSelectedCompany(undefined);
   const handleInfoWindowClick = (card: MapCard) => {
     const company = animationCompanies.find(
-      (el) => el.attributes.slug === card.slug,
+      el => el.attributes.slug === card.slug,
     );
 
     if (company) {
@@ -152,7 +147,7 @@ const Animators = ({
       return;
     }
 
-    const animator = animators.find((el) => el.attributes.slug === card.slug);
+    const animator = animators.find(el => el.attributes.slug === card.slug);
 
     if (!company && animator) {
       router.push(
@@ -162,68 +157,68 @@ const Animators = ({
   };
 
   const locations = [
-    ...mapLocations(animationCompanies, "/icons/animator-company-marker.svg"),
-    ...mapLocations(animators, "/icons/animator-marker.svg"),
+    ...mapLocations(animationCompanies, '/icons/animator-company-marker.svg'),
+    ...mapLocations(animators, '/icons/animator-marker.svg'),
   ];
 
-  const findNearestAnimator = async () => {
-    if (typeof window === "undefined") return;
-    try {
-      const userLocation = await getCurrentLocation();
-      // const userLocation = { lat: 27.9455979, lng: 34.349452 };
-      console.log(1, userLocation, "userLocation");
-      const data = await fetchDataFromApi(GetAnimatorsByFilterDocument, {
-        locale: i18n.language,
-      });
-      console.log(2, data.animators?.data, "allAnimators");
-
-      const animators = data?.animators?.data;
-      if (!google?.maps?.geometry || !animators?.length) {
-        throw new Error("Щось пішло не так з Google API або аніматорами.");
-      }
-      console.log(3, "userLocation");
-
-      const myLatLng = new window.google.maps.LatLng(
-        userLocation.lat,
-        userLocation.lng,
-      );
-      console.log(4, "userLocation");
-
-      let closestAnimator = null;
-      let shortestDistance = Infinity;
-
-      for (const animator of animators) {
-        const location = animator?.attributes?.position;
-        if (!location?.lat || !location?.lng) continue;
-
-        const animatorLatLng = new window.google.maps.LatLng(
-          location.lat,
-          location.lng,
-        );
-        const distance =
-          window.google.maps.geometry.spherical.computeDistanceBetween(
-            myLatLng,
-            animatorLatLng,
-          );
-
-        if (distance < shortestDistance) {
-          shortestDistance = distance;
-          closestAnimator = animator;
-        }
-      }
-
-      if (closestAnimator) {
-        // setResult(closestAnimator);
-        console.log("Найближчий аніматор:", closestAnimator?.attributes?.name);
-        alert(`succes:${closestAnimator?.attributes?.name}`);
-      } else {
-        alert("Не знайдено аніматорів поблизу.");
-      }
-    } catch (error: any) {
-      console.error(error);
-      alert(`Помилка при пошуку аніматора.${error?.code},${error?.message}`);
-    }
-  };
+  // const findNearestAnimator = async () => {
+  //   if (typeof window === 'undefined') return;
+  //   try {
+  //     const userLocation = await getCurrentLocation();
+  //     // const userLocation = { lat: 27.9455979, lng: 34.349452 };
+  //     console.log(1, userLocation, 'userLocation');
+  //     const data = await fetchDataFromApi(GetAnimatorsByFilterDocument, {
+  //       locale: i18n.language,
+  //     });
+  //     console.log(2, data.animators?.data, 'allAnimators');
+  //
+  //     const animators = data?.animators?.data;
+  //     if (!google?.maps?.geometry || !animators?.length) {
+  //       throw new Error('Щось пішло не так з Google API або аніматорами.');
+  //     }
+  //     console.log(3, 'userLocation');
+  //
+  //     const myLatLng = new window.google.maps.LatLng(
+  //       userLocation.lat,
+  //       userLocation.lng,
+  //     );
+  //     console.log(4, 'userLocation');
+  //
+  //     let closestAnimator = null;
+  //     let shortestDistance = Infinity;
+  //
+  //     for (const animator of animators) {
+  //       const location = animator?.attributes?.position;
+  //       if (!location?.lat || !location?.lng) continue;
+  //
+  //       const animatorLatLng = new window.google.maps.LatLng(
+  //         location.lat,
+  //         location.lng,
+  //       );
+  //       const distance =
+  //         window.google.maps.geometry.spherical.computeDistanceBetween(
+  //           myLatLng,
+  //           animatorLatLng,
+  //         );
+  //
+  //       if (distance < shortestDistance) {
+  //         shortestDistance = distance;
+  //         closestAnimator = animator;
+  //       }
+  //     }
+  //
+  //     if (closestAnimator) {
+  //       // setResult(closestAnimator);
+  //       console.log('Найближчий аніматор:', closestAnimator?.attributes?.name);
+  //       alert(`succes:${closestAnimator?.attributes?.name}`);
+  //     } else {
+  //       alert('Не знайдено аніматорів поблизу.');
+  //     }
+  //   } catch (error: any) {
+  //     console.error(error);
+  //     alert(`Помилка при пошуку аніматора.${error?.code},${error?.message}`);
+  //   }
+  // };
 
   return (
     <>
@@ -236,7 +231,7 @@ const Animators = ({
         ) : null}
         {animationCompanies.length ? (
           <AnimationCompanies
-            companies={animationCompanies.map((el) => el.attributes)}
+            companies={animationCompanies.map(el => el.attributes)}
             setSelectedCompany={setSelectedCompany}
           />
         ) : null}
@@ -244,7 +239,7 @@ const Animators = ({
         <FiltersWrap>
           <Dropdown
             options={[
-              { key: "", value: t("animationCompanies") },
+              { key: '', value: t('animationCompanies') },
               ...animationCompaniesMapped,
             ]}
             onChange={handleCompanySelect}
@@ -265,11 +260,11 @@ const Animators = ({
             // onClick={findNearestAnimator}
             color="blue"
             backgroundColor="transparent"
-            text={t("buttons.nearestAnimator")}
+            text={t('buttons.nearestAnimator')}
           />
         </FiltersWrap>
         {result ? (
-          <AnimatorCards animators={result.map((el) => el.attributes)} />
+          <AnimatorCards animators={result.map(el => el.attributes)} />
         ) : null}
         <Pagination
           isDisabled={isLoading}
@@ -291,31 +286,31 @@ const Animators = ({
   );
 };
 
-const FiltersWrap = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  width: "100%",
-  gap: "24px",
-  marginBottom: "24px",
+const FiltersWrap = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  width: '100%',
+  gap: '24px',
+  marginBottom: '24px',
 
   button: {
-    marginLeft: "auto",
+    marginLeft: 'auto',
   },
 
   [theme.breakpoints.mobile]: {
-    flexDirection: "column",
-    alignItems: "flex-end",
+    flexDirection: 'column',
+    alignItems: 'flex-end',
 
     button: {
       height: 56,
-      width: "100%",
+      width: '100%',
     },
   },
 }));
 
-export async function getStaticProps({ locale }: any) {
-  const layoutDataPromise = getLayoutData(locale);
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  const layoutDataPromise = getLayoutData(locale!);
 
   const [{ animationCompanies }, { animators }, { headerData, footerData }] =
     await Promise.all([
@@ -328,9 +323,9 @@ export async function getStaticProps({ locale }: any) {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, [
-        "entertainers-tour-guides",
-        "common",
+      ...(await serverSideTranslations(locale!, [
+        'entertainers-tour-guides',
+        'common',
       ])),
       animators: animators?.data,
       initialTotalAnimators: animators?.meta.pagination.total,

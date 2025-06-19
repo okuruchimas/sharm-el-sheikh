@@ -1,6 +1,6 @@
-import Image from "next/image";
-import styled from "@emotion/styled";
-import type { ImageI } from "../../types/images";
+import Image from 'next/image';
+import styled from '@emotion/styled';
+import type { ImageI } from '../../types/images';
 
 type FlagsProps = { icons: ImageI[] };
 
@@ -14,10 +14,10 @@ const Flags = ({ icons }: FlagsProps) => {
   );
 };
 
-const Wrap = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  gap: "16px",
-}));
+const Wrap = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '16px',
+});
 
 export default Flags;

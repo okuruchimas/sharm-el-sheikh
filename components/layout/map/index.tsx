@@ -1,23 +1,23 @@
-import { MarkerF, GoogleMap, useLoadScript } from "@react-google-maps/api";
-import { useMemo, useState } from "react";
+import { MarkerF, GoogleMap, useLoadScript } from '@react-google-maps/api';
+import { useMemo, useState } from 'react';
 // components
-import Loader from "../../layout/loader";
-import InfoWindow from "./children/info-window";
-import SectionWrapper from "../../layout/section-wrapper";
-import LocationsCategoryFilter from "./children/locations-category-filter";
+import Loader from '../../layout/loader';
+import InfoWindow from './children/info-window';
+import SectionWrapper from '../../layout/section-wrapper';
+import LocationsCategoryFilter from './children/locations-category-filter';
 // utils
-import styled from "@emotion/styled";
-import { calculateCenter } from "./children/utils";
+import styled from '@emotion/styled';
+import { calculateCenter } from './children/utils';
 // constants
 import {
   libraries,
   DEFAULT_ZOOM,
   DEFAULT_CENTER,
   mapContainerStyle,
-} from "./children/constants";
+} from './children/constants';
 // types
-import type { MapCard } from "./children/types";
-import type { selectOption } from "../../types/filter";
+import type { MapCard } from './children/types';
+import type { selectOption } from '../../types/filter';
 
 type MapProps = {
   title?: string;
@@ -45,7 +45,7 @@ const Map = ({
 }: MapProps) => {
   const [selectedMarker, setSelectedMarker] = useState<MapCard>();
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? '',
     libraries,
   });
 
@@ -61,7 +61,7 @@ const Map = ({
     return centerProp;
   }, [locations, selectedMarker, centerProp]);
 
-  if (loadError || typeof google === "undefined") {
+  if (loadError || typeof google === 'undefined') {
     return <h1>Error</h1>;
   }
 
@@ -110,9 +110,9 @@ const Map = ({
               zoom={zoom}
             >
               {locations
-                ? locations.map((el) => (
+                ? locations.map(el => (
                     <MarkerF
-                      icon={el.markerIconUrl || "/icons/location-marker.svg"}
+                      icon={el.markerIconUrl || '/icons/location-marker.svg'}
                       key={el.slug}
                       opacity={el.slug === selectedMarker?.slug ? 0.6 : 1}
                       position={{
@@ -139,23 +139,23 @@ const Map = ({
   );
 };
 
-const MapWrapper = styled("div")(({ theme }) => ({
-  position: "relative",
-  height: "480px",
+const MapWrapper = styled('div')(({ theme }) => ({
+  position: 'relative',
+  height: '480px',
 
   [theme.breakpoints.mobile]: {
-    height: "80vh",
+    height: '80vh',
   },
 }));
 
-const InfoWindowWrapper = styled("div")(({ theme }) => ({
-  position: "absolute",
-  bottom: "116px",
-  right: "35px",
+const InfoWindowWrapper = styled('div')(({ theme }) => ({
+  position: 'absolute',
+  bottom: '116px',
+  right: '35px',
 
   [theme.breakpoints.mobile]: {
-    bottom: "14px",
-    right: "14px",
+    bottom: '14px',
+    right: '14px',
   },
 }));
 

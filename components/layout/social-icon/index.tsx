@@ -1,7 +1,7 @@
 // libs
-import Link from "next/link";
+import Link from 'next/link';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export interface SocialIconI {
   id?: number;
@@ -16,8 +16,8 @@ const SocialIcon = ({ iconSrc, iconAlt, socialLink }: SocialIconI) => (
   </Link>
 );
 
-const Icon = styled("img")({
-  cursor: "pointer",
+const Icon = styled('img')({
+  cursor: 'pointer',
 });
 
 export default SocialIcon;

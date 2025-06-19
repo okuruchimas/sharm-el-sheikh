@@ -1,13 +1,13 @@
-import styled from "@emotion/styled";
-import UniversalCard from "../../../layout/universal-card";
-import { AdvertisementFragment } from "../../../../gql/graphql";
-import { formatDate } from "../../../../utils/formateDate";
-import { SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
-import useResponsive from "../../../../hooks/useResponsive";
-import { SwiperCardsWrapper } from "../../entertainers-tour-guides/children/cards-wrap";
-import Placeholder from "../../promotions/children/placeholder";
-import { useTranslation } from "next-i18next";
+import styled from '@emotion/styled';
+import UniversalCard from '../../../layout/universal-card';
+import { AdvertisementFragment } from '../../../../gql/graphql';
+import { formatDate } from '../../../../utils/formateDate';
+import { SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import useResponsive from '../../../../hooks/useResponsive';
+import { SwiperCardsWrapper } from '../../entertainers-tour-guides/children/cards-wrap';
+import Placeholder from '../../promotions/children/placeholder';
+import { useTranslation } from 'next-i18next';
 
 interface Props {
   advertisements?: AdvertisementFragment[];
@@ -15,7 +15,7 @@ interface Props {
 }
 const New = ({ advertisements, onElementClick }: Props) => {
   const { slidesPerView } = useResponsive();
-  const { t } = useTranslation("agents");
+  const { t } = useTranslation('agents');
 
   return (
     <Wrapper>
@@ -23,7 +23,6 @@ const New = ({ advertisements, onElementClick }: Props) => {
         <SwiperCardsWrapper
           modules={[Pagination]}
           slidesPerView={slidesPerView}
-          isSingleCard={false}
           spaceBetween={12}
           navigation={false}
           pagination={{
@@ -39,7 +38,7 @@ const New = ({ advertisements, onElementClick }: Props) => {
                   price={el.price}
                   place={el.location}
                   duration={formatDate(el.createdAt)}
-                  imgSrc={el.images?.data[0]?.attributes?.url || ""}
+                  imgSrc={el.images?.data[0]?.attributes?.url || ''}
                   onClick={() => onElementClick(el)}
                 />
               </SwiperSlide>
@@ -47,7 +46,7 @@ const New = ({ advertisements, onElementClick }: Props) => {
           )}
         </SwiperCardsWrapper>
       ) : (
-        <Placeholder title={t("noAddsFound")} />
+        <Placeholder title={t('noAddsFound')} />
       )}
     </Wrapper>
   );
@@ -55,9 +54,9 @@ const New = ({ advertisements, onElementClick }: Props) => {
 
 export default New;
 
-const Wrapper = styled("div")(({ theme }) => ({
-  position: "relative",
-  display: "flex",
-  flexDirection: "row",
+const Wrapper = styled('div')({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'row',
   gap: 16,
-}));
+});

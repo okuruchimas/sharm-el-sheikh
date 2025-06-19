@@ -1,10 +1,10 @@
-import { fetchData } from "./fetchApi";
+import { fetchData } from './fetchApi';
 import {
   GetFooterDocument,
   GetHeaderDocument,
   type FooterFragment,
   type HeaderFragment,
-} from "../gql/graphql";
+} from '../gql/graphql';
 
 export interface LayoutData {
   headerData?: HeaderFragment | null;

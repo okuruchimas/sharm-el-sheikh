@@ -1,18 +1,18 @@
-import { Formik, Form } from "formik";
-import { toast, ToastContainer } from "react-toastify";
-import { useTranslation } from "next-i18next";
+import { Formik, Form } from 'formik';
+import { toast, ToastContainer } from 'react-toastify';
+import { useTranslation } from 'next-i18next';
 // components
-import Input from "../../../layout/input";
-import Button from "../../../layout/button";
-import Loader from "../../../layout/loader";
-import { Title } from "../../../layout/title";
-import ImageInput from "../../../layout/image-input";
-import CheckboxField from "../../../layout/checkbox";
-import FormikDropdown from "../../../layout/formik-select";
+import Input from '../../../layout/input';
+import Button from '../../../layout/button';
+import Loader from '../../../layout/loader';
+import { Title } from '../../../layout/title';
+import ImageInput from '../../../layout/image-input';
+import CheckboxField from '../../../layout/checkbox';
+import FormikDropdown from '../../../layout/formik-select';
 // utils
-import { getUrl } from "../../../../utils/fetchApi";
-import styled from "@emotion/styled";
-import "react-toastify/dist/ReactToastify.css";
+import { getUrl } from '../../../../utils/fetchApi';
+import styled from '@emotion/styled';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface IAdvertisementValues {
   name: string;
@@ -29,21 +29,25 @@ interface IAdvertisementValues {
   hasPersonalCard: boolean;
 }
 
-const AddAdvertisementForm = ({ cancelClick }: any) => {
-  const { t } = useTranslation("agents");
-  const { t: tCommon } = useTranslation("common");
+interface Props {
+  cancelClick: () => void;
+}
+
+const AddAdvertisementForm = ({ cancelClick }: Props) => {
+  const { t } = useTranslation('agents');
+  const { t: tCommon } = useTranslation('common');
 
   const initialValues: IAdvertisementValues = {
-    name: "",
-    mobile: "",
-    contactMethod: "",
-    email: "",
-    publicationType: "",
-    title: "",
-    location: "",
-    price: "",
-    description: "",
-    personalCardLink: "",
+    name: '',
+    mobile: '',
+    contactMethod: '',
+    email: '',
+    publicationType: '',
+    title: '',
+    location: '',
+    price: '',
+    description: '',
+    personalCardLink: '',
     images: [] as File[],
     hasPersonalCard: false,
   };
@@ -64,7 +68,7 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
         ) => {
           if (images && images.length > 4) {
             setSubmitting(false);
-            return toast.error(t("form.toasts.tooManyImages"));
+            return toast.error(t('form.toasts.tooManyImages'));
           }
 
           try {
@@ -75,36 +79,36 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
               personalCardLink,
               publicationType:
                 hasPersonalCard && !!personalCardLink
-                  ? "member"
+                  ? 'member'
                   : publicationType,
               publishedAt: null,
             };
 
-            formData.append("data", JSON.stringify(data));
+            formData.append('data', JSON.stringify(data));
 
             if (images && images.length > 0) {
               images.forEach((file: File) => {
-                formData.append("files.images", file);
+                formData.append('files.images', file);
               });
             }
 
-            const response = await fetch(getUrl("deliveries"), {
-              method: "POST",
+            const response = await fetch(getUrl('deliveries'), {
+              method: 'POST',
               body: formData,
             });
 
             if (response.ok) {
-              toast.success(t("form.toasts.success"));
+              toast.success(t('form.toasts.success'));
               resetForm();
             } else {
               const errorData = await response.json();
               toast.error(
-                t("form.toasts.failedToSubmit") +
-                  (errorData?.error?.message || " Unknown error"),
+                t('form.toasts.failedToSubmit') +
+                  (errorData?.error?.message || ' Unknown error'),
               );
             }
           } catch (error) {
-            toast.error(t("form.toasts.unexpectedError"));
+            toast.error(t('form.toasts.unexpectedError'));
             console.error(error);
           }
 
@@ -117,33 +121,33 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
               <Loader />
             ) : (
               <>
-                <TitleStyled as="h3">{t("addAdvertisement")}</TitleStyled>
+                <TitleStyled as="h3">{t('addAdvertisement')}</TitleStyled>
                 {/* Personal Data */}
                 <TitleSmallStyled as="h4">
-                  {t("form.personalData")}
+                  {t('form.personalData')}
                 </TitleSmallStyled>
-                <Input type="name" placeholder={t("form.yourName")} />
-                <Input type="mobile" placeholder={t("form.mobile")} />
+                <Input type="name" placeholder={t('form.yourName')} />
+                <Input type="mobile" placeholder={t('form.mobile')} />
                 <Input
                   type="contactMethod"
-                  placeholder={t("form.preferredContactMethod")}
+                  placeholder={t('form.preferredContactMethod')}
                 />
-                <Input type="email" placeholder={t("form.email")} />
+                <Input type="email" placeholder={t('form.email')} />
                 {/* About Advertisement */}
                 <TitleSmallStyled as="h4">
-                  {t("form.aboutAdvertisement")}
+                  {t('form.aboutAdvertisement')}
                 </TitleSmallStyled>
                 <FormikDropdown
                   name="publicationType"
                   options={[
-                    { key: "", value: t("form.selectType") },
+                    { key: '', value: t('form.selectType') },
                     {
-                      key: "from",
-                      value: t("form.orderFromEgypt"),
+                      key: 'from',
+                      value: t('form.orderFromEgypt'),
                     },
                     {
-                      key: "to",
-                      value: t("form.orderInEgypt"),
+                      key: 'to',
+                      value: t('form.orderInEgypt'),
                     },
                   ]}
                   width="100%"
@@ -151,30 +155,30 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
                   borderColor="yellow"
                   color="gray"
                 />
-                <Input type="title" placeholder={t("form.title")} />
-                <Input type="location" placeholder={t("form.location")} />
-                <Input type="price" placeholder={t("form.price")} />
+                <Input type="title" placeholder={t('form.title')} />
+                <Input type="location" placeholder={t('form.location')} />
+                <Input type="price" placeholder={t('form.price')} />
                 <Input
                   type="description"
-                  placeholder={t("form.description")}
+                  placeholder={t('form.description')}
                   as="textarea"
                 />
-                <ImageInput type="images" label={t("form.downloadCoverArt")} />
+                <ImageInput type="images" label={t('form.downloadCoverArt')} />
                 <CheckboxField
                   type="hasPersonalCard"
-                  label={t("form.personalCardOnWebsite")}
+                  label={t('form.personalCardOnWebsite')}
                 />
                 <Input
                   isDisabled={!values.hasPersonalCard}
                   type="personalCardLink"
-                  placeholder={t("form.link")}
+                  placeholder={t('form.link')}
                 />
               </>
             )}
 
             <ButtonWrap>
               <Button
-                text={tCommon("buttons.cancel")}
+                text={tCommon('buttons.cancel')}
                 type="reset"
                 backgroundColor="gray"
                 color="black"
@@ -183,7 +187,7 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
               <SubmitButton
                 backgroundColor="yellow"
                 color="white"
-                text={tCommon("buttons.save")}
+                text={tCommon('buttons.save')}
                 type="submit"
                 disabled={isSubmitting}
               />
@@ -198,15 +202,15 @@ const AddAdvertisementForm = ({ cancelClick }: any) => {
 
 const Wrap = styled.div(({ theme }) => ({
   zIndex: 10,
-  position: "absolute",
-  top: "0",
-  right: "calc(50% - 333px)",
-  width: "100%",
+  position: 'absolute',
+  top: '0',
+  right: 'calc(50% - 333px)',
+  width: '100%',
   maxWidth: 658,
-  boxShadow: "0px 1px 3px 1px rgba(0, 0, 0, 0.15)",
-  borderRadius: "16px",
-  display: "flex",
-  flexDirection: "column",
+  boxShadow: '0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
+  borderRadius: '16px',
+  display: 'flex',
+  flexDirection: 'column',
 
   [theme.breakpoints.mobile]: {
     right: 0,
@@ -224,38 +228,38 @@ const TitleSmallStyled = styled(Title)(({ theme }) => ({
   fontSize: theme.fontSize.fontS21,
 }));
 
-const FormWrap = styled(Form)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  gap: "16px",
-  padding: "24px",
-  borderRadius: "16px",
-  backgroundColor: "#FFFFFF",
+const FormWrap = styled(Form)({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '16px',
+  padding: '24px',
+  borderRadius: '16px',
+  backgroundColor: '#FFFFFF',
 
-  "input,textarea": {
-    minWidth: "608px",
-    width: "100%",
+  'input,textarea': {
+    minWidth: '608px',
+    width: '100%',
   },
-  ".input-wrap": {
-    width: "100%",
+  '.input-wrap': {
+    width: '100%',
   },
 
   textarea: {
-    resize: "none",
+    resize: 'none',
   },
-}));
-
-const ButtonWrap = styled.div({
-  width: "100%",
-  display: "flex",
-  justifyContent: "space-between",
-  marginTop: "24px",
 });
 
-const SubmitButton = styled(Button)(({ theme }) => ({
-  minWidth: "120px",
-}));
+const ButtonWrap = styled.div({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'space-between',
+  marginTop: '24px',
+});
+
+const SubmitButton = styled(Button)({
+  minWidth: '120px',
+});
 
 export default AddAdvertisementForm;

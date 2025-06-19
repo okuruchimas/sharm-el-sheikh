@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
-import Image from "next/image";
+import Image from 'next/image';
 
 interface Props {
   onClick: () => void;
@@ -11,7 +11,7 @@ const FilterButton = ({ onClick }: Props) => {
       <Image
         height={56}
         width={56}
-        src={"/icons/filter.svg"}
+        src={'/icons/filter.svg'}
         alt="icon of a filtre"
       />
     </FilterButtonStyled>
@@ -20,12 +20,12 @@ const FilterButton = ({ onClick }: Props) => {
 
 export default FilterButton;
 
-const FilterButtonStyled = styled("button")({
-  border: "none",
-  background: "transparent",
+const FilterButtonStyled = styled('button')({
+  border: 'none',
+  background: 'transparent',
   width: 56,
   height: 56,
   minWidth: 56,
   minHeight: 56,
-  cursor: "pointer",
+  cursor: 'pointer',
 });

@@ -5,34 +5,34 @@ import {
   type DeliveryFragment,
   type TourGuideFragment,
   type TourOperatorCompanyFragment,
-} from "../../gql/graphql";
+} from '../../gql/graphql';
 // hooks
-import { useState } from "react";
-import { useTranslation } from "next-i18next";
+import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 // components
-import Map from "../../components/layout/map";
-import Modal from "../../components/layout/modal";
-import Banners from "../../components/sections/agents/children/banners";
-import Delivery from "../../components/sections/agents/delivery";
-import GuidesCards from "../../components/sections/entertainers-tour-guides/tour-and-guides/cards";
-import SectionWrapper from "../../components/layout/section-wrapper";
-import CompanyFullInfo from "../../components/layout/company-full-info";
-import SectionsWrapper from "../../components/layout/sections-wrapper";
+import Map from '../../components/layout/map';
+import Modal from '../../components/layout/modal';
+import Banners from '../../components/sections/agents/children/banners';
+import Delivery from '../../components/sections/agents/delivery';
+import SectionWrapper from '../../components/layout/section-wrapper';
+import CompanyFullInfo from '../../components/layout/company-full-info';
+import SectionsWrapper from '../../components/layout/sections-wrapper';
 // constants
-import { REVALIDATE_TIME } from "../../constants/page.constants";
+import { REVALIDATE_TIME } from '../../constants/page.constants';
 // utils
-import styled from "@emotion/styled";
-import { mapLocation } from "../../utils/location-mapper";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { fetchData } from "../../utils/fetchApi";
+import styled from '@emotion/styled';
+import { mapLocation } from '../../utils/location-mapper';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { fetchData } from '../../utils/fetchApi';
 // types
-import { MapCard } from "../../components/layout/map/children/types";
-import { getLayoutData } from "../../utils/get-layout-data";
-import { SwiperCardsWrapper } from "../../components/sections/entertainers-tour-guides/children/cards-wrap";
-import GuideCard from "../../components/sections/entertainers-tour-guides/tour-and-guides/card";
-import { Pagination } from "swiper/modules";
-import useResponsive from "../../hooks/useResponsive";
-import { SwiperSlide } from "swiper/react";
+import { MapCard } from '../../components/layout/map/children/types';
+import { getLayoutData } from '../../utils/get-layout-data';
+import { SwiperCardsWrapper } from '../../components/sections/entertainers-tour-guides/children/cards-wrap';
+import GuideCard from '../../components/sections/entertainers-tour-guides/tour-and-guides/card';
+import { Pagination } from 'swiper/modules';
+import useResponsive from '../../hooks/useResponsive';
+import { SwiperSlide } from 'swiper/react';
+import { GetStaticPropsContext } from 'next';
 
 type Props = {
   deliveries: DeliveryFragment[];
@@ -46,20 +46,19 @@ const Agents = ({
   tourGuides,
   tourOperatorCompanies,
 }: Props) => {
-  const { t } = useTranslation("common");
-  const { t: tPage } = useTranslation("agents");
+  const { t } = useTranslation('common');
+  const { t: tPage } = useTranslation('agents');
   const [selectedOperatorCompany, setSelectedOperatorCompany] =
     useState<TourOperatorCompanyFragment>();
   const { slidesPerView } = useResponsive();
 
-  const locations = tourOperatorCompanies.map((el) =>
-    mapLocation(el, "/icons/tour-operator-company-map-marker.svg"),
+  const locations = tourOperatorCompanies.map(el =>
+    mapLocation(el, '/icons/tour-operator-company-map-marker.svg'),
   );
   const handleInfoWindowClick = (previewData: MapCard) => {
     setSelectedOperatorCompany(
-      tourOperatorCompanies.find(
-        (el) => el.attributes.slug === previewData.slug,
-      )?.attributes || undefined,
+      tourOperatorCompanies.find(el => el.attributes.slug === previewData.slug)
+        ?.attributes || undefined,
     );
   };
   const handlePopupClose = () => setSelectedOperatorCompany(undefined);
@@ -69,12 +68,12 @@ const Agents = ({
       url="/images/background/background-gradient.svg"
       mobUrl="/images/background/mobile-background-gradient.svg"
     >
-      <SectionWrapper title={tPage("sectionTitles.mapTourCompanies")}>
+      <SectionWrapper title={tPage('sectionTitles.mapTourCompanies')}>
         <Map
           zoom={3}
           centerProp={{
-            lat: 40.963648072647775,
-            lng: 20.399537638329676,
+            lat: 41,
+            lng: 20.4,
           }}
           onInfoWindowClick={handleInfoWindowClick}
           locations={locations}
@@ -82,15 +81,14 @@ const Agents = ({
       </SectionWrapper>
 
       <SectionWrapper
-        title={tPage("sectionTitles.operatorsForYou")}
-        buttonText={t("buttons.seeAll")}
+        title={tPage('sectionTitles.operatorsForYou')}
+        buttonText={t('buttons.seeAll')}
         onClick={() => {}}
         mt="60px"
       >
         <SwiperCardsWrapper
           modules={[Pagination]}
           slidesPerView={slidesPerView}
-          isSingleCard={false}
           spaceBetween={12}
           navigation={false}
           pagination={{
@@ -98,7 +96,7 @@ const Agents = ({
           }}
           loop
         >
-          {tourGuides.map((el) => (
+          {tourGuides.map(el => (
             <SwiperSlide key={el.slug}>
               <GuideCard tourGuide={el} />
             </SwiperSlide>
@@ -129,8 +127,8 @@ const Agents = ({
 };
 export default Agents;
 
-export async function getStaticProps({ locale }: any) {
-  const layoutDataPromise = getLayoutData(locale);
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  const layoutDataPromise = getLayoutData(locale!);
   const [
     { tourGuides },
     { tourOperatorCompanies },
@@ -146,23 +144,23 @@ export async function getStaticProps({ locale }: any) {
     fetchData(GetDeliveriesDocument, {
       page: 1,
       pageSize: 4,
-      publicationType: "to",
+      publicationType: 'to',
     }),
     layoutDataPromise,
   ]);
 
   return {
     props: {
-      deliveries: deliveries?.data?.map((el) => el.attributes),
+      deliveries: deliveries?.data?.map(el => el.attributes),
       initialTotalDeliveries: deliveries?.meta.pagination.total,
-      tourGuides: tourGuides?.data?.map((el) => el.attributes),
+      tourGuides: tourGuides?.data?.map(el => el.attributes),
       tourOperatorCompanies: tourOperatorCompanies?.data,
       initialTotal: tourGuides?.meta.pagination.total || 0,
-      ...(await serverSideTranslations(locale, [
-        "company-page",
-        "common",
-        "agents",
-        "entertainers-tour-guides",
+      ...(await serverSideTranslations(locale!, [
+        'company-page',
+        'common',
+        'agents',
+        'entertainers-tour-guides',
       ])),
       headerData,
       footerData,
@@ -172,15 +170,15 @@ export async function getStaticProps({ locale }: any) {
 }
 
 const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "20px",
-  alignItems: "center",
-  justifyContent: "center",
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
+  alignItems: 'center',
+  justifyContent: 'center',
 
-  paddingTop: "242px",
+  paddingTop: '242px',
 
   [theme.breakpoints.mobile]: {
-    paddingTop: "120px",
+    paddingTop: '120px',
   },
 }));

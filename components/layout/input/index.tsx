@@ -1,8 +1,9 @@
 // libs
-import { ErrorMessage, Field, useField, FieldProps } from "formik";
-import InputMask from "react-input-mask";
+// eslint-disable-next-line import/named
+import { ErrorMessage, Field, useField, FieldProps } from 'formik';
+import InputMask from 'react-input-mask';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 interface Props {
   label?: string;
@@ -45,7 +46,7 @@ const Input = ({
                 <InputMask
                   {...field}
                   type={type}
-                  mask={mask || ""}
+                  mask={mask || ''}
                   placeholder={placeholder}
                 />
               )
@@ -64,19 +65,19 @@ const Input = ({
   );
 };
 
-const InputWrap = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  position: "relative",
-  margin: "0 auto",
-}));
+const InputWrap = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  position: 'relative',
+  margin: '0 auto',
+});
 
-const Label = styled("label")(({ theme }) => ({
-  position: "absolute",
-  left: "16px",
-  top: "-8px",
-  borderRadius: "4px",
-  padding: "4px",
+const Label = styled('label')(({ theme }) => ({
+  position: 'absolute',
+  left: '16px',
+  top: '-8px',
+  borderRadius: '4px',
+  padding: '4px',
   background: theme.colors.white,
   fontSize: theme.fontSize.fontS12,
 }));
@@ -84,28 +85,28 @@ const Label = styled("label")(({ theme }) => ({
 const ErrorStyled = styled(ErrorMessage)(({ theme }) => ({
   fontSize: theme.fontSize.fontS12,
   color: theme.colors.red,
-  margin: "4px 16px 0",
-  position: "absolute",
+  margin: '4px 16px 0',
+  position: 'absolute',
 }));
 
-const InputContainer = styled("div", {
-  shouldForwardProp: (prop) =>
-    !["isMessage", "isErrorSpan", "isLight"].includes(prop),
+const InputContainer = styled('div', {
+  shouldForwardProp: prop =>
+    !['isMessage', 'isErrorSpan', 'isLight'].includes(prop),
 })<{ isMessage: boolean; isErrorSpan: boolean; isLight?: boolean }>(
   ({ theme, isMessage, isErrorSpan, isLight }) => ({
-    display: "flex",
-    alignItems: "center",
-    "input, textarea": {
-      minWidth: "310px",
-      minHeight: isMessage ? "130px" : "58px",
+    display: 'flex',
+    alignItems: 'center',
+    'input, textarea': {
+      minWidth: '310px',
+      minHeight: isMessage ? '130px' : '58px',
       backgroundColor: theme.colors.white,
-      borderRadius: "12px",
-      padding: isMessage ? "16px 16px" : "0 16px",
-      outline: "none",
+      borderRadius: '12px',
+      padding: isMessage ? '16px 16px' : '0 16px',
+      outline: 'none',
       fontSize: theme.fontSize.fontS16,
 
       [theme.breakpoints.mobile]: {
-        minWidth: "auto",
+        minWidth: 'auto',
       },
 
       ...(isLight
@@ -120,14 +121,14 @@ const InputContainer = styled("div", {
               : `1px solid ${theme.colors.yellow}`,
           }),
 
-      "&:disabled": {
-        cursor: "not-allowed",
+      '&:disabled': {
+        cursor: 'not-allowed',
         border: `1px solid ${theme.colors.grey}`,
       },
 
-      "&:focus, &:active": {
+      '&:focus, &:active': {
         backgroundColor: theme.colors.white,
-        outline: "none",
+        outline: 'none',
 
         ...(isLight
           ? {
@@ -145,16 +146,16 @@ const InputContainer = styled("div", {
   }),
 );
 
-const ErrorIcon = styled("img")({
-  width: "24px",
-  height: "24px",
-  position: "absolute",
-  right: "16px",
+const ErrorIcon = styled('img')({
+  width: '24px',
+  height: '24px',
+  position: 'absolute',
+  right: '16px',
 });
 
-const ErrorWrap = styled("div")({
-  position: "relative",
-  marginBottom: "18px",
+const ErrorWrap = styled('div')({
+  position: 'relative',
+  marginBottom: '18px',
 });
 
 export default Input;

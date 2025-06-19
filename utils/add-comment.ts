@@ -1,4 +1,4 @@
-import { getUrl } from "./fetchApi";
+import { getUrl } from './fetchApi';
 
 export type CommentInput = {
   text: string;
@@ -6,11 +6,11 @@ export type CommentInput = {
   email: string;
 };
 type CollectionTypesWithComments =
-  | "animators"
-  | "taxi-driver"
-  | "photographers"
-  | "tour-guides"
-  | "companies";
+  | 'animators'
+  | 'taxi-driver'
+  | 'photographers'
+  | 'tour-guides'
+  | 'companies';
 type AddCommentParams = {
   slug: string;
   comment: CommentInput;
@@ -24,9 +24,9 @@ export async function addComment({
 }: AddCommentParams): Promise<CommentInput | void> {
   try {
     const response = await fetch(getUrl(`${collectionType}/${slug}/comments`), {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(comment),
     });
@@ -37,7 +37,7 @@ export async function addComment({
 
     return await response.json();
   } catch (error) {
-    console.error("Failed to add comment:", error);
+    console.error('Failed to add comment:', error);
     throw error;
   }
 }

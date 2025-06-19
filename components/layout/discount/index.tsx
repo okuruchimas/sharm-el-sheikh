@@ -1,18 +1,18 @@
 // hooks
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'next-i18next';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 // components
-import Image from "next/image";
-import Button from "../button";
-import SocialIcon from "../social-icon";
-import LocationLink from "../location-link";
+import Image from 'next/image';
+import Button from '../button';
+import SocialIcon from '../social-icon';
+import LocationLink from '../location-link';
 // types
-import type { CompanyPreviewFragment } from "../../../gql/graphql";
+import type { CompanyPreviewFragment } from '../../../gql/graphql';
 
 type EventPopupProps = Pick<
   CompanyPreviewFragment,
-  "discount" | "socialLinks" | "location" | "position"
+  'discount' | 'socialLinks' | 'location' | 'position'
 > & {
   onClose: () => void;
 };
@@ -24,7 +24,7 @@ const Discount = ({
   socialLinks,
   onClose,
 }: EventPopupProps) => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation('common');
 
   return (
     <Wrapper>
@@ -32,7 +32,7 @@ const Discount = ({
         <Image
           src={
             discount?.image?.data?.attributes?.url ||
-            "/images/background/background-prom.svg"
+            '/images/background/background-prom.svg'
           }
           alt="discount"
           layout="fill"
@@ -41,7 +41,7 @@ const Discount = ({
       </ImgWrapper>
       <Title>{discount?.title}</Title>
       <LocationLink
-        text={location || "-"}
+        text={location || '-'}
         position={position}
         iconSize="36px"
         iconSizeMobile="30px"
@@ -51,45 +51,45 @@ const Discount = ({
           ? socialLinks.map((el, index) => (
               <SocialIcon
                 key={index}
-                iconSrc={el?.icon.data?.attributes?.url || ""}
-                socialLink={el?.socialLink || ""}
+                iconSrc={el?.icon.data?.attributes?.url || ''}
+                socialLink={el?.socialLink || ''}
               />
             ))
           : null}
       </SocialIconsWrapper>
       {discount?.terms ? (
         <>
-          <SubTitle>{t("text.discountTerms")}</SubTitle>
+          <SubTitle>{t('text.discountTerms')}</SubTitle>
           <Terms>{discount.terms}</Terms>
         </>
       ) : null}
-      <BackButton text={t("buttons.back")} onClick={onClose} />
+      <BackButton text={t('buttons.back')} onClick={onClose} />
     </Wrapper>
   );
 };
 
 export default Discount;
 
-const Wrapper = styled("div")({
-  display: "flex",
-  flexDirection: "column",
+const Wrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
 });
 
-const SocialIconsWrapper = styled("div")({
-  display: "flex",
-  alignItems: "center",
-  flexDirection: "row",
-  gap: "24px",
-  marginTop: "16px",
-  marginBottom: "24px",
+const SocialIconsWrapper = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'row',
+  gap: '24px',
+  marginTop: '16px',
+  marginBottom: '24px',
 });
 
-const Terms = styled("p")(({ theme }) => ({
+const Terms = styled('p')(({ theme }) => ({
   fontSize: theme.fontSize.fontS21,
   fontWeight: 400,
-  letterSpacing: "0.5px",
+  letterSpacing: '0.5px',
   lineHeight: 1.5,
-  marginBottom: "24px",
+  marginBottom: '24px',
 
   [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS16,
@@ -97,44 +97,44 @@ const Terms = styled("p")(({ theme }) => ({
 }));
 
 const BackButton = styled(Button)(({ theme }) => ({
-  alignSelf: "end",
+  alignSelf: 'end',
 
   [theme.breakpoints.mobileS]: {
-    minWidth: "100%",
+    minWidth: '100%',
   },
 }));
 
-const ImgWrapper = styled("div")(({ theme }) => ({
-  height: "400px",
-  width: "100%",
-  position: "relative",
-  overflow: "hidden",
-  borderRadius: "16px",
-  marginBottom: "24px",
+const ImgWrapper = styled('div')(({ theme }) => ({
+  height: '400px',
+  width: '100%',
+  position: 'relative',
+  overflow: 'hidden',
+  borderRadius: '16px',
+  marginBottom: '24px',
 
   [theme.breakpoints.mobile]: {
-    height: "200px",
-    marginBottom: "16px",
+    height: '200px',
+    marginBottom: '16px',
   },
 }));
 
-const Title = styled("h2")(({ theme }) => ({
+const Title = styled('h2')(({ theme }) => ({
   fontSize: theme.fontSize.fontS40,
   fontWeight: 700,
   color: theme.colors.blue,
-  marginBottom: "40px",
+  marginBottom: '40px',
 
   [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS24,
-    marginBottom: "16px",
+    marginBottom: '16px',
   },
 }));
 
 const SubTitle = styled(Title)(({ theme }) => ({
   fontSize: theme.fontSize.fontS32,
-  marginBottom: "16px",
+  marginBottom: '16px',
 
   [theme.breakpoints.mobile]: {
-    marginBottom: "8px",
+    marginBottom: '8px',
   },
 }));

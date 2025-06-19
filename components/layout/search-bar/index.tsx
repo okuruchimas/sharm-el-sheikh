@@ -6,9 +6,9 @@ import {
   type ChangeEvent,
   type KeyboardEvent,
   type SetStateAction,
-} from "react";
-import styled from "@emotion/styled";
-import type { selectOption } from "../../types/filter";
+} from 'react';
+import styled from '@emotion/styled';
+import type { selectOption } from '../../types/filter';
 
 type SearchBarProps = {
   value: string;
@@ -23,7 +23,7 @@ type SearchBarProps = {
 const SearchBar = ({
   value,
   options,
-  placeholder = "Search...",
+  placeholder = 'Search...',
   debounceDelay = 500,
   onChange,
   onSearch,
@@ -40,9 +40,9 @@ const SearchBar = ({
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -66,7 +66,7 @@ const SearchBar = ({
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       onSearch(value);
       setMenuVisible(false);
     }
@@ -100,76 +100,76 @@ const SearchBar = ({
   );
 };
 
-const Wrapper = styled("div")(({ theme }) => ({
-  position: "relative",
-  width: "100%",
-  maxWidth: "468px",
+const Wrapper = styled('div')(({ theme }) => ({
+  position: 'relative',
+  width: '100%',
+  maxWidth: '468px',
 
   [theme.breakpoints.mobile]: {
-    maxWidth: "100%",
+    maxWidth: '100%',
   },
 }));
 
-const InputWrapper = styled("div")(({ theme }) => ({
-  position: "relative",
-  width: "100%",
-  display: "flex",
-  alignItems: "center",
-}));
+const InputWrapper = styled('div')({
+  position: 'relative',
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+});
 
-const SearchButton = styled("button")(({ theme }) => ({
-  position: "absolute",
-  left: "16px",
-  width: "40px",
-  height: "40px",
+const SearchButton = styled('button')(({ theme }) => ({
+  position: 'absolute',
+  left: '16px',
+  width: '40px',
+  height: '40px',
   zIndex: 1,
-  cursor: "pointer",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-start",
-  backgroundColor: "unset",
-  border: "none",
-  borderRadius: "50%",
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  backgroundColor: 'unset',
+  border: 'none',
+  borderRadius: '50%',
 
-  ":active, :focus": {
+  ':active, :focus': {
     boxShadow: theme.shadows[2],
   },
 }));
 
-const SearchIcon = styled("img")(({ theme }) => ({
-  width: "24px",
-  height: "24px",
-}));
+const SearchIcon = styled('img')({
+  width: '24px',
+  height: '24px',
+});
 
-const Input = styled("input")(({ theme }) => ({
-  width: "100%",
-  padding: "18px 16px 18px 48px",
-  borderRadius: "12px",
+const Input = styled('input')(({ theme }) => ({
+  width: '100%',
+  padding: '18px 16px 18px 48px',
+  borderRadius: '12px',
   border: `1px solid ${theme.colors.grey}`,
-  fontSize: "16px",
-  outline: "none",
+  fontSize: '16px',
+  outline: 'none',
   color: theme.colors.blue,
 
-  ":active, :focus": {
+  ':active, :focus': {
     border: `1px solid ${theme.colors.blue3}`,
   },
 }));
 
-const Dropdown = styled("div")(({ theme }) => ({
-  position: "absolute",
-  width: "100%",
-  marginTop: "4px",
+const Dropdown = styled('div')(({ theme }) => ({
+  position: 'absolute',
+  width: '100%',
+  marginTop: '4px',
   background: theme.colors.white,
-  borderRadius: "8px",
-  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+  borderRadius: '8px',
+  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
   zIndex: 10,
 }));
 
-const DropdownItem = styled("div")(({ theme }) => ({
-  padding: "14px 16px",
-  fontSize: "16px",
-  cursor: "pointer",
-  "&:hover": {
+const DropdownItem = styled('div')(({ theme }) => ({
+  padding: '14px 16px',
+  fontSize: '16px',
+  cursor: 'pointer',
+  '&:hover': {
     backgroundColor: theme.colors.greyLight,
   },
 }));

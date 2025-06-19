@@ -1,21 +1,21 @@
 import {
   type CompanyPreviewFragment,
   GetCompaniesByFilterDocument,
-} from "../../../gql/graphql";
+} from '../../../gql/graphql';
 // hooks
-import { useState } from "react";
-import { useTranslation } from "next-i18next";
-import useCompanyCard from "../../../hooks/useCompanyCard";
+import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
+import useCompanyCard from '../../../hooks/useCompanyCard';
 // components
-import Button from "../../layout/button";
-import Dropdown from "../../layout/filters";
-import Placeholder from "./children/placeholder";
-import SectionWrapper from "../../layout/section-wrapper";
+import Button from '../../layout/button';
+import Dropdown from '../../layout/filters';
+import Placeholder from './children/placeholder';
+import SectionWrapper from '../../layout/section-wrapper';
 // utils
-import styled from "@emotion/styled";
-import { fetchDataFromApi } from "../../../utils/fetchApi";
+import styled from '@emotion/styled';
+import { fetchDataFromApi } from '../../../utils/fetchApi';
 // types
-import type { selectOption } from "../../types/filter";
+import type { selectOption } from '../../types/filter';
 
 const PAGE_SIZE = 3;
 
@@ -40,7 +40,7 @@ const Promotions = ({
   const [isLoading, setIsLoading] = useState(false);
   const [selectedArea, setSelectedArea] = useState<selectOption>(options[0]);
   const { renderCard, renderPopup, renderDiscountPopup } = useCompanyCard();
-  const { t, i18n } = useTranslation("common");
+  const { t, i18n } = useTranslation('common');
 
   const isShowMore = page * PAGE_SIZE < total;
 
@@ -54,7 +54,7 @@ const Promotions = ({
     });
 
     setTotal(data.companies?.meta.pagination.total || 0);
-    return data.companies?.data.map((el) => el.attributes);
+    return data.companies?.data.map(el => el.attributes);
   };
 
   const handleOptionSelect = async (option: selectOption) => {
@@ -73,8 +73,8 @@ const Promotions = ({
 
     const data = await handleGetCardByArea(selectedArea, page + 1);
 
-    setResult((prev) => [...(prev || []), ...(data || [])]);
-    setPage((prev) => prev + 1);
+    setResult(prev => [...(prev || []), ...(data || [])]);
+    setPage(prev => prev + 1);
     setIsLoading(false);
   };
 
@@ -95,15 +95,15 @@ const Promotions = ({
       >
         {result?.length ? (
           <DownWrap>
-            {result.map((card) => (card ? renderCard(card, true) : null))}
+            {result.map(card => (card ? renderCard(card, true) : null))}
           </DownWrap>
         ) : (
-          <Placeholder title={t("noDiscounts")} />
+          <Placeholder title={t('noDiscounts')} />
         )}
         {isShowMore ? (
           <ButtonWrap>
             <Button
-              text={t("buttons.viewMore")}
+              text={t('buttons.viewMore')}
               backgroundColor="white"
               onClick={handleShowMore}
               isLoading={isLoading}
@@ -117,25 +117,25 @@ const Promotions = ({
   );
 };
 
-const FiltersWrap = styled("div")({
-  display: "flex",
-  alignItems: "center",
+const FiltersWrap = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
 });
 
-const DownWrap = styled("div")(({ theme }) => ({
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr 1fr",
-  gap: "16px",
+const DownWrap = styled('div')(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr 1fr',
+  gap: '16px',
 
   [theme.breakpoints.mobile]: {
-    gridTemplateColumns: "1fr",
+    gridTemplateColumns: '1fr',
   },
 }));
 
-const ButtonWrap = styled("div")({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+const ButtonWrap = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 });
 
 export default Promotions;

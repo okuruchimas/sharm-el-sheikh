@@ -1,17 +1,17 @@
 // hooks
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'next-i18next';
 // components
-import { Title } from "../../../../layout/title";
-import AnimationCompanyCard from "../animation-company-card";
+import { Title } from '../../../../layout/title';
+import AnimationCompanyCard from '../animation-company-card';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 // types
-import type { AnimationCompanyPreviewFragment } from "../../../../../gql/graphql";
-import type { Dispatch } from "react";
-import useResponsive from "../../../../../hooks/useResponsive";
-import { Pagination } from "swiper/modules";
-import { SwiperCardsWrapper } from "../../children/cards-wrap";
-import { SwiperSlide } from "swiper/react";
+import type { AnimationCompanyPreviewFragment } from '../../../../../gql/graphql';
+import type { Dispatch } from 'react';
+import useResponsive from '../../../../../hooks/useResponsive';
+import { Pagination } from 'swiper/modules';
+import { SwiperCardsWrapper } from '../../children/cards-wrap';
+import { SwiperSlide } from 'swiper/react';
 
 type AnimationCompaniesProps = {
   companies: AnimationCompanyPreviewFragment[];
@@ -22,7 +22,7 @@ const AnimationCompanies = ({
   companies,
   setSelectedCompany,
 }: AnimationCompaniesProps) => {
-  const { t } = useTranslation("entertainers-tour-guides");
+  const { t } = useTranslation('entertainers-tour-guides');
   const { slidesPerView } = useResponsive();
 
   const handleCardClick = (data: AnimationCompanyPreviewFragment) => () => {
@@ -31,11 +31,10 @@ const AnimationCompanies = ({
 
   return (
     <Wrapper>
-      <Title>{t("animationCompanies")}</Title>
+      <Title>{t('animationCompanies')}</Title>
       <SwiperCardsWrapper
         modules={[Pagination]}
         slidesPerView={slidesPerView}
-        isSingleCard={false}
         spaceBetween={12}
         navigation={false}
         pagination={{
@@ -49,7 +48,7 @@ const AnimationCompanies = ({
               key={el.name}
               imgSrc={
                 el.image?.data?.attributes?.url ||
-                "/images/background/background-prom.svg"
+                '/images/background/background-prom.svg'
               }
               title={el.name}
               averageRating={el.averageRating || 0}
@@ -65,25 +64,13 @@ const AnimationCompanies = ({
 
 export default AnimationCompanies;
 
-const Wrapper = styled("div")(({ theme }) => ({
-  margin: "80px 0 0 ",
-  display: "flex",
-  flexDirection: "column",
+const Wrapper = styled('div')(({ theme }) => ({
+  margin: '80px 0 0 ',
+  display: 'flex',
+  flexDirection: 'column',
   gap: 40,
-  width: "100%",
+  width: '100%',
   [theme.breakpoints.mobile]: {
     gap: 24,
-  },
-}));
-
-const CardsWrapper = styled("div")(({ theme }) => ({
-  width: "100%",
-  display: "grid",
-  gridTemplateColumns: "repeat(4, 1fr)",
-  gap: "16px",
-
-  [theme.breakpoints.mobile]: {
-    gridTemplateColumns: "repeat(2, 1fr)",
-    gap: "8px",
   },
 }));

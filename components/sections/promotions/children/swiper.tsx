@@ -1,18 +1,18 @@
 // components
-import Image from "next/image";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import Image from 'next/image';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 // modules
-import { Autoplay, Navigation } from "swiper/modules";
+import { Autoplay, Navigation } from 'swiper/modules';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 // types
-import type { CompanyFragment } from "../../../../gql/graphql";
+import type { CompanyFragment } from '../../../../gql/graphql';
 // styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/autoplay";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/autoplay';
 
-type SwiperProps = Pick<CompanyFragment, "images"> & {
+type SwiperProps = Pick<CompanyFragment, 'images'> & {
   discount?: string;
   onOpenDiscount: () => void;
 };
@@ -42,8 +42,8 @@ const ImageSwiper = ({ images, discount, onOpenDiscount }: SwiperProps) => {
   if (images?.data.length <= 1) {
     return (
       <StyledImage
-        src={images?.data?.[0].attributes?.url ?? ""}
-        alt={images?.data?.[0].attributes?.alternativeText ?? ""}
+        src={images?.data?.[0].attributes?.url ?? ''}
+        alt={images?.data?.[0].attributes?.alternativeText ?? ''}
         loading="lazy"
         layout="fill"
       />
@@ -52,7 +52,7 @@ const ImageSwiper = ({ images, discount, onOpenDiscount }: SwiperProps) => {
 
   return (
     <Wrapper
-      slidesPerView={"auto"}
+      slidesPerView={'auto'}
       spaceBetween={0}
       navigation={false}
       pagination={{
@@ -70,8 +70,8 @@ const ImageSwiper = ({ images, discount, onOpenDiscount }: SwiperProps) => {
         ? images.data.map((el, index) => (
             <Slide key={index}>
               <StyledImage
-                src={el.attributes?.url ?? ""}
-                alt={el.attributes?.alternativeText ?? ""}
+                src={el.attributes?.url ?? ''}
+                alt={el.attributes?.alternativeText ?? ''}
                 loading="lazy"
                 layout="fill"
               />
@@ -83,94 +83,94 @@ const ImageSwiper = ({ images, discount, onOpenDiscount }: SwiperProps) => {
 };
 
 const StyledImage = styled(Image)({
-  width: "100%",
-  height: "100%",
-  objectFit: "cover",
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
 });
 
 const Slide = styled(SwiperSlide)({
-  width: "100%",
-  height: "100%",
+  width: '100%',
+  height: '100%',
 });
 
 const Wrapper = styled(Swiper)({
-  position: "relative",
-  width: "100%",
-  height: "100%",
+  position: 'relative',
+  width: '100%',
+  height: '100%',
 });
 
 const NextSlideButton = styled.div(({ theme }) => ({
-  cursor: "pointer",
-  position: "absolute",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  top: "calc(50% - 20px)",
-  right: "16px",
-  height: "40px",
-  width: "40px",
-  borderRadius: "50%",
-  backdropFilter: "blur(8px)",
+  cursor: 'pointer',
+  position: 'absolute',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  top: 'calc(50% - 20px)',
+  right: '16px',
+  height: '40px',
+  width: '40px',
+  borderRadius: '50%',
+  backdropFilter: 'blur(8px)',
   zIndex: 10,
   backgroundColor: theme.colors.grey4,
-  transition: "transform 0.3s ease",
+  transition: 'transform 0.3s ease',
 
   [theme.breakpoints.mobile]: {
-    height: "30px",
-    width: "30px",
-    right: "10xp",
-    top: "calc(50% - 15px)",
+    height: '30px',
+    width: '30px',
+    right: '10xp',
+    top: 'calc(50% - 15px)',
   },
 
-  "&:active": {
-    transform: "scale(1.3)",
+  '&:active': {
+    transform: 'scale(1.3)',
   },
 }));
 
 const PrevSlideButton = styled(NextSlideButton)(({ theme }) => ({
-  left: "16px",
-  right: "unset",
+  left: '16px',
+  right: 'unset',
 
   [theme.breakpoints.mobile]: {
-    right: "unset",
-    left: "10xp",
+    right: 'unset',
+    left: '10xp',
   },
 
   img: {
-    transform: "rotate(180deg)",
+    transform: 'rotate(180deg)',
   },
 }));
 
-const NavIcon = styled("img")({
-  width: "12px",
-  height: "20px",
-  objectFit: "cover",
+const NavIcon = styled('img')({
+  width: '12px',
+  height: '20px',
+  objectFit: 'cover',
 });
 
 const Promotion = styled.div(({ theme }) => ({
-  position: "absolute",
-  top: "16px",
-  right: "16px",
-  height: "36px",
-  padding: "8px 16px",
-  borderRadius: "8px",
+  position: 'absolute',
+  top: '16px',
+  right: '16px',
+  height: '36px',
+  padding: '8px 16px',
+  borderRadius: '8px',
   backgroundColor: theme.colors.white2,
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: "8px",
-  textAlign: "center",
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '8px',
+  textAlign: 'center',
   color: theme.colors.blue,
   fontSize: theme.fontSize.fontS16,
   zIndex: 10,
-  cursor: "pointer",
+  cursor: 'pointer',
 
   [theme.breakpoints.mobile]: {
-    height: "24px",
-    top: "10px",
-    right: "10px",
-    padding: "4px 12px",
+    height: '24px',
+    top: '10px',
+    right: '10px',
+    padding: '4px 12px',
     fontSize: theme.fontSize.fontS12,
   },
 }));

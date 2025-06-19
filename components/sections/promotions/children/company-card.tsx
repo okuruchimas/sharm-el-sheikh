@@ -1,32 +1,30 @@
 // components
-import Image from "next/image";
-import Swiper from "./swiper";
-import TitleRating from "../../../layout/title-and-rating";
-import TextAndIcon from "../../../layout/text-and-icon";
+import Image from 'next/image';
+import Swiper from './swiper';
+import TitleRating from '../../../layout/title-and-rating';
+import TextAndIcon from '../../../layout/text-and-icon';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 // types
-import type { KeyboardEvent } from "react";
-import type { CompanyPreviewFragment } from "../../../../gql/graphql";
+import type { KeyboardEvent } from 'react';
+import type { CompanyPreviewFragment } from '../../../../gql/graphql';
 
 type CompanyCardProps = Pick<
   CompanyPreviewFragment,
-  | "discount"
-  | "location"
-  | "title"
-  | "averageRating"
-  | "totalComments"
-  | "categories"
-  | "images"
+  | 'discount'
+  | 'location'
+  | 'title'
+  | 'averageRating'
+  | 'totalComments'
+  | 'categories'
+  | 'images'
 > & {
   time?: string;
-  isPage: boolean;
   handleClick?: () => void;
   onOpenDiscount: () => void;
   isHome: boolean;
 };
 const CompanyCard = ({
-  isPage,
   time,
   title,
   images,
@@ -39,7 +37,7 @@ const CompanyCard = ({
   isHome,
 }: CompanyCardProps) => {
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       if (isHome && onOpenDiscount) {
         return onOpenDiscount();
       }
@@ -80,10 +78,10 @@ const CompanyCard = ({
           <InfoWrap>
             <TextAndIcon
               src="/icons/promotions-section/location.svg"
-              text={location || ""}
+              text={location || ''}
             />
             {time ? (
-              <TextAndIcon src="/icons/time.svg" text={time || ""} />
+              <TextAndIcon src="/icons/time.svg" text={time || ''} />
             ) : null}
           </InfoWrap>
         </Down>
@@ -92,67 +90,67 @@ const CompanyCard = ({
   );
 };
 
-const Wrap = styled("div")(({ theme }) => ({
-  height: "420px",
+const Wrap = styled('div')(({ theme }) => ({
+  height: '420px',
   boxShadow: theme.shadows[0],
   backgroundColor: theme.colors.white,
-  borderRadius: "16px",
+  borderRadius: '16px',
 
   [theme.breakpoints.mobile]: {
-    height: "384px",
+    height: '384px',
   },
 }));
 
-const InfoWrap = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "8px",
+const InfoWrap = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
 
   span: {
     color: theme.colors.black,
   },
 }));
 
-const SwiperWrapper = styled("div")({
-  height: "60%",
-  width: "100%",
-  borderRadius: "16px 16px 0 0",
-  position: "relative",
-  overflow: "hidden",
+const SwiperWrapper = styled('div')({
+  height: '60%',
+  width: '100%',
+  borderRadius: '16px 16px 0 0',
+  position: 'relative',
+  overflow: 'hidden',
 });
 
-const DownWrap = styled("div")(({ theme }) => ({
-  height: "40%",
-  borderRadius: "0 0 16px 16px",
+const DownWrap = styled('div')(({ theme }) => ({
+  height: '40%',
+  borderRadius: '0 0 16px 16px',
   backgroundColor: theme.colors.blue4,
   border: `1px solid ${theme.colors.blue5}`,
-  borderTopStyle: "none",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-  gap: "8px",
-  padding: "24px 16px",
-  overflow: "hidden",
-  cursor: "pointer",
+  borderTopStyle: 'none',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  gap: '8px',
+  padding: '24px 16px',
+  overflow: 'hidden',
+  cursor: 'pointer',
 
   [theme.breakpoints.mobile]: {
-    padding: "12px",
-    gap: "4px",
+    padding: '12px',
+    gap: '4px',
 
     img: {
-      alignSelf: "end",
+      alignSelf: 'end',
     },
   },
 }));
 
-const Down = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "end",
-  justifyContent: "space-between",
+const Down = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'end',
+  justifyContent: 'space-between',
 
   [theme.breakpoints.mobile]: {
-    flexDirection: "column",
-    alignItems: "start",
+    flexDirection: 'column',
+    alignItems: 'start',
   },
 }));
 

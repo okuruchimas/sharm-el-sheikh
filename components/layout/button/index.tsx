@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import { MouseEvent, ButtonHTMLAttributes } from "react";
-import { keyframes } from "@emotion/react";
-import Loader from "../loader";
+import styled from '@emotion/styled';
+import { MouseEvent, ButtonHTMLAttributes } from 'react';
+import { keyframes } from '@emotion/react';
+import Loader from '../loader';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
@@ -12,9 +12,9 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = ({
   text,
-  color = "blue",
+  color = 'blue',
   disabled,
-  backgroundColor = "yellow",
+  backgroundColor = 'yellow',
   isLoading = false,
   onClick,
   ...rest
@@ -29,14 +29,14 @@ const Button = ({
 
   const createRipple = (event: MouseEvent<HTMLButtonElement>) => {
     const button = event.currentTarget;
-    const circle = document.createElement("span");
+    const circle = document.createElement('span');
     const diameter = Math.max(button.clientWidth, button.clientHeight);
     const radius = diameter / 2;
 
     circle.style.width = circle.style.height = `${diameter}px`;
     circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
     circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
-    circle.classList.add("ripple");
+    circle.classList.add('ripple');
 
     button.appendChild(circle);
 
@@ -86,57 +86,57 @@ const rippleAnimation = keyframes`
   }
 `;
 
-export const ButtonStyled = styled("button", {
-  shouldForwardProp: (prop) => !["color", "backgroundColor"].includes(prop),
+export const ButtonStyled = styled('button', {
+  shouldForwardProp: prop => !['color', 'backgroundColor'].includes(prop),
 })<{ color: string; backgroundColor: string }>(
   ({ theme, color, backgroundColor }) => ({
-    position: "relative",
-    overflow: "hidden",
-    minWidth: "156px",
-    width: "max-content",
-    height: "52px",
-    borderRadius: "16px",
-    padding: "8px 32px",
-    fontWeight: "600",
+    position: 'relative',
+    overflow: 'hidden',
+    minWidth: '156px',
+    width: 'max-content',
+    height: '52px',
+    borderRadius: '16px',
+    padding: '8px 32px',
+    fontWeight: '600',
     fontSize: theme.fontSize.fontS16,
     color: theme.colors[color],
     background: theme.colors[backgroundColor],
     border: `1px solid ${theme.colors.yellow}`,
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
 
-    WebkitTapHighlightColor: "transparent",
+    WebkitTapHighlightColor: 'transparent',
 
-    ".loader": {
-      height: "30px",
-      width: "30px",
+    '.loader': {
+      height: '30px',
+      width: '30px',
     },
 
-    "&:disabled": {
-      cursor: "not-allowed",
+    '&:disabled': {
+      cursor: 'not-allowed',
 
-      "&::before": {
+      '&::before': {
         content: '""',
-        position: "absolute",
-        height: "100%",
-        width: "100%",
+        position: 'absolute',
+        height: '100%',
+        width: '100%',
         top: 0,
         left: 0,
-        pointerEvents: "none",
+        pointerEvents: 'none',
         zIndex: 1,
         background: theme.colors.white3,
         opacity: 0.3,
       },
     },
 
-    ".ripple": {
-      position: "absolute",
-      borderRadius: "50%",
-      transform: "scale(0)",
-      border: "1px solid #00000033",
-      background: "rgba(0, 0, 0, 0)",
+    '.ripple': {
+      position: 'absolute',
+      borderRadius: '50%',
+      transform: 'scale(0)',
+      border: '1px solid #00000033',
+      background: 'rgba(0, 0, 0, 0)',
       animation: `${rippleAnimation} 0.8s linear`,
       boxShadow: `0 0 30px 6px inset ${theme.colors[color]}`,
     },
