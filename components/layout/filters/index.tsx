@@ -1,12 +1,12 @@
 // hooks
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 // components
-import Loader from "../loader";
-import NextImage from "../image";
+import Loader from '../loader';
+import NextImage from '../image';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 // types
-import type { selectOption } from "../../types/filter";
+import type { selectOption } from '../../types/filter';
 
 type FiltersProps = {
   borderColor?: string;
@@ -42,9 +42,9 @@ const Dropdown = ({
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -82,15 +82,15 @@ const Dropdown = ({
               {currentObj?.value}
             </Text>
             <Arrow
-              src={"/icons/promotions-section/arrow-down.svg"}
-              alt={"arrow"}
+              src={'/icons/promotions-section/arrow-down.svg'}
+              alt={'arrow'}
               isDown={menuVisible}
             />
           </>
         )}
       </Select>
       <SelectList menuVisible={menuVisible}>
-        {options.map((el) => (
+        {options.map(el => (
           <ListItem
             key={el.key}
             onClick={() => changeHandler(el)}
@@ -107,107 +107,107 @@ const Dropdown = ({
   );
 };
 
-const Wrapper = styled("div")<{
+const Wrapper = styled('div')<{
   borderColor?: string;
   width?: string;
   height?: string;
-}>(({ theme, width, height, borderColor = "grey" }) => ({
-  position: "relative",
-  minWidth: "245px",
-  width: width ? width : "auto",
-  maxWidth: width ? width : "max-content",
+}>(({ theme, width, height, borderColor = 'grey' }) => ({
+  position: 'relative',
+  minWidth: '245px',
+  width: width ? width : 'auto',
+  maxWidth: width ? width : 'max-content',
   border: `1px solid ${theme.colors[borderColor]}`,
-  borderRadius: "12px",
+  borderRadius: '12px',
 
   [theme.breakpoints.mobile]: {
-    minWidth: "168px",
-    width: width ? width : "auto",
-    height: height ? height : "auto",
-    maxWidth: "100%",
-    display: "flex",
-    alignItems: "center",
+    minWidth: '168px',
+    width: width ? width : 'auto',
+    height: height ? height : 'auto',
+    maxWidth: '100%',
+    display: 'flex',
+    alignItems: 'center',
   },
 }));
 
-const Text = styled("span")<{ color?: string }>(({ theme, color }) => ({
+const Text = styled('span')<{ color?: string }>(({ theme, color }) => ({
   color: color ? theme.colors[color] : theme.colors.black2,
   fontSize: theme.fontSize.fontS16,
-  textAlign: "center",
-  display: "flex",
-  alignItems: "center",
-  gap: "8px",
+  textAlign: 'center',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
 
   [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS14,
   },
 }));
 
-const SelectList = styled("div", {
-  shouldForwardProp: (prop) => prop !== "menuVisible",
+const SelectList = styled('div', {
+  shouldForwardProp: prop => prop !== 'menuVisible',
 })<{ menuVisible: boolean }>(({ theme, menuVisible }) => ({
-  position: "absolute",
-  minWidth: "200px",
-  top: "64px",
-  right: "0",
-  zIndex: "10",
-  display: "flex",
-  flexDirection: "column",
-  borderRadius: "4px",
-  padding: "12px 0",
-  gap: "12px",
-  boxShadow: "0 1px 3px 1px rgba(0, 0, 0, 0.15)",
+  position: 'absolute',
+  minWidth: '200px',
+  top: '64px',
+  right: '0',
+  zIndex: '10',
+  display: 'flex',
+  flexDirection: 'column',
+  borderRadius: '4px',
+  padding: '12px 0',
+  gap: '12px',
+  boxShadow: '0 1px 3px 1px rgba(0, 0, 0, 0.15)',
   background: theme.colors.white3,
-  scale: menuVisible ? "1" : "0",
-  transition: "opacity 0.25s ease, scale 0.25s ease",
+  scale: menuVisible ? '1' : '0',
+  transition: 'opacity 0.25s ease, scale 0.25s ease',
 
   [theme.breakpoints.mobile]: {
-    right: "initial",
-    left: "-1px",
+    right: 'initial',
+    left: '-1px',
   },
 }));
 
-const ListItem = styled("span", {
-  shouldForwardProp: (prop) => prop !== "isYellow",
+const ListItem = styled('span', {
+  shouldForwardProp: prop => prop !== 'isYellow',
 })<{ isYellow: boolean }>(({ theme, isYellow }) => ({
-  padding: "14px 12px",
-  fontSize: "16px",
-  lineHeight: "20px",
-  display: "flex",
-  alignItems: "center",
-  cursor: "pointer",
-  backgroundColor: isYellow ? theme.colors.yellow3 : "initial",
-  gap: "8px",
+  padding: '14px 12px',
+  fontSize: '16px',
+  lineHeight: '20px',
+  display: 'flex',
+  alignItems: 'center',
+  cursor: 'pointer',
+  backgroundColor: isYellow ? theme.colors.yellow3 : 'initial',
+  gap: '8px',
 
-  "&:hover": {
+  '&:hover': {
     backgroundColor: theme.colors.yellow3,
   },
 }));
 
-const Arrow = styled("img", {
-  shouldForwardProp: (prop) => prop !== "isDown",
+const Arrow = styled('img', {
+  shouldForwardProp: prop => prop !== 'isDown',
 })<{ isDown: boolean }>(({ isDown }) => ({
-  transition: "0.25s",
-  transform: isDown ? "rotate(180deg)" : "rotate(0deg)",
+  transition: '0.25s',
+  transform: isDown ? 'rotate(180deg)' : 'rotate(0deg)',
 }));
 
-const Select = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-between",
-  gap: "6px",
-  padding: "4px 16px",
-  height: "56px",
-  cursor: "pointer",
+const Select = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: '6px',
+  padding: '4px 16px',
+  height: '56px',
+  cursor: 'pointer',
 
-  ".loader": {
-    height: "30px",
-    width: "30px",
+  '.loader': {
+    height: '30px',
+    width: '30px',
   },
 
   [theme.breakpoints.mobile]: {
-    height: "42px",
-    width: "100%",
+    height: '42px',
+    width: '100%',
   },
 }));
 

@@ -1,5 +1,5 @@
-import { DEFAULT_CENTER } from "./constants";
-import type { MapCard } from "./types";
+import { DEFAULT_CENTER } from './constants';
+import type { MapCard } from './types';
 
 export const calculateCenter = (
   locations: MapCard[],

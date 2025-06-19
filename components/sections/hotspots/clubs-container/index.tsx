@@ -1,29 +1,29 @@
 // hooks
-import { useRouter } from "next/router";
-import useResponsive from "../../../../hooks/useResponsive";
-import useCompanyCard from "../../../../hooks/useCompanyCard";
-import { useTranslation } from "next-i18next";
-import { useEffect, useMemo, useState } from "react";
+import { useRouter } from 'next/router';
+import useResponsive from '../../../../hooks/useResponsive';
+import useCompanyCard from '../../../../hooks/useCompanyCard';
+import { useTranslation } from 'next-i18next';
+import { useEffect, useMemo, useState } from 'react';
 // components
-import Button from "../../../layout/button";
-import Dropdown from "../../../layout/filters";
-import Pagination from "../../../layout/pagination";
-import Placeholder from "../../promotions/children/placeholder";
-import SectionWrapper from "../../../layout/section-wrapper";
-import ClubOptionsTable from "../table";
+import Button from '../../../layout/button';
+import Dropdown from '../../../layout/filters';
+import Pagination from '../../../layout/pagination';
+import Placeholder from '../../promotions/children/placeholder';
+import SectionWrapper from '../../../layout/section-wrapper';
+import ClubOptionsTable from '../table';
 // constants
-import { CLUBS } from "../../../../constants/page-company-categories";
-import { WEEK_DAYS } from "../../../../constants/week-days.constants";
+import { CLUBS } from '../../../../constants/page-company-categories';
+import { WEEK_DAYS } from '../../../../constants/week-days.constants';
 // utils
-import styled from "@emotion/styled";
-import { fetchDataFromApi } from "../../../../utils/fetchApi";
-import { getCurrentDayAndTime } from "../../../../utils/formateDate";
+import styled from '@emotion/styled';
+import { fetchDataFromApi } from '../../../../utils/fetchApi';
+import { getCurrentDayAndTime } from '../../../../utils/formateDate';
 // types
 import {
   type CompanyPreviewFragment,
   GetCompaniesByFilterDocument,
-} from "../../../../gql/graphql";
-import type { selectOption } from "../../../types/filter";
+} from '../../../../gql/graphql';
+import type { selectOption } from '../../../types/filter';
 
 type Clubs = CompanyPreviewFragment[] | undefined;
 type ClubsContainerProps = {
@@ -50,7 +50,7 @@ const ClubsContainer = ({
   const { dayOfWeek } = getCurrentDayAndTime();
 
   const [selectedDay, setSelectedDay] = useState(dayOfWeek);
-  const { t, i18n } = useTranslation("common");
+  const { t, i18n } = useTranslation('common');
 
   const { isMobile } = useResponsive();
   const { renderCard, renderDiscountPopup } = useCompanyCard(selectedDay);
@@ -75,7 +75,7 @@ const ClubsContainer = ({
       category: CLUBS,
     });
 
-    setResult(companies?.data?.map((el) => el.attributes) as Clubs);
+    setResult(companies?.data?.map(el => el.attributes) as Clubs);
     setTotal(companies?.meta?.pagination?.total || 0);
     setIsLoading(false);
   };
@@ -122,7 +122,7 @@ const ClubsContainer = ({
   };
 
   const handleFindAnimator = () =>
-    router.push("/entertainers-tour-guides/animators");
+    router.push('/entertainers-tour-guides/animators');
 
   return (
     <>
@@ -131,10 +131,10 @@ const ClubsContainer = ({
         titleChildren={
           <Dropdown
             options={[
-              { key: "", value: t("text.selectDay") },
+              { key: '', value: t('text.selectDay') },
               ...weekDaysOptions,
             ]}
-            initialValue={weekDaysOptions.find((el) => el.key === selectedDay)}
+            initialValue={weekDaysOptions.find(el => el.key === selectedDay)}
             onChange={handleDaySelect}
             isLoading={isLoading}
             height="56px"
@@ -144,7 +144,7 @@ const ClubsContainer = ({
       >
         {result?.length ? (
           <CardsWrapper>
-            {result?.map((el) => (el ? renderCard(el) : null))}
+            {result?.map(el => (el ? renderCard(el) : null))}
           </CardsWrapper>
         ) : (
           <Placeholder />
@@ -162,7 +162,7 @@ const ClubsContainer = ({
         <FindAnimatorSection>
           <Text>{clubsInfo}</Text>
           <StyledButton
-            text={t("buttons.findAnimator")}
+            text={t('buttons.findAnimator')}
             onClick={handleFindAnimator}
           />
         </FindAnimatorSection>
@@ -174,17 +174,17 @@ const ClubsContainer = ({
 
 export default ClubsContainer;
 
-const CardsWrapper = styled("div")(({ theme }) => ({
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr 1fr",
-  gap: "16px",
+const CardsWrapper = styled('div')(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr 1fr',
+  gap: '16px',
 
   [theme.breakpoints.mobile]: {
-    gridTemplateColumns: "1fr",
+    gridTemplateColumns: '1fr',
   },
 }));
 
-const Text = styled("p")(({ theme }) => ({
+const Text = styled('p')(({ theme }) => ({
   fontSize: theme.fontSize.fontS24,
 
   [theme.breakpoints.mobile]: {
@@ -192,29 +192,29 @@ const Text = styled("p")(({ theme }) => ({
   },
 }));
 
-const Stack = styled("div")(({ theme }) => ({
-  width: "100%",
-  display: "flex",
-  flexDirection: "column",
-  gap: "24px",
+const Stack = styled('div')(({ theme }) => ({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '24px',
 
   [theme.breakpoints.mobile]: {
-    gap: "16px",
+    gap: '16px',
   },
 }));
 
-const FindAnimatorSection = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
-  gap: "24px",
+const FindAnimatorSection = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  gap: '24px',
 
   [theme.breakpoints.mobile]: {
-    gap: "8px",
-    flexDirection: "column",
+    gap: '8px',
+    flexDirection: 'column',
   },
 }));
 
-const StyledButton = styled(Button)(({ theme }) => ({
-  textWrap: "nowrap",
-}));
+const StyledButton = styled(Button)({
+  textWrap: 'nowrap',
+});

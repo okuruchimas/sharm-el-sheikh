@@ -1,7 +1,7 @@
-import { TypedDocumentString } from "../gql/graphql";
-import type { GraphQLError } from "graphql/error";
+import { TypedDocumentString } from '../gql/graphql';
+import type { GraphQLError } from 'graphql/error';
 
-export function getUrl(path = "") {
+export function getUrl(path = '') {
   return `${process.env.NEXT_PUBLIC_STRAPI_URL}/${path}`;
 }
 
@@ -16,9 +16,9 @@ export const fetchData = async <Result, Variables>(
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_GRAPHQL_URL}`,
     {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         query: document.toString(),
@@ -29,7 +29,7 @@ export const fetchData = async <Result, Variables>(
 
   const result = (await response.json()) as GraphQLResponse<Result>;
 
-  if ("errors" in result) {
+  if ('errors' in result) {
     throw new Error(result.errors.message);
   }
 
@@ -40,11 +40,11 @@ export const fetchDataFromApi = async <Result, Variables>(
   document: TypedDocumentString<Result, Variables>,
   variables?: Variables,
 ): Promise<Result> => {
-  const baseURL = typeof window === "undefined" ? process.env.API_URL : "";
+  const baseURL = typeof window === 'undefined' ? process.env.API_URL : '';
   const response = await fetch(`${baseURL}/api/gql-data`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       queryDocument: document,

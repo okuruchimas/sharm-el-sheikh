@@ -1,6 +1,6 @@
-import { memo } from "react";
-import styled from "@emotion/styled";
-import NextImage from "../../../../layout/image";
+import { memo } from 'react';
+import styled from '@emotion/styled';
+import NextImage from '../../../../layout/image';
 
 type StarReviewProps = {
   stars: number;
@@ -21,8 +21,8 @@ const StarReview = ({
       {[...Array(5)].map((_, index) => (
         <Image
           key={index}
-          alt={index + 1 > stars ? "star-outlined" : "star-filled"}
-          src={`/icons/feedback-section/star-${index + 1 > stars ? "outlined" : "filled"}.svg`}
+          alt={index + 1 > stars ? 'star-outlined' : 'star-filled'}
+          src={`/icons/feedback-section/star-${index + 1 > stars ? 'outlined' : 'filled'}.svg`}
           width="30px"
           height="30px"
           disabled={disabled}
@@ -33,7 +33,7 @@ const StarReview = ({
   </Wrapper>
 );
 
-const CategoryName = styled("span")(({ theme }) => ({
+const CategoryName = styled('span')(({ theme }) => ({
   fontSize: theme.fontSize.fontS24,
   fontWeight: 700,
 
@@ -43,29 +43,29 @@ const CategoryName = styled("span")(({ theme }) => ({
   },
 }));
 
-const Wrapper = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  gap: "8px",
+const Wrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
 });
 
-const StarsWrapper = styled("div")({
-  display: "flex",
-  alignItems: "center",
-  gap: "10px",
+const StarsWrapper = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '10px',
 });
 
 const Image = styled(NextImage, {
-  shouldForwardProp: (prop) => prop !== "disabled",
+  shouldForwardProp: prop => prop !== 'disabled',
 })<{ disabled: boolean }>(({ disabled }) => ({
-  cursor: "pointer",
+  cursor: 'pointer',
   ...(disabled
     ? {}
     : {
-        transition: "transform 0.3s ease",
+        transition: 'transform 0.3s ease',
 
-        "&:active, &:focus, &:hover": {
-          transform: "scale(1.3)",
+        '&:active, &:focus, &:hover': {
+          transform: 'scale(1.3)',
         },
       }),
 }));

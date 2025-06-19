@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   addRating,
   type CollectionTypesWithRating,
-} from "../../utils/add-rating";
+} from '../../utils/add-rating';
 
 type Params = {
   slug: string;
@@ -16,7 +16,7 @@ const useRatePlace = ({ slug, storageName, collectionType }: Params) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const ratedSpots = JSON.parse(localStorage.getItem(storageName) || "[]");
+    const ratedSpots = JSON.parse(localStorage.getItem(storageName) || '[]');
     const ratedSpot = ratedSpots.find(
       (item: { slug: string }) => item.slug === slug,
     );
@@ -35,7 +35,7 @@ const useRatePlace = ({ slug, storageName, collectionType }: Params) => {
       slug: slug,
       collectionType,
     }).then(() => {
-      const ratedSpots = JSON.parse(localStorage.getItem(storageName) || "[]");
+      const ratedSpots = JSON.parse(localStorage.getItem(storageName) || '[]');
 
       const updatedRatedSpots = [...ratedSpots, { slug: slug, rating: stars }];
       localStorage.setItem(storageName, JSON.stringify(updatedRatedSpots));

@@ -2,24 +2,24 @@ import {
   GetAdvertisementsDocument,
   GetAdvertisementsTitlesDocument,
   type AdvertisementFragment,
-} from "../../../../gql/graphql";
+} from '../../../../gql/graphql';
 // hooks
-import useResponsive from "../../../../hooks/useResponsive";
-import { useTranslation } from "next-i18next";
-import { useMemo, useState } from "react";
+import useResponsive from '../../../../hooks/useResponsive';
+import { useTranslation } from 'next-i18next';
+import { useMemo, useState } from 'react';
 // components
-import Button from "../../../layout/button";
-import Dropdown from "../../../layout/filters";
-import SearchBar from "../../../layout/search-bar";
-import Pagination from "../../../layout/pagination";
-import Placeholder from "../../promotions/children/placeholder";
-import UniversalCard from "../../../layout/universal-card";
+import Button from '../../../layout/button';
+import Dropdown from '../../../layout/filters';
+import SearchBar from '../../../layout/search-bar';
+import Pagination from '../../../layout/pagination';
+import Placeholder from '../../promotions/children/placeholder';
+import UniversalCard from '../../../layout/universal-card';
 // utils
-import styled from "@emotion/styled";
-import { formatDate } from "../../../../utils/formateDate";
-import { fetchDataFromApi } from "../../../../utils/fetchApi";
+import styled from '@emotion/styled';
+import { formatDate } from '../../../../utils/formateDate';
+import { fetchDataFromApi } from '../../../../utils/fetchApi';
 // types
-import type { selectOption } from "../../../types/filter";
+import type { selectOption } from '../../../types/filter';
 
 interface Props {
   buttonClick: () => void;
@@ -35,7 +35,7 @@ const All = ({
   advertisementCategories,
   onElementClick,
 }: Props) => {
-  const [searchValue, setSearchValue] = useState<string>("");
+  const [searchValue, setSearchValue] = useState<string>('');
   const [filterOptions, setFilterOptions] = useState<selectOption[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<AdvertisementFragment[] | undefined>(
@@ -47,7 +47,7 @@ const All = ({
   const [total, setTotal] = useState(totalAdvertisements);
   const { isMobile } = useResponsive();
 
-  const { t } = useTranslation("agents");
+  const { t } = useTranslation('agents');
 
   const pageSize = useMemo(() => (isMobile ? 4 : 12), [isMobile]);
 
@@ -69,7 +69,7 @@ const All = ({
     });
 
     setResult(
-      data?.advertisements?.data.map((el) => el.attributes) as
+      data?.advertisements?.data.map(el => el.attributes) as
         | AdvertisementFragment[]
         | undefined,
     );
@@ -96,9 +96,9 @@ const All = ({
         },
       );
 
-      const options = advertisements?.data.map((el) => ({
-        key: el.attributes?.title || "",
-        value: el.attributes?.title || "",
+      const options = advertisements?.data.map(el => ({
+        key: el.attributes?.title || '',
+        value: el.attributes?.title || '',
       }));
 
       setFilterOptions(options);
@@ -118,7 +118,7 @@ const All = ({
 
   const handleCategorySelect = async (option: selectOption) => {
     setPage(1);
-
+    setSelectedCategory(option);
     await handleGetAds({
       category: option.key,
       pageNum: 1,
@@ -132,7 +132,7 @@ const All = ({
           value={searchValue}
           onSetValue={setSearchValue}
           options={filterOptions}
-          placeholder={t("typeToSearch")}
+          placeholder={t('typeToSearch')}
           debounceDelay={600}
           onChange={handleSearchChange}
           onSearch={handleSearch}
@@ -142,7 +142,7 @@ const All = ({
           onChange={handleCategorySelect}
           isLoading={isLoading}
         />
-        <Button onClick={buttonClick} text={t("addAdvertisement")} />
+        <Button onClick={buttonClick} text={t('addAdvertisement')} />
       </SearchWrapper>
       {result?.length ? (
         <>
@@ -154,7 +154,7 @@ const All = ({
                 price={el.price}
                 place={el.location}
                 duration={formatDate(el.createdAt)}
-                imgSrc={el.images?.data[0]?.attributes?.url || ""}
+                imgSrc={el.images?.data[0]?.attributes?.url || ''}
                 onClick={() => onElementClick(el)}
               />
             ))}
@@ -168,7 +168,7 @@ const All = ({
           />
         </>
       ) : (
-        <Placeholder title={t("noAddsFound")} />
+        <Placeholder title={t('noAddsFound')} />
       )}
     </Wrapper>
   );
@@ -176,33 +176,35 @@ const All = ({
 
 export default All;
 
-const Wrapper = styled("div")(({ theme }) => ({}));
+const Wrapper = styled('div')(({ theme }) => ({
+  [theme.breakpoints.mobile]: {},
+}));
 
-const AdvertisementsWrap = styled("div")(({ theme }) => ({
-  padding: "40px 0",
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr 1fr",
-  gap: "16px",
+const AdvertisementsWrap = styled('div')(({ theme }) => ({
+  padding: '40px 0',
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr 1fr',
+  gap: '16px',
 
   [theme.breakpoints.desktopS]: {
-    gridTemplateColumns: "1fr 1fr",
+    gridTemplateColumns: '1fr 1fr',
   },
 
   [theme.breakpoints.mobileS]: {
-    gridTemplateColumns: "1fr",
+    gridTemplateColumns: '1fr',
   },
 }));
 
-const SearchWrapper = styled("div")(({ theme }) => ({
-  position: "relative",
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
+const SearchWrapper = styled('div')(({ theme }) => ({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
   [theme.breakpoints.mobile]: {
-    flexDirection: "column",
+    flexDirection: 'column',
     gap: 16,
     button: {
-      width: "100%",
+      width: '100%',
     },
   },
 }));

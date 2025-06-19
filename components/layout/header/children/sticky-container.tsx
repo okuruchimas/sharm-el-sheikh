@@ -1,11 +1,11 @@
 // libs
-import React, { useState } from "react";
+import React, { useState } from 'react';
 // hooks
-import useDocumentScrollThrottled from "../../../../hooks/useDocumentScroll";
+import useDocumentScrollThrottled from '../../../../hooks/useDocumentScroll';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 // types
-import type View from "./type";
+import type View from './type';
 
 const StickyContainer = ({ children }: Props) => {
   const [shouldHideHeader, setShouldHideHeader] = useState(false);
@@ -14,7 +14,7 @@ const StickyContainer = ({ children }: Props) => {
   const TIMEOUT_DELAY = 300;
 
   useDocumentScrollThrottled(
-    (callbackData: { previousScrollTop: any; currentScrollTop: any }) => {
+    (callbackData: { previousScrollTop: number; currentScrollTop: number }) => {
       const { previousScrollTop, currentScrollTop } = callbackData;
       const isScrolledDown = previousScrollTop < currentScrollTop;
       const isMinimumScrolled = currentScrollTop > MINIMUM_SCROLL;
@@ -31,16 +31,16 @@ interface Props {
   children: View;
 }
 
-const Wrap = styled("div", {
-  shouldForwardProp: (prop) => prop !== "hide",
-})<{ hide: any }>(({ hide }) => ({
-  "&>div": {
-    transform: hide ? "translateY(-110%)" : "translateY(0%)",
-    transition: "transform 0.2s ease",
-    position: "fixed",
-    top: "0",
-    left: "0",
-    zIndex: "100",
+const Wrap = styled('div', {
+  shouldForwardProp: prop => prop !== 'hide',
+})<{ hide: boolean }>(({ hide }) => ({
+  '&>div': {
+    transform: hide ? 'translateY(-110%)' : 'translateY(0%)',
+    transition: 'transform 0.2s ease',
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    zIndex: '100',
   },
 }));
 

@@ -1,6 +1,6 @@
-import NextImage from "../image";
+import NextImage from '../image';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 type RatingProps = {
   points: number;
@@ -11,7 +11,7 @@ const Rating = ({ points, users }: RatingProps) => {
   return (
     <Wrapper>
       <NextImage
-        src={"/icons/promotions-section/star-rating.svg"}
+        src={'/icons/promotions-section/star-rating.svg'}
         alt="star-rating"
         height="24px"
         width="24px"
@@ -24,18 +24,18 @@ const Rating = ({ points, users }: RatingProps) => {
   );
 };
 
-const Wrapper = styled("div")({
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  height: "max-content",
+const Wrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  height: 'max-content',
 });
 
-const RatingPoints = styled("span")(({ theme }) => ({
-  fontWeight: "600",
+const RatingPoints = styled('span')(({ theme }) => ({
+  fontWeight: '600',
   fontSize: theme.fontSize.fontS18,
-  textAlign: "center",
-  marginLeft: "3px",
+  textAlign: 'center',
+  marginLeft: '3px',
 }));
 
 const RatingViews = styled(RatingPoints)(({ theme }) => ({

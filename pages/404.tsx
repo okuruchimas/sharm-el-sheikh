@@ -1,13 +1,14 @@
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'next-i18next';
 // components
-import Image from "../components/layout/image";
+import Image from '../components/layout/image';
 // utils
-import styled from "@emotion/styled";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getLayoutData } from "../utils/get-layout-data";
+import styled from '@emotion/styled';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getLayoutData } from '../utils/get-layout-data';
+import { GetStaticPropsContext } from 'next';
 
 const NotFoundPage = () => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation('common');
 
   return (
     <Wrapper>
@@ -18,20 +19,20 @@ const NotFoundPage = () => {
         src="/images/background/background-prom.svg"
         priority
       />
-      <h1>{t("404")}</h1>
+      <h1>{t('404')}</h1>
     </Wrapper>
   );
 };
 export default NotFoundPage;
 
-export async function getStaticProps({ locale }: any) {
-  const { headerData, footerData } = await getLayoutData(locale);
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  const { headerData, footerData } = await getLayoutData(locale!);
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, [
-        "common",
-        "entertainers-tour-guides",
+      ...(await serverSideTranslations(locale!, [
+        'common',
+        'entertainers-tour-guides',
       ])),
       headerData,
       footerData,
@@ -39,17 +40,17 @@ export async function getStaticProps({ locale }: any) {
   };
 }
 
-const Wrapper = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "20px",
-  alignItems: "center",
-  justifyContent: "center",
+const Wrapper = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
+  alignItems: 'center',
+  justifyContent: 'center',
 
-  height: "calc(100vh - 55px)",
+  height: 'calc(100vh - 55px)',
 
   h1: {
     color: theme.colors.blue,
-    textAlign: "center",
+    textAlign: 'center',
   },
 }));

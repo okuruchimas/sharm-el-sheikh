@@ -1,16 +1,16 @@
 // hooks
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'next-i18next';
 // components
-import Image from "next/image";
-import Flags from "../../../layout/flags";
-import Rating from "../../../layout/rating";
-import TextPill from "../../../layout/text-pill";
-import SocialIcon from "../../../layout/social-icon";
-import TextAndIcon from "../../../layout/text-and-icon";
+import Image from 'next/image';
+import Flags from '../../../layout/flags';
+import Rating from '../../../layout/rating';
+import TextPill from '../../../layout/text-pill';
+import SocialIcon from '../../../layout/social-icon';
+import TextAndIcon from '../../../layout/text-and-icon';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 // types
-import type { ImageI, SocialLink } from "../../../types/images";
+import type { ImageI, SocialLink } from '../../../types/images';
 
 type AnimatorInfoSectionProps = {
   name: string;
@@ -39,8 +39,8 @@ const AnimatorInfoSection = ({
   totalComments,
   averageRating,
 }: AnimatorInfoSectionProps) => {
-  const { t } = useTranslation("animator");
-  const { t: tCommon } = useTranslation("common");
+  const { t } = useTranslation('animator');
+  const { t: tCommon } = useTranslation('common');
 
   return (
     <Wrapper>
@@ -60,8 +60,8 @@ const AnimatorInfoSection = ({
               <TextAndIcon
                 fontSize="24px"
                 iconSize="50px"
-                text={t("workingAtClub")}
-                src={"/icons/isClub.svg"}
+                text={t('workingAtClub')}
+                src={'/icons/isClub.svg'}
               />
             ) : null}
             <TextAndIcon
@@ -77,22 +77,22 @@ const AnimatorInfoSection = ({
         {socialLinks?.map((el, index) => (
           <SocialIcon
             key={index}
-            iconSrc={el?.icon.data?.attributes?.url || ""}
-            iconAlt={el?.icon.data?.attributes?.alternativeText || ""}
-            socialLink={el?.socialLink || ""}
+            iconSrc={el?.icon.data?.attributes?.url || ''}
+            iconAlt={el?.icon.data?.attributes?.alternativeText || ''}
+            socialLink={el?.socialLink || ''}
           />
         ))}
       </IconsWrapper>
       <InfoField>
-        <p>{`${t("mainSkills")}:`}</p>
+        <p>{`${t('mainSkills')}:`}</p>
         <SkillsWrapper>
-          {skills.map((el) => (
+          {skills.map(el => (
             <TextPill key={el?.value}>{el?.value}</TextPill>
           ))}
         </SkillsWrapper>
       </InfoField>
       <InfoField>
-        <p>{`${tCommon("text.languagesSpoken")}:`}</p>
+        <p>{`${tCommon('text.languagesSpoken')}:`}</p>
         <Flags icons={languages} />
       </InfoField>
     </Wrapper>
@@ -101,111 +101,111 @@ const AnimatorInfoSection = ({
 
 export default AnimatorInfoSection;
 
-const Wrapper = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "24px",
-  width: "100%",
+const Wrapper = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '24px',
+  width: '100%',
 
   [theme.breakpoints.mobile]: {
-    gap: "32px",
+    gap: '32px',
   },
 }));
 
-const InfoField = styled("div")(({ theme }) => ({
-  display: "flex",
-  gap: "24px",
-  width: "100%",
-  alignItems: "center",
+const InfoField = styled('div')(({ theme }) => ({
+  display: 'flex',
+  gap: '24px',
+  width: '100%',
+  alignItems: 'center',
 
   p: {
-    textWrap: "nowrap",
+    textWrap: 'nowrap',
     color: theme.colors.blue,
     fontSize: theme.fontSize.fontS24,
   },
 
   [theme.breakpoints.mobile]: {
-    gap: "16px",
-    alignItems: "start",
-    flexDirection: "column",
+    gap: '16px',
+    alignItems: 'start',
+    flexDirection: 'column',
   },
 }));
 
-const SkillsWrapper = styled("div")(({ theme }) => ({
-  display: "flex",
-  gap: "8px",
-  width: "100%",
+const SkillsWrapper = styled('div')(({ theme }) => ({
+  display: 'flex',
+  gap: '8px',
+  width: '100%',
 
   [theme.breakpoints.mobile]: {
-    flexWrap: "nowrap",
-    overflowX: "scroll",
-    scrollbarWidth: "none",
+    flexWrap: 'nowrap',
+    overflowX: 'scroll',
+    scrollbarWidth: 'none',
 
-    "&::-webkit-scrollbar": {
-      display: "none",
+    '&::-webkit-scrollbar': {
+      display: 'none',
     },
   },
 }));
 
-const IconsWrapper = styled("div")({
-  display: "flex",
-  gap: "24px",
+const IconsWrapper = styled('div')({
+  display: 'flex',
+  gap: '24px',
 
   img: {
-    width: "40px",
-    height: "40px",
+    width: '40px',
+    height: '40px',
   },
 });
 
-const TopStack = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  gap: "24px",
+const TopStack = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '24px',
 });
 
-const ClubHotel = styled("div")(({ theme }) => ({
-  display: "flex",
-  columnGap: "60px",
-  rowGap: "16px",
+const ClubHotel = styled('div')(({ theme }) => ({
+  display: 'flex',
+  columnGap: '60px',
+  rowGap: '16px',
 
   [theme.breakpoints.mobile]: {
-    flexDirection: "column",
-    flexWrap: "wrap",
+    flexDirection: 'column',
+    flexWrap: 'wrap',
   },
 }));
 
-const TopWrapper = styled("div")(({ theme }) => ({
-  display: "grid",
-  gridTemplateColumns: "460px 1fr",
-  gap: "24px",
-  position: "relative",
+const TopWrapper = styled('div')(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '460px 1fr',
+  gap: '24px',
+  position: 'relative',
 
   [theme.breakpoints.mobile]: {
-    gap: "16px",
-    gridTemplateColumns: "1fr",
+    gap: '16px',
+    gridTemplateColumns: '1fr',
   },
 }));
 
-const ImgWrapper = styled("div")(({ theme }) => ({
-  position: "relative",
-  width: "100%",
-  height: "460px",
-  borderRadius: "16px",
-  overflow: "hidden",
+const ImgWrapper = styled('div')(({ theme }) => ({
+  position: 'relative',
+  width: '100%',
+  height: '460px',
+  borderRadius: '16px',
+  overflow: 'hidden',
   img: {
-    objectFit: "cover",
+    objectFit: 'cover',
   },
 
   [theme.breakpoints.mobile]: {
-    gap: "16px",
-    height: "300px",
-    gridTemplateColumns: "1fr",
+    gap: '16px',
+    height: '300px',
+    gridTemplateColumns: '1fr',
   },
 }));
 
-const CompanyName = styled("p")(({ theme }) => ({
+const CompanyName = styled('p')(({ theme }) => ({
   fontSize: theme.fontSize.fontS24,
-  textDecoration: "underline",
+  textDecoration: 'underline',
   color: theme.colors.grey,
   fontWeight: 700,
 
@@ -214,7 +214,7 @@ const CompanyName = styled("p")(({ theme }) => ({
   },
 }));
 
-const Description = styled("p")(({ theme }) => ({
+const Description = styled('p')(({ theme }) => ({
   fontSize: theme.fontSize.fontS21,
   color: theme.colors.black,
   lineHeight: 1.52,
@@ -224,16 +224,16 @@ const Description = styled("p")(({ theme }) => ({
   },
 }));
 
-const NameRating = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  width: "100%",
-  height: "max-content",
-  justifyContent: "space-between",
+const NameRating = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  width: '100%',
+  height: 'max-content',
+  justifyContent: 'space-between',
 
   p: {
     color: theme.colors.blue,
-    fontWeight: "700",
+    fontWeight: '700',
     fontSize: theme.fontSize.fontS40,
 
     [theme.breakpoints.mobile]: {

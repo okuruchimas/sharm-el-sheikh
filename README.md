@@ -33,6 +33,7 @@ npm start        # run the built version
 ```
 
 To update GraphQL types use:
+
 ```bash
 npm run generate
 ```
@@ -40,6 +41,7 @@ npm run generate
 ## Required Environment Variables
 
 Add the following variables to `.env.local`:
+
 ```bash
 NEXT_PUBLIC_STRAPI_URL=
 NEXT_PUBLIC_STRAPI_GRAPHQL_URL=

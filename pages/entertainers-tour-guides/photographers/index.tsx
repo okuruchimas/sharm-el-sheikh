@@ -4,37 +4,35 @@ import {
   GetPhotographersByFiltersDocument,
   type PhotographyLocation,
   type PhotographerFragment,
-  GetTourGuidesByFiltersDocument,
-  GetTourOperatorCompaniesDocument,
-  GetDeliveriesDocument,
-} from "../../../gql/graphql";
+} from '../../../gql/graphql';
 // hooks
-import useResponsive from "../../../hooks/useResponsive";
-import { useTranslation } from "next-i18next";
-import { useEffect, useMemo, useState } from "react";
+import useResponsive from '../../../hooks/useResponsive';
+import { useTranslation } from 'next-i18next';
+import { useEffect, useMemo, useState } from 'react';
 // constants
-import { REVALIDATE_TIME } from "../../../constants/page.constants";
-import { RATING_FILTER_OPTIONS } from "../../../constants/filter-options";
+import { REVALIDATE_TIME } from '../../../constants/page.constants';
+import { RATING_FILTER_OPTIONS } from '../../../constants/filter-options';
 // utils
-import styled from "@emotion/styled";
-import { mapLocation } from "../../../utils/location-mapper";
-import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import styled from '@emotion/styled';
+import { mapLocation } from '../../../utils/location-mapper';
+import { fetchData, fetchDataFromApi } from '../../../utils/fetchApi';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 // components
-import Map from "../../../components/layout/map";
-import Tabs from "../../../components/sections/entertainers-tour-guides/children/tabs";
-import Modal from "../../../components/layout/modal";
-import Dropdown from "../../../components/layout/filters";
-import Container from "../../../components/sections/entertainers-tour-guides/children/container";
-import Pagination from "../../../components/layout/pagination";
-import FilterButton from "../../../components/layout/filters/button";
-import PhotographCards from "../../../components/sections/entertainers-tour-guides/photographers/cards";
-import PhotographersFilters from "../../../components/sections/entertainers-tour-guides/photographers/children/photographers-filter";
-import PhotographyLocationPopup from "../../../components/sections/entertainers-tour-guides/photographers/photography-location-popup";
+import Map from '../../../components/layout/map';
+import Tabs from '../../../components/sections/entertainers-tour-guides/children/tabs';
+import Modal from '../../../components/layout/modal';
+import Dropdown from '../../../components/layout/filters';
+import Container from '../../../components/sections/entertainers-tour-guides/children/container';
+import Pagination from '../../../components/layout/pagination';
+import FilterButton from '../../../components/layout/filters/button';
+import PhotographCards from '../../../components/sections/entertainers-tour-guides/photographers/cards';
+import PhotographersFilters from '../../../components/sections/entertainers-tour-guides/photographers/children/photographers-filter';
+import PhotographyLocationPopup from '../../../components/sections/entertainers-tour-guides/photographers/photography-location-popup';
 // types
-import type { selectOption } from "../../../components/types/filter";
-import type { MapCard } from "../../../components/layout/map/children/types";
-import { getLayoutData } from "../../../utils/get-layout-data";
+import type { selectOption } from '../../../components/types/filter';
+import type { MapCard } from '../../../components/layout/map/children/types';
+import { getLayoutData } from '../../../utils/get-layout-data';
+import { GetStaticPropsContext } from 'next';
 
 type Photographers = { attributes: PhotographerFragment }[];
 
@@ -58,22 +56,22 @@ const Photographers = ({
   const [page, setPage] = useState<number>(1);
   const [total, setTotal] = useState(initialTotal);
   // filters
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState('');
   const [selectedStyles, setSelectedStyles] = useState<string[]>();
   const [selectedLocations, setSelectedLocations] = useState<string[]>();
   const [selectedCategory, setSelectedCategory] = useState<selectOption>({
-    value: "all",
-    key: "",
+    value: 'all',
+    key: '',
   });
   // booleans
   const [isFilter, setIsFilter] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { i18n, t } = useTranslation("entertainers-tour-guides");
-  const { t: tCommon } = useTranslation("common");
+  const { i18n, t } = useTranslation('entertainers-tour-guides');
+  const { t: tCommon } = useTranslation('common');
   const { isMobile } = useResponsive();
   const pageSize = useMemo(() => (isMobile ? 3 : 6), [isMobile]);
-  const filterOptions = RATING_FILTER_OPTIONS.map((el) => ({
+  const filterOptions = RATING_FILTER_OPTIONS.map(el => ({
     ...el,
     value: t(el.value),
   }));
@@ -164,46 +162,46 @@ const Photographers = ({
     });
   };
 
-  const locationsOptions = photographyLocations.map((el) => ({
+  const locationsOptions = photographyLocations.map(el => ({
     key: el.attributes.name,
     value: el.attributes.slug,
   }));
 
   const categories: selectOption[] = [
     {
-      value: tCommon("labels.all"),
-      key: "",
+      value: tCommon('labels.all'),
+      key: '',
     },
     {
-      value: t("categories.studio"),
-      key: "studio",
-      iconSrc: "/icons/cosmetics.svg",
-      markerIcon: "/icons/location-marker-cosmetics.svg",
+      value: t('categories.studio'),
+      key: 'studio',
+      iconSrc: '/icons/cosmetics.svg',
+      markerIcon: '/icons/location-marker-cosmetics.svg',
     },
     {
-      value: t("categories.location"),
-      key: "location",
-      iconSrc: "/icons/star.svg",
-      markerIcon: "/icons/location-marker-star.svg",
+      value: t('categories.location'),
+      key: 'location',
+      iconSrc: '/icons/star.svg',
+      markerIcon: '/icons/location-marker-star.svg',
     },
   ];
 
   const getMarker = (type: string) => {
-    const category = categories.find((el) => el.key === type);
+    const category = categories.find(el => el.key === type);
     return category?.markerIcon;
   };
 
   const locations = selectedCategory?.key
     ? photographyLocations
-        .filter((el) => el.attributes.type === selectedCategory.key)
-        .map((el) => mapLocation(el, selectedCategory.markerIcon))
-    : photographyLocations.map((el) =>
+        .filter(el => el.attributes.type === selectedCategory.key)
+        .map(el => mapLocation(el, selectedCategory.markerIcon))
+    : photographyLocations.map(el =>
         mapLocation(el, getMarker(el.attributes.type)),
       );
 
   const handleInfoWindowClick = (card: MapCard) => {
     const company = photographyLocations.find(
-      (el) => el.attributes.slug === card.slug,
+      el => el.attributes.slug === card.slug,
     );
 
     setSelectedSpot(company?.attributes);
@@ -237,14 +235,14 @@ const Photographers = ({
           <PhotographersFilters
             onClose={() => setIsFilter(false)}
             selectedStyles={selectedStyles}
-            stylesOptions={photographyStyles.map((el) => el.attributes)}
+            stylesOptions={photographyStyles.map(el => el.attributes)}
             locationsOptions={locationsOptions}
             selectedLocations={selectedLocations}
             onSave={handleSaveFilters}
           />
         ) : null}
       </FiltersWrap>
-      <PhotographCards photographers={result.map((el) => el.attributes)} />
+      <PhotographCards photographers={result.map(el => el.attributes)} />
       <Pagination
         currentPage={page}
         onChangePage={handleChangePage}
@@ -263,18 +261,18 @@ const Photographers = ({
   );
 };
 
-const FiltersWrap = styled("div")({
-  position: "relative",
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  width: "100%",
-  gap: "32px",
-  marginBottom: "24px",
+const FiltersWrap = styled('div')({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  width: '100%',
+  gap: '32px',
+  marginBottom: '24px',
 });
 
-export async function getStaticProps({ locale }: any) {
-  const layoutDataPromise = getLayoutData(locale);
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  const layoutDataPromise = getLayoutData(locale!);
 
   const [
     { photographers },
@@ -305,10 +303,10 @@ export async function getStaticProps({ locale }: any) {
       headerData,
       footerData,
 
-      ...(await serverSideTranslations(locale, [
-        "company-page",
-        "common",
-        "entertainers-tour-guides",
+      ...(await serverSideTranslations(locale!, [
+        'company-page',
+        'common',
+        'entertainers-tour-guides',
       ])),
     },
     revalidate: REVALIDATE_TIME,

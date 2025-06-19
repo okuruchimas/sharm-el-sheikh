@@ -1,17 +1,17 @@
-import { Formik, Form } from "formik";
+import { Formik, Form } from 'formik';
 // hooks
-import { useTranslation } from "next-i18next";
-import { useState, useCallback } from "react";
+import { useTranslation } from 'next-i18next';
+import { useState, useCallback } from 'react';
 // components
-import Input from "../../../layout/input";
-import Button from "../../../layout/button";
-import Loader from "../../../layout/loader";
-import StarReview from "./children/star-review";
-import SectionWrapper from "../../../layout/section-wrapper";
+import Input from '../../../layout/input';
+import Button from '../../../layout/button';
+import Loader from '../../../layout/loader';
+import StarReview from './children/star-review';
+import SectionWrapper from '../../../layout/section-wrapper';
 // utils
-import styled from "@emotion/styled";
-import { ReviewFormValidationSchema } from "./children/utils";
-import { FormikHelpers } from "formik/dist/types";
+import styled from '@emotion/styled';
+import { ReviewFormValidationSchema } from './children/utils';
+import { FormikHelpers } from 'formik/dist/types';
 
 interface ReviewFormValues {
   email: string;
@@ -40,19 +40,17 @@ const ReviewForm = ({
   handleAddComment,
 }: ReviewFormProps) => {
   const [stars, setStars] = useState<StarRating[]>(
-    categories.map((el) => ({
+    categories.map(el => ({
       ...el,
       value: 0,
     })),
   );
-  const { t: tCommon } = useTranslation("common");
+  const { t: tCommon } = useTranslation('common');
 
   const handleStarChange = useCallback(
     (categoryName: string, value: number) => {
-      setStars((prevState) =>
-        prevState.map((el) =>
-          el.name === categoryName ? { ...el, value } : el,
-        ),
+      setStars(prevState =>
+        prevState.map(el => (el.name === categoryName ? { ...el, value } : el)),
       );
     },
     [],
@@ -69,7 +67,7 @@ const ReviewForm = ({
       await handleAddComment(overallRating, review, email);
 
       resetForm();
-      setStars((prev) => prev.map((el) => ({ ...el, value: 0 })));
+      setStars(prev => prev.map(el => ({ ...el, value: 0 })));
 
       setSubmitting(false);
     },
@@ -79,7 +77,7 @@ const ReviewForm = ({
   return (
     <SectionWrapper title={title}>
       <Formik
-        initialValues={{ email: "", review: "" }}
+        initialValues={{ email: '', review: '' }}
         validationSchema={ReviewFormValidationSchema}
         onSubmit={handleSubmit}
       >
@@ -95,30 +93,29 @@ const ReviewForm = ({
                       key={name}
                       stars={value}
                       categoryName={label}
-                      onChange={(value) => handleStarChange(name, value)}
+                      onChange={value => handleStarChange(name, value)}
                     />
                   ))}
                 </StarReviews>
                 <Input
-                  label={tCommon("labels.email")}
+                  label={tCommon('labels.email')}
                   type="email"
-                  placeholder={tCommon("labels.email")}
+                  placeholder={tCommon('labels.email')}
                   isLight
                 />
                 <Input
-                  label={tCommon("reviewForm.review")}
+                  label={tCommon('reviewForm.review')}
                   type="review"
-                  placeholder={tCommon("reviewForm.yourReview")}
+                  placeholder={tCommon('reviewForm.yourReview')}
                   as="textarea"
                   isLight
                 />
               </>
             )}
             <Button
-              text={tCommon("reviewForm.sendButton")}
+              text={tCommon('reviewForm.sendButton')}
               disabled={
-                isSubmitting ||
-                Object.values(stars).some((el) => el.value === 0)
+                isSubmitting || Object.values(stars).some(el => el.value === 0)
               }
               type="submit"
             />
@@ -130,39 +127,39 @@ const ReviewForm = ({
 };
 
 const FormWrap = styled(Form)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "24px",
-  borderRadius: "16px",
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '24px',
+  borderRadius: '16px',
 
-  "input, textarea": {
-    resize: "none",
-    width: "100%",
+  'input, textarea': {
+    resize: 'none',
+    width: '100%',
   },
 
-  "& .input-wrap": {
-    width: "100%",
+  '& .input-wrap': {
+    width: '100%',
   },
 
   button: {
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
 
     [theme.breakpoints.mobile]: {
-      minWidth: "100%",
+      minWidth: '100%',
     },
   },
 
   [theme.breakpoints.mobile]: {
-    gap: "16px",
-    paddingBottom: "16px",
+    gap: '16px',
+    paddingBottom: '16px',
   },
 }));
 
-const StarReviews = styled("div")({
-  display: "flex",
-  columnGap: "40px",
-  rowGap: "24px",
-  flexWrap: "wrap",
+const StarReviews = styled('div')({
+  display: 'flex',
+  columnGap: '40px',
+  rowGap: '24px',
+  flexWrap: 'wrap',
 });
 
 export default ReviewForm;

@@ -1,9 +1,9 @@
 // hooks
-import { useInView } from "react-intersection-observer";
+import { useInView } from 'react-intersection-observer';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 // types
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
 interface LazyLoadComponentProps {
   children: ReactNode;
@@ -30,13 +30,13 @@ const LazyWrapper = ({
   );
 };
 
-const Wrapper = styled("div", {
-  shouldForwardProp: (prop) => prop !== "minHeight",
+const Wrapper = styled('div', {
+  shouldForwardProp: prop => prop !== 'minHeight',
 })<{ minHeight: number }>(({ theme, minHeight }) => ({
-  width: "100%",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   minHeight: `auto`,
 
   [theme.breakpoints.mobile]: {

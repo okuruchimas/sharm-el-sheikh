@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 const getSlidesPerView = (width: number): number => {
   if (width >= 1344) return 3;
@@ -19,10 +19,10 @@ const useResponsive = () => {
       setIsMobile(width < 1024);
     };
 
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       handleResize();
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
     }
   }, []);
 

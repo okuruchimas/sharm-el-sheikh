@@ -7,26 +7,27 @@ import {
   GetCategoriesDocument,
   GetHotspotsPageDocument,
   GetCompaniesByFilterDocument,
-} from "../../gql/graphql";
+} from '../../gql/graphql';
 // hooks
-import { useMemo } from "react";
-import { useTranslation } from "next-i18next";
+import { useMemo } from 'react';
+import { useTranslation } from 'next-i18next';
 // components
-import Map from "../../components/sections/home/map";
-import ClubsContainer from "../../components/sections/hotspots/clubs-container";
-import EventsContainer from "../../components/sections/hotspots/events-container";
-import SectionsWrapper from "../../components/layout/sections-wrapper";
-import HotspotsBanner from "../../components/sections/hotspots/hotspots-banner";
+import Map from '../../components/sections/home/map';
+import ClubsContainer from '../../components/sections/hotspots/clubs-container';
+import EventsContainer from '../../components/sections/hotspots/events-container';
+import SectionsWrapper from '../../components/layout/sections-wrapper';
+import HotspotsBanner from '../../components/sections/hotspots/hotspots-banner';
 // constants
-import { CLUBS } from "../../constants/page-company-categories";
-import { REVALIDATE_TIME } from "../../constants/page.constants";
+import { CLUBS } from '../../constants/page-company-categories';
+import { REVALIDATE_TIME } from '../../constants/page.constants';
 // utils
-import styled from "@emotion/styled";
-import { fetchData } from "../../utils/fetchApi";
-import { getCurrentDayAndTime } from "../../utils/formateDate";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { mapCategory } from "../../utils/mappers";
-import { getLayoutData } from "../../utils/get-layout-data";
+import styled from '@emotion/styled';
+import { fetchData } from '../../utils/fetchApi';
+import { getCurrentDayAndTime } from '../../utils/formateDate';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { mapCategory } from '../../utils/mappers';
+import { getLayoutData } from '../../utils/get-layout-data';
+import { GetStaticPropsContext } from 'next';
 
 type HotspotsPageProps = {
   totalEvents: number;
@@ -45,7 +46,7 @@ const HotspotsPage = ({
   initialClubs,
   categories,
 }: HotspotsPageProps) => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation('common');
 
   const categoriesMapped = useMemo(
     () => categories.map(mapCategory),
@@ -53,7 +54,7 @@ const HotspotsPage = ({
   );
 
   const allCategories =
-    categories?.map((el) => el.attributes?.key || "").join("***") || "";
+    categories?.map(el => el.attributes?.key || '').join('***') || '';
 
   return (
     <Wrapper
@@ -69,22 +70,22 @@ const HotspotsPage = ({
         title={clubsTitle}
         clubsInfo={clubsInfo}
         totalItems={totalClubs}
-        initialClubs={initialClubs.map((el) => el.attributes)}
+        initialClubs={initialClubs.map(el => el.attributes)}
       />
       <Map
-        title={mapTitle || ""}
+        title={mapTitle || ''}
         categories={[
-          { key: allCategories, value: t("labels.all") },
+          { key: allCategories, value: t('labels.all') },
           ...(categoriesMapped || []),
         ]}
       />
       {bottomBanner ? (
         <HotspotsBanner
-          title={bottomBanner.title || ""}
-          buttonText={bottomBanner.buttonText || ""}
-          buttonLink={bottomBanner.buttonLink || ""}
-          imgLink={bottomBanner.bannerImage?.data?.attributes?.url || ""}
-          subtitle={bottomBanner.subtitle || ""}
+          title={bottomBanner.title || ''}
+          buttonText={bottomBanner.buttonText || ''}
+          buttonLink={bottomBanner.buttonLink || ''}
+          imgLink={bottomBanner.bannerImage?.data?.attributes?.url || ''}
+          subtitle={bottomBanner.subtitle || ''}
         />
       ) : null}
     </Wrapper>
@@ -94,16 +95,16 @@ const HotspotsPage = ({
 export default HotspotsPage;
 
 const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
-  minHeight: "100vh",
-  backgroundRepeat: "no-repeat",
-  paddingTop: "236px",
+  minHeight: '100vh',
+  backgroundRepeat: 'no-repeat',
+  paddingTop: '236px',
 
   [theme.breakpoints.mobile]: {
-    paddingTop: "80px",
+    paddingTop: '80px',
   },
 }));
 
-export async function getStaticProps({ locale }: any) {
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
   const commonParams = {
     locale,
     page: 1,
@@ -111,7 +112,7 @@ export async function getStaticProps({ locale }: any) {
   };
   const { dayOfWeek } = getCurrentDayAndTime();
 
-  const layoutDataPromise = getLayoutData(locale);
+  const layoutDataPromise = getLayoutData(locale!);
   const [
     { hotspotsPage },
     { eventCards },
@@ -132,7 +133,7 @@ export async function getStaticProps({ locale }: any) {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common"])),
+      ...(await serverSideTranslations(locale!, ['common'])),
       pageData: hotspotsPage?.data?.attributes,
       initialEvents: eventCards?.data,
       categories: categories?.data,

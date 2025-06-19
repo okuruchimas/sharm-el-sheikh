@@ -1,4 +1,4 @@
-import nextI18NextConfig from "../next-i18next.config";
+import nextI18NextConfig from '../next-i18next.config';
 
 type Path = {
   params: {
@@ -7,6 +7,7 @@ type Path = {
   locale: string;
 };
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function getLocalizedPaths(data: any): Path[] {
   const locales = nextI18NextConfig.i18n.locales;
 
@@ -14,15 +15,16 @@ export function getLocalizedPaths(data: any): Path[] {
     const localizations = el?.attributes?.localizations?.data || [];
 
     return locales
-      .filter((locale) => {
+      .filter(locale => {
         return (
           locale === el?.attributes?.locale || // Локаль головного запису
           localizations.some((loc: any) => loc?.attributes?.locale === locale) // Локаль перекладу
         );
       })
-      .map((locale) => ({
-        params: { slug: el?.attributes?.slug || "" },
+      .map(locale => ({
+        params: { slug: el?.attributes?.slug || '' },
         locale,
       }));
   });
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */

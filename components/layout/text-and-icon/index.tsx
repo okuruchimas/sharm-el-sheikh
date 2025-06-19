@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export type TextAndIconProps = {
   src: string;
@@ -11,9 +11,9 @@ export type TextAndIconProps = {
 const TextAndIcon = ({
   src,
   text,
-  iconSize = "24px",
+  iconSize = '24px',
   iconSizeMobile,
-  fontSize = "16px",
+  fontSize = '16px',
   fontSizeMobile,
 }: TextAndIconProps) => {
   const sizeProps = { iconSize, iconSizeMobile: iconSizeMobile || iconSize };
@@ -32,15 +32,15 @@ const TextAndIcon = ({
   );
 };
 
-const Wrap = styled("div", {
-  shouldForwardProp: (prop) => !["iconSize", "iconSizeMobile"].includes(prop),
+const Wrap = styled('div', {
+  shouldForwardProp: prop => !['iconSize', 'iconSizeMobile'].includes(prop),
 })<{ iconSize: string; iconSizeMobile: string }>(
   ({ theme, iconSize, iconSizeMobile }) => ({
-    display: "grid",
+    display: 'grid',
     gridTemplateColumns: `${iconSize} 1fr`,
-    alignItems: "center",
+    alignItems: 'center',
     gap: 8,
-    width: "100%",
+    width: '100%',
 
     [theme.breakpoints.mobile]: {
       gridTemplateColumns: `${iconSizeMobile} 1fr`,
@@ -48,8 +48,8 @@ const Wrap = styled("div", {
   }),
 );
 
-const Icon = styled("img", {
-  shouldForwardProp: (prop) => !["iconSize", "iconSizeMobile"].includes(prop),
+const Icon = styled('img', {
+  shouldForwardProp: prop => !['iconSize', 'iconSizeMobile'].includes(prop),
 })<{ iconSize: string; iconSizeMobile: string }>(
   ({ theme, iconSize, iconSizeMobile }) => ({
     width: iconSize,
@@ -62,15 +62,15 @@ const Icon = styled("img", {
   }),
 );
 
-const Text = styled("div", {
-  shouldForwardProp: (prop) => !["fontSize", "fontSizeMobile"].includes(prop),
+const Text = styled('div', {
+  shouldForwardProp: prop => !['fontSize', 'fontSizeMobile'].includes(prop),
 })<{ fontSize: string; fontSizeMobile: string }>(
   ({ theme, fontSize, fontSizeMobile }) => ({
     color: theme.colors.blue,
     fontSize: fontSize,
-    overflow: "hidden",
-    textWrap: "nowrap",
-    textOverflow: "ellipsis",
+    overflow: 'hidden',
+    textWrap: 'nowrap',
+    textOverflow: 'ellipsis',
 
     [theme.breakpoints.mobile]: {
       fontSize: fontSizeMobile,

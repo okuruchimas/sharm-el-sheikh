@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
-import { StatusDot } from "../card";
+import styled from '@emotion/styled';
+import { StatusDot } from '../card';
 import {
   StatusColors,
   type StatusOptions,
-} from "../../../../../constants/taxi-statuses.constants";
+} from '../../../../../constants/taxi-statuses.constants';
 
 interface TaxiStatusProps {
   text: string;
@@ -18,23 +18,23 @@ const TaxiStatus = ({ text, status }: TaxiStatusProps) => {
   );
 };
 
-const Wrap = styled("div")(({ theme }) => ({
-  minWidth: "max-content",
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  gap: "16px",
+const Wrap = styled('div')(({ theme }) => ({
+  minWidth: 'max-content',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: '16px',
 
   [theme.breakpoints.mobile]: {},
 }));
 
-const Text = styled("span")(({ theme }) => ({
+const Text = styled('span')(({ theme }) => ({
   fontSize: theme.fontSize.fontS16,
   [theme.breakpoints.mobile]: {},
 }));
 
 const StatusStyled = styled(StatusDot)(({ theme }) => ({
-  position: "unset",
+  position: 'unset',
   [theme.breakpoints.mobile]: {},
 }));
 

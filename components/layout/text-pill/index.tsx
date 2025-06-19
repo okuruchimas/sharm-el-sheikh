@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
-const TextPill = styled("span")(({ theme }) => ({
-  padding: "6px 12px",
+const TextPill = styled('span')(({ theme }) => ({
+  padding: '6px 12px',
   backgroundColor: theme.colors.yellow,
-  borderRadius: "8px",
+  borderRadius: '8px',
   fontSize: theme.fontSize.fontS16,
   fontWeight: 600,
   lineHeight: 1.5,

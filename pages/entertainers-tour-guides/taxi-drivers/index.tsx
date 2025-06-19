@@ -7,39 +7,40 @@ import {
   GetCarClassesDocument,
   GetDriversByFiltersDocument,
   GetTaxiSpotsDocument,
-} from "../../../gql/graphql";
+} from '../../../gql/graphql';
 import TaxiFilterForm, {
   type TaxiFilterFormI,
-} from "../../../components/layout/filters/taxi-filter";
-import TaxiStatus from "../../../components/sections/entertainers-tour-guides/taxi-drivers/statuses";
+} from '../../../components/layout/filters/taxi-filter';
+import TaxiStatus from '../../../components/sections/entertainers-tour-guides/taxi-drivers/statuses';
 // hooks
-import useResponsive from "../../../hooks/useResponsive";
-import { useEffect, useMemo, useState } from "react";
-import { useTranslation } from "next-i18next";
+import useResponsive from '../../../hooks/useResponsive';
+import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'next-i18next';
 // constants
-import { TAXI_STATUSES } from "../../../constants/taxi-statuses.constants";
-import { REVALIDATE_TIME } from "../../../constants/page.constants";
-import { RATING_FILTER_OPTIONS } from "../../../constants/filter-options";
+import { TAXI_STATUSES } from '../../../constants/taxi-statuses.constants';
+import { REVALIDATE_TIME } from '../../../constants/page.constants';
+import { RATING_FILTER_OPTIONS } from '../../../constants/filter-options';
 // components
-import Map from "../../../components/layout/map";
-import Tabs from "../../../components/sections/entertainers-tour-guides/children/tabs";
-import Modal from "../../../components/layout/modal";
-import Container from "../../../components/sections/entertainers-tour-guides/children/container";
-import Dropdown from "../../../components/layout/filters";
-import FilterButton from "../../../components/layout/filters/button";
-import TaxiCards from "../../../components/sections/entertainers-tour-guides/taxi-drivers/cards";
-import Pagination from "../../../components/layout/pagination";
-import TaxiSpotPopup from "../../../components/sections/entertainers-tour-guides/taxi-drivers/taxi-spot-popup";
+import Map from '../../../components/layout/map';
+import Tabs from '../../../components/sections/entertainers-tour-guides/children/tabs';
+import Modal from '../../../components/layout/modal';
+import Container from '../../../components/sections/entertainers-tour-guides/children/container';
+import Dropdown from '../../../components/layout/filters';
+import FilterButton from '../../../components/layout/filters/button';
+import TaxiCards from '../../../components/sections/entertainers-tour-guides/taxi-drivers/cards';
+import Pagination from '../../../components/layout/pagination';
+import TaxiSpotPopup from '../../../components/sections/entertainers-tour-guides/taxi-drivers/taxi-spot-popup';
 // utils
-import styled from "@emotion/styled";
-import { mapLocations } from "../../../utils/location-mapper";
-import { getCurrentDayAndTime } from "../../../utils/formateDate";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { fetchData, fetchDataFromApi } from "../../../utils/fetchApi";
+import styled from '@emotion/styled';
+import { mapLocations } from '../../../utils/location-mapper';
+import { getCurrentDayAndTime } from '../../../utils/formateDate';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { fetchData, fetchDataFromApi } from '../../../utils/fetchApi';
 // types
-import type { selectOption } from "../../../components/types/filter";
-import type { MapCard } from "../../../components/layout/map/children/types";
-import { getLayoutData } from "../../../utils/get-layout-data";
+import type { selectOption } from '../../../components/types/filter';
+import type { MapCard } from '../../../components/layout/map/children/types';
+import { getLayoutData } from '../../../utils/get-layout-data';
+import { GetStaticPropsContext } from 'next';
 
 type Drivers = { attributes: TaxiDriverPreviewFragment }[];
 
@@ -65,18 +66,18 @@ const TaxiDrivers = ({
   const [page, setPage] = useState<number>(1);
   const [total, setTotal] = useState(initialTotalDrivers);
   // filters
-  const [sort, setSort] = useState("");
+  const [sort, setSort] = useState('');
   const [filters, setFilters] = useState<TaxiFilterFormI>();
   // booleans
   const [isFilter, setIsFilter] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const { isMobile } = useResponsive();
-  const { t: tDriver } = useTranslation("driver");
-  const { i18n, t } = useTranslation("entertainers-tour-guides");
+  const { t: tDriver } = useTranslation('driver');
+  const { i18n, t } = useTranslation('entertainers-tour-guides');
   const pageSize = useMemo(() => (isMobile ? 6 : 12), [isMobile]);
 
-  const sortOptions = RATING_FILTER_OPTIONS.map((el) => ({
+  const sortOptions = RATING_FILTER_OPTIONS.map(el => ({
     ...el,
     value: t(el.value),
   }));
@@ -108,8 +109,8 @@ const TaxiDrivers = ({
       }
 
       if (availableLater) {
-        const toFormatted = to ? to.format("HH:mm:ss.SSS") : undefined;
-        const fromFormatted = from ? from.format("HH:mm:ss.SSS") : undefined;
+        const toFormatted = to ? to.format('HH:mm:ss.SSS') : undefined;
+        const fromFormatted = from ? from.format('HH:mm:ss.SSS') : undefined;
 
         const dayFilter = { dayOfWeek: { eq: day } };
         const timeFilter = {
@@ -151,7 +152,7 @@ const TaxiDrivers = ({
   useEffect(
     () => {
       if (!isMobile) {
-        handleGetDrivers({ sort: "", pageNum: 1 });
+        handleGetDrivers({ sort: '', pageNum: 1 });
         setPage(1);
       }
     },
@@ -207,7 +208,7 @@ const TaxiDrivers = ({
   const locations = mapLocations(taxiSpots);
 
   const handleInfoWindowClick = (card: MapCard) => {
-    const company = taxiSpots.find((el) => el.attributes.slug === card.slug);
+    const company = taxiSpots.find(el => el.attributes.slug === card.slug);
 
     setSelectedSpot(company?.attributes);
   };
@@ -237,8 +238,8 @@ const TaxiDrivers = ({
               onClose={() => setIsFilter(false)}
               onSubmit={handleFiltersSubmit}
               defaultValues={filters}
-              languageOptions={languages?.map((el) => el.attributes)}
-              carClassOptions={carClasses?.map((el) => el.attributes)}
+              languageOptions={languages?.map(el => el.attributes)}
+              carClassOptions={carClasses?.map(el => el.attributes)}
             />
           ) : null}
         </ButtonsWrapper>
@@ -248,7 +249,7 @@ const TaxiDrivers = ({
           ))}
         </StatusesWrap>
       </FiltersWrap>
-      <TaxiCards drivers={result?.map((el) => el.attributes) || []} />
+      <TaxiCards drivers={result?.map(el => el.attributes) || []} />
       <Pagination
         pageSize={pageSize}
         currentPage={page}
@@ -264,43 +265,43 @@ const TaxiDrivers = ({
   );
 };
 
-const FiltersWrap = styled("div")(({ theme }) => ({
-  position: "relative",
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  width: "100%",
-  marginBottom: "24px",
+const FiltersWrap = styled('div')(({ theme }) => ({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  width: '100%',
+  marginBottom: '24px',
 
   [theme.breakpoints.mobile]: {
-    alignItems: "flex-start",
-    flexDirection: "column",
+    alignItems: 'flex-start',
+    flexDirection: 'column',
     gap: 16,
   },
 }));
 
-const ButtonsWrapper = styled("div")({
-  display: "flex",
-  flexDirection: "row",
-  gap: "32px",
+const ButtonsWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '32px',
 });
 
-const StatusesWrap = styled("div")(({ theme }) => ({
-  marginLeft: "auto",
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  gap: "24px",
+const StatusesWrap = styled('div')(({ theme }) => ({
+  marginLeft: 'auto',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: '24px',
 
   [theme.breakpoints.mobile]: {
-    marginLeft: "unset",
-    alignItems: "flex-start",
-    flexWrap: "wrap",
+    marginLeft: 'unset',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
   },
 }));
 
-export async function getStaticProps({ locale }: any) {
-  const layoutDataPromise = getLayoutData(locale);
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  const layoutDataPromise = getLayoutData(locale!);
   const [
     { languages },
     { carClasses },
@@ -328,10 +329,10 @@ export async function getStaticProps({ locale }: any) {
       initialTotalDrivers: taxiDrivers?.meta.pagination.total,
       headerData,
       footerData,
-      ...(await serverSideTranslations(locale, [
-        "driver",
-        "common",
-        "entertainers-tour-guides",
+      ...(await serverSideTranslations(locale!, [
+        'driver',
+        'common',
+        'entertainers-tour-guides',
       ])),
     },
     revalidate: REVALIDATE_TIME,

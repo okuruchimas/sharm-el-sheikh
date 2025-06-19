@@ -1,11 +1,11 @@
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'next-i18next';
 // components
-import Image from "next/image";
-import TextAndIcon from "../../../layout/text-and-icon";
+import Image from 'next/image';
+import TextAndIcon from '../../../layout/text-and-icon';
 // utils
-import styled from "@emotion/styled";
-import NextImage from "../../../layout/image";
-import type { KeyboardEvent } from "react";
+import styled from '@emotion/styled';
+import NextImage from '../../../layout/image';
+import type { KeyboardEvent } from 'react';
 
 interface MedicationCardProps {
   title: string;
@@ -22,10 +22,10 @@ const EmergencyServiceCard = ({
   location,
   onClick,
 }: MedicationCardProps) => {
-  const { t } = useTranslation("medications");
+  const { t } = useTranslation('medications');
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter" && onClick) {
+    if (event.key === 'Enter' && onClick) {
       onClick();
     }
   };
@@ -48,69 +48,69 @@ const EmergencyServiceCard = ({
         >
           <NextImage
             src="/icons/arrow-up.svg"
-            alt={t("showOnMap")}
+            alt={t('showOnMap')}
             width="24px"
             height="24px"
           />
-          <span>{t("showOnMap")}</span>
+          <span>{t('showOnMap')}</span>
         </MapLink>
       </InfoWrap>
     </Wrap>
   );
 };
 
-const Wrap = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  width: "100%",
+const Wrap = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
   minWidth: 250,
   background: theme.colors.white,
   borderRadius: 16,
-  position: "relative",
+  position: 'relative',
   boxShadow: theme.shadows[3],
 }));
 
-const CardTitle = styled("h3")(({ theme }) => ({
+const CardTitle = styled('h3')(({ theme }) => ({
   fontSize: theme.fontSize.fontS24,
   color: theme.colors.blue,
-  margin: "0",
-  marginBottom: "4px",
+  margin: '0',
+  marginBottom: '4px',
 
   [theme.breakpoints.mobile]: {
     fontSize: theme.fontSize.fontS16,
-    marginBottom: "8px",
+    marginBottom: '8px',
   },
 }));
 
 const StyledImage = styled(Image)({
   borderTopLeftRadius: 16,
   borderTopRightRadius: 16,
-  objectFit: "cover",
-  height: "54%",
+  objectFit: 'cover',
+  height: '54%',
 });
 
-const InfoWrap = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-  padding: "16px",
+const InfoWrap = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  padding: '16px',
   gap: 12,
-  height: "auto",
-  maxHeight: "50%",
+  height: 'auto',
+  maxHeight: '50%',
   backgroundColor: theme.colors.white,
   borderRadius: 16,
-  ".icon-text": {
+  '.icon-text': {
     color: theme.colors.black,
   },
 }));
 
-const MapLink = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  gap: "8px",
+const MapLink = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
   color: theme.colors.blue,
-  alignSelf: "end",
-  cursor: "pointer",
+  alignSelf: 'end',
+  cursor: 'pointer',
 }));
 
 export default EmergencyServiceCard;

@@ -1,7 +1,7 @@
-import { memo } from "react";
-import Image, { type ImageProps } from "next/image";
+import { memo } from 'react';
+import Image, { type ImageProps } from 'next/image';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 interface NextImageProps extends ImageProps {
   width: string;
@@ -11,10 +11,10 @@ interface NextImageProps extends ImageProps {
 }
 
 interface WrapperProps
-  extends Pick<NextImageProps, "width" | "height" | "mWidth" | "mHeight"> {}
+  extends Pick<NextImageProps, 'width' | 'height' | 'mWidth' | 'mHeight'> {}
 
 const NextImage = ({
-  alt = "",
+  alt = '',
   width,
   height,
   mWidth,
@@ -32,11 +32,11 @@ const NextImage = ({
   </LogoWrapper>
 );
 
-const LogoWrapper = styled("div", {
-  shouldForwardProp: (prop) =>
-    !["mHeight", "mWidth", "width", "height"].includes(prop),
+const LogoWrapper = styled('div', {
+  shouldForwardProp: prop =>
+    !['mHeight', 'mWidth', 'width', 'height'].includes(prop),
 })<WrapperProps>(({ theme, width, height, mHeight, mWidth }) => ({
-  position: "relative",
+  position: 'relative',
   width,
   height,
 

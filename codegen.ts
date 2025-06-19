@@ -1,14 +1,14 @@
-import type { CodegenConfig } from "@graphql-codegen/cli";
+import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: "http://localhost:1337/graphql",
-  documents: "graphql/**/*.graphql",
+  schema: 'http://localhost:1337/graphql',
+  documents: 'graphql/**/*.graphql',
   generates: {
-    "gql/": {
-      preset: "client",
+    'gql/': {
+      preset: 'client',
       config: {
-        documentMode: "string",
+        documentMode: 'string',
       },
       presetConfig: {
         dedupeFragments: true,

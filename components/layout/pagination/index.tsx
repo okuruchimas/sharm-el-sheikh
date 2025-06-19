@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 type PaginationProps = {
   pageSize: number;
@@ -32,7 +32,7 @@ const Pagination = ({
       pages.push(1);
 
       if (leftPage > 2) {
-        pages.push("...");
+        pages.push('...');
       }
 
       for (let i = leftPage; i <= rightPage; i++) {
@@ -40,7 +40,7 @@ const Pagination = ({
       }
 
       if (rightPage < totalPages - 2) {
-        pages.push("...");
+        pages.push('...');
       }
 
       pages.push(totalPages);
@@ -93,7 +93,7 @@ const Pagination = ({
       </Arrows>
       <PageNumbers>
         {pageNumbers.map((page, index) =>
-          typeof page === "number" ? (
+          typeof page === 'number' ? (
             <PageNumber
               key={index}
               onClick={isDisabled ? undefined : () => onChangePage(page)}
@@ -122,91 +122,91 @@ const Pagination = ({
 
 export default Pagination;
 
-const PaginationContainer = styled("div")({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  width: "100%",
+const PaginationContainer = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  width: '100%',
 });
 
-const Arrows = styled("div")({
-  display: "flex",
-  alignItems: "center",
-  gap: "8px",
+const Arrows = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
 });
 
-const ArrowButton = styled("button", {
-  shouldForwardProp: (prop) =>
-    !["disabled", "isLeft", "hideOnMobile", "hideOnDesktop"].includes(prop),
+const ArrowButton = styled('button', {
+  shouldForwardProp: prop =>
+    !['disabled', 'isLeft', 'hideOnMobile', 'hideOnDesktop'].includes(prop),
 })<{
   disabled: boolean;
   isLeft?: boolean;
   hideOnMobile?: boolean;
   hideOnDesktop?: boolean;
 }>(({ theme, disabled, isLeft, hideOnMobile, hideOnDesktop }) => ({
-  width: "40px",
-  height: "40px",
-  background: "none",
-  border: "none",
-  cursor: disabled ? "not-allowed" : "pointer",
+  width: '40px',
+  height: '40px',
+  background: 'none',
+  border: 'none',
+  cursor: disabled ? 'not-allowed' : 'pointer',
   opacity: disabled ? 0.5 : 1,
-  display: hideOnDesktop ? "none" : "initial",
+  display: hideOnDesktop ? 'none' : 'initial',
 
   ...(isLeft
     ? {
         img: {
-          transform: "rotate(180deg)",
-          marginRight: "8px",
+          transform: 'rotate(180deg)',
+          marginRight: '8px',
         },
       }
     : {}),
 
   [theme.breakpoints.mobile]: {
-    width: "35px",
-    height: "35px",
-    display: hideOnMobile ? "none" : "initial",
+    width: '35px',
+    height: '35px',
+    display: hideOnMobile ? 'none' : 'initial',
   },
 }));
 
-const NavIcon = styled("img")({
-  width: "12px",
-  height: "20px",
-  objectFit: "cover",
+const NavIcon = styled('img')({
+  width: '12px',
+  height: '20px',
+  objectFit: 'cover',
 });
 
-const PageNumbers = styled("div")(({ theme }) => ({
-  display: "flex",
-  gap: "8px",
+const PageNumbers = styled('div')(({ theme }) => ({
+  display: 'flex',
+  gap: '8px',
 
   [theme.breakpoints.mobile]: {
-    gap: "4px",
+    gap: '4px',
   },
 }));
 
-const PageNumber = styled("span", {
-  shouldForwardProp: (prop) => prop !== "isActive",
+const PageNumber = styled('span', {
+  shouldForwardProp: prop => prop !== 'isActive',
 })<{ isActive: boolean }>(({ theme, isActive }) => ({
-  width: "40px",
-  height: "40px",
-  cursor: "pointer",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  borderRadius: "50%",
+  width: '40px',
+  height: '40px',
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: '50%',
   color: isActive ? theme.colors.white : theme.colors.black,
-  backgroundColor: isActive ? theme.colors.blue : "none",
-  fontWeight: isActive ? "700" : "400",
+  backgroundColor: isActive ? theme.colors.blue : 'none',
+  fontWeight: isActive ? '700' : '400',
 
   [theme.breakpoints.mobile]: {
-    width: "35px",
-    height: "35px",
+    width: '35px',
+    height: '35px',
   },
 }));
 
-const Dots = styled("span")({
-  width: "40px",
-  height: "40px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+const Dots = styled('span')({
+  width: '40px',
+  height: '40px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 });

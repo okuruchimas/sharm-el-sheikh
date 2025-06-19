@@ -1,7 +1,7 @@
 // components
-import NextImage from "../../../layout/image";
+import NextImage from '../../../layout/image';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 type PlaceholderProps = {
   title?: string;
@@ -23,18 +23,18 @@ const Placeholder = ({ title }: PlaceholderProps) => {
   );
 };
 
-const Wrap = styled("div")({
-  width: "100%",
-  display: "flex",
-  gap: "6px",
-  justifyContent: "center",
-  alignItems: "center",
-  flexDirection: "column",
+const Wrap = styled('div')({
+  width: '100%',
+  display: 'flex',
+  gap: '6px',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
 });
 
-const Title = styled("h3")(({ theme }) => ({
-  fontWeight: "700",
-  textAlign: "center",
+const Title = styled('h3')(({ theme }) => ({
+  fontWeight: '700',
+  textAlign: 'center',
   fontSize: theme.fontSize.fontS24,
   color: theme.colors.blue,
 

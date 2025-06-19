@@ -1,6 +1,6 @@
-import { useField } from "formik";
-import { selectOption } from "../../types/filter";
-import Dropdown from "../filters";
+import { useField } from 'formik';
+import { selectOption } from '../../types/filter';
+import Dropdown from '../filters';
 
 interface Props {
   name: string;
@@ -29,7 +29,7 @@ const FormikDropdown = ({
   };
 
   const initialValue =
-    options.find((opt) => opt.key === field.value) || options[0];
+    options.find(opt => opt.key === field.value) || options[0];
 
   return (
     <>
@@ -44,7 +44,7 @@ const FormikDropdown = ({
         color={color}
       />
       {meta.touched && meta.error && (
-        <div style={{ color: "red", fontSize: "12px", marginTop: "4px" }}>
+        <div style={{ color: 'red', fontSize: '12px', marginTop: '4px' }}>
           {meta.error}
         </div>
       )}

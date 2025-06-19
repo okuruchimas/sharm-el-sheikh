@@ -1,20 +1,20 @@
-import { REVALIDATE_TIME } from "../constants/page.constants";
-import { useMemo } from "react";
-import { useTranslation } from "next-i18next";
+import { REVALIDATE_TIME } from '../constants/page.constants';
+import { useMemo } from 'react';
+import { useTranslation } from 'next-i18next';
 // components
-import Head from "next/head";
-import Main from "../components/sections/home/main";
-import Loader from "../components/layout/loader";
-import Promotions from "../components/sections/promotions";
-import HomeNavMenu from "../components/sections/home/home-nav-menu";
-import FeedbackForm from "../components/sections/home/feedback";
-import SectionsWrapper from "../components/layout/sections-wrapper";
-import LazyWrapper from "../components/layout/lazy-wrapper";
+import Head from 'next/head';
+import Main from '../components/sections/home/main';
+import Loader from '../components/layout/loader';
+import Promotions from '../components/sections/promotions';
+import HomeNavMenu from '../components/sections/home/home-nav-menu';
+import FeedbackForm from '../components/sections/home/feedback';
+import SectionsWrapper from '../components/layout/sections-wrapper';
+import LazyWrapper from '../components/layout/lazy-wrapper';
 // utils
-import styled from "@emotion/styled";
-import dynamic from "next/dynamic";
-import { fetchData } from "../utils/fetchApi";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import styled from '@emotion/styled';
+import dynamic from 'next/dynamic';
+import { fetchData } from '../utils/fetchApi';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 // types
 import {
   GetAreasDocument,
@@ -25,23 +25,24 @@ import {
   type CategoryEntity,
   type HomePageFragment,
   type CompanyPreviewFragment,
-} from "../gql/graphql";
-import { mapCategory } from "../utils/mappers";
-import { getLayoutData } from "../utils/get-layout-data";
+} from '../gql/graphql';
+import { mapCategory } from '../utils/mappers';
+import { getLayoutData } from '../utils/get-layout-data';
+import { GetStaticPropsContext } from 'next';
 
 const DynamicBanner = dynamic(
-  () => import("../components/sections/home/banner"),
+  () => import('../components/sections/home/banner'),
   {
     loading: () => <Loader />,
   },
 );
 const DynamicAnnouncements = dynamic(
-  () => import("../components/sections/home/announcements"),
+  () => import('../components/sections/home/announcements'),
   {
     loading: () => <Loader />,
   },
 );
-const DynamicMap = dynamic(() => import("../components/sections/home/map"), {
+const DynamicMap = dynamic(() => import('../components/sections/home/map'), {
   ssr: true,
   loading: () => <Loader />,
 });
@@ -61,7 +62,7 @@ const Home = ({
   initialPromotions,
   totalInitialPromotions,
 }: Props) => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation('common');
 
   const categoriesMapped = useMemo(
     () => categories.map(mapCategory),
@@ -69,13 +70,13 @@ const Home = ({
   );
 
   const allCategories =
-    categories?.map((el) => el.attributes?.key || "").join("***") || "";
+    categories?.map(el => el.attributes?.key || '').join('***') || '';
 
   const areasMapped = useMemo(
     () =>
-      areas.map((el) => ({
-        key: el.attributes?.key || "",
-        value: el.attributes?.value || "",
+      areas.map(el => ({
+        key: el.attributes?.key || '',
+        value: el.attributes?.value || '',
       })),
     [areas],
   );
@@ -88,7 +89,7 @@ const Home = ({
       <Main
         eventCards={homePageData.event_cards}
         eventCardsTitle={homePageData.eventCardsTitle}
-        heroTitle={homePageData.heroTitle || ""}
+        heroTitle={homePageData.heroTitle || ''}
       />
       <SectionsWrapper
         url="images/background/background-gradient.svg"
@@ -98,14 +99,14 @@ const Home = ({
           totalInitialCards={totalInitialPromotions}
           options={areasMapped}
           title={homePageData.promotionsTitle}
-          initialPromotions={initialPromotions?.map((el) => el.attributes)}
+          initialPromotions={initialPromotions?.map(el => el.attributes)}
         />
         <LazyWrapper>
           <DynamicBanner
             imgLink={homePageData.banner1.bannerImage?.data?.attributes?.url}
             title={homePageData.banner1.title}
-            buttonText={homePageData.banner1.buttonText || ""}
-            buttonLink={homePageData.banner1.buttonLink || ""}
+            buttonText={homePageData.banner1.buttonText || ''}
+            buttonLink={homePageData.banner1.buttonLink || ''}
             isBottomContent
           />
         </LazyWrapper>
@@ -119,15 +120,15 @@ const Home = ({
           <DynamicBanner
             imgLink={homePageData.banner2.bannerImage?.data?.attributes?.url}
             title={homePageData.banner2.title}
-            buttonText={homePageData.banner2.buttonText || ""}
-            buttonLink={homePageData.banner2.buttonLink || ""}
+            buttonText={homePageData.banner2.buttonText || ''}
+            buttonLink={homePageData.banner2.buttonLink || ''}
           />
         </LazyWrapper>
         <LazyWrapper>
           <DynamicMap
             title={homePageData.mapTitle}
             categories={[
-              { key: allCategories, value: t("labels.all") },
+              { key: allCategories, value: t('labels.all') },
               ...(categoriesMapped || []),
             ]}
           />
@@ -139,7 +140,7 @@ const Home = ({
   );
 };
 
-export async function getStaticProps({ locale }: any) {
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
   const areasPromise = fetchData(GetAreasDocument, { locale });
   const companiesPromise = areasPromise.then(({ areas }) =>
     fetchData(GetCompaniesByFilterDocument, {
@@ -150,7 +151,7 @@ export async function getStaticProps({ locale }: any) {
       discountFilter: { title: { ne: null } },
     }),
   );
-  const layoutDataPromise = getLayoutData(locale);
+  const layoutDataPromise = getLayoutData(locale!);
 
   const [
     { home },
@@ -168,10 +169,10 @@ export async function getStaticProps({ locale }: any) {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, [
-        "common",
-        "home-page",
-        "entertainers-tour-guides",
+      ...(await serverSideTranslations(locale!, [
+        'common',
+        'home-page',
+        'entertainers-tour-guides',
       ])),
       areas: areas?.data,
       categories: categories?.data,
@@ -185,10 +186,10 @@ export async function getStaticProps({ locale }: any) {
   };
 }
 
-const Wrap = styled("div")({
-  display: "flex",
-  alignItems: "center",
-  flexDirection: "column",
+const Wrap = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'column',
 });
 
 export default Home;

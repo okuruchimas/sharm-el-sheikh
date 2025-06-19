@@ -2,26 +2,26 @@ import {
   GetMedicationsByFilterDocument,
   GetMedicationsNamesDocument,
   type MedicationPreviewFragment,
-} from "../../../../gql/graphql";
+} from '../../../../gql/graphql';
 // hooks
-import useResponsive from "../../../../hooks/useResponsive";
-import { useTranslation } from "next-i18next";
-import { useEffect, useMemo, useState } from "react";
+import useResponsive from '../../../../hooks/useResponsive';
+import { useTranslation } from 'next-i18next';
+import { useEffect, useMemo, useState } from 'react';
 // components
-import Modal from "../../../layout/modal";
-import SearchBar from "../../../layout/search-bar";
-import Pagination from "../../../layout/pagination";
-import Placeholder from "../../promotions/children/placeholder";
-import FilterButton from "../../../layout/filters/button";
-import SectionWrapper from "../../../layout/section-wrapper";
-import MedicationCard from "../children/medication-card";
-import MedicationsFilter from "../children/medications-filter";
-import MedicationContainer from "../medication-container";
+import Modal from '../../../layout/modal';
+import SearchBar from '../../../layout/search-bar';
+import Pagination from '../../../layout/pagination';
+import Placeholder from '../../promotions/children/placeholder';
+import FilterButton from '../../../layout/filters/button';
+import SectionWrapper from '../../../layout/section-wrapper';
+import MedicationCard from '../children/medication-card';
+import MedicationsFilter from '../children/medications-filter';
+import MedicationContainer from '../medication-container';
 // utils
-import styled from "@emotion/styled";
-import { fetchDataFromApi } from "../../../../utils/fetchApi";
+import styled from '@emotion/styled';
+import { fetchDataFromApi } from '../../../../utils/fetchApi';
 // types
-import type { selectOption } from "../../../types/filter";
+import type { selectOption } from '../../../types/filter';
 
 type Medications = MedicationPreviewFragment[] | undefined;
 type MedicationsContainerProps = {
@@ -45,7 +45,7 @@ const MedicationsContainer = ({
   const [page, setPage] = useState<number>(1);
   const [total, setTotal] = useState(initialTotalItems);
   // filters
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [filterOptions, setFilterOptions] = useState<selectOption[]>();
   const [selectedCategories, setSelectedCategories] = useState<string[]>();
   const [selectedMedication, setSelectedMedication] =
@@ -54,7 +54,7 @@ const MedicationsContainer = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
 
-  const { t, i18n } = useTranslation("common");
+  const { t, i18n } = useTranslation('common');
   const { isMobile } = useResponsive();
 
   const pageSize = useMemo(() => (isMobile ? 4 : 6), [isMobile]);
@@ -81,7 +81,7 @@ const MedicationsContainer = ({
       },
     );
 
-    setResult(medications?.data?.map((el) => el.attributes) as Medications);
+    setResult(medications?.data?.map(el => el.attributes) as Medications);
     setTotal(medications?.meta?.pagination?.total || 0);
     setIsLoading(false);
   };
@@ -120,7 +120,7 @@ const MedicationsContainer = ({
   const handleFiltersSubmit = async (categories?: string[]) => {
     setSelectedCategories(categories);
     setIsFilter(false);
-    setQuery("");
+    setQuery('');
 
     await handleGetMedications({
       pageNum: 1,
@@ -142,9 +142,9 @@ const MedicationsContainer = ({
         },
       );
 
-      const options = medications?.data.map((el) => ({
-        key: el.attributes?.slug || "",
-        value: el.attributes?.name || "",
+      const options = medications?.data.map(el => ({
+        key: el.attributes?.slug || '',
+        value: el.attributes?.name || '',
       }));
 
       setFilterOptions(options);
@@ -169,7 +169,7 @@ const MedicationsContainer = ({
           value={query}
           onSetValue={setQuery}
           options={filterOptions}
-          placeholder={t("labels.searchByName")}
+          placeholder={t('labels.searchByName')}
           debounceDelay={600}
           onChange={handleInputChange}
           onSearch={handleSearch}
@@ -187,16 +187,16 @@ const MedicationsContainer = ({
       ) : null}
       {result?.length ? (
         <CardsWrapper>
-          {result?.map((el) => (
+          {result?.map(el => (
             <MedicationCard
               key={el?.slug}
               title={el.name}
               price={el.price}
               category={
-                el.medication_categories?.data[0]?.attributes?.value || "-"
+                el.medication_categories?.data[0]?.attributes?.value || '-'
               }
-              analogs={el.analogs || "-"}
-              imgSrc={el?.image?.data?.attributes?.url || ""}
+              analogs={el.analogs || '-'}
+              imgSrc={el?.image?.data?.attributes?.url || ''}
               onClick={handleSelectMedication(el)}
             />
           ))}
@@ -231,22 +231,22 @@ const MedicationsContainer = ({
 
 export default MedicationsContainer;
 
-const CardsWrapper = styled("div")(({ theme }) => ({
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr 1fr",
-  gap: "16px",
+const CardsWrapper = styled('div')(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr 1fr',
+  gap: '16px',
 
   [theme.breakpoints.desktopS]: {
-    gridTemplateColumns: "1fr 1fr",
+    gridTemplateColumns: '1fr 1fr',
   },
 
   [theme.breakpoints.mobileS]: {
-    gridTemplateColumns: "1fr",
+    gridTemplateColumns: '1fr',
   },
 }));
 
-const Filters = styled("div")({
-  display: "flex",
-  alignItems: "center",
-  gap: "40px",
+const Filters = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '40px',
 });

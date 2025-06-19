@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 // utils
-import { formatTime, getCurrentDayAndTime } from "../../utils/formateDate";
+import { formatTime, getCurrentDayAndTime } from '../../utils/formateDate';
 // constants
-import { PAGE_CATEGORIES } from "../../constants/page-company-categories";
+import { PAGE_CATEGORIES } from '../../constants/page-company-categories';
 // components
-import Modal from "../../components/layout/modal";
-import Discount from "../../components/layout/discount";
-import CompanyCard from "../../components/sections/promotions/children/company-card";
-import CompanyPopupContainer from "../../components/sections/company/company-popup-container";
+import Modal from '../../components/layout/modal';
+import Discount from '../../components/layout/discount';
+import CompanyCard from '../../components/sections/promotions/children/company-card';
+import CompanyPopupContainer from '../../components/sections/company/company-popup-container';
 // types
-import type { CompanyPreviewFragment } from "../../gql/graphql";
+import type { CompanyPreviewFragment } from '../../gql/graphql';
 
 const useCompanyCard = (selectedDay?: string) => {
   const [selectedCompany, setSelectedCompany] =
@@ -20,8 +20,8 @@ const useCompanyCard = (selectedDay?: string) => {
   const router = useRouter();
 
   const checkIfPage = (data: CompanyPreviewFragment): boolean =>
-    !!data?.categories?.data.find((el) =>
-      PAGE_CATEGORIES.includes(el?.attributes?.key || "=(^_^)="),
+    !!data?.categories?.data.find(el =>
+      PAGE_CATEGORIES.includes(el?.attributes?.key || '=(^_^)='),
     );
 
   const handleClosePopup = () => setSelectedCompany(undefined);
@@ -54,7 +54,7 @@ const useCompanyCard = (selectedDay?: string) => {
     ) : null;
 
   const renderDiscountPopup = () =>
-    !!selectedDiscount?.discount ? (
+    selectedDiscount?.discount ? (
       <Modal
         onClose={() => setSelectedDiscount(undefined)}
         isOpen={!!selectedDiscount?.discount}
@@ -79,8 +79,8 @@ const useCompanyCard = (selectedDay?: string) => {
     const { dayOfWeek } = getCurrentDayAndTime();
 
     const timeSlot = companyPreview?.schedule
-      ? companyPreview.schedule.find((el) =>
-          el?.days.some((day) => day?.day === (selectedDay || dayOfWeek)),
+      ? companyPreview.schedule.find(el =>
+          el?.days.some(day => day?.day === (selectedDay || dayOfWeek)),
         ) || companyPreview.schedule[0]
       : undefined;
 
@@ -105,7 +105,6 @@ const useCompanyCard = (selectedDay?: string) => {
         time={time}
         averageRating={companyPreview.averageRating}
         totalComments={companyPreview.totalComments}
-        isPage={isPage}
         handleClick={handleCompanyCardClick(companyPreview, isPage)}
         onOpenDiscount={() => {
           setSelectedDiscount(companyPreview);

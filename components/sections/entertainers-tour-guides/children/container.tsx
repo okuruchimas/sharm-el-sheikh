@@ -1,18 +1,17 @@
-import { useTranslation } from "next-i18next";
-import type { ReactNode } from "react";
-import { Title } from "../../../layout/title";
-import Tabs from "./tabs";
-import styled from "@emotion/styled";
+import { useTranslation } from 'next-i18next';
+import type { ReactNode } from 'react';
+import { Title } from '../../../layout/title';
+import styled from '@emotion/styled';
 
 interface Props {
   children: ReactNode;
 }
 const Container = ({ children }: Props) => {
-  const { t } = useTranslation("entertainers-tour-guides");
+  const { t } = useTranslation('entertainers-tour-guides');
 
   return (
     <Wrap>
-      <StyledTitle>{t("pageTitle")}</StyledTitle>
+      <StyledTitle>{t('pageTitle')}</StyledTitle>
       {children}
     </Wrap>
   );
@@ -26,17 +25,17 @@ const StyledTitle = styled(Title)(({ theme }) => ({
   },
 }));
 
-const Wrap = styled("div")(({ theme }) => ({
-  minHeight: "100vh",
-  display: "flex",
-  flexDirection: "column",
-  padding: "235px 100px 80px",
+const Wrap = styled('div')(({ theme }) => ({
+  minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '235px 100px 80px',
   backgroundImage: theme.backgrounds.guides,
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
 
   [theme.breakpoints.mobile]: {
-    padding: "110px 16px 32px",
+    padding: '110px 16px 32px',
     backgroundImage: theme.backgrounds.guidesMob,
   },
 }));

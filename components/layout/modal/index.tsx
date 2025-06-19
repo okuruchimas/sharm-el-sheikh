@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import type View from "../header/children/type";
-import { useRef, type MouseEvent } from "react";
-import { css, Global, keyframes } from "@emotion/react";
+import styled from '@emotion/styled';
+import type View from '../header/children/type';
+import { useRef, type MouseEvent } from 'react';
+import { css, Global, keyframes } from '@emotion/react';
 
 type ModalProps = {
   children: View;
@@ -15,8 +15,8 @@ type ModalProps = {
 const Modal = ({
   isOpen,
   children,
-  width = "60%",
-  mWidth = "90%",
+  width = '60%',
+  mWidth = '90%',
   maxWidth,
   onClose,
 }: ModalProps) => {
@@ -59,49 +59,49 @@ const scale = keyframes`
     100% { scale: 1; opacity: 1 }
 `;
 
-const Backdrop = styled("div")(({ theme }) => ({
-  width: "100vw",
-  height: "100vh",
-  backgroundColor: "rgba(19, 33, 61, 0.4)",
-  position: "fixed",
+const Backdrop = styled('div')(({ theme }) => ({
+  width: '100vw',
+  height: '100vh',
+  backgroundColor: 'rgba(19, 33, 61, 0.4)',
+  position: 'fixed',
   top: 0,
   left: 0,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   zIndex: 1000,
 
   [theme.breakpoints.mobile]: {
-    backgroundColor: "rgba(19, 33, 61, 0.6)",
+    backgroundColor: 'rgba(19, 33, 61, 0.6)',
   },
 }));
 
-const ModalWindow = styled("div", {
-  shouldForwardProp: (prop) => !["width", "mWidth", "maxWidth"].includes(prop),
+const ModalWindow = styled('div', {
+  shouldForwardProp: prop => !['width', 'mWidth', 'maxWidth'].includes(prop),
 })<{ width: string; mWidth: string; maxWidth?: string }>(
   ({ width, mWidth, maxWidth, theme }) => ({
     width: width,
-    backgroundColor: "#ffffff",
-    borderRadius: "16px",
-    padding: "24px",
-    boxShadow: "0px 1px 3px 1px #00000026",
-    position: "relative",
-    overflowY: "scroll",
-    overflowX: "hidden",
-    maxHeight: "95dvh",
-    scrollbarWidth: "none",
+    backgroundColor: '#ffffff',
+    borderRadius: '16px',
+    padding: '24px',
+    boxShadow: '0px 1px 3px 1px #00000026',
+    position: 'relative',
+    overflowY: 'scroll',
+    overflowX: 'hidden',
+    maxHeight: '95dvh',
+    scrollbarWidth: 'none',
     ...(maxWidth ? { maxWidth } : {}),
     animation: `${scale} 0.25s ease`,
 
-    "&::-webkit-scrollbar": {
-      display: "none",
+    '&::-webkit-scrollbar': {
+      display: 'none',
     },
 
     [theme.breakpoints.mobile]: {
-      position: "fixed",
+      position: 'fixed',
       top: 20,
       width: mWidth,
-      padding: "16px",
+      padding: '16px',
     },
   }),
 );

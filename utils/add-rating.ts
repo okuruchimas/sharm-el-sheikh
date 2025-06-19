@@ -1,12 +1,12 @@
-import { getUrl } from "./fetchApi";
+import { getUrl } from './fetchApi';
 
 export type CollectionTypesWithRating =
-  | "companies"
-  | "animation-companies"
-  | "tours"
-  | "taxi-spots"
-  | "photography-locations"
-  | "tour-operator-companies";
+  | 'companies'
+  | 'animation-companies'
+  | 'tours'
+  | 'taxi-spots'
+  | 'photography-locations'
+  | 'tour-operator-companies';
 
 type AddRatingParams = {
   slug: string;
@@ -21,9 +21,9 @@ export async function addRating({
 }: AddRatingParams) {
   try {
     const response = await fetch(getUrl(`${collectionType}/${slug}/ratings`), {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ rating: rating }),
     });
@@ -34,7 +34,7 @@ export async function addRating({
 
     return await response.json();
   } catch (error) {
-    console.error("Failed to add rating:", error);
+    console.error('Failed to add rating:', error);
     throw error;
   }
 }

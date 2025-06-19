@@ -1,25 +1,25 @@
-import "swiper/css";
+import 'swiper/css';
 // hooks
-import useResponsive from "../../../../hooks/useResponsive";
-import { useTranslation } from "next-i18next";
+import useResponsive from '../../../../hooks/useResponsive';
+import { useTranslation } from 'next-i18next';
 // components
-import Image from "next/image";
-import Button from "../../../layout/button";
-import { Title } from "../../../layout/title";
-import TextAndIcon from "../../../layout/text-and-icon";
-import ReactMarkdown from "react-markdown";
-import { Swiper, SwiperSlide } from "swiper/react";
+import Image from 'next/image';
+import Button from '../../../layout/button';
+import { Title } from '../../../layout/title';
+import TextAndIcon from '../../../layout/text-and-icon';
+import ReactMarkdown from 'react-markdown';
+import { Swiper, SwiperSlide } from 'swiper/react';
 // utils
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 // types
-import type { ComponentComponentsEntertainmentService } from "../../../../gql/graphql";
+import type { ComponentComponentsEntertainmentService } from '../../../../gql/graphql';
 
 type Props = {
   data: ComponentComponentsEntertainmentService;
   onClose: () => void;
 };
 const AnimatorServicePopup = ({ data, onClose }: Props) => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation('common');
   const { isMobile } = useResponsive();
 
   const renderItem = (src: string, text: string) => (
@@ -55,11 +55,11 @@ const AnimatorServicePopup = ({ data, onClose }: Props) => {
           {data.images?.data.map((el, index) => (
             <SwiperSlide key={index}>
               <Image
-                src={el.attributes?.url || ""}
-                alt={el.attributes?.alternativeText || ""}
+                src={el.attributes?.url || ''}
+                alt={el.attributes?.alternativeText || ''}
                 layout="fill"
                 objectFit="cover"
-                style={{ borderRadius: "16px" }}
+                style={{ borderRadius: '16px' }}
                 className="photo"
               />
             </SwiperSlide>
@@ -67,18 +67,18 @@ const AnimatorServicePopup = ({ data, onClose }: Props) => {
         </SwiperStyled>
         <Name as="h2">{data.serviceName}</Name>
         <IconsGrid>
-          {renderItem("/icons/time.svg", data.duration || "")}
-          {renderItem("/icons/cash.svg", data.price || "")}
+          {renderItem('/icons/time.svg', data.duration || '')}
+          {renderItem('/icons/cash.svg', data.price || '')}
           {renderItem(
-            "/icons/promotions-section/location.svg",
-            data.place || "",
+            '/icons/promotions-section/location.svg',
+            data.place || '',
           )}
         </IconsGrid>
         <Section>
-          <h2>{t("text.about")}</h2>
+          <h2>{t('text.about')}</h2>
           <ReactMarkdown>{data.about}</ReactMarkdown>
         </Section>
-        <BackButton text={t("buttons.back")} onClick={onClose} />
+        <BackButton text={t('buttons.back')} onClick={onClose} />
       </Stack>
     </Wrapper>
   );
@@ -86,13 +86,13 @@ const AnimatorServicePopup = ({ data, onClose }: Props) => {
 
 export default AnimatorServicePopup;
 
-const Wrapper = styled("div")(({ theme }) => ({
+const Wrapper = styled('div')(({ theme }) => ({
   backgroundColor: theme.colors.white,
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
   gap: 40,
-  position: "relative",
+  position: 'relative',
 
   [theme.breakpoints.mobile]: {
     gap: 24,
@@ -100,35 +100,35 @@ const Wrapper = styled("div")(({ theme }) => ({
 }));
 
 const SwiperStyled = styled(Swiper)({
-  width: "100%",
-  height: "300px",
+  width: '100%',
+  height: '300px',
 });
 
-const Stack = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "40px",
+const Stack = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '40px',
 
   [theme.breakpoints.mobileS]: {
-    gap: "24px",
+    gap: '24px',
   },
 }));
 
-const IconsGrid = styled("div")(({ theme }) => ({
-  display: "grid",
-  gap: "24px",
-  gridTemplateColumns: "1fr 1fr",
+const IconsGrid = styled('div')(({ theme }) => ({
+  display: 'grid',
+  gap: '24px',
+  gridTemplateColumns: '1fr 1fr',
 
   [theme.breakpoints.mobileS]: {
-    gap: "8px",
-    gridTemplateColumns: "1fr",
+    gap: '8px',
+    gridTemplateColumns: '1fr',
   },
 }));
 
-const Section = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "16px",
+const Section = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '16px',
 
   p: {
     fontSize: theme.fontSize.fontS21,
@@ -142,7 +142,7 @@ const Section = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.mobileS]: {
-    gap: "8px",
+    gap: '8px',
 
     p: {
       fontSize: theme.fontSize.fontS16,
@@ -165,14 +165,14 @@ const Name = styled(Title)(({ theme }) => ({
 }));
 
 const BackButton = styled(Button)(({ theme }) => ({
-  alignSelf: "end",
+  alignSelf: 'end',
   zIndex: 2,
 
   [theme.breakpoints.mobile]: {
-    position: "sticky",
+    position: 'sticky',
     bottom: 0,
     right: 0,
     opacity: 0.9,
-    minWidth: "130px",
+    minWidth: '130px',
   },
 }));
