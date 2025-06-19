@@ -132,15 +132,6 @@ const FormWrap = styled(Form)(({ theme }) => ({
   gap: '24px',
   borderRadius: '16px',
 
-  'input, textarea': {
-    resize: 'none',
-    width: '100%',
-  },
-
-  '& .input-wrap': {
-    width: '100%',
-  },
-
   button: {
     alignSelf: 'flex-end',
 

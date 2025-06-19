@@ -62,11 +62,6 @@ const Advertisements = ({
   const { t: tAgents } = useTranslation('agents');
   const { push } = useRouter();
 
-  const adCategories = [
-    { key: 'other', value: t('category') },
-    ...advertisementCategories,
-  ];
-
   const handleClick = () => {
     if (!isForm) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -104,7 +99,7 @@ const Advertisements = ({
           initialAdvertisements={advertisements}
           totalAdvertisements={totalAdvertisements}
           buttonClick={handleClick}
-          advertisementCategories={adCategories}
+          advertisementCategories={advertisementCategories.reverse()}
           onElementClick={handlePopupClick}
         />
       </SectionWrapper>
@@ -150,7 +145,7 @@ const Advertisements = ({
       {isForm ? (
         <CreateAddForm
           cancelClick={handleClick}
-          advertisementCategories={adCategories}
+          advertisementCategories={advertisementCategories.reverse()}
         />
       ) : null}
     </Wrapper>

@@ -44,8 +44,8 @@ const ImageSwiper = ({ images, discount, onOpenDiscount }: SwiperProps) => {
       <StyledImage
         src={images?.data?.[0].attributes?.url ?? ''}
         alt={images?.data?.[0].attributes?.alternativeText ?? ''}
-        loading="lazy"
         layout="fill"
+        priority
       />
     );
   }
@@ -72,8 +72,8 @@ const ImageSwiper = ({ images, discount, onOpenDiscount }: SwiperProps) => {
               <StyledImage
                 src={el.attributes?.url ?? ''}
                 alt={el.attributes?.alternativeText ?? ''}
-                loading="lazy"
                 layout="fill"
+                priority
               />
             </Slide>
           ))

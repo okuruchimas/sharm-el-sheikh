@@ -150,13 +150,13 @@ const FormWrap = styled(Form)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: '20px',
-  padding: '48px 0',
+  padding: '48px 16px',
   minHeight: '454px',
   borderRadius: '16px',
   background: theme.colors.yellow,
 
-  textarea: {
-    resize: 'none',
+  'input,textarea,.input-wrap': {
+    maxWidth: '310px',
   },
 }));
 
