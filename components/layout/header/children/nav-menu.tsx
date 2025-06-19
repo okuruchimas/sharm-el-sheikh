@@ -77,16 +77,16 @@ const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
           {isSubMenu
             ? tabsArr.map(item => (
                 <SubListItem
-                  key={item.text}
-                  isActive={isActive(item?.link?.split('/')?.[1] || '/')}
-                  onClick={handleSubClick(item?.link || '')}
+                  key={item.value}
+                  isActive={isActive(item?.type?.split('/')?.[1] || '/')}
+                  onClick={handleSubClick(item?.type || '')}
                 >
                   <ImgMenu
-                    src={`/icons/header/menu/${item?.link}.svg`}
+                    src={`/icons/header/menu/${item?.type}.svg`}
                     alt=""
                   />
 
-                  <Text>{item?.text}</Text>
+                  <Text>{item?.value}</Text>
                 </SubListItem>
               ))
             : null}

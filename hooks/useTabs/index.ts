@@ -4,10 +4,10 @@ const useTabs = () => {
   const { t } = useTranslation('entertainers-tour-guides');
 
   const tabsArr = [
-    { link: 'animators', text: t('tabs.animators') },
-    { link: 'taxi-drivers', text: t('tabs.taxiDrivers') },
-    { link: 'photographers', text: t('tabs.photographers') },
-    { link: 'tour-and-guides', text: t('tabs.tourOperators') },
+    { type: 'animators', value: t('tabs.animators') },
+    { type: 'taxi-drivers', value: t('tabs.taxiDrivers') },
+    { type: 'photographers', value: t('tabs.photographers') },
+    { type: 'tour-and-guides', value: t('tabs.tourOperators') },
   ];
   return { tabsArr };
 };

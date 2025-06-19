@@ -3,11 +3,14 @@ import Link from 'next/link';
 import styled from '@emotion/styled';
 import useResponsive from '../../../../hooks/useResponsive';
 import useTabs from '../../../../hooks/useTabs';
+import { ReactNode } from 'react';
 
-export const getVisibleTabs = (
-  activeIndex: number,
-  tabs: { text: string; link: string }[],
-) => {
+export interface Tab {
+  type: string;
+  value: string;
+  icon?: ReactNode;
+}
+export const getVisibleTabs = (activeIndex: number, tabs: Tab[]) => {
   const left = activeIndex === 0 ? tabs.length - 1 : activeIndex - 1;
   const right = activeIndex === tabs.length - 1 ? 0 : activeIndex + 1;
   return [tabs[left], tabs[activeIndex], tabs[right]];
@@ -20,7 +23,7 @@ const Tabs = () => {
 
   const activePage = pathname.split('/').pop();
 
-  const activeIndex = tabsArr.findIndex(({ link }) => link === activePage);
+  const activeIndex = tabsArr.findIndex(({ type }) => type === activePage);
 
   const visibleTabs =
     activeIndex !== -1 ? getVisibleTabs(activeIndex, tabsArr) : [];
@@ -29,9 +32,9 @@ const Tabs = () => {
 
   return (
     <Wrap>
-      {tabsToMap.map(({ link, text }) => (
-        <Link key={link} href={link}>
-          <Text isActive={pathname?.includes(link)}>{text}</Text>
+      {tabsToMap.map(({ type, value }) => (
+        <Link key={type} href={type}>
+          <Text isActive={pathname?.includes(type)}>{value}</Text>
         </Link>
       ))}
     </Wrap>

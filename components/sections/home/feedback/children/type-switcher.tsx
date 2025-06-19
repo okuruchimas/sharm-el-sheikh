@@ -3,8 +3,10 @@ import { useTranslation } from 'next-i18next';
 // utils
 import styled from '@emotion/styled';
 // types
-import type { ReactNode } from 'react';
-import { getVisibleTabs } from '../../../entertainers-tour-guides/children/tabs';
+import {
+  getVisibleTabs,
+  Tab,
+} from '../../../entertainers-tour-guides/children/tabs';
 import useResponsive from '../../../../../hooks/useResponsive';
 
 const types = [
@@ -16,7 +18,7 @@ const types = [
 interface Props {
   currentType: string;
   setType: (type: string) => void;
-  typesProp?: { type: string; value: string; icon?: ReactNode }[];
+  typesProp?: Tab[];
 }
 const TypeSwitcher = ({ currentType, setType, typesProp = types }: Props) => {
   const { t } = useTranslation('home-page');
