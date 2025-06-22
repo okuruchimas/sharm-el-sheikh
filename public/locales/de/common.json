@@ -68,7 +68,9 @@
     "selectDay": "Tag auswählen",
     "similarSuggestions": "Ähnliche Vorschläge",
     "tourComponents": "Tourkomponenten",
-    "workingDays": "Arbeitstage"
+    "workingDays": "Arbeitstage",
+    "newAds": "Neue Anzeigen"
+
   },
   "toasts": {
     "feedbackError": "Fehler beim Hinzufügen des Kommentars",

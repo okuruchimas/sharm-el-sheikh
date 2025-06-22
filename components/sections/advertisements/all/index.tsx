@@ -199,7 +199,12 @@ const SearchWrapper = styled('div')(({ theme }) => ({
   position: 'relative',
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
+  gap: 40,
+
+  button: {
+    marginLeft: 'auto',
+  },
+
   [theme.breakpoints.mobile]: {
     flexDirection: 'column',
     gap: 16,
