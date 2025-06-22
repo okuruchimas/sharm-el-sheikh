@@ -78,8 +78,10 @@ const TitleWrap = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+  width: '100%',
 
   [theme.breakpoints.mobile]: {
+    width: 'auto',
     flexDirection: isColumn ? 'column' : 'unset',
     alignItems: isColumn ? 'normal' : 'unset',
     gap: isColumn ? '16px' : 'unset',

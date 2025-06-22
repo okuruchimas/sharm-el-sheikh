@@ -68,7 +68,9 @@
     "selectDay": "اختر اليوم",
     "similarSuggestions": "اقتراحات مشابهة",
     "tourComponents": "مكونات الجولة",
-    "workingDays": "أيام العمل"
+    "workingDays": "أيام العمل",
+    "newAds": "إعلانات جديدة"
+
   },
   "toasts": {
     "feedbackError": "حدث خطأ أثناء إضافة التعليق",

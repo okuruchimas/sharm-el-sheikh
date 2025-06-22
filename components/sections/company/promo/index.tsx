@@ -1,5 +1,4 @@
 // components
-import Swiper from '../../promotions/children/swiper';
 import Rating from '../../../layout/rating';
 import LocationLink from '../../../layout/location-link';
 // utils
@@ -7,6 +6,7 @@ import styled from '@emotion/styled';
 // types
 import { Title } from '../../../layout/title';
 import type { CompanyFragment } from '../../../../gql/graphql';
+import Image from 'next/image';
 
 type PromoI = Pick<
   CompanyFragment,
@@ -23,23 +23,22 @@ type PromoI = Pick<
 
 const Promo = ({
   images,
-  discount,
   title,
   location,
   position,
   totalComments,
   averageRating,
-  onOpenDiscount,
 }: PromoI) => (
   <SectionWrapper>
     <ContentWrapper>
-      <SwiperWrapper>
-        <Swiper
-          images={images}
-          discount={discount?.title}
-          onOpenDiscount={onOpenDiscount}
+      <ImageWrapper>
+        <StyledImage
+          src={images?.data?.[0].attributes?.url ?? ''}
+          alt={images?.data?.[0].attributes?.alternativeText ?? ''}
+          layout="fill"
+          priority
         />
-      </SwiperWrapper>
+      </ImageWrapper>
       <TopWrapper>
         <TitleStyled>{title}</TitleStyled>
         <RatingWrapper>
@@ -83,7 +82,7 @@ const SectionWrapper = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     height: '340px',
-    margin: '30px 0 10px',
+    margin: '12px 0 0',
   },
 }));
 
@@ -139,20 +138,27 @@ const Location = styled('div')(({ theme }) => ({
   },
 }));
 
-const SwiperWrapper = styled('div')(({ theme }) => ({
+const ImageWrapper = styled('div')(({ theme }) => ({
+  position: 'relative',
+  height: '572px',
   width: '100%',
-  height: '100%',
   minHeight: '198px',
 
-  '> div': {
+  img: {
     borderRadius: '30px',
   },
 
   [theme.breakpoints.mobile]: {
-    '> div': {
+    img: {
       borderRadius: '12px',
     },
   },
 }));
+
+const StyledImage = styled(Image)({
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+});
 
 export default Promo;

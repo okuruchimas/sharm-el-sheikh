@@ -107,7 +107,7 @@ const Banners = () => {
           <BannerTitle>{t('banners.3.title')}</BannerTitle>
           <BannerStyledButton
             text={t('banners.3.button')}
-            onClick={() => push('/')}
+            onClick={() => push('/entertainers-tour-guides/tour-and-guide')}
           />
         </Content>
       </BannerWrap>
@@ -128,7 +128,7 @@ const Banners = () => {
           <BannerTitle>{t('banners.4.title')}</BannerTitle>
           <StyledButton
             text={t('banners.4.button')}
-            onClick={() => push('/')}
+            onClick={() => push('/pharmacies-medicines')}
           />
         </ContentThird>
       </BannerWrap>
