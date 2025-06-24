@@ -25,7 +25,13 @@ const OfferCard = ({
     <Card onClick={onClick}>
       <TopContent>
         <ImageWrap>
-          <Image src={imageUrl} alt={title} layout="fill" objectFit="cover" />
+          <Image
+            src={imageUrl}
+            alt={title}
+            layout="fill"
+            objectFit="cover"
+            priority
+          />
           <VipStar>
             <Image
               src="/icons/starG.svg"
@@ -137,10 +143,10 @@ const Description = styled.p(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     display: '-webkit-box',
-    '-webkit-box-orient': 'vertical',
+    WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    '-webkit-line-clamp': '9',
+    WebkitLineClamp: '9',
   },
 }));
 

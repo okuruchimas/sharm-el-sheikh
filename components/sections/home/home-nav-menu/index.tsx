@@ -31,7 +31,7 @@ const MenuWrapper = styled('div')(({ theme }) => ({
       maxWidth: 'calc((100% - 32px) / 3)',
     },
 
-    '.menu-nav-card:nth-child(4), .menu-nav-card:nth-child(5)': {
+    '.menu-nav-card:nth-of-type(4), .menu-nav-card:nth-of-type(5)': {
       flex: '1 1 calc((100% - 16px) / 2)',
       maxWidth: 'calc((100% - 16px) / 2)',
     },

@@ -26,7 +26,7 @@ const UniversalCard = ({
   return (
     <Wrap onClick={onClick}>
       <ImgWrapper>
-        <Image src={imgSrc} alt="placeholder" layout="fill" />
+        <Image src={imgSrc} alt="placeholder" layout="fill" priority />
       </ImgWrapper>
       <DownWrap>
         <CardTitle>{title}</CardTitle>

@@ -262,23 +262,29 @@ export async function getStaticProps({
   const { slug } = params;
 
   const { headerData, footerData } = await getLayoutData(locale!);
-  const { companies } = await fetchData(GetCompanyDocument, {
+  const companyPromise = fetchData(GetCompanyDocument, {
     slug,
     locale,
   });
-  const category =
-    companies?.data[0]?.attributes?.categories?.data[0]?.attributes?.key || '';
 
-  const { companies: suggestions } = await fetchData(
-    GetCompaniesByFilterDocument,
-    {
+  const suggestionsPromise = companyPromise.then(({ companies }) => {
+    const category =
+      companies?.data?.[0]?.attributes?.categories?.data?.[0]?.attributes
+        ?.key || '';
+
+    return fetchData(GetCompaniesByFilterDocument, {
       locale,
       category: [category],
       page: 1,
       pageSize: 3,
       slugToExclude: slug,
-    },
-  );
+    });
+  });
+
+  const [{ companies }, { companies: suggestions }] = await Promise.all([
+    companyPromise,
+    suggestionsPromise,
+  ]);
 
   return {
     props: {

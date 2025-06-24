@@ -37,6 +37,7 @@ import {
   BACKGROUND_GRADIENT,
   BACKGROUND_GRADIENT_MOBILE,
 } from '../../constants/images.constants';
+import { useRouter } from 'next/router';
 
 type Props = {
   deliveries: DeliveryFragment[];
@@ -55,6 +56,7 @@ const Agents = ({
   const [selectedOperatorCompany, setSelectedOperatorCompany] =
     useState<TourOperatorCompanyFragment>();
   const { slidesPerView } = useResponsive();
+  const { push } = useRouter();
 
   const locations = tourOperatorCompanies.map(el =>
     mapLocation(el, '/icons/tour-operator-company-map-marker.svg'),
@@ -80,7 +82,7 @@ const Agents = ({
       <SectionWrapper
         title={tPage('sectionTitles.operatorsForYou')}
         buttonText={t('buttons.seeAll')}
-        onClick={() => {}}
+        onClick={() => push('/entertainers-tour-guides/tour-and-guides')}
         mt="60px"
       >
         <SwiperCardsWrapper

@@ -70,6 +70,7 @@ const InputWrap = styled('div')({
   flexDirection: 'column',
   position: 'relative',
   margin: '0 auto',
+  width: '100%',
 });
 
 const Label = styled('label')(({ theme }) => ({
@@ -97,6 +98,7 @@ const InputContainer = styled('div', {
     display: 'flex',
     alignItems: 'center',
     'input, textarea': {
+      width: '100%',
       minWidth: '310px',
       minHeight: isMessage ? '130px' : '58px',
       backgroundColor: theme.colors.white,
@@ -104,6 +106,7 @@ const InputContainer = styled('div', {
       padding: isMessage ? '16px 16px' : '0 16px',
       outline: 'none',
       fontSize: theme.fontSize.fontS16,
+      resize: 'none',
 
       [theme.breakpoints.mobile]: {
         minWidth: 'auto',

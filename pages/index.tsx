@@ -1,5 +1,6 @@
 import { REVALIDATE_TIME } from '../constants/page.constants';
 import { useMemo } from 'react';
+import { useTranslation } from 'next-i18next';
 // components
 import Head from 'next/head';
 import Main from '../components/sections/home/main';
@@ -24,6 +25,8 @@ import {
   type CategoryEntity,
   type HomePageFragment,
   type CompanyPreviewFragment,
+  GetAdvertisementsDocument,
+  AdvertisementFragment,
 } from '../gql/graphql';
 import { getLayoutData } from '../utils/get-layout-data';
 import { GetStaticPropsContext } from 'next';
@@ -31,6 +34,8 @@ import {
   BACKGROUND_GRADIENT,
   BACKGROUND_GRADIENT_MOBILE,
 } from '../constants/images.constants';
+import SectionWrapper from '../components/layout/section-wrapper';
+import { useRouter } from 'next/router';
 
 const DynamicBanner = dynamic(
   () => import('../components/sections/home/banner'),
@@ -38,8 +43,9 @@ const DynamicBanner = dynamic(
     loading: () => <Loader />,
   },
 );
-const DynamicAnnouncements = dynamic(
-  () => import('../components/sections/home/announcements'),
+
+const DynamicAdvertisements = dynamic(
+  () => import('../components/sections/advertisements/new/index'),
   {
     loading: () => <Loader />,
   },
@@ -58,6 +64,7 @@ type Props = {
   categories: CategoryEntity[];
   homePageData: HomePageFragment;
   initialPromotions: { attributes: CompanyPreviewFragment }[];
+  advertisements: AdvertisementFragment[];
   totalInitialPromotions: number;
   allCompanies: { attributes: CompanyPreviewFragment }[];
 };
@@ -67,9 +74,13 @@ const Home = ({
   categories,
   allCompanies,
   homePageData,
+  advertisements,
   initialPromotions,
   totalInitialPromotions,
 }: Props) => {
+  const { t } = useTranslation('common');
+  const { push } = useRouter();
+
   const areasMapped = useMemo(
     () =>
       areas.map(el => ({
@@ -108,11 +119,17 @@ const Home = ({
             isBottomContent
           />
         </LazyWrapper>
-        <LazyWrapper minHeight={600}>
-          <DynamicAnnouncements
-            title={homePageData.announcementsTitle}
-            announcementsCards={homePageData.announcements}
-          />
+        <LazyWrapper minHeight={476}>
+          <SectionWrapper
+            title={t('text.newAds')}
+            buttonText={t('buttons.viewMore')}
+            onClick={() => push('/advertisements')}
+          >
+            <DynamicAdvertisements
+              onElementClick={() => {}}
+              advertisements={advertisements}
+            />
+          </SectionWrapper>
         </LazyWrapper>
         <LazyWrapper>
           <DynamicBanner
@@ -156,6 +173,7 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
     { areas },
     { categories },
     promotionsResult,
+    { advertisements },
     { headerData, footerData },
     allCompaniesResult,
   ] = await Promise.all([
@@ -163,6 +181,10 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
     areasPromise,
     fetchData(GetCategoriesDocument, { locale }),
     companiesPromise,
+    fetchData(GetAdvertisementsDocument, {
+      page: 1,
+      pageSize: 10,
+    }),
     layoutDataPromise,
     fetchData(GetCompaniesByFilterDocument, {
       locale,
@@ -184,6 +206,7 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
       totalInitialPromotions:
         promotionsResult.companies?.meta.pagination.total || 0,
       allCompanies: allCompaniesResult.companies?.data,
+      advertisements: advertisements?.data?.map(el => el.attributes),
       headerData,
       footerData,
     },
