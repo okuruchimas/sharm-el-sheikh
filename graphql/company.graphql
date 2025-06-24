@@ -18,6 +18,7 @@ query GetCompaniesByFilter(
   $slugToExclude: String
   $day: String
   $discountFilter: ComponentComponentsDiscountFiltersInput
+  $positionFilter: ComponentHelpersPositionFiltersInput
 ) {
   companies(
     locale: $locale
@@ -27,6 +28,7 @@ query GetCompaniesByFilter(
       slug: { ne: $slugToExclude }
       schedule: { days: { day: { eq: $day } } }
       discount: $discountFilter
+      position: $positionFilter
     }
     pagination: { page: $page, pageSize: $pageSize }
   ) {

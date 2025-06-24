@@ -72,10 +72,6 @@ const Agents = ({
       <SectionWrapper title={tPage('sectionTitles.mapTourCompanies')}>
         <Map
           zoom={3}
-          centerProp={{
-            lat: 41,
-            lng: 20.4,
-          }}
           onInfoWindowClick={handleInfoWindowClick}
           locations={locations}
         />

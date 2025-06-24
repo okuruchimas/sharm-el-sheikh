@@ -1,21 +1,25 @@
 import {
+  type CompanyPreviewFragment,
   type PharmaciesPageFragment,
   type MedicationPreviewFragment,
   GetPharmaciesPageDocument,
+  GetCompaniesByFilterDocument,
   GetMedicationsByFilterDocument,
   GetMedicationCategoriesDocument,
 } from '../../gql/graphql';
 import { REVALIDATE_TIME } from '../../constants/page.constants';
-import { useMemo } from 'react';
+import useCompanyCard from '../../hooks/useCompanyCard';
 import { useTranslation } from 'next-i18next';
+import { useMemo, useState } from 'react';
 // components
-import Map from '../../components/sections/home/map';
+import Map from '../../components/layout/map';
 import SectionsWrapper from '../../components/layout/sections-wrapper';
 import MedicationsContainer from '../../components/sections/pharmacies-medicines/medications-container';
 import EmergencyServicesContainer from '../../components/sections/pharmacies-medicines/emergency-services-container';
 // utils
 import styled from '@emotion/styled';
 import { fetchData } from '../../utils/fetchApi';
+import { getLocationWithMarker } from '../../utils/location-mapper';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 // types
 import type { selectOption } from '../../components/types/filter';
@@ -26,12 +30,14 @@ import {
   BACKGROUND_GRADIENT,
   BACKGROUND_GRADIENT_MOBILE,
 } from '../../constants/images.constants';
+import type { MapCard } from '../../components/layout/map/children/types';
 
 type PharmaciesPageProps = {
   pageData: PharmaciesPageFragment;
   totalMedications: number;
   initialMedications: { attributes: MedicationPreviewFragment }[];
   medicationCategories: { attributes: selectOption }[];
+  medicalFacilities: { attributes: CompanyPreviewFragment }[];
 };
 
 const PharmaciesPage = ({
@@ -48,25 +54,57 @@ const PharmaciesPage = ({
   totalMedications,
   initialMedications,
   medicationCategories,
+  medicalFacilities,
 }: PharmaciesPageProps) => {
   const { t } = useTranslation('common');
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  const { renderPopup, handleInfoWindowClick } = useCompanyCard();
 
   const categoriesMapped = useMemo(
     () => categories?.data.map(mapCategory),
     [categories],
   );
 
-  const allCategories =
-    categories?.data.map(el => el.attributes?.key || '').join('***') || '';
+  const locationsToShow = useMemo(() => {
+    const filteredCompanies = !selectedCategory.length
+      ? medicalFacilities
+      : medicalFacilities?.filter(company =>
+          company?.attributes?.categories?.data.some(
+            cat => cat?.attributes?.key === selectedCategory,
+          ),
+        );
+
+    return filteredCompanies?.map(getLocationWithMarker);
+  }, [selectedCategory, medicalFacilities]);
+
+  const onInfoWindowClick = (card: MapCard) => {
+    const company = medicalFacilities?.find(
+      el => el.attributes.slug === card.slug,
+    );
+
+    if (company) {
+      handleInfoWindowClick(company.attributes);
+    }
+  };
+
+  const handleCategorySelect = (category: selectOption) => {
+    if (category.key === selectedCategory) return;
+    setSelectedCategory(category.key);
+  };
 
   return (
     <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
       <Map
         title={mapTitle}
+        onInfoWindowClick={onInfoWindowClick}
         categories={[
-          { key: allCategories, value: t('labels.all') },
+          { key: '', value: t('labels.all') },
           ...(categoriesMapped || []),
         ]}
+        onCategorySelect={handleCategorySelect}
+        locations={locationsToShow}
+        selectedCategoryID={selectedCategory}
       />
 
       <MedicationsContainer
@@ -82,6 +120,7 @@ const PharmaciesPage = ({
         embassiesDescription={embassiesDescription}
         assistanceDescription={assistanceDescription}
       />
+      {renderPopup()}
     </Wrapper>
   );
 };
@@ -99,28 +138,32 @@ const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
 }));
 
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
-  const { pharmaciesPage } = await fetchData(GetPharmaciesPageDocument, {
-    locale,
-  });
+  const layoutDataPromise = getLayoutData(locale!);
 
-  const { headerData, footerData } = await getLayoutData(locale!);
-  const { medicationCategories } = await fetchData(
-    GetMedicationCategoriesDocument,
-    {
+  const [
+    { pharmaciesPage },
+    { medicationCategories },
+    { medications },
+    { headerData, footerData },
+  ] = await Promise.all([
+    fetchData(GetPharmaciesPageDocument, { locale }),
+    fetchData(GetMedicationCategoriesDocument, { locale }),
+    fetchData(GetMedicationsByFilterDocument, {
       locale,
-    },
+      page: 1,
+      pageSize: 3,
+    }),
+    layoutDataPromise,
+  ]);
+
+  const allCategories = pharmaciesPage?.data?.attributes?.categories?.data.map(
+    el => el.attributes?.key || '',
   );
 
-  const commonParams = {
+  const { companies } = await fetchData(GetCompaniesByFilterDocument, {
     locale,
-    page: 1,
-    pageSize: 3,
-  };
-
-  const { medications } = await fetchData(
-    GetMedicationsByFilterDocument,
-    commonParams,
-  );
+    category: allCategories,
+  });
 
   return {
     props: {
@@ -129,6 +172,7 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
       initialMedications: medications?.data,
       totalMedications: medications?.meta.pagination.total || 0,
       medicationCategories: medicationCategories?.data,
+      medicalFacilities: companies?.data,
       headerData,
       footerData,
     },

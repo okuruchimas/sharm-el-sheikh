@@ -1,6 +1,5 @@
 import { REVALIDATE_TIME } from '../constants/page.constants';
 import { useMemo } from 'react';
-import { useTranslation } from 'next-i18next';
 // components
 import Head from 'next/head';
 import Main from '../components/sections/home/main';
@@ -26,7 +25,6 @@ import {
   type HomePageFragment,
   type CompanyPreviewFragment,
 } from '../gql/graphql';
-import { mapCategory } from '../utils/mappers';
 import { getLayoutData } from '../utils/get-layout-data';
 import { GetStaticPropsContext } from 'next';
 import {
@@ -46,10 +44,14 @@ const DynamicAnnouncements = dynamic(
     loading: () => <Loader />,
   },
 );
-const DynamicMap = dynamic(() => import('../components/sections/home/map'), {
-  ssr: true,
-  loading: () => <Loader />,
-});
+
+const DynamicNecessaryLocations = dynamic(
+  () => import('../components/layout/necessary-locations'),
+  {
+    ssr: true,
+    loading: () => <Loader />,
+  },
+);
 
 type Props = {
   areas: AreaEntity[];
@@ -57,25 +59,17 @@ type Props = {
   homePageData: HomePageFragment;
   initialPromotions: { attributes: CompanyPreviewFragment }[];
   totalInitialPromotions: number;
+  allCompanies: { attributes: CompanyPreviewFragment }[];
 };
 
 const Home = ({
   areas,
   categories,
+  allCompanies,
   homePageData,
   initialPromotions,
   totalInitialPromotions,
 }: Props) => {
-  const { t } = useTranslation('common');
-
-  const categoriesMapped = useMemo(
-    () => categories.map(mapCategory),
-    [categories],
-  );
-
-  const allCategories =
-    categories?.map(el => el.attributes?.key || '').join('***') || '';
-
   const areasMapped = useMemo(
     () =>
       areas.map(el => ({
@@ -129,12 +123,10 @@ const Home = ({
           />
         </LazyWrapper>
         <LazyWrapper>
-          <DynamicMap
+          <DynamicNecessaryLocations
             title={homePageData.mapTitle}
-            categories={[
-              { key: allCategories, value: t('labels.all') },
-              ...(categoriesMapped || []),
-            ]}
+            categories={categories}
+            companies={allCompanies}
           />
         </LazyWrapper>
         <HomeNavMenu menu={homePageData.homeNavMenu} />
@@ -146,6 +138,7 @@ const Home = ({
 
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
   const areasPromise = fetchData(GetAreasDocument, { locale });
+
   const companiesPromise = areasPromise.then(({ areas }) =>
     fetchData(GetCompaniesByFilterDocument, {
       locale,
@@ -155,20 +148,26 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
       discountFilter: { title: { ne: null } },
     }),
   );
+
   const layoutDataPromise = getLayoutData(locale!);
 
   const [
     { home },
     { areas },
     { categories },
-    { companies },
+    promotionsResult,
     { headerData, footerData },
+    allCompaniesResult,
   ] = await Promise.all([
     fetchData(GetHomePageDocument, { locale }),
     areasPromise,
     fetchData(GetCategoriesDocument, { locale }),
     companiesPromise,
     layoutDataPromise,
+    fetchData(GetCompaniesByFilterDocument, {
+      locale,
+      positionFilter: { not: null },
+    }),
   ]);
 
   return {
@@ -181,8 +180,10 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
       areas: areas?.data,
       categories: categories?.data,
       homePageData: home?.data?.attributes,
-      initialPromotions: companies?.data,
-      totalInitialPromotions: companies?.meta.pagination.total || 0,
+      initialPromotions: promotionsResult.companies?.data,
+      totalInitialPromotions:
+        promotionsResult.companies?.meta.pagination.total || 0,
+      allCompanies: allCompaniesResult.companies?.data,
       headerData,
       footerData,
     },

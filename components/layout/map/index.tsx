@@ -27,10 +27,6 @@ type MapProps = {
   selectedCategoryID?: string;
   onInfoWindowClick: (card: MapCard) => void;
   zoom?: number;
-  centerProp?: {
-    lat: number;
-    lng: number;
-  };
 };
 
 const Map = ({
@@ -41,7 +37,6 @@ const Map = ({
   onInfoWindowClick,
   onCategorySelect,
   zoom = DEFAULT_ZOOM,
-  centerProp = DEFAULT_CENTER,
 }: MapProps) => {
   const [selectedMarker, setSelectedMarker] = useState<MapCard>();
   const { isLoaded, loadError } = useLoadScript({
@@ -52,21 +47,21 @@ const Map = ({
   const center = useMemo(() => {
     if (selectedMarker)
       return {
-        lat: Number(selectedMarker.position?.lat || centerProp.lat),
-        lng: Number(selectedMarker.position?.lng || centerProp.lng),
+        lat: Number(selectedMarker.position?.lat || DEFAULT_CENTER.lat),
+        lng: Number(selectedMarker.position?.lng || DEFAULT_CENTER.lng),
       };
 
     if (locations?.length) return calculateCenter(locations);
 
-    return centerProp;
-  }, [locations, selectedMarker, centerProp]);
-
-  if (loadError || typeof google === 'undefined') {
-    return <h1>Error</h1>;
-  }
+    return DEFAULT_CENTER;
+  }, [locations, selectedMarker]);
 
   if (!isLoaded) {
     return <Loader />;
+  }
+
+  if (loadError || typeof google === 'undefined') {
+    return <h2>Error</h2>;
   }
 
   const options = {

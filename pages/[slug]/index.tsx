@@ -267,7 +267,7 @@ export async function getStaticProps({
     locale,
   });
   const category =
-    companies?.data[0].attributes?.categories?.data[0]?.attributes?.key || '';
+    companies?.data[0]?.attributes?.categories?.data[0]?.attributes?.key || '';
 
   const { companies: suggestions } = await fetchData(
     GetCompaniesByFilterDocument,

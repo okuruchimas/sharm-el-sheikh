@@ -1,4 +1,5 @@
 import type { MapCard } from '../components/layout/map/children/types';
+import type { CompanyPreviewFragment } from '../gql/graphql';
 import { BACKGROUND_GRADIENT } from '../constants/images.constants';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -10,7 +11,11 @@ export const mapLocations = (data: any, markerIcon?: string): MapCard[] =>
 
 export const mapLocation = (data: any, markerIconUrl?: string) => ({
   slug: data.attributes.slug,
-  title: data.attributes.name || data.attributes.value || '-',
+  title:
+    data.attributes.name ||
+    data.attributes.value ||
+    data.attributes.title ||
+    '-',
   subTitle: data.attributes.location || '-',
   imageSrc:
     data.attributes.images?.data[0]?.attributes?.url ||
@@ -30,4 +35,13 @@ export const mapLocation = (data: any, markerIconUrl?: string) => ({
   },
   markerIconUrl,
 });
+
+export const getLocationWithMarker = (el: {
+  attributes: CompanyPreviewFragment;
+}) =>
+  mapLocation(
+    el,
+    el?.attributes?.categories?.data[0]?.attributes?.markerIcon?.data
+      ?.attributes?.url,
+  );
 /* eslint-enable @typescript-eslint/no-explicit-any */
