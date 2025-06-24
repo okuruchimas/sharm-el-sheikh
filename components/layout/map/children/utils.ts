@@ -15,8 +15,11 @@ export const calculateCenter = (
     { lat: 0, lng: 0 },
   );
 
+  const avgLat = total.lat / numLocations;
+  const avgLng = total.lng / numLocations;
+
   return {
-    lat: total.lat / numLocations,
-    lng: total.lng / numLocations,
+    lat: Math.round(avgLat * 10) / 10,
+    lng: Math.round(avgLng * 10) / 10,
   };
 };

@@ -29,7 +29,7 @@ const useCompanyCard = (selectedDay?: string) => {
   const handleOpenDiscount = (data: CompanyPreviewFragment) => () =>
     setSelectedDiscount(data);
 
-  const handleInfoWindowClick = (data: CompanyPreviewFragment) => () =>
+  const handleInfoWindowClick = (data: CompanyPreviewFragment) =>
     checkIfPage(data) ? router.push(data.slug) : setSelectedCompany(data);
 
   const handleCompanyCardClick =

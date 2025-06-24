@@ -8,15 +8,12 @@ import {
   GetHotspotsPageDocument,
   GetCompaniesByFilterDocument,
 } from '../../gql/graphql';
-// hooks
-import { useMemo } from 'react';
-import { useTranslation } from 'next-i18next';
 // components
-import Map from '../../components/sections/home/map';
 import ClubsContainer from '../../components/sections/hotspots/clubs-container';
 import EventsContainer from '../../components/sections/hotspots/events-container';
 import SectionsWrapper from '../../components/layout/sections-wrapper';
 import HotspotsBanner from '../../components/sections/hotspots/hotspots-banner';
+import NecessaryLocations from '../../components/layout/necessary-locations';
 // constants
 import { CLUBS } from '../../constants/page-company-categories';
 import { REVALIDATE_TIME } from '../../constants/page.constants';
@@ -25,7 +22,6 @@ import styled from '@emotion/styled';
 import { fetchData } from '../../utils/fetchApi';
 import { getCurrentDayAndTime } from '../../utils/formateDate';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { mapCategory } from '../../utils/mappers';
 import { getLayoutData } from '../../utils/get-layout-data';
 import { GetStaticPropsContext } from 'next';
 import {
@@ -40,6 +36,7 @@ type HotspotsPageProps = {
   initialEvents: EventCardEntity[];
   totalClubs: number;
   initialClubs: { attributes: CompanyPreviewFragment }[];
+  allCompanies: { attributes: CompanyPreviewFragment }[];
 };
 
 const HotspotsPage = ({
@@ -49,49 +46,36 @@ const HotspotsPage = ({
   totalClubs,
   initialClubs,
   categories,
-}: HotspotsPageProps) => {
-  const { t } = useTranslation('common');
-
-  const categoriesMapped = useMemo(
-    () => categories.map(mapCategory),
-    [categories],
-  );
-
-  const allCategories =
-    categories?.map(el => el.attributes?.key || '').join('***') || '';
-
-  return (
-    <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
-      <EventsContainer
-        title={eventsTitle}
-        initialEvents={initialEvents}
-        totalItems={totalEvents}
+  allCompanies,
+}: HotspotsPageProps) => (
+  <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
+    <EventsContainer
+      title={eventsTitle}
+      initialEvents={initialEvents}
+      totalItems={totalEvents}
+    />
+    <ClubsContainer
+      title={clubsTitle}
+      clubsInfo={clubsInfo}
+      totalItems={totalClubs}
+      initialClubs={initialClubs.map(el => el.attributes)}
+    />
+    <NecessaryLocations
+      title={mapTitle || ''}
+      categories={categories}
+      companies={allCompanies}
+    />
+    {bottomBanner ? (
+      <HotspotsBanner
+        title={bottomBanner.title || ''}
+        buttonText={bottomBanner.buttonText || ''}
+        buttonLink={bottomBanner.buttonLink || ''}
+        imgLink={bottomBanner.bannerImage?.data?.attributes?.url || ''}
+        subtitle={bottomBanner.subtitle || ''}
       />
-      <ClubsContainer
-        title={clubsTitle}
-        clubsInfo={clubsInfo}
-        totalItems={totalClubs}
-        initialClubs={initialClubs.map(el => el.attributes)}
-      />
-      <Map
-        title={mapTitle || ''}
-        categories={[
-          { key: allCategories, value: t('labels.all') },
-          ...(categoriesMapped || []),
-        ]}
-      />
-      {bottomBanner ? (
-        <HotspotsBanner
-          title={bottomBanner.title || ''}
-          buttonText={bottomBanner.buttonText || ''}
-          buttonLink={bottomBanner.buttonLink || ''}
-          imgLink={bottomBanner.bannerImage?.data?.attributes?.url || ''}
-          subtitle={bottomBanner.subtitle || ''}
-        />
-      ) : null}
-    </Wrapper>
-  );
-};
+    ) : null}
+  </Wrapper>
+);
 
 export default HotspotsPage;
 
@@ -120,6 +104,7 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
     { companies },
     { categories },
     { headerData, footerData },
+    allCompaniesResult,
   ] = await Promise.all([
     fetchData(GetHotspotsPageDocument, { locale }),
     fetchData(GetEventCardsDocument, commonParams),
@@ -130,6 +115,10 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
     }),
     fetchData(GetCategoriesDocument, { locale }),
     layoutDataPromise,
+    fetchData(GetCompaniesByFilterDocument, {
+      locale,
+      positionFilter: { not: null },
+    }),
   ]);
 
   return {
@@ -141,6 +130,7 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
       totalEvents: eventCards?.meta.pagination.total || 0,
       initialClubs: companies?.data,
       totalClubs: companies?.meta.pagination.total || 0,
+      allCompanies: allCompaniesResult.companies?.data,
       headerData,
       footerData,
     },
