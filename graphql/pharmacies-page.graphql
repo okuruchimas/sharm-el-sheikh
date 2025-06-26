@@ -12,9 +12,6 @@ fragment PharmaciesPage on PharmaciesPage {
   mapTitle
   medicationsTitle
   supportServicesTitle
-  embassiesDescription
-  assistanceDescription
-  emergencyDescription
   categories {
     data {
       attributes {

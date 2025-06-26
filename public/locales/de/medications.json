@@ -1,9 +1,4 @@
 {
-  "categories": {
-    "assistance_services": "Hilfsdienste",
-    "embassies": "Botschaften der Länder",
-    "emergency_services": "Notdienste"
-  },
   "contraindications": "Gegenanzeigen",
   "dosage": "Dosierung",
   "indications": "Indikationen",

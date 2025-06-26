@@ -1,11 +1,15 @@
 import {
+  type SupportServiceFragment,
   type CompanyPreviewFragment,
   type PharmaciesPageFragment,
+  type SupportServicesCategory,
   type MedicationPreviewFragment,
   GetPharmaciesPageDocument,
+  GetSupportServicesDocument,
   GetCompaniesByFilterDocument,
   GetMedicationsByFilterDocument,
   GetMedicationCategoriesDocument,
+  GetSupportServicesCategoriesDocument,
 } from '../../gql/graphql';
 import { REVALIDATE_TIME } from '../../constants/page.constants';
 import useCompanyCard from '../../hooks/useCompanyCard';
@@ -38,6 +42,8 @@ type PharmaciesPageProps = {
   initialMedications: { attributes: MedicationPreviewFragment }[];
   medicationCategories: { attributes: selectOption }[];
   medicalFacilities: { attributes: CompanyPreviewFragment }[];
+  supportServices: SupportServiceFragment[];
+  servicesCategories: SupportServicesCategory[];
 };
 
 const PharmaciesPage = ({
@@ -46,11 +52,10 @@ const PharmaciesPage = ({
     filterTitle,
     medicationsTitle,
     supportServicesTitle,
-    emergencyDescription,
-    embassiesDescription,
-    assistanceDescription,
     categories,
   },
+  supportServices,
+  servicesCategories,
   totalMedications,
   initialMedications,
   medicationCategories,
@@ -116,9 +121,8 @@ const PharmaciesPage = ({
       />
       <EmergencyServicesContainer
         title={supportServicesTitle}
-        emergencyDescription={emergencyDescription}
-        embassiesDescription={embassiesDescription}
-        assistanceDescription={assistanceDescription}
+        supportServices={supportServices}
+        servicesCategories={servicesCategories}
       />
       {renderPopup()}
     </Wrapper>
@@ -145,6 +149,8 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
     { medicationCategories },
     { medications },
     { headerData, footerData },
+    { supportServices },
+    { supportServicesCategories },
   ] = await Promise.all([
     fetchData(GetPharmaciesPageDocument, { locale }),
     fetchData(GetMedicationCategoriesDocument, { locale }),
@@ -154,6 +160,8 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
       pageSize: 3,
     }),
     layoutDataPromise,
+    fetchData(GetSupportServicesDocument, { locale }),
+    fetchData(GetSupportServicesCategoriesDocument, { locale }),
   ]);
 
   const allCategories = pharmaciesPage?.data?.attributes?.categories?.data.map(
@@ -173,6 +181,10 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
       totalMedications: medications?.meta.pagination.total || 0,
       medicationCategories: medicationCategories?.data,
       medicalFacilities: companies?.data,
+      supportServices: supportServices?.data.map(el => el.attributes),
+      servicesCategories: supportServicesCategories?.data.map(
+        el => el.attributes,
+      ),
       headerData,
       footerData,
     },
