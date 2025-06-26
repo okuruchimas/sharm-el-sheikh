@@ -11,7 +11,7 @@ import Input from '../../../layout/input';
 import Loader from '../../../layout/loader';
 // utils
 import styled from '@emotion/styled';
-import { getValidationSchema, getValues } from './children/utils';
+import { getValidationSchema } from './children/utils';
 // styles
 import 'react-toastify/dist/ReactToastify.css';
 
