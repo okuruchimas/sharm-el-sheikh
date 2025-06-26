@@ -1,9 +1,4 @@
 {
-  "categories": {
-    "assistance_services": "Служби підтримки",
-    "embassies": "Посольства країн",
-    "emergency_services": "Служби екстреної допомоги"
-  },
   "contraindications": "Протипоказання",
   "dosage": "Дозування",
   "indications": "Показання",

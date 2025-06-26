@@ -1,9 +1,4 @@
 {
-  "categories": {
-    "assistance_services": "Assistance Services",
-    "embassies": "Embassies of Countries",
-    "emergency_services": "Emergency Services"
-  },
   "contraindications": "Contraindications",
   "dosage": "Dosage",
   "indications": "Indications",

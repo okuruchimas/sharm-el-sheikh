@@ -17,12 +17,41 @@ query GetSupportServices($locale: I18NLocaleCode!, $page: Int, $pageSize: Int) {
 }
 
 fragment SupportService on SupportService {
-  name
-  phoneNumber
+  title
+  phone
   location
-  mapLink
+  locationUrl
   image {
     ...StrapiImage
   }
-  category
+  support_services_category {
+    data {
+      attributes {
+        key
+      }
+    }
+  }
+  position {
+    lng
+    lat
+  }
+  description
+}
+
+query GetSupportServicesCategories($locale: I18NLocaleCode!) {
+  supportServicesCategories(locale: $locale, sort: "index:asc") {
+    data {
+      attributes {
+        key
+        value
+        icon {
+          ...StrapiImage
+        }
+        markerIcon {
+          ...StrapiImage
+        }
+        description
+      }
+    }
+  }
 }

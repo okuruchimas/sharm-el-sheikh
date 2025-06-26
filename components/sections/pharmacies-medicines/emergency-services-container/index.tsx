@@ -1,52 +1,40 @@
 import { type KeyboardEvent, useMemo, useState } from 'react';
-import { useTranslation } from 'next-i18next';
 import SectionWrapper from '../../../layout/section-wrapper';
 import EmergencyServiceCard from '../children/emergency-sevice-card';
 import styled from '@emotion/styled';
+import type {
+  SupportServiceFragment,
+  SupportServicesCategory,
+} from '../../../../gql/graphql';
+import { DEFAULT_IMAGE } from '../../../../constants/images.constants';
 
 type EmergencyServicesContainerProps = {
   title: string;
-  emergencyDescription: string;
-  embassiesDescription: string;
-  assistanceDescription: string;
+  supportServices: SupportServiceFragment[];
+  servicesCategories: SupportServicesCategory[];
 };
-enum categories {
-  EmergencyServices = 'emergency_services',
-  AssistanceServices = 'assistance_services',
-  Embassies = 'embassies',
-}
 
 const EmergencyServicesContainer = ({
   title,
-  emergencyDescription,
-  embassiesDescription,
-  assistanceDescription,
+  supportServices,
+  servicesCategories,
 }: EmergencyServicesContainerProps) => {
-  const [activeTab, setActiveTab] = useState<string>('emergency_services');
-  const { t } = useTranslation('medications');
+  const [activeTab, setActiveTab] = useState<SupportServicesCategory>(
+    servicesCategories[0],
+  );
 
-  const subTitle = useMemo(() => {
-    switch (activeTab) {
-      case 'assistance_services': {
-        return assistanceDescription;
-      }
-      case 'embassies': {
-        return embassiesDescription;
-      }
-      default: {
-        return emergencyDescription;
-      }
-    }
-  }, [
-    activeTab,
-    assistanceDescription,
-    embassiesDescription,
-    emergencyDescription,
-  ]);
+  const itemsToShow = useMemo(
+    () =>
+      supportServices.filter(
+        el =>
+          el.support_services_category?.data?.attributes?.key === activeTab.key,
+      ),
+    [activeTab, supportServices],
+  );
 
   const handleKeyDown = (
     event: KeyboardEvent<HTMLSpanElement>,
-    value: string,
+    value: SupportServicesCategory,
   ) => {
     if (event.key === 'Enter') {
       setActiveTab(value);
@@ -56,42 +44,29 @@ const EmergencyServicesContainer = ({
   return (
     <SectionWrapper title={title}>
       <TabsWrap>
-        {Object.keys(categories).map(el => {
-          const value = categories[el as keyof typeof categories];
-
-          return (
-            <Category
-              tabIndex={0}
-              key={el}
-              onClick={() => setActiveTab(value)}
-              isActive={value === activeTab}
-              onKeyDown={e => handleKeyDown(e, value)}
-            >
-              {t('categories.' + value)}
-            </Category>
-          );
-        })}
+        {servicesCategories.map(el => (
+          <Category
+            tabIndex={0}
+            key={el.key}
+            onClick={() => setActiveTab(el)}
+            isActive={el.key === activeTab.key}
+            onKeyDown={e => handleKeyDown(e, el)}
+          >
+            {el.value}
+          </Category>
+        ))}
       </TabsWrap>
-      <SubTitle>{subTitle}</SubTitle>
+      <SubTitle>{activeTab.description || ''}</SubTitle>
       <CardsWrapper>
-        <EmergencyServiceCard
-          title="Sharm El Sheikh Emergency Services"
-          location="El Fanar Street"
-          phoneNum="+20 100 123 4567"
-          imgSrc="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/emergency_8e5a4897b1.jpg"
-        />
-        <EmergencyServiceCard
-          title="Sharm El Sheikh Emergency Services"
-          location="El Fanar Street"
-          phoneNum="+20 100 123 4567"
-          imgSrc="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/emergency_8e5a4897b1.jpg"
-        />
-        <EmergencyServiceCard
-          title="Sharm El Sheikh Emergency Services"
-          location="El Fanar Street"
-          phoneNum="+20 100 123 4567"
-          imgSrc="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/emergency_8e5a4897b1.jpg"
-        />
+        {itemsToShow.map(el => (
+          <EmergencyServiceCard
+            key={el.title}
+            title={el.title}
+            location={el.location}
+            phoneNum={el.phone}
+            imgSrc={el.image.data?.attributes?.url || DEFAULT_IMAGE}
+          />
+        ))}
       </CardsWrapper>
     </SectionWrapper>
   );

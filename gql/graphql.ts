@@ -1510,12 +1510,6 @@ export enum Enum_Photographylocation_Type {
   Studio = 'studio'
 }
 
-export enum Enum_Supportservice_Category {
-  AssistanceServices = 'assistance_services',
-  Embassies = 'embassies',
-  EmergencyServices = 'emergency_services'
-}
-
 export type EventCard = {
   __typename?: 'EventCard';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
@@ -1678,7 +1672,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = Advertisement | AdvertisementCategory | AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | ComponentComponentsBanner | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | Delivery | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyLocation | PhotographyStyle | Service | SupportService | TaxiDriver | TaxiService | TaxiSpot | Tour | TourCategory | TourGuide | TourOperatorCompany | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Advertisement | AdvertisementCategory | AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | ComponentComponentsBanner | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | Delivery | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyLocation | PhotographyStyle | Service | SupportService | SupportServicesCategory | TaxiDriver | TaxiService | TaxiSpot | Tour | TourCategory | TourGuide | TourOperatorCompany | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   __typename?: 'Header';
@@ -2328,6 +2322,8 @@ export type Mutation = {
   createServiceLocalization?: Maybe<ServiceEntityResponse>;
   createSupportService?: Maybe<SupportServiceEntityResponse>;
   createSupportServiceLocalization?: Maybe<SupportServiceEntityResponse>;
+  createSupportServicesCategory?: Maybe<SupportServicesCategoryEntityResponse>;
+  createSupportServicesCategoryLocalization?: Maybe<SupportServicesCategoryEntityResponse>;
   createTaxiDriver?: Maybe<TaxiDriverEntityResponse>;
   createTaxiDriverLocalization?: Maybe<TaxiDriverEntityResponse>;
   createTaxiService?: Maybe<TaxiServiceEntityResponse>;
@@ -2373,6 +2369,7 @@ export type Mutation = {
   deletePhotographyStyle?: Maybe<PhotographyStyleEntityResponse>;
   deleteService?: Maybe<ServiceEntityResponse>;
   deleteSupportService?: Maybe<SupportServiceEntityResponse>;
+  deleteSupportServicesCategory?: Maybe<SupportServicesCategoryEntityResponse>;
   deleteTaxiDriver?: Maybe<TaxiDriverEntityResponse>;
   deleteTaxiService?: Maybe<TaxiServiceEntityResponse>;
   deleteTaxiSpot?: Maybe<TaxiSpotEntityResponse>;
@@ -2423,6 +2420,7 @@ export type Mutation = {
   updatePhotographyStyle?: Maybe<PhotographyStyleEntityResponse>;
   updateService?: Maybe<ServiceEntityResponse>;
   updateSupportService?: Maybe<SupportServiceEntityResponse>;
+  updateSupportServicesCategory?: Maybe<SupportServicesCategoryEntityResponse>;
   updateTaxiDriver?: Maybe<TaxiDriverEntityResponse>;
   updateTaxiService?: Maybe<TaxiServiceEntityResponse>;
   updateTaxiSpot?: Maybe<TaxiSpotEntityResponse>;
@@ -2718,6 +2716,19 @@ export type MutationCreateSupportServiceLocalizationArgs = {
 };
 
 
+export type MutationCreateSupportServicesCategoryArgs = {
+  data: SupportServicesCategoryInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateSupportServicesCategoryLocalizationArgs = {
+  data?: InputMaybe<SupportServicesCategoryInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationCreateTaxiDriverArgs = {
   data: TaxiDriverInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -2966,6 +2977,12 @@ export type MutationDeleteServiceArgs = {
 
 
 export type MutationDeleteSupportServiceArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeleteSupportServicesCategoryArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -3241,6 +3258,13 @@ export type MutationUpdateServiceArgs = {
 
 export type MutationUpdateSupportServiceArgs = {
   data: SupportServiceInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationUpdateSupportServicesCategoryArgs = {
+  data: SupportServicesCategoryInput;
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -3752,6 +3776,8 @@ export type Query = {
   services?: Maybe<ServiceEntityResponseCollection>;
   supportService?: Maybe<SupportServiceEntityResponse>;
   supportServices?: Maybe<SupportServiceEntityResponseCollection>;
+  supportServicesCategories?: Maybe<SupportServicesCategoryEntityResponseCollection>;
+  supportServicesCategory?: Maybe<SupportServicesCategoryEntityResponse>;
   taxiDriver?: Maybe<TaxiDriverEntityResponse>;
   taxiDrivers?: Maybe<TaxiDriverEntityResponseCollection>;
   taxiService?: Maybe<TaxiServiceEntityResponse>;
@@ -4113,6 +4139,21 @@ export type QuerySupportServicesArgs = {
 };
 
 
+export type QuerySupportServicesCategoriesArgs = {
+  filters?: InputMaybe<SupportServicesCategoryFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QuerySupportServicesCategoryArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type QueryTaxiDriverArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4368,16 +4409,18 @@ export type StringFilterInput = {
 
 export type SupportService = {
   __typename?: 'SupportService';
-  category: Enum_Supportservice_Category;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   image: UploadFileEntityResponse;
   locale?: Maybe<Scalars['String']['output']>;
   localizations?: Maybe<SupportServiceRelationResponseCollection>;
   location: Scalars['String']['output'];
-  mapLink?: Maybe<Scalars['String']['output']>;
-  name: Scalars['String']['output'];
-  phoneNumber: Scalars['String']['output'];
+  locationUrl?: Maybe<Scalars['String']['output']>;
+  phone: Scalars['String']['output'];
+  position?: Maybe<ComponentHelpersPosition>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  support_services_category?: Maybe<SupportServicesCategoryEntityResponse>;
+  title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -4408,34 +4451,120 @@ export type SupportServiceEntityResponseCollection = {
 
 export type SupportServiceFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<SupportServiceFiltersInput>>>;
-  category?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<SupportServiceFiltersInput>;
   location?: InputMaybe<StringFilterInput>;
-  mapLink?: InputMaybe<StringFilterInput>;
-  name?: InputMaybe<StringFilterInput>;
+  locationUrl?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<SupportServiceFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<SupportServiceFiltersInput>>>;
-  phoneNumber?: InputMaybe<StringFilterInput>;
+  phone?: InputMaybe<StringFilterInput>;
+  position?: InputMaybe<ComponentHelpersPositionFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  support_services_category?: InputMaybe<SupportServicesCategoryFiltersInput>;
+  title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type SupportServiceInput = {
-  category?: InputMaybe<Enum_Supportservice_Category>;
+  description?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['ID']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
-  mapLink?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  locationUrl?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+  position?: InputMaybe<ComponentHelpersPositionInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  support_services_category?: InputMaybe<Scalars['ID']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type SupportServiceRelationResponseCollection = {
   __typename?: 'SupportServiceRelationResponseCollection';
   data: Array<SupportServiceEntity>;
+};
+
+export type SupportServicesCategory = {
+  __typename?: 'SupportServicesCategory';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<UploadFileEntityResponse>;
+  index?: Maybe<Scalars['Int']['output']>;
+  key: Scalars['String']['output'];
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<SupportServicesCategoryRelationResponseCollection>;
+  markerIcon?: Maybe<UploadFileEntityResponse>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  support_services?: Maybe<SupportServiceRelationResponseCollection>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  value: Scalars['String']['output'];
+};
+
+
+export type SupportServicesCategoryLocalizationsArgs = {
+  filters?: InputMaybe<SupportServicesCategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type SupportServicesCategorySupport_ServicesArgs = {
+  filters?: InputMaybe<SupportServiceFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type SupportServicesCategoryEntity = {
+  __typename?: 'SupportServicesCategoryEntity';
+  attributes?: Maybe<SupportServicesCategory>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type SupportServicesCategoryEntityResponse = {
+  __typename?: 'SupportServicesCategoryEntityResponse';
+  data?: Maybe<SupportServicesCategoryEntity>;
+};
+
+export type SupportServicesCategoryEntityResponseCollection = {
+  __typename?: 'SupportServicesCategoryEntityResponseCollection';
+  data: Array<SupportServicesCategoryEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type SupportServicesCategoryFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<SupportServicesCategoryFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  index?: InputMaybe<IntFilterInput>;
+  key?: InputMaybe<StringFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<SupportServicesCategoryFiltersInput>;
+  not?: InputMaybe<SupportServicesCategoryFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<SupportServicesCategoryFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  support_services?: InputMaybe<SupportServiceFiltersInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  value?: InputMaybe<StringFilterInput>;
+};
+
+export type SupportServicesCategoryInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['ID']['input']>;
+  index?: InputMaybe<Scalars['Int']['input']>;
+  key?: InputMaybe<Scalars['String']['input']>;
+  markerIcon?: InputMaybe<Scalars['ID']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  support_services?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SupportServicesCategoryRelationResponseCollection = {
+  __typename?: 'SupportServicesCategoryRelationResponseCollection';
+  data: Array<SupportServicesCategoryEntity>;
 };
 
 export type TaxiDriver = {
@@ -5875,9 +6004,9 @@ export type GetPharmaciesPageQueryVariables = Exact<{
 }>;
 
 
-export type GetPharmaciesPageQuery = { __typename?: 'Query', pharmaciesPage?: { __typename?: 'PharmaciesPageEntityResponse', data?: { __typename?: 'PharmaciesPageEntity', attributes?: { __typename?: 'PharmaciesPage', mapTitle: string, medicationsTitle: string, supportServicesTitle: string, embassiesDescription: string, assistanceDescription: string, emergencyDescription: string, filterTitle: string, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string, value: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, markerIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null } | null } | null } | null };
+export type GetPharmaciesPageQuery = { __typename?: 'Query', pharmaciesPage?: { __typename?: 'PharmaciesPageEntityResponse', data?: { __typename?: 'PharmaciesPageEntity', attributes?: { __typename?: 'PharmaciesPage', mapTitle: string, medicationsTitle: string, supportServicesTitle: string, filterTitle: string, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string, value: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, markerIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null } | null } | null } | null };
 
-export type PharmaciesPageFragment = { __typename?: 'PharmaciesPage', mapTitle: string, medicationsTitle: string, supportServicesTitle: string, embassiesDescription: string, assistanceDescription: string, emergencyDescription: string, filterTitle: string, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string, value: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, markerIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null };
+export type PharmaciesPageFragment = { __typename?: 'PharmaciesPage', mapTitle: string, medicationsTitle: string, supportServicesTitle: string, filterTitle: string, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string, value: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, markerIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null };
 
 export type GetPhotographerBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -5923,9 +6052,16 @@ export type GetSupportServicesQueryVariables = Exact<{
 }>;
 
 
-export type GetSupportServicesQuery = { __typename?: 'Query', supportServices?: { __typename?: 'SupportServiceEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } }, data: Array<{ __typename?: 'SupportServiceEntity', attributes?: { __typename?: 'SupportService', name: string, phoneNumber: string, location: string, mapLink?: string | null, category: Enum_Supportservice_Category, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null };
+export type GetSupportServicesQuery = { __typename?: 'Query', supportServices?: { __typename?: 'SupportServiceEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } }, data: Array<{ __typename?: 'SupportServiceEntity', attributes?: { __typename?: 'SupportService', title: string, phone: string, location: string, locationUrl?: string | null, description?: string | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, support_services_category?: { __typename?: 'SupportServicesCategoryEntityResponse', data?: { __typename?: 'SupportServicesCategoryEntity', attributes?: { __typename?: 'SupportServicesCategory', key: string } | null } | null } | null, position?: { __typename?: 'ComponentHelpersPosition', lng: number, lat: number } | null } | null }> } | null };
 
-export type SupportServiceFragment = { __typename?: 'SupportService', name: string, phoneNumber: string, location: string, mapLink?: string | null, category: Enum_Supportservice_Category, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } };
+export type SupportServiceFragment = { __typename?: 'SupportService', title: string, phone: string, location: string, locationUrl?: string | null, description?: string | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, support_services_category?: { __typename?: 'SupportServicesCategoryEntityResponse', data?: { __typename?: 'SupportServicesCategoryEntity', attributes?: { __typename?: 'SupportServicesCategory', key: string } | null } | null } | null, position?: { __typename?: 'ComponentHelpersPosition', lng: number, lat: number } | null };
+
+export type GetSupportServicesCategoriesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetSupportServicesCategoriesQuery = { __typename?: 'Query', supportServicesCategories?: { __typename?: 'SupportServicesCategoryEntityResponseCollection', data: Array<{ __typename?: 'SupportServicesCategoryEntity', attributes?: { __typename?: 'SupportServicesCategory', key: string, value: string, description?: string | null, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null, markerIcon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null }> } | null };
 
 export type GetTaxiSpotsQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -6712,9 +6848,6 @@ export const PharmaciesPageFragmentDoc = new TypedDocumentString(`
   mapTitle
   medicationsTitle
   supportServicesTitle
-  embassiesDescription
-  assistanceDescription
-  emergencyDescription
   categories {
     data {
       attributes {
@@ -6883,14 +7016,25 @@ fragment Photographer on Photographer {
 }`, {"fragmentName":"PhotographyLocation"}) as unknown as TypedDocumentString<PhotographyLocationFragment, unknown>;
 export const SupportServiceFragmentDoc = new TypedDocumentString(`
     fragment SupportService on SupportService {
-  name
-  phoneNumber
+  title
+  phone
   location
-  mapLink
+  locationUrl
   image {
     ...StrapiImage
   }
-  category
+  support_services_category {
+    data {
+      attributes {
+        key
+      }
+    }
+  }
+  position {
+    lng
+    lat
+  }
+  description
 }
     fragment StrapiImage on UploadFileEntityResponse {
   data {
@@ -8473,9 +8617,6 @@ fragment PharmaciesPage on PharmaciesPage {
   mapTitle
   medicationsTitle
   supportServicesTitle
-  embassiesDescription
-  assistanceDescription
-  emergencyDescription
   categories {
     data {
       attributes {
@@ -8771,15 +8912,52 @@ export const GetSupportServicesDocument = new TypedDocumentString(`
   }
 }
 fragment SupportService on SupportService {
-  name
-  phoneNumber
+  title
+  phone
   location
-  mapLink
+  locationUrl
   image {
     ...StrapiImage
   }
-  category
+  support_services_category {
+    data {
+      attributes {
+        key
+      }
+    }
+  }
+  position {
+    lng
+    lat
+  }
+  description
 }`) as unknown as TypedDocumentString<GetSupportServicesQuery, GetSupportServicesQueryVariables>;
+export const GetSupportServicesCategoriesDocument = new TypedDocumentString(`
+    query GetSupportServicesCategories($locale: I18NLocaleCode!) {
+  supportServicesCategories(locale: $locale, sort: "index:asc") {
+    data {
+      attributes {
+        key
+        value
+        icon {
+          ...StrapiImage
+        }
+        markerIcon {
+          ...StrapiImage
+        }
+        description
+      }
+    }
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`) as unknown as TypedDocumentString<GetSupportServicesCategoriesQuery, GetSupportServicesCategoriesQueryVariables>;
 export const GetTaxiSpotsDocument = new TypedDocumentString(`
     query GetTaxiSpots($locale: I18NLocaleCode!) {
   taxiSpots(locale: $locale) {
