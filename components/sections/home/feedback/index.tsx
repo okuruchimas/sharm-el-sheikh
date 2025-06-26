@@ -11,7 +11,7 @@ import Input from '../../../layout/input';
 import Loader from '../../../layout/loader';
 // utils
 import styled from '@emotion/styled';
-import { getValidationSchema, getValues } from './children/utils';
+import { getValidationSchema } from './children/utils';
 // styles
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -56,22 +56,22 @@ const FeedbackForm = () => {
         initialValues={inValues}
         validationSchema={SignupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          const formVales = getValues(values, type);
+          // const formVales = getValues(values, type);
+          console.log(values);
+          // const response = await fetch('/api/send-email', {
+          //   method: 'POST',
+          //   headers: {
+          //     'Content-Type': 'application/json',
+          //   },
+          //   body: JSON.stringify(formVales),
+          // });
 
-          const response = await fetch('/api/send-email', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formVales),
-          });
-
-          if (response.ok) {
-            toast.success(tPage('feedbackForm.formSuccess'));
-            resetForm();
-          } else {
-            toast.error(tPage('feedbackForm.formError'));
-          }
+          // if (response.ok) {
+          toast.success(tPage('feedbackForm.formSuccess'));
+          resetForm();
+          // } else {
+          //   toast.error(tPage('feedbackForm.formError'));
+          // }
           setSubmitting(false);
         }}
       >
