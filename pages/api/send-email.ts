@@ -1,6 +1,30 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
 
+const verifyCaptcha = async (token: string): Promise<boolean> => {
+  try {
+    const secret = process.env.RECAPTCHA_SECRET_KEY;
+    console.log(1);
+    if (!secret) return false;
+    const params = new URLSearchParams();
+    params.append('secret', secret);
+    params.append('response', token);
+    const res = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      body: params,
+    });
+    console.log(res, 2);
+
+    const data = await res.json();
+
+    console.log(data, 3);
+
+    return data.success;
+  } catch {
+    return false;
+  }
+};
+
 const getMessage = (
   req: Record<string, string | number | boolean | null | undefined>,
 ): string => {
@@ -21,8 +45,15 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     const { name, email } = req.body;
+    const { captchaToken, ...restBody } = req.body;
 
-    const message = getMessage(req.body);
+    const captchaOk = await verifyCaptcha(captchaToken);
+
+    if (!captchaOk) {
+      return res.status(400).json({ message: 'Invalid captcha' });
+    }
+
+    const message = getMessage(restBody);
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',

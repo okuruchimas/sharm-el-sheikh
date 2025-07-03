@@ -9,7 +9,7 @@ type PromCardProps = {
   title: string;
   price: string;
   place: string;
-  imgSrc: string;
+  imgSrc?: string;
   duration: string;
   groupSize?: string;
   onClick?: () => void;
