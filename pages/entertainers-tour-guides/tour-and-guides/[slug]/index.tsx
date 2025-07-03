@@ -158,9 +158,7 @@ const TourGuidePage = ({
                     place={el?.attributes?.location || ''}
                     groupSize={el.attributes?.groupSize}
                     duration={el?.attributes?.duration || ''}
-                    imgSrc={
-                      el?.attributes?.images?.data[0].attributes?.url || ''
-                    }
+                    imgSrc={el?.attributes?.images?.data?.[0]?.attributes?.url}
                     onClick={
                       el?.attributes
                         ? handleTourClick(el.attributes)
@@ -274,7 +272,7 @@ export async function getStaticProps({
         'entertainers-tour-guides',
         'common',
       ])),
-      tourGuide: tourGuides?.data[0].attributes,
+      tourGuide: tourGuides?.data?.[0]?.attributes,
       similarSuggestions: suggestions?.data,
       footerData,
       headerData,

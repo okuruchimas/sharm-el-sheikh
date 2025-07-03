@@ -1,8 +1,9 @@
 // libs
 import { Formik, Form } from 'formik';
 import { toast, ToastContainer } from 'react-toastify';
+import { ReCAPTCHA } from 'react-google-recaptcha';
 // hooks
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 // components
 import TypeSwitcher from './children/type-switcher';
@@ -11,7 +12,7 @@ import Input from '../../../layout/input';
 import Loader from '../../../layout/loader';
 // utils
 import styled from '@emotion/styled';
-import { getValidationSchema } from './children/utils';
+import { getValidationSchema, getValues } from './children/utils';
 // styles
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -35,6 +36,10 @@ const FeedbackForm = () => {
   };
 
   const [type, setType] = useState<string>('default');
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const siteKey = process.env.RECAPTCHA_SITE_KEY || '';
+
   const { t: tPage } = useTranslation('home-page');
   const { t: tCommon } = useTranslation('common');
 
@@ -56,22 +61,32 @@ const FeedbackForm = () => {
         initialValues={inValues}
         validationSchema={SignupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          // const formVales = getValues(values, type);
-          console.log(values);
-          // const response = await fetch('/api/send-email', {
-          //   method: 'POST',
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //   },
-          //   body: JSON.stringify(formVales),
-          // });
+          if (!captchaToken) {
+            toast.error(tPage('feedbackForm.formError'));
+            setSubmitting(false);
+            return;
+          }
 
-          // if (response.ok) {
-          toast.success(tPage('feedbackForm.formSuccess'));
-          resetForm();
-          // } else {
-          //   toast.error(tPage('feedbackForm.formError'));
-          // }
+          const formValues = getValues(values, type);
+          const response = await fetch('/api/send-email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              ...formValues,
+              captchaToken,
+            }),
+          });
+
+          if (response.ok) {
+            toast.success(tPage('feedbackForm.formSuccess'));
+            resetForm();
+            setCaptchaToken(null);
+            recaptchaRef.current?.reset();
+          } else {
+            toast.error(tPage('feedbackForm.formError'));
+          }
           setSubmitting(false);
         }}
       >
@@ -124,6 +139,11 @@ const FeedbackForm = () => {
                 />
               </>
             )}
+            <ReCAPTCHA
+              sitekey={siteKey}
+              onChange={token => setCaptchaToken(token)}
+              ref={recaptchaRef}
+            />
             <SubmitButton
               backgroundColor="blue3"
               color="yellow"
