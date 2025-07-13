@@ -116,6 +116,13 @@ fragment Company on Company {
       }
     }
   }
+  event_cards {
+    data {
+      attributes {
+        ...EventCard
+      }
+    }
+  }
   food
   socialLinks {
     icon {

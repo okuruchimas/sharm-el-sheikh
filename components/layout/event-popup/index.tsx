@@ -16,6 +16,7 @@ import type { EventCardFragment } from '../../../gql/graphql';
 import Link from 'next/link';
 
 type EventPopupProps = Omit<EventCardI, 'onClick'> & {
+  companyUrl?: string;
   description: string;
   socialLinks?: (SocialLink | null)[];
   onClose: () => void;
@@ -28,7 +29,7 @@ const EventPopup = ({
   price,
   logoAlt,
   location,
-  position,
+  companyUrl,
   description,
   socialLinks,
   onClose,
@@ -47,7 +48,7 @@ const EventPopup = ({
             <TextPillStyled>{date}</TextPillStyled>
             <LocationLink
               text={location || '-'}
-              position={position}
+              url={companyUrl}
               iconSize="36px"
               iconSizeMobile="30px"
               fontSize="21px"
@@ -139,7 +140,7 @@ const Stack = styled('div', {
   gap: gap || '16px',
 
   [theme.breakpoints.mobile]: {
-    gap: gap || '8px',
+    gap: gap || '12px',
   },
 }));
 

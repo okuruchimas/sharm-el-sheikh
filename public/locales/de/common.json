@@ -36,7 +36,8 @@
     "location": "Standort",
     "phone": "Telefon",
     "price": "Preis",
-    "searchByName": "Nach Namen suchen"
+    "searchByName": "Nach Namen suchen",
+    "events": "Veranstaltungen"
   },
   "noDiscounts": "Derzeit keine Rabatte verfügbar",
   "reviewForm": {

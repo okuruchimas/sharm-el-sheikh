@@ -39,14 +39,15 @@ const EventCard = ({
 };
 
 const Card = styled('div')(({ theme }) => ({
-  height: '558px',
+  height: '502px',
   overflow: 'clip',
   borderRadius: '16px',
   boxShadow: theme.shadows[0],
   backgroundColor: theme.colors.white,
-
+  border: '1px solid',
+  borderColor: theme.colors.yellow,
   [theme.breakpoints.mobile]: {
-    height: '470px',
+    height: '414px',
   },
 }));
 

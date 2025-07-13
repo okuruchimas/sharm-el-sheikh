@@ -25,12 +25,12 @@ import useRatePlace from '../../../../hooks/useRatePlace';
 import FullData from './full-data';
 
 type CompanyPopupContainerProps = {
-  clubPreview: CompanyPreviewFragment;
+  companyPreview: CompanyPreviewFragment;
   onClose: () => void;
 };
 
 const CompanyPopupContainer = ({
-  clubPreview,
+  companyPreview,
   onClose,
 }: CompanyPopupContainerProps) => {
   const [fullData, setFullData] = useState<
@@ -41,26 +41,26 @@ const CompanyPopupContainer = ({
 
   const { stars, isDisabled, isLoadingRating, handleSave, setStars } =
     useRatePlace({
-      slug: clubPreview.slug,
+      slug: companyPreview.slug,
       storageName: 'ratedCompanies',
       collectionType: 'companies',
     });
 
   const getFullClubData = useCallback(async () => {
     const { companies } = await fetchDataFromApi(GetCompanyDocument, {
-      slug: clubPreview.slug,
+      slug: companyPreview.slug,
       locale: i18n.language,
     });
 
     setFullData(companies?.data[0]?.attributes);
-  }, [clubPreview.slug, i18n.language]);
+  }, [companyPreview.slug, i18n.language]);
 
   useEffect(() => {
     getFullClubData();
   }, [getFullClubData]);
 
   const renderSchedule = () => {
-    return clubPreview.schedule?.map((el, index) => {
+    return companyPreview.schedule?.map((el, index) => {
       const days = el?.days.map(el =>
         t(DayAbv[(el?.day || '') as keyof typeof DayAbv] || ''),
       );
@@ -79,18 +79,20 @@ const CompanyPopupContainer = ({
       <TopSection>
         <ImgWrapper>
           <Image
-            src={clubPreview.images.data[0].attributes?.url || ''}
-            alt={clubPreview.images.data[0].attributes?.alternativeText || ''}
+            src={companyPreview.images.data[0].attributes?.url || ''}
+            alt={
+              companyPreview.images.data[0].attributes?.alternativeText || ''
+            }
             layout="fill"
           />
         </ImgWrapper>
         <Stack>
           <RowStack marginBottom="24px">
-            <Name>{clubPreview.title}</Name>
+            <Name>{companyPreview.title}</Name>
             <RatingWrapper>
               <Rating
-                points={clubPreview.averageRating}
-                users={clubPreview.totalComments}
+                points={companyPreview.averageRating}
+                users={companyPreview.totalComments}
               />
             </RatingWrapper>
           </RowStack>
@@ -103,8 +105,8 @@ const CompanyPopupContainer = ({
               <LocationLink
                 iconSize="36px"
                 iconSizeMobile="30px"
-                text={clubPreview.location || '-'}
-                position={clubPreview.position}
+                text={companyPreview.location || '-'}
+                position={companyPreview.position}
               />
             </Location>
             {fullData?.phoneNumber ? (

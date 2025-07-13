@@ -36,7 +36,8 @@
     "location": "الموقع",
     "phone": "الهاتف",
     "price": "السعر",
-    "searchByName": "البحث بالاسم"
+    "searchByName": "البحث بالاسم",
+    "events": "الأحداث"
   },
   "noDiscounts": "حاليا لا توجد خصومات متاحة",
   "reviewForm": {

@@ -36,7 +36,8 @@
     "location": "Location",
     "phone": "Phone",
     "price": "Price",
-    "searchByName": "Search by Name"
+    "searchByName": "Search by Name",
+    "events": "Events"
   },
   "noDiscounts": "Currently no discounts available",
   "reviewForm": {

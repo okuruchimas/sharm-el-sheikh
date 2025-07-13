@@ -36,7 +36,8 @@
     "location": "Локація",
     "phone": "Телефон",
     "price": "Ціна",
-    "searchByName": "Шукати по назві"
+    "searchByName": "Шукати по назві",
+    "events": "Події"
   },
   "noDiscounts": "Наразі знижки відсутні",
   "reviewForm": {
