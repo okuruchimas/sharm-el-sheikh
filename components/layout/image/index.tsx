@@ -39,6 +39,8 @@ const LogoWrapper = styled('div', {
   position: 'relative',
   width,
   height,
+  minWidth: width,
+  minHeight: height,
 
   [theme.breakpoints.mobile]: {
     width: mWidth,
