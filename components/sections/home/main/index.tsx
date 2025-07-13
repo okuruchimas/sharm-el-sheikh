@@ -59,6 +59,7 @@ const Main = ({ eventCards, eventCardsTitle, heroTitle }: MainProps) => {
           description={selectedEvent?.description || ''}
           socialLinks={selectedEvent?.socialLinks || []}
           position={selectedEvent?.position}
+          companyUrl={selectedEvent?.companies?.data?.[0]?.attributes?.slug}
           onClose={handleClosePopup}
         />
       </Modal>

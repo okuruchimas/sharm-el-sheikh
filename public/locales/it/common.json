@@ -36,7 +36,8 @@
     "location": "Posizione",
     "phone": "Telefono",
     "price": "Prezzo",
-    "searchByName": "Cerca per nome"
+    "searchByName": "Cerca per nome",
+    "events": "Eventi"
   },
   "noDiscounts": "Attualmente nessuno sconto disponibile",
   "reviewForm": {

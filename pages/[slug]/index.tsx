@@ -37,6 +37,11 @@ import {
   BACKGROUND_GRADIENT,
   BACKGROUND_GRADIENT_MOBILE,
 } from '../../constants/images.constants';
+import EventCard from '../../components/sections/hotspots/events-container/children/event-card';
+import { Pagination } from 'swiper/modules';
+import { SwiperCardsWrapper } from '../../components/sections/entertainers-tour-guides/children/cards-wrap';
+import useResponsive from '../../hooks/useResponsive';
+import { SwiperSlide } from 'swiper/react';
 
 interface Props {
   card: CompanyFragment;
@@ -58,6 +63,7 @@ const CompanyPage = ({
     description,
     averageRating,
     totalComments,
+    event_cards,
   },
   similarSuggestions,
 }: Props) => {
@@ -66,6 +72,8 @@ const CompanyPage = ({
   const { t: tCommon } = useTranslation('common');
   const { renderCard, renderDiscountPopup, handleOpenDiscount } =
     useCompanyCard();
+  const { isMobile } = useResponsive();
+  const slidesPerView = isMobile ? 1 : 2;
 
   const categories = [
     { name: 'service', label: tCommon('reviewForm.categories.service') },
@@ -119,12 +127,6 @@ const CompanyPage = ({
           location={location ?? ''}
           onOpenDiscount={handleOpenDiscount(preview)}
         />
-        {description ? (
-          <DescriptionSection>
-            <span>{tCommon('labels.description')}</span>
-            <p>{description}</p>
-          </DescriptionSection>
-        ) : null}
         {pageData?.youTubeVideoId ? (
           <YouTubePlayer videoId={pageData.youTubeVideoId} />
         ) : null}
@@ -134,6 +136,40 @@ const CompanyPage = ({
             buttonText={t('openCard')}
             onClick={handleOpenDiscount(preview)}
           />
+        ) : null}
+        {description ? (
+          <DescriptionSection>
+            <span>{tCommon('labels.description')}</span>
+            <p>{description}</p>
+          </DescriptionSection>
+        ) : null}
+        {event_cards?.data?.length ? (
+          <SectionWrapper title={tCommon('labels.events')}>
+            <SwiperCardsWrapper
+              modules={[Pagination]}
+              slidesPerView={slidesPerView}
+              spaceBetween={12}
+              navigation={false}
+              pagination={{
+                clickable: true,
+              }}
+              loop
+            >
+              {event_cards.data.map(({ attributes }, index) => (
+                <SwiperSlide key={index}>
+                  <EventCard
+                    key={attributes?.title}
+                    logo={attributes?.image.data?.attributes?.url || ''}
+                    date={attributes?.date || ''}
+                    title={attributes?.title || ''}
+                    price={attributes?.price || ''}
+                    location={attributes?.location || ''}
+                    onClick={() => {}}
+                  />
+                </SwiperSlide>
+              ))}
+            </SwiperCardsWrapper>
+          </SectionWrapper>
         ) : null}
         {services?.data.length ? <Services services={services?.data} /> : null}
         <Reviews

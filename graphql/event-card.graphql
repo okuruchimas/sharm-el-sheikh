@@ -36,4 +36,11 @@ fragment EventCard on EventCard {
     lat
     lng
   }
+  companies {
+    data {
+      attributes {
+        slug
+      }
+    }
+  }
 }

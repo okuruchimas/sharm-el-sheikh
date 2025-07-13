@@ -1,13 +1,21 @@
 import TextAndIcon, { type TextAndIconProps } from '../text-and-icon';
 import type { CompanyPreviewFragment } from '../../../gql/graphql';
+import Link from 'next/link';
+import styled from '@emotion/styled';
 
 type Props = Omit<TextAndIconProps, 'src'> &
-  Pick<CompanyPreviewFragment, 'position'>;
+  Pick<CompanyPreviewFragment, 'position'> & { url?: string };
 
-const LocationLink = ({ position, ...props }: Props) => {
-  // const mapUrl = position
-  //   ? `https://www.google.com/maps?q=${position.lat},${position.lng}`
-  //   : undefined;
+const LocationLink = ({ position, url, ...props }: Props) => {
+  if (url) {
+    return (
+      <Link href={url}>
+        <LinkContent>
+          <TextAndIcon src={'/icons/location-marker.svg'} {...props} />
+        </LinkContent>
+      </Link>
+    );
+  }
 
   const mapUrl = position
     ? `https://www.google.com/maps/dir/?api=1&destination=${position.lat},${position.lng}`
@@ -23,3 +31,9 @@ const LocationLink = ({ position, ...props }: Props) => {
 };
 
 export default LocationLink;
+
+const LinkContent = styled('div')(({ theme }) => ({
+  textDecoration: 'underline',
+  cursor: 'pointer',
+  [theme.breakpoints.mobile]: {},
+}));

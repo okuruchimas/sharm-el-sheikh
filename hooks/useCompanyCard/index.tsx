@@ -46,7 +46,7 @@ const useCompanyCard = (selectedDay?: string) => {
       >
         {selectedCompany?.slug ? (
           <CompanyPopupContainer
-            clubPreview={selectedCompany}
+            companyPreview={selectedCompany}
             onClose={handleClosePopup}
           />
         ) : null}
