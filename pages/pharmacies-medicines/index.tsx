@@ -35,6 +35,7 @@ import {
   BACKGROUND_GRADIENT_MOBILE,
 } from '../../constants/images.constants';
 import type { MapCard } from '../../components/layout/map/children/types';
+import MetaTags from '../../components/layout/seo';
 
 type PharmaciesPageProps = {
   pageData: PharmaciesPageFragment;
@@ -100,6 +101,12 @@ const PharmaciesPage = ({
 
   return (
     <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
+      <MetaTags
+        title="Medical Services in Sharm El Sheikh | Pharmacies, Medicine & Healthcare"
+        description="Complete guide to medical services in Sharm El Sheikh. Pharmacy locations, available medications, medical centers and health tips for tourists. Stay prepared and safe."
+        imgUrl="https://www.go-go.live/images/business-card.png"
+        siteUrl="https://www.go-go.live/pharmacies-medicines"
+      />
       <Map
         title={mapTitle}
         onInfoWindowClick={onInfoWindowClick}

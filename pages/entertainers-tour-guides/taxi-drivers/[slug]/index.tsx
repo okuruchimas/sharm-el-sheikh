@@ -35,6 +35,7 @@ import {
   BACKGROUND_GRADIENT,
   BACKGROUND_GRADIENT_MOBILE,
 } from '../../../../constants/images.constants';
+import MetaTags from '../../../../components/layout/seo';
 
 interface Props {
   taxiDriver: TaxiDriver;
@@ -97,6 +98,12 @@ const AnimatorPage = ({
 
   return (
     <>
+      <MetaTags
+        title={name}
+        description="Reliable taxi drivers in Sharm El Sheikh with honest prices. Airport transfers, city rides and trips to attractions. Safe transportation for tourists with local knowledge."
+        imgUrl={profileImg.data?.attributes?.url || ''}
+        siteUrl={`https://www.go-go.live/${slug}`}
+      />
       <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
         <div style={{ width: '100%' }}>
           <BackRoute

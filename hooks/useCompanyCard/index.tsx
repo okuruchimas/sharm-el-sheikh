@@ -63,7 +63,7 @@ const useCompanyCard = (selectedDay?: string) => {
         maxWidth="876px"
       >
         <Discount
-          position={selectedDiscount.position}
+          companyUrl={selectedDiscount?.slug}
           location={selectedDiscount.location}
           discount={selectedDiscount.discount}
           socialLinks={selectedDiscount.socialLinks}

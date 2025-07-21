@@ -38,6 +38,7 @@ import {
   BACKGROUND_GRADIENT,
   BACKGROUND_GRADIENT_MOBILE,
 } from '../../../../constants/images.constants';
+import MetaTags from '../../../../components/layout/seo';
 
 interface Props {
   animator: Animator;
@@ -108,6 +109,12 @@ const AnimatorPage = ({
 
   return (
     <>
+      <MetaTags
+        title={name}
+        description={description}
+        imgUrl={profileImg.data?.attributes?.url || ''}
+        siteUrl={`https://www.go-go.live/${slug}`}
+      />
       <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
         <div style={{ width: '100%' }}>
           <BackRoute

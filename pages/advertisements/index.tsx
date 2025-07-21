@@ -37,6 +37,7 @@ import {
   BACKGROUND_GRADIENT_MOBILE,
   DEFAULT_IMAGE,
 } from '../../constants/images.constants';
+import MetaTags from '../../components/layout/seo';
 
 export interface IAdvertisements {
   advertisements: AdvertisementFragment[];
@@ -78,6 +79,12 @@ const Advertisements = ({
 
   return (
     <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
+      <MetaTags
+        title="Sharm El Sheikh Advertisements | Buy & Sell Items for Tourists & Locals"
+        description="Buy and sell goods in Sharm El Sheikh. Free classified ads board for tourists and locals. Find everything you need for your vacation or sell unwanted items easily."
+        imgUrl="https://www.go-go.live/images/business-card.png"
+        siteUrl="https://www.go-go.live/advertisements"
+      />
       <HotOffers
         advertisements={vipAdvertisements}
         onElementClick={handlePopupClick}

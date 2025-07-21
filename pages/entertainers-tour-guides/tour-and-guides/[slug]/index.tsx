@@ -41,6 +41,7 @@ import {
   BACKGROUND_GRADIENT_MOBILE,
   DEFAULT_IMAGE,
 } from '../../../../constants/images.constants';
+import MetaTags from '../../../../components/layout/seo';
 
 interface TourGuidePageProps {
   tourGuide: TourGuideFragment;
@@ -127,6 +128,12 @@ const TourGuidePage = ({
 
   return (
     <>
+      <MetaTags
+        title={name}
+        description={description || ''}
+        imgUrl={profileImg.data?.attributes?.url || ''}
+        siteUrl={`https://www.go-go.live/${slug}`}
+      />
       <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
         <div style={{ width: '100%' }}>
           <BackRoute
