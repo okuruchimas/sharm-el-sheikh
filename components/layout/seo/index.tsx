@@ -11,6 +11,8 @@ interface Props {
 const MetaTags = ({ title, description, imgUrl, siteUrl }: Props) => {
   return (
     <Head>
+      <link rel="canonical" href={siteUrl} />
+
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content="website" />
