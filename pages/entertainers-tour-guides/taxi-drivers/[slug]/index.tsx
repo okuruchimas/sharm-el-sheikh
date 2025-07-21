@@ -223,7 +223,11 @@ export async function getStaticProps({
 
   return {
     props: {
-      ...(await serverSideTranslations(locale!, ['common', 'driver'])),
+      ...(await serverSideTranslations(locale!, [
+        'common',
+        'driver',
+        'entertainers-tour-guides',
+      ])),
       taxiDriver: taxiDrivers?.data[0].attributes,
       similarSuggestions: suggestions?.data,
       headerData,
