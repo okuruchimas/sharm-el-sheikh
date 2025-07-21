@@ -25,8 +25,6 @@ const Document = () => {
           sizes="16x16"
           href="/icons/favicon/favicon-16x16.svg"
         />
-        <link rel="canonical" href="https://www.go-go.live" />
-
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
         <meta
