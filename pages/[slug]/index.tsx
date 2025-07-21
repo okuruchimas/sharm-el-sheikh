@@ -42,6 +42,7 @@ import { Pagination } from 'swiper/modules';
 import { SwiperCardsWrapper } from '../../components/sections/entertainers-tour-guides/children/cards-wrap';
 import useResponsive from '../../hooks/useResponsive';
 import { SwiperSlide } from 'swiper/react';
+import MetaTags from '../../components/layout/seo';
 
 interface Props {
   card: CompanyFragment;
@@ -116,6 +117,12 @@ const CompanyPage = ({
 
   return (
     <>
+      <MetaTags
+        title={title}
+        description={description || ''}
+        imgUrl={images?.data?.[0].attributes?.url || ''}
+        siteUrl={`https://www.go-go.live/${slug}`}
+      />
       <Wrap url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
         <Promo
           totalComments={totalComments}

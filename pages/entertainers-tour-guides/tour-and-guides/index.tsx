@@ -195,11 +195,12 @@ const FiltersWrap = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  width: '100%',
+  width: '286px',
   gap: '32px',
   marginBottom: '24px',
 
   [theme.breakpoints.mobile]: {
+    width: '100%',
     alignItems: 'flex-start',
   },
 }));

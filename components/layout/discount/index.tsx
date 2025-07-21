@@ -16,14 +16,15 @@ type EventPopupProps = Pick<
   'discount' | 'socialLinks' | 'location' | 'position'
 > & {
   onClose: () => void;
+  companyUrl?: string;
 };
 
 const Discount = ({
-  position,
   location,
   discount,
   socialLinks,
   onClose,
+  companyUrl,
 }: EventPopupProps) => {
   const { t } = useTranslation('common');
 
@@ -40,7 +41,7 @@ const Discount = ({
       <Title>{discount?.title}</Title>
       <LocationLink
         text={location || '-'}
-        position={position}
+        url={companyUrl}
         iconSize="36px"
         iconSizeMobile="30px"
       />

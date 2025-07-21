@@ -39,7 +39,7 @@ const Promotions = ({
   const [result, setResult] = useState<Cards>(initialPromotions);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedArea, setSelectedArea] = useState<selectOption>(options[0]);
-  const { renderCard, renderPopup, renderDiscountPopup } = useCompanyCard();
+  const { renderCard, renderDiscountPopup } = useCompanyCard();
   const { t, i18n } = useTranslation('common');
 
   const isShowMore = page * PAGE_SIZE < total;
@@ -111,7 +111,6 @@ const Promotions = ({
           </ButtonWrap>
         ) : null}
       </SectionWrapper>
-      {renderPopup()}
       {renderDiscountPopup()}
     </>
   );

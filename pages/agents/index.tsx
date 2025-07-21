@@ -38,6 +38,7 @@ import {
   BACKGROUND_GRADIENT_MOBILE,
 } from '../../constants/images.constants';
 import { useRouter } from 'next/router';
+import MetaTags from '../../components/layout/seo';
 
 type Props = {
   deliveries: DeliveryFragment[];
@@ -71,6 +72,12 @@ const Agents = ({
 
   return (
     <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
+      <MetaTags
+        title="Tourist Agents in Sharm El Sheikh | Contacts & Map Location"
+        description="Find our tourist agents and guides in Sharm El Sheikh. Interactive map with locations, contact information and service descriptions of our local representatives."
+        imgUrl="https://www.go-go.live/images/business-card.png"
+        siteUrl="https://www.go-go.live/agents"
+      />
       <SectionWrapper title={tPage('sectionTitles.mapTourCompanies')}>
         <Map
           zoom={3}

@@ -28,6 +28,7 @@ import {
   BACKGROUND_GRADIENT,
   BACKGROUND_GRADIENT_MOBILE,
 } from '../../constants/images.constants';
+import MetaTags from '../../components/layout/seo';
 
 type HotspotsPageProps = {
   totalEvents: number;
@@ -49,6 +50,12 @@ const HotspotsPage = ({
   allCompanies,
 }: HotspotsPageProps) => (
   <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
+    <MetaTags
+      title="Sharm El Sheikh Nightlife | Clubs, Bars & Events Tonight"
+      description="Latest nightlife information in Sharm El Sheikh. Popular clubs, bars, upcoming events and parties. Find the best entertainment spots for your evening fun."
+      imgUrl="https://www.go-go.live/images/business-card.png"
+      siteUrl="https://www.go-go.live/hotspots"
+    />
     <EventsContainer
       title={eventsTitle}
       initialEvents={initialEvents}

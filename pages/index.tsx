@@ -36,6 +36,7 @@ import {
 } from '../constants/images.constants';
 import SectionWrapper from '../components/layout/section-wrapper';
 import { useRouter } from 'next/router';
+import MetaTags from '../components/layout/seo';
 
 const DynamicBanner = dynamic(
   () => import('../components/sections/home/banner'),
@@ -95,6 +96,13 @@ const Home = ({
       <Head>
         <title>Sharm El Sheikh</title>
       </Head>
+
+      <MetaTags
+        title="Discover the Best of Sharm El Sheikh"
+        description="Helping travelers find top places to eat, relax, and explore in Sharm El Sheikh."
+        imgUrl="https://www.go-go.live/images/business-card.png"
+        siteUrl="https://www.go-go.live"
+      />
       <Main
         eventCards={homePageData.event_cards}
         eventCardsTitle={homePageData.eventCardsTitle}
