@@ -113,7 +113,7 @@ const AnimatorPage = ({
         title={name}
         description={description}
         imgUrl={profileImg.data?.attributes?.url || ''}
-        siteUrl={`https://www.go-go.live/${slug}`}
+        siteUrl={`https://www.go-go.live/entertainers-tour-guides/animators/${slug}`}
       />
       <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
         <div style={{ width: '100%' }}>
