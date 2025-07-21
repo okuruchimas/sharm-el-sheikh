@@ -266,7 +266,11 @@ export async function getStaticProps({
 
   return {
     props: {
-      ...(await serverSideTranslations(locale!, ['animator', 'common'])),
+      ...(await serverSideTranslations(locale!, [
+        'animator',
+        'common',
+        'entertainers-tour-guides',
+      ])),
       animator: animators?.data[0].attributes,
       similarSuggestions: suggestions?.data,
       headerData,
