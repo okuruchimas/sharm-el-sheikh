@@ -17,10 +17,10 @@ fragment TourOperatorCompany on TourOperatorCompany {
     ...StrapiImage
   }
   about
-  tour_guides {
+  tour_operators {
     data {
       attributes {
-        ...TourGuidePreview
+        ...TourOperatorPreview
         locale
       }
     }

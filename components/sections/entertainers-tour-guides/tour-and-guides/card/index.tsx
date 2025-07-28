@@ -1,29 +1,41 @@
 import Card from '../../children/card';
-import type { TourGuidePreviewFragment } from '../../../../../gql/graphql';
+import type {
+  TourGuidePreviewFragment,
+  TourOperatorPreviewFragment,
+} from '../../../../../gql/graphql';
 
-type GuideCardProps = { tourGuide: TourGuidePreviewFragment };
+type GuideCardProps = {
+  data: TourGuidePreviewFragment | TourOperatorPreviewFragment;
+};
 
-const GuideCard = ({ tourGuide }: GuideCardProps) => {
-  const flags = tourGuide.languages?.data.map(el => ({
+const GuideOrOperatorCard = ({ data }: GuideCardProps) => {
+  const flags = data.languages?.data.map(el => ({
     src: el.attributes?.flagIcon.data?.attributes?.url || '',
     alt: el.attributes?.value || '',
   }));
 
-  const tours =
-    tourGuide.tours?.data.map(el => el.attributes?.name).join(' ') || '';
+  const isGuide = (
+    tourGuide: TourGuidePreviewFragment | TourOperatorPreviewFragment,
+  ): tourGuide is TourGuidePreviewFragment => 'tours' in tourGuide;
+
+  const iconText = isGuide(data)
+    ? data.tours?.data.map(el => el.attributes?.name).join(' ') || ''
+    : data.tour_operator_directions?.data
+        .map(el => el.attributes?.title)
+        .join(' ') || '';
 
   return (
     <Card
-      averageRating={tourGuide.averageRating}
-      totalComments={tourGuide.totalComments}
-      slug={`/entertainers-tour-guides/tour-and-guides/${tourGuide.slug}`}
-      title={tourGuide.name}
-      imgSrc={tourGuide?.profileImg?.data?.attributes?.url || ''}
-      iconText={tours || '-'}
+      averageRating={data.averageRating}
+      totalComments={data.totalComments}
+      slug={`/entertainers-tour-guides/tour-and-guides/${data.slug}`}
+      title={data.name}
+      imgSrc={data?.profileImg?.data?.attributes?.url || ''}
+      iconText={iconText || '-'}
       iconSrc="/icons/direction.svg"
       flagIcons={flags || []}
     />
   );
 };
 
-export default GuideCard;
+export default GuideOrOperatorCard;

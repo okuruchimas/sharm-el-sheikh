@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next';
 // components
 import Image from 'next/image';
 import { Title } from '../title';
-import GuideCard from '../../sections/entertainers-tour-guides/tour-and-guides/card';
+import GuideOrOperatorCard from '../../sections/entertainers-tour-guides/tour-and-guides/card';
 import SocialIcon from '../social-icon';
 import CardsSwiper from '../cards-swiper';
 import VacancyItem from './children/vacancy-item';
@@ -20,8 +20,8 @@ import styled from '@emotion/styled';
 import type {
   AnimatorPreviewFragment,
   AnimationCompanyFragment,
-  TourGuidePreviewFragment,
   TourOperatorCompanyFragment,
+  TourOperatorPreviewFragment,
 } from '../../../gql/graphql';
 import { DEFAULT_IMAGE } from '../../../constants/images.constants';
 
@@ -68,17 +68,17 @@ const CompanyFullInfo = ({ companyData, onClose }: Props) => {
           ) || []
       : [];
 
-  const guidesToShow: TourGuidePreviewFragment[] =
+  const operatorsToShow: TourOperatorPreviewFragment[] =
     companyType === 'tour'
-      ? (companyData as TourOperatorCompanyFragment).tour_guides?.data
+      ? (companyData as TourOperatorCompanyFragment).tour_operators?.data
           ?.map(el => el.attributes)
           ?.filter(
-            (el): el is TourGuidePreviewFragment =>
+            (el): el is TourOperatorPreviewFragment =>
               !!el && el.locale === i18n.language,
           ) || []
       : [];
 
-  const hasCards = animatorsToShow.length > 0 || guidesToShow.length > 0;
+  const hasCards = animatorsToShow.length > 0 || operatorsToShow.length > 0;
 
   const StatItem = ({ title, value }: { title: string; value: string }) =>
     value ? (
@@ -129,7 +129,7 @@ const CompanyFullInfo = ({ companyData, onClose }: Props) => {
       {hasCards && (
         <Section>
           <CardsSwiper
-            dataLength={animatorsToShow.length + guidesToShow.length}
+            dataLength={animatorsToShow.length + operatorsToShow.length}
             placeholderText={tPage(
               companyType === 'animator'
                 ? 'placeholders.noAnimators'
@@ -141,9 +141,9 @@ const CompanyFullInfo = ({ companyData, onClose }: Props) => {
                 <AnimatorCard animator={animator} />
               </SwiperSlide>
             ))}
-            {guidesToShow.map(guide => (
-              <SwiperSlide key={guide.slug}>
-                <GuideCard tourGuide={guide} />
+            {operatorsToShow.map(operator => (
+              <SwiperSlide key={operator.slug}>
+                <GuideOrOperatorCard data={operator} />
               </SwiperSlide>
             ))}
           </CardsSwiper>
