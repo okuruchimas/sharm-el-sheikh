@@ -767,6 +767,7 @@ export type Comment = {
   taxi_drivers?: Maybe<TaxiDriverRelationResponseCollection>;
   text: Scalars['String']['output'];
   tour_guides?: Maybe<TourGuideRelationResponseCollection>;
+  tour_operators?: Maybe<TourOperatorRelationResponseCollection>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -810,6 +811,14 @@ export type CommentTour_GuidesArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+
+export type CommentTour_OperatorsArgs = {
+  filters?: InputMaybe<TourOperatorFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export type CommentEntity = {
   __typename?: 'CommentEntity';
   attributes?: Maybe<Comment>;
@@ -842,6 +851,7 @@ export type CommentFiltersInput = {
   taxi_drivers?: InputMaybe<TaxiDriverFiltersInput>;
   text?: InputMaybe<StringFilterInput>;
   tour_guides?: InputMaybe<TourGuideFiltersInput>;
+  tour_operators?: InputMaybe<TourOperatorFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
@@ -855,6 +865,7 @@ export type CommentInput = {
   taxi_drivers?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   text?: InputMaybe<Scalars['String']['input']>;
   tour_guides?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  tour_operators?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
 };
 
 export type CommentRelationResponseCollection = {
@@ -1694,7 +1705,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = Advertisement | AdvertisementCategory | AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | ComponentComponentsBanner | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | Delivery | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyLocation | PhotographyStyle | Service | SupportService | SupportServicesCategory | TaxiDriver | TaxiService | TaxiSpot | Tour | TourCategory | TourGuide | TourOperatorCompany | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Advertisement | AdvertisementCategory | AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | ComponentComponentsBanner | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | Delivery | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyLocation | PhotographyStyle | Service | SupportService | SupportServicesCategory | TaxiDriver | TaxiService | TaxiSpot | Tour | TourCategory | TourGuide | TourOperator | TourOperatorCompany | TourOperatorDirection | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   __typename?: 'Header';
@@ -1986,6 +1997,7 @@ export type Language = {
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   taxi_drivers?: Maybe<TaxiDriverRelationResponseCollection>;
   tour_guides?: Maybe<TourGuideRelationResponseCollection>;
+  tour_operators?: Maybe<TourOperatorRelationResponseCollection>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   value: Scalars['String']['output'];
 };
@@ -2030,6 +2042,14 @@ export type LanguageTour_GuidesArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+
+export type LanguageTour_OperatorsArgs = {
+  filters?: InputMaybe<TourOperatorFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export type LanguageEntity = {
   __typename?: 'LanguageEntity';
   attributes?: Maybe<Language>;
@@ -2062,6 +2082,7 @@ export type LanguageFiltersInput = {
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   taxi_drivers?: InputMaybe<TaxiDriverFiltersInput>;
   tour_guides?: InputMaybe<TourGuideFiltersInput>;
+  tour_operators?: InputMaybe<TourOperatorFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   value?: InputMaybe<StringFilterInput>;
 };
@@ -2075,6 +2096,7 @@ export type LanguageInput = {
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   taxi_drivers?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   tour_guides?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  tour_operators?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   value?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -2358,8 +2380,12 @@ export type Mutation = {
   createTourGuide?: Maybe<TourGuideEntityResponse>;
   createTourGuideLocalization?: Maybe<TourGuideEntityResponse>;
   createTourLocalization?: Maybe<TourEntityResponse>;
+  createTourOperator?: Maybe<TourOperatorEntityResponse>;
   createTourOperatorCompany?: Maybe<TourOperatorCompanyEntityResponse>;
   createTourOperatorCompanyLocalization?: Maybe<TourOperatorCompanyEntityResponse>;
+  createTourOperatorDirection?: Maybe<TourOperatorDirectionEntityResponse>;
+  createTourOperatorDirectionLocalization?: Maybe<TourOperatorDirectionEntityResponse>;
+  createTourOperatorLocalization?: Maybe<TourOperatorEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   createUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Create a new role */
@@ -2398,7 +2424,9 @@ export type Mutation = {
   deleteTour?: Maybe<TourEntityResponse>;
   deleteTourCategory?: Maybe<TourCategoryEntityResponse>;
   deleteTourGuide?: Maybe<TourGuideEntityResponse>;
+  deleteTourOperator?: Maybe<TourOperatorEntityResponse>;
   deleteTourOperatorCompany?: Maybe<TourOperatorCompanyEntityResponse>;
+  deleteTourOperatorDirection?: Maybe<TourOperatorDirectionEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Delete an existing role */
@@ -2449,7 +2477,9 @@ export type Mutation = {
   updateTour?: Maybe<TourEntityResponse>;
   updateTourCategory?: Maybe<TourCategoryEntityResponse>;
   updateTourGuide?: Maybe<TourGuideEntityResponse>;
+  updateTourOperator?: Maybe<TourOperatorEntityResponse>;
   updateTourOperatorCompany?: Maybe<TourOperatorCompanyEntityResponse>;
+  updateTourOperatorDirection?: Maybe<TourOperatorDirectionEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Update an existing role */
@@ -2829,6 +2859,12 @@ export type MutationCreateTourLocalizationArgs = {
 };
 
 
+export type MutationCreateTourOperatorArgs = {
+  data: TourOperatorInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationCreateTourOperatorCompanyArgs = {
   data: TourOperatorCompanyInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -2837,6 +2873,26 @@ export type MutationCreateTourOperatorCompanyArgs = {
 
 export type MutationCreateTourOperatorCompanyLocalizationArgs = {
   data?: InputMaybe<TourOperatorCompanyInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateTourOperatorDirectionArgs = {
+  data: TourOperatorDirectionInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateTourOperatorDirectionLocalizationArgs = {
+  data?: InputMaybe<TourOperatorDirectionInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateTourOperatorLocalizationArgs = {
+  data?: InputMaybe<TourOperatorInput>;
   id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -3046,7 +3102,19 @@ export type MutationDeleteTourGuideArgs = {
 };
 
 
+export type MutationDeleteTourOperatorArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationDeleteTourOperatorCompanyArgs = {
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeleteTourOperatorDirectionArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -3334,8 +3402,22 @@ export type MutationUpdateTourGuideArgs = {
 };
 
 
+export type MutationUpdateTourOperatorArgs = {
+  data: TourOperatorInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationUpdateTourOperatorCompanyArgs = {
   data: TourOperatorCompanyInput;
+  id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationUpdateTourOperatorDirectionArgs = {
+  data: TourOperatorDirectionInput;
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -3811,8 +3893,12 @@ export type Query = {
   tourCategory?: Maybe<TourCategoryEntityResponse>;
   tourGuide?: Maybe<TourGuideEntityResponse>;
   tourGuides?: Maybe<TourGuideEntityResponseCollection>;
+  tourOperator?: Maybe<TourOperatorEntityResponse>;
   tourOperatorCompanies?: Maybe<TourOperatorCompanyEntityResponseCollection>;
   tourOperatorCompany?: Maybe<TourOperatorCompanyEntityResponse>;
+  tourOperatorDirection?: Maybe<TourOperatorDirectionEntityResponse>;
+  tourOperatorDirections?: Maybe<TourOperatorDirectionEntityResponseCollection>;
+  tourOperators?: Maybe<TourOperatorEntityResponseCollection>;
   tours?: Maybe<TourEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
   uploadFiles?: Maybe<UploadFileEntityResponseCollection>;
@@ -4257,6 +4343,12 @@ export type QueryTourGuidesArgs = {
 };
 
 
+export type QueryTourOperatorArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type QueryTourOperatorCompaniesArgs = {
   filters?: InputMaybe<TourOperatorCompanyFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4269,6 +4361,30 @@ export type QueryTourOperatorCompaniesArgs = {
 export type QueryTourOperatorCompanyArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryTourOperatorDirectionArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryTourOperatorDirectionsArgs = {
+  filters?: InputMaybe<TourOperatorDirectionFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryTourOperatorsArgs = {
+  filters?: InputMaybe<TourOperatorFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -5274,6 +5390,73 @@ export type TourInput = {
   tour_guides?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
 };
 
+export type TourOperator = {
+  __typename?: 'TourOperator';
+  averageRating: Scalars['Float']['output'];
+  comments?: Maybe<CommentRelationResponseCollection>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  languages?: Maybe<LanguageRelationResponseCollection>;
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<TourOperatorRelationResponseCollection>;
+  name: Scalars['String']['output'];
+  profileImg: UploadFileEntityResponse;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  slug: Scalars['String']['output'];
+  socialLinks?: Maybe<Array<Maybe<ComponentHelpersSocialMedia>>>;
+  totalComments: Scalars['Int']['output'];
+  tour_operator_companies?: Maybe<TourOperatorCompanyRelationResponseCollection>;
+  tour_operator_directions?: Maybe<TourOperatorDirectionRelationResponseCollection>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type TourOperatorCommentsArgs = {
+  filters?: InputMaybe<CommentFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TourOperatorLanguagesArgs = {
+  filters?: InputMaybe<LanguageFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TourOperatorLocalizationsArgs = {
+  filters?: InputMaybe<TourOperatorFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TourOperatorSocialLinksArgs = {
+  filters?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TourOperatorTour_Operator_CompaniesArgs = {
+  filters?: InputMaybe<TourOperatorCompanyFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TourOperatorTour_Operator_DirectionsArgs = {
+  filters?: InputMaybe<TourOperatorDirectionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export type TourOperatorCompany = {
   __typename?: 'TourOperatorCompany';
   about?: Maybe<Scalars['String']['output']>;
@@ -5292,6 +5475,7 @@ export type TourOperatorCompany = {
   socialLinks?: Maybe<Array<Maybe<ComponentHelpersSocialMedia>>>;
   totalComments: Scalars['Int']['output'];
   tour_guides?: Maybe<TourGuideRelationResponseCollection>;
+  tour_operators?: Maybe<TourOperatorRelationResponseCollection>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   vacancies?: Maybe<Array<Maybe<ComponentHelpersTextWithTitle>>>;
 };
@@ -5314,6 +5498,14 @@ export type TourOperatorCompanySocialLinksArgs = {
 
 export type TourOperatorCompanyTour_GuidesArgs = {
   filters?: InputMaybe<TourGuideFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TourOperatorCompanyTour_OperatorsArgs = {
+  filters?: InputMaybe<TourOperatorFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -5363,6 +5555,7 @@ export type TourOperatorCompanyFiltersInput = {
   socialLinks?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
   totalComments?: InputMaybe<IntFilterInput>;
   tour_guides?: InputMaybe<TourGuideFiltersInput>;
+  tour_operators?: InputMaybe<TourOperatorFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   vacancies?: InputMaybe<ComponentHelpersTextWithTitleFiltersInput>;
 };
@@ -5381,12 +5574,153 @@ export type TourOperatorCompanyInput = {
   socialLinks?: InputMaybe<Array<InputMaybe<ComponentHelpersSocialMediaInput>>>;
   totalComments?: InputMaybe<Scalars['Int']['input']>;
   tour_guides?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  tour_operators?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   vacancies?: InputMaybe<Array<InputMaybe<ComponentHelpersTextWithTitleInput>>>;
 };
 
 export type TourOperatorCompanyRelationResponseCollection = {
   __typename?: 'TourOperatorCompanyRelationResponseCollection';
   data: Array<TourOperatorCompanyEntity>;
+};
+
+export type TourOperatorDirection = {
+  __typename?: 'TourOperatorDirection';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<TourOperatorDirectionRelationResponseCollection>;
+  media?: Maybe<UploadFileRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  tour_operators?: Maybe<TourOperatorRelationResponseCollection>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type TourOperatorDirectionLocalizationsArgs = {
+  filters?: InputMaybe<TourOperatorDirectionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TourOperatorDirectionMediaArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type TourOperatorDirectionTour_OperatorsArgs = {
+  filters?: InputMaybe<TourOperatorFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type TourOperatorDirectionEntity = {
+  __typename?: 'TourOperatorDirectionEntity';
+  attributes?: Maybe<TourOperatorDirection>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type TourOperatorDirectionEntityResponse = {
+  __typename?: 'TourOperatorDirectionEntityResponse';
+  data?: Maybe<TourOperatorDirectionEntity>;
+};
+
+export type TourOperatorDirectionEntityResponseCollection = {
+  __typename?: 'TourOperatorDirectionEntityResponseCollection';
+  data: Array<TourOperatorDirectionEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type TourOperatorDirectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<TourOperatorDirectionFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<TourOperatorDirectionFiltersInput>;
+  not?: InputMaybe<TourOperatorDirectionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<TourOperatorDirectionFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  tour_operators?: InputMaybe<TourOperatorFiltersInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type TourOperatorDirectionInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  media?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  tour_operators?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+};
+
+export type TourOperatorDirectionRelationResponseCollection = {
+  __typename?: 'TourOperatorDirectionRelationResponseCollection';
+  data: Array<TourOperatorDirectionEntity>;
+};
+
+export type TourOperatorEntity = {
+  __typename?: 'TourOperatorEntity';
+  attributes?: Maybe<TourOperator>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type TourOperatorEntityResponse = {
+  __typename?: 'TourOperatorEntityResponse';
+  data?: Maybe<TourOperatorEntity>;
+};
+
+export type TourOperatorEntityResponseCollection = {
+  __typename?: 'TourOperatorEntityResponseCollection';
+  data: Array<TourOperatorEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type TourOperatorFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<TourOperatorFiltersInput>>>;
+  averageRating?: InputMaybe<FloatFilterInput>;
+  comments?: InputMaybe<CommentFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  languages?: InputMaybe<LanguageFiltersInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<TourOperatorFiltersInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<TourOperatorFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<TourOperatorFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  socialLinks?: InputMaybe<ComponentHelpersSocialMediaFiltersInput>;
+  totalComments?: InputMaybe<IntFilterInput>;
+  tour_operator_companies?: InputMaybe<TourOperatorCompanyFiltersInput>;
+  tour_operator_directions?: InputMaybe<TourOperatorDirectionFiltersInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type TourOperatorInput = {
+  averageRating?: InputMaybe<Scalars['Float']['input']>;
+  comments?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  languages?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  profileImg?: InputMaybe<Scalars['ID']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  socialLinks?: InputMaybe<Array<InputMaybe<ComponentHelpersSocialMediaInput>>>;
+  totalComments?: InputMaybe<Scalars['Int']['input']>;
+  tour_operator_companies?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  tour_operator_directions?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+};
+
+export type TourOperatorRelationResponseCollection = {
+  __typename?: 'TourOperatorRelationResponseCollection';
+  data: Array<TourOperatorEntity>;
 };
 
 export type TourRelationResponseCollection = {
@@ -6156,9 +6490,37 @@ export type GetTourOperatorCompaniesQueryVariables = Exact<{
 }>;
 
 
-export type GetTourOperatorCompaniesQuery = { __typename?: 'Query', tourOperatorCompanies?: { __typename?: 'TourOperatorCompanyEntityResponseCollection', data: Array<{ __typename?: 'TourOperatorCompanyEntity', attributes?: { __typename?: 'TourOperatorCompany', name: string, slug: string, totalComments: number, averageRating: number, about?: string | null, complaintsNumber?: string | null, employmentNumber?: string | null, location: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null, tour_guides?: { __typename?: 'TourGuideRelationResponseCollection', data: Array<{ __typename?: 'TourGuideEntity', attributes?: { __typename?: 'TourGuide', locale?: string | null, slug: string, name: string, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, tours?: { __typename?: 'TourRelationResponseCollection', data: Array<{ __typename?: 'TourEntity', attributes?: { __typename?: 'Tour', name: string } | null }> } | null } | null }> } | null, position?: { __typename?: 'ComponentHelpersPosition', lng: number, lat: number } | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, vacancies?: Array<{ __typename?: 'ComponentHelpersTextWithTitle', title: string, text: string } | null> | null } | null }> } | null };
+export type GetTourOperatorCompaniesQuery = { __typename?: 'Query', tourOperatorCompanies?: { __typename?: 'TourOperatorCompanyEntityResponseCollection', data: Array<{ __typename?: 'TourOperatorCompanyEntity', attributes?: { __typename?: 'TourOperatorCompany', name: string, slug: string, totalComments: number, averageRating: number, about?: string | null, complaintsNumber?: string | null, employmentNumber?: string | null, location: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null, tour_operators?: { __typename?: 'TourOperatorRelationResponseCollection', data: Array<{ __typename?: 'TourOperatorEntity', attributes?: { __typename?: 'TourOperator', locale?: string | null, slug: string, name: string, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, tour_operator_directions?: { __typename?: 'TourOperatorDirectionRelationResponseCollection', data: Array<{ __typename?: 'TourOperatorDirectionEntity', attributes?: { __typename?: 'TourOperatorDirection', title?: string | null } | null }> } | null } | null }> } | null, position?: { __typename?: 'ComponentHelpersPosition', lng: number, lat: number } | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, vacancies?: Array<{ __typename?: 'ComponentHelpersTextWithTitle', title: string, text: string } | null> | null } | null }> } | null };
 
-export type TourOperatorCompanyFragment = { __typename?: 'TourOperatorCompany', name: string, slug: string, totalComments: number, averageRating: number, about?: string | null, complaintsNumber?: string | null, employmentNumber?: string | null, location: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null, tour_guides?: { __typename?: 'TourGuideRelationResponseCollection', data: Array<{ __typename?: 'TourGuideEntity', attributes?: { __typename?: 'TourGuide', locale?: string | null, slug: string, name: string, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, tours?: { __typename?: 'TourRelationResponseCollection', data: Array<{ __typename?: 'TourEntity', attributes?: { __typename?: 'Tour', name: string } | null }> } | null } | null }> } | null, position?: { __typename?: 'ComponentHelpersPosition', lng: number, lat: number } | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, vacancies?: Array<{ __typename?: 'ComponentHelpersTextWithTitle', title: string, text: string } | null> | null };
+export type TourOperatorCompanyFragment = { __typename?: 'TourOperatorCompany', name: string, slug: string, totalComments: number, averageRating: number, about?: string | null, complaintsNumber?: string | null, employmentNumber?: string | null, location: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null, tour_operators?: { __typename?: 'TourOperatorRelationResponseCollection', data: Array<{ __typename?: 'TourOperatorEntity', attributes?: { __typename?: 'TourOperator', locale?: string | null, slug: string, name: string, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, tour_operator_directions?: { __typename?: 'TourOperatorDirectionRelationResponseCollection', data: Array<{ __typename?: 'TourOperatorDirectionEntity', attributes?: { __typename?: 'TourOperatorDirection', title?: string | null } | null }> } | null } | null }> } | null, position?: { __typename?: 'ComponentHelpersPosition', lng: number, lat: number } | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, vacancies?: Array<{ __typename?: 'ComponentHelpersTextWithTitle', title: string, text: string } | null> | null };
+
+export type GetTourOperatorBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetTourOperatorBySlugQuery = { __typename?: 'Query', tourOperators?: { __typename?: 'TourOperatorEntityResponseCollection', data: Array<{ __typename?: 'TourOperatorEntity', attributes?: { __typename?: 'TourOperator', slug: string, name: string, description?: string | null, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null } | null }> } | null };
+
+export type GetTourOperatorByFiltersQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  slugToExclude?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetTourOperatorByFiltersQuery = { __typename?: 'Query', tourOperators?: { __typename?: 'TourOperatorEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } }, data: Array<{ __typename?: 'TourOperatorEntity', attributes?: { __typename?: 'TourOperator', slug: string, name: string, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, tour_operator_directions?: { __typename?: 'TourOperatorDirectionRelationResponseCollection', data: Array<{ __typename?: 'TourOperatorDirectionEntity', attributes?: { __typename?: 'TourOperatorDirection', title?: string | null } | null }> } | null } | null }> } | null };
+
+export type TourOperatorFragment = { __typename?: 'TourOperator', slug: string, name: string, description?: string | null, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null };
+
+export type TourOperatorPreviewFragment = { __typename?: 'TourOperator', slug: string, name: string, averageRating: number, totalComments: number, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, languages?: { __typename?: 'LanguageRelationResponseCollection', data: Array<{ __typename?: 'LanguageEntity', attributes?: { __typename?: 'Language', key: string, value: string, flagIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, tour_operator_directions?: { __typename?: 'TourOperatorDirectionRelationResponseCollection', data: Array<{ __typename?: 'TourOperatorDirectionEntity', attributes?: { __typename?: 'TourOperatorDirection', title?: string | null } | null }> } | null };
+
+export type GetTourOperatorSlugsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTourOperatorSlugsQuery = { __typename?: 'Query', tourOperators?: { __typename?: 'TourOperatorEntityResponseCollection', data: Array<{ __typename?: 'TourOperatorEntity', attributes?: { __typename?: 'TourOperator', slug: string, locale?: string | null, localizations?: { __typename?: 'TourOperatorRelationResponseCollection', data: Array<{ __typename?: 'TourOperatorEntity', attributes?: { __typename?: 'TourOperator', locale?: string | null } | null }> } | null } | null }> } | null };
 
 export type GetToursQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -7363,6 +7725,181 @@ fragment TourPreview on Tour {
     }
   }
 }`, {"fragmentName":"TourGuide"}) as unknown as TypedDocumentString<TourGuideFragment, unknown>;
+export const TourOperatorPreviewFragmentDoc = new TypedDocumentString(`
+    fragment TourOperatorPreview on TourOperator {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  languages {
+    data {
+      attributes {
+        key
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  averageRating
+  totalComments
+  tour_operator_directions {
+    data {
+      attributes {
+        title
+      }
+    }
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`, {"fragmentName":"TourOperatorPreview"}) as unknown as TypedDocumentString<TourOperatorPreviewFragment, unknown>;
+export const TourOperatorCompanyFragmentDoc = new TypedDocumentString(`
+    fragment TourOperatorCompany on TourOperatorCompany {
+  name
+  slug
+  totalComments
+  averageRating
+  image {
+    ...StrapiImage
+  }
+  about
+  tour_operators {
+    data {
+      attributes {
+        ...TourOperatorPreview
+        locale
+      }
+    }
+  }
+  complaintsNumber
+  employmentNumber
+  location
+  position {
+    lng
+    lat
+  }
+  socialLinks {
+    icon {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  vacancies {
+    title
+    text
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}
+fragment TourOperatorPreview on TourOperator {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  languages {
+    data {
+      attributes {
+        key
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  averageRating
+  totalComments
+  tour_operator_directions {
+    data {
+      attributes {
+        title
+      }
+    }
+  }
+}`, {"fragmentName":"TourOperatorCompany"}) as unknown as TypedDocumentString<TourOperatorCompanyFragment, unknown>;
+export const TourOperatorFragmentDoc = new TypedDocumentString(`
+    fragment TourOperator on TourOperator {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  socialLinks {
+    icon {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  languages {
+    data {
+      attributes {
+        key
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  comments {
+    data {
+      ...Comment
+    }
+  }
+  description
+  averageRating
+  totalComments
+}
+    fragment Comment on CommentEntity {
+  id
+  attributes {
+    text
+    rating
+    createdAt
+  }
+}
+fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`, {"fragmentName":"TourOperator"}) as unknown as TypedDocumentString<TourOperatorFragment, unknown>;
+export const TourCategoryFragmentDoc = new TypedDocumentString(`
+    fragment TourCategory on TourCategory {
+  key
+  value
+  icon {
+    ...StrapiImage
+  }
+  markerIcon {
+    ...StrapiImage
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`, {"fragmentName":"TourCategory"}) as unknown as TypedDocumentString<TourCategoryFragment, unknown>;
 export const TourGuidePreviewFragmentDoc = new TypedDocumentString(`
     fragment TourGuidePreview on TourGuide {
   slug
@@ -7399,96 +7936,6 @@ export const TourGuidePreviewFragmentDoc = new TypedDocumentString(`
     }
   }
 }`, {"fragmentName":"TourGuidePreview"}) as unknown as TypedDocumentString<TourGuidePreviewFragment, unknown>;
-export const TourOperatorCompanyFragmentDoc = new TypedDocumentString(`
-    fragment TourOperatorCompany on TourOperatorCompany {
-  name
-  slug
-  totalComments
-  averageRating
-  image {
-    ...StrapiImage
-  }
-  about
-  tour_guides {
-    data {
-      attributes {
-        ...TourGuidePreview
-        locale
-      }
-    }
-  }
-  complaintsNumber
-  employmentNumber
-  location
-  position {
-    lng
-    lat
-  }
-  socialLinks {
-    icon {
-      ...StrapiImage
-    }
-    socialLink
-  }
-  vacancies {
-    title
-    text
-  }
-}
-    fragment StrapiImage on UploadFileEntityResponse {
-  data {
-    attributes {
-      url
-      alternativeText
-    }
-  }
-}
-fragment TourGuidePreview on TourGuide {
-  slug
-  name
-  profileImg {
-    ...StrapiImage
-  }
-  languages {
-    data {
-      attributes {
-        key
-        value
-        flagIcon {
-          ...StrapiImage
-        }
-      }
-    }
-  }
-  averageRating
-  totalComments
-  tours {
-    data {
-      attributes {
-        name
-      }
-    }
-  }
-}`, {"fragmentName":"TourOperatorCompany"}) as unknown as TypedDocumentString<TourOperatorCompanyFragment, unknown>;
-export const TourCategoryFragmentDoc = new TypedDocumentString(`
-    fragment TourCategory on TourCategory {
-  key
-  value
-  icon {
-    ...StrapiImage
-  }
-  markerIcon {
-    ...StrapiImage
-  }
-}
-    fragment StrapiImage on UploadFileEntityResponse {
-  data {
-    attributes {
-      url
-      alternativeText
-    }
-  }
-}`, {"fragmentName":"TourCategory"}) as unknown as TypedDocumentString<TourCategoryFragment, unknown>;
 export const TourFragmentDoc = new TypedDocumentString(`
     fragment Tour on Tour {
   slug
@@ -9522,33 +9969,6 @@ export const GetTourOperatorCompaniesDocument = new TypedDocumentString(`
     }
   }
 }
-fragment TourGuidePreview on TourGuide {
-  slug
-  name
-  profileImg {
-    ...StrapiImage
-  }
-  languages {
-    data {
-      attributes {
-        key
-        value
-        flagIcon {
-          ...StrapiImage
-        }
-      }
-    }
-  }
-  averageRating
-  totalComments
-  tours {
-    data {
-      attributes {
-        name
-      }
-    }
-  }
-}
 fragment TourOperatorCompany on TourOperatorCompany {
   name
   slug
@@ -9558,10 +9978,10 @@ fragment TourOperatorCompany on TourOperatorCompany {
     ...StrapiImage
   }
   about
-  tour_guides {
+  tour_operators {
     data {
       attributes {
-        ...TourGuidePreview
+        ...TourOperatorPreview
         locale
       }
     }
@@ -9583,7 +10003,166 @@ fragment TourOperatorCompany on TourOperatorCompany {
     title
     text
   }
+}
+fragment TourOperatorPreview on TourOperator {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  languages {
+    data {
+      attributes {
+        key
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  averageRating
+  totalComments
+  tour_operator_directions {
+    data {
+      attributes {
+        title
+      }
+    }
+  }
 }`) as unknown as TypedDocumentString<GetTourOperatorCompaniesQuery, GetTourOperatorCompaniesQueryVariables>;
+export const GetTourOperatorBySlugDocument = new TypedDocumentString(`
+    query GetTourOperatorBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  tourOperators(filters: {slug: {eq: $slug}}, locale: $locale) {
+    data {
+      attributes {
+        ...TourOperator
+      }
+    }
+  }
+}
+    fragment Comment on CommentEntity {
+  id
+  attributes {
+    text
+    rating
+    createdAt
+  }
+}
+fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}
+fragment TourOperator on TourOperator {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  socialLinks {
+    icon {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  languages {
+    data {
+      attributes {
+        key
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  comments {
+    data {
+      ...Comment
+    }
+  }
+  description
+  averageRating
+  totalComments
+}`) as unknown as TypedDocumentString<GetTourOperatorBySlugQuery, GetTourOperatorBySlugQueryVariables>;
+export const GetTourOperatorByFiltersDocument = new TypedDocumentString(`
+    query GetTourOperatorByFilters($locale: I18NLocaleCode!, $page: Int, $pageSize: Int, $sort: [String], $slugToExclude: String) {
+  tourOperators(
+    sort: $sort
+    locale: $locale
+    pagination: {page: $page, pageSize: $pageSize}
+    filters: {slug: {ne: $slugToExclude}}
+  ) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      attributes {
+        ...TourOperatorPreview
+      }
+    }
+  }
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}
+fragment TourOperatorPreview on TourOperator {
+  slug
+  name
+  profileImg {
+    ...StrapiImage
+  }
+  languages {
+    data {
+      attributes {
+        key
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  averageRating
+  totalComments
+  tour_operator_directions {
+    data {
+      attributes {
+        title
+      }
+    }
+  }
+}`) as unknown as TypedDocumentString<GetTourOperatorByFiltersQuery, GetTourOperatorByFiltersQueryVariables>;
+export const GetTourOperatorSlugsDocument = new TypedDocumentString(`
+    query GetTourOperatorSlugs {
+  tourOperators {
+    data {
+      attributes {
+        slug
+        locale
+        localizations {
+          data {
+            attributes {
+              locale
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<GetTourOperatorSlugsQuery, GetTourOperatorSlugsQueryVariables>;
 export const GetToursDocument = new TypedDocumentString(`
     query GetTours($locale: I18NLocaleCode!) {
   tours(locale: $locale) {

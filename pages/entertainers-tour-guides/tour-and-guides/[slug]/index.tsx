@@ -15,7 +15,7 @@ import { Title } from '../../../../components/layout/title';
 import Reviews from '../../../../components/sections/company/reviews';
 import TourPopup from '../../../../components/sections/entertainers-tour-guides/tour-and-guides/tour-popup';
 import BackRoute from '../../../../components/sections/entertainers-tour-guides/children/back-route';
-import GuideCard from '../../../../components/sections/entertainers-tour-guides/tour-and-guides/card';
+import GuideOrOperatorCard from '../../../../components/sections/entertainers-tour-guides/tour-and-guides/card';
 import ReviewForm from '../../../../components/sections/company/review';
 import { CardsWrap } from '../../../../components/sections/entertainers-tour-guides/children/cards-wrap';
 import Placeholder from '../../../../components/sections/promotions/children/placeholder';
@@ -190,7 +190,10 @@ const TourGuidePage = ({
           {similarSuggestions.length ? (
             <SuggestionsWrapper>
               {similarSuggestions.map(el => (
-                <GuideCard key={el.attributes.slug} tourGuide={el.attributes} />
+                <GuideOrOperatorCard
+                  key={el.attributes.slug}
+                  data={el.attributes}
+                />
               ))}
             </SuggestionsWrapper>
           ) : (

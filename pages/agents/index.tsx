@@ -1,10 +1,10 @@
 import {
   GetDeliveriesDocument,
-  GetTourGuidesByFiltersDocument,
   GetTourOperatorCompaniesDocument,
+  GetTourOperatorByFiltersDocument,
   type DeliveryFragment,
-  type TourGuideFragment,
   type TourOperatorCompanyFragment,
+  type TourOperatorPreviewFragment,
 } from '../../gql/graphql';
 // hooks
 import { useState } from 'react';
@@ -28,7 +28,7 @@ import { fetchData } from '../../utils/fetchApi';
 import { MapCard } from '../../components/layout/map/children/types';
 import { getLayoutData } from '../../utils/get-layout-data';
 import { SwiperCardsWrapper } from '../../components/sections/entertainers-tour-guides/children/cards-wrap';
-import GuideCard from '../../components/sections/entertainers-tour-guides/tour-and-guides/card';
+import GuideOrOperatorCard from '../../components/sections/entertainers-tour-guides/tour-and-guides/card';
 import { Pagination } from 'swiper/modules';
 import useResponsive from '../../hooks/useResponsive';
 import { SwiperSlide } from 'swiper/react';
@@ -43,13 +43,13 @@ import MetaTags from '../../components/layout/seo';
 type Props = {
   deliveries: DeliveryFragment[];
   initialTotalDeliveries: number;
-  tourGuides: TourGuideFragment[];
+  tourOperators: TourOperatorPreviewFragment[];
   tourOperatorCompanies: { attributes: TourOperatorCompanyFragment }[];
 };
 const Agents = ({
   deliveries,
   initialTotalDeliveries,
-  tourGuides,
+  tourOperators,
   tourOperatorCompanies,
 }: Props) => {
   const { t } = useTranslation('common');
@@ -92,22 +92,24 @@ const Agents = ({
         onClick={() => push('/entertainers-tour-guides/tour-and-guides')}
         mt="60px"
       >
-        <SwiperCardsWrapper
-          modules={[Pagination]}
-          slidesPerView={slidesPerView}
-          spaceBetween={12}
-          navigation={false}
-          pagination={{
-            clickable: true,
-          }}
-          loop
-        >
-          {tourGuides.map(el => (
-            <SwiperSlide key={el.slug}>
-              <GuideCard tourGuide={el} />
-            </SwiperSlide>
-          ))}
-        </SwiperCardsWrapper>
+        {tourOperators.length ? (
+          <SwiperCardsWrapper
+            modules={[Pagination]}
+            slidesPerView={slidesPerView}
+            spaceBetween={12}
+            navigation={false}
+            pagination={{
+              clickable: true,
+            }}
+            loop
+          >
+            {tourOperators.map(el => (
+              <SwiperSlide key={el.slug}>
+                <GuideOrOperatorCard data={el} />
+              </SwiperSlide>
+            ))}
+          </SwiperCardsWrapper>
+        ) : null}
       </SectionWrapper>
 
       <Delivery
@@ -136,12 +138,12 @@ export default Agents;
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
   const layoutDataPromise = getLayoutData(locale!);
   const [
-    { tourGuides },
+    { tourOperators },
     { tourOperatorCompanies },
     { deliveries },
     { headerData, footerData },
   ] = await Promise.all([
-    fetchData(GetTourGuidesByFiltersDocument, {
+    fetchData(GetTourOperatorByFiltersDocument, {
       locale,
       page: 1,
       pageSize: 4,
@@ -157,11 +159,10 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
 
   return {
     props: {
-      deliveries: deliveries?.data?.map(el => el.attributes),
-      initialTotalDeliveries: deliveries?.meta.pagination.total,
-      tourGuides: tourGuides?.data?.map(el => el.attributes),
-      tourOperatorCompanies: tourOperatorCompanies?.data,
-      initialTotal: tourGuides?.meta.pagination.total || 0,
+      deliveries: deliveries?.data?.map(el => el.attributes) || [],
+      initialTotalDeliveries: deliveries?.meta.pagination.total || 0,
+      tourOperators: tourOperators?.data.map(el => el.attributes) || [],
+      tourOperatorCompanies: tourOperatorCompanies?.data || [],
       ...(await serverSideTranslations(locale!, [
         'company-page',
         'common',

@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next';
 import { CardsWrap } from '../../children/cards-wrap';
-import GuideCard from '../card';
+import GuideOrOperatorCard from '../card';
 import Placeholder from '../../../promotions/children/placeholder';
 import type { TourGuideFragment } from '../../../../../gql/graphql';
 
@@ -14,7 +14,7 @@ const GuidesCards = ({ tourGuides }: GuidesCardsProps) => {
   return tourGuides.length ? (
     <CardsWrap>
       {tourGuides.map(el => (
-        <GuideCard key={el.slug} tourGuide={el} />
+        <GuideOrOperatorCard key={el.slug} data={el} />
       ))}
     </CardsWrap>
   ) : (
