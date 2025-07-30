@@ -1,7 +1,6 @@
 import TourGuidePage from '../../../entertainers-tour-guides/tour-and-guides/[slug]';
 import { fetchData } from '../../../../utils/fetchApi';
 import {
-  GetTourGuidesByFiltersDocument,
   GetTourGuidesSlugsDocument,
   GetTourOperatorByFiltersDocument,
   GetTourOperatorBySlugDocument,
@@ -12,6 +11,7 @@ import { getLayoutData } from '../../../../utils/get-layout-data';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { REVALIDATE_TIME } from '../../../../constants/page.constants';
 
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 const TourOperator = ({ tourOperator, similarSuggestions }: any) => {
   return (
     <TourGuidePage
