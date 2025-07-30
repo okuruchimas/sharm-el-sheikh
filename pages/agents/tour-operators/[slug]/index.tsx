@@ -1,9 +1,9 @@
 import TourGuidePage from '../../../entertainers-tour-guides/tour-and-guides/[slug]';
 import { fetchData } from '../../../../utils/fetchApi';
 import {
-  GetTourGuidesSlugsDocument,
   GetTourOperatorByFiltersDocument,
   GetTourOperatorBySlugDocument,
+  GetTourOperatorSlugsDocument,
 } from '../../../../gql/graphql';
 import { getLocalizedPaths } from '../../../../utils/get-loocalized-paths';
 import { GetStaticPropsContext } from 'next';
@@ -25,9 +25,9 @@ const TourOperator = ({ tourOperator, similarSuggestions }: any) => {
 export default TourOperator;
 
 export async function getStaticPaths() {
-  const { tourGuides } = await fetchData(GetTourGuidesSlugsDocument);
+  const { tourOperators } = await fetchData(GetTourOperatorSlugsDocument);
 
-  const paths = getLocalizedPaths(tourGuides);
+  const paths = getLocalizedPaths(tourOperators);
 
   return {
     paths,
