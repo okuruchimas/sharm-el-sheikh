@@ -1,0 +1,107 @@
+query GetTourOperatorBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  tourOperators(filters: { slug: { eq: $slug } }, locale: $locale) {
+    data {
+      attributes {
+        ...TourOperator
+      }
+    }
+  }
+}
+
+query GetTourOperatorByFilters(
+  $locale: I18NLocaleCode!
+  $page: Int
+  $pageSize: Int
+  $sort: [String]
+  $slugToExclude: String
+) {
+  tourOperators(
+    sort: $sort
+    locale: $locale
+    pagination: { page: $page, pageSize: $pageSize }
+    filters: { slug: { ne: $slugToExclude } }
+  ) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      attributes {
+        ...TourOperatorPreview
+      }
+    }
+  }
+}
+
+fragment TourOperator on TourOperator {
+  slug
+  name
+  img {
+    ...StrapiImage
+  }
+  socialLinks {
+    icon {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  languages {
+    data {
+      attributes {
+        key
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  comments {
+    data {
+      ...Comment
+    }
+  }
+  description
+  averageRating
+  totalComments
+}
+
+fragment TourOperatorPreview on TourOperator {
+  slug
+  name
+  img {
+    ...StrapiImage
+  }
+  languages {
+    data {
+      attributes {
+        key
+        value
+        flagIcon {
+          ...StrapiImage
+        }
+      }
+    }
+  }
+  averageRating
+  totalComments
+}
+
+query GetTourOperatorSlugs {
+  tourOperators {
+    data {
+      attributes {
+        slug
+        locale
+        localizations {
+          data {
+            attributes {
+              locale
+            }
+          }
+        }
+      }
+    }
+  }
+}

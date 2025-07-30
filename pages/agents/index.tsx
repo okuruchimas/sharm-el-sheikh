@@ -88,8 +88,8 @@ const Agents = ({
 
       <SectionWrapper
         title={tPage('sectionTitles.operatorsForYou')}
-        buttonText={t('buttons.seeAll')}
-        onClick={() => push('/entertainers-tour-guides/tour-and-guides')}
+        // buttonText={t('buttons.seeAll')}
+        // onClick={() => push('/entertainers-tour-guides/tour-and-guides')}
         mt="60px"
       >
         {tourOperators.length ? (

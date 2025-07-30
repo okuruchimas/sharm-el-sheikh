@@ -128,6 +128,8 @@ const CompanyFullInfo = ({ companyData, onClose }: Props) => {
 
       {hasCards && (
         <Section>
+          <SectionTitle as="h3">{t('animPopAp.animators')}</SectionTitle>
+
           <CardsSwiper
             dataLength={animatorsToShow.length + operatorsToShow.length}
             placeholderText={tPage(
