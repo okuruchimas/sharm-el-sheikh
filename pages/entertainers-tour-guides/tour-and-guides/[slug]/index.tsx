@@ -46,6 +46,7 @@ import MetaTags from '../../../../components/layout/seo';
 interface TourGuidePageProps {
   tourGuide: TourGuideFragment;
   similarSuggestions: { attributes: TourGuideFragment }[];
+  backRoute: string;
 }
 
 const TourGuidePage = ({
@@ -62,6 +63,7 @@ const TourGuidePage = ({
     tours,
   },
   similarSuggestions,
+  backRoute = '/entertainers-tour-guides/tour-and-guides',
 }: TourGuidePageProps) => {
   const [selectedTour, setSelectedTour] = useState<MapCard>();
 
@@ -137,7 +139,7 @@ const TourGuidePage = ({
       <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
         <div style={{ width: '100%' }}>
           <BackRoute
-            href={'/entertainers-tour-guides/tour-and-guides'}
+            href={backRoute}
             baseRoute={`${tCommon('text.entertainersTourGuides')} / `}
             subRoute={`${t('tabs.tourOperators')} / `}
             name={name}

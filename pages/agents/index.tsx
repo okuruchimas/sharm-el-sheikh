@@ -37,7 +37,6 @@ import {
   BACKGROUND_GRADIENT,
   BACKGROUND_GRADIENT_MOBILE,
 } from '../../constants/images.constants';
-import { useRouter } from 'next/router';
 import MetaTags from '../../components/layout/seo';
 
 type Props = {
@@ -52,12 +51,10 @@ const Agents = ({
   tourOperators,
   tourOperatorCompanies,
 }: Props) => {
-  const { t } = useTranslation('common');
   const { t: tPage } = useTranslation('agents');
   const [selectedOperatorCompany, setSelectedOperatorCompany] =
     useState<TourOperatorCompanyFragment>();
   const { slidesPerView } = useResponsive();
-  const { push } = useRouter();
 
   const locations = tourOperatorCompanies.map(el =>
     mapLocation(el, '/icons/tour-operator-company-map-marker.svg'),
@@ -86,12 +83,7 @@ const Agents = ({
         />
       </SectionWrapper>
 
-      <SectionWrapper
-        title={tPage('sectionTitles.operatorsForYou')}
-        buttonText={t('buttons.seeAll')}
-        onClick={() => push('/entertainers-tour-guides/tour-and-guides')}
-        mt="60px"
-      >
+      <SectionWrapper title={tPage('sectionTitles.operatorsForYou')} mt="60px">
         {tourOperators.length ? (
           <SwiperCardsWrapper
             modules={[Pagination]}

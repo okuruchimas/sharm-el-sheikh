@@ -14,11 +14,13 @@ const GuideOrOperatorCard = ({ data }: GuideCardProps) => {
     alt: el.attributes?.value || '',
   }));
 
-  const isGuide = (
+  const isGuideF = (
     tourGuide: TourGuidePreviewFragment | TourOperatorPreviewFragment,
   ): tourGuide is TourGuidePreviewFragment => 'tours' in tourGuide;
 
-  const iconText = isGuide(data)
+  const isGuide = isGuideF(data);
+
+  const iconText = isGuide
     ? data.tours?.data.map(el => el.attributes?.name).join(' ') || ''
     : data.tour_operator_directions?.data
         .map(el => el.attributes?.title)
@@ -28,7 +30,11 @@ const GuideOrOperatorCard = ({ data }: GuideCardProps) => {
     <Card
       averageRating={data.averageRating}
       totalComments={data.totalComments}
-      slug={`/entertainers-tour-guides/tour-and-guides/${data.slug}`}
+      slug={
+        isGuide
+          ? `/entertainers-tour-guides/tour-and-guides/${data.slug}`
+          : `/agents/tour-operators/${data.slug}`
+      }
       title={data.name}
       imgSrc={data?.profileImg?.data?.attributes?.url || ''}
       iconText={iconText || '-'}

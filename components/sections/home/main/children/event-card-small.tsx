@@ -79,8 +79,13 @@ const Date = styled('span')(({ theme }) => ({
   color: theme.colors.grey1,
   fontSize: theme.fontSize.fontS18,
   marginBottom: '4px',
+  width: '270px',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 
   [theme.breakpoints.mobile]: {
+    width: '200px',
     fontWeight: '600',
     fontSize: theme.fontSize.fontS14,
   },
@@ -103,7 +108,6 @@ const BottomWrap = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   gap: '8px',
   marginTop: '8px',
-
   [theme.breakpoints.mobile]: {
     gap: '4px',
   },
@@ -114,10 +118,13 @@ const BottomText = styled('h3')(({ theme }) => ({
   fontWeight: '600',
   fontSize: theme.fontSize.fontS18,
   color: theme.colors.grey2,
-  width: 'max-content',
+  width: '270px',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 
   [theme.breakpoints.mobile]: {
-    width: 'auto',
+    width: '200px',
     fontWeight: '400',
     fontSize: theme.fontSize.fontS12,
   },

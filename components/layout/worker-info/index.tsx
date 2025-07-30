@@ -52,16 +52,19 @@ const WorkerInfoSection = ({
             <p>{`${tCommon('text.languagesSpoken')}:`}</p>
             <Flags icons={languages} />
           </InfoField>
-          <IconsWrapper>
-            {socialLinks?.map((el, index) => (
-              <SocialIcon
-                key={index}
-                iconSrc={el?.icon.data?.attributes?.url || ''}
-                iconAlt={el?.icon.data?.attributes?.alternativeText || ''}
-                socialLink={el?.socialLink || ''}
-              />
-            ))}
-          </IconsWrapper>
+          <InfoField>
+            <p>{`${tCommon('text.socialNetworks')}:`}</p>
+            <IconsWrapper>
+              {socialLinks?.map((el, index) => (
+                <SocialIcon
+                  key={index}
+                  iconSrc={el?.icon.data?.attributes?.url || ''}
+                  iconAlt={el?.icon.data?.attributes?.alternativeText || ''}
+                  socialLink={el?.socialLink || ''}
+                />
+              ))}
+            </IconsWrapper>
+          </InfoField>
         </TopStack>
       </TopWrapper>
       <InfoField>
