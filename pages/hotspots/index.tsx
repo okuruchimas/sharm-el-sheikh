@@ -29,6 +29,7 @@ import {
   BACKGROUND_GRADIENT_MOBILE,
 } from '../../constants/images.constants';
 import MetaTags from '../../components/layout/seo';
+import AllCompanies from '../../components/sections/hotspots/companies';
 
 type HotspotsPageProps = {
   totalEvents: number;
@@ -72,6 +73,13 @@ const HotspotsPage = ({
       categories={categories}
       companies={allCompanies}
     />
+    {allCompanies ? (
+      <AllCompanies
+        categories={categories?.map(el => el.attributes)}
+        companies={allCompanies.map(el => el.attributes)}
+      />
+    ) : null}
+
     {bottomBanner ? (
       <HotspotsBanner
         title={bottomBanner.title || ''}

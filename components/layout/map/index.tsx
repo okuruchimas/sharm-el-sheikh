@@ -18,6 +18,8 @@ import {
 // types
 import type { MapCard } from './children/types';
 import type { selectOption } from '../../types/filter';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 type MapProps = {
   title?: string;
@@ -38,6 +40,10 @@ const Map = ({
   onCategorySelect,
   zoom = DEFAULT_ZOOM,
 }: MapProps) => {
+  const { t } = useTranslation('common');
+  const { push, route } = useRouter();
+  const endRoute = '/hotspots';
+
   const [selectedMarker, setSelectedMarker] = useState<MapCard>();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? '',
@@ -88,7 +94,11 @@ const Map = ({
 
   return (
     <>
-      <SectionWrapper title={title}>
+      <SectionWrapper
+        title={title}
+        buttonText={route === endRoute ? undefined : t('buttons.viewMore')}
+        onClick={route === endRoute ? undefined : () => push(endRoute)}
+      >
         {categories && onCategorySelect ? (
           <LocationsCategoryFilter
             selectedID={selectedCategoryID}

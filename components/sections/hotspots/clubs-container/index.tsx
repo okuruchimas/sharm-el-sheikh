@@ -129,6 +129,22 @@ const ClubsContainer = ({
       <SectionWrapper
         title={title}
         titleChildren={
+          isMobile ? null : (
+            <Dropdown
+              options={[
+                { key: '', value: t('text.selectDay') },
+                ...weekDaysOptions,
+              ]}
+              initialValue={weekDaysOptions.find(el => el.key === selectedDay)}
+              onChange={handleDaySelect}
+              isLoading={isLoading}
+              height="56px"
+              color="blue"
+            />
+          )
+        }
+      >
+        {isMobile ? (
           <Dropdown
             options={[
               { key: '', value: t('text.selectDay') },
@@ -140,8 +156,7 @@ const ClubsContainer = ({
             height="56px"
             color="blue"
           />
-        }
-      >
+        ) : null}
         {result?.length ? (
           <CardsWrapper>
             {result?.map(el => (el ? renderCard(el) : null))}
@@ -210,8 +225,10 @@ const FindAnimatorSection = styled('div')(({ theme }) => ({
   gap: '24px',
 
   [theme.breakpoints.mobile]: {
+    textAlign: 'center',
     gap: '8px',
     flexDirection: 'column',
+    alignItems: 'center',
   },
 }));
 

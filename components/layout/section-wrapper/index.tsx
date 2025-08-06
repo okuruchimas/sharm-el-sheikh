@@ -46,6 +46,7 @@ const SectionWrapper = ({
 export default SectionWrapper;
 
 const Wrapper = styled('div')<{ mt: string }>(({ theme, mt }) => ({
+  position: 'relative',
   marginTop: mt,
   display: 'flex',
   flexDirection: 'column',
@@ -78,6 +79,7 @@ const TitleWrap = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+  alignContent: 'center',
   width: '100%',
 
   [theme.breakpoints.mobile]: {
