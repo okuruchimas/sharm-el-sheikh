@@ -30,6 +30,8 @@ import {
 } from '../../constants/images.constants';
 import MetaTags from '../../components/layout/seo';
 import AllCompanies from '../../components/sections/hotspots/companies';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 type HotspotsPageProps = {
   totalEvents: number;
@@ -49,50 +51,71 @@ const HotspotsPage = ({
   initialClubs,
   categories,
   allCompanies,
-}: HotspotsPageProps) => (
-  <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
-    <MetaTags
-      title="Sharm El Sheikh Nightlife | Clubs, Bars & Events Tonight"
-      description="Latest nightlife information in Sharm El Sheikh. Popular clubs, bars, upcoming events and parties. Find the best entertainment spots for your evening fun."
-      imgUrl="https://www.go-go.live/images/business-card.png"
-      siteUrl="https://www.go-go.live/hotspots"
-    />
-    <EventsContainer
-      title={eventsTitle}
-      initialEvents={initialEvents}
-      totalItems={totalEvents}
-    />
-    <ClubsContainer
-      title={clubsTitle}
-      clubsInfo={clubsInfo}
-      totalItems={totalClubs}
-      initialClubs={initialClubs.map(el => el.attributes)}
-    />
-    <NecessaryLocations
-      title={mapTitle || ''}
-      categories={categories}
-      companies={allCompanies}
-    />
-    {allCompanies ? (
-      <AllCompanies
-        categories={categories?.map(el => el.attributes)}
-        companies={allCompanies.map(el => el.attributes)}
-      />
-    ) : null}
+}: HotspotsPageProps) => {
+  const { asPath } = useRouter();
 
-    {bottomBanner ? (
-      <HotspotsBanner
-        title={bottomBanner.title || ''}
-        buttonText={bottomBanner.buttonText || ''}
-        buttonLink={bottomBanner.buttonLink || ''}
-        imgLink={bottomBanner.bannerImage?.data?.attributes?.url || ''}
-        subtitle={bottomBanner.subtitle || ''}
+  useEffect(() => {
+    if (asPath.includes('#')) {
+      const id = asPath.split('#')[1];
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [asPath]);
+
+  return (
+    <Wrapper url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
+      <MetaTags
+        title="Sharm El Sheikh Nightlife | Clubs, Bars & Events Tonight"
+        description="Latest nightlife information in Sharm El Sheikh. Popular clubs, bars, upcoming events and parties. Find the best entertainment spots for your evening fun."
+        imgUrl="https://www.go-go.live/images/business-card.png"
+        siteUrl="https://www.go-go.live/hotspots"
       />
-    ) : null}
-  </Wrapper>
-);
+      <EventsContainer
+        title={eventsTitle}
+        initialEvents={initialEvents}
+        totalItems={totalEvents}
+      />
+      <ClubsContainer
+        title={clubsTitle}
+        clubsInfo={clubsInfo}
+        totalItems={totalClubs}
+        initialClubs={initialClubs.map(el => el.attributes)}
+      />
+      <NecessaryLocations
+        title={mapTitle || ''}
+        categories={categories}
+        companies={allCompanies}
+      />
+      {allCompanies ? (
+        <AllCompanies
+          categories={categories?.map(el => el.attributes)}
+          companies={allCompanies.map(el => el.attributes)}
+        />
+      ) : null}
+
+      {bottomBanner ? (
+        <AnchorWrapper id="map">
+          <HotspotsBanner
+            title={bottomBanner.title || ''}
+            buttonText={bottomBanner.buttonText || ''}
+            buttonLink={bottomBanner.buttonLink || ''}
+            imgLink={bottomBanner.bannerImage?.data?.attributes?.url || ''}
+            subtitle={bottomBanner.subtitle || ''}
+          />
+        </AnchorWrapper>
+      ) : null}
+    </Wrapper>
+  );
+};
 
 export default HotspotsPage;
+
+const AnchorWrapper = styled('div')(({ theme }) => ({
+  width: '100%',
+  [theme.breakpoints.mobile]: {},
+}));
 
 const Wrapper = styled(SectionsWrapper)(({ theme }) => ({
   minHeight: '100vh',

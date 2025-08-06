@@ -1,5 +1,5 @@
 import { MarkerF, GoogleMap, useLoadScript } from '@react-google-maps/api';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 // components
 import Loader from '../../layout/loader';
 import InfoWindow from './children/info-window';
@@ -41,8 +41,8 @@ const Map = ({
   zoom = DEFAULT_ZOOM,
 }: MapProps) => {
   const { t } = useTranslation('common');
-  const { push, route } = useRouter();
-  const endRoute = '/hotspots';
+  const { push, route, asPath } = useRouter();
+  const endRoute = '/hotspots#map';
 
   const [selectedMarker, setSelectedMarker] = useState<MapCard>();
   const { isLoaded, loadError } = useLoadScript({
@@ -96,8 +96,12 @@ const Map = ({
     <>
       <SectionWrapper
         title={title}
-        buttonText={route === endRoute ? undefined : t('buttons.viewMore')}
-        onClick={route === endRoute ? undefined : () => push(endRoute)}
+        buttonText={asPath === endRoute ? undefined : t('buttons.viewMore')}
+        onClick={
+          asPath === endRoute
+            ? undefined
+            : () => push(endRoute, undefined, { scroll: false })
+        }
       >
         {categories && onCategorySelect ? (
           <LocationsCategoryFilter

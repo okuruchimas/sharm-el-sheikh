@@ -23,7 +23,6 @@ const UniversalCard = ({
   groupSize,
   onClick,
 }: PromCardProps) => {
-  console.log(duration);
   return (
     <Wrap onClick={onClick}>
       <ImgWrapper>
