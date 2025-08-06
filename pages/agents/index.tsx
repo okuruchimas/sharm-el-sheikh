@@ -75,13 +75,12 @@ const Agents = ({
         imgUrl="https://www.go-go.live/images/business-card.png"
         siteUrl="https://www.go-go.live/agents"
       />
-      <SectionWrapper title={tPage('sectionTitles.mapTourCompanies')}>
-        <Map
-          zoom={3}
-          onInfoWindowClick={handleInfoWindowClick}
-          locations={locations}
-        />
-      </SectionWrapper>
+      <Map
+        title={tPage('sectionTitles.mapTourCompanies')}
+        zoom={3}
+        onInfoWindowClick={handleInfoWindowClick}
+        locations={locations}
+      />
 
       <SectionWrapper title={tPage('sectionTitles.operatorsForYou')} mt="60px">
         {tourOperators.length ? (

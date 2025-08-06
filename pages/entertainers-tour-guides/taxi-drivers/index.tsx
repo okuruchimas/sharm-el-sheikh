@@ -218,7 +218,11 @@ const TaxiDrivers = ({
   return (
     <Container>
       {locations.length ? (
-        <Map onInfoWindowClick={handleInfoWindowClick} locations={locations} />
+        <Map
+          title={t('pageTitle')}
+          onInfoWindowClick={handleInfoWindowClick}
+          locations={locations}
+        />
       ) : null}
       <Tabs />
       <FiltersWrap>

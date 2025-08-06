@@ -215,6 +215,7 @@ const Photographers = ({
   return (
     <Container>
       <Map
+        title={t('pageTitle')}
         onInfoWindowClick={handleInfoWindowClick}
         locations={locations}
         categories={categories}
