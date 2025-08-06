@@ -4,12 +4,12 @@ import { useTranslation } from 'next-i18next';
 // utils
 import styled from '@emotion/styled';
 // components
-import Button from '../../../layout/button';
+import Button from '../button';
 // types
-import type { selectOption } from '../../../types/filter';
+import type { selectOption } from '../../types/filter';
 
 type Filter = string[] | undefined;
-interface MedicationsFilterProps {
+interface CategoriesFilterProps {
   title: string;
   selectedCategories?: string[];
   categoriesOptions: selectOption[];
@@ -17,13 +17,13 @@ interface MedicationsFilterProps {
   onSave: (categories: Filter) => Promise<void>;
 }
 
-const MedicationsFilter = ({
+const CategoriesFilter = ({
   title,
   categoriesOptions,
   selectedCategories,
   onSave,
   onClose,
-}: MedicationsFilterProps) => {
+}: CategoriesFilterProps) => {
   const [categories, setCategories] = useState<Filter>(selectedCategories);
 
   const formRef = useRef<HTMLDivElement>(null);
@@ -149,4 +149,4 @@ const Actions = styled('div')(({ theme }) => ({
   },
 }));
 
-export default MedicationsFilter;
+export default CategoriesFilter;

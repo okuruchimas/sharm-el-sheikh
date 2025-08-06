@@ -90,7 +90,10 @@ const HotspotsPage = ({
       />
       {allCompanies ? (
         <AllCompanies
-          categories={categories?.map(el => el.attributes)}
+          categories={categories?.map(el => ({
+            key: el.attributes?.key ?? '',
+            value: el.attributes?.value ?? '',
+          }))}
           companies={allCompanies.map(el => el.attributes)}
         />
       ) : null}

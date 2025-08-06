@@ -1,5 +1,5 @@
 import { MarkerF, GoogleMap, useLoadScript } from '@react-google-maps/api';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 // components
 import Loader from '../../layout/loader';
 import InfoWindow from './children/info-window';
@@ -41,7 +41,7 @@ const Map = ({
   zoom = DEFAULT_ZOOM,
 }: MapProps) => {
   const { t } = useTranslation('common');
-  const { push, route, asPath } = useRouter();
+  const { push, asPath } = useRouter();
   const endRoute = '/hotspots#map';
 
   const [selectedMarker, setSelectedMarker] = useState<MapCard>();

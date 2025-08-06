@@ -72,8 +72,9 @@
     "similarSuggestions": "Ähnliche Vorschläge",
     "tourComponents": "Tourkomponenten",
     "workingDays": "Arbeitstage",
-    "newAds": "Neue Anzeigen"
-
+    "newAds": "Neue Anzeigen",
+    "categories": "Kategorien",
+    "noCompanies": "Keine Unternehmen gefunden"
   },
   "toasts": {
     "feedbackError": "Fehler beim Hinzufügen des Kommentars",

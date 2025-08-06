@@ -72,8 +72,9 @@
     "similarSuggestions": "اقتراحات مشابهة",
     "tourComponents": "مكونات الجولة",
     "workingDays": "أيام العمل",
-    "newAds": "إعلانات جديدة"
-
+    "newAds": "إعلانات جديدة",
+    "categories": "الفئات",
+    "noCompanies": "لم يتم العثور على شركات"
   },
   "toasts": {
     "feedbackError": "حدث خطأ أثناء إضافة التعليق",

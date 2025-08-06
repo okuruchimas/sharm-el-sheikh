@@ -1,29 +1,30 @@
-import React, { useState } from 'react';
+// hooks
+import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
-import SectionWrapper from '../../../layout/section-wrapper';
-import { SwiperCardsWrapper } from '../../entertainers-tour-guides/children/cards-wrap';
-import { SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
-import Placeholder from '../../promotions/children/placeholder';
-import useResponsive from '../../../../hooks/useResponsive';
 import useCompanyCard from '../../../../hooks/useCompanyCard';
-import {
-  Category,
-  CompanyPreviewFragment,
-  GetMedicationsByFilterDocument,
-  GetMedicationsNamesDocument,
-  Maybe,
-} from '../../../../gql/graphql';
+// components
+import Loader from '../../../layout/loader';
 import SearchBar from '../../../layout/search-bar';
+import Placeholder from '../../promotions/children/placeholder';
 import FilterButton from '../../../layout/filters/button';
+import { Pagination } from 'swiper/modules';
+import useResponsive from '../../../../hooks/useResponsive';
+import { SwiperSlide } from 'swiper/react';
+import SectionWrapper from '../../../layout/section-wrapper';
+import CategoriesFilter from '../../../layout/categories-filter';
+import { SwiperCardsWrapper } from '../../entertainers-tour-guides/children/cards-wrap';
+import {
+  type CompanyPreviewFragment,
+  GetCompaniesTitlesDocument,
+  GetCompaniesByFilterDocument,
+} from '../../../../gql/graphql';
 import styled from '@emotion/styled';
-import { selectOption } from '../../../types/filter';
+import type { selectOption } from '../../../types/filter';
 import { fetchDataFromApi } from '../../../../utils/fetchApi';
-import MedicationsFilter from '../../pharmacies-medicines/children/medications-filter';
 
 interface Props {
   companies: CompanyPreviewFragment[];
-  categories: (Maybe<Category> | undefined)[];
+  categories: selectOption[];
 }
 const AllCompanies = ({ companies, categories }: Props) => {
   const [query, setQuery] = useState('');
@@ -32,7 +33,7 @@ const AllCompanies = ({ companies, categories }: Props) => {
 
   const { t, i18n } = useTranslation('common');
   const { slidesPerView } = useResponsive();
-  const { renderCard, renderDiscountPopup } = useCompanyCard();
+  const { renderCard, renderDiscountPopup, renderPopup } = useCompanyCard();
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<CompanyPreviewFragment[]>(companies);
   const [isFilter, setIsFilter] = useState(false);
@@ -46,37 +47,40 @@ const AllCompanies = ({ companies, categories }: Props) => {
   }) => {
     setIsLoading(true);
 
-    const { medications } = await fetchDataFromApi(
-      //TODO: Need GetCompanies
-      GetMedicationsByFilterDocument,
-      {
-        locale: i18n.language,
-        nameFilter: filter || undefined,
-        categories,
-      },
-    );
+    try {
+      const { companies } = await fetchDataFromApi(
+        GetCompaniesByFilterDocument,
+        {
+          locale: i18n.language,
+          titleFilter: filter || undefined,
+          category: categories,
+        },
+      );
 
-    setResult(medications?.data?.map(el => el.attributes) as any);
-    setIsLoading(false);
+      const data = companies?.data?.map(
+        el => el.attributes,
+      ) as CompanyPreviewFragment[];
+      setResult(data);
+    } catch (error) {
+      console.error('Error fetching companies:', error);
+      setResult([]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleInputChange = async (value: string) => {
     setQuery(value);
 
     if (value.length) {
-      //TODO: Need companies except medications
-      const { medications } = await fetchDataFromApi(
-        //TODO: Need GetCompaniesNames
-        GetMedicationsNamesDocument,
-        {
-          locale: i18n.language,
-          nameFilter: value || undefined,
-        },
-      );
+      const { companies } = await fetchDataFromApi(GetCompaniesTitlesDocument, {
+        locale: i18n.language,
+        titleFilter: value || undefined,
+      });
 
-      const options = medications?.data.map(el => ({
+      const options = companies?.data.map(el => ({
         key: el.attributes?.slug || '',
-        value: el.attributes?.name || '',
+        value: el.attributes?.title || '',
       }));
 
       setFilterOptions(options);
@@ -114,37 +118,40 @@ const AllCompanies = ({ companies, categories }: Props) => {
         <FilterButton onClick={() => setIsFilter(!isFilter)} />
       </Filters>
       {isFilter && categories ? (
-        <MedicationsFilter
-          title={'Companies'}
+        <CategoriesFilter
+          title={t('text.categories')}
           selectedCategories={selectedCategories}
-          // TODO: Need to fix types for categories here
-          // @ts-ignore
           categoriesOptions={categories}
           onClose={() => setIsFilter(false)}
           onSave={handleFiltersSubmit}
         />
       ) : null}
 
-      {/*TODO: Need result here except companies*/}
-      {companies?.length ? (
+      {result?.length ? (
         <SwiperCardsWrapper
           modules={[Pagination]}
           slidesPerView={slidesPerView}
           spaceBetween={12}
           navigation={false}
-          pagination={{
-            clickable: true,
-          }}
+          pagination={{ clickable: true }}
           loop
         >
-          {/*TODO: Need result here except companies*/}
-          {companies?.map((el, index) =>
-            el ? <SwiperSlide key={index}>{renderCard(el)}</SwiperSlide> : null,
+          {isLoading ? (
+            <LoaderWrapper>
+              <Loader />
+            </LoaderWrapper>
+          ) : (
+            result.map((el, index) =>
+              el ? (
+                <SwiperSlide key={index}>{renderCard(el)}</SwiperSlide>
+              ) : null,
+            )
           )}
         </SwiperCardsWrapper>
       ) : (
-        <Placeholder title={t('noAddsFound')} />
+        <Placeholder title={t('text.noCompanies')} />
       )}
+      {renderPopup()}
       {renderDiscountPopup()}
     </SectionWrapper>
   );
@@ -157,3 +164,14 @@ const Filters = styled('div')({
   alignItems: 'center',
   gap: '40px',
 });
+
+const LoaderWrapper = styled('div')(({ theme }) => ({
+  height: '420px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  [theme.breakpoints.mobile]: {
+    height: '384px',
+  },
+}));

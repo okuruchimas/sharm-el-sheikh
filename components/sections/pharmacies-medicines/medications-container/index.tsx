@@ -15,7 +15,7 @@ import Placeholder from '../../promotions/children/placeholder';
 import FilterButton from '../../../layout/filters/button';
 import SectionWrapper from '../../../layout/section-wrapper';
 import MedicationCard from '../children/medication-card';
-import MedicationsFilter from '../children/medications-filter';
+import CategoriesFilter from '../../../layout/categories-filter';
 import MedicationContainer from '../medication-container';
 // utils
 import styled from '@emotion/styled';
@@ -177,7 +177,7 @@ const MedicationsContainer = ({
         <FilterButton onClick={() => setIsFilter(!isFilter)} />
       </Filters>
       {isFilter ? (
-        <MedicationsFilter
+        <CategoriesFilter
           title={filterTitle}
           selectedCategories={selectedCategories}
           categoriesOptions={categoriesOptions}

@@ -72,8 +72,9 @@
     "similarSuggestions": "Suggerimenti simili",
     "tourComponents": "Componenti del tour",
     "workingDays": "Giorni lavorativi",
-    "newAds": "Nuove Pubblicità"
-
+    "newAds": "Nuove Pubblicità",
+    "categories": "Categorie",
+    "noCompanies": "Nessuna azienda trovata"
   },
   "animPopAp": {
     "about": "Chi siamo",

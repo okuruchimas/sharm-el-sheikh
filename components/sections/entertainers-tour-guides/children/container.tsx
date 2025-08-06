@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import { Title } from '../../../layout/title';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -8,14 +7,6 @@ interface Props {
 const Container = ({ children }: Props) => {
   return <Wrap>{children}</Wrap>;
 };
-
-const StyledTitle = styled(Title)(({ theme }) => ({
-  marginBottom: 40,
-
-  [theme.breakpoints.mobile]: {
-    marginBottom: 24,
-  },
-}));
 
 const Wrap = styled('div')(({ theme }) => ({
   minHeight: '100vh',
