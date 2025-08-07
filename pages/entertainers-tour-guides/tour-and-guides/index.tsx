@@ -153,6 +153,7 @@ const TourAndGuides = ({
     <>
       <Container>
         <Map
+          title={t('pageTitle')}
           categories={[
             { key: '', value: tCommon('labels.all') },
             ...categories,

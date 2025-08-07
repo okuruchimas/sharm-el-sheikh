@@ -41,15 +41,19 @@ const SwiperButtons = () => {
 const ImageSwiper = ({ images, discount, onOpenDiscount }: SwiperProps) => {
   if (images?.data.length <= 1) {
     return (
-      <StyledImage
-        src={images?.data?.[0].attributes?.url ?? ''}
-        alt={images?.data?.[0].attributes?.alternativeText ?? ''}
-        layout="fill"
-        priority
-      />
+      <PromWrapper>
+        <StyledImage
+          src={images?.data?.[0].attributes?.url ?? ''}
+          alt={images?.data?.[0].attributes?.alternativeText ?? ''}
+          layout="fill"
+          priority
+        />
+        {discount ? (
+          <Promotion onClick={onOpenDiscount}>{discount}</Promotion>
+        ) : null}
+      </PromWrapper>
     );
   }
-
   return (
     <Wrapper
       slidesPerView={'auto'}
@@ -89,6 +93,12 @@ const StyledImage = styled(Image)({
 });
 
 const Slide = styled(SwiperSlide)({
+  width: '100%',
+  height: '100%',
+});
+
+const PromWrapper = styled('div')({
+  position: 'relative',
   width: '100%',
   height: '100%',
 });

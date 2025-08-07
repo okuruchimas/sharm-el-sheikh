@@ -225,6 +225,7 @@ const Animators = ({
       <Container>
         {locations.length ? (
           <Map
+            title={t('pageTitle')}
             onInfoWindowClick={handleInfoWindowClick}
             locations={locations}
           />

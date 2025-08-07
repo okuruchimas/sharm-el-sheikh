@@ -10,7 +10,7 @@ type PromCardProps = {
   price: string;
   place: string;
   imgSrc?: string;
-  duration: string;
+  duration?: string;
   groupSize?: string;
   onClick?: () => void;
 };
@@ -31,24 +31,30 @@ const UniversalCard = ({
       <DownWrap>
         <CardTitle>{title}</CardTitle>
         <Down>
-          <TextAndIcon
-            fontSize="18px"
-            iconSize="30px"
-            src="/icons/time.svg"
-            text={duration || ''}
-          />
-          <TextAndIcon
-            fontSize="18px"
-            iconSize="30px"
-            src="/icons/cash.svg"
-            text={price || ''}
-          />
-          <TextAndIcon
-            fontSize="18px"
-            iconSize="30px"
-            src="/icons/promotions-section/location.svg"
-            text={place || ''}
-          />
+          {duration ? (
+            <TextAndIcon
+              fontSize="18px"
+              iconSize="30px"
+              src="/icons/time.svg"
+              text={duration || ''}
+            />
+          ) : null}
+          {price ? (
+            <TextAndIcon
+              fontSize="18px"
+              iconSize="30px"
+              src="/icons/cash.svg"
+              text={price || ''}
+            />
+          ) : null}
+          {place ? (
+            <TextAndIcon
+              fontSize="18px"
+              iconSize="30px"
+              src="/icons/promotions-section/location.svg"
+              text={place || ''}
+            />
+          ) : null}
           {groupSize ? (
             <TextAndIcon
               fontSize="18px"

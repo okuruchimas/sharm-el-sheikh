@@ -59,6 +59,7 @@
   "text": {
     "about": "Informazioni",
     "discountTerms": "Termini dello sconto:",
+    "allCompanies": "Tutte le aziende",
     "entertainersTourGuides": "Animatori & Guide Turistiche",
     "findAnimatorForTicket": "Trova un Animatore per Acquistare il Biglietto",
     "food": "Cibo:",
@@ -71,8 +72,9 @@
     "similarSuggestions": "Suggerimenti simili",
     "tourComponents": "Componenti del tour",
     "workingDays": "Giorni lavorativi",
-    "newAds": "Nuove Pubblicità"
-
+    "newAds": "Nuove Pubblicità",
+    "categories": "Categorie",
+    "noCompanies": "Nessuna azienda trovata"
   },
   "animPopAp": {
     "about": "Chi siamo",

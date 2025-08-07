@@ -59,6 +59,7 @@
   "text": {
     "about": "Über",
     "discountTerms": "Rabattbedingungen:",
+    "allCompanies": "Alle Unternehmen",
     "entertainersTourGuides": "Entertainer & Reiseleiter",
     "findAnimatorForTicket": "Einen Animateur für den Ticketkauf finden",
     "food": "Essen:",
@@ -71,8 +72,9 @@
     "similarSuggestions": "Ähnliche Vorschläge",
     "tourComponents": "Tourkomponenten",
     "workingDays": "Arbeitstage",
-    "newAds": "Neue Anzeigen"
-
+    "newAds": "Neue Anzeigen",
+    "categories": "Kategorien",
+    "noCompanies": "Keine Unternehmen gefunden"
   },
   "toasts": {
     "feedbackError": "Fehler beim Hinzufügen des Kommentars",

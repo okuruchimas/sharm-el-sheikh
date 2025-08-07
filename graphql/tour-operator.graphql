@@ -34,10 +34,36 @@ query GetTourOperatorByFilters(
   }
 }
 
+query GetTourOperatorByFilters(
+  $locale: I18NLocaleCode!
+  $page: Int
+  $pageSize: Int
+  $sort: [String]
+  $slugToExclude: String
+) {
+  tourOperators(
+    sort: $sort
+    locale: $locale
+    pagination: { page: $page, pageSize: $pageSize }
+    filters: { slug: { ne: $slugToExclude } }
+  ) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      attributes {
+        ...TourOperatorPreview
+      }
+    }
+  }
+}
+
 fragment TourOperator on TourOperator {
   slug
   name
-  img {
+  profileImg {
     ...StrapiImage
   }
   socialLinks {
@@ -65,12 +91,19 @@ fragment TourOperator on TourOperator {
   description
   averageRating
   totalComments
+  tour_operator_directions {
+    data {
+      attributes {
+        title
+      }
+    }
+  }
 }
 
 fragment TourOperatorPreview on TourOperator {
   slug
   name
-  img {
+  profileImg {
     ...StrapiImage
   }
   languages {
@@ -86,6 +119,13 @@ fragment TourOperatorPreview on TourOperator {
   }
   averageRating
   totalComments
+  tour_operator_directions {
+    data {
+      attributes {
+        title
+      }
+    }
+  }
 }
 
 query GetTourOperatorSlugs {

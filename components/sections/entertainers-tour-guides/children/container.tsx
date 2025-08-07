@@ -1,29 +1,12 @@
-import { useTranslation } from 'next-i18next';
 import type { ReactNode } from 'react';
-import { Title } from '../../../layout/title';
 import styled from '@emotion/styled';
 
 interface Props {
   children: ReactNode;
 }
 const Container = ({ children }: Props) => {
-  const { t } = useTranslation('entertainers-tour-guides');
-
-  return (
-    <Wrap>
-      <StyledTitle>{t('pageTitle')}</StyledTitle>
-      {children}
-    </Wrap>
-  );
+  return <Wrap>{children}</Wrap>;
 };
-
-const StyledTitle = styled(Title)(({ theme }) => ({
-  marginBottom: 40,
-
-  [theme.breakpoints.mobile]: {
-    marginBottom: 24,
-  },
-}));
 
 const Wrap = styled('div')(({ theme }) => ({
   minHeight: '100vh',

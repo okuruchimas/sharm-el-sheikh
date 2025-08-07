@@ -19,6 +19,7 @@ query GetCompaniesByFilter(
   $day: String
   $discountFilter: ComponentComponentsDiscountFiltersInput
   $positionFilter: ComponentHelpersPositionFiltersInput
+  $titleFilter: String
 ) {
   companies(
     locale: $locale
@@ -29,6 +30,7 @@ query GetCompaniesByFilter(
       schedule: { days: { day: { eq: $day } } }
       discount: $discountFilter
       position: $positionFilter
+      title: { containsi: $titleFilter }
     }
     pagination: { page: $page, pageSize: $pageSize }
   ) {
@@ -59,6 +61,18 @@ query GetCompaniesSlugs($category: [String]) {
             }
           }
         }
+      }
+    }
+  }
+}
+
+query GetCompaniesTitles($locale: I18NLocaleCode!, $titleFilter: String) {
+  companies(locale: $locale, filters: { title: { containsi: $titleFilter } }) {
+    data {
+      id
+      attributes {
+        slug
+        title
       }
     }
   }
