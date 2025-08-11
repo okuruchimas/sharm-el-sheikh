@@ -23,6 +23,9 @@ import {
 } from '../../../../gql/graphql';
 import useRatePlace from '../../../../hooks/useRatePlace';
 import FullData from './full-data';
+import { Pagination } from 'swiper/modules';
+import { SwiperSlide } from 'swiper/react';
+import { SwiperCardsWrapper } from '../../entertainers-tour-guides/children/cards-wrap';
 
 type CompanyPopupContainerProps = {
   companyPreview: CompanyPreviewFragment;
@@ -78,13 +81,39 @@ const CompanyPopupContainer = ({
     <Wrapper>
       <TopSection>
         <ImgWrapper>
-          <Image
-            src={companyPreview.images.data[0].attributes?.url || ''}
-            alt={
-              companyPreview.images.data[0].attributes?.alternativeText || ''
-            }
-            layout="fill"
-          />
+          {companyPreview.images?.data.length <= 1 ? (
+            <Image
+              src={companyPreview.images.data[0].attributes?.url || ''}
+              alt={
+                companyPreview.images.data[0].attributes?.alternativeText || ''
+              }
+              layout="fill"
+            />
+          ) : (
+            <SwiperStyled
+              modules={[Pagination]}
+              slidesPerView={1}
+              spaceBetween={12}
+              navigation={false}
+              pagination={{
+                clickable: true,
+              }}
+              loop
+            >
+              {companyPreview.images?.data?.map((el, index) => (
+                <SwiperSlide key={index}>
+                  <Image
+                    src={el.attributes?.url || ''}
+                    alt={el.attributes?.alternativeText || ''}
+                    layout="fill"
+                    objectFit="cover"
+                    style={{ borderRadius: '16px' }}
+                    className="photo"
+                  />
+                </SwiperSlide>
+              ))}
+            </SwiperStyled>
+          )}
         </ImgWrapper>
         <Stack>
           <RowStack marginBottom="24px">
@@ -227,7 +256,7 @@ const DayAndTime = styled('div')(({ theme }) => ({
 const ImgWrapper = styled('div')(({ theme }) => ({
   position: 'relative',
   width: '100%',
-  height: '340px',
+  height: '380px',
   borderRadius: '16px',
   overflow: 'hidden',
   img: {
@@ -236,6 +265,17 @@ const ImgWrapper = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     height: '300px',
+  },
+}));
+
+const SwiperStyled = styled(SwiperCardsWrapper)(({ theme }) => ({
+  height: '384px',
+
+  [theme.breakpoints.mobile]: {
+    height: '306px',
+
+    marginLeft: 0,
+    minWidth: 'auto',
   },
 }));
 

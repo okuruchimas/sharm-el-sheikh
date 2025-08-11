@@ -7,6 +7,9 @@ import styled from '@emotion/styled';
 import { Title } from '../../../layout/title';
 import type { CompanyFragment } from '../../../../gql/graphql';
 import Image from 'next/image';
+import { SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import { SwiperCardsWrapper } from '../../entertainers-tour-guides/children/cards-wrap';
 
 type PromoI = Pick<
   CompanyFragment,
@@ -32,12 +35,38 @@ const Promo = ({
   <SectionWrapper>
     <ContentWrapper>
       <ImageWrapper>
-        <StyledImage
-          src={images?.data?.[0].attributes?.url ?? ''}
-          alt={images?.data?.[0].attributes?.alternativeText ?? ''}
-          layout="fill"
-          priority
-        />
+        {images?.data.length <= 1 ? (
+          <StyledImage
+            src={images?.data?.[0].attributes?.url ?? ''}
+            alt={images?.data?.[0].attributes?.alternativeText ?? ''}
+            layout="fill"
+            priority
+          />
+        ) : (
+          <SwiperStyled
+            modules={[Pagination]}
+            slidesPerView={1}
+            spaceBetween={12}
+            navigation={false}
+            pagination={{
+              clickable: true,
+            }}
+            loop
+          >
+            {images?.data?.map((el, index) => (
+              <SwiperSlide key={index}>
+                <Image
+                  src={el.attributes?.url || ''}
+                  alt={el.attributes?.alternativeText || ''}
+                  layout="fill"
+                  objectFit="cover"
+                  style={{ borderRadius: '16px' }}
+                  className="photo"
+                />
+              </SwiperSlide>
+            ))}
+          </SwiperStyled>
+        )}
       </ImageWrapper>
       <TopWrapper>
         <TitleStyled>{title}</TitleStyled>
@@ -75,13 +104,24 @@ const ContentWrapper = styled('div')(({ theme }) => ({
   },
 }));
 
+const SwiperStyled = styled(SwiperCardsWrapper)(({ theme }) => ({
+  height: '616px',
+
+  [theme.breakpoints.mobile]: {
+    height: '242px',
+
+    marginLeft: 0,
+    minWidth: 'auto',
+  },
+}));
+
 const SectionWrapper = styled('div')(({ theme }) => ({
   width: '100%',
   height: 'calc(100vh - 280px)',
   margin: '122px 0 10px',
 
   [theme.breakpoints.mobile]: {
-    height: '340px',
+    height: '364px',
     margin: '12px 0 0',
   },
 }));
@@ -117,6 +157,7 @@ const RatingWrapper = styled('div')(({ theme }) => ({
 
 const TitleStyled = styled(Title)(({ theme }) => ({
   fontWeight: 700,
+  paddingTop: 42,
 
   [theme.breakpoints.mobile]: {
     fontWeight: 600,
