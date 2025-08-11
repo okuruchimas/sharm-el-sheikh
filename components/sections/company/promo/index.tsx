@@ -7,7 +7,7 @@ import styled from '@emotion/styled';
 import { Title } from '../../../layout/title';
 import type { CompanyFragment } from '../../../../gql/graphql';
 import Image from 'next/image';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { SwiperCardsWrapper } from '../../entertainers-tour-guides/children/cards-wrap';
 
