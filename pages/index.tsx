@@ -196,6 +196,7 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
     layoutDataPromise,
     fetchData(GetCompaniesByFilterDocument, {
       locale,
+      pageSize: 1000,
       positionFilter: { not: null },
     }),
   ]);
