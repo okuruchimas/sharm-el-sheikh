@@ -21,7 +21,6 @@ const Services = ({ services }: ServicesProps) => {
         {services.map((el, index) => (
           <ServiceCard
             key={index}
-            index={index}
             title={el.attributes?.text || ''}
             iconSrc={el.attributes?.icon.data?.attributes?.url ?? ''}
             iconAlt={
