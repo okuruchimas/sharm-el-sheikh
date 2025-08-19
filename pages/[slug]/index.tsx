@@ -70,10 +70,11 @@ const CompanyPage = ({
     totalComments,
     event_cards,
     clickable_services,
+    phoneNumber,
   },
   similarSuggestions,
 }: Props) => {
-  const router = useRouter();
+  const { push, reload } = useRouter();
   const { t } = useTranslation('company-page');
   const { t: tCommon } = useTranslation('common');
   const { renderCard, renderDiscountPopup, handleOpenDiscount } =
@@ -100,7 +101,7 @@ const CompanyPage = ({
         collectionType: 'companies',
       });
 
-      router.reload();
+      reload();
       console.log({ rating, text, email });
       toast.success(tCommon('toasts.feedbackSuccess'));
     } catch (error) {
@@ -124,6 +125,13 @@ const CompanyPage = ({
     position,
     totalComments,
     averageRating,
+  };
+
+  const handleClick = () => {
+    if (phoneNumber && window) {
+      return (window.location.href = 'tel:+380931234567');
+    }
+    return push(pageData?.contactLink ?? '/');
   };
 
   return (
@@ -225,7 +233,7 @@ const CompanyPage = ({
           <Button
             text={t('getInTouchSection.buttonText')}
             backgroundColor="white"
-            onClick={() => router.push(pageData?.contactLink ?? '/')}
+            onClick={handleClick}
           />
         </ContactSection>
       </Wrap>
