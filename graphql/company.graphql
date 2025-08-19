@@ -159,6 +159,9 @@ fragment Company on Company {
       endTime
     }
   }
+  clickable_services {
+    ...ClickableService
+  }
 }
 
 fragment CompanyPreview on Company {
@@ -237,5 +240,25 @@ fragment Comment on CommentEntity {
     text
     rating
     createdAt
+  }
+}
+
+fragment ClickableService on ComponentComponentsClickableService {
+  id
+  text
+  description
+  icon {
+    ...StrapiImage
+  }
+  media {
+    data {
+      attributes {
+        alternativeText
+        url
+        name
+        ext
+        mime
+      }
+    }
   }
 }

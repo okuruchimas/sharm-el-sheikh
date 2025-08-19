@@ -2,7 +2,9 @@ import { PAGE_CATEGORIES } from '../../constants/page-company-categories';
 import { REVALIDATE_TIME } from '../../constants/page.constants';
 import {
   type CompanyFragment,
+  type StrapiImageFragment,
   type CompanyPreviewFragment,
+  type ClickableServiceFragment,
   GetCompanyDocument,
   GetCompaniesSlugsDocument,
   GetCompaniesByFilterDocument,
@@ -10,6 +12,7 @@ import {
 import { toast, ToastContainer } from 'react-toastify';
 // hooks
 import { useRouter } from 'next/router';
+import useResponsive from '../../hooks/useResponsive';
 import useCompanyCard from '../../hooks/useCompanyCard';
 import { useTranslation } from 'next-i18next';
 // components
@@ -17,32 +20,32 @@ import Promo from '../../components/sections/company/promo';
 import Banner from '../../components/sections/home/banner';
 import Button from '../../components/layout/button';
 import Reviews from '../../components/sections/company/reviews';
+import MetaTags from '../../components/layout/seo';
 import Services from '../../components/sections/company/services';
+import EventCard from '../../components/sections/hotspots/events-container/children/event-card';
 import ReviewForm from '../../components/sections/company/review';
 import Placeholder from '../../components/sections/promotions/children/placeholder';
 import YouTubePlayer from '../../components/layout/player';
+import { Pagination } from 'swiper/modules';
 import SectionWrapper from '../../components/layout/section-wrapper';
+import { SwiperSlide } from 'swiper/react';
 import SectionsWrapper from '../../components/layout/sections-wrapper';
+import ClickableServices from '../../components/sections/company/services-clickable';
+import { SwiperCardsWrapper } from '../../components/sections/entertainers-tour-guides/children/cards-wrap';
 // utils
 import styled from '@emotion/styled';
 import { addComment } from '../../utils/add-comment';
 import { fetchData } from '../../utils/fetchApi';
+import { getLayoutData } from '../../utils/get-layout-data';
 import { getLocalizedPaths } from '../../utils/get-loocalized-paths';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetStaticPropsContext } from 'next';
 // styles
 import 'react-toastify/dist/ReactToastify.css';
-import { getLayoutData } from '../../utils/get-layout-data';
-import { GetStaticPropsContext } from 'next';
 import {
   BACKGROUND_GRADIENT,
   BACKGROUND_GRADIENT_MOBILE,
 } from '../../constants/images.constants';
-import EventCard from '../../components/sections/hotspots/events-container/children/event-card';
-import { Pagination } from 'swiper/modules';
-import { SwiperCardsWrapper } from '../../components/sections/entertainers-tour-guides/children/cards-wrap';
-import useResponsive from '../../hooks/useResponsive';
-import { SwiperSlide } from 'swiper/react';
-import MetaTags from '../../components/layout/seo';
 
 interface Props {
   card: CompanyFragment;
@@ -61,10 +64,12 @@ const CompanyPage = ({
     comments,
     pageData,
     schedule,
+    socialLinks,
     description,
     averageRating,
     totalComments,
     event_cards,
+    clickable_services,
   },
   similarSuggestions,
 }: Props) => {
@@ -103,6 +108,12 @@ const CompanyPage = ({
       toast.error(tCommon('toasts.feedbackError'));
     }
   };
+
+  const socialLinksMapped = socialLinks?.map(el => ({
+    icon: el?.icon as StrapiImageFragment,
+    socialLink: el?.socialLink || '',
+  }));
+
   const preview = {
     slug,
     title,
@@ -179,6 +190,12 @@ const CompanyPage = ({
           </SectionWrapper>
         ) : null}
         {services?.data.length ? <Services services={services?.data} /> : null}
+        {clickable_services?.length ? (
+          <ClickableServices
+            services={clickable_services as ClickableServiceFragment[]}
+            socialLinks={socialLinksMapped}
+          />
+        ) : null}
         <Reviews
           title={t('reviewsSectionTitle')}
           comments={comments?.data || []}

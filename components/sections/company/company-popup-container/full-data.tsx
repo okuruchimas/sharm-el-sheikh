@@ -1,7 +1,11 @@
-import React from 'react';
-import ServiceCard from '../../../layout/service-card';
 import Loader from '../../../layout/loader';
-import { CompanyFragment } from '../../../../gql/graphql';
+import ServiceCard from '../../../layout/service-card';
+import ClickableServices from '../services-clickable';
+import {
+  type CompanyFragment,
+  type ClickableServiceFragment,
+  type StrapiImageFragment,
+} from '../../../../gql/graphql';
 import { fallDownKF, Stack, Text } from './index';
 import styled from '@emotion/styled';
 
@@ -9,8 +13,20 @@ interface Props {
   fullData: CompanyFragment;
 }
 const FullData = ({
-  fullData: { slug, description, food, services },
+  fullData: {
+    slug,
+    food,
+    services,
+    socialLinks,
+    description,
+    clickable_services,
+  },
 }: Props) => {
+  const socialLinksMapped = socialLinks?.map(el => ({
+    icon: el?.icon as StrapiImageFragment,
+    socialLink: el?.socialLink || '',
+  }));
+
   return slug ? (
     <>
       <Stack gap="24px" mGap="16px" fallDown>
@@ -22,7 +38,6 @@ const FullData = ({
           ? services?.data?.map((el, index) => (
               <ServiceCard
                 key={index}
-                index={index}
                 title={el.attributes?.text || ''}
                 iconSrc={el.attributes?.icon.data?.attributes?.url ?? ''}
                 iconAlt={
@@ -32,6 +47,14 @@ const FullData = ({
             ))
           : null}
       </CardsWrapper>
+      {clickable_services?.length ? (
+        <Stack fallDown>
+          <ClickableServices
+            services={clickable_services as ClickableServiceFragment[]}
+            socialLinks={socialLinksMapped}
+          />
+        </Stack>
+      ) : null}
     </>
   ) : (
     <Loader />
@@ -52,6 +75,7 @@ const CardsWrapper = styled('div', {
 
   '.service-card': {
     padding: '16px 8px',
+    flexDirection: 'column',
   },
 
   [theme.breakpoints.mobile]: {
