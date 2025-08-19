@@ -5,6 +5,9 @@ import SocialIcon from '../social-icon';
 import styled from '@emotion/styled';
 import type { SocialLink } from '../../types/images';
 import type { ClickableServiceFragment } from '../../../gql/graphql';
+import { SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import { SwiperCardsWrapper } from '../../sections/entertainers-tour-guides/children/cards-wrap';
 
 type Props = {
   service: ClickableServiceFragment;
@@ -18,27 +21,61 @@ const ServicePopup = ({ service, socialLinks, onClose }: Props) => {
     el?.attributes?.mime.includes('image'),
   );
 
-  // TODO: finish UI
-
   const videos = service.media?.data.filter(el =>
     el?.attributes?.mime.includes('video'),
   );
-
+  console.log(videos);
   return (
     <Wrapper>
       <Stack>
         <Title>{service.text}</Title>
         <Description>{service.description || ''}</Description>
+        {videos?.[0]?.attributes?.url ? (
+          <Video
+            autoPlay
+            controls
+            playsInline
+            preload="metadata"
+            style={{ width: '100%', height: 'auto', borderRadius: 8 }}
+          >
+            <source src={videos?.[0]?.attributes?.url} type={'video/mp4'} />
+          </Video>
+        ) : null}
         {images?.length ? (
           <ImagesWrapper>
-            <StyledImage
-              src={images?.[0]?.attributes?.url || ''}
-              alt={images?.[0]?.attributes?.alternativeText || ''}
-              layout="fill"
-            />
+            {images?.length <= 1 ? (
+              <StyledImage
+                src={images?.[0]?.attributes?.url || ''}
+                alt={images?.[0]?.attributes?.alternativeText || ''}
+                layout="fill"
+              />
+            ) : (
+              <SwiperStyled
+                modules={[Pagination]}
+                slidesPerView={1}
+                spaceBetween={12}
+                navigation={false}
+                pagination={{
+                  clickable: true,
+                }}
+                loop
+              >
+                {images?.map((el, index) => (
+                  <SwiperSlide key={index}>
+                    <Image
+                      src={el.attributes?.url || ''}
+                      alt={el.attributes?.alternativeText || ''}
+                      layout="fill"
+                      objectFit="contain"
+                      style={{ borderRadius: '16px', width: '100%' }}
+                      className="photo"
+                    />
+                  </SwiperSlide>
+                ))}
+              </SwiperStyled>
+            )}
           </ImagesWrapper>
         ) : null}
-        {videos?.length ? videos?.map(el => el?.attributes?.name) : null}
         <Contacts>
           <p>{t('animPopAp.contacts')}</p>
           <IconsWrapper>
@@ -65,12 +102,24 @@ const Wrapper = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'space-between',
   gap: '24px',
-  minHeight: '890px',
   position: 'relative',
 
   [theme.breakpoints.mobile]: {
     gap: '16px',
   },
+}));
+
+const SwiperStyled = styled(SwiperCardsWrapper)(({ theme }) => ({
+  height: '384px',
+
+  [theme.breakpoints.mobile]: {
+    marginLeft: 0,
+    minWidth: 'auto',
+  },
+}));
+
+const Video = styled('video')(({ theme }) => ({
+  [theme.breakpoints.mobile]: {},
 }));
 
 const Stack = styled('div')(({ theme }) => ({
