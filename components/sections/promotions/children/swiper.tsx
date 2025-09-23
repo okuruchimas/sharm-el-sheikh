@@ -157,7 +157,7 @@ const NavIcon = styled('img')({
   objectFit: 'cover',
 });
 
-const Promotion = styled.div(({ theme }) => ({
+export const Promotion = styled.div(({ theme }) => ({
   position: 'absolute',
   top: '16px',
   right: '16px',

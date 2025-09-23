@@ -46,7 +46,10 @@
   },
   "tourGuide": {
     "reviewFormTitle": "Come valuteresti questo operatore turistico?",
-    "tours": "Tour"
+    "tours": "Tour",
+    "destinations": "Destinazioni popolari",
+    "country": "Paese di lavoro"
+
   },
   "tourGuidesFilters": {
     "otherLocation": "Altra posizione",

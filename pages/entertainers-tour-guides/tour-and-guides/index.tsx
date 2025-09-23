@@ -21,7 +21,7 @@ import Dropdown from '../../../components/layout/filters';
 import TourPopup from '../../../components/sections/entertainers-tour-guides/tour-and-guides/tour-popup';
 import Container from '../../../components/sections/entertainers-tour-guides/children/container';
 import Pagination from '../../../components/layout/pagination';
-import GuidesCards from '../../../components/sections/entertainers-tour-guides/tour-and-guides/cards';
+import GuidesCards from '../../../components/sections/entertainers-tour-guides/tour-and-guides/cards/guides';
 // utils
 import styled from '@emotion/styled';
 import { mapLocation } from '../../../utils/location-mapper';

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import styled from '@emotion/styled';
 import TextAndIcon from '../text-and-icon';
 import { DEFAULT_IMAGE } from '../../../constants/images.constants';
+import { Promotion } from '../../sections/promotions/children/swiper';
 
 type PromCardProps = {
   title: string;
@@ -12,6 +13,8 @@ type PromCardProps = {
   imgSrc?: string;
   duration?: string;
   groupSize?: string;
+  description?: string;
+  type?: string;
   onClick?: () => void;
 };
 const UniversalCard = ({
@@ -20,6 +23,8 @@ const UniversalCard = ({
   place,
   imgSrc = DEFAULT_IMAGE,
   duration,
+  description,
+  type,
   groupSize,
   onClick,
 }: PromCardProps) => {
@@ -30,6 +35,9 @@ const UniversalCard = ({
       </ImgWrapper>
       <DownWrap>
         <CardTitle>{title}</CardTitle>
+        {description ? <Desc>{description}</Desc> : null}
+        {type ? <Promotion>{type}</Promotion> : null}
+
         <Down>
           {duration ? (
             <TextAndIcon
@@ -85,12 +93,14 @@ const CardTitle = styled('h3')(({ theme }) => ({
 }));
 
 const Wrap = styled('div')(({ theme }) => ({
+  position: 'relative',
   height: '420px',
   boxShadow: theme.shadows[0],
   backgroundColor: theme.colors.white,
   borderRadius: '16px',
   minWidth: '404px',
   border: `1px solid ${theme.colors.blue5}`,
+  cursor: 'pointer',
 
   [theme.breakpoints.mobile]: {
     height: '364px',
@@ -136,5 +146,17 @@ const Down = styled('div')({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
 });
+
+const Desc = styled('div')(({ theme }) => ({
+  fontSize: theme.fontSize.fontS16,
+  color: theme.colors.blue,
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  WebkitLineClamp: '1',
+
+  [theme.breakpoints.mobile]: {},
+}));
 
 export default UniversalCard;

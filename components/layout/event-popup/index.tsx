@@ -200,7 +200,7 @@ const Name = styled(Title)(({ theme }) => ({
   },
 }));
 
-const Text = styled('p')(({ theme }) => ({
+export const Text = styled('p')(({ theme }) => ({
   fontSize: theme.fontSize.fontS21,
   width: '100%',
   lineHeight: 1.5,

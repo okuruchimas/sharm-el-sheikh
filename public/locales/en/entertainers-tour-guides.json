@@ -46,7 +46,10 @@
   },
   "tourGuide": {
     "reviewFormTitle": "How would you rate this tour operator?",
-    "tours": "Tours"
+    "tours": "Tours",
+    "destinations": "Popular Destinations",
+    "country": "Country of work"
+
   },
   "tourGuidesFilters": {
     "otherLocation": "Other Location",

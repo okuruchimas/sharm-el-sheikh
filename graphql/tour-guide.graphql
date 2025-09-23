@@ -35,6 +35,7 @@ query GetTourGuidesByFilters(
 }
 
 fragment TourGuide on TourGuide {
+  __typename
   slug
   name
   profileImg {
@@ -75,6 +76,7 @@ fragment TourGuide on TourGuide {
 }
 
 fragment TourGuidePreview on TourGuide {
+  __typename
   slug
   name
   profileImg {

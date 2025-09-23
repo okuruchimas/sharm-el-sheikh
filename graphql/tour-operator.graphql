@@ -61,6 +61,7 @@ query GetTourOperatorByFilters(
 }
 
 fragment TourOperator on TourOperator {
+  __typename
   slug
   name
   profileImg {
@@ -91,16 +92,33 @@ fragment TourOperator on TourOperator {
   description
   averageRating
   totalComments
+  country
   tour_operator_directions {
     data {
       attributes {
         title
+        description
+        media {
+          data {
+            attributes {
+              alternativeText
+              url
+            }
+          }
+        }
+        type
+        location
+        price
+        highlights {
+          value
+        }
       }
     }
   }
 }
 
 fragment TourOperatorPreview on TourOperator {
+  __typename
   slug
   name
   profileImg {
@@ -119,10 +137,26 @@ fragment TourOperatorPreview on TourOperator {
   }
   averageRating
   totalComments
+  country
   tour_operator_directions {
     data {
       attributes {
         title
+        description
+        media {
+          data {
+            attributes {
+              alternativeText
+              url
+            }
+          }
+        }
+        type
+        location
+        price
+        highlights {
+          value
+        }
       }
     }
   }
