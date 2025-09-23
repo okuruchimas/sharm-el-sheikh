@@ -24,7 +24,6 @@ const ServicePopup = ({ service, socialLinks, onClose }: Props) => {
   const videos = service.media?.data.filter(el =>
     el?.attributes?.mime.includes('video'),
   );
-  console.log(videos);
   return (
     <Wrapper>
       <Stack>

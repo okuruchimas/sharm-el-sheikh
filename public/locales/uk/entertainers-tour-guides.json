@@ -46,7 +46,9 @@
   },
   "tourGuide": {
     "reviewFormTitle": "Як би ви оцінили цього туроператора?",
-    "tours": "Тури"
+    "tours": "Тури",
+    "destinations": "Популярні напрямки",
+    "country": "Країна роботи"
   },
   "tourGuidesFilters": {
     "otherLocation": "Інша Локація",

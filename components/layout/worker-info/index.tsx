@@ -18,9 +18,10 @@ type WorkerInfoSectionProps = {
   pillsText?: ({ value: string } | null)[];
   languages: ImageI[];
   description: string;
-  socialLinks?: (SocialLink | null)[];
+  socialLinks?: (SocialLink | null)[] | null;
   totalComments: number;
   averageRating: number;
+  country?: string | null;
 };
 
 const WorkerInfoSection = ({
@@ -33,8 +34,10 @@ const WorkerInfoSection = ({
   description,
   totalComments,
   averageRating,
+  country,
 }: WorkerInfoSectionProps) => {
   const { t: tCommon } = useTranslation('common');
+  const { t } = useTranslation('entertainers-tour-guides');
 
   return (
     <Wrapper>
@@ -52,6 +55,12 @@ const WorkerInfoSection = ({
             <p>{`${tCommon('text.languagesSpoken')}:`}</p>
             <Flags icons={languages} />
           </InfoField>
+          {country ? (
+            <InfoField>
+              <p>{`${t('tourGuide.country')}:`}</p>
+              <p>{country}</p>
+            </InfoField>
+          ) : null}
           <InfoField>
             <p>{`${tCommon('text.socialNetworks')}:`}</p>
             <IconsWrapper>

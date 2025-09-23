@@ -46,7 +46,10 @@
   },
   "tourGuide": {
     "reviewFormTitle": "كيف تقيم هذا المرشد السياحي؟",
-    "tours": "الجولات"
+    "tours": "الجولات",
+    "destinations":"وجهات مشهورة",
+    "country": "بلد العمل"
+
   },
   "tourGuidesFilters": {
     "otherLocation": "موقع آخر",

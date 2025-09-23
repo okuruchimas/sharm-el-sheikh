@@ -1,9 +1,10 @@
-import TourGuidePage from '../../../entertainers-tour-guides/tour-and-guides/[slug]';
+import TourPersonPage from '../../../entertainers-tour-guides/tour-and-guides/[slug]';
 import { fetchData } from '../../../../utils/fetchApi';
 import {
   GetTourOperatorByFiltersDocument,
   GetTourOperatorBySlugDocument,
   GetTourOperatorSlugsDocument,
+  TourOperatorFragment,
 } from '../../../../gql/graphql';
 import { getLocalizedPaths } from '../../../../utils/get-loocalized-paths';
 import { GetStaticPropsContext } from 'next';
@@ -11,11 +12,14 @@ import { getLayoutData } from '../../../../utils/get-layout-data';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { REVALIDATE_TIME } from '../../../../constants/page.constants';
 
-// eslint-disable-next-line  @typescript-eslint/no-explicit-any
-const TourOperator = ({ tourOperator, similarSuggestions }: any) => {
+interface Props {
+  tourOperator: TourOperatorFragment;
+  similarSuggestions: TourOperatorFragment[];
+}
+const TourOperator = ({ tourOperator, similarSuggestions }: Props) => {
   return (
-    <TourGuidePage
-      tourGuide={tourOperator}
+    <TourPersonPage
+      person={tourOperator}
       similarSuggestions={similarSuggestions}
       backRoute="/agents"
     />
@@ -47,7 +51,7 @@ export async function getStaticProps({
 
   const layoutDataPromise = getLayoutData(locale!);
 
-  const tourGuidePromise = fetchData(GetTourOperatorBySlugDocument, {
+  const tourOperatorPromise = fetchData(GetTourOperatorBySlugDocument, {
     slug,
     locale,
   });
@@ -65,7 +69,7 @@ export async function getStaticProps({
     { tourOperators: suggestions },
     { footerData, headerData },
   ] = await Promise.all([
-    tourGuidePromise,
+    tourOperatorPromise,
     suggestionsPromise,
     layoutDataPromise,
   ]);
@@ -77,7 +81,7 @@ export async function getStaticProps({
         'common',
       ])),
       tourOperator: tourOperators?.data?.[0]?.attributes,
-      similarSuggestions: suggestions?.data,
+      similarSuggestions: suggestions?.data?.map(el => el.attributes),
       footerData,
       headerData,
     },

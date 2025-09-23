@@ -46,7 +46,10 @@
   },
   "tourGuide": {
     "reviewFormTitle": "Wie würden Sie diesen Reiseveranstalter bewerten?",
-    "tours": "Touren"
+    "tours": "Touren",
+    "destinations": "Beliebte Reiseziele",
+    "country": "Arbeitsland"
+
   },
   "tourGuidesFilters": {
     "otherLocation": "Andere Orte",

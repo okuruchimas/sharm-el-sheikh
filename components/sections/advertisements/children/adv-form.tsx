@@ -217,7 +217,7 @@ const FormWrap = styled(Form)({
   },
 });
 
-const ButtonWrap = styled.div({
+export const ButtonWrap = styled.div({
   width: '100%',
   display: 'flex',
   justifyContent: 'space-between',

@@ -33,7 +33,7 @@ const NameWrap = styled('div')({
   width: '100%',
 });
 
-const Name = styled(Title)(({ theme }) => ({
+export const Name = styled(Title)(({ theme }) => ({
   fontSize: theme.fontSize.fontS40,
   fontWeight: 700,
 

@@ -105,10 +105,16 @@ export const InformationProvider = styled('div', {
   },
 }));
 
-const Section = styled('div')(({ theme }) => ({
+export const Section = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: '16px',
+
+  h2: {
+    fontSize: theme.fontSize.fontS32,
+    fontWeight: 700,
+    color: theme.colors.blue,
+  },
 
   ul: {
     marginLeft: '24px',
