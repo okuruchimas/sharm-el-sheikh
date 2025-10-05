@@ -1,0 +1,59 @@
+query GetCompanyInfoPage($locale: I18NLocaleCode!) {
+  companyInfoPage(locale: $locale) {
+    data {
+      attributes {
+        ...CompanyInfoPage
+      }
+    }
+  }
+}
+
+fragment CompanyInfoPage on CompanyInfoPage {
+  pageTitle
+  companyDescription
+  image {
+    ...StrapiImage
+  }
+  paymentFormTitle
+  paymentFormDescription
+  submitPaymentButton
+  questionsTitle
+  questions {
+    title
+    text
+  }
+  companyInfoTitle
+  phoneNumber
+  contactPerson
+  locations {
+    locationName
+    coordinates {
+      lat
+      lng
+    }
+  }
+  registrationNum
+  dateOfIssuance
+  taxpayerIdNum
+  documentsTitle
+  documents {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  teamTitle
+  team {
+    name
+    position
+    profileImg {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  companyName
+  footerText
+  footerLocation
+}
