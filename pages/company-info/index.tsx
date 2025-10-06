@@ -11,14 +11,19 @@ import Questions from '../../components/sections/company-info/questions';
 import Documents from '../../components/sections/company-info/documents';
 import Team from '../../components/sections/company-info/team';
 import AdditionalInfo from '../../components/sections/company-info/additional-info';
+import SectionsWrapper from '../../components/layout/sections-wrapper';
+import {
+  BACKGROUND_GRADIENT,
+  BACKGROUND_GRADIENT_MOBILE,
+} from '../../constants/images.constants';
 
 const CompanyInfo = () => {
   return (
-    <Wrap>
+    <Wrap url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
       <MainDescription />
-      <Info />
       <Pay />
       <Questions />
+      <Info />
       <Documents />
       <Team />
       <AdditionalInfo />
@@ -28,11 +33,16 @@ const CompanyInfo = () => {
 
 export default CompanyInfo;
 
-const Wrap = styled('div')({
+const Wrap = styled(SectionsWrapper)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'column',
-});
+  paddingTop: '236px',
+
+  [theme.breakpoints.mobile]: {
+    paddingTop: '80px',
+  },
+}));
 
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
   const layoutDataPromise = getLayoutData(locale!);
