@@ -40,6 +40,11 @@ const CompanyInfo = ({ pageData }: Props) => {
     questions,
     documents,
     team,
+    companyName,
+    contactPerson,
+    phoneNumber,
+    footerLocation,
+    footerText,
   } = pageData;
   console.log(pageData, 'pageData');
   return (
@@ -67,7 +72,13 @@ const CompanyInfo = ({ pageData }: Props) => {
       {team ? (
         <Team team={(team ?? []).filter((m): m is TeamMember => m != null)} />
       ) : null}
-      <AdditionalInfo />
+      <AdditionalInfo
+        title={companyName}
+        contactPerson={contactPerson}
+        footerLocation={footerLocation}
+        footerText={footerText}
+        phoneNumber={phoneNumber}
+      />
     </Wrap>
   );
 };
@@ -79,6 +90,7 @@ const Wrap = styled(SectionsWrapper)(({ theme }) => ({
   alignItems: 'center',
   flexDirection: 'column',
   paddingTop: '236px',
+  paddingBottom: 40,
 
   '.section-title': {
     fontWeight: 700,

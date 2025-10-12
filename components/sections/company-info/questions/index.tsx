@@ -3,35 +3,6 @@ import { useState } from 'react';
 import SectionWrapper from '../../../layout/section-wrapper';
 import type { CompanyInfoPageFragment } from '../../../../gql/graphql';
 
-type FAQ = { q: string; a: string };
-
-const mockFaq: FAQ[] = [
-  {
-    q: 'Are your payment method secure?',
-    a: 'Yes. We use industry-standard encryption and secure payment gateways to protect all financial transactions. Your personal information is never stored on our servers.',
-  },
-  {
-    q: 'Do you provide services in multiple languages?',
-    a: 'Absolutely. Our team speaks English, Arabic, Russian and Ukrainian to make your trip planning easy.',
-  },
-  {
-    q: 'Is Lovely Holiday officially registered in Egypt?',
-    a: 'Yes. We are an officially registered tourism company in Sharm El Sheikh (docs below).',
-  },
-  {
-    q: 'Are your payment method secure?',
-    a: 'All card data is transmitted via PCI-compliant providers over HTTPS.',
-  },
-  {
-    q: 'Do you provide services in multiple languages?',
-    a: 'Yes, we can assign a guide fluent in your preferred language.',
-  },
-  {
-    q: 'Are your payment method secure?',
-    a: 'We never store card numbers or CVC on our servers.',
-  },
-];
-
 type Props = {
   title: string;
   questions: CompanyInfoPageFragment['questions'];

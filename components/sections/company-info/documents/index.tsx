@@ -1,10 +1,6 @@
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import SectionWrapper from '../../../layout/section-wrapper';
-import {
-  CompanyInfoPageFragment,
-  UploadFileRelationResponseCollection,
-} from '../../../../gql/graphql';
 
 type Props = { documents: string[] };
 

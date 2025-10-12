@@ -1,33 +1,46 @@
 import styled from '@emotion/styled';
 import SectionWrapper from '../../../layout/section-wrapper';
+import TextAndIcon from '../../../layout/text-and-icon';
 
-const AdditionalInfo = () => {
+type Props = {
+  title: string;
+  footerText: string;
+  phoneNumber: string;
+  contactPerson: string;
+  footerLocation: string;
+};
+const AdditionalInfo = ({
+  title,
+  footerText,
+  footerLocation,
+  phoneNumber,
+  contactPerson,
+}: Props) => {
   return (
     <SectionWrapper>
       <FooterBlock>
-        <Brand>Lovely Holiday</Brand>
-        <Copy>
-          Your trusted partner for exceptional travel experiences in Sharm El
-          Sheikh, Egypt.
-        </Copy>
-
+        <Left>
+          <Brand>{title}</Brand>
+          <Copy>{footerText}</Copy>
+        </Left>
         <Meta>
-          <MetaItem>
-            <Label>Contact information</Label>
-            <Value>+20 100 555 88 97 · hello@lovelyholiday.eg</Value>
-          </MetaItem>
-
-          <MetaItem>
-            <Label>Location</Label>
-            <Value>Sharm El Sheikh, South Sinai, Egypt</Value>
-          </MetaItem>
+          <Label>Contact information</Label>
+          <TextAndIcon
+            fontSize="16px"
+            src="/icons/phone.svg"
+            text={phoneNumber}
+          />
+          <TextAndIcon
+            fontSize="16px"
+            src="/icons/agents/human.svg"
+            text={contactPerson}
+          />
+          <TextAndIcon
+            fontSize="16px"
+            src="/icons/promotions-section/location.svg"
+            text={footerLocation}
+          />
         </Meta>
-
-        <Icons>
-          <i aria-hidden></i>
-          <i aria-hidden></i>
-          <i aria-hidden></i>
-        </Icons>
       </FooterBlock>
     </SectionWrapper>
   );
@@ -35,59 +48,40 @@ const AdditionalInfo = () => {
 
 export default AdditionalInfo;
 
-const Section = styled('section')({
-  width: '100%',
-  display: 'flex',
-  justifyContent: 'center',
-  padding: '24px 16px 40px',
-});
-
-const Inner = styled('div')({
-  width: '100%',
-  maxWidth: 1152,
-});
-
 const FooterBlock = styled('div')(({ theme }) => ({
-  borderRadius: 16,
-  border: `1px solid red`,
-  padding: 16,
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  gap: 12,
+  [theme.breakpoints.mobile]: {
+    flexDirection: 'column',
+    gap: 40,
+  },
+}));
+
+const Left = styled('div')({
   display: 'flex',
   flexDirection: 'column',
+  justifyContent: 'flex-end',
   gap: 12,
-}));
+});
 
 const Brand = styled('div')(({ theme }) => ({
   fontWeight: 800,
-  fontSize: 16,
-  color: 'red',
+  fontSize: theme.fontSize.fontS24,
+  color: theme.colors.blue,
 }));
 
 const Copy = styled('div')(({ theme }) => ({
-  fontSize: 14,
+  fontSize: theme.fontSize.fontS16,
 }));
 
 const Meta = styled('div')({
-  display: 'grid',
-  gridTemplateColumns: '1fr 1fr',
+  display: 'flex',
+  flexDirection: 'column',
   gap: 12,
 });
 
-const MetaItem = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 4,
-});
-
 const Label = styled('div')(({ theme }) => ({
-  fontSize: 12,
-}));
-
-const Value = styled('div')(({ theme }) => ({
-  fontSize: 14,
-}));
-
-const Icons = styled('div')(({ theme }) => ({
-  marginTop: 4,
-  display: 'flex',
-  gap: 8,
+  fontSize: theme.fontSize.fontS18,
 }));

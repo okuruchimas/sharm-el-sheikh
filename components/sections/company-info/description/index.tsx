@@ -71,7 +71,7 @@ const Text = styled('p')(({ theme }) => ({
   },
 }));
 
-const Thumb = styled('div')(({ theme }) => ({
+const Thumb = styled('div')({
   position: 'relative',
   width: '400px',
   maxWidth: 400,
@@ -80,5 +80,4 @@ const Thumb = styled('div')(({ theme }) => ({
   borderRadius: 16,
   overflow: 'hidden',
   boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
-  color: 'red',
-}));
+});

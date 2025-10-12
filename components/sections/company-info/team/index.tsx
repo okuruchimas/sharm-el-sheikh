@@ -61,14 +61,14 @@ const Team = ({ team }: Props) => {
 
 export default Team;
 
-const Card = styled('div')(({ theme }) => ({
+const Card = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   gap: 8,
   padding: 12,
   borderRadius: 16,
-}));
+});
 
 const Avatar = styled('div')(({ theme }) => ({
   position: 'relative',
