@@ -4,11 +4,12 @@ import Link from 'next/link';
 // components
 import { Hr } from '../hr';
 import NavButtons from './children/nav-buttons';
-import NavMenu from './children/nav-menu';
+import NavMenu, { ListItem } from './children/nav-menu';
 // utils
 import styled from '@emotion/styled';
 import { css, Global } from '@emotion/react';
 import { HeaderFragment } from '../../../gql/graphql';
+import { useRouter } from 'next/router';
 
 type HeaderProps = {
   logo: HeaderFragment['Logo'];
@@ -17,6 +18,7 @@ type HeaderProps = {
 
 const Header = ({ logo, navMenu }: HeaderProps) => {
   const [isNavbar, setIsNavbar] = useState<boolean>(false);
+  const { route } = useRouter();
 
   return (
     <Wrap isOpen={isNavbar} className="header-wrap">
@@ -37,6 +39,9 @@ const Header = ({ logo, navMenu }: HeaderProps) => {
           onClick={() => setIsNavbar(prevState => !prevState)}
         />
         <ButtonsWrap>
+          <ListItem isActive={route?.includes('company-info')}>
+            Company Info
+          </ListItem>
           <NavButtons />
         </ButtonsWrap>
       </WrapperUp>
@@ -83,6 +88,10 @@ const Wrap = styled('div', {
 }));
 
 const ButtonsWrap = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 20,
+
   [theme.breakpoints.mobile]: {
     display: 'none',
   },

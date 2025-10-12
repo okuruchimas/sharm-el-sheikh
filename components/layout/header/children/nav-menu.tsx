@@ -115,6 +115,7 @@ const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
       {navMenu?.map(item => (
         <Fragment key={item?.id}>{menuItemRender(item)}</Fragment>
       ))}
+      <InfoPage isActive={isActive('company-info')}>Company Info</InfoPage>
     </WrapperDown>
   );
 };
@@ -153,7 +154,7 @@ const ButtonsWrap = styled('div')(({ theme }) => ({
   },
 }));
 
-const ListItem = styled('span', {
+export const ListItem = styled('span', {
   shouldForwardProp: prop => !['isActive'].includes(prop),
 })<{ isActive: boolean }>(({ theme, isActive }) => ({
   cursor: 'pointer',
@@ -179,6 +180,12 @@ const ListItem = styled('span', {
       color: theme.colors.blue,
     },
   },
+}));
+
+const InfoPage = styled(ListItem)(({ theme }) => ({
+  display: 'none',
+
+  [theme.breakpoints.mobile]: {},
 }));
 
 const SubListItem = styled(ListItem)(({ theme }) => ({

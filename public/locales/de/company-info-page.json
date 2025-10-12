@@ -1,0 +1,15 @@
+{
+  "phoneNumber": "Telefonnummer",
+  "contactPerson": "Ansprechpartner",
+  "location": "Standort",
+  "registrationNum": "Einheitliche Handelsregisternummer:",
+  "dateOfIssuance": "Ausgabedatum des Handelsregisters:",
+  "taxpayerIdNum": "Steueridentifikationsnummer (TIN):",
+  "contactInfo": "Kontaktinformationen",
+  "form": {
+    "cardholderName": "Name des Karteninhabers",
+    "cardNumber": "Kartennummer",
+    "expiryDate": "Ablaufdatum",
+    "cvv": "Sicherheitscode (CVV)"
+  }
+}

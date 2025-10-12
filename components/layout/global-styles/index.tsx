@@ -22,6 +22,23 @@ const GlobalStyles = () => (
       a {
         color: unset;
       }
+
+      .collapse {
+        display: block;
+        height: 0;
+        overflow: hidden;
+        transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .collapse.show {
+        height: auto;
+      }
+
+      .collapsing {
+        height: 0;
+        overflow: hidden;
+        transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
     `}
   />
 );

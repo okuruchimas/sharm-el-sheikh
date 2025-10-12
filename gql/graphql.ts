@@ -1030,6 +1030,112 @@ export type CompanyFiltersInput = {
   wc?: InputMaybe<BooleanFilterInput>;
 };
 
+export type CompanyInfoPage = {
+  __typename?: 'CompanyInfoPage';
+  companyDescription: Scalars['String']['output'];
+  companyInfoTitle: Scalars['String']['output'];
+  companyName: Scalars['String']['output'];
+  contactPerson: Scalars['String']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  dateOfIssuance: Scalars['String']['output'];
+  documents?: Maybe<UploadFileRelationResponseCollection>;
+  documentsTitle: Scalars['String']['output'];
+  footerLocation: Scalars['String']['output'];
+  footerText: Scalars['String']['output'];
+  image: UploadFileEntityResponse;
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations?: Maybe<CompanyInfoPageRelationResponseCollection>;
+  locations: Array<Maybe<ComponentHelpersLocationWithName>>;
+  pageTitle: Scalars['String']['output'];
+  paymentFormDescription: Scalars['String']['output'];
+  paymentFormTitle: Scalars['String']['output'];
+  phoneNumber: Scalars['String']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  questions: Array<Maybe<ComponentHelpersTextWithTitle>>;
+  questionsTitle: Scalars['String']['output'];
+  registrationNum: Scalars['String']['output'];
+  submitPaymentButton?: Maybe<Scalars['String']['output']>;
+  taxpayerIdNum: Scalars['String']['output'];
+  team?: Maybe<Array<Maybe<ComponentComponentsTeamMember>>>;
+  teamTitle: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type CompanyInfoPageDocumentsArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type CompanyInfoPageLocalizationsArgs = {
+  publicationState?: InputMaybe<PublicationState>;
+};
+
+
+export type CompanyInfoPageLocationsArgs = {
+  filters?: InputMaybe<ComponentHelpersLocationWithNameFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type CompanyInfoPageQuestionsArgs = {
+  filters?: InputMaybe<ComponentHelpersTextWithTitleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type CompanyInfoPageTeamArgs = {
+  filters?: InputMaybe<ComponentComponentsTeamMemberFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type CompanyInfoPageEntity = {
+  __typename?: 'CompanyInfoPageEntity';
+  attributes?: Maybe<CompanyInfoPage>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type CompanyInfoPageEntityResponse = {
+  __typename?: 'CompanyInfoPageEntityResponse';
+  data?: Maybe<CompanyInfoPageEntity>;
+};
+
+export type CompanyInfoPageInput = {
+  companyDescription?: InputMaybe<Scalars['String']['input']>;
+  companyInfoTitle?: InputMaybe<Scalars['String']['input']>;
+  companyName?: InputMaybe<Scalars['String']['input']>;
+  contactPerson?: InputMaybe<Scalars['String']['input']>;
+  dateOfIssuance?: InputMaybe<Scalars['String']['input']>;
+  documents?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  documentsTitle?: InputMaybe<Scalars['String']['input']>;
+  footerLocation?: InputMaybe<Scalars['String']['input']>;
+  footerText?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['ID']['input']>;
+  locations?: InputMaybe<Array<InputMaybe<ComponentHelpersLocationWithNameInput>>>;
+  pageTitle?: InputMaybe<Scalars['String']['input']>;
+  paymentFormDescription?: InputMaybe<Scalars['String']['input']>;
+  paymentFormTitle?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  questions?: InputMaybe<Array<InputMaybe<ComponentHelpersTextWithTitleInput>>>;
+  questionsTitle?: InputMaybe<Scalars['String']['input']>;
+  registrationNum?: InputMaybe<Scalars['String']['input']>;
+  submitPaymentButton?: InputMaybe<Scalars['String']['input']>;
+  taxpayerIdNum?: InputMaybe<Scalars['String']['input']>;
+  team?: InputMaybe<Array<InputMaybe<ComponentComponentsTeamMemberInput>>>;
+  teamTitle?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CompanyInfoPageRelationResponseCollection = {
+  __typename?: 'CompanyInfoPageRelationResponseCollection';
+  data: Array<CompanyInfoPageEntity>;
+};
+
 export type CompanyInput = {
   animators?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   area?: InputMaybe<Scalars['ID']['input']>;
@@ -1249,6 +1355,32 @@ export type ComponentComponentsHomeNavMenuInput = {
   text?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type ComponentComponentsTeamMember = {
+  __typename?: 'ComponentComponentsTeamMember';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  position: Scalars['String']['output'];
+  profileImg: UploadFileEntityResponse;
+  socialLink?: Maybe<Scalars['String']['output']>;
+};
+
+export type ComponentComponentsTeamMemberFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentComponentsTeamMemberFiltersInput>>>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentComponentsTeamMemberFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentComponentsTeamMemberFiltersInput>>>;
+  position?: InputMaybe<StringFilterInput>;
+  socialLink?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentComponentsTeamMemberInput = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  position?: InputMaybe<Scalars['String']['input']>;
+  profileImg?: InputMaybe<Scalars['ID']['input']>;
+  socialLink?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type ComponentComponentsWorkSchedule = {
   __typename?: 'ComponentComponentsWorkSchedule';
   dayOfWeek: Enum_Componentcomponentsworkschedule_Dayofweek;
@@ -1296,6 +1428,27 @@ export type ComponentHeaderNavigationMenuInput = {
   Link?: InputMaybe<Scalars['String']['input']>;
   Text?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type ComponentHelpersLocationWithName = {
+  __typename?: 'ComponentHelpersLocationWithName';
+  coordinates?: Maybe<ComponentHelpersPosition>;
+  id: Scalars['ID']['output'];
+  locationName: Scalars['String']['output'];
+};
+
+export type ComponentHelpersLocationWithNameFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentHelpersLocationWithNameFiltersInput>>>;
+  coordinates?: InputMaybe<ComponentHelpersPositionFiltersInput>;
+  locationName?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentHelpersLocationWithNameFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentHelpersLocationWithNameFiltersInput>>>;
+};
+
+export type ComponentHelpersLocationWithNameInput = {
+  coordinates?: InputMaybe<ComponentHelpersPositionInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  locationName?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ComponentHelpersPosition = {
@@ -1747,7 +1900,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = Advertisement | AdvertisementCategory | AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | ComponentComponentsBanner | ComponentComponentsClickableService | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | Delivery | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyLocation | PhotographyStyle | Service | SupportService | SupportServicesCategory | TaxiDriver | TaxiService | TaxiSpot | Tour | TourCategory | TourGuide | TourOperator | TourOperatorCompany | TourOperatorDirection | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Advertisement | AdvertisementCategory | AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | CompanyInfoPage | ComponentComponentsBanner | ComponentComponentsClickableService | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsTeamMember | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersLocationWithName | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | Delivery | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyLocation | PhotographyStyle | Service | SupportService | SupportServicesCategory | TaxiDriver | TaxiService | TaxiSpot | Tour | TourCategory | TourGuide | TourOperator | TourOperatorCompany | TourOperatorDirection | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   __typename?: 'Header';
@@ -2383,6 +2536,7 @@ export type Mutation = {
   createCategoryLocalization?: Maybe<CategoryEntityResponse>;
   createComment?: Maybe<CommentEntityResponse>;
   createCompany?: Maybe<CompanyEntityResponse>;
+  createCompanyInfoPageLocalization?: Maybe<CompanyInfoPageEntityResponse>;
   createCompanyLocalization?: Maybe<CompanyEntityResponse>;
   createDelivery?: Maybe<DeliveryEntityResponse>;
   createEventCard?: Maybe<EventCardEntityResponse>;
@@ -2444,6 +2598,7 @@ export type Mutation = {
   deleteCategory?: Maybe<CategoryEntityResponse>;
   deleteComment?: Maybe<CommentEntityResponse>;
   deleteCompany?: Maybe<CompanyEntityResponse>;
+  deleteCompanyInfoPage?: Maybe<CompanyInfoPageEntityResponse>;
   deleteDelivery?: Maybe<DeliveryEntityResponse>;
   deleteEventCard?: Maybe<EventCardEntityResponse>;
   deleteFooter?: Maybe<FooterEntityResponse>;
@@ -2496,6 +2651,7 @@ export type Mutation = {
   updateCategory?: Maybe<CategoryEntityResponse>;
   updateComment?: Maybe<CommentEntityResponse>;
   updateCompany?: Maybe<CompanyEntityResponse>;
+  updateCompanyInfoPage?: Maybe<CompanyInfoPageEntityResponse>;
   updateDelivery?: Maybe<DeliveryEntityResponse>;
   updateEventCard?: Maybe<EventCardEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
@@ -2642,6 +2798,13 @@ export type MutationCreateCommentArgs = {
 
 export type MutationCreateCompanyArgs = {
   data: CompanyInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateCompanyInfoPageLocalizationArgs = {
+  data?: InputMaybe<CompanyInfoPageInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
@@ -3018,6 +3181,11 @@ export type MutationDeleteCompanyArgs = {
 };
 
 
+export type MutationDeleteCompanyInfoPageArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
 export type MutationDeleteDeliveryArgs = {
   id: Scalars['ID']['input'];
 };
@@ -3286,6 +3454,12 @@ export type MutationUpdateCommentArgs = {
 export type MutationUpdateCompanyArgs = {
   data: CompanyInput;
   id: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationUpdateCompanyInfoPageArgs = {
+  data: CompanyInfoPageInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
@@ -3894,6 +4068,7 @@ export type Query = {
   comments?: Maybe<CommentEntityResponseCollection>;
   companies?: Maybe<CompanyEntityResponseCollection>;
   company?: Maybe<CompanyEntityResponse>;
+  companyInfoPage?: Maybe<CompanyInfoPageEntityResponse>;
   deliveries?: Maybe<DeliveryEntityResponseCollection>;
   delivery?: Maybe<DeliveryEntityResponse>;
   eventCard?: Maybe<EventCardEntityResponse>;
@@ -4096,6 +4271,12 @@ export type QueryCompaniesArgs = {
 export type QueryCompanyArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryCompanyInfoPageArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  publicationState?: InputMaybe<PublicationState>;
 };
 
 
@@ -6240,6 +6421,15 @@ export type AnimatorPreviewFragment = { __typename?: 'Animator', slug: string, n
 
 export type AnnouncementFragment = { __typename?: 'Announcement', title?: string | null, text?: string | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null };
 
+export type GetCompanyInfoPageQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode']['input'];
+}>;
+
+
+export type GetCompanyInfoPageQuery = { __typename?: 'Query', companyInfoPage?: { __typename?: 'CompanyInfoPageEntityResponse', data?: { __typename?: 'CompanyInfoPageEntity', attributes?: { __typename?: 'CompanyInfoPage', pageTitle: string, companyDescription: string, paymentFormTitle: string, paymentFormDescription: string, submitPaymentButton?: string | null, questionsTitle: string, companyInfoTitle: string, phoneNumber: string, contactPerson: string, registrationNum: string, dateOfIssuance: string, taxpayerIdNum: string, documentsTitle: string, teamTitle: string, companyName: string, footerText: string, footerLocation: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, questions: Array<{ __typename?: 'ComponentHelpersTextWithTitle', title: string, text: string } | null>, locations: Array<{ __typename?: 'ComponentHelpersLocationWithName', locationName: string, coordinates?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null } | null>, documents?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } | null, team?: Array<{ __typename?: 'ComponentComponentsTeamMember', name: string, position: string, socialLink?: string | null, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null } | null } | null } | null };
+
+export type CompanyInfoPageFragment = { __typename?: 'CompanyInfoPage', pageTitle: string, companyDescription: string, paymentFormTitle: string, paymentFormDescription: string, submitPaymentButton?: string | null, questionsTitle: string, companyInfoTitle: string, phoneNumber: string, contactPerson: string, registrationNum: string, dateOfIssuance: string, taxpayerIdNum: string, documentsTitle: string, teamTitle: string, companyName: string, footerText: string, footerLocation: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, questions: Array<{ __typename?: 'ComponentHelpersTextWithTitle', title: string, text: string } | null>, locations: Array<{ __typename?: 'ComponentHelpersLocationWithName', locationName: string, coordinates?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null } | null>, documents?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } | null, team?: Array<{ __typename?: 'ComponentComponentsTeamMember', name: string, position: string, socialLink?: string | null, profileImg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null };
+
 export type GetCompanyQueryVariables = Exact<{
   slug: Scalars['String']['input'];
   locale: Scalars['I18NLocaleCode']['input'];
@@ -6814,6 +7004,64 @@ fragment StrapiImage on UploadFileEntityResponse {
     }
   }
 }`, {"fragmentName":"AnimationCompany"}) as unknown as TypedDocumentString<AnimationCompanyFragment, unknown>;
+export const CompanyInfoPageFragmentDoc = new TypedDocumentString(`
+    fragment CompanyInfoPage on CompanyInfoPage {
+  pageTitle
+  companyDescription
+  image {
+    ...StrapiImage
+  }
+  paymentFormTitle
+  paymentFormDescription
+  submitPaymentButton
+  questionsTitle
+  questions {
+    title
+    text
+  }
+  companyInfoTitle
+  phoneNumber
+  contactPerson
+  locations {
+    locationName
+    coordinates {
+      lat
+      lng
+    }
+  }
+  registrationNum
+  dateOfIssuance
+  taxpayerIdNum
+  documentsTitle
+  documents {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  teamTitle
+  team {
+    name
+    position
+    profileImg {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  companyName
+  footerText
+  footerLocation
+}
+    fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`, {"fragmentName":"CompanyInfoPage"}) as unknown as TypedDocumentString<CompanyInfoPageFragment, unknown>;
 export const ServiceFragmentDoc = new TypedDocumentString(`
     fragment Service on ServiceEntity {
   id
@@ -8600,6 +8848,73 @@ export const GetAnimatorsSlugsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<GetAnimatorsSlugsQuery, GetAnimatorsSlugsQueryVariables>;
+export const GetCompanyInfoPageDocument = new TypedDocumentString(`
+    query GetCompanyInfoPage($locale: I18NLocaleCode!) {
+  companyInfoPage(locale: $locale) {
+    data {
+      attributes {
+        ...CompanyInfoPage
+      }
+    }
+  }
+}
+    fragment CompanyInfoPage on CompanyInfoPage {
+  pageTitle
+  companyDescription
+  image {
+    ...StrapiImage
+  }
+  paymentFormTitle
+  paymentFormDescription
+  submitPaymentButton
+  questionsTitle
+  questions {
+    title
+    text
+  }
+  companyInfoTitle
+  phoneNumber
+  contactPerson
+  locations {
+    locationName
+    coordinates {
+      lat
+      lng
+    }
+  }
+  registrationNum
+  dateOfIssuance
+  taxpayerIdNum
+  documentsTitle
+  documents {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+  teamTitle
+  team {
+    name
+    position
+    profileImg {
+      ...StrapiImage
+    }
+    socialLink
+  }
+  companyName
+  footerText
+  footerLocation
+}
+fragment StrapiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+      alternativeText
+    }
+  }
+}`) as unknown as TypedDocumentString<GetCompanyInfoPageQuery, GetCompanyInfoPageQueryVariables>;
 export const GetCompanyDocument = new TypedDocumentString(`
     query GetCompany($slug: String!, $locale: I18NLocaleCode!) {
   companies(filters: {slug: {eq: $slug}}, locale: $locale) {

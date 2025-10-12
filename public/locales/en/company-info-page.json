@@ -1,0 +1,15 @@
+{
+  "phoneNumber": "Phone Number",
+  "contactPerson": "Contact Person",
+  "location": "Location",
+  "registrationNum": "Unified Commercial Registration Number:",
+  "dateOfIssuance": "Date of Issuance of the Commercial Register:",
+  "taxpayerIdNum": "Taxpayer Identification Number (TIN):",
+  "contactInfo": "Contact information",
+  "form": {
+    "cardholderName": "Cardholder Name",
+    "cardNumber": "Card Number",
+    "expiryDate": "Expiry Date",
+    "cvv": "CVV"
+  }
+}
