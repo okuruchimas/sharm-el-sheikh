@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 import Button from '../../../layout/button';
 
 type Props = {
@@ -9,6 +10,8 @@ type Props = {
 };
 
 const Pay = ({ title, formDescription, submitButton }: Props) => {
+  const { t } = useTranslation('company-info-page');
+
   const [values, setValues] = useState({
     name: '',
     number: '',
@@ -24,13 +27,13 @@ const Pay = ({ title, formDescription, submitButton }: Props) => {
 
         <Card>
           <Small>
-            <Icon src={'icons/secure-payment-icon.svg'} />
+            <Icon src={'/icons/secure-payment-icon.svg'} />
             {formDescription}
           </Small>
 
           <Form onSubmit={e => e.preventDefault()}>
             <Field>
-              <Label>Cardholder Name</Label>
+              <Label>{t('form.cardholderName')}</Label>
               <Input
                 placeholder="John Smith"
                 value={values.name}
@@ -39,7 +42,7 @@ const Pay = ({ title, formDescription, submitButton }: Props) => {
             </Field>
 
             <Field>
-              <Label>Card Number</Label>
+              <Label>{t('form.cardNumber')}</Label>
               <Input
                 placeholder="4242 4242 4242 4242"
                 inputMode="numeric"
@@ -118,7 +121,7 @@ const BlockTitle = styled('h2')(({ theme }) => ({
 const Card = styled('div')(({ theme }) => ({
   borderRadius: 16,
   padding: 40,
-  boxShadow: '0 8px 24px rgba(0,0,0,0.06)',
+  boxShadow: theme.shadows[5],
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'column',

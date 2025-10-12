@@ -1,0 +1,15 @@
+{
+  "phoneNumber": "رقم الهاتف",
+  "contactPerson": "شخص الاتصال",
+  "location": "الموقع",
+  "registrationNum": "رقم السجل التجاري الموحد:",
+  "dateOfIssuance": "تاريخ إصدار السجل التجاري:",
+  "taxpayerIdNum": "رقم التعريف الضريبي (TIN):",
+  "contactInfo": "معلومات الاتصال",
+  "form": {
+    "cardholderName": "اسم صاحب البطاقة",
+    "cardNumber": "رقم البطاقة",
+    "expiryDate": "تاريخ الانتهاء",
+    "cvv": "رمز الأمان (CVV)"
+  }
+}

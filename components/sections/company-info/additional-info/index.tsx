@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import SectionWrapper from '../../../layout/section-wrapper';
 import TextAndIcon from '../../../layout/text-and-icon';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
   title: string;
@@ -16,6 +17,8 @@ const AdditionalInfo = ({
   phoneNumber,
   contactPerson,
 }: Props) => {
+  const { t } = useTranslation('company-info-page');
+
   return (
     <SectionWrapper>
       <FooterBlock>
@@ -24,7 +27,7 @@ const AdditionalInfo = ({
           <Copy>{footerText}</Copy>
         </Left>
         <Meta>
-          <Label>Contact information</Label>
+          <Label>{t('contactInfo')}</Label>
           <TextAndIcon
             fontSize="16px"
             src="/icons/phone.svg"

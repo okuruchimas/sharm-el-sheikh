@@ -7,7 +7,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { REVALIDATE_TIME } from '../../constants/page.constants';
 // components
 import Pay from '../../components/sections/company-info/pay';
-import Info from '../../components/sections/company-info/info';
+import Info, {
+  type Location,
+} from '../../components/sections/company-info/info';
 import Team from '../../components/sections/company-info/team';
 import Questions from '../../components/sections/company-info/questions';
 import Documents from '../../components/sections/company-info/documents';
@@ -45,8 +47,13 @@ const CompanyInfo = ({ pageData }: Props) => {
     phoneNumber,
     footerLocation,
     footerText,
+    companyInfoTitle,
+    locations,
+    registrationNum,
+    dateOfIssuance,
+    taxpayerIdNum,
   } = pageData;
-  console.log(pageData, 'pageData');
+
   return (
     <Wrap url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
       <MainDescription
@@ -61,7 +68,15 @@ const CompanyInfo = ({ pageData }: Props) => {
         submitButton={submitPaymentButton || ''}
       />
       <Questions title={questionsTitle} questions={questions} />
-      <Info />
+      <Info
+        title={companyInfoTitle}
+        phoneNumber={phoneNumber}
+        contactPerson={contactPerson}
+        locations={(locations ?? []).filter((m): m is Location => m != null)}
+        registrationNum={registrationNum}
+        dateOfIssuance={dateOfIssuance}
+        taxpayerIdNum={taxpayerIdNum}
+      />
       {documents ? (
         <Documents
           documents={documents.data.map(
@@ -111,7 +126,10 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale!, ['common'])),
+      ...(await serverSideTranslations(locale!, [
+        'common',
+        'company-info-page',
+      ])),
       headerData,
       footerData,
       pageData: companyInfoPage?.data?.attributes,

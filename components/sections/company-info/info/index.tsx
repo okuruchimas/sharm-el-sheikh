@@ -1,57 +1,83 @@
-import Image from 'next/image';
-import styled from '@emotion/styled';
 import SectionWrapper from '../../../layout/section-wrapper';
+import type { CompanyInfoPageFragment } from '../../../../gql/graphql';
+import styled from '@emotion/styled';
+import BasicMap from '../basic-map';
+import { useTranslation } from 'next-i18next';
 
-const mock = {
-  phone: '+20 100 555 88 97',
-  contact: 'Nastasiia Ozerna',
-  address:
-    'Sharm El Sheikh — Main Office\nHadaba district, opposite City Council',
-  working: 'Mon–Sun · 09:00–21:00',
+export type Location = NonNullable<
+  NonNullable<CompanyInfoPageFragment['locations']>[number]
+>;
+
+type Props = {
+  title: string;
+  phoneNumber: string;
+  contactPerson: string;
+  locations: Location[];
+  registrationNum: string;
+  dateOfIssuance: string;
+  taxpayerIdNum: string;
 };
 
-const Info = () => {
-  return (
-    <SectionWrapper title="Company Information">
-      <Grid>
-        <MapCard>
-          {/* Мапу заміниш реальною google maps */}
-          <Map>
-            <Image
-              src="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/hero_image_6cece3ec9b.webp"
-              alt="Map of Sharm El Sheikh with office pin"
-              sizes="(max-width:768px) 100vw, 720px"
-              layout="fill"
-            />
-          </Map>
+const Info = ({
+  title,
+  phoneNumber,
+  contactPerson,
+  locations,
+  registrationNum,
+  dateOfIssuance,
+  taxpayerIdNum,
+}: Props) => {
+  const { t } = useTranslation('company-info-page');
 
-          <MapCaption>
-            <small>Qesm Sharm Ash Sheikh, South Sinai</small>
-          </MapCaption>
-        </MapCard>
+  return (
+    <SectionWrapper title={title}>
+      <Grid>
+        <MapWrapper>
+          <BasicMap locations={locations} zoom={8} />
+        </MapWrapper>
 
         <Contacts>
           <InfoCard>
-            <Label>Phone Number</Label>
-            <Value>{mock.phone}</Value>
+            <Icon src="/icons/phone-square.svg" />
+            <div>
+              <Label>{t('phoneNumber')}</Label>
+              <Value>{phoneNumber}</Value>
+            </div>
           </InfoCard>
-
           <InfoCard>
-            <Label>Contact Person</Label>
-            <Value>{mock.contact}</Value>
+            <Icon src="/icons/contact-person-square.svg" />
+            <div>
+              <Label>{t('contactPerson')}</Label>
+              <Value>{contactPerson}</Value>
+            </div>
           </InfoCard>
-
           <InfoCard>
-            <Label>Location</Label>
-            <Value as="pre">{mock.address}</Value>
-          </InfoCard>
-
-          <InfoCard>
-            <Label>Office Hours</Label>
-            <Value>{mock.working}</Value>
+            <Icon src="/icons/location-squere.svg" />
+            <div>
+              <Label>{t('location')}</Label>
+              {locations.map(el =>
+                el ? (
+                  <Value as="pre" key={el.locationName}>
+                    {el.locationName}
+                  </Value>
+                ) : null,
+              )}
+            </div>
           </InfoCard>
         </Contacts>
       </Grid>
+
+      <MapCaption>
+        <Text>
+          <span>{t('registrationNum')}</span> <span>{registrationNum}</span>
+        </Text>
+        <Text>
+          <span>{t('dateOfIssuance')}</span> <span>{dateOfIssuance}</span>
+        </Text>
+        <Text>
+          <span>{t('taxpayerIdNum')}</span> <span>{taxpayerIdNum}</span>
+        </Text>
+      </MapCaption>
     </SectionWrapper>
   );
 };
@@ -62,46 +88,71 @@ const Grid = styled('div')(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: '1.6fr 1fr',
   gap: 16,
+
   [theme.breakpoints.mobile]: {
     gridTemplateColumns: '1fr',
   },
 }));
 
-const MapCard = styled('div')(({ theme }) => ({
-  borderRadius: 16,
-  border: `1px solid red`,
-  overflow: 'hidden',
+const MapWrapper = styled('div')(({ theme }) => ({
+  height: 300,
+
+  [theme.breakpoints.mobile]: {
+    height: 400,
+  },
 }));
 
-const Map = styled('div')({
-  position: 'relative',
-  width: '100%',
-  aspectRatio: '16/9',
+const MapCaption = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 10,
 });
 
-const MapCaption = styled('div')(({ theme }) => ({
-  padding: '8px 12px',
-  borderTop: `1px solid red`,
-}));
-
-const Contacts = styled('div')({
-  display: 'grid',
-  gridTemplateRows: 'repeat(4, auto)',
-  gap: 12,
-});
-
-const InfoCard = styled('div')(({ theme }) => ({
-  borderRadius: 12,
-  border: `1px solid red`,
-  padding: 12,
-}));
-
-const Label = styled('div')(({ theme }) => ({
-  fontSize: 12,
-}));
-
-const Value = styled('div')(({ theme }) => ({
+const Text = styled('p')({
   fontSize: 14,
   fontWeight: 600,
+});
+
+const Contacts = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 24,
+  borderRadius: 16,
+  backgroundColor: theme.colors.white,
+  padding: '30px 24px',
+  boxShadow: theme.shadows[5],
+
+  [theme.breakpoints.mobile]: {
+    gap: 20,
+  },
+}));
+
+const InfoCard = styled('div')({
+  display: 'flex',
+  gap: 16,
+});
+
+const Label = styled('div')(({ theme }) => ({
+  fontSize: 18,
+  marginBottom: 8,
+  fontWeight: 700,
+
+  [theme.breakpoints.mobile]: {
+    fontSize: 16,
+  },
+}));
+
+const Value = styled('div')({
+  fontSize: 16,
   whiteSpace: 'pre-wrap',
+});
+
+const Icon = styled('img')(({ theme }) => ({
+  width: 60,
+  height: 60,
+
+  [theme.breakpoints.mobile]: {
+    width: 42,
+    height: 42,
+  },
 }));

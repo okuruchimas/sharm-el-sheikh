@@ -26,12 +26,10 @@ const Questions = ({ title, questions }: Props) => {
                 onClick={() => setOpen(isOpen ? null : idx)}
               >
                 <span>{item.title}</span>
-                <Arrow $open={isOpen} src={'icons/arrow-collapse.svg'} />
+                <Arrow $open={isOpen} src={'/icons/arrow-collapse.svg'} />
               </Head>
               <Collapse $open={isOpen} aria-hidden={!isOpen}>
-                <BodyOuter>
-                  <Body>{item.text}</Body>
-                </BodyOuter>
+                <Body>{item.text}</Body>
               </Collapse>
             </Item>
           );
@@ -77,6 +75,7 @@ const Head = styled('button')(({ theme }) => ({
   fontWeight: 600,
   minHeight: 96,
   padding: '32px',
+  color: theme.colors.black,
 
   [theme.breakpoints.mobile]: {
     padding: '16px',
@@ -87,7 +86,7 @@ const Head = styled('button')(({ theme }) => ({
 
 const Arrow = styled('img')<{ $open: boolean }>(({ theme, $open }) => ({
   transform: $open ? 'rotate(180deg)' : 'rotate(0deg)',
-  transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+  transition: 'transform 300ms ease',
   width: 32,
   height: 32,
 
@@ -98,15 +97,10 @@ const Arrow = styled('img')<{ $open: boolean }>(({ theme, $open }) => ({
 }));
 
 const Collapse = styled('div')<{ $open: boolean }>(({ $open }) => ({
-  display: 'grid',
-  gridTemplateRows: $open ? '1fr' : '0fr',
-  transition: 'grid-template-rows 0ms cubic-bezier(0.4, 0, 0.2, 1)',
-}));
-
-const BodyOuter = styled('div')({
-  minHeight: 0,
+  maxHeight: $open ? '300px' : '0',
   overflow: 'hidden',
-});
+  transition: 'max-height 300ms ease',
+}));
 
 const Body = styled('div')(({ theme }) => ({
   padding: '10px 0 32px',

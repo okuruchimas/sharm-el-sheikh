@@ -16,6 +16,7 @@ const MainDescription = ({ title, description, src, alt = '' }: Props) => {
             sizes="(max-width: 768px) 100vw, 560px"
             priority
             layout="fill"
+            objectFit="cover"
           />
         </Thumb>
         <Title>{title}</Title>
@@ -27,17 +28,13 @@ const MainDescription = ({ title, description, src, alt = '' }: Props) => {
 
 export default MainDescription;
 
-const Section = styled('section')(({ theme }) => ({
+const Section = styled('section')({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   gap: 24,
-  padding: '24px 16px 0',
-  [theme.breakpoints.mobile]: {
-    padding: '8px 16px 0',
-  },
-}));
+});
 
 const Top = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -46,7 +43,7 @@ const Top = styled('div')(({ theme }) => ({
   gap: 40,
 
   [theme.breakpoints.mobile]: {
-    gap: 8,
+    gap: 10,
   },
 }));
 
@@ -68,6 +65,7 @@ const Text = styled('p')(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     margin: '8px 0 0',
+    fontSize: theme.fontSize.fontS20,
   },
 }));
 
