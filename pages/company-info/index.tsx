@@ -23,6 +23,9 @@ import styled from '@emotion/styled';
 import { fetchData } from '../../utils/fetchApi';
 import { getLayoutData } from '../../utils/get-layout-data';
 
+type TeamMember = NonNullable<
+  NonNullable<CompanyInfoPageFragment['team']>[number]
+>;
 type Props = { pageData: CompanyInfoPageFragment };
 
 const CompanyInfo = ({ pageData }: Props) => {
@@ -36,6 +39,7 @@ const CompanyInfo = ({ pageData }: Props) => {
     questionsTitle,
     questions,
     documents,
+    team,
   } = pageData;
   console.log(pageData, 'pageData');
   return (
@@ -60,7 +64,9 @@ const CompanyInfo = ({ pageData }: Props) => {
           )}
         />
       ) : null}
-      <Team />
+      {team ? (
+        <Team team={(team ?? []).filter((m): m is TeamMember => m != null)} />
+      ) : null}
       <AdditionalInfo />
     </Wrap>
   );

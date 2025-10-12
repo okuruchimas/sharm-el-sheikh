@@ -1,70 +1,65 @@
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import SectionWrapper from '../../../layout/section-wrapper';
+import { CompanyInfoPageFragment } from '../../../../gql/graphql';
+import { Pagination } from 'swiper/modules';
+import { SwiperCardsWrapper } from '../../entertainers-tour-guides/children/cards-wrap';
+import useResponsive from '../../../../hooks/useResponsive';
+import { SwiperSlide } from 'swiper/react';
 
-type Member = { id: string; name: string; role: string; img: string };
+type TeamMember = NonNullable<
+  NonNullable<CompanyInfoPageFragment['team']>[number]
+>;
 
-const team: Member[] = [
-  {
-    id: '1',
-    name: 'Nataliia Strutinska',
-    role: 'Reception',
-    img: 'https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/hero_image_6cece3ec9b.webp',
-  },
-  {
-    id: '2',
-    name: 'Nataliia Strutinska',
-    role: 'Designer',
-    img: 'https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/hero_image_6cece3ec9b.webp',
-  },
-  {
-    id: '3',
-    name: 'Nataliia Strutinska',
-    role: 'Designer',
-    img: 'https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/hero_image_6cece3ec9b.webp',
-  },
-  {
-    id: '4',
-    name: 'Nataliia Strutinska',
-    role: 'Designer',
-    img: 'https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/hero_image_6cece3ec9b.webp',
-  },
-  {
-    id: '5',
-    name: 'Nataliia Strutinska',
-    role: 'Designer',
-    img: 'https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/hero_image_6cece3ec9b.webp',
-  },
-];
+type Props = {
+  team?: TeamMember[];
+};
+const Team = ({ team }: Props) => {
+  const { isMobile } = useResponsive();
+  const slidesPerView = isMobile ? 2 : 4;
 
-const Team = () => {
   return (
     <SectionWrapper title={'Meet Our Team'}>
-      <Grid>
-        {team.map(m => (
-          <Card key={m.id}>
-            <Avatar>
-              <Image src={m.img} alt={m.name} sizes="96px" layout="fill" />
-            </Avatar>
-            <Name>{m.name}</Name>
-            <Role>{m.role}</Role>
-          </Card>
+      <SwiperCardsWrapper
+        modules={[Pagination]}
+        slidesPerView={slidesPerView}
+        spaceBetween={12}
+        navigation={false}
+        pagination={{
+          clickable: true,
+        }}
+        loop
+      >
+        {team?.map(({ name, position, profileImg, socialLink }) => (
+          <SwiperSlide key={name}>
+            <a
+              href={socialLink || ''}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <Card>
+                <Avatar>
+                  <Image
+                    src={profileImg?.data?.attributes?.url || ''}
+                    alt={profileImg?.data?.attributes?.alternativeText || ''}
+                    sizes="96px"
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </Avatar>
+                <Name>{name}</Name>
+                <Role>{position}</Role>
+              </Card>
+            </a>
+          </SwiperSlide>
         ))}
-      </Grid>
+      </SwiperCardsWrapper>
     </SectionWrapper>
   );
 };
 
 export default Team;
-
-const Grid = styled('div')(({ theme }) => ({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(5, minmax(0,1fr))',
-  gap: 16,
-  [theme.breakpoints.mobile]: {
-    gridTemplateColumns: 'repeat(2, minmax(0,1fr))',
-  },
-}));
 
 const Card = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -73,22 +68,23 @@ const Card = styled('div')(({ theme }) => ({
   gap: 8,
   padding: 12,
   borderRadius: 16,
-  border: `1px solid red`,
 }));
 
-const Avatar = styled('div')({
+const Avatar = styled('div')(({ theme }) => ({
   position: 'relative',
-  width: 96,
-  height: 96,
+  width: 220,
+  height: 220,
   borderRadius: '50%',
+  border: `2px solid ${theme.colors.yellow}`,
   overflow: 'hidden',
-});
+}));
 
 const Name = styled('div')(({ theme }) => ({
+  fontSize: theme.fontSize.fontS24,
   textAlign: 'center',
   fontWeight: 700,
 }));
 
 const Role = styled('div')(({ theme }) => ({
-  fontSize: 12,
+  fontSize: theme.fontSize.fontS18,
 }));
