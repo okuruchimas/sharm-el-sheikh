@@ -129,6 +129,7 @@ const Contacts = styled('div')(({ theme }) => ({
 
 const InfoCard = styled('div')({
   display: 'flex',
+  alignItems: 'center',
   gap: 16,
 });
 

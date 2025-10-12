@@ -43,7 +43,8 @@ const Top = styled('div')(({ theme }) => ({
   gap: 40,
 
   [theme.breakpoints.mobile]: {
-    gap: 10,
+    flexDirection: 'column',
+    gap: 24,
   },
 }));
 
@@ -69,7 +70,7 @@ const Text = styled('p')(({ theme }) => ({
   },
 }));
 
-const Thumb = styled('div')({
+const Thumb = styled('div')(({ theme }) => ({
   position: 'relative',
   width: '400px',
   maxWidth: 400,
@@ -78,4 +79,8 @@ const Thumb = styled('div')({
   borderRadius: 16,
   overflow: 'hidden',
   boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
-});
+
+  [theme.breakpoints.mobile]: {
+    width: '100%',
+  },
+}));
