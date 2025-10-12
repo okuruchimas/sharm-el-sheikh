@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import SectionWrapper from '../../../layout/section-wrapper';
+import type { CompanyInfoPageFragment } from '../../../../gql/graphql';
 
 type FAQ = { q: string; a: string };
 
@@ -31,24 +32,36 @@ const mockFaq: FAQ[] = [
   },
 ];
 
-const Questions = () => {
+type Props = {
+  title: string;
+  questions: CompanyInfoPageFragment['questions'];
+};
+
+const Questions = ({ title, questions }: Props) => {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <SectionWrapper title="Questions You Might Have">
+    <SectionWrapper title={title}>
       <List role="list">
-        {mockFaq.map((item, idx) => {
+        {questions.map((item, idx) => {
+          if (!item) return null;
+
           const isOpen = open === idx;
+
           return (
-            <Item key={idx}>
+            <Item key={idx} $open={isOpen}>
               <Head
                 aria-expanded={isOpen}
                 onClick={() => setOpen(isOpen ? null : idx)}
               >
-                <span>{item.q}</span>
-                <Chevron $open={isOpen}>▾</Chevron>
+                <span>{item.title}</span>
+                <Arrow $open={isOpen} src={'icons/arrow-collapse.svg'} />
               </Head>
-              {isOpen && <Body>{item.a}</Body>}
+              <Collapse $open={isOpen} aria-hidden={!isOpen}>
+                <BodyOuter>
+                  <Body>{item.text}</Body>
+                </BodyOuter>
+              </Collapse>
             </Item>
           );
         })}
@@ -59,16 +72,25 @@ const Questions = () => {
 
 export default Questions;
 
-const List = styled('div')({
+const List = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 8,
-});
+  gap: 16,
 
-const Item = styled('div')(({ theme }) => ({
+  [theme.breakpoints.mobile]: {
+    gap: 8,
+  },
+}));
+
+const Item = styled('div')<{ $open: boolean }>(({ theme, $open }) => ({
   borderRadius: 12,
-  border: `1px solid red`,
+  border: $open ? '1px solid #FFDB7F' : `1px solid ${theme.colors.yellow2}`,
   overflow: 'hidden',
+  background: '#FEFEFE66',
+
+  [theme.breakpoints.mobile]: {
+    minHeight: 56,
+  },
 }));
 
 const Head = styled('button')(({ theme }) => ({
@@ -76,21 +98,55 @@ const Head = styled('button')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '12px 14px',
   background: 'transparent',
   border: 'none',
   cursor: 'pointer',
   textAlign: 'left',
-  fontSize: 14,
+  fontSize: 24,
+  fontWeight: 600,
+  minHeight: 96,
+  padding: '32px',
+
+  [theme.breakpoints.mobile]: {
+    padding: '16px',
+    fontSize: 16,
+    minHeight: 46,
+  },
 }));
 
-const Chevron = styled('span')<{ $open: boolean }>(({ $open }) => ({
-  transition: 'transform .2s',
+const Arrow = styled('img')<{ $open: boolean }>(({ theme, $open }) => ({
   transform: $open ? 'rotate(180deg)' : 'rotate(0deg)',
+  transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+  width: 32,
+  height: 32,
+
+  [theme.breakpoints.mobile]: {
+    width: 24,
+    height: 24,
+  },
 }));
+
+const Collapse = styled('div')<{ $open: boolean }>(({ $open }) => ({
+  display: 'grid',
+  gridTemplateRows: $open ? '1fr' : '0fr',
+  transition: 'grid-template-rows 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+}));
+
+const BodyOuter = styled('div')({
+  minHeight: 0,
+  overflow: 'hidden',
+});
 
 const Body = styled('div')(({ theme }) => ({
-  padding: '10px 14px 14px',
-  fontSize: 14,
-  borderTop: `1px solid red`,
+  padding: '10px 0 32px',
+  fontSize: theme.fontSize.fontS21,
+  borderTop: '1px solid #FFDB7F',
+  margin: '0 32px',
+  color: theme.colors.black2,
+
+  [theme.breakpoints.mobile]: {
+    padding: '8px 0 16px',
+    margin: '0 16px',
+    fontSize: 14,
+  },
 }));

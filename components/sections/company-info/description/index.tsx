@@ -1,27 +1,24 @@
 import Image from 'next/image';
 import styled from '@emotion/styled';
 
-const MainDescription = () => {
+type Props = { title: string; description: string; src: string; alt?: string };
+
+const MainDescription = ({ title, description, src, alt = '' }: Props) => {
   return (
     <Section>
       <Top>
         <Thumb>
           <Image
-            src="https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/hero_image_6cece3ec9b.webp"
-            alt="Sharm El Sheikh coastline"
+            src={src}
+            alt={alt}
             sizes="(max-width: 768px) 100vw, 560px"
             priority
             layout="fill"
           />
         </Thumb>
-        <Title>Lovely Holiday — About our Company</Title>
+        <Title>{title}</Title>
       </Top>
-      <Text>
-        We are an officially registered tourism company in Egypt, dedicated to
-        providing exceptional travel experiences and professional tourism
-        services. Our commitment to quality and customer satisfaction makes us
-        your trusted partner for exploring the beauty of Sharm El Sheikh.
-      </Text>
+      <Text>{description}</Text>
     </Section>
   );
 };
@@ -39,25 +36,36 @@ const Section = styled('section')(({ theme }) => ({
   },
 }));
 
-const Top = styled('div')({
+const Top = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-  gap: 8,
-});
+  gap: 40,
+
+  [theme.breakpoints.mobile]: {
+    gap: 8,
+  },
+}));
 
 const Title = styled('h1')(({ theme }) => ({
   margin: 0,
-  fontSize: 36,
+  fontSize: 64,
   lineHeight: 1.15,
   fontWeight: 800,
-  color: 'red',
+  color: theme.colors.blue,
+
+  [theme.breakpoints.mobile]: {
+    fontSize: 34,
+  },
 }));
 
 const Text = styled('p')(({ theme }) => ({
-  margin: '8px 0 0',
+  margin: '34px 0 0',
   fontSize: 16,
   lineHeight: 1.6,
-  color: 'red',
+
+  [theme.breakpoints.mobile]: {
+    margin: '8px 0 0',
+  },
 }));
 
 const Thumb = styled('div')(({ theme }) => ({

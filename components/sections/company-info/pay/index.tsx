@@ -1,7 +1,14 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
+import Button from '../../../layout/button';
 
-const Pay = () => {
+type Props = {
+  title: string;
+  formDescription: string;
+  submitButton?: string;
+};
+
+const Pay = ({ title, formDescription, submitButton }: Props) => {
   const [values, setValues] = useState({
     name: '',
     number: '',
@@ -13,10 +20,13 @@ const Pay = () => {
   return (
     <Section>
       <Inner>
-        <BlockTitle>Pay The Easy Way</BlockTitle>
+        <BlockTitle>{title}</BlockTitle>
 
         <Card>
-          <Small>Fast and secure card payments — just a click away</Small>
+          <Small>
+            <Icon src={'icons/secure-payment-icon.svg'} />
+            {formDescription}
+          </Small>
 
           <Form onSubmit={e => e.preventDefault()}>
             <Field>
@@ -72,7 +82,7 @@ const Pay = () => {
               </Field>
             </Row>
 
-            <PayBtn type="submit">Secure Payment</PayBtn>
+            <PayBtn type="submit" text={submitButton || 'Secure Payment'} />
           </Form>
         </Card>
       </Inner>
@@ -82,16 +92,13 @@ const Pay = () => {
 
 export default Pay;
 
-const Section = styled('section')(({ theme }) => ({
+const Section = styled('section')({
   width: '100%',
   display: 'flex',
-  justifyContent: 'center',
-  padding: '24px 16px 0',
-}));
+});
 
 const Inner = styled('div')({
   width: '100%',
-  maxWidth: 1152,
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
@@ -99,26 +106,52 @@ const Inner = styled('div')({
 
 const BlockTitle = styled('h2')(({ theme }) => ({
   margin: 0,
-  fontSize: 20,
+  fontSize: 40,
   fontWeight: 700,
+  color: theme.colors.blue,
+
+  [theme.breakpoints.mobile]: {
+    fontSize: 24,
+  },
 }));
 
 const Card = styled('div')(({ theme }) => ({
   borderRadius: 16,
-  padding: 16,
+  padding: 40,
   boxShadow: '0 8px 24px rgba(0,0,0,0.06)',
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'column',
+  background: '#FEFEFE66',
+  width: '100%',
+
+  [theme.breakpoints.mobile]: { padding: 16 },
 }));
 
 const Small = styled('div')(({ theme }) => ({
-  fontSize: 12,
-  marginBottom: 12,
+  fontSize: 18,
+  color: theme.colors.blue,
+  marginBottom: 24,
+  display: 'flex',
+  gap: 16,
+  fontWeight: 600,
+
+  [theme.breakpoints.mobile]: {
+    fontSize: 14,
+    gap: 8,
+    marginBottom: 16,
+  },
 }));
 
-const Form = styled('form')({
+const Form = styled('form')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 12,
-});
+
+  [theme.breakpoints.mobile]: {
+    width: '100%',
+  },
+}));
 
 const Field = styled('div')({
   display: 'flex',
@@ -127,35 +160,42 @@ const Field = styled('div')({
   width: '100%',
 });
 
-const Row = styled('div')({
+const Row = styled('div')(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
   gap: 12,
-});
 
-const Label = styled('label')(({ theme }) => ({
-  fontSize: 12,
+  [theme.breakpoints.mobile]: {
+    gridTemplateColumns: '1fr',
+  },
 }));
 
+const Label = styled('label')({
+  fontSize: 12,
+});
+
 const Input = styled('input')(({ theme }) => ({
-  height: 40,
+  height: 52,
   borderRadius: 10,
-  border: `1px solid red`,
+  border: `1px solid ${theme.colors.yellow2}`,
   padding: '0 12px',
   outline: 'none',
   ':focus': {
     boxShadow: '0 0 0 3px rgba(0,119,255,0.15)',
     borderColor: '#0077ff',
   },
+
+  [theme.breakpoints.mobile]: {
+    height: 46,
+  },
 }));
 
-const PayBtn = styled('button')(({ theme }) => ({
-  marginTop: 4,
-  height: 40,
-  borderRadius: 10,
-  border: 'none',
-  cursor: 'pointer',
-  fontWeight: 600,
-  background: '#FFC647',
-  color: '#1F1F1F',
-}));
+const PayBtn = styled(Button)({
+  marginTop: 20,
+  width: '100%',
+});
+
+const Icon = styled('img')({
+  width: 24,
+  height: 24,
+});

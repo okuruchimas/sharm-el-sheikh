@@ -26,13 +26,31 @@ import { getLayoutData } from '../../utils/get-layout-data';
 type Props = { pageData: CompanyInfoPageFragment };
 
 const CompanyInfo = ({ pageData }: Props) => {
-  console.log(pageData);
+  const {
+    pageTitle,
+    companyDescription,
+    image,
+    paymentFormTitle,
+    paymentFormDescription,
+    submitPaymentButton,
+    questionsTitle,
+    questions,
+  } = pageData;
 
   return (
     <Wrap url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
-      <MainDescription />
-      <Pay />
-      <Questions />
+      <MainDescription
+        title={pageTitle}
+        description={companyDescription}
+        src={image.data?.attributes?.url || ''}
+        alt={image.data?.attributes?.alternativeText || ''}
+      />
+      <Pay
+        title={paymentFormTitle}
+        formDescription={paymentFormDescription}
+        submitButton={submitPaymentButton || ''}
+      />
+      <Questions title={questionsTitle} questions={questions} />
       <Info />
       <Documents />
       <Team />
@@ -48,6 +66,10 @@ const Wrap = styled(SectionsWrapper)(({ theme }) => ({
   alignItems: 'center',
   flexDirection: 'column',
   paddingTop: '236px',
+
+  '.section-title': {
+    fontWeight: 700,
+  },
 
   [theme.breakpoints.mobile]: {
     paddingTop: '80px',

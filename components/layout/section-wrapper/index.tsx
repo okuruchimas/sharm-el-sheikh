@@ -27,7 +27,11 @@ const SectionWrapper = ({
         <TopWrapper>
           {title || titleChildren ? (
             <TitleWrap isColumn={!!isColumn}>
-              {title ? <Title as="h2">{title}</Title> : null}
+              {title ? (
+                <Title as="h2" className="section-title">
+                  {title}
+                </Title>
+              ) : null}
               {titleChildren ? titleChildren : null}
             </TitleWrap>
           ) : null}
