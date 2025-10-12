@@ -11,6 +11,8 @@ const MainDescription = ({ title, description, src, alt = '' }: Props) => {
           <Image
             src={src}
             alt={alt}
+            width={400}
+            height={180}
             sizes="(max-width: 768px) 100vw, 560px"
             priority
             layout="fill"
@@ -30,6 +32,7 @@ const Section = styled('section')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
+  gap: 24,
   padding: '24px 16px 0',
   [theme.breakpoints.mobile]: {
     padding: '8px 16px 0',
@@ -39,6 +42,7 @@ const Section = styled('section')(({ theme }) => ({
 const Top = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
+  alignItems: 'center',
   gap: 40,
 
   [theme.breakpoints.mobile]: {
@@ -59,8 +63,7 @@ const Title = styled('h1')(({ theme }) => ({
 }));
 
 const Text = styled('p')(({ theme }) => ({
-  margin: '34px 0 0',
-  fontSize: 16,
+  fontSize: theme.fontSize.fontS24,
   lineHeight: 1.6,
 
   [theme.breakpoints.mobile]: {
@@ -70,8 +73,9 @@ const Text = styled('p')(({ theme }) => ({
 
 const Thumb = styled('div')(({ theme }) => ({
   position: 'relative',
-  width: '100%',
-  maxWidth: 560,
+  width: '400px',
+  maxWidth: 400,
+  height: 180,
   aspectRatio: '16 / 9',
   borderRadius: 16,
   overflow: 'hidden',

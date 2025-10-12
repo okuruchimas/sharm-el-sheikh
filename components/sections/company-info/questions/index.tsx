@@ -129,7 +129,7 @@ const Arrow = styled('img')<{ $open: boolean }>(({ theme, $open }) => ({
 const Collapse = styled('div')<{ $open: boolean }>(({ $open }) => ({
   display: 'grid',
   gridTemplateRows: $open ? '1fr' : '0fr',
-  transition: 'grid-template-rows 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+  transition: 'grid-template-rows 0ms cubic-bezier(0.4, 0, 0.2, 1)',
 }));
 
 const BodyOuter = styled('div')({

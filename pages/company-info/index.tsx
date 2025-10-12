@@ -35,8 +35,9 @@ const CompanyInfo = ({ pageData }: Props) => {
     submitPaymentButton,
     questionsTitle,
     questions,
+    documents,
   } = pageData;
-
+  console.log(pageData, 'pageData');
   return (
     <Wrap url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
       <MainDescription
@@ -52,7 +53,13 @@ const CompanyInfo = ({ pageData }: Props) => {
       />
       <Questions title={questionsTitle} questions={questions} />
       <Info />
-      <Documents />
+      {documents ? (
+        <Documents
+          documents={documents.data.map(
+            ({ attributes }) => attributes?.url || '',
+          )}
+        />
+      ) : null}
       <Team />
       <AdditionalInfo />
     </Wrap>

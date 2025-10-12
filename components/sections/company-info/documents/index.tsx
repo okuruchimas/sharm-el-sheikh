@@ -1,40 +1,27 @@
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import SectionWrapper from '../../../layout/section-wrapper';
+import {
+  CompanyInfoPageFragment,
+  UploadFileRelationResponseCollection,
+} from '../../../../gql/graphql';
 
-const docs = [
-  {
-    id: 'tourism-license',
-    title: 'Tourism License (Official)',
-    number: 'No. 2564469840',
-    img: 'https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/hero_image_6cece3ec9b.webp', // заміниш реальним
-  },
-  {
-    id: 'commercial-register',
-    title: 'Commercial Register',
-    number: 'CR 102998312 — Sharm El Sheikh',
-    img: 'https://beautiful-boot-1db2e6c4ea.media.strapiapp.com/hero_image_6cece3ec9b.webp',
-  },
-];
+type Props = { documents: string[] };
 
-const Documents = () => {
+const Documents = ({ documents }: Props) => {
   return (
     <SectionWrapper title={'Official Registration Documents'}>
       <Grid>
-        {docs.map(d => (
-          <Card key={d.id}>
+        {documents.map(s => (
+          <Card key={s}>
             <Preview>
               <Image
-                src={d.img}
-                alt={d.title}
+                src={s}
+                alt={'Registration image'}
                 sizes="(max-width:768px) 100vw, 520px"
                 layout="fill"
               />
             </Preview>
-            <Meta>
-              <DocTitle>{d.title}</DocTitle>
-              <DocNumber>{d.number}</DocNumber>
-            </Meta>
           </Card>
         ))}
       </Grid>
@@ -54,9 +41,10 @@ const Grid = styled('div')(({ theme }) => ({
 }));
 
 const Card = styled('div')(({ theme }) => ({
+  padding: 12,
   borderRadius: 16,
   overflow: 'hidden',
-  border: `1px solid red`,
+  border: `1px solid ${theme.colors.yellow}`,
 }));
 
 const Preview = styled('div')({
@@ -64,18 +52,3 @@ const Preview = styled('div')({
   width: '100%',
   aspectRatio: '4 / 3',
 });
-
-const Meta = styled('div')({
-  padding: 12,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 6,
-});
-
-const DocTitle = styled('div')(({ theme }) => ({
-  fontWeight: 700,
-}));
-
-const DocNumber = styled('div')(({ theme }) => ({
-  fontSize: 12,
-}));
