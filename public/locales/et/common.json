@@ -1,0 +1,112 @@
+{
+  "404": "Lehte ei leitud",
+  "500": "Vabandame, midagi läks valesti. Palun proovi hiljem uuesti.",
+  "comingSoon": "See leht on peagi saadaval",
+  "buttons": {
+    "back": "Tagasi",
+    "cancel": "Tühista",
+    "contactUs": "Võta meiega ühendust",
+    "download": "Laadi alla",
+    "findAnimator": "Leia animator",
+    "more": "Veel",
+    "save": "Salvesta",
+    "seeAll": "Vaata kõiki",
+    "viewMore": "Vaata rohkem"
+  },
+  "days": {
+    "mon": "E",
+    "tue": "T",
+    "wed": "K",
+    "thu": "N",
+    "fri": "R",
+    "sat": "L",
+    "sun": "P",
+    "monday": "Esmaspäev",
+    "tuesday": "Teisipäev",
+    "wednesday": "Kolmapäev",
+    "thursday": "Neljapäev",
+    "friday": "Reede",
+    "saturday": "Laupäev",
+    "sunday": "Pühapäev"
+  },
+  "labels": {
+    "all": "Kõik",
+    "description": "Kirjeldus",
+    "email": "E-post",
+    "location": "Asukoht",
+    "phone": "Telefon",
+    "price": "Hind",
+    "searchByName": "Otsi nime järgi",
+    "events": "Sündmused"
+  },
+  "noDiscounts": "Praegu pole soodustusi",
+  "reviewForm": {
+    "categories": {
+      "cleanliness": "Puhtus",
+      "communication": "Suhtlus",
+      "food": "Toit",
+      "price": "Hind",
+      "professionalism": "Professionaalsus",
+      "programQuality": "Programmi kvaliteet",
+      "quality": "Kvaliteet",
+      "service": "Teenindus"
+    },
+    "noReviews": "Praegu arvustusi pole. Ole esimene ja jaga oma kogemust!",
+    "review": "Arvustus",
+    "sendButton": "Saada",
+    "yourReview": "Sinu arvustus"
+  },
+  "text": {
+    "highlights": "Tähtsündmused",
+    "about": "Teave",
+    "discountTerms": "Soodustuse tingimused:",
+    "allCompanies": "Kõik ettevõtted",
+    "entertainersTourGuides": "Meelelahutajad ja giidid",
+    "exploreMore": "Avasta veel",
+    "findAnimatorForTicket": "Leia animator pileti ostmiseks",
+    "food": "Toit:",
+    "informationProvided": "Info selle tuuri kohta esitas",
+    "socialNetworks": "Sotsiaalvõrgustikud",
+    "languagesSpoken": "Räägitavad keeled",
+    "reviews": "Arvustused",
+    "howRateEstablishment": "Kuidas hindad seda asutust?",
+    "selectDay": "Vali päev",
+    "similarSuggestions": "Sarnased soovitused",
+    "tourComponents": "Reisi komponendid",
+    "workingDays": "Tööpäevad",
+    "newAds": "Uued kuulutused",
+    "categories": "Kategooriad",
+    "noCompanies": "Ettevõtteid ei leitud"
+  },
+  "toasts": {
+    "feedbackError": "Kommentaari lisamisel tekkis viga",
+    "feedbackSuccess": "Täname tagasiside eest"
+  },
+  "animPopAp": {
+    "about": "Info",
+    "animators": "Animatorid, kes töötavad meiega",
+    "vacancies": "Ettevõtte vabad töökohad",
+    "contacts": "Kontaktid",
+    "employmentNumber": "Töötelefon",
+    "complaintsNumber": "Kaebused ja ettepanekud"
+  },
+  "validationErrors": {
+    "alphabetic": "{{field}} võib sisaldada ainult tähti ja tühikuid",
+    "email": "Vale e-posti aadress",
+    "max": "{{field}} on liiga pikk – maksimaalne pikkus on {{max}} märki.",
+    "min": "{{field}} on liiga lühike – minimaalne pikkus on {{min}} märki.",
+    "phoneNumber": "Telefoninumber võib sisaldada ainult numbreid",
+    "required": "{{field}} on kohustuslik"
+  },
+  "clubTable": {
+    "title": "Kuidas klubisse pääseda: kaks võimalust",
+    "tableHead1": "Osta pilet animatori kaudu",
+    "tableHead2": "Osta pilet klubi ukselt",
+    "tableTitle1": "Transfeer klubisse ja tagasi",
+    "tableTitle2": "Klubipilet",
+    "tableTitle3": "Üks tasuta kokteil",
+    "tableTitle4": "Sinu algusgrupp klubis",
+    "tableTitle5": "Animator aitab erinevate küsimustega",
+    "findTaxi": "Leia takso"
+  }
+}

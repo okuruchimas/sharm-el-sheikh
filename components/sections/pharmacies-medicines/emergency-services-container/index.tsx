@@ -56,7 +56,7 @@ const EmergencyServicesContainer = ({
           </Category>
         ))}
       </TabsWrap>
-      <SubTitle>{activeTab.description || ''}</SubTitle>
+      <SubTitle>{activeTab?.description || ''}</SubTitle>
       <CardsWrapper>
         {itemsToShow.map(el => (
           <EmergencyServiceCard

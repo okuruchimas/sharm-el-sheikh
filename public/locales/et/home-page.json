@@ -1,0 +1,16 @@
+{
+  "feedbackForm": {
+    "feedbackForm": "Tagasiside vorm",
+    "formError": "E-kirja saatmine ebaõnnestus",
+    "formSuccess": "E-kiri saadeti edukalt!",
+    "internationalForm": "Rahvusvahelise koostöö vorm",
+    "labels": {
+      "companyName": "Ettevõtte nimi",
+      "country": "Riik",
+      "countryLocation": "Asukohariik*",
+      "message": "Sõnum",
+      "name": "Nimi"
+    },
+    "localBusinessForm": "Kohaliku ettevõtte koostöö vorm"
+  }
+}

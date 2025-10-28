@@ -1,0 +1,16 @@
+{
+  "feedbackForm": {
+    "feedbackForm": "Форма обратной связи",
+    "formError": "Не удалось отправить письмо",
+    "formSuccess": "Письмо успешно доставлено!",
+    "internationalForm": "Форма международного сотрудничества",
+    "labels": {
+      "companyName": "Название компании",
+      "country": "Страна",
+      "countryLocation": "Страна расположения*",
+      "message": "Сообщение",
+      "name": "Имя"
+    },
+    "localBusinessForm": "Форма сотрудничества с местным бизнесом"
+  }
+}

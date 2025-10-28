@@ -1,0 +1,12 @@
+{
+  "getInTouchSection": {
+    "buttonText": "Võta ühendust",
+    "title": "Võta ühendust ettevõttega"
+  },
+  "openCard": "Ava kaart",
+  "reviewsSectionTitle": "Külastajate arvustused",
+  "servicesSection": {
+    "title": "Teenused ja mugavused"
+  },
+  "toReceiveDiscount": "Soodustuse saamiseks ava see kaart ja näita seda müüjale"
+}

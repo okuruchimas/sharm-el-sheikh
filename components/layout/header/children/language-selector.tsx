@@ -12,6 +12,8 @@ enum localeMapping {
   'ar-EG' = 'ar',
   de = 'de',
   it = 'it',
+  ru = 'ru',
+  et = 'et',
 }
 
 type LanguageSelectorProps = {

@@ -1,0 +1,59 @@
+{
+  "animationCompanies": "Анимационные компании",
+  "buttons": {
+    "nearestAnimator": "Ближайший аниматор"
+  },
+  "categories": {
+    "location": "Местоположение",
+    "studio": "Студия"
+  },
+  "filters": {
+    "fewestReviews": "Меньше всего отзывов",
+    "highestRating": "Высший рейтинг",
+    "lowestRating": "Низший рейтинг",
+    "mostReviews": "Больше всего отзывов"
+  },
+  "labels": {
+    "from": "От",
+    "to": "До"
+  },
+  "pageTitle": "Пригласите лучших гидов и аниматоров, чтобы каждое путешествие и вечер были незабываемыми!",
+  "photographer": {
+    "photographyStyles": "Фотографические стили",
+    "reviewFormTitle": "Как вы оцените этого фотографа?"
+  },
+  "placeholders": {
+    "noDrivers": "Водители не найдены",
+    "noAnimators": "Аниматоры не найдены",
+    "noPhotographers": "Фотографы не найдены",
+    "noTourOperators": "Туроператоры не найдены"
+  },
+  "selectTime": "Выберите время",
+  "sortBy": "Сортировать по",
+  "tabs": {
+    "animators": "Аниматоры",
+    "photographers": "Фотографы",
+    "taxiDrivers": "Водители такси",
+    "tourOperators": "Туроператоры и гиды"
+  },
+  "taxiFilterForm": {
+    "availability": "Доступность",
+    "availableNow": "Свободен сейчас",
+    "availableLater": "Свободен в другое время",
+    "carClass": "Класс автомобиля",
+    "languagesSpoken": "Языки водителя",
+    "otherLanguages": "Другие языки"
+  },
+  "tourGuide": {
+    "reviewFormTitle": "Как вы оцените этого туроператора?",
+    "tours": "Туры",
+    "destinations": "Популярные направления",
+    "country": "Страна работы"
+  },
+  "tourGuidesFilters": {
+    "otherLocation": "Другое местоположение",
+    "otherStyle": "Другой стиль",
+    "photographyStyles": "Фотостили",
+    "workLocations": "Регионы работы"
+  }
+}
