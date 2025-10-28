@@ -1,0 +1,60 @@
+{
+  "addAdvertisement": "Lisa kuulutus",
+  "banners": {
+    "1": {
+      "button": "Broneeri oma seiklus",
+      "subTitle": "Rännakud planeedi kauneimatesse paikadesse. <0/> Mäetippudest troopiliste saareni.",
+      "title": "Reisihorisont"
+    },
+    "2": {
+      "button": "Sukeldu seiklusse",
+      "subTitle": "Ekstreemsed tuurid tõelistele seiklejatele! Parvetamine, matkad, safarid ja palju muud.",
+      "title": "Go Wild seiklused"
+    },
+    "3": {
+      "button": "Võta ühendust",
+      "title": "Leia usaldusväärne reisikorraldaja Euroopas ja planeeri oma unistuste reis!"
+    },
+    "4": {
+      "button": "Mine lehele Apteegid ja ravimid",
+      "title": "Külasta lehte Apteegid ja ravimid, et saada teada ravimite kohta, nende saadavuse, kasutusviiside, annustamise, varude kohta lähimates apteekides ja vajadusel leida alternatiive"
+    }
+  },
+  "form": {
+    "aboutAdvertisement": "Kuulutusest",
+    "description": "Kirjeldus*",
+    "downloadCoverArt": "Laadi alla kaanepilt .webp-formaadis*",
+    "email": "E-post*",
+    "link": "Link",
+    "location": "Asukoht*",
+    "mobile": "Mobiiltelefon*",
+    "orderFromEgypt": "Soovin tellida midagi Egiptusest",
+    "orderInEgypt": "Soovin esitada tellimuse Egiptuses",
+    "personalCardOnWebsite": "Kas sinu isiklik kaart on veebilehel? Kui jah, lisa link",
+    "personalData": "Isikuandmed",
+    "preferredContactMethod": "Eelistatud kontaktviis*",
+    "price": "Hind*",
+    "selectType": "Vali avaldamise tüüp",
+    "title": "Pealkiri*",
+    "toasts": {
+      "tooManyImages": "Liiga palju pilte",
+      "failedToSubmit": "Kuulutuse saatmine ebaõnnestus: ",
+      "success": "Kuulutus saadeti edukalt!",
+      "unexpectedError": "Tekkis ootamatu viga."
+    },
+    "yourName": "Sinu nimi*"
+  },
+  "noAddsFound": "Kuulutusi ei leitud",
+  "preferredMethod": "Minu eelistatud kontaktviis:",
+  "sectionTitles": {
+    "bringOrSend": "Toon Egiptusest või saadan sinna? Lihtne!",
+    "mapTourCompanies": "Reisikorraldajate kaart",
+    "operatorsForYou": "Reisikorraldajad sinu jaoks!"
+  },
+  "tabs": {
+    "memberOffers": "Liikmete pakkumised",
+    "orderToEgypt": "Telli Egiptusesse",
+    "receiveFromEgypt": "Saad kauba Egiptusest"
+  },
+  "typeToSearch": "Alusta kirjutamist, et otsida"
+}

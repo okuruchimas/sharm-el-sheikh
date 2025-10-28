@@ -1,0 +1,59 @@
+{
+  "animationCompanies": "Animatsiooniettevõtted",
+  "buttons": {
+    "nearestAnimator": "Lähim animator"
+  },
+  "categories": {
+    "location": "Asukoht",
+    "studio": "Stuudio"
+  },
+  "filters": {
+    "fewestReviews": "Kõige vähem arvustusi",
+    "highestRating": "Kõrgeim hinne",
+    "lowestRating": "Madalaim hinne",
+    "mostReviews": "Kõige rohkem arvustusi"
+  },
+  "labels": {
+    "from": "Alates",
+    "to": "Kuni"
+  },
+  "pageTitle": "Kaasa parimad giidid ja meelelahutajad, et iga reis ja õhtu oleks unustamatu!",
+  "photographer": {
+    "photographyStyles": "Fotograafi stiilid",
+    "reviewFormTitle": "Kuidas hindad seda fotograafi?"
+  },
+  "placeholders": {
+    "noDrivers": "Taksojuhte ei leitud",
+    "noAnimators": "Animatorid puuduvad",
+    "noPhotographers": "Fotograafe ei leitud",
+    "noTourOperators": "Reisikorraldajaid ei leitud"
+  },
+  "selectTime": "Vali aeg",
+  "sortBy": "Sorteeri",
+  "tabs": {
+    "animators": "Animatorid",
+    "photographers": "Fotograafid",
+    "taxiDrivers": "Taksojuhid",
+    "tourOperators": "Reisikorraldajad ja giidid"
+  },
+  "taxiFilterForm": {
+    "availability": "Saadavus",
+    "availableNow": "Saadaval praegu",
+    "availableLater": "Saadaval muul ajal",
+    "carClass": "Auto klass",
+    "languagesSpoken": "Juhi räägitavad keeled",
+    "otherLanguages": "Muud keeled"
+  },
+  "tourGuide": {
+    "reviewFormTitle": "Kuidas hindad seda reisikorraldajat?",
+    "tours": "Tuure",
+    "destinations": "Populaarsed sihtkohad",
+    "country": "Tööriik"
+  },
+  "tourGuidesFilters": {
+    "otherLocation": "Muu asukoht",
+    "otherStyle": "Muu stiil",
+    "photographyStyles": "Fotograafi stiilid",
+    "workLocations": "Tööpiirkonnad"
+  }
+}

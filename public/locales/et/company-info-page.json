@@ -1,0 +1,15 @@
+{
+  "phoneNumber": "Telefoninumber",
+  "contactPerson": "Kontaktisik",
+  "location": "Asukoht",
+  "registrationNum": "Ühtne äriregistri number:",
+  "dateOfIssuance": "Äriregistri väljastamise kuupäev:",
+  "taxpayerIdNum": "Maksumaksja identifitseerimisnumber (TIN):",
+  "contactInfo": "Kontaktandmed",
+  "form": {
+    "cardholderName": "Kaardi omaniku nimi",
+    "cardNumber": "Kaardinumber",
+    "expiryDate": "Kehtivusaeg",
+    "cvv": "CVV"
+  }
+}

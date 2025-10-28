@@ -1,0 +1,112 @@
+{
+  "404": "Страница не найдена",
+  "500": "Извините, что-то пошло не так. Пожалуйста, попробуйте позже.",
+  "comingSoon": "Эта страница скоро появится",
+  "buttons": {
+    "back": "Назад",
+    "cancel": "Отмена",
+    "contactUs": "Свяжитесь с нами",
+    "download": "Скачать",
+    "findAnimator": "Найти аниматора",
+    "more": "Ещё",
+    "save": "Сохранить",
+    "seeAll": "Посмотреть все",
+    "viewMore": "Показать больше"
+  },
+  "days": {
+    "mon": "Пн",
+    "tue": "Вт",
+    "wed": "Ср",
+    "thu": "Чт",
+    "fri": "Пт",
+    "sat": "Сб",
+    "sun": "Вс",
+    "monday": "Понедельник",
+    "tuesday": "Вторник",
+    "wednesday": "Среда",
+    "thursday": "Четверг",
+    "friday": "Пятница",
+    "saturday": "Суббота",
+    "sunday": "Воскресенье"
+  },
+  "labels": {
+    "all": "Все",
+    "description": "Описание",
+    "email": "Электронная почта",
+    "location": "Местоположение",
+    "phone": "Телефон",
+    "price": "Цена",
+    "searchByName": "Поиск по имени",
+    "events": "События"
+  },
+  "noDiscounts": "Сейчас нет доступных скидок",
+  "reviewForm": {
+    "categories": {
+      "cleanliness": "Чистота",
+      "communication": "Коммуникация",
+      "food": "Питание",
+      "price": "Цена",
+      "professionalism": "Профессионализм",
+      "programQuality": "Качество программы",
+      "quality": "Качество",
+      "service": "Сервис"
+    },
+    "noReviews": "Пока нет отзывов. Будьте первым, поделитесь впечатлениями!",
+    "review": "Отзыв",
+    "sendButton": "Отправить",
+    "yourReview": "Ваш отзыв"
+  },
+  "text": {
+    "highlights": "Особенности",
+    "about": "О нас",
+    "discountTerms": "Условия скидки:",
+    "allCompanies": "Все компании",
+    "entertainersTourGuides": "Аниматоры и гиды",
+    "exploreMore": "Узнать больше",
+    "findAnimatorForTicket": "Найти аниматора для покупки билета",
+    "food": "Питание:",
+    "informationProvided": "Информация об этом туре предоставлена",
+    "socialNetworks": "Социальные сети",
+    "languagesSpoken": "Языки",
+    "reviews": "Отзывы",
+    "howRateEstablishment": "Как вы оцените это заведение?",
+    "selectDay": "Выберите день",
+    "similarSuggestions": "Похожие предложения",
+    "tourComponents": "Состав тура",
+    "workingDays": "Рабочие дни",
+    "newAds": "Новые объявления",
+    "categories": "Категории",
+    "noCompanies": "Компании не найдены"
+  },
+  "toasts": {
+    "feedbackError": "Ошибка при добавлении комментария",
+    "feedbackSuccess": "Спасибо за ваш отзыв"
+  },
+  "animPopAp": {
+    "about": "О компании",
+    "animators": "Аниматоры, которые работают с нами",
+    "vacancies": "Вакансии компании",
+    "contacts": "Контакты",
+    "employmentNumber": "Телефон для трудоустройства",
+    "complaintsNumber": "Телефон для жалоб и предложений"
+  },
+  "validationErrors": {
+    "alphabetic": "{{field}} может содержать только буквы и пробелы",
+    "email": "Неверный адрес электронной почты",
+    "max": "{{field}} слишком длинное — максимум {{max}} символов.",
+    "min": "{{field}} слишком короткое — минимум {{min}} символов.",
+    "phoneNumber": "Телефон может содержать только цифры",
+    "required": "Поле {{field}} обязательно"
+  },
+  "clubTable": {
+    "title": "Как попасть в клуб: два варианта",
+    "tableHead1": "Купить билет через аниматора",
+    "tableHead2": "Купить билет у входа в клуб",
+    "tableTitle1": "Трансфер в клуб и обратно",
+    "tableTitle2": "Билет в клуб",
+    "tableTitle3": "Один бесплатный коктейль",
+    "tableTitle4": "Ваша стартовая группа в клубе",
+    "tableTitle5": "Аниматор поможет по любым вопросам",
+    "findTaxi": "Найти такси"
+  }
+}

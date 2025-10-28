@@ -1,0 +1,13 @@
+{
+  "contactDriver": "*Saad oma reisi ette planeerida, võttes juhiga ühendust",
+  "passenger": "Reisija",
+  "passengers": "Reisijad",
+  "preferences": "Eelistused",
+  "reviewFormTitle": "Kuidas hindad seda taksojuhti?",
+  "taxiDrivers": "Taksojuhid",
+  "taxiStatus": {
+    "available": "Saadaval",
+    "doesntWork": "Ei tööta",
+    "notAvailable": "Pole saadaval"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "contactDriver": "*Вы можете заранее спланировать поездку, связавшись с водителем",
+  "passenger": "Пассажир",
+  "passengers": "Пассажиры",
+  "preferences": "Предпочтения",
+  "reviewFormTitle": "Как вы оцените этого таксиста?",
+  "taxiDrivers": "Водители такси",
+  "taxiStatus": {
+    "available": "Свободен",
+    "doesntWork": "Не работает",
+    "notAvailable": "Недоступен"
+  }
+}
