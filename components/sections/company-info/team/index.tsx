@@ -77,14 +77,26 @@ const Avatar = styled('div')(({ theme }) => ({
   borderRadius: '50%',
   border: `2px solid ${theme.colors.yellow}`,
   overflow: 'hidden',
+
+  [theme.breakpoints.mobile]: {
+    width: 120,
+    height: 120,
+  },
 }));
 
 const Name = styled('div')(({ theme }) => ({
   fontSize: theme.fontSize.fontS24,
   textAlign: 'center',
   fontWeight: 700,
+  [theme.breakpoints.mobile]: {
+    fontSize: theme.fontSize.fontS18,
+  },
 }));
 
 const Role = styled('div')(({ theme }) => ({
   fontSize: theme.fontSize.fontS18,
+  textAlign: 'center',
+  [theme.breakpoints.mobile]: {
+    fontSize: theme.fontSize.fontS14,
+  },
 }));
