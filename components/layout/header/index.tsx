@@ -18,7 +18,7 @@ type HeaderProps = {
 
 const Header = ({ logo, navMenu }: HeaderProps) => {
   const [isNavbar, setIsNavbar] = useState<boolean>(false);
-  const { route } = useRouter();
+  const { route, push } = useRouter();
 
   return (
     <Wrap isOpen={isNavbar} className="header-wrap">
@@ -39,7 +39,10 @@ const Header = ({ logo, navMenu }: HeaderProps) => {
           onClick={() => setIsNavbar(prevState => !prevState)}
         />
         <ButtonsWrap>
-          <ListItem isActive={route?.includes('company-info')}>
+          <ListItem
+            onClick={() => push('company-info')}
+            isActive={route?.includes('company-info')}
+          >
             Company Info
           </ListItem>
           <NavButtons />

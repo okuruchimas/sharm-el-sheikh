@@ -115,7 +115,12 @@ const NavMenu = ({ isOpen, navMenu, onClose }: IProps) => {
       {navMenu?.map(item => (
         <Fragment key={item?.id}>{menuItemRender(item)}</Fragment>
       ))}
-      <InfoPage isActive={isActive('company-info')}>Company Info</InfoPage>
+      <InfoPage
+        onClick={handleClick('company-info')}
+        isActive={isActive('company-info')}
+      >
+        Company Info
+      </InfoPage>
     </WrapperDown>
   );
 };
