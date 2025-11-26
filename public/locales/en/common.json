@@ -76,7 +76,8 @@
     "workingDays": "Working Days",
     "newAds": "New Advertisements",
     "categories": "Categories",
-    "noCompanies": "No Companies found"
+    "noCompanies": "No Companies found",
+    "preferredMethod": "My preferred contact method:"
   },
   "toasts": {
     "feedbackError": "Error adding comment",

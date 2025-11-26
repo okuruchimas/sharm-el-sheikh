@@ -1,5 +1,9 @@
 query GetAreas($locale: I18NLocaleCode!) {
-  areas(locale: $locale, sort: "index:asc") {
+  areas(
+    locale: $locale
+    sort: "index:asc"
+    filters: { companies: { id: { notNull: true } } }
+  ) {
     data {
       attributes {
         key

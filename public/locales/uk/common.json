@@ -76,7 +76,8 @@
     "workingDays": "Робочі дні",
     "newAds": "Нові оголошення",
     "categories": "Категорії",
-    "noCompanies": "Компанії не знайдено"
+    "noCompanies": "Компанії не знайдено",
+    "preferredMethod": "Мій бажаний спосіб зв’язку:"
   },
   "toasts": {
     "feedbackError": "Помилка додавання коментаря",

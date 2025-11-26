@@ -142,7 +142,11 @@ const All = ({
           onChange={handleCategorySelect}
           isLoading={isLoading}
         />
-        <Button onClick={buttonClick} text={t('addAdvertisement')} />
+        <Button
+          onClick={buttonClick}
+          text={t('addAdvertisement')}
+          className="add-advertisement-btn"
+        />
       </SearchWrapper>
       {result?.length ? (
         <>
@@ -201,14 +205,14 @@ const SearchWrapper = styled('div')(({ theme }) => ({
   flexDirection: 'row',
   gap: 40,
 
-  button: {
+  '.add-advertisement-btn': {
     marginLeft: 'auto',
   },
 
   [theme.breakpoints.mobile]: {
     flexDirection: 'column',
     gap: 16,
-    button: {
+    '.add-advertisement-btn': {
       width: '100%',
     },
   },
