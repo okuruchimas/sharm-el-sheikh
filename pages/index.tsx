@@ -1,42 +1,45 @@
 import { REVALIDATE_TIME } from '../constants/page.constants';
-import { useMemo } from 'react';
+import { useRouter } from 'next/router';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 // components
 import Head from 'next/head';
 import Main from '../components/sections/home/main';
 import Loader from '../components/layout/loader';
+import FullAdd from '../components/sections/agents/children/full-add';
+import MetaTags from '../components/layout/seo';
 import Promotions from '../components/sections/promotions';
 import HomeNavMenu from '../components/sections/home/home-nav-menu';
 import FeedbackForm from '../components/sections/home/feedback';
+import SectionWrapper from '../components/layout/section-wrapper';
 import SectionsWrapper from '../components/layout/sections-wrapper';
 import LazyWrapper from '../components/layout/lazy-wrapper';
 // utils
 import styled from '@emotion/styled';
 import dynamic from 'next/dynamic';
 import { fetchData } from '../utils/fetchApi';
+import { formatDate } from '../utils/formateDate';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 // types
 import {
   GetAreasDocument,
   GetHomePageDocument,
   GetCategoriesDocument,
+  GetAdvertisementsDocument,
   GetCompaniesByFilterDocument,
   type AreaEntity,
   type CategoryEntity,
   type HomePageFragment,
   type CompanyPreviewFragment,
-  GetAdvertisementsDocument,
-  AdvertisementFragment,
+  type AdvertisementFragment,
 } from '../gql/graphql';
 import { getLayoutData } from '../utils/get-layout-data';
 import { GetStaticPropsContext } from 'next';
 import {
+  DEFAULT_IMAGE,
   BACKGROUND_GRADIENT,
   BACKGROUND_GRADIENT_MOBILE,
 } from '../constants/images.constants';
-import SectionWrapper from '../components/layout/section-wrapper';
-import { useRouter } from 'next/router';
-import MetaTags from '../components/layout/seo';
 
 const DynamicBanner = dynamic(
   () => import('../components/sections/home/banner'),
@@ -79,6 +82,9 @@ const Home = ({
   initialPromotions,
   totalInitialPromotions,
 }: Props) => {
+  const [fullAd, setFullAd] = useState<AdvertisementFragment | undefined>(
+    undefined,
+  );
   const { t } = useTranslation('common');
   const { push } = useRouter();
 
@@ -90,6 +96,14 @@ const Home = ({
       })),
     [areas],
   );
+
+  const handlePopupClick = (fullAd: AdvertisementFragment) => {
+    return setFullAd(prev => (prev ? undefined : fullAd));
+  };
+
+  const handlePopupClose = () => {
+    setFullAd(undefined);
+  };
 
   return (
     <Wrap id="/">
@@ -134,7 +148,7 @@ const Home = ({
             onClick={() => push('/advertisements')}
           >
             <DynamicAdvertisements
-              onElementClick={() => {}}
+              onElementClick={handlePopupClick}
               advertisements={advertisements}
             />
           </SectionWrapper>
@@ -157,6 +171,30 @@ const Home = ({
         <HomeNavMenu menu={homePageData.homeNavMenu} />
         <FeedbackForm />
       </SectionsWrapper>
+      {fullAd ? (
+        <FullAdd
+          title={fullAd.title}
+          price={fullAd.price}
+          location={fullAd.location}
+          date={formatDate(fullAd.createdAt)}
+          imageUrl={fullAd.images?.data[0]?.attributes?.url || DEFAULT_IMAGE}
+          imageAlt={
+            fullAd.images?.data[0]?.attributes?.alternativeText ||
+            'photo of advertisement'
+          }
+          isOpen={!!fullAd}
+          otherAddInfo={{
+            description: fullAd.description,
+            contactMethod: fullAd.contactMethod,
+            name: fullAd.name,
+            mobile: fullAd.mobile,
+            email: fullAd.email,
+            createdAt: fullAd.createdAt,
+            images: fullAd.images,
+          }}
+          onClose={handlePopupClose}
+        />
+      ) : null}
     </Wrap>
   );
 };

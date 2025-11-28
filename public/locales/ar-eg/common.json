@@ -76,7 +76,8 @@
     "workingDays": "أيام العمل",
     "newAds": "إعلانات جديدة",
     "categories": "الفئات",
-    "noCompanies": "لم يتم العثور على شركات"
+    "noCompanies": "لم يتم العثور على شركات",
+    "preferredMethod": "طريقة الاتصال المفضلة لدي:"
   },
   "toasts": {
     "feedbackError": "حدث خطأ أثناء إضافة التعليق",

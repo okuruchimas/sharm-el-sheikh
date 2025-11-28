@@ -37,7 +37,7 @@ const FullAdd = ({
 }: Props) => {
   const { description, contactMethod, name, mobile, email, personalCardLink } =
     otherAddInfo;
-  const { t } = useTranslation('agents');
+  const { t } = useTranslation('common');
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -84,7 +84,7 @@ const FullAdd = ({
           personalCardLink={personalCardLink}
         />
         <Description>
-          <b>{t('preferredMethod')}</b> <br />
+          <b>{t('text.preferredMethod')}</b> <br />
           {contactMethod || '-'}
         </Description>
         <Button

@@ -9310,7 +9310,11 @@ fragment StrapiImage on UploadFileEntityResponse {
 }`) as unknown as TypedDocumentString<GetEventCardsQuery, GetEventCardsQueryVariables>;
 export const GetAreasDocument = new TypedDocumentString(`
     query GetAreas($locale: I18NLocaleCode!) {
-  areas(locale: $locale, sort: "index:asc") {
+  areas(
+    locale: $locale
+    sort: "index:asc"
+    filters: {companies: {id: {notNull: true}}}
+  ) {
     data {
       attributes {
         key

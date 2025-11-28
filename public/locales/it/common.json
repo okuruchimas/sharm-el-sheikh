@@ -76,7 +76,8 @@
     "workingDays": "Giorni lavorativi",
     "newAds": "Nuove Pubblicità",
     "categories": "Categorie",
-    "noCompanies": "Nessuna azienda trovata"
+    "noCompanies": "Nessuna azienda trovata",
+    "preferredMethod": "Metodo di contatto preferito:"
   },
   "animPopAp": {
     "about": "Chi siamo",

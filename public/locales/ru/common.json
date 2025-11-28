@@ -76,7 +76,8 @@
     "workingDays": "Рабочие дни",
     "newAds": "Новые объявления",
     "categories": "Категории",
-    "noCompanies": "Компании не найдены"
+    "noCompanies": "Компании не найдены",
+    "preferredMethod": "Мой предпочтительный способ связи:"
   },
   "toasts": {
     "feedbackError": "Ошибка при добавлении комментария",

@@ -76,7 +76,8 @@
     "workingDays": "Tööpäevad",
     "newAds": "Uued kuulutused",
     "categories": "Kategooriad",
-    "noCompanies": "Ettevõtteid ei leitud"
+    "noCompanies": "Ettevõtteid ei leitud",
+    "preferredMethod": "Minu eelistatud kontaktviis:"
   },
   "toasts": {
     "feedbackError": "Kommentaari lisamisel tekkis viga",

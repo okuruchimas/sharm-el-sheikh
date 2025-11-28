@@ -1,43 +1,47 @@
+import {
+  type AdvertisementFragment,
+  GetAdvertisementsDocument,
+  GetAdvertisementCategoriesDocument,
+} from '../../gql/graphql';
+// hooks
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 // utils
 import styled from '@emotion/styled';
 import { fetchData } from '../../utils/fetchApi';
+import { formatDate } from '../../utils/formateDate';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { getLayoutData } from '../../utils/get-layout-data';
 // components
 import New from '../../components/sections/advertisements/new';
 import All from '../../components/sections/advertisements/all';
+import FullAdd from '../../components/sections/agents/children/full-add';
+import MetaTags from '../../components/layout/seo';
 import HotOffers from '../../components/sections/advertisements/hot';
+import CreateAddForm from '../../components/sections/advertisements/children/adv-form';
 import SectionWrapper from '../../components/layout/section-wrapper';
 import SectionsWrapper from '../../components/layout/sections-wrapper';
-import type { selectOption } from '../../components/types/filter';
 import {
-  BannerBackground,
-  BannerSubTitle,
-  BannerTitle,
   BannerWrap,
+  BannerTitle,
+  BannerSubTitle,
+  BannerBackground,
 } from '../../components/layout/banner/banner';
 import {
   BannerStyledButton,
   ContentWithBgFirst,
 } from '../../components/sections/agents/children/banners';
-import { useRouter } from 'next/router';
-import {
-  AdvertisementFragment,
-  GetAdvertisementCategoriesDocument,
-  GetAdvertisementsDocument,
-} from '../../gql/graphql';
-import { useState } from 'react';
-import { GetStaticPropsContext } from 'next';
-import FullAdd from '../../components/sections/agents/children/full-add';
-import { formatDate } from '../../utils/formateDate';
-import CreateAddForm from '../../components/sections/advertisements/children/adv-form';
+// constants
 import {
   BACKGROUND_GRADIENT,
   BACKGROUND_GRADIENT_MOBILE,
   DEFAULT_IMAGE,
 } from '../../constants/images.constants';
-import MetaTags from '../../components/layout/seo';
+import { REVALIDATE_TIME } from '../../constants/page.constants';
+// types
+import type { selectOption } from '../../components/types/filter';
+import type { GetStaticPropsContext } from 'next';
 
 export interface IAdvertisements {
   advertisements: AdvertisementFragment[];
@@ -213,6 +217,7 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
         'advertisements',
       ])),
     },
+    revalidate: REVALIDATE_TIME,
   };
 }
 export default Advertisements;
