@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from '@emotion/styled';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
@@ -281,16 +282,6 @@ const Field = styled('div')({
   gap: 6,
   width: '100%',
 });
-
-const Row = styled('div')(({ theme }) => ({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: 12,
-
-  [theme.breakpoints.mobile]: {
-    gridTemplateColumns: '1fr',
-  },
-}));
 
 const Label = styled('label')({
   fontSize: 12,
