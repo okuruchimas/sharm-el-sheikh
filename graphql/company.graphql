@@ -87,6 +87,7 @@ fragment Company on Company {
       ...StrapiImage
     }
   }
+  isPage
   images {
     data {
       id
@@ -182,6 +183,7 @@ fragment CompanyPreview on Company {
       ...StrapiImage
     }
   }
+  isPage
   images {
     data {
       attributes {

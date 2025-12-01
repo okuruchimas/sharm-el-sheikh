@@ -30,7 +30,7 @@ const useCompanyCard = (selectedDay?: string) => {
     setSelectedDiscount(data);
 
   const handleInfoWindowClick = (data: CompanyPreviewFragment) =>
-    checkIfPage(data) ? router.push(data.slug) : setSelectedCompany(data);
+    !!data.isPage ? router.push(data.slug) : setSelectedCompany(data);
 
   const handleCompanyCardClick =
     (data: CompanyPreviewFragment, isPage: boolean) => () =>
@@ -105,7 +105,10 @@ const useCompanyCard = (selectedDay?: string) => {
         time={time}
         averageRating={companyPreview.averageRating}
         totalComments={companyPreview.totalComments}
-        handleClick={handleCompanyCardClick(companyPreview, isPage)}
+        handleClick={handleCompanyCardClick(
+          companyPreview,
+          !!companyPreview.isPage,
+        )}
         onOpenDiscount={() => {
           setSelectedDiscount(companyPreview);
         }}
