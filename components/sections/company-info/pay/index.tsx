@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from '@emotion/styled';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
