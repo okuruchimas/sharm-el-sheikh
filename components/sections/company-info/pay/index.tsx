@@ -158,7 +158,7 @@ const Pay = ({ title, formDescription, submitButton }: Props) => {
             </Field>
 
             <Field>
-              <Label>email</Label>
+              <Label>Email</Label>
               <Input
                 placeholder="example@gmail.com"
                 type="email"
@@ -169,7 +169,7 @@ const Pay = ({ title, formDescription, submitButton }: Props) => {
             </Field>
 
             <Field>
-              <Label>phone</Label>
+              <Label>Phone</Label>
               <Input
                 placeholder="+987654321"
                 type="phone"
@@ -191,7 +191,7 @@ const Pay = ({ title, formDescription, submitButton }: Props) => {
             </Field>
 
             <Field>
-              <Label>description</Label>
+              <Label>Description</Label>
               <Input
                 placeholder="Description"
                 type="text"
@@ -293,6 +293,7 @@ const Input = styled('input')(({ theme }) => ({
   border: `1px solid ${theme.colors.yellow2}`,
   padding: '0 12px',
   outline: 'none',
+  minWidth: 302,
   ':focus': {
     boxShadow: '0 0 0 3px rgba(0,119,255,0.15)',
     borderColor: '#0077ff',
