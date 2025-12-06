@@ -26,6 +26,7 @@ import FullData from './full-data';
 import { Pagination } from 'swiper/modules';
 import { SwiperSlide } from 'swiper/react';
 import { SwiperCardsWrapper } from '../../entertainers-tour-guides/children/cards-wrap';
+import useSchedule from '../../../../hooks/useSchedule';
 
 type CompanyPopupContainerProps = {
   companyPreview: CompanyPreviewFragment;
@@ -41,7 +42,7 @@ const CompanyPopupContainer = ({
   >();
 
   const { t, i18n } = useTranslation('common');
-
+  const { renderSchedule } = useSchedule(companyPreview.schedule);
   const { stars, isDisabled, isLoadingRating, handleSave, setStars } =
     useRatePlace({
       slug: companyPreview.slug,
@@ -61,21 +62,6 @@ const CompanyPopupContainer = ({
   useEffect(() => {
     getFullClubData();
   }, [getFullClubData]);
-
-  const renderSchedule = () => {
-    return companyPreview.schedule?.map((el, index) => {
-      const days = el?.days.map(el =>
-        t(DayAbv[(el?.day || '') as keyof typeof DayAbv] || ''),
-      );
-
-      return (
-        <DayAndTime key={index}>
-          <Text>{days?.join(', ') || '-'}</Text>
-          <TextPill>{`${formatTime(el?.workTime.startTime)} - ${formatTime(el?.workTime.endTime)}`}</TextPill>
-        </DayAndTime>
-      );
-    });
-  };
 
   return (
     <Wrapper>
@@ -237,21 +223,12 @@ const RowStack = styled('div', {
   marginBottom: marginBottom || '0',
 }));
 
-const Schedule = styled('div')({
+export const Schedule = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',
   flexWrap: 'wrap',
 });
-
-const DayAndTime = styled('div')(({ theme }) => ({
-  display: 'flex',
-  gap: '8px',
-
-  [theme.breakpoints.mobile]: {
-    justifyContent: 'space-between',
-  },
-}));
 
 const ImgWrapper = styled('div')(({ theme }) => ({
   position: 'relative',

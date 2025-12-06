@@ -129,7 +129,7 @@ const CompanyPage = ({
 
   const handleClick = () => {
     if (phoneNumber && window) {
-      return (window.location.href = 'tel:+380931234567');
+      return (window.location.href = `tel:${phoneNumber}`);
     }
     return push(pageData?.contactLink ?? '/');
   };
@@ -144,6 +144,7 @@ const CompanyPage = ({
       />
       <Wrap url={BACKGROUND_GRADIENT} mobUrl={BACKGROUND_GRADIENT_MOBILE}>
         <Promo
+          slug={slug}
           totalComments={totalComments}
           averageRating={averageRating}
           discount={discount}
@@ -151,6 +152,7 @@ const CompanyPage = ({
           title={title}
           position={position}
           location={location ?? ''}
+          schedule={schedule}
           onOpenDiscount={handleOpenDiscount(preview)}
         />
         {pageData?.youTubeVideoId ? (
@@ -342,8 +344,8 @@ export async function getStaticProps({
 
     return fetchData(GetCompaniesByFilterDocument, {
       locale,
-      category: [category],
       page: 1,
+      isPage: true,
       pageSize: 3,
       slugToExclude: slug,
     });

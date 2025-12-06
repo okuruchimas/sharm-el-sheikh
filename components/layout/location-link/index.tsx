@@ -9,11 +9,11 @@ type Props = Omit<TextAndIconProps, 'src'> &
 const LocationLink = ({ position, url, ...props }: Props) => {
   if (url) {
     return (
-      <Link href={url}>
+      <a href={url} target="_blank" rel="noopener noreferrer">
         <LinkContent>
           <TextAndIcon src={'/icons/location-marker.svg'} {...props} />
         </LinkContent>
-      </Link>
+      </a>
     );
   }
 

@@ -20,6 +20,7 @@ query GetCompaniesByFilter(
   $discountFilter: ComponentComponentsDiscountFiltersInput
   $positionFilter: ComponentHelpersPositionFiltersInput
   $titleFilter: String
+  $isPage: Boolean
 ) {
   companies(
     locale: $locale
@@ -30,7 +31,8 @@ query GetCompaniesByFilter(
       schedule: { days: { day: { eq: $day } } }
       discount: $discountFilter
       position: $positionFilter
-      title: { containsi: $titleFilter }
+      title: { contains: $titleFilter }
+      isPage: { eq: $isPage }
     }
     pagination: { page: $page, pageSize: $pageSize }
   ) {
