@@ -397,7 +397,7 @@ export async function getStaticProps({
     locale,
   });
 
-  const suggestionsPromise = companyPromise.then(({ companies }) => {
+  const suggestionsPromise = companyPromise.then(() => {
     return fetchData(GetCompaniesByFilterDocument, {
       locale,
       page: 1,
