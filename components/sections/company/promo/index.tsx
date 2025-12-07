@@ -10,6 +10,9 @@ import Image from 'next/image';
 import { SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { SwiperCardsWrapper } from '../../entertainers-tour-guides/children/cards-wrap';
+import { Schedule, Text } from '../company-popup-container';
+import { useTranslation } from 'next-i18next';
+import useSchedule from '../../../../hooks/useSchedule';
 
 type PromoI = Pick<
   CompanyFragment,
@@ -20,6 +23,8 @@ type PromoI = Pick<
   | 'location'
   | 'totalComments'
   | 'averageRating'
+  | 'slug'
+  | 'schedule'
 > & {
   onOpenDiscount: () => void;
 };
@@ -28,63 +33,73 @@ const Promo = ({
   images,
   title,
   location,
-  position,
+  slug,
   totalComments,
+  schedule,
   averageRating,
-}: PromoI) => (
-  <SectionWrapper>
-    <ContentWrapper>
-      <ImageWrapper>
-        {images?.data.length <= 1 ? (
-          <StyledImage
-            src={images?.data?.[0].attributes?.url ?? ''}
-            alt={images?.data?.[0].attributes?.alternativeText ?? ''}
-            layout="fill"
-            priority
+}: PromoI) => {
+  const { t } = useTranslation('common');
+  const { renderSchedule } = useSchedule(schedule);
+
+  return (
+    <SectionWrapper>
+      <ContentWrapper>
+        <ImageWrapper>
+          {images?.data.length <= 1 ? (
+            <StyledImage
+              src={images?.data?.[0].attributes?.url ?? ''}
+              alt={images?.data?.[0].attributes?.alternativeText ?? ''}
+              layout="fill"
+              priority
+            />
+          ) : (
+            <SwiperStyled
+              modules={[Pagination]}
+              slidesPerView={1}
+              spaceBetween={12}
+              navigation={false}
+              pagination={{
+                clickable: true,
+              }}
+              loop
+            >
+              {images?.data?.map((el, index) => (
+                <SwiperSlide key={index}>
+                  <Image
+                    src={el.attributes?.url || ''}
+                    alt={el.attributes?.alternativeText || ''}
+                    layout="fill"
+                    objectFit="cover"
+                    style={{ borderRadius: '16px' }}
+                    className="photo"
+                  />
+                </SwiperSlide>
+              ))}
+            </SwiperStyled>
+          )}
+        </ImageWrapper>
+        <TopWrapper>
+          <TitleStyled>{title}</TitleStyled>
+          <RatingWrapper>
+            <Rating points={averageRating || 0} users={totalComments || 0} />
+          </RatingWrapper>
+        </TopWrapper>
+        <Location>
+          <LocationLink
+            text={location || '-'}
+            url={slug}
+            iconSize="40px"
+            iconSizeMobile="20px"
           />
-        ) : (
-          <SwiperStyled
-            modules={[Pagination]}
-            slidesPerView={1}
-            spaceBetween={12}
-            navigation={false}
-            pagination={{
-              clickable: true,
-            }}
-            loop
-          >
-            {images?.data?.map((el, index) => (
-              <SwiperSlide key={index}>
-                <Image
-                  src={el.attributes?.url || ''}
-                  alt={el.attributes?.alternativeText || ''}
-                  layout="fill"
-                  objectFit="cover"
-                  style={{ borderRadius: '16px' }}
-                  className="photo"
-                />
-              </SwiperSlide>
-            ))}
-          </SwiperStyled>
-        )}
-      </ImageWrapper>
-      <TopWrapper>
-        <TitleStyled>{title}</TitleStyled>
-        <RatingWrapper>
-          <Rating points={averageRating || 0} users={totalComments || 0} />
-        </RatingWrapper>
-      </TopWrapper>
-      <Location>
-        <LocationLink
-          text={location || '-'}
-          position={position}
-          iconSize="40px"
-          iconSizeMobile="20px"
-        />
-      </Location>
-    </ContentWrapper>
-  </SectionWrapper>
-);
+        </Location>
+        <div>
+          <Text fontWeight={'700'}>{t('text.workingDays')}</Text>
+          <Schedule>{renderSchedule()}</Schedule>
+        </div>
+      </ContentWrapper>
+    </SectionWrapper>
+  );
+};
 
 const ContentWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -121,7 +136,7 @@ const SectionWrapper = styled('div')(({ theme }) => ({
   margin: '122px 0 10px',
 
   [theme.breakpoints.mobile]: {
-    height: '364px',
+    height: 'auto',
     margin: '12px 0 0',
   },
 }));
@@ -161,6 +176,7 @@ const TitleStyled = styled(Title)(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     fontWeight: 600,
+    paddingTop: 0,
   },
 }));
 
@@ -190,6 +206,8 @@ const ImageWrapper = styled('div')(({ theme }) => ({
   },
 
   [theme.breakpoints.mobile]: {
+    height: 'auto',
+
     img: {
       borderRadius: '12px',
     },

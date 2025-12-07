@@ -1730,6 +1730,16 @@ export enum Enum_Photographylocation_Type {
   Studio = 'studio'
 }
 
+export enum Enum_Translatebatchtranslatejob_Status {
+  Cancelled = 'cancelled',
+  Created = 'created',
+  Failed = 'failed',
+  Finished = 'finished',
+  Paused = 'paused',
+  Running = 'running',
+  Setup = 'setup'
+}
+
 export type EventCard = {
   __typename?: 'EventCard';
   companies?: Maybe<CompanyRelationResponseCollection>;
@@ -1903,7 +1913,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = Advertisement | AdvertisementCategory | AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | CompanyInfoPage | ComponentComponentsBanner | ComponentComponentsClickableService | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsTeamMember | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersLocationWithName | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | Delivery | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyLocation | PhotographyStyle | Service | SupportService | SupportServicesCategory | TaxiDriver | TaxiService | TaxiSpot | Tour | TourCategory | TourGuide | TourOperator | TourOperatorCompany | TourOperatorDirection | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Advertisement | AdvertisementCategory | AnimationCompany | Animator | Announcement | Area | CarClass | Category | Comment | Company | CompanyInfoPage | ComponentComponentsBanner | ComponentComponentsClickableService | ComponentComponentsCompanyPageFields | ComponentComponentsCompanySchedule | ComponentComponentsDiscount | ComponentComponentsEntertainmentService | ComponentComponentsHomeNavMenu | ComponentComponentsTeamMember | ComponentComponentsWorkSchedule | ComponentHeaderNavigationMenu | ComponentHelpersLocationWithName | ComponentHelpersPosition | ComponentHelpersSocialMedia | ComponentHelpersStringArray | ComponentHelpersTextWithLink | ComponentHelpersTextWithTitle | ComponentHelpersTimeSlot | ComponentHelpersWeekDay | Delivery | EventCard | Footer | Header | Home | HotspotsPage | I18NLocale | Language | Medication | MedicationCategory | PharmaciesPage | Photographer | PhotographyLocation | PhotographyStyle | Service | SupportService | SupportServicesCategory | TaxiDriver | TaxiService | TaxiSpot | Tour | TourCategory | TourGuide | TourOperator | TourOperatorCompany | TourOperatorDirection | TranslateBatchTranslateJob | TranslateUpdatedEntry | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   __typename?: 'Header';
@@ -2585,6 +2595,8 @@ export type Mutation = {
   createTourOperatorDirection?: Maybe<TourOperatorDirectionEntityResponse>;
   createTourOperatorDirectionLocalization?: Maybe<TourOperatorDirectionEntityResponse>;
   createTourOperatorLocalization?: Maybe<TourOperatorEntityResponse>;
+  createTranslateBatchTranslateJob?: Maybe<TranslateBatchTranslateJobEntityResponse>;
+  createTranslateUpdatedEntry?: Maybe<TranslateUpdatedEntryEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   createUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Create a new role */
@@ -2627,6 +2639,8 @@ export type Mutation = {
   deleteTourOperator?: Maybe<TourOperatorEntityResponse>;
   deleteTourOperatorCompany?: Maybe<TourOperatorCompanyEntityResponse>;
   deleteTourOperatorDirection?: Maybe<TourOperatorDirectionEntityResponse>;
+  deleteTranslateBatchTranslateJob?: Maybe<TranslateBatchTranslateJobEntityResponse>;
+  deleteTranslateUpdatedEntry?: Maybe<TranslateUpdatedEntryEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Delete an existing role */
@@ -2681,6 +2695,8 @@ export type Mutation = {
   updateTourOperator?: Maybe<TourOperatorEntityResponse>;
   updateTourOperatorCompany?: Maybe<TourOperatorCompanyEntityResponse>;
   updateTourOperatorDirection?: Maybe<TourOperatorDirectionEntityResponse>;
+  updateTranslateBatchTranslateJob?: Maybe<TranslateBatchTranslateJobEntityResponse>;
+  updateTranslateUpdatedEntry?: Maybe<TranslateUpdatedEntryEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Update an existing role */
@@ -3106,6 +3122,16 @@ export type MutationCreateTourOperatorLocalizationArgs = {
 };
 
 
+export type MutationCreateTranslateBatchTranslateJobArgs = {
+  data: TranslateBatchTranslateJobInput;
+};
+
+
+export type MutationCreateTranslateUpdatedEntryArgs = {
+  data: TranslateUpdatedEntryInput;
+};
+
+
 export type MutationCreateUploadFileArgs = {
   data: UploadFileInput;
 };
@@ -3330,6 +3356,16 @@ export type MutationDeleteTourOperatorCompanyArgs = {
 export type MutationDeleteTourOperatorDirectionArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeleteTranslateBatchTranslateJobArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteTranslateUpdatedEntryArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -3639,6 +3675,18 @@ export type MutationUpdateTourOperatorDirectionArgs = {
   data: TourOperatorDirectionInput;
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationUpdateTranslateBatchTranslateJobArgs = {
+  data: TranslateBatchTranslateJobInput;
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateTranslateUpdatedEntryArgs = {
+  data: TranslateUpdatedEntryInput;
+  id: Scalars['ID']['input'];
 };
 
 
@@ -4120,6 +4168,10 @@ export type Query = {
   tourOperatorDirections?: Maybe<TourOperatorDirectionEntityResponseCollection>;
   tourOperators?: Maybe<TourOperatorEntityResponseCollection>;
   tours?: Maybe<TourEntityResponseCollection>;
+  translateBatchTranslateJob?: Maybe<TranslateBatchTranslateJobEntityResponse>;
+  translateBatchTranslateJobs?: Maybe<TranslateBatchTranslateJobEntityResponseCollection>;
+  translateUpdatedEntries?: Maybe<TranslateUpdatedEntryEntityResponseCollection>;
+  translateUpdatedEntry?: Maybe<TranslateUpdatedEntryEntityResponse>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
   uploadFiles?: Maybe<UploadFileEntityResponseCollection>;
   uploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -4620,6 +4672,30 @@ export type QueryToursArgs = {
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryTranslateBatchTranslateJobArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryTranslateBatchTranslateJobsArgs = {
+  filters?: InputMaybe<TranslateBatchTranslateJobFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryTranslateUpdatedEntriesArgs = {
+  filters?: InputMaybe<TranslateUpdatedEntryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryTranslateUpdatedEntryArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -5976,6 +6052,109 @@ export type TourRelationResponseCollection = {
   data: Array<TourEntity>;
 };
 
+export type TranslateBatchTranslateJob = {
+  __typename?: 'TranslateBatchTranslateJob';
+  autoPublish?: Maybe<Scalars['Boolean']['output']>;
+  contentType?: Maybe<Scalars['String']['output']>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  entityIds?: Maybe<Scalars['JSON']['output']>;
+  failureReason?: Maybe<Scalars['JSON']['output']>;
+  progress?: Maybe<Scalars['Float']['output']>;
+  sourceLocale?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Enum_Translatebatchtranslatejob_Status>;
+  targetLocale?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type TranslateBatchTranslateJobEntity = {
+  __typename?: 'TranslateBatchTranslateJobEntity';
+  attributes?: Maybe<TranslateBatchTranslateJob>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type TranslateBatchTranslateJobEntityResponse = {
+  __typename?: 'TranslateBatchTranslateJobEntityResponse';
+  data?: Maybe<TranslateBatchTranslateJobEntity>;
+};
+
+export type TranslateBatchTranslateJobEntityResponseCollection = {
+  __typename?: 'TranslateBatchTranslateJobEntityResponseCollection';
+  data: Array<TranslateBatchTranslateJobEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type TranslateBatchTranslateJobFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<TranslateBatchTranslateJobFiltersInput>>>;
+  autoPublish?: InputMaybe<BooleanFilterInput>;
+  contentType?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  entityIds?: InputMaybe<JsonFilterInput>;
+  failureReason?: InputMaybe<JsonFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<TranslateBatchTranslateJobFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<TranslateBatchTranslateJobFiltersInput>>>;
+  progress?: InputMaybe<FloatFilterInput>;
+  sourceLocale?: InputMaybe<StringFilterInput>;
+  status?: InputMaybe<StringFilterInput>;
+  targetLocale?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type TranslateBatchTranslateJobInput = {
+  autoPublish?: InputMaybe<Scalars['Boolean']['input']>;
+  contentType?: InputMaybe<Scalars['String']['input']>;
+  entityIds?: InputMaybe<Scalars['JSON']['input']>;
+  failureReason?: InputMaybe<Scalars['JSON']['input']>;
+  progress?: InputMaybe<Scalars['Float']['input']>;
+  sourceLocale?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Enum_Translatebatchtranslatejob_Status>;
+  targetLocale?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TranslateUpdatedEntry = {
+  __typename?: 'TranslateUpdatedEntry';
+  contentType?: Maybe<Scalars['String']['output']>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  groupID?: Maybe<Scalars['String']['output']>;
+  localesWithUpdates?: Maybe<Scalars['JSON']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type TranslateUpdatedEntryEntity = {
+  __typename?: 'TranslateUpdatedEntryEntity';
+  attributes?: Maybe<TranslateUpdatedEntry>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type TranslateUpdatedEntryEntityResponse = {
+  __typename?: 'TranslateUpdatedEntryEntityResponse';
+  data?: Maybe<TranslateUpdatedEntryEntity>;
+};
+
+export type TranslateUpdatedEntryEntityResponseCollection = {
+  __typename?: 'TranslateUpdatedEntryEntityResponseCollection';
+  data: Array<TranslateUpdatedEntryEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type TranslateUpdatedEntryFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<TranslateUpdatedEntryFiltersInput>>>;
+  contentType?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  groupID?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  localesWithUpdates?: InputMaybe<JsonFilterInput>;
+  not?: InputMaybe<TranslateUpdatedEntryFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<TranslateUpdatedEntryFiltersInput>>>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type TranslateUpdatedEntryInput = {
+  contentType?: InputMaybe<Scalars['String']['input']>;
+  groupID?: InputMaybe<Scalars['String']['input']>;
+  localesWithUpdates?: InputMaybe<Scalars['JSON']['input']>;
+};
+
 export type UploadFile = {
   __typename?: 'UploadFile';
   alternativeText?: Maybe<Scalars['String']['output']>;
@@ -6452,6 +6631,7 @@ export type GetCompaniesByFilterQueryVariables = Exact<{
   discountFilter?: InputMaybe<ComponentComponentsDiscountFiltersInput>;
   positionFilter?: InputMaybe<ComponentHelpersPositionFiltersInput>;
   titleFilter?: InputMaybe<Scalars['String']['input']>;
+  isPage?: InputMaybe<Scalars['Boolean']['input']>;
 }>;
 
 
@@ -9089,10 +9269,10 @@ fragment StrapiImage on UploadFileEntityResponse {
   }
 }`) as unknown as TypedDocumentString<GetCompanyQuery, GetCompanyQueryVariables>;
 export const GetCompaniesByFilterDocument = new TypedDocumentString(`
-    query GetCompaniesByFilter($areaKey: String, $category: [String], $locale: I18NLocaleCode!, $page: Int, $pageSize: Int, $slugToExclude: String, $day: String, $discountFilter: ComponentComponentsDiscountFiltersInput, $positionFilter: ComponentHelpersPositionFiltersInput, $titleFilter: String) {
+    query GetCompaniesByFilter($areaKey: String, $category: [String], $locale: I18NLocaleCode!, $page: Int, $pageSize: Int, $slugToExclude: String, $day: String, $discountFilter: ComponentComponentsDiscountFiltersInput, $positionFilter: ComponentHelpersPositionFiltersInput, $titleFilter: String, $isPage: Boolean) {
   companies(
     locale: $locale
-    filters: {area: {key: {eq: $areaKey}}, categories: {key: {in: $category}}, slug: {ne: $slugToExclude}, schedule: {days: {day: {eq: $day}}}, discount: $discountFilter, position: $positionFilter, title: {containsi: $titleFilter}}
+    filters: {area: {key: {eq: $areaKey}}, categories: {key: {in: $category}}, slug: {ne: $slugToExclude}, schedule: {days: {day: {eq: $day}}}, discount: $discountFilter, position: $positionFilter, title: {contains: $titleFilter}, isPage: {eq: $isPage}}
     pagination: {page: $page, pageSize: $pageSize}
   ) {
     meta {
