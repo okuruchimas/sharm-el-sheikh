@@ -132,7 +132,7 @@ const SwiperStyled = styled(SwiperCardsWrapper)(({ theme }) => ({
 
 const SectionWrapper = styled('div')(({ theme }) => ({
   width: '100%',
-  height: 'calc(100vh - 280px)',
+  height: 'calc(100% - 280px)',
   margin: '122px 0 10px',
 
   [theme.breakpoints.mobile]: {
