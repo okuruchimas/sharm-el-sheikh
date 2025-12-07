@@ -4,17 +4,14 @@ import { useState, useEffect, useCallback } from 'react';
 // utils
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
-import { formatTime } from '../../../../utils/formateDate';
 import { fetchDataFromApi } from '../../../../utils/fetchApi';
 // components
 import Image from 'next/image';
 import Rating from '../../../layout/rating';
-import TextPill from '../../../layout/text-pill';
 import NextImage from '../../../layout/image';
 import LocationLink from '../../../layout/location-link';
 import StarReviewForm from '../../../layout/star-review-form';
 // constants
-import { DayAbv } from '../../../../constants/week-days.constants';
 // types
 import {
   type CompanyFragment,

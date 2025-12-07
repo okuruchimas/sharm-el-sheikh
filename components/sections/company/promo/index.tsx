@@ -176,6 +176,7 @@ const TitleStyled = styled(Title)(({ theme }) => ({
 
   [theme.breakpoints.mobile]: {
     fontWeight: 600,
+    paddingTop: 0,
   },
 }));
 

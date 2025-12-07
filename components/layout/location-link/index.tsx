@@ -1,6 +1,5 @@
 import TextAndIcon, { type TextAndIconProps } from '../text-and-icon';
 import type { CompanyPreviewFragment } from '../../../gql/graphql';
-import Link from 'next/link';
 import styled from '@emotion/styled';
 
 type Props = Omit<TextAndIconProps, 'src'> &

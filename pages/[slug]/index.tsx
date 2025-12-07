@@ -46,6 +46,8 @@ import {
   BACKGROUND_GRADIENT,
   BACKGROUND_GRADIENT_MOBILE,
 } from '../../constants/images.constants';
+import SocialIcon from '../../components/layout/social-icon';
+import { SocialIconsWrapper } from '../../components/layout/discount';
 
 interface Props {
   card: CompanyFragment;
@@ -155,6 +157,32 @@ const CompanyPage = ({
           schedule={schedule}
           onOpenDiscount={handleOpenDiscount(preview)}
         />
+        {phoneNumber || socialLinks ? (
+          <SocSection>
+            <span>
+              {pageData?.contactText
+                ? pageData?.contactText
+                : `${t('getInTouchSection.title')} ${title}`}
+            </span>
+            <Button
+              text={'Call'}
+              backgroundColor="white"
+              onClick={handleClick}
+            />
+            {socialLinks ? (
+              <SocialIconsWrapper>
+                {socialLinks.map((el, index) => (
+                  <SocialIcon
+                    key={index}
+                    iconSrc={el?.icon.data?.attributes?.url || ''}
+                    socialLink={el?.socialLink || ''}
+                  />
+                ))}
+              </SocialIconsWrapper>
+            ) : null}
+          </SocSection>
+        ) : null}
+
         {pageData?.youTubeVideoId ? (
           <YouTubePlayer videoId={pageData.youTubeVideoId} />
         ) : null}
@@ -255,6 +283,38 @@ const Wrap = styled(SectionsWrapper)(({ theme }) => ({
   },
 }));
 
+const SocSection = styled('div')(({ theme }) => ({
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+
+  fontWeight: 600,
+  fontSize: theme.fontSize.fontS21,
+  color: theme.colors.blue,
+
+  button: {
+    marginLeft: 20,
+  },
+  img: {
+    maxWidth: 40,
+  },
+  div: {
+    marginLeft: 30,
+  },
+
+  [theme.breakpoints.mobile]: {
+    fontSize: theme.fontSize.fontS16,
+    gap: '20px',
+    flexWrap: 'wrap',
+    button: {
+      marginLeft: 0,
+    },
+    img: {
+      maxWidth: 30,
+    },
+  },
+}));
+
 const ContactSection = styled('div')(({ theme }) => ({
   width: '100%',
   display: 'flex',
@@ -338,10 +398,6 @@ export async function getStaticProps({
   });
 
   const suggestionsPromise = companyPromise.then(({ companies }) => {
-    const category =
-      companies?.data?.[0]?.attributes?.categories?.data?.[0]?.attributes
-        ?.key || '';
-
     return fetchData(GetCompaniesByFilterDocument, {
       locale,
       page: 1,

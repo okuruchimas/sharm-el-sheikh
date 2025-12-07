@@ -45,17 +45,17 @@ const Discount = ({
         iconSize="36px"
         iconSizeMobile="30px"
       />
-      <SocialIconsWrapper>
-        {socialLinks
-          ? socialLinks.map((el, index) => (
-              <SocialIcon
-                key={index}
-                iconSrc={el?.icon.data?.attributes?.url || ''}
-                socialLink={el?.socialLink || ''}
-              />
-            ))
-          : null}
-      </SocialIconsWrapper>
+      {socialLinks ? (
+        <SocialIconsWrapper>
+          {socialLinks.map((el, index) => (
+            <SocialIcon
+              key={index}
+              iconSrc={el?.icon.data?.attributes?.url || ''}
+              socialLink={el?.socialLink || ''}
+            />
+          ))}
+        </SocialIconsWrapper>
+      ) : null}
       {discount?.terms ? (
         <>
           <SubTitle>{t('text.discountTerms')}</SubTitle>
@@ -69,12 +69,17 @@ const Discount = ({
 
 export default Discount;
 
-const Wrapper = styled('div')({
+const Wrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-});
+  gap: 16,
 
-const SocialIconsWrapper = styled('div')({
+  [theme.breakpoints.mobile]: {
+    gap: 10,
+  },
+}));
+
+export const SocialIconsWrapper = styled('div')({
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'row',

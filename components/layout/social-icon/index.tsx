@@ -1,5 +1,3 @@
-// libs
-import Link from 'next/link';
 // utils
 import styled from '@emotion/styled';
 
@@ -11,9 +9,9 @@ export interface SocialIconI {
 }
 
 const SocialIcon = ({ iconSrc, iconAlt, socialLink }: SocialIconI) => (
-  <Link href={socialLink}>
+  <a href={socialLink} target="_blank">
     <Icon src={iconSrc} alt={iconAlt || iconSrc} loading="lazy" />
-  </Link>
+  </a>
 );
 
 const Icon = styled('img')({
