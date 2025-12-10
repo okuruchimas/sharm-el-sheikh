@@ -44,6 +44,7 @@ const InfoWindow = ({ location, onClick }: InfoWindowProps) => {
             alt="location-icon"
           />
           <LocationText>{location.subTitle}</LocationText>
+          {location.wc ? <IconWC src="/icons/wc.svg" alt="wc-icon" /> : null}
         </LocationWrapper>
       </DetailsWrapper>
     </InfoWindowContent>
@@ -106,6 +107,7 @@ const Name = styled('div')(({ theme }) => ({
 const LocationWrapper = styled('div')({
   width: '100%',
   display: 'flex',
+  alignItems: 'center',
   gap: '4px',
 });
 
@@ -133,6 +135,16 @@ const RatingWrapper = styled('div')(({ theme }) => ({
   '& .image-wrapper': {
     width: '12px',
     height: '12px',
+  },
+}));
+
+const IconWC = styled('img')(({ theme }) => ({
+  height: '32px',
+  width: '32px',
+
+  [theme.breakpoints.mobile]: {
+    height: '24px',
+    width: '24px',
   },
 }));
 

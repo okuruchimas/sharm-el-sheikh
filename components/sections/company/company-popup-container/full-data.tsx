@@ -1,5 +1,6 @@
 import Loader from '../../../layout/loader';
 import ServiceCard from '../../../layout/service-card';
+import WcServiceCard from '../wc-service-card';
 import ClickableServices from '../services-clickable';
 import {
   type CompanyFragment,
@@ -20,6 +21,7 @@ const FullData = ({
     socialLinks,
     description,
     clickable_services,
+    wc,
   },
 }: Props) => {
   const socialLinksMapped = socialLinks?.map(el => ({
@@ -46,6 +48,7 @@ const FullData = ({
               />
             ))
           : null}
+        {wc ? <WcServiceCard /> : null}
       </CardsWrapper>
       {clickable_services?.length ? (
         <Stack fallDown>

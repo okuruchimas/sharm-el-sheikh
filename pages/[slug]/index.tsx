@@ -73,6 +73,7 @@ const CompanyPage = ({
     event_cards,
     clickable_services,
     phoneNumber,
+    wc,
   },
   similarSuggestions,
 }: Props) => {
@@ -118,6 +119,7 @@ const CompanyPage = ({
   }));
 
   const preview = {
+    wc,
     slug,
     title,
     images,
@@ -227,7 +229,9 @@ const CompanyPage = ({
             </SwiperCardsWrapper>
           </SectionWrapper>
         ) : null}
-        {services?.data.length ? <Services services={services?.data} /> : null}
+        {services?.data.length ? (
+          <Services services={services?.data} isWC={wc} />
+        ) : null}
         {clickable_services?.length ? (
           <ClickableServices
             services={clickable_services as ClickableServiceFragment[]}
