@@ -50,8 +50,8 @@ query GetCompaniesByFilter(
   }
 }
 
-query GetCompaniesSlugs($category: [String]) {
-  companies(filters: { categories: { key: { in: $category } } }) {
+query GetPageCompaniesSlugs {
+  companies(filters: { isPage: { eq: true } }, pagination: { pageSize: 9999 }) {
     data {
       attributes {
         slug

@@ -40,7 +40,11 @@ query GetAdvertisementsTitles($titleFilter: String) {
 }
 
 query GetAdvertisementCategories($locale: I18NLocaleCode!) {
-  advertisementCategories(sort: "index:asc", locale: $locale) {
+  advertisementCategories(
+    sort: "index:asc"
+    locale: $locale
+    pagination: { pageSize: 99 }
+  ) {
     data {
       attributes {
         key

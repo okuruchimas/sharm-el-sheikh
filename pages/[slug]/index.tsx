@@ -1,4 +1,3 @@
-import { PAGE_CATEGORIES } from '../../constants/page-company-categories';
 import { REVALIDATE_TIME } from '../../constants/page.constants';
 import {
   type CompanyFragment,
@@ -6,7 +5,7 @@ import {
   type CompanyPreviewFragment,
   type ClickableServiceFragment,
   GetCompanyDocument,
-  GetCompaniesSlugsDocument,
+  GetPageCompaniesSlugsDocument,
   GetCompaniesByFilterDocument,
 } from '../../gql/graphql';
 import { toast, ToastContainer } from 'react-toastify';
@@ -374,9 +373,7 @@ const SuggestionsWrapper = styled('div')(({ theme }) => ({
 }));
 
 export async function getStaticPaths() {
-  const { companies } = await fetchData(GetCompaniesSlugsDocument, {
-    category: PAGE_CATEGORIES,
-  });
+  const { companies } = await fetchData(GetPageCompaniesSlugsDocument);
 
   const paths = getLocalizedPaths(companies);
 

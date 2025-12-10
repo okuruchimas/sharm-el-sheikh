@@ -3,6 +3,7 @@ query GetAreas($locale: I18NLocaleCode!) {
     locale: $locale
     sort: "index:asc"
     filters: { companies: { id: { notNull: true } } }
+    pagination: { pageSize: 99 }
   ) {
     data {
       attributes {
@@ -14,7 +15,7 @@ query GetAreas($locale: I18NLocaleCode!) {
 }
 
 query GetCategories($locale: I18NLocaleCode!) {
-  categories(locale: $locale, sort: "index:asc") {
+  categories(locale: $locale, sort: "index:asc", pagination: { pageSize: 99 }) {
     data {
       attributes {
         key
@@ -42,7 +43,7 @@ query GetLanguages($locale: I18NLocaleCode!) {
 }
 
 query GetCarClasses($locale: I18NLocaleCode!) {
-  carClasses(locale: $locale) {
+  carClasses(locale: $locale, pagination: { pageSize: 99 }) {
     data {
       attributes {
         key
@@ -53,7 +54,7 @@ query GetCarClasses($locale: I18NLocaleCode!) {
 }
 
 query GetPhotographyStyles($locale: I18NLocaleCode!) {
-  photographyStyles(locale: $locale) {
+  photographyStyles(locale: $locale, pagination: { pageSize: 99 }) {
     data {
       attributes {
         key
@@ -64,7 +65,7 @@ query GetPhotographyStyles($locale: I18NLocaleCode!) {
 }
 
 query GetMedicationCategories($locale: I18NLocaleCode!) {
-  medicationCategories(locale: $locale) {
+  medicationCategories(locale: $locale, pagination: { pageSize: 99 }) {
     data {
       attributes {
         key

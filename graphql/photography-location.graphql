@@ -1,5 +1,5 @@
 query GetPhotographyLocations($locale: I18NLocaleCode!) {
-  photographyLocations(locale: $locale) {
+  photographyLocations(locale: $locale, pagination: { pageSize: 99 }) {
     data {
       attributes {
         ...PhotographyLocation

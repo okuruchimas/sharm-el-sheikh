@@ -39,7 +39,11 @@ fragment SupportService on SupportService {
 }
 
 query GetSupportServicesCategories($locale: I18NLocaleCode!) {
-  supportServicesCategories(locale: $locale, sort: "index:asc") {
+  supportServicesCategories(
+    locale: $locale
+    sort: "index:asc"
+    pagination: { pageSize: 99 }
+  ) {
     data {
       attributes {
         key
