@@ -686,6 +686,7 @@ export type Category = {
   locale?: Maybe<Scalars['String']['output']>;
   localizations?: Maybe<CategoryRelationResponseCollection>;
   markerIcon: UploadFileEntityResponse;
+  markerIconWC: UploadFileEntityResponse;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   value: Scalars['String']['output'];
@@ -746,6 +747,7 @@ export type CategoryInput = {
   index?: InputMaybe<Scalars['Int']['input']>;
   key?: InputMaybe<Scalars['String']['input']>;
   markerIcon?: InputMaybe<Scalars['ID']['input']>;
+  markerIconWC?: InputMaybe<Scalars['ID']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   value?: InputMaybe<Scalars['String']['input']>;
 };
@@ -6618,7 +6620,7 @@ export type GetCompanyQueryVariables = Exact<{
 }>;
 
 
-export type GetCompanyQuery = { __typename?: 'Query', companies?: { __typename?: 'CompanyEntityResponseCollection', data: Array<{ __typename?: 'CompanyEntity', id?: string | null, attributes?: { __typename?: 'Company', title: string, isPage?: boolean | null, description?: string | null, averageRating: number, totalComments: number, slug: string, location?: string | null, food?: string | null, phoneNumber?: string | null, discount?: { __typename?: 'ComponentComponentsDiscount', title: string, terms: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null, services?: { __typename?: 'ServiceRelationResponseCollection', data: Array<{ __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string } | null }> } | null, event_cards?: { __typename?: 'EventCardRelationResponseCollection', data: Array<{ __typename?: 'EventCardEntity', attributes?: { __typename?: 'EventCard', date: string, title: string, price: string, location: string, description?: string | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null, companies?: { __typename?: 'CompanyRelationResponseCollection', data: Array<{ __typename?: 'CompanyEntity', attributes?: { __typename?: 'Company', slug: string } | null }> } | null } | null }> } | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, pageData?: { __typename?: 'ComponentComponentsCompanyPageFields', contactLink?: string | null, contactText?: string | null, youTubeVideoId?: string | null } | null, schedule?: Array<{ __typename?: 'ComponentComponentsCompanySchedule', days: Array<{ __typename?: 'ComponentHelpersWeekDay', day: Enum_Componenthelpersweekday_Day } | null>, workTime: { __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } } | null> | null, clickable_services?: Array<{ __typename?: 'ComponentComponentsClickableService', id: string, text: string, description?: string | null, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, media?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, url: string, name: string, ext?: string | null, mime: string } | null }> } | null } | null> | null } | null }> } | null };
+export type GetCompanyQuery = { __typename?: 'Query', companies?: { __typename?: 'CompanyEntityResponseCollection', data: Array<{ __typename?: 'CompanyEntity', id?: string | null, attributes?: { __typename?: 'Company', title: string, isPage?: boolean | null, description?: string | null, averageRating: number, totalComments: number, slug: string, location?: string | null, food?: string | null, phoneNumber?: string | null, wc: boolean, discount?: { __typename?: 'ComponentComponentsDiscount', title: string, terms: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null, services?: { __typename?: 'ServiceRelationResponseCollection', data: Array<{ __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string } | null }> } | null, event_cards?: { __typename?: 'EventCardRelationResponseCollection', data: Array<{ __typename?: 'EventCardEntity', attributes?: { __typename?: 'EventCard', date: string, title: string, price: string, location: string, description?: string | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null, companies?: { __typename?: 'CompanyRelationResponseCollection', data: Array<{ __typename?: 'CompanyEntity', attributes?: { __typename?: 'Company', slug: string } | null }> } | null } | null }> } | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, pageData?: { __typename?: 'ComponentComponentsCompanyPageFields', contactLink?: string | null, contactText?: string | null, youTubeVideoId?: string | null } | null, schedule?: Array<{ __typename?: 'ComponentComponentsCompanySchedule', days: Array<{ __typename?: 'ComponentHelpersWeekDay', day: Enum_Componenthelpersweekday_Day } | null>, workTime: { __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } } | null> | null, clickable_services?: Array<{ __typename?: 'ComponentComponentsClickableService', id: string, text: string, description?: string | null, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, media?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, url: string, name: string, ext?: string | null, mime: string } | null }> } | null } | null> | null } | null }> } | null };
 
 export type GetCompaniesByFilterQueryVariables = Exact<{
   areaKey?: InputMaybe<Scalars['String']['input']>;
@@ -6635,14 +6637,12 @@ export type GetCompaniesByFilterQueryVariables = Exact<{
 }>;
 
 
-export type GetCompaniesByFilterQuery = { __typename?: 'Query', companies?: { __typename?: 'CompanyEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } }, data: Array<{ __typename?: 'CompanyEntity', id?: string | null, attributes?: { __typename?: 'Company', title: string, isPage?: boolean | null, averageRating: number, totalComments: number, slug: string, location?: string | null, schedule?: Array<{ __typename?: 'ComponentComponentsCompanySchedule', days: Array<{ __typename?: 'ComponentHelpersWeekDay', day: Enum_Componenthelpersweekday_Day } | null>, workTime: { __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } } | null> | null, discount?: { __typename?: 'ComponentComponentsDiscount', title: string, terms: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string, markerIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null } | null }> } | null };
+export type GetCompaniesByFilterQuery = { __typename?: 'Query', companies?: { __typename?: 'CompanyEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } }, data: Array<{ __typename?: 'CompanyEntity', id?: string | null, attributes?: { __typename?: 'Company', title: string, isPage?: boolean | null, averageRating: number, totalComments: number, slug: string, location?: string | null, wc: boolean, schedule?: Array<{ __typename?: 'ComponentComponentsCompanySchedule', days: Array<{ __typename?: 'ComponentHelpersWeekDay', day: Enum_Componenthelpersweekday_Day } | null>, workTime: { __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } } | null> | null, discount?: { __typename?: 'ComponentComponentsDiscount', title: string, terms: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string, markerIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, markerIconWC: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null } | null }> } | null };
 
-export type GetCompaniesSlugsQueryVariables = Exact<{
-  category?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
-}>;
+export type GetPageCompaniesSlugsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCompaniesSlugsQuery = { __typename?: 'Query', companies?: { __typename?: 'CompanyEntityResponseCollection', data: Array<{ __typename?: 'CompanyEntity', attributes?: { __typename?: 'Company', slug: string, locale?: string | null, localizations?: { __typename?: 'CompanyRelationResponseCollection', data: Array<{ __typename?: 'CompanyEntity', attributes?: { __typename?: 'Company', locale?: string | null } | null }> } | null } | null }> } | null };
+export type GetPageCompaniesSlugsQuery = { __typename?: 'Query', companies?: { __typename?: 'CompanyEntityResponseCollection', data: Array<{ __typename?: 'CompanyEntity', attributes?: { __typename?: 'Company', slug: string, locale?: string | null, localizations?: { __typename?: 'CompanyRelationResponseCollection', data: Array<{ __typename?: 'CompanyEntity', attributes?: { __typename?: 'Company', locale?: string | null } | null }> } | null } | null }> } | null };
 
 export type GetCompaniesTitlesQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -6652,9 +6652,9 @@ export type GetCompaniesTitlesQueryVariables = Exact<{
 
 export type GetCompaniesTitlesQuery = { __typename?: 'Query', companies?: { __typename?: 'CompanyEntityResponseCollection', data: Array<{ __typename?: 'CompanyEntity', id?: string | null, attributes?: { __typename?: 'Company', slug: string, title: string } | null }> } | null };
 
-export type CompanyFragment = { __typename?: 'Company', title: string, isPage?: boolean | null, description?: string | null, averageRating: number, totalComments: number, slug: string, location?: string | null, food?: string | null, phoneNumber?: string | null, discount?: { __typename?: 'ComponentComponentsDiscount', title: string, terms: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null, services?: { __typename?: 'ServiceRelationResponseCollection', data: Array<{ __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string } | null }> } | null, event_cards?: { __typename?: 'EventCardRelationResponseCollection', data: Array<{ __typename?: 'EventCardEntity', attributes?: { __typename?: 'EventCard', date: string, title: string, price: string, location: string, description?: string | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null, companies?: { __typename?: 'CompanyRelationResponseCollection', data: Array<{ __typename?: 'CompanyEntity', attributes?: { __typename?: 'Company', slug: string } | null }> } | null } | null }> } | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, pageData?: { __typename?: 'ComponentComponentsCompanyPageFields', contactLink?: string | null, contactText?: string | null, youTubeVideoId?: string | null } | null, schedule?: Array<{ __typename?: 'ComponentComponentsCompanySchedule', days: Array<{ __typename?: 'ComponentHelpersWeekDay', day: Enum_Componenthelpersweekday_Day } | null>, workTime: { __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } } | null> | null, clickable_services?: Array<{ __typename?: 'ComponentComponentsClickableService', id: string, text: string, description?: string | null, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, media?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, url: string, name: string, ext?: string | null, mime: string } | null }> } | null } | null> | null };
+export type CompanyFragment = { __typename?: 'Company', title: string, isPage?: boolean | null, description?: string | null, averageRating: number, totalComments: number, slug: string, location?: string | null, food?: string | null, phoneNumber?: string | null, wc: boolean, discount?: { __typename?: 'ComponentComponentsDiscount', title: string, terms: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null, services?: { __typename?: 'ServiceRelationResponseCollection', data: Array<{ __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, comments?: { __typename?: 'CommentRelationResponseCollection', data: Array<{ __typename?: 'CommentEntity', id?: string | null, attributes?: { __typename?: 'Comment', text: string, rating: number, createdAt?: any | null } | null }> } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string } | null }> } | null, event_cards?: { __typename?: 'EventCardRelationResponseCollection', data: Array<{ __typename?: 'EventCardEntity', attributes?: { __typename?: 'EventCard', date: string, title: string, price: string, location: string, description?: string | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null, companies?: { __typename?: 'CompanyRelationResponseCollection', data: Array<{ __typename?: 'CompanyEntity', attributes?: { __typename?: 'Company', slug: string } | null }> } | null } | null }> } | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null, pageData?: { __typename?: 'ComponentComponentsCompanyPageFields', contactLink?: string | null, contactText?: string | null, youTubeVideoId?: string | null } | null, schedule?: Array<{ __typename?: 'ComponentComponentsCompanySchedule', days: Array<{ __typename?: 'ComponentHelpersWeekDay', day: Enum_Componenthelpersweekday_Day } | null>, workTime: { __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } } | null> | null, clickable_services?: Array<{ __typename?: 'ComponentComponentsClickableService', id: string, text: string, description?: string | null, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, media?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, url: string, name: string, ext?: string | null, mime: string } | null }> } | null } | null> | null };
 
-export type CompanyPreviewFragment = { __typename?: 'Company', title: string, isPage?: boolean | null, averageRating: number, totalComments: number, slug: string, location?: string | null, schedule?: Array<{ __typename?: 'ComponentComponentsCompanySchedule', days: Array<{ __typename?: 'ComponentHelpersWeekDay', day: Enum_Componenthelpersweekday_Day } | null>, workTime: { __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } } | null> | null, discount?: { __typename?: 'ComponentComponentsDiscount', title: string, terms: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string, markerIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null };
+export type CompanyPreviewFragment = { __typename?: 'Company', title: string, isPage?: boolean | null, averageRating: number, totalComments: number, slug: string, location?: string | null, wc: boolean, schedule?: Array<{ __typename?: 'ComponentComponentsCompanySchedule', days: Array<{ __typename?: 'ComponentHelpersWeekDay', day: Enum_Componenthelpersweekday_Day } | null>, workTime: { __typename?: 'ComponentHelpersTimeSlot', startTime: any, endTime: any } } | null> | null, discount?: { __typename?: 'ComponentComponentsDiscount', title: string, terms: string, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null, images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, position?: { __typename?: 'ComponentHelpersPosition', lat: number, lng: number } | null, area?: { __typename?: 'AreaEntityResponse', data?: { __typename?: 'AreaEntity', attributes?: { __typename?: 'Area', key: string, value: string } | null } | null } | null, categories?: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', key: string, markerIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, markerIconWC: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null }> } | null, socialLinks?: Array<{ __typename?: 'ComponentHelpersSocialMedia', socialLink: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> | null };
 
 export type ServiceFragment = { __typename?: 'ServiceEntity', id?: string | null, attributes?: { __typename?: 'Service', text: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null };
 
@@ -7423,6 +7423,7 @@ export const CompanyFragmentDoc = new TypedDocumentString(`
   clickable_services {
     ...ClickableService
   }
+  wc
 }
     fragment Service on ServiceEntity {
   id
@@ -7546,6 +7547,9 @@ export const CompanyPreviewFragmentDoc = new TypedDocumentString(`
         markerIcon {
           ...StrapiImage
         }
+        markerIconWC {
+          ...StrapiImage
+        }
       }
     }
   }
@@ -7555,6 +7559,7 @@ export const CompanyPreviewFragmentDoc = new TypedDocumentString(`
       ...StrapiImage
     }
   }
+  wc
 }
     fragment StrapiImage on UploadFileEntityResponse {
   data {
@@ -8683,7 +8688,11 @@ export const GetAdvertisementsTitlesDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<GetAdvertisementsTitlesQuery, GetAdvertisementsTitlesQueryVariables>;
 export const GetAdvertisementCategoriesDocument = new TypedDocumentString(`
     query GetAdvertisementCategories($locale: I18NLocaleCode!) {
-  advertisementCategories(sort: "index:asc", locale: $locale) {
+  advertisementCategories(
+    sort: "index:asc"
+    locale: $locale
+    pagination: {pageSize: 99}
+  ) {
     data {
       attributes {
         key
@@ -8695,7 +8704,11 @@ export const GetAdvertisementCategoriesDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<GetAdvertisementCategoriesQuery, GetAdvertisementCategoriesQueryVariables>;
 export const GetAnimationCompaniesDocument = new TypedDocumentString(`
     query GetAnimationCompanies($locale: I18NLocaleCode!) {
-  animationCompanies(sort: "index:asc", locale: $locale) {
+  animationCompanies(
+    sort: "index:asc"
+    locale: $locale
+    pagination: {pageSize: 99}
+  ) {
     data {
       attributes {
         ...AnimationCompany
@@ -9196,6 +9209,7 @@ export const GetCompanyDocument = new TypedDocumentString(`
   clickable_services {
     ...ClickableService
   }
+  wc
 }
 fragment Service on ServiceEntity {
   id
@@ -9338,6 +9352,9 @@ export const GetCompaniesByFilterDocument = new TypedDocumentString(`
         markerIcon {
           ...StrapiImage
         }
+        markerIconWC {
+          ...StrapiImage
+        }
       }
     }
   }
@@ -9347,6 +9364,7 @@ export const GetCompaniesByFilterDocument = new TypedDocumentString(`
       ...StrapiImage
     }
   }
+  wc
 }
 fragment StrapiImage on UploadFileEntityResponse {
   data {
@@ -9356,9 +9374,9 @@ fragment StrapiImage on UploadFileEntityResponse {
     }
   }
 }`) as unknown as TypedDocumentString<GetCompaniesByFilterQuery, GetCompaniesByFilterQueryVariables>;
-export const GetCompaniesSlugsDocument = new TypedDocumentString(`
-    query GetCompaniesSlugs($category: [String]) {
-  companies(filters: {categories: {key: {in: $category}}}) {
+export const GetPageCompaniesSlugsDocument = new TypedDocumentString(`
+    query GetPageCompaniesSlugs {
+  companies(filters: {isPage: {eq: true}}, pagination: {pageSize: 9999}) {
     data {
       attributes {
         slug
@@ -9374,7 +9392,7 @@ export const GetCompaniesSlugsDocument = new TypedDocumentString(`
     }
   }
 }
-    `) as unknown as TypedDocumentString<GetCompaniesSlugsQuery, GetCompaniesSlugsQueryVariables>;
+    `) as unknown as TypedDocumentString<GetPageCompaniesSlugsQuery, GetPageCompaniesSlugsQueryVariables>;
 export const GetCompaniesTitlesDocument = new TypedDocumentString(`
     query GetCompaniesTitles($locale: I18NLocaleCode!, $titleFilter: String) {
   companies(locale: $locale, filters: {title: {containsi: $titleFilter}}) {
@@ -9501,6 +9519,7 @@ export const GetAreasDocument = new TypedDocumentString(`
     locale: $locale
     sort: "index:asc"
     filters: {companies: {id: {notNull: true}}}
+    pagination: {pageSize: 99}
   ) {
     data {
       attributes {
@@ -9513,7 +9532,7 @@ export const GetAreasDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<GetAreasQuery, GetAreasQueryVariables>;
 export const GetCategoriesDocument = new TypedDocumentString(`
     query GetCategories($locale: I18NLocaleCode!) {
-  categories(locale: $locale, sort: "index:asc") {
+  categories(locale: $locale, sort: "index:asc", pagination: {pageSize: 99}) {
     data {
       attributes {
         key
@@ -9550,7 +9569,7 @@ export const GetLanguagesDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<GetLanguagesQuery, GetLanguagesQueryVariables>;
 export const GetCarClassesDocument = new TypedDocumentString(`
     query GetCarClasses($locale: I18NLocaleCode!) {
-  carClasses(locale: $locale) {
+  carClasses(locale: $locale, pagination: {pageSize: 99}) {
     data {
       attributes {
         key
@@ -9562,7 +9581,7 @@ export const GetCarClassesDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<GetCarClassesQuery, GetCarClassesQueryVariables>;
 export const GetPhotographyStylesDocument = new TypedDocumentString(`
     query GetPhotographyStyles($locale: I18NLocaleCode!) {
-  photographyStyles(locale: $locale) {
+  photographyStyles(locale: $locale, pagination: {pageSize: 99}) {
     data {
       attributes {
         key
@@ -9574,7 +9593,7 @@ export const GetPhotographyStylesDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<GetPhotographyStylesQuery, GetPhotographyStylesQueryVariables>;
 export const GetMedicationCategoriesDocument = new TypedDocumentString(`
     query GetMedicationCategories($locale: I18NLocaleCode!) {
-  medicationCategories(locale: $locale) {
+  medicationCategories(locale: $locale, pagination: {pageSize: 99}) {
     data {
       attributes {
         key
@@ -10088,7 +10107,7 @@ export const GetPhotographersSlugsDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<GetPhotographersSlugsQuery, GetPhotographersSlugsQueryVariables>;
 export const GetPhotographyLocationsDocument = new TypedDocumentString(`
     query GetPhotographyLocations($locale: I18NLocaleCode!) {
-  photographyLocations(locale: $locale) {
+  photographyLocations(locale: $locale, pagination: {pageSize: 99}) {
     data {
       attributes {
         ...PhotographyLocation
@@ -10226,7 +10245,11 @@ fragment SupportService on SupportService {
 }`) as unknown as TypedDocumentString<GetSupportServicesQuery, GetSupportServicesQueryVariables>;
 export const GetSupportServicesCategoriesDocument = new TypedDocumentString(`
     query GetSupportServicesCategories($locale: I18NLocaleCode!) {
-  supportServicesCategories(locale: $locale, sort: "index:asc") {
+  supportServicesCategories(
+    locale: $locale
+    sort: "index:asc"
+    pagination: {pageSize: 99}
+  ) {
     data {
       attributes {
         key
@@ -10252,7 +10275,7 @@ export const GetSupportServicesCategoriesDocument = new TypedDocumentString(`
 }`) as unknown as TypedDocumentString<GetSupportServicesCategoriesQuery, GetSupportServicesCategoriesQueryVariables>;
 export const GetTaxiSpotsDocument = new TypedDocumentString(`
     query GetTaxiSpots($locale: I18NLocaleCode!) {
-  taxiSpots(locale: $locale) {
+  taxiSpots(locale: $locale, pagination: {pageSize: 99}) {
     data {
       attributes {
         ...TaxiSpot
@@ -10682,7 +10705,7 @@ export const GetTourGuidesSlugsDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<GetTourGuidesSlugsQuery, GetTourGuidesSlugsQueryVariables>;
 export const GetTourOperatorCompaniesDocument = new TypedDocumentString(`
     query GetTourOperatorCompanies($locale: I18NLocaleCode!) {
-  tourOperatorCompanies(locale: $locale) {
+  tourOperatorCompanies(locale: $locale, pagination: {pageSize: 99}) {
     data {
       attributes {
         ...TourOperatorCompany
@@ -10952,7 +10975,7 @@ export const GetTourOperatorSlugsDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<GetTourOperatorSlugsQuery, GetTourOperatorSlugsQueryVariables>;
 export const GetToursDocument = new TypedDocumentString(`
     query GetTours($locale: I18NLocaleCode!) {
-  tours(locale: $locale) {
+  tours(locale: $locale, pagination: {pageSize: 99}) {
     data {
       attributes {
         ...TourPreview

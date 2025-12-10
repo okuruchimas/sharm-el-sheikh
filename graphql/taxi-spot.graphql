@@ -1,5 +1,5 @@
 query GetTaxiSpots($locale: I18NLocaleCode!) {
-  taxiSpots(locale: $locale) {
+  taxiSpots(locale: $locale, pagination: { pageSize: 99 }) {
     data {
       attributes {
         ...TaxiSpot

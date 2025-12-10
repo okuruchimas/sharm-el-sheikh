@@ -1,5 +1,9 @@
 query GetAnimationCompanies($locale: I18NLocaleCode!) {
-  animationCompanies(sort: "index:asc", locale: $locale) {
+  animationCompanies(
+    sort: "index:asc"
+    locale: $locale
+    pagination: { pageSize: 99 }
+  ) {
     data {
       attributes {
         ...AnimationCompany

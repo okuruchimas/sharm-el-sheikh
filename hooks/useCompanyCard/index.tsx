@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 // utils
 import { formatTime, getCurrentDayAndTime } from '../../utils/formateDate';
-// constants
-import { PAGE_CATEGORIES } from '../../constants/page-company-categories';
 // components
 import Modal from '../../components/layout/modal';
 import Discount from '../../components/layout/discount';
@@ -19,18 +17,13 @@ const useCompanyCard = (selectedDay?: string) => {
     useState<CompanyPreviewFragment>();
   const router = useRouter();
 
-  const checkIfPage = (data: CompanyPreviewFragment): boolean =>
-    !!data?.categories?.data.find(el =>
-      PAGE_CATEGORIES.includes(el?.attributes?.key || '=(^_^)='),
-    );
-
   const handleClosePopup = () => setSelectedCompany(undefined);
 
   const handleOpenDiscount = (data: CompanyPreviewFragment) => () =>
     setSelectedDiscount(data);
 
   const handleInfoWindowClick = (data: CompanyPreviewFragment) =>
-    !!data.isPage ? router.push(data.slug) : setSelectedCompany(data);
+    data.isPage ? router.push(data.slug) : setSelectedCompany(data);
 
   const handleCompanyCardClick =
     (data: CompanyPreviewFragment, isPage: boolean) => () =>
@@ -83,8 +76,6 @@ const useCompanyCard = (selectedDay?: string) => {
           el?.days.some(day => day?.day === (selectedDay || dayOfWeek)),
         ) || companyPreview.schedule[0]
       : undefined;
-
-    const isPage = checkIfPage(companyPreview);
 
     const time = timeSlot?.workTime
       ? `${formatTime(timeSlot.workTime.startTime)} - ${formatTime(timeSlot.workTime.endTime)}`

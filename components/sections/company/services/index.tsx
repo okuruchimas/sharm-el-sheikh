@@ -1,18 +1,20 @@
 // hooks
 import { useTranslation } from 'next-i18next';
 // components
+import ServiceCard from '../../../layout/service-card';
+import WcServiceCard from '../wc-service-card';
 import SectionWrapper from '../../../layout/section-wrapper';
 // utils
 import styled from '@emotion/styled';
 // constants
 import type { ServiceFragment } from '../../../../gql/graphql';
-import ServiceCard from '../../../layout/service-card';
 
 type ServicesProps = {
   services: ServiceFragment[];
+  isWC?: boolean;
 };
 
-const Services = ({ services }: ServicesProps) => {
+const Services = ({ services, isWC }: ServicesProps) => {
   const { t } = useTranslation('company-page');
 
   return (
@@ -28,6 +30,7 @@ const Services = ({ services }: ServicesProps) => {
             }
           />
         ))}
+        {isWC ? <WcServiceCard /> : null}
       </CardsWrapper>
     </SectionWrapper>
   );

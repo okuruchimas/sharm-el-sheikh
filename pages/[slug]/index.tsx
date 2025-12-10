@@ -1,4 +1,3 @@
-import { PAGE_CATEGORIES } from '../../constants/page-company-categories';
 import { REVALIDATE_TIME } from '../../constants/page.constants';
 import {
   type CompanyFragment,
@@ -6,7 +5,7 @@ import {
   type CompanyPreviewFragment,
   type ClickableServiceFragment,
   GetCompanyDocument,
-  GetCompaniesSlugsDocument,
+  GetPageCompaniesSlugsDocument,
   GetCompaniesByFilterDocument,
 } from '../../gql/graphql';
 import { toast, ToastContainer } from 'react-toastify';
@@ -73,6 +72,7 @@ const CompanyPage = ({
     event_cards,
     clickable_services,
     phoneNumber,
+    wc,
   },
   similarSuggestions,
 }: Props) => {
@@ -118,6 +118,7 @@ const CompanyPage = ({
   }));
 
   const preview = {
+    wc,
     slug,
     title,
     images,
@@ -227,7 +228,9 @@ const CompanyPage = ({
             </SwiperCardsWrapper>
           </SectionWrapper>
         ) : null}
-        {services?.data.length ? <Services services={services?.data} /> : null}
+        {services?.data.length ? (
+          <Services services={services?.data} isWC={wc} />
+        ) : null}
         {clickable_services?.length ? (
           <ClickableServices
             services={clickable_services as ClickableServiceFragment[]}
@@ -370,9 +373,7 @@ const SuggestionsWrapper = styled('div')(({ theme }) => ({
 }));
 
 export async function getStaticPaths() {
-  const { companies } = await fetchData(GetCompaniesSlugsDocument, {
-    category: PAGE_CATEGORIES,
-  });
+  const { companies } = await fetchData(GetPageCompaniesSlugsDocument);
 
   const paths = getLocalizedPaths(companies);
 

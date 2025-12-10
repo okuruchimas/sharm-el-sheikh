@@ -8,4 +8,5 @@ export type MapCard = {
   totalComments: number;
   markerIconUrl?: string;
   position: { lat: number; lng: number };
+  wc?: boolean;
 };

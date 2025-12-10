@@ -34,6 +34,7 @@ export const mapLocation = (data: any, markerIconUrl?: string) => ({
     lng: data.attributes.position?.lng || 0,
   },
   markerIconUrl,
+  wc: data.attributes.wc,
 });
 
 export const getLocationWithMarker = (el: {
@@ -41,7 +42,10 @@ export const getLocationWithMarker = (el: {
 }) =>
   mapLocation(
     el,
-    el?.attributes?.categories?.data[0]?.attributes?.markerIcon?.data
-      ?.attributes?.url,
+    el.attributes.wc
+      ? el?.attributes?.categories?.data[0]?.attributes?.markerIconWC?.data
+          ?.attributes?.url
+      : el?.attributes?.categories?.data[0]?.attributes?.markerIcon?.data
+          ?.attributes?.url,
   );
 /* eslint-enable @typescript-eslint/no-explicit-any */

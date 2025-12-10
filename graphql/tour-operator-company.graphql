@@ -1,5 +1,5 @@
 query GetTourOperatorCompanies($locale: I18NLocaleCode!) {
-  tourOperatorCompanies(locale: $locale) {
+  tourOperatorCompanies(locale: $locale, pagination: { pageSize: 99 }) {
     data {
       attributes {
         ...TourOperatorCompany

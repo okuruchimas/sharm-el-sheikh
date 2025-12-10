@@ -1,5 +1,5 @@
 query GetTours($locale: I18NLocaleCode!) {
-  tours(locale: $locale) {
+  tours(locale: $locale, pagination: { pageSize: 99 }) {
     data {
       attributes {
         ...TourPreview
